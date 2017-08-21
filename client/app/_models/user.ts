@@ -1,10 +1,7 @@
 ﻿export class User {
     _id: string;
+    clubId: string;
     username: string;
     password: string;
-    name: string;
-    address: string;
-    phoneNumber: string;
     email: string;
-    
 }

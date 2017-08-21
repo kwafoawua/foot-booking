@@ -37,7 +37,12 @@ function FindUser(username, password) {
     .exec(function(err, user) {
         if (err) {
             deferred.reject(err.name + ' : ' + err.message);
+            return;
             console.log(err);
+        }
+        if(!user) {
+            deferred.reject('El usuario no existe.');
+            return;
         }
         console.log('entra con populate');
         console.log(user);
@@ -47,14 +52,9 @@ function FindUser(username, password) {
         	console.log('existe');
             deferred.resolve({
 	                _id: user._id,
+                    clubId: user.creator._id,
 	                username: user.username,
 	                email: user.email,
-	                name: user.creator.name,
-	                address: user.creator.address,
-	                phoneNumber: user.creator.phoneNumber,
-	                fields: user.creator.fields,
-	                services: user.creator.services,
-	                socialMedia: user.creator.socialMedia,
 	                token: jwt.sign({ sub: user._id }, config.secret)
 
            		 });

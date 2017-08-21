@@ -25,11 +25,12 @@ route.get('/').get(function (req, res) {
 	console.log('Pagina principal');
 });*/
 
-router.post('/authenticate', userController.authenticate);
-router.post('/register', clubController.addClub);
-router.get('/', userController2.getAll);
-router.get('/current', userController2.getCurrent);
-router.put('/:_id', userController2.update);
-router.delete('/:_id', userController2._delete);
+router.post('/users/authenticate', userController.authenticate);
+router.post('/clubs/register', clubController.registerClub);
+router.get('/clubs/:_id', clubController.findById);
+router.get('/users/', userController2.getAll);
+router.get('/users/current', userController2.getCurrent);
+router.put('/users/:_id', userController2.update);
+router.delete('/users/:_id', userController2._delete);
 module.exports = router;
 
