@@ -3,12 +3,10 @@
     <p>You're logged in with the MEAN Stack & Angular 2!!</p>
     <h3>All registered users:</h3>
     <ul>
-        <li *ngFor="let user of users">
-           <div> Nombre de Usuario: {{user.username}}</div>
-           <div>Nombre de Club: {{user.name}}</div>
-           <div>Direccion: {{user.address}}</div>
-           <div>Telefono: {{user.phoneNumber}}</div>
-           <div>Email: {{user.email}}</div>
+        <li *ngFor="let club of clubs">
+           <div> Nombre del Club: {{club.name}}</div>
+           <div>Dirección de Club: {{club.address}}</div>
+           <div>Telefono: {{club.phoneNumber}}</div>
             - <a (click)="deleteUser(user._id)">Delete</a>
         </li>
     </ul>

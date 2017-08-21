@@ -1,9 +1,12 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import 'rxjs/add/operator/switchMap';
 
 
 import { User } from '../_models/index';
 import { UserService } from '../_services/index';
+import { Club } from '../_models/index';
+import { ClubService } from '../_services/index';
 
 @Component({
     moduleId: module.id,
@@ -13,13 +16,17 @@ import { UserService } from '../_services/index';
 export class ProfileComponent implements OnInit {
     currentUser: User;
     users: User[] = [];
+    club : Club;
 
-    constructor(private userService: UserService) {
+    constructor(private userService: UserService, private clubService: ClubService, private route: ActivatedRoute) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
 
     ngOnInit() {
-        this.loadAllUsers();
+    this.route.paramMap
+        .switchMap((params: ParamMap) =>
+        this.getClub(params.get('clubId')));
+    //this.loadAllUsers();
     }
 
     deleteUser(_id: string) {
@@ -28,5 +35,9 @@ export class ProfileComponent implements OnInit {
 
     private loadAllUsers() {
         this.userService.getAll().subscribe(users => { this.users = users; });
+    }
+
+    private getClub (id) {
+        this.clubService.getById(id).subscribe(Club => {this.club = Club});
     }
 }

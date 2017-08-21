@@ -7,70 +7,79 @@ var mongoose = require('mongoose');
 var _ = require('lodash');
 var Club = require('../models/Club');
 var User = require('../models/User');
+var Q = require('q');
 
 /**
  * Create a Club
  */
+module.exports.registerClub = function (req,res) {
+     addClub(req.body)
+    .then(function () {
+            res.sendStatus(200);
+        })
+        .catch(function (err) {
+            res.status(400).send(err);
+        });
 
-module.exports.addClub = function(req, res) {
-        /*
-    Buscar si existe el usuario
-    Si existe return null y ver q mirda se hace en el frontend
-    no no existe Tomar los datos del jugador o club y los del usuario
-    crear un club o jugador
-    crear un usuario
-    referenciar el usuario al jugador o club
-    y luego guardar el club o jugador y dentro de este guardar el usuario
-    
-    */
+};
+function addClub (club) {
     console.log('entra al club');
-    console.log(req.body);
-    User.findOne({$or : [{ 'username': req.body.username }, {'email': req.body.email}]},
+    console.log(club);
+    var deferred = Q.defer();
+    User.findOne({$or : [{ 'username': club.username }, {'email': club.email}]},
         function(err, user) {
+            if(err) return deferred.reject(err.name + ' : ' + err.message);
+
             if (user) {
                 console.log(err);
-                return res.json(null);
+                return deferred.reject('El nombre'+club.username+' o email '+club.email+' está en uso.');
+
             } else {
 
                 var newClub = new Club({
-                    name: req.body.name,
-                    address: req.body.address,
-                    phoneNumber: req.body.phoneNumber,
-                    fields: req.body.fields || null,
-                    services: req.body.services || null,
+                    name: club.name,
+                    address: club.address,
+                    phoneNumber: club.phoneNumber,
+                    fields: club.fields || null,
+                    services: club.services || null,
                     //user: newUser,
-                    socialMedia: req.body.socialMedia || null
+                    socialMedia: club.socialMedia || null
                 });
 
                 var newUser = new User({
-                    username: req.body.username.toLowerCase(),
-                    email: req.body.email,
+                    username: club.username.toLowerCase(),
+                    email: club.email,
                     creator: newClub,
                     rol: 'Club',
                 });
 
-                newUser.password = newUser.setPassword(req.body.password);
+                newUser.password = newUser.setPassword(club.password);
 
                  newUser.save(function (err) {
                     if(err) {
-                        return res.status(500).send(err);
+                        return deferred.reject(err.name + ' : ' + err.message);
                     }
                     console.log('nuevo club'+newClub);
                     newClub.save(function (err) {
-                        if(err) return res.status(500).send(err);
+                        if(err) return deferred.reject(err.name + ' : ' + err.message);
                         console.log('nuevo user'+newUser);
-                        return res.status(200).send('Se ha creado el complejo');
+                        return deferred.resolve();
                     });
                  });
             }
 
         });
+        return deferred.promise;
+
 };
 
 /**
  * Show the current Club
  */
 module.exports.findById = function(req, res) {
+    console.log('busca por id');
+    console.log(req.params.id);
+    console.log(req.params.clubId);
     Club.findById(req.params.id, function(err, club) {
         if (err)
             return res.status(500).send(err);
