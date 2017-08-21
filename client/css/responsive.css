@@ -1,0 +1,249 @@
+/* lg */ 
+@media (min-width: 1400px) {
+	
+}
+
+/* md */
+@media (min-width: 992px) and (max-width: 1199px) {
+	.topbar li {
+	    margin-right: 10px;
+	}
+	.top-social li{
+		margin-right: 0;
+	}
+	.search-section > ul > li, 
+	.search-section > ul > li:nth-child(3) {
+		width: 25%;
+	}
+	#avt-category .category-avt {
+		min-height: 325px;
+	}
+	.grid-view-tab.tab-content .item-wrap {
+		min-height: 440px;
+	}
+}
+
+
+/* sm */
+@media (min-width: 768px) and (max-width: 991px) {
+	
+	.topbar li {
+	    margin-right: 5px;
+	}
+	.search-section > ul > li, 
+	.search-section > ul > li:nth-child(3) {
+		width: 50%;
+		margin-bottom: 7px;
+	}
+	.search-section {
+		height: 180px;
+	}
+	.tab-view {
+		display: none;
+	}
+	.tab-content.list-view-tab .item-wrap {
+		width: 50%;
+	}
+	.item .item-image, 
+	.item .item-description {
+	    width: 100%;
+	    float: none;
+	}
+	.footer-widget.link-widget li {
+		float: none;
+		width: 100%;
+	}
+	.nav-tabs > li a {
+		padding: 10px 35px;
+	}
+	.page .tab-content.small-view-tab .item-wrap {
+		width: 50%;
+	}
+	.post-inner .choose-option, .post-inner .form-control {
+		margin-bottom: 15px;
+	}
+}
+
+
+/* xs */
+@media (max-width: 767px) {
+	h1 {
+		font-size: 30px;
+	}
+	h2 {
+		font-size: 24px;
+	}
+	h3 {
+		font-size: 18px;
+	}
+	.user-section {
+		float: left;
+		margin-top: -5px;
+	}
+	.user-section li {
+		margin-left: 0;
+	}
+	.topbar li {
+	    margin-right: 5px;
+	}
+	.topbar, .top-social li a, 
+	.user-section li a, 
+	.nav li a, 
+	.navbar-default .navbar-nav > li > a, 
+	.navbar-nav .dropdown-menu > li > a {
+		font-size: 12px;
+	}
+	.top-social li{
+		margin-right: 0;
+	}
+	#header a.btn {
+	    padding: 5px 15px;
+	    font-size: 12px;
+	}
+	.navbar-brand {
+	    margin-top: 0;
+	    padding-top: 10px;
+	}
+	.nav li a, 
+	.navbar-default .navbar-nav > li > a {
+		line-height: 20px;
+	}
+
+	.navbar-nav .open .dropdown-menu {
+		background-color: #f0f0f0;
+	}
+	.navbar-default .navbar-nav .open .dropdown-menu > li > a:focus, 
+	.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover {
+		color:#00a651
+	}
+	#home-section .slider-content {
+	    margin-top: 70px;
+	}
+	#home-section h2 {
+		font-size: 36px;
+	}
+	.btn.btn-primary {
+		font-size: 14px;
+	}
+	.search-section > ul > li, 
+	.search-section > ul > li:nth-child(3) {
+		width:100%;
+	}
+	.search-section {
+		height:250px;
+		padding: 25px;
+	}
+	.section {
+	    padding: 35px 0 35px;
+	    margin-bottom: 20px;
+	}
+	.section-title {
+		margin-bottom: 35px;
+	}
+	.call-to-act h1 {
+		font-size: 38px;
+	}
+	.call-to-act h1 span {
+		font-size: 22px;
+	}
+	.tab-view {
+		display: none;
+	}
+	.nav-tabs > li a {
+		padding: 8px 20px;
+	}
+	.category-tab .nav-tabs > li {
+		margin-right: 0;
+	}
+	.tab-content.list-view-tab .item-wrap, .item .item-image, 
+	.item .item-description {
+	    width: 100%;
+	    float:none;
+	}
+	.item-price, .item-post-date {
+		font-size: 14px;
+	}
+	.item .item-title h3 {
+	    font-size: 20px;
+	    margin-top: 15px;
+	}
+	.tab-content .item-wrap {
+		margin-top: 15px;
+	}
+	.view-all-ads {
+	    margin-top: 50px;
+	}
+	#call-to-act {
+		padding:35px 0;
+	}
+	.entry-meta {
+		margin-left: 0;
+	}
+	#bog-section {
+		padding-bottom: 50px;
+	}
+	#newsletter {
+		font-size: 16px;
+	}
+	.newsletter .input-email {
+		font-size: 14px;
+	}
+	.footer-widget {
+		overflow: hidden;
+	}
+	.footer-widget h3 {
+		font-size:16px;
+		margin-bottom: 20px;
+	}
+	.footer-bottom {
+		text-align: center;
+	}
+	.payment-opt-icons {
+	    float: none;
+	    display: inline-block;
+	    margin-top: 5px;
+	}
+	#breadcrumb-section h1 {
+		font-size: 24px;
+		margin-bottom: 0;
+	}
+	.search-section {
+		margin-top: 65px;
+	}
+	.page .tab-content.small-view-tab .item-wrap {
+		width: 100%;
+	}
+	.location-map {
+		margin-bottom: 30px;
+	}
+	.faq-filter ul li {
+		font-size: 14px;
+		margin-right: 10px;
+	}
+	.post-inner .choose-option, .post-inner .form-control {
+		margin-bottom: 15px;
+	}
+	.post-comments, .comment-box {
+		padding:25px;
+	}
+	.blog-detail .entry-content {
+	    padding: 25px;
+	    padding-left: 25px;
+	}
+	.blog-detail .date {
+		margin-top: -70px;
+	}
+}
+
+/* XS Portrait */
+@media (max-width: 479px) {
+	.entry-content .entry-title {
+		font-size: 18px;
+	}
+	.entry-meta span {
+	    padding: 0 5px;
+	    font-size: 12px;
+	}
+
+}
+
