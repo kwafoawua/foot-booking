@@ -23,10 +23,7 @@ export class ProfileComponent implements OnInit {
     }
 
     ngOnInit() {
-    this.route.paramMap
-        .switchMap((params: ParamMap) =>
-        this.getClub(params.get('clubId')));
-    //this.loadAllUsers();
+        this.getClub(this.route.snapshot.params['id']);
     }
 
     deleteUser(_id: string) {
@@ -37,7 +34,7 @@ export class ProfileComponent implements OnInit {
         this.userService.getAll().subscribe(users => { this.users = users; });
     }
 
-    private getClub (id) {
-        this.clubService.getById(id).subscribe(Club => {this.club = Club});
+    private getClub (_id: string) {
+        this.clubService.getById(_id).subscribe(club => {this.club = club});
     }
 }
