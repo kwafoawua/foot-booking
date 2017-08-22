@@ -78,7 +78,7 @@ function addClub (club) {
  */
 module.exports.findById = function(req, res) {
     console.log('busca por id');
-    console.log(req.params.id);
+    console.log(req);
     console.log(req.params.clubId);
     Club.findById(req.params.id, function(err, club) {
         if (err)
