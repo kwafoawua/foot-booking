@@ -1,6 +1,9 @@
 ﻿<div class="container">
 <div class="col-md-6 col-md-offset-3">
     <h3>Datos del Club:</h3>
+    <div>
+        Nombre del Club2: <inline-editor type="text" [(ngModel)]="editableText" (onSave)="saveEditable($event)" name="editableText1" size="8">{{club?.name}}</inline-editor>
+    </div>
            <div> Nombre del Club: {{club?.name}}</div>
            <div>Dirección de Club: {{club?.address}}</div>
            <div>Telefono: {{club?.phoneNumber}}</div>

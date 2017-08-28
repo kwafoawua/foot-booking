@@ -3,8 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
+import {InlineEditorModule} from '@qontu/ngx-inline-editor';
+
 
 
 import { customHttpProvider } from './_helpers/index';
@@ -24,7 +27,8 @@ import { ProfileComponent } from './profile/index';
         BrowserModule,
         FormsModule,
         HttpModule,
-        routing
+        routing,
+        InlineEditorModule
     ],
     declarations: [
         AppComponent,

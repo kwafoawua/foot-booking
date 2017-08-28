@@ -3,6 +3,8 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 
 
+
+
 import { User } from '../_models/index';
 import { UserService } from '../_services/index';
 import { Club } from '../_models/index';
@@ -10,7 +12,8 @@ import { ClubService } from '../_services/index';
 
 @Component({
     moduleId: module.id,
-    templateUrl: 'profile.component.html'
+    templateUrl: 'profile.component.html',
+
 })
 
 export class ProfileComponent implements OnInit {
