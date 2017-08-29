@@ -27,8 +27,10 @@ export class ProfileComponent implements OnInit {
         this.isEdit = false;
     }
 
+
     ngOnInit() {
         this.getClub(this.route.snapshot.params['id']);
+
     }
 
     deleteUser(_id: string) {
@@ -39,7 +41,9 @@ export class ProfileComponent implements OnInit {
         this.userService.getAll().subscribe(users => { this.users = users; });
     }
 
+
     private getClub (_id: string) {
         this.clubService.getById(_id).subscribe(club => {this.club = club});
     }
+
 }

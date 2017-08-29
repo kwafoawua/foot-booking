@@ -21,6 +21,8 @@ import { RegisterClubComponent } from './register-club/index';
 import { SiteHeaderComponent } from './site-header/site-header.component';
 import { SiteFooterComponent } from './site-footer/site-footer.component';
 import { ProfileComponent } from './profile/index';
+import {ResultComponent} from './result/index';
+import {SearchService} from "./_services/search.service";
 
 @NgModule({
     imports: [
@@ -37,7 +39,8 @@ import { ProfileComponent } from './profile/index';
         RegisterClubComponent,
         SiteHeaderComponent,
         SiteFooterComponent,
-        ProfileComponent
+        ProfileComponent,
+        ResultComponent
     ],
     providers: [
         customHttpProvider,
@@ -45,7 +48,8 @@ import { ProfileComponent } from './profile/index';
         AlertService,
         AuthenticationService,
         UserService,
-        ClubService
+        ClubService,
+        SearchService
     ],
     bootstrap: [AppComponent]
 })
