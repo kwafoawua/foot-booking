@@ -32,5 +32,6 @@ router.get('/users/', userController2.getAll);
 router.get('/users/current', userController2.getCurrent);
 router.put('/users/:_id', userController2.update);
 router.delete('/users/:_id', userController2._delete);
+router.get('/clubs/', clubController.findAllClubs);
 module.exports = router;
 
