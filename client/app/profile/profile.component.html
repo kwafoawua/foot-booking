@@ -1,12 +1,23 @@
-﻿<div class="container">
-<div class="col-md-6 col-md-offset-3">
-    <h3>Datos del Club:</h3>
-    <div>
-        Nombre del Club2: <inline-editor type="text" [(ngModel)]="editableText" (onSave)="saveEditable($event)" name="editableText1" size="8">{{club?.name}}</inline-editor>
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4 profile-sidebar">
+            <div class="profile-picture">
+                <img src="../../images/blog/blog1.jpg">
+            </div>
+            <h2>{{club?.name}}</h2>
+            <h2 *ngIf="!isEdit" (click)="isEdit=true" from="name">{{club?.name}}</h2>
+    		<input *ngIf="isEdit" (keydown.enter)="isEdit=false" "type="text" id="name" [(ngModel)]="club.name">
+            <div><strong>Dirección: </strong> {{club?.address}}</div>
+            <div><strong>Teléfono: </strong>{{club?.phoneNumber}}</div>
+        </div>
+        <div class="col-md-6 avtpost-fields">
+            <div class="club-profile-desc">
+                <h3>Descripción</h3>
+                <textarea class="form-control" rows="3" readonly="readonly"></textarea>
+            </div>
+            <div class="club-profile-services">
+
+            </div>
+        </div>
     </div>
-           <div> Nombre del Club: {{club?.name}}</div>
-           <div>Dirección de Club: {{club?.address}}</div>
-           <div>Telefono: {{club?.phoneNumber}}</div>
-    <p><a [routerLink]="['/login']">Cerrar Sesión</a></p>
-</div>
 </div>

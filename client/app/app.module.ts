@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 
+
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
-import {InlineEditorModule} from '@qontu/ngx-inline-editor';
 
 
 
@@ -27,9 +27,8 @@ import { ProfileComponent } from './profile/index';
         BrowserModule,
         FormsModule,
         HttpModule,
-        routing,
-        InlineEditorModule
-    ],
+        routing
+        ],
     declarations: [
         AppComponent,
         AlertComponent,

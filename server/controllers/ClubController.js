@@ -100,7 +100,7 @@ module.exports.findAllClubs = function(req, res) {
                return res.status(500).send(err);
             }
         console.log('GET /clubController'); 
-        res.status(200).json(clubs);
+        res.status(200).send(clubs);
     });
 };
 

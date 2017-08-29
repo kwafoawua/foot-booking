@@ -20,9 +20,11 @@ export class ProfileComponent implements OnInit {
     currentUser: User;
     users: User[] = [];
     club : Club;
+    isEdit : Boolean;
 
     constructor(private userService: UserService, private clubService: ClubService, private route: ActivatedRoute) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        this.isEdit = false;
     }
 
     ngOnInit() {

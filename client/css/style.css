@@ -1,0 +1,18 @@
+div.profile-picture {
+	max-width: 300px;
+	max-height: 300px;
+}
+.profile-sidebar {
+	border-radius: 4px;
+	border : 1px solid #ccc;
+	margin-top: 20px;
+	margin-left: 10px;
+	align-content: center;
+}
+.profile-sidebar strong{
+	color: #00a651;
+}
+
+div.profile-picture > img {
+	margin-top: 15px;
+}
