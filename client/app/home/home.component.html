@@ -90,7 +90,7 @@
                                 </div><!-- category-change -->
                             </li>
                             <li>
-                                <input type="text" class="form-control" placeholder="Donde queres jugar?">
+                                <input #searchByName id="name" (keyup)="search(searchByName.value)" type="text" class="form-control" placeholder="Donde queres jugar?">
                             </li>
                             <li>
                                 <a [routerLink]="['/results']" type="submit" class="form-control btn btn-primary" value="Search">Buscar</a>

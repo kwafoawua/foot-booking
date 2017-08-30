@@ -18,12 +18,13 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
+import {templateJitUrl} from "@angular/compiler";
 
 @Component({
 
     selector:'results',
     templateUrl: 'app/result/result.component.html',
-
+    providers: [SearchService],
 })
 
 
@@ -32,7 +33,7 @@ export class ResultComponent implements OnInit {
    // clubs: Observable<Club[]>;
   //  private searchTerms = new Subject<string>();
 
-    constructor(private clubService : ClubService, private router: Router){}
+    constructor(private clubService : ClubService, private router: Router, private searchService: SearchService){}
 
       //  search(term: string): void {
        // this.searchTerms.next(term);
@@ -42,9 +43,13 @@ export class ResultComponent implements OnInit {
     this.clubService.getAll().subscribe(clubs => { this.club = clubs; });
     }
 
-    ngOnInit():void {
-        this.loadAllClubs();
+    private findClub(term: string){
+        this.searchService.search(term).subscribe(clubs => {this.club = clubs});
+}
 
+    ngOnInit(name?: string):void {
+        //this.loadAllClubs();
+    this.findClub(name)
     }
 
     /*   PARA BUSCAR POR FILTRO
