@@ -10,6 +10,7 @@ import { Club } from '../_models/club';
 import {ClubService} from '../_services/index';
 import { Observable }        from 'rxjs/Observable';
 import { Subject }           from 'rxjs/Subject';
+import {ActivatedRoute} from '@angular/router';
 
 // Observable class extensions
 import 'rxjs/add/observable/of';
@@ -19,6 +20,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import {templateJitUrl} from "@angular/compiler";
+import {equalParamsAndUrlSegments} from "@angular/router/src/router_state";
 
 @Component({
 
@@ -29,11 +31,15 @@ import {templateJitUrl} from "@angular/compiler";
 
 
 export class ResultComponent implements OnInit {
+
+
     club: Club[] = [];
+
+
    // clubs: Observable<Club[]>;
   //  private searchTerms = new Subject<string>();
 
-    constructor(private clubService : ClubService, private router: Router, private searchService: SearchService){}
+    constructor(private activatedRoute:ActivatedRoute, private clubService : ClubService, private router: Router, private searchService: SearchService){}
 
       //  search(term: string): void {
        // this.searchTerms.next(term);
@@ -43,13 +49,14 @@ export class ResultComponent implements OnInit {
     this.clubService.getAll().subscribe(clubs => { this.club = clubs; });
     }
 
-    private findClub(term: string){
-        this.searchService.search(term).subscribe(clubs => {this.club = clubs});
-}
+   // private findClub(term: string){
+   //     this.searchService.search(term).subscribe(clubs => {this.club = clubs});
+//}
 
-    ngOnInit(name?: string):void {
-        //this.loadAllClubs();
-    this.findClub(name)
+    ngOnInit():void {
+
+        this.activatedRoute.params.subscribe(params => console.log(params['term']) );
+
     }
 
     /*   PARA BUSCAR POR FILTRO

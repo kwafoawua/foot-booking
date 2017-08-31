@@ -73,7 +73,9 @@
 
         <div id="search-section">
             <div class="container">
-                <form action="#">
+
+                <form [formGroup]="form" (ngSubmit)="buscarClub()" novalidate="novalidate">
+
                     <div class="search-section">
                         <ul>
                             <li>
@@ -89,15 +91,19 @@
                                     </ul>
                                 </div><!-- category-change -->
                             </li>
+
                             <li>
-                                <input #searchByName id="name" (keyup)="search(searchByName.value)" type="text" class="form-control" placeholder="Donde queres jugar?">
+                                <input type="text" class="form-control" formControlName="name" placeholder="Donde queres jugar?">
                             </li>
+
                             <li>
-                                <a [routerLink]="['/results']" type="submit" class="form-control btn btn-primary" value="Search">Buscar</a>
+                                <button (click)="buscarClub()"   type="submit" class="form-control btn btn-primary" value="Search">Buscar</button>
                             </li>
                         </ul>
                     </div>
+
                 </form>
+
             </div>
         </div>
         <!-- search-section -->

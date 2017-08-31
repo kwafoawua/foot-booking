@@ -3,21 +3,30 @@
  */
 import { Injectable } from '@angular/core';
 import { Http }       from '@angular/http';
-
+import {FormControl, FormGroup} from '@angular/forms';
 import { Observable }     from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 import { Club }           from '../_models/club';
+import {formArrayNameProvider} from "@angular/forms/src/directives/reactive_directives/form_group_name";
 
 @Injectable()
 
 export class SearchService {
 
-    constructor(private http: Http) {}
+    private form: FormGroup;
+    private clubs: Club[]= [];
 
-    search(term: string): Observable<Club[]> {
-        return this.http
-            .get(`/club/?name=${term}`).map(response => response.json().data as Club[]);
+    constructor() {
+        this.form= new FormGroup({'nombre': new FormControl});
+
+
     }
+
+
+
+
+
+
 }
 

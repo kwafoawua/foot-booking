@@ -14,7 +14,8 @@ import { AlertService, AuthenticationService, UserService, ClubService } from '.
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import { RegisterClubComponent } from './register-club/index';
-
+import { FormGroup, FormArray, FormBuilder,
+    Validators,ReactiveFormsModule  } from '@angular/forms';
 import { SiteHeaderComponent } from './site-header/site-header.component';
 import { SiteFooterComponent } from './site-footer/site-footer.component';
 import { ProfileComponent } from './profile/index';
@@ -26,7 +27,8 @@ import {SearchService} from "./_services/search.service";
         BrowserModule,
         FormsModule,
         HttpModule,
-        routing
+        routing,
+        ReactiveFormsModule,
     ],
     declarations: [
         AppComponent,
