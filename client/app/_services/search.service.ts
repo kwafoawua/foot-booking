@@ -2,13 +2,15 @@
  * Created by pablo on 23/8/2017.
  */
 import { Injectable } from '@angular/core';
-import { Http }       from '@angular/http';
+import { Http,Response }       from '@angular/http';
 import {FormControl, FormGroup} from '@angular/forms';
 import { Observable }     from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
+
 import { Club }           from '../_models/club';
 import {formArrayNameProvider} from "@angular/forms/src/directives/reactive_directives/form_group_name";
+import {ClubFilter} from "../Filter/ClubFilter/clubfilter";
 
 @Injectable()
 
@@ -17,12 +19,11 @@ export class SearchService {
     private form: FormGroup;
     private clubs: Club[]= [];
 
-    constructor() {
-        this.form= new FormGroup({'nombre': new FormControl});
+    constructor(private http: Http) { }
 
-
+    public findclubs(string: string){
+        return this.http.get('/clubs/' + string).map((response: Response) => response.json());
     }
-
 
 
 

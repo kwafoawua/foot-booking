@@ -3,14 +3,16 @@
  */
 
 import { Component, OnInit } from '@angular/core';
-import { User } from '../_models/index';
+import {FormControl, FormGroup, FormBuilder,ReactiveFormsModule} from '@angular/forms';
 import {Router} from '@angular/router'
 import {SearchService} from '../_services/index'
 import { Club } from '../_models/club';
 import {ClubService} from '../_services/index';
-import { Observable }        from 'rxjs/Observable';
-import { Subject }           from 'rxjs/Subject';
+import { Observable }  from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 import {ActivatedRoute} from '@angular/router';
+
+
 
 // Observable class extensions
 import 'rxjs/add/observable/of';
@@ -21,6 +23,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import {templateJitUrl} from "@angular/compiler";
 import {equalParamsAndUrlSegments} from "@angular/router/src/router_state";
+import {ClubFilter} from "../Filter/ClubFilter/clubfilter";
 
 @Component({
 
@@ -33,29 +36,48 @@ import {equalParamsAndUrlSegments} from "@angular/router/src/router_state";
 export class ResultComponent implements OnInit {
 
 
-    club: Club[] = [];
-
-
-   // clubs: Observable<Club[]>;
+   private form: FormGroup;
+  //  private clubfilter : ClubFilter;
+  // clubs: Observable<Club[]>;
   //  private searchTerms = new Subject<string>();
 
-    constructor(private activatedRoute:ActivatedRoute, private clubService : ClubService, private router: Router, private searchService: SearchService){}
+    constructor(private activatedRoute:ActivatedRoute, private searchService : SearchService, private router: Router){
 
-      //  search(term: string): void {
-       // this.searchTerms.next(term);
+       this.form= new FormGroup({'clubname': new FormControl('pablo')});
 
 
+    }
+
+
+/*
     private loadAllClubs() {
     this.clubService.getAll().subscribe(clubs => { this.club = clubs; });
     }
-
-   // private findClub(term: string){
-   //     this.searchService.search(term).subscribe(clubs => {this.club = clubs});
-//}
+*/
 
     ngOnInit():void {
 
-        this.activatedRoute.params.subscribe(params => console.log(params['term']) );
+    }
+
+    private buscarClub(clubname: string){
+        this.searchService.findclubs(clubname).subscribe()
+    }
+
+/*
+    private buscarClub(): ClubFilter{
+
+        this.clubfilter.name = formModel.name;
+        this.searchService.findclubs(this.clubfilter);
+
+
+        let formModel = this.form.value;
+        return new ClubFilter(
+            formModel.name
+        //aca van los otros filtros
+
+
+        );
+
 
     }
 
