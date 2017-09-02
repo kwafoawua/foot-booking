@@ -76,6 +76,7 @@ function addClub (club) {
 /**
  * Show the current Club
  */
+
 module.exports.findById = function(req, res) {
     console.log('busca por id');
     console.log(req);
@@ -152,3 +153,9 @@ module.exports.deleteClub = function(req, res) {
         });
     });
 };
+
+function FindClub(clubname) {
+    console.log('Entra al findusers');
+    console.log(clubname);
+
+}
