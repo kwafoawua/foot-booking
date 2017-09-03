@@ -2,13 +2,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-
+import { ReactiveFormsModule } from '@angular/forms';  // <-- #1 import module
+import { TagInputModule } from 'ngx-chips';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
 
 
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
-
-
 
 import { customHttpProvider } from './_helpers/index';
 import { AlertComponent } from './_directives/index';
@@ -29,7 +29,10 @@ import {SearchService} from "./_services/search.service";
         BrowserModule,
         FormsModule,
         HttpModule,
-        routing
+        routing,
+        ReactiveFormsModule,
+        TagInputModule,
+        BrowserAnimationsModule
         ],
     declarations: [
         AppComponent,

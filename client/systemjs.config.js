@@ -25,7 +25,9 @@
             '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
 
             // other libraries
-            'rxjs': 'npm:rxjs'
+            'rxjs': 'npm:rxjs',
+            'ngx-chips': 'npm:ngx-chips'
+
              },
         // packages tells the System loader how to load when no filename and/or no extension
         packages: {
@@ -35,7 +37,11 @@
             },
             rxjs: {
                 defaultExtension: 'js'
-            }
+            },
+            'ngx-chips': {
+
+
+    }
         }
     });
 })(this);
