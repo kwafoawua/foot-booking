@@ -37,14 +37,14 @@ export class ResultComponent implements OnInit {
 
 
    private form: FormGroup;
-  //  private clubfilter : ClubFilter;
-  // clubs: Observable<Club[]>;
+   private clubfilter : ClubFilter;
+   clubname : string;
+   club: Club[] = [] ;
   //  private searchTerms = new Subject<string>();
 
     constructor(private activatedRoute:ActivatedRoute, private searchService : SearchService, private router: Router){
 
-       this.form= new FormGroup({'clubname': new FormControl('pablo')});
-
+       this.form= new FormGroup({'clubname': new FormControl('clubname')});
 
     }
 
@@ -57,26 +57,33 @@ export class ResultComponent implements OnInit {
 
     ngOnInit():void {
 
+
     }
 
-    private buscarClub(clubname: string){
-        this.searchService.findclubs(clubname).subscribe()
+    private buscarClubsPorFiltros(){
+
+            console.log(this.clubname);
+            this.searchService.findClubsByFilters(this.clubname).subscribe(clubs => {this.club = clubs;
+            })
+
+
     }
 
 /*
-    private buscarClub(): ClubFilter{
+    private buscarClubsPorFiltros(){
 
-        this.clubfilter.name = formModel.name;
+        this.clubfilter.name = formModel.clubname;
+
+
+       let formModel = this.form.value;
+        return new ClubFilter(
+        formModel.name
+        //aca van los otros filtros
+        );
+
         this.searchService.findclubs(this.clubfilter);
 
 
-        let formModel = this.form.value;
-        return new ClubFilter(
-            formModel.name
-        //aca van los otros filtros
-
-
-        );
 
 
     }

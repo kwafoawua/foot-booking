@@ -21,7 +21,7 @@
 
                                 <div class="filter-list">
 
-                                    <input (keypress)="buscarClub()"  [(ngModel)]="clubname" name="clubname"
+                                    <input (keypress)="buscarClubsPorFiltros()"  [(ngModel)]="clubname" name="clubname"
                                             placeholder="Buscar por nombre de club" type="text" class="form-control"  formControlName="clubname" />
 
                                </div>
@@ -130,7 +130,7 @@
 
                                 <div role="tabpanel" class="tab-pane active" id="recent">
                                     <ul>
-                                        <li class="item-wrap" *ngFor="let c of club">
+                                        <li class="item-wrap" *ngFor="let c of clubs">
                                             <div class="item">
                                                 <div class="item-image">
                                                     <a href="details.html"><img src="images/item/1.jpg" alt="" class="img-responsive"></a>
