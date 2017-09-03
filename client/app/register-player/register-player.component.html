@@ -10,78 +10,42 @@
               <label for="name">Nombre</label>
               <input type="text" class="form-control" name="namePlayer" [(ngModel)]="model.name" #name="ngModel" required />
               <div *ngIf="f.submitted && !name.valid" class="help-block">El Nombre del complejo es requerido</div>
-          </div>
-          <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !lastName.valid }">
-          <label for="lastName">Apellido</label>
+            </div>
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !lastName.valid }">
+              <label for="lastName">Apellido</label>
               <input type="text" class="form-control" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" required />
               <div *ngIf="f.submitted && !lastName.valid" class="help-block">El apellido es requerido</div>
-          </div>
-          <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !phoneNumber.valid }">
+            </div>
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !phoneNumber.valid }">
               <label for="phoneNumber">Número de teléfono</label>
               <input type="text" class="form-control" name="phoneNumber" [(ngModel)]="model.phoneNumber" #phoneNumber="ngModel" />
-          </div>
-          <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !bithDate.valid }">
+            </div>
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !bithDate.valid }">
               <label for="bithDate">Fecha de nacimiento</label>
               <input type="text" class="form-control" name="bithDate" [(ngModel)]="model.bithDate" #bithDate="ngModel" required />
               <div *ngIf="f.submitted && !bithDate.valid" class="help-block">La fecha de nacimiento es requerida</div>
-          </div>
-          <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+            </div>
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+              <label for="username">Nombre de usuario</label>
+              <input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" required />
+              <div *ngIf="f.submitted && !username.valid" class="help-block">Nombre de usuario requerido</div>
+            </div>
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
               <label for="password">Contraseña</label>
               <input type="password" class="form-control" name="passwordPlayer" [(ngModel)]="model.password" #password="ngModel" required />
               <div *ngIf="f.submitted && !password.valid" class="help-block">Contraseña requerida</div>
-          </div>
-          <div class="form-group">
+            </div>
+            <div class="form-group">
               <button [disabled]="loading" class="btn btn-primary">Registrar jugador</button>
               <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
               <a [routerLink]="['/login']" class="btn btn-link">Cancelar</a>
-          </div>
-      </form>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+    </div>
   </div>
-</div>
-<div class="col-md-4 col-md-offset-1">
-    <div class="category-avt">
-      <h2>Registrar un complejo</h2>
-      <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
-        <h3></h3>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !name.valid }">
-          <label for="name">Nombre</label>
-          <input type="text" class="form-control" name="name" [(ngModel)]="model.name" #name="ngModel" required />
-          <div *ngIf="f.submitted && !name.valid" class="help-block">El Nombre del complejo es requerido</div>
-      </div>
-      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !address.valid }">
-          <label for="address">Dirección</label>
-          <input type="text" class="form-control" name="address" [(ngModel)]="model.address" #address="ngModel" required />
-          <div *ngIf="f.submitted && !address.valid" class="help-block">La dirección es requerida</div>
-      </div>
-      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !phoneNumber.valid }">
-          <label for="phoneNumber">Número de teléfono</label>
-          <input type="text" class="form-control" name="phoneNumber" [(ngModel)]="model.phoneNumber" #phoneNumber="ngModel" />
-      </div>
-      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-          <label for="username">Nombre de usuario</label>
-          <input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" required />
-          <div *ngIf="f.submitted && !username.valid" class="help-block">Nombre de usuario requerido</div>
-      </div>
-      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
-          <label for="email">E-mail</label>
-          <input type="text" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" required />
-          <div *ngIf="f.submitted && !email.valid" class="help-block">El E-mail es requerido</div>
-      </div>
-      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-          <label for="password">Contraseña</label>
-          <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
-          <div *ngIf="f.submitted && !password.valid" class="help-block">Contraseña requerida</div>
-      </div>
-      <div class="form-group">
-          <button [disabled]="loading" class="btn btn-primary">Registrar complejo</button>
-          <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-          <a [routerLink]="['/login']" class="btn btn-link">Cancelar</a>
-      </div>
-  </form>
-</div>
-</div>
-</div>
-</div>
 </div>
 
 <!--

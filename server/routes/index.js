@@ -7,6 +7,7 @@ var router = express.Router();
 var clubController = require('../controllers/ClubController.js');
 var userController = require('../controllers/userController.js');
 var userController2 = require('../controllers/users.controller.js');
+var playerController = require('../controllers/playerController');
 
 
 /*route.route('/complejos')  
@@ -28,6 +29,7 @@ route.get('/').get(function (req, res) {
 
 router.post('/users/authenticate', userController.authenticate);
 router.post('/clubs/register', clubController.registerClub);
+router.post('/players/register', playerController.registerPlayer);
 router.get('/clubs/:_id', clubController.findById);
 router.get('/users/', userController2.getAll);
 router.get('/users/current', userController2.getCurrent);

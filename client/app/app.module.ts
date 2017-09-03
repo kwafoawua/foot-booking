@@ -13,16 +13,17 @@ import { routing } from './app.routing';
 import { customHttpProvider } from './_helpers/index';
 import { AlertComponent } from './_directives/index';
 import { AuthGuard } from './_guards/index';
-import { AlertService, AuthenticationService, UserService, ClubService } from './_services/index';
+import { AlertService, AuthenticationService, UserService, ClubService, PlayerService } from './_services/index';
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import { RegisterClubComponent } from './register-club/index';
+import { RegisterPlayerComponent } from './register-player/index';
 
 import { SiteHeaderComponent } from './site-header/site-header.component';
 import { SiteFooterComponent } from './site-footer/site-footer.component';
 import { ProfileComponent } from './profile/index';
-import {ResultComponent} from './result/index';
-import {SearchService} from "./_services/search.service";
+import { ResultComponent } from './result/index';
+import { SearchService } from "./_services/search.service";
 
 @NgModule({
     imports: [
@@ -37,6 +38,7 @@ import {SearchService} from "./_services/search.service";
         HomeComponent,
         LoginComponent,
         RegisterClubComponent,
+        RegisterPlayerComponent,
         SiteHeaderComponent,
         SiteFooterComponent,
         ProfileComponent,
@@ -49,6 +51,7 @@ import {SearchService} from "./_services/search.service";
         AuthenticationService,
         UserService,
         ClubService,
+        PlayerService,
         SearchService
     ],
     bootstrap: [AppComponent]

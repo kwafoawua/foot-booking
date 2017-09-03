@@ -3,6 +3,7 @@
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import { RegisterClubComponent } from './register-club/index';
+import { RegisterPlayerComponent } from './register-player/index';
 import { ProfileComponent } from './profile/index';
 import { AuthGuard } from './_guards/index';
 import {ResultComponent} from './result/index';
@@ -12,6 +13,7 @@ const appRoutes: Routes = [
 
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterClubComponent },
+    { path: 'registerPlayer', component: RegisterPlayerComponent },
     { path: 'profile/:id', component: ProfileComponent, canActivate: [AuthGuard]},
     {path: 'results', component: ResultComponent },
 

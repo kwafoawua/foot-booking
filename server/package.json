@@ -7,18 +7,18 @@
     "url": "https://github.com/kwafoawua/foot-booking.git"
   },
   "keywords": [
-   "football",
-   "tesis",
-   "2017",
-   "footbooking",
-   "UTN",
-   "FRC",
-   "Cordoba",
-   "Argentina",
-   "Ingenieria",
-   "Sistemas",
-   "Informacion"
- ],
+    "football",
+    "tesis",
+    "2017",
+    "footbooking",
+    "UTN",
+    "FRC",
+    "Cordoba",
+    "Argentina",
+    "Ingenieria",
+    "Sistemas",
+    "Informacion"
+  ],
   "dependencies": {
     "bcryptjs": "^2.1.0",
     "body-parser": "^1.13.2",
@@ -34,31 +34,31 @@
     "request": "^2.58.0",
     "rootpath": "^0.1.2"
   },
-   "devDependencies": {
-   "nodemon": "^1.11.0"
- },
-   "contributors": [
-   {
-     "name": "Afua Kwafo-Awua",
-     "email": "afua.kw@gmail.com"
-   },
-   {
-     "name": "Andrés Giacosa",
-     "email": "aagiacosa@gmail.com"
-   },
-   {
-     "name": "Antonella Morano",
-     "email": "antitomorano@gmail.com"
-   },
-   {
-     "name": "Pablo Tolaba",
-     "email": "pablotolaba91@gmail.com"
-   }
- ],
- "author": "Giacosa Andres, Kwafo Awua Afua, Morano Antonella, Tolaba Pablo",
- "license": "MIT",
- "bugs": {
-   "url": "https://github.com/kwafoawua/Footbooking/issues"
- },
- "homepage": "https://github.com/kwafoawua/Footbooking#readme"
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  },
+  "contributors": [
+    {
+      "name": "Afua Kwafo-Awua",
+      "email": "afua.kw@gmail.com"
+    },
+    {
+      "name": "Andrés Giacosa",
+      "email": "aagiacosa@gmail.com"
+    },
+    {
+      "name": "Antonella Morano",
+      "email": "antitomorano@gmail.com"
+    },
+    {
+      "name": "Pablo Tolaba",
+      "email": "pablotolaba91@gmail.com"
+    }
+  ],
+  "author": "Giacosa Andres, Kwafo Awua Afua, Morano Antonella, Tolaba Pablo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kwafoawua/Footbooking/issues"
+  },
+  "homepage": "https://github.com/kwafoawua/Footbooking#readme"
 }

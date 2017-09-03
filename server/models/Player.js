@@ -4,6 +4,11 @@ var ObjectId = Schema.Types.ObjectId;
 
 /**
  * Player Schema
+ * @param {string} name - Player's name.
+ * @param {string} lastName - Player's last name.
+ * @param {date} birthDate - Player's birthday.
+ * @param {string} phoneNumber - Player's phone number.
+ * @param {Usuario} user - Club's user.
  */
 
 var playerSchema = new Schema({
