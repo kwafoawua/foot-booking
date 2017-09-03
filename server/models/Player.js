@@ -16,7 +16,7 @@ var playerSchema = new Schema({
 	lastName: {type: String, required: true},
 	birthDate: Date,
 	phoneNumber: String,
-	user: {type: ObjectId, ref: 'User'}
+	//user: {type: ObjectId, ref: 'User'}
 
 });
 

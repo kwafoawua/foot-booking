@@ -13,7 +13,8 @@ var Q = require('q');
  * Create a Player
  */
 module.exports.registerPlayer = function (req,res) {
-     addPlayer(req.body)
+    console.log(req);
+    addPlayer(req.body)
     .then(function () {
             res.sendStatus(200);
         })
@@ -26,27 +27,27 @@ function addPlayer (player) {
     console.log('entra al player');
     console.log(player);
     var deferred = Q.defer();
-    User.findOne({$or : [{ 'username': player.username }, {'telefono': player.phoneNumber}]},
+    User.findOne({$or : [{ 'username': player.username }, {'email': player.email}]},
         function(err, user) {
             if(err) return deferred.reject(err.name + ' : ' + err.message);
 
             if (user) {
                 console.log(err);
-                return deferred.reject('El nombre'+player.username+' o telefono '+player.phoneNumber+' está en uso.');
+                return deferred.reject('El nombre'+player.username+' o email '+player.email+' está en uso.');
 
             } else {
 
                 var newPlayer = new Player({
-                    name: req.body.player.name,
-                    lastName: req.body.player.lastName, 
-                    birthDay: req.body.player.birthDay,
-                    phoneNumber: req.body.player.phoneNumber,
-                    user: newUser
+                    name: player.name,
+                    lastName: player.lastName, 
+                    birthDay: player.birthDay,
+                    phoneNumber: player.phoneNumber,
+                    //user: newUser
                 });
 
                 var newUser = new User({
-                    username: Player.username.toLowerCase(),
-                    email: Player.email,
+                    username: player.username.toLowerCase(),
+                    email: player.email,
                     creator: newPlayer,
                     rol: 'Player',
                 });
