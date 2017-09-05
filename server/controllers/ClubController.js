@@ -59,10 +59,10 @@ function addClub (club) {
                     if(err) {
                         return deferred.reject(err.name + ' : ' + err.message);
                     }
-                    console.log('nuevo club'+newClub);
+                    console.log('nuevo usuario'+newClub);
                     newClub.save(function (err) {
                         if(err) return deferred.reject(err.name + ' : ' + err.message);
-                        console.log('nuevo user'+newUser);
+                        console.log('nuevo club'+newUser);
                         return deferred.resolve();
                     });
                  });
