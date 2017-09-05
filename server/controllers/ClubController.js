@@ -100,7 +100,7 @@ module.exports.findById = function(req, res) {
 
 
 
-module.exports.findAllClubs = function(req, res) {
+/*module.exports.findAllClubs = function(req, res) {
     console.log("esto es el controller" + JSON.stringify(req));
 
     Club.find({name : req.params.clubname}, function (err, club) {
@@ -114,10 +114,10 @@ module.exports.findAllClubs = function(req, res) {
 
     });
 
-}
+}*/
 
 
-/**
+
 module.exports.findAllClubs = function(req, res) {
 
     Club.find(function(err, clubs) {
@@ -179,14 +179,16 @@ module.exports.deleteClub = function(req, res) {
 
 module.exports.findClubsByFilter = function (req,res) {
 
-    console.log("esto es el controller" + req);
+    console.log(req);
+    console.log(req.params.clubname);
 
-        Club.find({name : req.params.clubname}, function (err, club) {
+        Club.find({name : new RegExp(req.params.clubname, "i")}, function (err, club) {
             if (err) {
-                return res.status(500).send(err + {message: "al menos entro"});
+                return res.status(500).send(err + "al menos entro");
             }
             console.log('busca el club por nombre');
-            console.log(clubname);
+            console.log(req.params.clubname);
+            console.log(club);
 
             res.status(200).send(club);
 

@@ -63,7 +63,7 @@ export class ResultComponent implements OnInit {
 
             console.log(this.clubname);
             if(this.clubname) {
-                this.searchService.findClubsByFilters('pepa').subscribe(clubs => {this.club = clubs;
+                this.searchService.findClubsByFilters(this.clubname).subscribe(clubs => {this.club = clubs;
                 });
             }
 
