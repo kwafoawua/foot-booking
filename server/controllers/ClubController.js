@@ -98,12 +98,33 @@ module.exports.findById = function(req, res) {
  * Show all Clubs
  */
 
+
+
 module.exports.findAllClubs = function(req, res) {
+    console.log("esto es el controller" + JSON.stringify(req));
+
+    Club.find({name : req.params.clubname}, function (err, club) {
+        if (err) {
+            return res.status(500).send(err + {message: "al menos entro"});
+        }
+        console.log('busca el club por nombre');
+        console.log(clubname);
+
+        res.status(200).send(club);
+
+    });
+
+}
+
+
+/**
+module.exports.findAllClubs = function(req, res) {
+
     Club.find(function(err, clubs) {
             if (err) {
                return res.status(500).send(err);
             }
-        console.log('GET /clubController'); 
+        console.log('GET /holo');
         res.status(200).send(clubs);
     });
 };
@@ -171,4 +192,4 @@ module.exports.findClubsByFilter = function (req,res) {
 
         });
 
-}
+};
