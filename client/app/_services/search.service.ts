@@ -21,15 +21,13 @@ export class SearchService {
     constructor(private http: Http) { }
 
 
-
     findClubsByFilters(clubname: string){
-
         console.log("esto es el service" + clubname);
-        return this.http.get(`/clubsfind/?name=${clubname}`).map((response: Response) => response.json());
+        return this.http.get('/findClub/'+clubname).map((response: Response) => response.json());
     }
 
     getAll() {
-        return this.http.get('/clubs').map((response: Response) => response.json());
+        return this.http.get('/clubs/').map((response: Response) => response.json());
     }
 
     /*

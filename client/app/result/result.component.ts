@@ -26,7 +26,6 @@ import {equalParamsAndUrlSegments} from "@angular/router/src/router_state";
 import {ClubFilter} from "../Filter/ClubFilter/clubfilter";
 
 @Component({
-
     selector:'results',
     templateUrl: 'app/result/result.component.html',
     providers: [SearchService],
@@ -63,8 +62,11 @@ export class ResultComponent implements OnInit {
     private buscarClubsPorFiltros(){
 
             console.log(this.clubname);
-            this.searchService.findClubsByFilters(this.clubname).subscribe(clubs => {this.club = clubs;
-            })
+            if(this.clubname) {
+                this.searchService.findClubsByFilters('pepa').subscribe(clubs => {this.club = clubs;
+                });
+            }
+
 
 
     }
