@@ -11,7 +11,7 @@ var bcrypt = require('bcryptjs');
 
 
 module.exports.authenticate = function(req, res) {
-    FindUser(req.body.username, req.body.password)
+   /* FindUser(req.body.username, req.body.password)
     .then(function(user) {
             if (user) {
                 // authentication successful
@@ -23,17 +23,48 @@ module.exports.authenticate = function(req, res) {
         })
         .catch(function(err) {
             res.status(400).send(err);
-        });
+        });*/
 
+  getRol(req.body.username)
+       .then(function (rol) {
+           return FindUser(req.body.username, req.body.password, rol);
+       })
+       .then(function (user) {
+                if (user) {
+                    // authentication successful
+                    res.send(user);
+                } else {
+                    // authentication failed
+                    res.status(400).send('Username or password is incorrect');
+                }
+            })
+       .catch(function(err) {
+                res.status(400).send(err);
+       });
 };
 
+function getRol(username){
+    var deferred = Q.defer();
+    User.findOne({username: username}, function (err, user){
+        console.log('entra al find de getrol');
+        if(err) {
+            return deferred.reject(err.name + ' : ' + err.message);
+        }
+        if(!user) {
+            return deferred.reject('El usuario no existe.');
+        }
+        deferred.resolve(user.rol);
+        return deferred.promise;
+    });
+}
 
-function FindUser(username, password) {
+
+function FindUser(username, password, rol) {
 	console.log('Entra al finduders');
 	console.log(username);
     var deferred = Q.defer();
     User.findOne({ username: username })
-    .populate('creator', null, 'Club')
+    .populate('creator', null, rol)
     .exec(function(err, user) {
         if (err) {
             deferred.reject(err.name + ' : ' + err.message);

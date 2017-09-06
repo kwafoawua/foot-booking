@@ -8,9 +8,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/first';
 
-import { TagInputModule } from 'ngx-chips';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
-
 import { AlertService, ClubService } from '../_services/index';
 import {Observable} from "rxjs/Observable";
 import {isUndefined} from "util";
