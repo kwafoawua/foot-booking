@@ -1,14 +1,19 @@
 ﻿import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+/*ng-chhips*/
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/first';
+
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
 
-
-
-
 import { AlertService, ClubService } from '../_services/index';
 import {Observable} from "rxjs/Observable";
+import {isUndefined} from "util";
 
 @Component({
     moduleId: module.id,
@@ -53,7 +58,7 @@ export class RegisterClubComponent {
             description: '',
             phoneNumber: '',
             address: '',
-            services: [['chip'], []],
+            services: [],
             profileImg: '',
             galleryImg: '',
             field: this.fb.group({
@@ -80,39 +85,39 @@ export class RegisterClubComponent {
         };
 
     public options = {
-            readonly: undefined,
+            readonly: false,
             placeholder: '+ Tag'
         };
 
-    public onAdd(item) {
+    public onAdd(item: string) {
             console.log('tag added: value is ' + item);
         }
 
-    public onRemove(item) {
+    public onRemove(item: string) {
             console.log('tag removed: value is ' + item);
         }
 
-    public onSelect(item) {
+    public onSelect(item: string) {
             console.log('tag selected: value is ' + item);
         }
 
-    public onFocus(item) {
+    public onFocus(item: string) {
             console.log('input focused: current value is ' + item);
         }
 
-    public onTextChange(text) {
+    public onTextChange(text: string) {
             console.log('text changed: value is ' + text);
         }
 
-    public onBlur(item) {
+    public onBlur(item: string) {
             console.log('input blurred: current value is ' + item);
         }
 
-    public onTagEdited(item) {
+    public onTagEdited(item: string) {
             console.log('tag edited: current value is ' + item);
         }
 
-    public onValidationError(item) {
+    public onValidationError(item: string) {
             console.log('invalid tag ' + item);
         }
 
@@ -167,21 +172,21 @@ export class RegisterClubComponent {
             'endsWith$': 'Your items need to end with \'$\''
         };
 
-    public onAdding(tag): Observable<any> {
+    public onAdding(tag: string): Observable<any> {
             const confirm = window.confirm('Do you really want to add this tag?');
         return Observable
             .of(tag)
             .filter(() => confirm);
     }
 
-    public onRemoving(tag): Observable<any> {
+    public onRemoving(tag: string): Observable<any> {
             const confirm = window.confirm('Do you really want to remove this tag?');
         return Observable
             .of(tag)
             .filter(() => confirm);
     }
 
-    public asyncOnAdding(tag): Observable<any> {
+    public asyncOnAdding(tag: string): Observable<any> {
             const confirm = window.confirm('Do you really want to add this tag?');
         return Observable
             .of(tag)
