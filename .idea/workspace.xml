@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c87ca256-689d-4f89-a72a-235343bb0f4a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/_services/search.service.ts" afterPath="$PROJECT_DIR$/client/app/_services/search.service.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/result/result.component.html" afterPath="$PROJECT_DIR$/client/app/result/result.component.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/app/result/result.component.ts" afterPath="$PROJECT_DIR$/client/app/result/result.component.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/controllers/ClubController.js" afterPath="$PROJECT_DIR$/server/controllers/ClubController.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/routes/clubRoutes.js" afterPath="$PROJECT_DIR$/server/routes/clubRoutes.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/routes/index.js" afterPath="$PROJECT_DIR$/server/routes/index.js" />
-    </list>
+    <list default="true" id="c87ca256-689d-4f89-a72a-235343bb0f4a" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -489,12 +481,12 @@
       <workItem from="1504445835240" duration="17854000" />
       <workItem from="1504470538939" duration="3204000" />
       <workItem from="1504543024812" duration="1853000" />
-      <workItem from="1504639614899" duration="7882000" />
+      <workItem from="1504639614899" duration="8097000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="115088000" />
+    <option name="totallyTimeSpent" value="115303000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
