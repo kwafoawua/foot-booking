@@ -62,14 +62,11 @@ export class ResultComponent implements OnInit {
     private buscarClubsPorFiltros(){
 
             console.log(this.clubname);
-            if(this.clubname) {
-                this.searchService.findClubsByFilters('pepa').subscribe(clubs => {this.club = clubs;
-                });
-            }
+            this.searchService.findClubsByFilters(this.clubname).subscribe();}
 
 
 
-    }
+
 
 /*
     private buscarClubsPorFiltros(){

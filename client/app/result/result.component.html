@@ -1,7 +1,6 @@
         <div class="page">
 
             <div id="breadcrumb-section" class="section"  >
-
                 <div class="container" >
                     <div class="page-title text-center" >
                         <h1>Resultados</h1>
@@ -9,10 +8,8 @@
                 </div>
             </div><!-- breadcrumb-section -->
 
-
-
-
             <div class="all-categories section">
+
               <div [formGroup]="form"  novalidate>
                 <div class="container">
                     <div class="row">
@@ -21,7 +18,7 @@
 
                                 <div class="filter-list">
 
-                                    <input (keypress)="buscarClubsPorFiltros()"  [(ngModel)]="clubname" name="clubname"
+                                    <input (keyup.enter)="buscarClubsPorFiltros()"  [(ngModel)]="clubname" name="clubname"
                                             placeholder="Buscar por nombre de club" type="text" class="form-control"  formControlName="clubname" />
 
                                </div>
@@ -82,7 +79,7 @@
                                                 <div class="price-range">
                                                     <label for="min"><input type="text" id="min" title="minimum price" placeholder="min" value=""></label>
                                                     <label for="max"><input type="text" id="max" title="maximum price" placeholder="max" value=""></label>
-
+                                                    <button class="btn btn-primary">Actualizar busqueda</button>
                                                 </div>
                                             </div><!-- panel-body -->
                                         </div>
@@ -91,8 +88,49 @@
                             </div><!-- sidebar -->
                         </div><!-- col-sm-4 -->
 
+                        <!-- EL RESULTADO DE LA BUSQUEDA -->
 
+                        <div class="col-md-9 col-sm-8">
+                            <div class="category-adds">
+                                <div id="category-tab">
+                                    <div class="category-tab">
+                                        <!-- Tab panes -->
+                                        <div class="tab-content small-view-tab">
+                                            <div role="tabpanel" class="tab-pane active" id="recent">
+                                                <ul>
+                                                    <li class="item-wrap" *ngFor="let c of searchService.clubs">
+                                                        <div class="item">
+                                                            <div class="item-image">
+                                                                <a href="details.html"><img src="images/item/1.jpg" alt="" class="img-responsive"></a>
 
+                                                            </div>
+
+                                                            <div class="item-description">
+                                                                <div class="item-meta">
+                                                                    <div class="item-post-date">
+                                                                        <span> </span>
+                                                                    </div>
+                                                                    <ul class="list-inline product-social">
+                                                                        <li><a href="#"><i class="fa fa-bookmark-o" aria-hidden="true"></i></a></li>
+                                                                        <li><a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
+                                                                        <li><a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a></li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="item-title">
+                                                                    <h3><a href="#">{{c?.name}}</a></h3>
+                                                                </div>
+                                                                <div class="item-info">
+                                                                    <p>Dirección {{c?.address}} TEL:{{c?.phoneNumber}} </p>
+                                                                </div>
+                                                            </div><!-- item-description -->
+                                                        </div><!-- item -->
+                                                    </li> <!-- item-wrap -->
+                                                </ul>
+                                            </div> <!--tab-pane-->
+                                        </div><!-- tab-pane-->
+                                    </div>
+                                </div><!-- category-tab-->
+                            </div>
 
                             <div class="pager-section">
                                 <ul class="pagination ">
@@ -108,67 +146,20 @@
                                 </ul>
                             </div><!-- pager-section -->
 
+
+                        </div>
+
+                        <!-- fin del resultado de la busqueda -->
+
+
+
                     </div>
-                    <button class="btn btn-primary">Actualizar busqueda</button>
+
+
+
+
+
                 </div>
               </div>
             </div> <!-- all-categories -->
-
-
-            <!-- EL RESULTADO DE LA BUSQUEDA -->
-
-            <div class="col-md-9 col-sm-8">
-                <div class="category-adds">
-                    <div id="category-tab">
-
-
-                        <div class="category-tab">
-
-                            <!-- Tab panes -->
-
-                            <div class="tab-content small-view-tab">
-
-                                <div role="tabpanel" class="tab-pane active" id="recent">
-                                    <ul>
-                                        <li class="item-wrap" *ngFor="let c of clubs">
-                                            <div class="item">
-                                                <div class="item-image">
-                                                    <a href="details.html"><img src="images/item/1.jpg" alt="" class="img-responsive"></a>
-                                                    <div class="item-price">
-                                                        <span>$45</span>
-                                                    </div>
-                                                </div>
-
-                                                <div class="item-description">
-                                                    <div class="item-meta">
-                                                        <div class="item-post-date">
-                                                            <span> </span>
-                                                        </div>
-                                                        <ul class="list-inline product-social">
-                                                            <li><a href="#"><i class="fa fa-bookmark-o" aria-hidden="true"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a></li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="item-title">
-                                                        <h3><a href="#">{{c?.name}}</a></h3>
-                                                    </div>
-                                                    <div class="item-info">
-                                                        <p>Dirección {{c?.address}} TEL:{{c?.phoneNumber}} </p>
-                                                    </div>
-                                                </div><!-- item-description -->
-                                            </div><!-- item -->
-                                        </li> <!-- item-wrap -->
-                                    </ul>
-                                </div> <!--tab-pane-->
-                            </div><!-- tab-pane-->
-
-
-                        </div>
-                    </div><!-- category-tab-->
-                </div>
-            </div>
-
-            <!-- fin del resultado de la busqueda -->
-
         </div>	<!-- page -->
