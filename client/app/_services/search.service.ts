@@ -15,15 +15,15 @@ import {ClubFilter} from "../Filter/ClubFilter/clubfilter";
 export class SearchService {
 
     private form: FormGroup;
-    private clubs: Club []= [];
+        private clubs: Club []= [];
 
 
     constructor(private http: Http) { }
 
 
-    findClubsByFilters(clubname: string){
-        console.log("esto es el service" + clubname);
-        return this.http.get('/findClub/'+clubname).map((response: Response) => {
+    findClubsByFilters(filter: ClubFilter){
+        console.log("esto es el service" + filter);
+        return this.http.get('/findClub/'+{filter : ClubFilter}).map((response: Response) => {
             this.clubs = response.json();
             return  response.json()});
     }
@@ -32,11 +32,7 @@ export class SearchService {
         return this.http.get('/clubs/').map((response: Response) => response.json());
     }
 
-    /*
-    public findClubsByFilters(clubFilter: ClubFilter){
-        return this.http.get('/clubs/' + string).map((response: Response) => response.json());
-    }
-    */
+
 
 
 

@@ -35,82 +35,83 @@ import {ClubFilter} from "../Filter/ClubFilter/clubfilter";
 export class ResultComponent implements OnInit {
 
 
-   private form: FormGroup;
-   private clubfilter : ClubFilter;
-   clubname : string;
-   club: Club[] = [] ;
-  //  private searchTerms = new Subject<string>();
-
-    constructor(private activatedRoute:ActivatedRoute, private searchService : SearchService, private router: Router){
-
-       this.form= new FormGroup({'clubname': new FormControl('clubname')});
-
-    }
+    private form: FormGroup;
+    private clubfilter: ClubFilter;
+   // clubname: string;
+    club: Club[] = [];
 
 
-/*
-    private loadAllClubs() {
-    this.clubService.getAll().subscribe(clubs => { this.club = clubs; });
-    }
-*/
+    constructor(private activatedRoute: ActivatedRoute, private searchService: SearchService, private router: Router) {
 
-    ngOnInit():void {
-
+        this.form = new FormGroup({'clubname': new FormControl('clubname')});
 
     }
 
-    private buscarClubsPorFiltros(){
+    ngOnInit(): void { }
 
-            console.log(this.clubname);
-            this.searchService.findClubsByFilters(this.clubname).subscribe();}
-
-
-
-
-
-/*
-    private buscarClubsPorFiltros(){
-
-        this.clubfilter.name = formModel.clubname;
+    /*
+     private loadAllClubs() {
+     this.clubService.getAll().subscribe(clubs => { this.club = clubs; });
+     }
+     */
 
 
-       let formModel = this.form.value;
-        return new ClubFilter(
-        formModel.name
-        //aca van los otros filtros
-        );
+//LE PASO LOS DATOS PARA CREAR LOS FILTROS
+    private crearFiltros() : ClubFilter {
+    let modelform = this.form.value;
+     return new ClubFilter(
+         modelform.clubname,
 
-        this.searchService.findclubs(this.clubfilter);
-
-
-
-
+     )
     }
 
-    /*   PARA BUSCAR POR FILTRO
+//BUSCO POR LOS FILTROS
+    private buscarClubsPorFiltros() {
+        this.clubfilter = this.crearFiltros();
+        console.log("PABLO");
+       this.searchService.findClubsByFilters(this.clubfilter).subscribe();
+    }
 
-            ngOnInit():void {
 
-            this.clubs = this.searchTerms
-                .debounceTime(300)        // wait 300ms after each keystroke before considering the term
-                .distinctUntilChanged()   // ignore if next search term is same as previous
-                .switchMap(term => term   // switch to new observable each time the term changes
-                  // return the http search observable
-                    ? this.clubSearchService.search(term)
-                    : Observable.of<Club[]>([]))
-                .catch(error => {
-                    // TODO: add real error handling
-                    console.log(error);
-                    return Observable.of<Club[]>([]);
-                });
+    /*
+     private buscarClubsPorFiltros(){
 
-        }
+     this.clubfilter.name = formModel.clubname;
 
-     FIN PARA BUSCAR CON FILTRO */
 
-   // gotoDetail(club: Club): void {
-   //     let link = ['/detail', club._id;
-   //     this.router.navigate(link);
-   // }
+     let formModel = this.form.value;
+     return new ClubFilter(
+     formModel.name
+     //aca van los otros filtros
+     );
+
+     this.searchService.findclubs(this.clubfilter);
+
+
+
+
+     }
+
+     /*   PARA BUSCAR POR FILTRO
+
+     ngOnInit():void {
+
+     this.clubs = this.searchTerms
+     .debounceTime(300)        // wait 300ms after each keystroke before considering the term
+     .distinctUntilChanged()   // ignore if next search term is same as previous
+     .switchMap(term => term   // switch to new observable each time the term changes
+     // return the http search observable
+     ? this.clubSearchService.search(term)
+     : Observable.of<Club[]>([]))
+     .catch(error => {
+     // TODO: add real error handling
+     console.log(error);
+     return Observable.of<Club[]>([]);
+     });
+
+     }
+
+
+     }*/
 
 }

@@ -180,7 +180,7 @@ module.exports.deleteClub = function(req, res) {
 module.exports.findClubsByFilter = function (req,res) {
 
     console.log(req);
-    console.log(req.params.clubname);
+    console.log(req.params.clubfilter);
 
         Club.find({name : new RegExp(req.params.clubname, "i")}, function (err, club) {
             if (err) {

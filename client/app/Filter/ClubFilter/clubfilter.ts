@@ -4,12 +4,12 @@
 
 
 export class ClubFilter {
-    public name: string;
+    public clubname: string;
     //Agregar los otros valores del filtro
 
 
-    constructor(name?: string) {
-        this.name = name;
+    constructor(clubname?: string) {
+        this.clubname = clubname;
 
     }
 }
