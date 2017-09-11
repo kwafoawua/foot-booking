@@ -25,9 +25,9 @@ module.exports.authenticate = function(req, res) {
             res.status(400).send(err);
         });*/
 
-  getRol(req.body.username)
-       .then(function (rol) {
-           return FindUser(req.body.username, req.body.password, rol);
+  getRol(req.body.username, req.body.password)
+       .then(function (userRol) {
+           return FindUser(req.body.username, req.body.password, userRol.rol);
        })
        .then(function (user) {
                 if (user) {
@@ -43,9 +43,9 @@ module.exports.authenticate = function(req, res) {
        });
 };
 
-function getRol(username){
+function getRol(us, pw){
     var deferred = Q.defer();
-    User.findOne({username: username}, function (err, user){
+    return User.findOne({username: us}, function (err, user){
         console.log('entra al find de getrol');
         if(err) {
             return deferred.reject(err.name + ' : ' + err.message);
@@ -53,15 +53,18 @@ function getRol(username){
         if(!user) {
             return deferred.reject('El usuario no existe.');
         }
-        deferred.resolve(user.rol);
+        console.log(user.rol);
+        console.log(pw);
+        var userPromise = {rol: user.rol};
+        deferred.resolve(userPromise);
         return deferred.promise;
-    });
+    }).exec();
 }
 
 
 function FindUser(username, password, rol) {
 	console.log('Entra al finduders');
-	console.log(username);
+	console.log(username + password + rol);
     var deferred = Q.defer();
     User.findOne({ username: username })
     .populate('creator', null, rol)
@@ -78,7 +81,8 @@ function FindUser(username, password, rol) {
         console.log('entra con populate');
         console.log(user);
         console.log(err);
-        console.log(user.password);
+        console.log(password);
+        console.log(bcrypt.compareSync(password, user.password));
         if (user && bcrypt.compareSync(password, user.password)) {
         	console.log('existe');
             deferred.resolve({
