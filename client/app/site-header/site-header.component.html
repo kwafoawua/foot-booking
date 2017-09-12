@@ -18,8 +18,16 @@
 						<div class="col-sm-6">
 							<div class="user-section">			
 								<ul class="list-line">
-									<li><a [routerLink]="['/login']"><i class="fa fa-sign-in" aria-hidden="true"></i> Iniciar sesión</a></li>
-									<li><a [routerLink]="['/register']"><i class="fa fa-user" aria-hidden="true"></i> Registrarse</a></li>
+									<div *ngIf="currentUser == undefined">
+										<li><a [routerLink]="['/login']"><i class="fa fa-sign-in" aria-hidden="true"></i> Iniciar sesión</a></li>
+										<li><a [routerLink]="['/register']"><i class="fa fa-user" aria-hidden="true"></i> Registrarse</a></li>
+									</div>
+									<div *ngIf="currentUser != undefined">
+										<li> <label>Hola {{username}}</label></li>
+										<li><a (onclick)=logout() [routerLink]="['/login']"><i class="fa fa-log-out" aria-hidden="true"></i> Cerrar Sesión</a></li>
+
+									</div>
+
 								</ul>	
 								<a href="ad-post.html" class="btn btn-primary">Complejo</a>
 							</div><!-- user-section -->
