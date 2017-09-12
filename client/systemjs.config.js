@@ -28,10 +28,12 @@
             '@angular/platform-browser/animations': 'npm:@angular/platform-browser/bundles/platform-browser-animations.umd.js',
 
 
+
             // other libraries
             'rxjs': 'npm:rxjs',
             'ngx-chips': 'npm:ngx-chips/dist/ngx-chips.bundle.js',
-            'ng2-material-dropdown' : 'npm:ng2-material-dropdown/dist/ng2-dropdown.bundle.js'
+            'ng2-material-dropdown' : 'npm:ng2-material-dropdown/dist/ng2-dropdown.bundle.js',
+            'angular2-image-upload': 'npm:angular2-image-upload'
 
              },
         // packages tells the System loader how to load when no filename and/or no extension
@@ -44,6 +46,10 @@
                 defaultExtension: 'js'
             },
             'ngx-chips': {
+                defaultExtension: 'js'
+            },
+            'angular2-image-upload': {
+                main: './index.js',
                 defaultExtension: 'js'
             }
         }

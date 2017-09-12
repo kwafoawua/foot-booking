@@ -56,7 +56,7 @@ export class RegisterClubComponent {
             phoneNumber: '',
             address: '',
             services: [],
-            profileImg: '',
+            profileImg: FormData,
             galleryImg: '',
             field: this.fb.group({
                 fieldName: '',

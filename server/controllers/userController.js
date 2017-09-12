@@ -43,7 +43,7 @@ module.exports.authenticate = function(req, res) {
        });
 };
 
-function getRol(us, pw){
+function getRol(us){
     var deferred = Q.defer();
     return User.findOne({username: us}, function (err, user){
         console.log('entra al find de getrol');
@@ -54,7 +54,6 @@ function getRol(us, pw){
             return deferred.reject('El usuario no existe.');
         }
         console.log(user.rol);
-        console.log(pw);
         var userPromise = {rol: user.rol};
         deferred.resolve(userPromise);
         return deferred.promise;

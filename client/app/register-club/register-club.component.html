@@ -69,13 +69,6 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label">Servicios</label>
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-paperclip"></i></span>
-                        <input formControlName="services" class="form-control input-md" type="text" >
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label">Servicios 2</label>
                     <tag-input  [formControlName]="'services'"  name="items" [onlyFromAutocomplete]="true">
                         <tag-input-dropdown  [showDropdownIfEmpty]="true" [autocompleteObservable]="requestAutocompleteItemsFake">
                         </tag-input-dropdown>
@@ -130,6 +123,21 @@
                 </div>
             </div>
         </div><!--Fin Datos SocialMedia-->
+
+        <div  formGroupName="socialMedia" class="col-md-8 col-md-offset-2" style="border: 1px solid #cccccc">
+            <h3>Redes Sociales</h3>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label">Facebook</label>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-facebook" aria-hidden="true"></i></span>
+                        <input formControlName="facebookId" class="form-control input-md" type="text" >
+                    </div>
+                </div>
+
+            </div>
+        </div><!--Fin Datos Subir Imagenes-->
     </div>
 
 </div>

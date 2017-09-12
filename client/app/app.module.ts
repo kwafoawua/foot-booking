@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
+import { ImageUploadModule } from 'angular2-image-upload';
 
 
 import { AppComponent } from './app.component';
@@ -31,7 +32,8 @@ import {SearchService} from "./_services/search.service";
         routing,
         ReactiveFormsModule,
         TagInputModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        ImageUploadModule.forRoot()
         ],
     declarations: [
         AppComponent,

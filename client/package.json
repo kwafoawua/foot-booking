@@ -23,6 +23,7 @@
     "@angular/platform-browser": "^4.0.0",
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
+    "angular2-image-upload": "^0.6.6",
     "core-js": "^2.4.1",
     "ng2-material-dropdown": "^0.7.10",
     "ngx-chips": "^1.5.3",
