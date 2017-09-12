@@ -37,7 +37,6 @@ export class ResultComponent implements OnInit {
 
     private form: FormGroup;
     private clubfilter: ClubFilter;
-   // clubname: string;
     club: Club[] = [];
 
 
@@ -60,7 +59,7 @@ export class ResultComponent implements OnInit {
     private crearFiltros() : ClubFilter {
     let modelform = this.form.value;
      return new ClubFilter(
-         modelform.clubname,
+         modelform.clubname
 
      )
     }
@@ -68,50 +67,8 @@ export class ResultComponent implements OnInit {
 //BUSCO POR LOS FILTROS
     private buscarClubsPorFiltros() {
         this.clubfilter = this.crearFiltros();
-        console.log("PABLO");
+        console.log("ya cree el filtro");
        this.searchService.findClubsByFilters(this.clubfilter).subscribe();
     }
-
-
-    /*
-     private buscarClubsPorFiltros(){
-
-     this.clubfilter.name = formModel.clubname;
-
-
-     let formModel = this.form.value;
-     return new ClubFilter(
-     formModel.name
-     //aca van los otros filtros
-     );
-
-     this.searchService.findclubs(this.clubfilter);
-
-
-
-
-     }
-
-     /*   PARA BUSCAR POR FILTRO
-
-     ngOnInit():void {
-
-     this.clubs = this.searchTerms
-     .debounceTime(300)        // wait 300ms after each keystroke before considering the term
-     .distinctUntilChanged()   // ignore if next search term is same as previous
-     .switchMap(term => term   // switch to new observable each time the term changes
-     // return the http search observable
-     ? this.clubSearchService.search(term)
-     : Observable.of<Club[]>([]))
-     .catch(error => {
-     // TODO: add real error handling
-     console.log(error);
-     return Observable.of<Club[]>([]);
-     });
-
-     }
-
-
-     }*/
 
 }

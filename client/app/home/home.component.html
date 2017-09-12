@@ -93,7 +93,8 @@
                             </li>
 
                             <li>
-                                <input type="text" class="form-control" formControlName="name" placeholder="Donde queres jugar?">
+                                <input [(ngModel)]="clubname" name="clubname" (keyup.enter)="buscarClub()"
+                                       type="text" class="form-control" formControlName="clubname" placeholder="Donde queres jugar?">
                             </li>
 
                             <li>
