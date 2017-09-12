@@ -34,7 +34,7 @@ router.put('/users/:_id', userController2.update);
 router.delete('/users/:_id', userController2._delete);
 router.get('/clubs/', clubController.findAllClubs);
 
-router.get('/findClub/:clubname', clubController.findClubsByFilter);
+router.get('/findClub/:clubfilter', clubController.findClubsByFilter);
 
 module.exports = router;
 
