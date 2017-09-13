@@ -124,16 +124,20 @@
             </div>
         </div><!--Fin Datos SocialMedia-->
 
-        <div  formGroupName="socialMedia" class="col-md-8 col-md-offset-2" style="border: 1px solid #cccccc">
-            <h3>Redes Sociales</h3>
+        <div class="col-md-8 col-md-offset-2" style="border: 1px solid #cccccc">
+            <h3>Carga de Imagenes</h3>
 
             <div class="col-md-6">
                 <div class="form-group">
-                    <label class="control-label">Facebook</label>
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-facebook" aria-hidden="true"></i></span>
-                        <input formControlName="facebookId" class="form-control input-md" type="text" >
-                    </div>
+                    <label class="control-label">Imagen de Perfil</label>
+                    <image-upload
+                            (onFileUploadFinish)="profileUploaded($event)"
+                            (onRemove)="profileRemoved($event)"
+                            [max]="1"
+                            [extensions]="['jpg','png']"
+                            buttonCaption="Subir"
+                            dropBoxMessage="Subir Imagen de perfil">
+                    </image-upload>
                 </div>
 
             </div>

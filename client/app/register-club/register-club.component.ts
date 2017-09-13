@@ -11,6 +11,7 @@ import 'rxjs/add/operator/first';
 import { AlertService, ClubService } from '../_services/index';
 import {Observable} from "rxjs/Observable";
 import {isUndefined} from "util";
+import {FileHolder} from "angular2-image-upload/lib/image-upload/image-upload.component";
 
 @Component({
     moduleId: module.id,
@@ -56,8 +57,8 @@ export class RegisterClubComponent {
             phoneNumber: '',
             address: '',
             services: [],
-            profileImg: FormData,
-            galleryImg: '',
+            profileImg: null,
+            galleryImg: [],
             field: this.fb.group({
                 fieldName: '',
                 services: [],
@@ -77,9 +78,14 @@ export class RegisterClubComponent {
         autocompleteItems = ['Item1', 'item2', 'item3'];
     public requestAutocompleteItemsFake = (text: string): Observable<string[]> => {
             return Observable.of([
-                'item1', 'item2', 'item3'
+                'Asador', 'Buffet', 'Parking', 'Techado', 'Bar', 'Nocturno'
             ]);
         };
+
+    public profileUploaded(file: FileHolder) {
+        this.registerClubForm.controls['profileImg'].setValue(file);
+        console.log(this.registerClubForm.controls['profileImg']);
+    }
 
     public options = {
             readonly: false,

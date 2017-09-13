@@ -15,6 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "@angular/animations": "^4.3.6",
+    "@angular/cli": "^1.4.1",
     "@angular/common": "^4.0.0",
     "@angular/compiler": "^4.0.0",
     "@angular/core": "^4.3.6",
