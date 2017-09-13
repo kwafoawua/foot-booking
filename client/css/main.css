@@ -2247,6 +2247,11 @@ p.quote-text {
 	height: 338px;
 }
 
+
+agm-map {
+	height: 300px;
+}
+
 .contact-form-wrapper {
 	margin-top: 30px;
 }

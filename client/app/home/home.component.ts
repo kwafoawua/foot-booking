@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
     private clubfilter: ClubFilter;
     lat: number = -31.421272;
     lng: number = -64.183841;
+    zoom = 16.88;
 
 
     constructor(private searchService: SearchService, private router: Router) {

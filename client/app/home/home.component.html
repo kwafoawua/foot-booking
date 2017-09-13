@@ -109,13 +109,27 @@
         </div>
         <!-- search-section -->
     </div>
-    <div class="map-wrapper">
-        <div id="gmap">
-            <agm-map [latitude]="lat" [longitude]="lng">
-                <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-            </agm-map>
 
+    <div class="map-wrapper">
+
+        <div class="ad-post-wrapper section">
+            <div class="container">
+                <div class="contact-us">
+                    <div class="map-wrapper">
+                        <div id="gmap">
+                            <agm-map [zoom]="16" [latitude]="lat" [longitude]="lng">
+                                <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                            </agm-map>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
+
+
+
     </div>
 
 
