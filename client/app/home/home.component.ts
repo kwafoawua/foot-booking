@@ -17,10 +17,9 @@ export class HomeComponent implements OnInit {
 
     private form: FormGroup;
     private clubfilter: ClubFilter;
+    lat: number = -31.421272;
+    lng: number = -64.183841;
 
-    // constructor(private userService: UserService) {
-    //    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    //}
 
     constructor(private searchService: SearchService, private router: Router) {
 

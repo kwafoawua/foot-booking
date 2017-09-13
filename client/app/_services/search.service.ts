@@ -26,7 +26,6 @@ export class SearchService {
         return this.http.get('/findClub/' + JSON.stringify(filter))
             .map((response: Response) => {
             SearchService.clubs = response.json();
-            console.log('clubssssssss',SearchService.clubs);
             // return  response.json()
         });
     }

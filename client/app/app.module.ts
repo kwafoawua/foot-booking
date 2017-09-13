@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { routing } from './app.routing';
 
 
+
 import { customHttpProvider } from './_helpers/index';
 import { AlertComponent } from './_directives/index';
 import { AuthGuard } from './_guards/index';
@@ -22,6 +23,11 @@ import { ProfileComponent } from './profile/index';
 import {ResultComponent} from './result/index';
 import {SearchService} from "./_services/search.service";
 
+
+//API MAPS
+import { AgmCoreModule } from '@agm/core';
+
+
 @NgModule({
     imports: [
         BrowserModule,
@@ -29,6 +35,9 @@ import {SearchService} from "./_services/search.service";
         HttpModule,
         routing,
         ReactiveFormsModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyAAwaI8YafySsHraMA_9G_n30_FECUhoVs'
+        })
     ],
     declarations: [
         AppComponent,

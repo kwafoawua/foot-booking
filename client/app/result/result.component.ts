@@ -51,12 +51,6 @@ export class ResultComponent implements OnInit {
         console.log('clubs ssss', SearchService.clubs);
     }
 
-    /*
-     private loadAllClubs() {
-     this.clubService.getAll().subscribe(clubs => { this.club = clubs; });
-     }
-     */
-
 
 //LE PASO LOS DATOS PARA CREAR LOS FILTROS
     private crearFiltros(): ClubFilter {
