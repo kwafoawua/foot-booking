@@ -109,17 +109,18 @@
                                 <div class="category-tab">
                                     <!-- Tab panes -->
                                     <div class="tab-content small-view-tab">
-                                        <div role="tabpanel" class="tab-pane active" id="recent">
+                                        <div role="tabpanel" class="tab-pane active" id="recent" >
                                             <ul>
                                                 <li class="item-wrap" *ngFor="let c of clubs">
-                                                    <div class="item">
+                                                    <div class="item"  [routerLink]="['/profile',c._id]">
+
                                                         <div class="item-image">
-                                                            <a href="details.html"><img src="images/item/1.jpg" alt=""
-                                                                                        class="img-responsive"></a>
+                                                           <img src="images/item/1.jpg" alt=""
+                                                                                        class="img-responsive">
 
                                                         </div>
 
-                                                        <div class="item-description">
+                                                        <div class="item-description" >
                                                             <div class="item-meta">
                                                                 <div class="item-post-date">
                                                                     <span> </span>
@@ -133,8 +134,8 @@
                                                                                        aria-hidden="true"></i></a></li>
                                                                 </ul>
                                                             </div>
-                                                            <div class="item-title">
-                                                                <h3><a href="#">{{c?.name}}</a></h3>
+                                                            <div class="item-title" >
+                                                                <h3>{{c?.name}}</h3>
                                                             </div>
                                                             <div class="item-info">
                                                                 <p>Dirección {{c?.address}} TEL:{{c?.phoneNumber}} </p>

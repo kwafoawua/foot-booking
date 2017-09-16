@@ -1,9 +1,126 @@
-﻿<div class="container">
-<div class="col-md-6 col-md-offset-3">
-    <h3>Datos del Club:</h3>
-           <div> Nombre del Club: {{club?.name}}</div>
-           <div>Dirección de Club: {{club?.address}}</div>
-           <div>Telefono: {{club?.phoneNumber}}</div>
-    <p><a [routerLink]="['/login']">Cerrar Sesión</a></p>
-</div>
-</div>
+﻿
+<div class="page">
+
+
+    <div class="all-categories section">
+        <div class="container">
+            <div class="ad-details">
+                <div class="row">
+                    <div class="col-md-8 col-sm-7">
+                        <div class="item">
+                            <div class="detail-item-image item-image carousel slide" data-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="item active">
+                                        <img src="images/item/3.jpg" alt="" class="img-responsive">
+                                    </div>
+                                    <div class="item">
+                                        <img src="images/item/2.jpg" alt="" class="img-responsive">
+                                    </div>
+                                    <div class="item">
+                                        <img src="images/item/6.jpg" alt="" class="img-responsive">
+                                    </div>
+                                </div>
+                                <a class="left-control" href=".detail-item-image" role="button" data-slide="prev">
+                                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="right-control" href=".detail-item-image" role="button" data-slide="next">
+                                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                    <span class="sr-only">Next</span>
+                                </a>
+
+                            </div>
+                            <div class="details-description">
+                                <div class="item-info item-meta">
+                                  
+                                    <div class="ad-title">
+                                        <h3>{{club?.name}}</h3>
+                                    </div>
+                                    <ul class="list-inline product-social">
+                                        <li><a href="#"><i class="fa fa-bookmark-o" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                </div><!-- item-info -->
+                                <div class="item-info">
+                                    <h4>Description</h4>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip</p>
+                                </div><!-- item-info -->
+                                <div class="item-info">
+                                    <h4>Other Info</h4>
+                                    <ul>
+                                        <li>Consectetur adipisicing elit</li>
+                                        <li>Sed do eiusmod tempor incididunt</li>
+                                        <li>Quis nostrud exercitation ullamco </li>
+                                        <li>Labore et dolore magna aliqua</li>
+                                        <li>Ut enim ad minim veniam</li>
+                                        <li>Consectetur adipisicing elit</li>
+                                        <li>Sed do eiusmod tempor incididunt</li>
+                                        <li>Quis nostrud exercitation ullamco </li>
+                                        <li>Labore et dolore magna aliqua</li>
+                                        <li>Ut enim ad minim veniam</li>
+                                        <li>Consectetur adipisicing elit</li>
+                                        <li>Sed do eiusmod tempor incididunt</li>
+                                    </ul>
+                                </div><!-- item-info -->
+                            </div>
+                        </div><!-- item -->
+
+                        <div class="location-map">
+                            <h4>Seller Location</h4>
+                            <div id="gmap">
+
+                                <agm-map [zoom]="16" [latitude]="lat" [longitude]="lng">
+                                    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                                </agm-map>
+
+
+                            </div>
+                        </div><!-- location-map -->
+                    </div>
+
+
+                    <div class="col-sm-5 col-md-4">
+                        <div class="side-bar">
+
+                            <div class="contact-seller widget">
+                                <h4>Datos de contacto</h4>
+
+                                <div class="seller-info">
+                                    <p><span> Nombre </span> {{club?.name}}</p>
+                                    <p><span>TEL </span> {{club?.phoneNumber}} </p>
+                                </div>
+
+
+                            </div>
+
+                            <div class="widget item-tag">
+                                <h4>Servicios del club</h4>
+                                <ul class="list-inline">
+                                    <li><a href="#">Modern</a></li>
+                                    <li><a href="#">Used</a></li>
+                                    <li><a href="#">New</a></li>
+                                    <li><a href="#">Light Weight</a></li>
+                                    <li><a href="#">Fresh</a></li>
+                                    <li><a href="#">Laptop</a></li>
+                                    <li><a href="#">Classified</a></li>
+                                    <li><a href="#">Business</a></li>
+                                    <li><a href="#">Popular</a></li>
+                                    <li><a href="#">Latest</a></li>
+                                    <li><a href="#">Accesories</a></li>
+                                    <li><a href="#">Free Ads</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn btn-primary">Reservar cancha</button>
+                            </div>
+
+                        </div><!-- side-bar -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- all-categories -->
+</div>	<!-- page -->

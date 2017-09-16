@@ -28,6 +28,8 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
+
+
     }
 
     buscarClub() {
@@ -52,6 +54,9 @@ export class HomeComponent implements OnInit {
             modelform.clubname
         )
     }
+
+
+
 
 
 }

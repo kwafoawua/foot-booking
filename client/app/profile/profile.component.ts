@@ -14,12 +14,17 @@ import { ClubService } from '../_services/index';
 })
 
 export class ProfileComponent implements OnInit {
+
     currentUser: User;
     users: User[] = [];
     club : Club;
+    lat: number = -31.421272;
+    lng: number = -64.183841;
+    zoom = 16.88;
+
 
     constructor(private userService: UserService, private clubService: ClubService, private route: ActivatedRoute) {
-        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+     //   this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
 
 
@@ -27,6 +32,13 @@ export class ProfileComponent implements OnInit {
         this.getClub(this.route.snapshot.params['id']);
 
     }
+
+
+
+
+
+
+
 
     deleteUser(_id: string) {
         this.userService.delete(_id).subscribe(() => { this.loadAllUsers() });

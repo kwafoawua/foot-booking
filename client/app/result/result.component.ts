@@ -48,7 +48,6 @@ export class ResultComponent implements OnInit {
 
     ngOnInit(): void {
         this.clubs = SearchService.clubs;
-        console.log('clubs ssss', SearchService.clubs);
     }
 
 
