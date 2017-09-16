@@ -33,14 +33,15 @@ export class LoginComponent implements OnInit {
     login() {
         this.loading = true;
         this.authenticationService.login(this.model.username, this.model.password)
-           /* .subscribe(
+            .subscribe(
                 data => {
                     this.router.navigate(['/profile', data.clubId] );
                 },
                 error => {
                     this.alertService.error(error);
                     this.loading = false;
-                });*/
+                });
+
 
     }
 

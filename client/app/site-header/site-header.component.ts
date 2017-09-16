@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
-import { User } from '../models/user';
-import { Observable } from 'rxjs/Observable';
-import { Config } from '../index';
-import { AuthCookie } from '../services/auth-cookies-handler';
+//import { User } from '../models/user';
+//import { Observable } from 'rxjs/Observable';
+//import { Config } from '../index';
+//import { AuthCookie } from '../services/auth-cookies-handler';
 import {} from '@angular/http';
 import 'rxjs/add/operator/map';
 
-import {isNullOrUndefined, isUndefined} from "util";
+//import {isNullOrUndefined, isUndefined} from "util";
 
 
 @Component({
@@ -20,25 +20,21 @@ import {isNullOrUndefined, isUndefined} from "util";
 export class SiteHeaderComponent implements OnInit {
   currentUser: string;
   username: string;
-  //obs: Observable;
+
 
   constructor() {
 
       this.currentUser=JSON.parse(localStorage.getItem('currentUser'));
+    // this.username='';
       //this.obs=obs.subscribe(value => console.log(value));
+    if(this.currentUser != undefined){
+      this.username = this.currentUser.username;
 
     }
-
-
+    }
 
   ngOnInit() {
 
-      if(this.currentUser != undefined)
-    {this.username = this.currentUser.username}
-  }
-
-
-
-
+    }
 
 }
