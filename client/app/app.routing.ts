@@ -9,7 +9,7 @@ import { AuthGuard } from './_guards/index';
 import {ResultComponent} from './result/index';
 
 const appRoutes: Routes = [
-      { path: '', component: HomeComponent },
+    { path: '', component: HomeComponent },
 
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterClubComponent },
