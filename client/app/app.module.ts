@@ -1,12 +1,17 @@
 ﻿import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { TagInputModule } from 'ngx-chips';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
+import { ImageUploadModule } from 'angular2-image-upload';
+import { CustomFormsModule } from 'ng2-validation';
+import { AgmCoreModule } from '@agm/core';
+
+
 
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
-
-
 
 import { customHttpProvider } from './_helpers/index';
 import { AlertComponent } from './_directives/index';
@@ -35,10 +40,15 @@ import { AgmCoreModule } from '@agm/core';
         HttpModule,
         routing,
         ReactiveFormsModule,
+        TagInputModule,
+        BrowserAnimationsModule,
+        ImageUploadModule.forRoot(),
+        CustomFormsModule,
         AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyAAwaI8YafySsHraMA_9G_n30_FECUhoVs'
+            apiKey: 'AIzaSyAAwaI8YafySsHraMA_9G_n30_FECUhoVs',
+            libraries: ["places"]
         })
-    ],
+        ],
     declarations: [
         AppComponent,
         AlertComponent,

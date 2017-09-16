@@ -25,6 +25,7 @@ route.get('/').get(function (req, res) {
 	console.log('Pagina principal');
 });*/
 
+
 router.post('/users/authenticate', userController.authenticate);
 router.post('/clubs/register', clubController.registerClub);
 router.get('/clubs/:_id', clubController.findById);

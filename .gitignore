@@ -2,7 +2,6 @@
 logs
 *.log
 npm-debug.log*
-.idea
 # Runtime data
 pids
 *.pid
@@ -40,3 +39,4 @@ typings
 # Generated files
 client/app/**/*.js
 client/app/**/*.js.map
+.idea

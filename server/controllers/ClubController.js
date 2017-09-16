@@ -35,34 +35,43 @@ function addClub (club) {
                 return deferred.reject('El nombre'+club.username+' o email '+club.email+' está en uso.');
 
             } else {
+                var serviceArray = [];
+                club.services.forEach(function (service) {
+                    console.log(service, obj[service]);
+                    serviceArray.push(service.display);
 
+                });
                 var newClub = new Club({
                     name: club.name,
-                    address: club.address,
+                    address: {
+                        lat: club.address.lat,
+                        lng: club.address.lng,
+                        address: club.address.address
+                    },
                     phoneNumber: club.phoneNumber,
                     fields: club.fields || null,
-                    services: club.services || null,
+                    services: serviceArray,
                     //user: newUser,
                     socialMedia: club.socialMedia || null
                 });
 
                 var newUser = new User({
-                    username: club.username.toLowerCase(),
-                    email: club.email,
+                    username: club.user.username.toLowerCase(),
+                    email: club.user.email,
                     creator: newClub,
                     rol: 'Club',
                 });
 
-                newUser.password = newUser.setPassword(club.password);
+                newUser.password = newUser.setPassword(club.user.password);
 
                  newUser.save(function (err) {
                     if(err) {
                         return deferred.reject(err.name + ' : ' + err.message);
                     }
-                    console.log('nuevo club'+newClub);
+                    console.log('nuevo usuario'+newClub);
                     newClub.save(function (err) {
                         if(err) return deferred.reject(err.name + ' : ' + err.message);
-                        console.log('nuevo user'+newUser);
+                        console.log('nuevo club'+newUser);
                         return deferred.resolve();
                     });
                  });
