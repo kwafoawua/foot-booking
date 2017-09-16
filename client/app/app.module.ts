@@ -19,7 +19,7 @@ import { FormGroup, FormArray, FormBuilder,
     Validators,ReactiveFormsModule  } from '@angular/forms';
 import { SiteHeaderComponent } from './site-header/site-header.component';
 import { SiteFooterComponent } from './site-footer/site-footer.component';
-import { ProfileComponent } from './profile/index';
+import { ProfileClubClientComponent } from './ClubProfileClient/clubProfileClient.component';
 import {ResultComponent} from './result/index';
 import {SearchService} from "./_services/search.service";
 
@@ -47,7 +47,7 @@ import { AgmCoreModule } from '@agm/core';
         RegisterClubComponent,
         SiteHeaderComponent,
         SiteFooterComponent,
-        ProfileComponent,
+        ProfileClubClientComponent,
         ResultComponent
     ],
     providers: [

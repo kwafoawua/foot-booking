@@ -36,5 +36,6 @@ router.get('/clubs/', clubController.findAllClubs);
 
 router.get('/findClub/:clubfilter', clubController.findClubsByFilter);
 
+
 module.exports = router;
 

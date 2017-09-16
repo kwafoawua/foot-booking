@@ -22,7 +22,7 @@ app.use(expressJwt({
         }
         return null;
     }
-}).unless({ path: ['/users/authenticate', '/users/register', '/users', '/clubs/register', '/clubs', '/results', '/findClub'] }));
+}).unless({ path: ['/users/authenticate', '/users/register', '/users', '/clubs/register', '/clubs', '/results', '/findClub', '/results/club/'] }));
 
 // routes
 app.use('/', require('./routes/index'));

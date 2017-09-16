@@ -160,17 +160,10 @@ module.exports.deleteClub = function(req, res) {
 
 module.exports.findClubsByFilter = function (req,res) {
 
-    //console.log(req);
-
-    console.log("este es el json club filter" + JSON.parse(req.params.clubfilter).clubname);
-
-        Club.find({name : new RegExp(JSON.parse(req.params.clubfilter).clubname, "i")}, function (err, club) {
+           Club.find({name : new RegExp(JSON.parse(req.params.clubfilter).clubname, "i")}, function (err, club) {
             if (err) {
                 return res.status(500).send(err + "al menos entro");
             }
-            console.log('busca el club por nombre, en el back');
-            console.log(JSON.parse(req.params.clubfilter));
-            console.log(club);
 
             res.status(200).send(club);
 
