@@ -20,12 +20,12 @@ import {isNullOrUndefined, isUndefined} from "util";
 export class SiteHeaderComponent implements OnInit {
   currentUser: string;
   username: string;
-  obs: Observable;
+  //obs: Observable;
 
   constructor() {
 
       this.currentUser=JSON.parse(localStorage.getItem('currentUser'));
-      this.obs=obs.subscribe(value => console.log(value));
+      //this.obs=obs.subscribe(value => console.log(value));
 
     }
 

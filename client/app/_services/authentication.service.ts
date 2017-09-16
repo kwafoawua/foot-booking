@@ -1,15 +1,15 @@
 ﻿import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import {} from '@angular/http'
-import 'rxjs/add/operator/map'
+import {} from '@angular/http';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class AuthenticationService {
-    obs: Observable;
+    //obs: Observable;
 
     constructor(private http: Http) {
-        this.obs=Rx.Observable;
+       // this.obs=Rx.Observable;
     }
 
 
@@ -21,28 +21,15 @@ export class AuthenticationService {
                 if (user && user.token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify(user));
-                }},
-
-
-                return this.obs.create((observer) => {
-                    array.forEach((elm) => {
-                        observer.onNext(elm);
-                    });
-                    observer.onCompleted();
-                });
-                 return user;
-
+                }
+                 })
+        return user
     }
 
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
-        return this.obs.create((observer) => {
-            array.forEach((elm) => {
-                observer.onNext(elm);
-            });
-            observer.onCompleted();
-        });
+
     }
 
 }
