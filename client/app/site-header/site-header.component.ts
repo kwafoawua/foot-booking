@@ -6,7 +6,7 @@ import { UserService } from '../_services/index';
 	selector: 'app-site-header',
 	moduleId: module.id,
 	templateUrl: 'site-header.component.html',
-	styleUrls: ['site-header.component.css']
+	styleUrls: ['site-header.component.css'],
 })
 export class SiteHeaderComponent implements OnInit {
 
@@ -17,6 +17,9 @@ export class SiteHeaderComponent implements OnInit {
     }
  
     ngOnInit() {
+    	if(this.currentUser != undefined){
+    		this.currentUser.username = this.currentUser.username;
+    	}
     }
 
 }

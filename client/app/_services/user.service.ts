@@ -9,7 +9,6 @@ import { User } from '../_models/user';
 export class UserService {
 
     constructor(private http: Http) {}
- 
     
     getAll() {
         return this.http.get('/users', this.jwt())
