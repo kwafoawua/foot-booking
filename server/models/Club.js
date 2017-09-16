@@ -16,23 +16,23 @@ var ObjectId = Schema.Types.ObjectId;
 var clubSchema = new Schema({
     name: { type: String, required: true, index: true },
     address: {
-        type: String, required: true 
+        lat: {type: Number, required: true},
+        lng: {type: Number, required: true},
+        address: {type: String, required: true}
     },
     phoneNumber: String,
     fields: [{ type: ObjectId, ref: 'Cancha' }],
     services: [{
-        name: { type: String, required: true },
-        description: String
+        name: { type: String, required: true }
     }],
-    //user: { type: ObjectId, ref: 'User', required: true },
-    //user : {type: String, required: true},
     socialMedia: {
         facebookId: String,
         twitterId: String,
         instagramId: String,
         snapchatId: String,
         googleId: String
-    }
+    },
+    profileImg: {data: Buffer, contentType: String}
 });
 
 clubSchema.pre('remove', function(next) {

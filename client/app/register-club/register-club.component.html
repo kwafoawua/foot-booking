@@ -1,5 +1,5 @@
 ﻿<div class="container-fluid">
-    <div class="row" [formGroup]="registerClubForm">
+    <form class="row" [formGroup]="registerClubForm" (ngSubmit)="registerClub()" novalidate="novalidate">
         <h2 class="center-block">Registro Complejo</h2>
         <div formGroupName="user" class="col-md-8 col-md-offset-2" style="border: 1px solid #cccccc">
             <h3>Datos del Usuario</h3>
@@ -9,8 +9,21 @@
                 <label class="control-label">Nombre de Usuario *</label>
                     <div class="input-group">
 			            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input formControlName="username" class="form-control input-md" type="text" >
+                        <input formControlName="username" id="username" class="form-control input-md" type="text" >
+
                     </div>
+                        <div name="valida-username" *ngIf="registerClubForm.get('user.username').invalid &&
+                        (registerClubForm.get('user.username').dirty || registerClubForm.get('user.username').touched)"
+                             class="alert alert-danger">
+
+                            <div *ngIf="registerClubForm.get('user.username').errors?.required">
+                                El nombre de usuario es requerido.
+                            </div>
+                            <div *ngIf="registerClubForm.get('user.username').errors?.minlength">
+                                El nombre de usuario debe tener al menos 3 caracteres.
+                            </div>
+
+                        </div>
                     </div>
                     <div class="form-group">
                     <label class="control-label">Email *</label>
@@ -18,6 +31,18 @@
                         <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
                         <input formControlName="email" class="form-control input-md" type="email" >
                     </div>
+                        <div name="valida-email" *ngIf="registerClubForm.get('user.email').invalid &&
+                        (registerClubForm.get('user.email').dirty || registerClubForm.get('user.email').touched)"
+                             class="alert alert-danger">
+
+                            <div *ngIf="registerClubForm.get('user.email').errors?.required">
+                                El email es requerido.
+                            </div>
+                            <div *ngIf="registerClubForm.get('user.email').errors?.email">
+                                El email debe ser correcto.
+                            </div>
+
+                        </div>
 
                 </div>
             </div>
@@ -27,6 +52,18 @@
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                         <input formControlName="password" class="form-control input-md" type="password" >
+                    </div>
+                    <div name="valida-contraseña" *ngIf="registerClubForm.get('user.password').invalid &&
+                        (registerClubForm.get('user.password').dirty || registerClubForm.get('user.password').touched)"
+                         class="alert alert-danger">
+
+                        <div *ngIf="registerClubForm.get('user.password').errors?.required">
+                            La contraseña es requerida
+                        </div>
+                        <div *ngIf="registerClubForm.get('user.email').errors?.minlength">
+                            La contraseña debe ser de mas de 8 caracteres.
+                        </div>
+
                     </div>
                 </div>
                 <div class="form-group">
@@ -50,20 +87,39 @@
                         <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>
                         <input formControlName="name" class="form-control input-md" type="text" >
                     </div>
+                    <div name="valida-nombreclub" *ngIf="registerClubForm.get('name').invalid &&
+                        (registerClubForm.get('name').dirty || registerClubForm.get('name').touched)"
+                         class="alert alert-danger">
+
+                        <div *ngIf="registerClubForm.get('name').errors?.required">
+                            El nombre del club es requerido.
+                        </div>
+
+                    </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" formGroupName="address">
                     <label class="control-label">Dirección *</label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span>
-                        <input formControlName="address" class="form-control input-md" type="text" >
+                        <input placeholder="Ingresar Direccion" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #address>
                     </div>
+                    <div name="valida-direccion" *ngIf="registerClubForm.get('address').invalid &&
+                        (registerClubForm.get('address').dirty || registerClubForm.get('address').touched)"
+                         class="alert alert-danger">
+
+                        <div *ngIf="registerClubForm.get('address').errors?.required">
+                            El campo Dirección es requerido.
+                        </div>
+
+                    </div>
+
 
                 </div>
                 <div class="form-group">
                     <label class="control-label">Teléfono</label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
-                        <input formControlName="phoneNumber" class="form-control input-md" type="number" >
+                        <input formControlName="phoneNumber" class="form-control input-md" type="text" >
                     </div>
 
                 </div>
@@ -73,6 +129,15 @@
                         <tag-input-dropdown  [showDropdownIfEmpty]="true" [autocompleteObservable]="requestAutocompleteItemsFake">
                         </tag-input-dropdown>
                     </tag-input>
+
+                    <div name="valida-servicio" *ngIf="registerClubForm.get('services').invalid &&
+                        (registerClubForm.get('services').dirty || registerClubForm.get('services').touched)"
+                         class="alert alert-danger">
+
+                        <div *ngIf="registerClubForm.get('services').errors?.required">
+                            El campo Servicios es requerido.
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6">
@@ -81,6 +146,18 @@
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-sort-amount-desc" aria-hidden="true"></i></span>
                         <textarea formControlName="description" class="form-control input-md"></textarea>
+                    </div>
+                    <div name="valida-descripcion" *ngIf="registerClubForm.get('description').invalid &&
+                        (registerClubForm.get('description').dirty || registerClubForm.get('description').touched)"
+                         class="alert alert-danger">
+
+                        <div *ngIf="registerClubForm.get('description').errors?.required">
+                            El campo Descripción es requerido.
+                        </div>
+                        <div *ngIf="registerClubForm.get('description').errors?.maxlength">
+                            La descripción no debe ser de mas de 255 caracteres.
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -140,8 +217,18 @@
                     </image-upload>
                 </div>
 
+                <div name="valida-descripcion" *ngIf="registerClubForm.get('profileImg').invalid &&
+                        (registerClubForm.get('profileImg').dirty || registerClubForm.get('profileImg').touched)"
+                     class="alert alert-danger">
+
+                    <div *ngIf="registerClubForm.get('profileImg').errors?.required">
+                        El campo Imagen de perfil es requerido.
+                    </div>
+                </div>
+
             </div>
         </div><!--Fin Datos Subir Imagenes-->
-    </div>
+        <button type="submit">Submit</button>
+    </form>
 
 </div>

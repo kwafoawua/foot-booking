@@ -5,6 +5,9 @@ import { HttpModule } from '@angular/http';
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
 import { ImageUploadModule } from 'angular2-image-upload';
+import { CustomFormsModule } from 'ng2-validation';
+import { AgmCoreModule } from '@agm/core';
+
 
 
 import { AppComponent } from './app.component';
@@ -33,7 +36,13 @@ import {SearchService} from "./_services/search.service";
         ReactiveFormsModule,
         TagInputModule,
         BrowserAnimationsModule,
-        ImageUploadModule.forRoot()
+        ImageUploadModule.forRoot(),
+        CustomFormsModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyAAwaI8YafySsHraMA_9G_n30_FECUhoVs',
+            libraries: ["places"]
+        })
+
         ],
     declarations: [
         AppComponent,

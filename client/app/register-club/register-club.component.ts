@@ -1,6 +1,10 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, ElementRef, NgZone, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { CustomValidators } from 'ng2-validation';
+import { } from 'googlemaps';
+import { MapsAPILoader } from '@agm/core';
+
 /*ng-chhips*/
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/debounceTime';
@@ -18,22 +22,54 @@ import {FileHolder} from "angular2-image-upload/lib/image-upload/image-upload.co
     templateUrl: 'register-club.component.html'
 })
 
-export class RegisterClubComponent {
+export class RegisterClubComponent implements OnInit{
     model: any = {};
     loading = false;
     registerClubForm: FormGroup;
+
+    @ViewChild("address")
+    public searchElementRef: ElementRef;
 
     constructor(
         private router: Router,
         private clubService: ClubService,
         private alertService: AlertService,
-        private fb: FormBuilder) {
+        private fb: FormBuilder,
+        private mapsAPILoader: MapsAPILoader,
+        private ngZone: NgZone) {
         this.createForm();
+    }
+
+    ngOnInit() {
+        //load Places Autocomplete
+        this.mapsAPILoader.load().then(() => {
+            let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+                types: ["address"]
+            });
+            autocomplete.addListener("place_changed", () => {
+                this.ngZone.run(() => {
+                    //get the place result
+                    let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+
+                    //verify result
+                    if (place.geometry === undefined || place.geometry === null) {
+                        return;
+                    }
+
+                    //set latitude, longitude and zoom
+                    this.registerClubForm.get('address.lat').setValue(place.geometry.location.lat());
+                    this.registerClubForm.get('address.lng').setValue(place.geometry.location.lng());
+                    this.registerClubForm.get('address.address').setValue(place.formatted_address);
+                    console.log(this.registerClubForm.get('address').value);
+                    //this.registerClubForm.get('address.address').setValue(place.
+                });
+            });
+        });
     }
 
     register() {
         this.loading = true;
-        this.clubService.create(this.model)
+        this.clubService.create(this.registerClubForm.value)
             .subscribe(
                 data => {
                     this.alertService.success('Registración Exitosa', true);
@@ -48,34 +84,37 @@ export class RegisterClubComponent {
     createForm() {
         this.registerClubForm = this.fb.group({
             user: this.fb.group({
-                username: '',
-                email: '',
-                password: ''
+                username: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
+                email: [null, Validators.compose([Validators.required,CustomValidators.email ])],
+                password: [null,Validators.compose([Validators.required, Validators.minLength(8)])],//falta validar contraseña
             }),
-            name: '',
-            description: '',
-            phoneNumber: '',
-            address: '',
-            services: [],
-            profileImg: null,
-            galleryImg: [],
-            field: this.fb.group({
-                fieldName: '',
+            name: [null, Validators.required],
+            description: [null, Validators.compose([Validators.required, Validators.maxLength(255)])],
+            phoneNumber: null,
+            //address: [null, Validators.required],
+            address: this.fb.group({
+                lat: '',
+                lng:'',
+                address: ''
+            }),
+            services: [[], Validators.required],
+            profileImg: [null, Validators.required],
+            //galleryImg: [],
+            field: this.fb.group({//cancha
+                fieldName: null,
                 services: [],
-                fieldImg: ''
+                fieldImg: null
             }),
             socialMedia: this.fb.group({
-                facebookId: '',
-                twitterId: '',
-                instagramId: '',
-                googleId: ''
+                facebookId: null,
+                twitterId: null,
+                instagramId: null,
+                googleId: null
 
             })
         });
     }
 
-        disabled = true;
-        autocompleteItems = ['Item1', 'item2', 'item3'];
     public requestAutocompleteItemsFake = (text: string): Observable<string[]> => {
             return Observable.of([
                 'Asador', 'Buffet', 'Parking', 'Techado', 'Bar', 'Nocturno'
@@ -87,120 +126,43 @@ export class RegisterClubComponent {
         console.log(this.registerClubForm.controls['profileImg']);
     }
 
-    public options = {
-            readonly: false,
-            placeholder: '+ Tag'
-        };
-
-    public onAdd(item: string) {
-            console.log('tag added: value is ' + item);
-        }
-
-    public onRemove(item: string) {
-            console.log('tag removed: value is ' + item);
-        }
-
-    public onSelect(item: string) {
-            console.log('tag selected: value is ' + item);
-        }
-
-    public onFocus(item: string) {
-            console.log('input focused: current value is ' + item);
-        }
-
-    public onTextChange(text: string) {
-            console.log('text changed: value is ' + text);
-        }
-
-    public onBlur(item: string) {
-            console.log('input blurred: current value is ' + item);
-        }
-
-    public onTagEdited(item: string) {
-            console.log('tag edited: current value is ' + item);
-        }
-
-    public onValidationError(item: string) {
-            console.log('invalid tag ' + item);
-        }
-
-    public transform(value: string): Observable<object> {
-            const item = {display: `@${value}`, value: `@${value}`};
-        return Observable.of(item);
+    public profileRemoved (file: FileHolder) {
+        this.registerClubForm.controls['profileImg'].setValue(null);
+        console.log(this.registerClubForm.controls['profileImg'])
     }
 
-    private startsWithAt(control: FormControl) {
-            if (control.value.charAt(0) !== '@') {
-                return {
-                    'startsWithAt@': true
-                };
+    registerClub (){
+        if(this.registerClubForm.valid){
+            console.log(this.registerClubForm.value)
+        } else {
+            this.validateAllFields(this.registerClubForm);
+        }
+    }
+
+    validateAllFields(formGroup: FormGroup) {
+        Object.keys(formGroup.controls).forEach(field => {
+            const control = formGroup.get(field);
+            if (control instanceof FormControl) {
+                control.markAsTouched({ onlySelf: true });
+            } else if (control instanceof FormGroup) {
+                this.validateAllFields(control);
             }
+        });
+    }
 
-            return null;
-        }
-
-    private endsWith$(control: FormControl) {
-            if (control.value.charAt(control.value.length - 1) !== '$') {
-                return {
-                    'endsWith$': true
-                };
+   /* comparePassword = (control: FormControl): { [s:string]:boolean} => {
+        let formulario: any = this;
+        console.log(this.registerClubForm);
+        if(control.value !== formulario.get('user.password').value){
+            return {
+                noiguales : false
             }
-
-            return null;
         }
+    };*/
 
-    private validateAsync(control: FormControl) {
-            return new Promise(resolve => {
-                const value = control.value;
-                const result = isNaN(value) ? {
-                    isNan: true
-                } : null;
 
-                setTimeout(() => {
-                    resolve(result);
-                }, 1);
-            });
-        }
-
-    public asyncErrorMessages = {
-            isNan: 'Please only add numbers'
-        };
-
-    public validators = [this.startsWithAt, this.endsWith$];
-
-    public asyncValidators = [this.validateAsync];
-
-    public errorMessages = {
-            'startsWithAt@': 'Your items need to start with \'@\'',
-            'endsWith$': 'Your items need to end with \'$\''
-        };
-
-    public onAdding(tag: string): Observable<any> {
-            const confirm = window.confirm('Do you really want to add this tag?');
-        return Observable
-            .of(tag)
-            .filter(() => confirm);
+    public galleryUploaded (file: FileHolder) {
+        this.registerClubForm.constrols['galleryImg'].setValue(file);
     }
-
-    public onRemoving(tag: string): Observable<any> {
-            const confirm = window.confirm('Do you really want to remove this tag?');
-        return Observable
-            .of(tag)
-            .filter(() => confirm);
-    }
-
-    public asyncOnAdding(tag: string): Observable<any> {
-            const confirm = window.confirm('Do you really want to add this tag?');
-        return Observable
-            .of(tag)
-            .filter(() => confirm);
-    }
-
-
-
-
-
-
-
 
 }
