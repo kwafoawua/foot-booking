@@ -35,16 +35,7 @@ export class ProfileClubClientComponent implements OnInit {
 
     }
 
-    deleteUser(_id: string) {
-        this.userService.delete(_id).subscribe(() => { this.loadAllUsers() });
-    }
-
-    private loadAllUsers() {
-        this.userService.getAll().subscribe(users => { this.users = users; });
-    }
-
-
-    private getClub (_id: string) {
+        private getClub (_id: string) {
         this.clubService.getById(_id).subscribe(club => {this.club = club});
     }
 

@@ -6,7 +6,6 @@ import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
 import { ImageUploadModule } from 'angular2-image-upload';
 import { CustomFormsModule } from 'ng2-validation';
-import { AgmCoreModule } from '@agm/core';
 
 
 
@@ -20,8 +19,8 @@ import { AlertService, AuthenticationService, UserService, ClubService } from '.
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import { RegisterClubComponent } from './register-club/index';
-import { FormGroup, FormArray, FormBuilder,
-    Validators,ReactiveFormsModule  } from '@angular/forms';
+//import { FormGroup, FormArray, FormBuilder,
+    //Validators,ReactiveFormsModule  } from '@angular/forms';
 import { SiteHeaderComponent } from './site-header/site-header.component';
 import { SiteFooterComponent } from './site-footer/site-footer.component';
 import { ProfileClubClientComponent } from './ClubProfileClient/clubProfileClient.component';

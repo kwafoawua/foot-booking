@@ -3,5 +3,6 @@ export class Club {
     name: string;
     address: string;
     phoneNumber: string;
+    description: string;
 
 }

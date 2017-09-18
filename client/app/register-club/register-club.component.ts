@@ -162,7 +162,7 @@ export class RegisterClubComponent implements OnInit{
 
 
     public galleryUploaded (file: FileHolder) {
-        this.registerClubForm.constrols['galleryImg'].setValue(file);
+        this.registerClubForm.controls['galleryImg'].setValue(file);
     }
 
 }
