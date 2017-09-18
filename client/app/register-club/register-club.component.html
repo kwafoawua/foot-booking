@@ -1,5 +1,5 @@
 ﻿<div class="container-fluid">
-    <form class="row" [formGroup]="registerClubForm" (ngSubmit)="registerClub()" novalidate="novalidate">
+    <form class="row" enctype="multipart/form-data" [formGroup]="registerClubForm" (ngSubmit)="registerClub()" novalidate="novalidate">
         <h2 class="center-block">Registro Complejo</h2>
         <div formGroupName="user" class="col-md-8 col-md-offset-2" style="border: 1px solid #cccccc">
             <h3>Datos del Usuario</h3>
@@ -207,8 +207,10 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label class="control-label">Imagen de Perfil</label>
+                    <!--<input type="file" (change)="fileChangeEvent($event)" placeholder="Upload file..." />
+                    <button type="button" (click)="upload()">Upload</button>-->
                     <image-upload
-                            (onFileUploadFinish)="profileUploaded($event)"
+                            (onFileUploadFinish)="fileChangeEvent($event)"
                             (onRemove)="profileRemoved($event)"
                             [max]="1"
                             [extensions]="['jpg','png']"
@@ -217,7 +219,7 @@
                     </image-upload>
                 </div>
 
-                <div name="valida-descripcion" *ngIf="registerClubForm.get('profileImg').invalid &&
+                <div name="valida-imagen" *ngIf="registerClubForm.get('profileImg').invalid &&
                         (registerClubForm.get('profileImg').dirty || registerClubForm.get('profileImg').touched)"
                      class="alert alert-danger">
 

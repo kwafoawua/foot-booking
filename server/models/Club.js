@@ -23,7 +23,8 @@ var clubSchema = new Schema({
     phoneNumber: String,
     fields: [{ type: ObjectId, ref: 'Cancha' }],
     services: [{
-        name: { type: String, required: true }
+        display: { type: String, required: true },
+        value: { type: String}
     }],
     socialMedia: {
         facebookId: String,
@@ -32,7 +33,8 @@ var clubSchema = new Schema({
         snapchatId: String,
         googleId: String
     },
-    profileImg: {data: Buffer, contentType: String}
+    profileImg: {type: String, required: true},
+    description: String
 });
 
 clubSchema.pre('remove', function(next) {

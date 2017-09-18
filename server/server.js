@@ -1,4 +1,4 @@
-﻿require('rootpath')();
+require('rootpath')();
 var express = require('express');
 var app = express();
 var cors = require('cors');
@@ -7,9 +7,10 @@ var expressJwt = require('express-jwt');
 var config = require('config.json');
 var mongoose = require('mongoose');
 
+
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: "50mb"}));
+app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
 
 // use JWT auth to secure the api, the token can be passed in the authorization header or querystring
 app.use(expressJwt({
@@ -22,7 +23,9 @@ app.use(expressJwt({
         }
         return null;
     }
-}).unless({ path: ['/users/authenticate', '/users/register', '/users', '/clubs/register', '/clubs', '/results', '/findClub', '/results/club/'] }));
+
+}).unless({ path: ['/users/authenticate', '/users/register', '/users', '/clubs/register', '/clubs', '/results', '/findClub', '/results/club/', '/uploads'] }));
+
 
 // routes
 app.use('/', require('./routes/index'));
