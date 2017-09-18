@@ -7,7 +7,7 @@ import { Club } from '../_models/club';
 export class ClubService {
     constructor(private http: Http) { }
 
-    create(club: Club) {
+    create(club: any) {
         return this.http.post('/clubs/register', club);
     }
 
@@ -25,5 +25,9 @@ export class ClubService {
 
     delete(_id: string) {
         return this.http.delete('/clubs/' + _id);
+    }
+
+    upload(image: any) {
+        return this.http.post('/uploads/', image);
     }
 }

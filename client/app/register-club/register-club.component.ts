@@ -26,6 +26,8 @@ export class RegisterClubComponent implements OnInit{
     model: any = {};
     loading = false;
     registerClubForm: FormGroup;
+    filesToUpload: File;
+
 
     @ViewChild("address")
     public searchElementRef: ElementRef;
@@ -121,19 +123,59 @@ export class RegisterClubComponent implements OnInit{
             ]);
         };
 
-    public profileUploaded(file: FileHolder) {
-        this.registerClubForm.controls['profileImg'].setValue(file);
-        console.log(this.registerClubForm.controls['profileImg']);
-    }
+    /*public profileUploaded(file: FileHolder) {
+       // this.registerClubForm.controls['profileImg'].setValue(file);
+        this.clubService.upload(file.target);
+        console.log(file);
+    }*/
 
     public profileRemoved (file: FileHolder) {
         this.registerClubForm.controls['profileImg'].setValue(null);
         console.log(this.registerClubForm.controls['profileImg'])
     }
 
+    upload() {
+        const formData: any = new FormData();
+        const file: File = this.filesToUpload;
+
+        formData.append("image", file, file['name']);
+        formData.append(this.registerClubForm.value);
+
+        this.clubService.upload(formData)
+            .map(file => file.json())
+            .subscribe(file => console.log('files', file))
+    }
+
+    fileChangeEvent(file: FileHolder) {
+        //this.filesToUpload = fileInput.target.files[0];
+        this.filesToUpload = file.file;
+        this.registerClubForm.controls['profileImg'].setValue(true);
+
+        //this.upload();
+        //this.product.photo = fileInput.target.files[0]['name'];
+    }
+
     registerClub (){
         if(this.registerClubForm.valid){
-            console.log(this.registerClubForm.value)
+            this.loading = true;
+
+            const formData: any = new FormData();
+            const file: File = this.filesToUpload;
+
+            formData.append("image", file, file['name']);
+            formData.append("body",JSON.stringify(this.registerClubForm.value) );
+
+
+            this.clubService.create(formData)
+                .subscribe(
+                    data => {
+                        this.alertService.success('Registración Exitosa', true);
+                        this.router.navigate(['/login']);
+                    },
+                    error => {
+                        this.alertService.error(error);
+                        this.loading = false;
+                    });
         } else {
             this.validateAllFields(this.registerClubForm);
         }
@@ -162,7 +204,7 @@ export class RegisterClubComponent implements OnInit{
 
 
     public galleryUploaded (file: FileHolder) {
-        this.registerClubForm.constrols['galleryImg'].setValue(file);
+        this.registerClubForm.controls['galleryImg'].setValue(file);
     }
 
 }

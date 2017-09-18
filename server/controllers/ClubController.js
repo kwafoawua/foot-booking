@@ -8,12 +8,17 @@ var _ = require('lodash');
 var Club = require('../models/Club');
 var User = require('../models/User');
 var Q = require('q');
+var multer = require('./uploads');
 
 /**
  * Create a Club
  */
 module.exports.registerClub = function (req,res) {
-     addClub(req.body)
+    console.log(req);
+    console.log(req.file);
+    var profilePath = req.file.path.replace('//', '/');
+    var club = JSON.parse(req.body.body);
+     addClub(club, profilePath)
     .then(function () {
             res.sendStatus(200);
         })
@@ -22,9 +27,11 @@ module.exports.registerClub = function (req,res) {
         });
 
 };
-function addClub (club) {
+function addClub (club, profilePath) {
     console.log('entra al club');
-    console.log(club);
+    //var clubcoso = JSON.parse(fullClub.body);
+    //console.log(clubcoso);
+
     var deferred = Q.defer();
     User.findOne({$or : [{ 'username': club.username }, {'email': club.email}]},
         function(err, user) {
@@ -35,12 +42,8 @@ function addClub (club) {
                 return deferred.reject('El nombre'+club.username+' o email '+club.email+' está en uso.');
 
             } else {
-                var serviceArray = [];
-                club.services.forEach(function (service) {
-                    console.log(service, obj[service]);
-                    serviceArray.push(service.display);
 
-                });
+
                 var newClub = new Club({
                     name: club.name,
                     address: {
@@ -50,9 +53,10 @@ function addClub (club) {
                     },
                     phoneNumber: club.phoneNumber,
                     fields: club.fields || null,
-                    services: serviceArray,
-                    //user: newUser,
-                    socialMedia: club.socialMedia || null
+                    services: club.services,
+                    socialMedia: club.socialMedia || null,
+                    profileImg: profilePath,
+                    description: club.description
                 });
 
                 var newUser = new User({

@@ -42,3 +42,4 @@ client/app/**/*.js
 client/app/**/*.js.map
 
 .idea
+uploads
