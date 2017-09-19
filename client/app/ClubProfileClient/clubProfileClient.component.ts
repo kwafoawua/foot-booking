@@ -23,8 +23,11 @@ export class ProfileClubClientComponent implements OnInit {
 
 
 
-    constructor(private userService: UserService, private clubService: ClubService, private route: ActivatedRoute) {
 
+    constructor(private userService: UserService, private clubService: ClubService, private route: ActivatedRoute) {
+        //this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        //this.isEdit = false;
+        
     }
 
 

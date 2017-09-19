@@ -131,6 +131,7 @@ export class RegisterClubComponent implements OnInit{
 
     public profileRemoved (file: FileHolder) {
         this.registerClubForm.controls['profileImg'].setValue(null);
+        this.filesToUpload = null;
         console.log(this.registerClubForm.controls['profileImg'])
     }
 
