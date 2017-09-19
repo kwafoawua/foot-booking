@@ -37,3 +37,8 @@ div.file-upload.hr-inline-group > label.clear.button {
 	background: firebrick;
 	margin-left: 10px;
 }
+
+.user-section ul {
+	display: inline-block !important;
+}
+
