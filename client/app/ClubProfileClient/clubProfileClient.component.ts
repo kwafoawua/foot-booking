@@ -17,7 +17,7 @@ export class ProfileClubClientComponent implements OnInit {
 
     currentUser: User;
     users: User[] = [];
-    club : Club = {};
+    club : Club ;
     zoom = 16.88;
 
 
@@ -29,7 +29,7 @@ export class ProfileClubClientComponent implements OnInit {
 
 
     ngOnInit() {
-      this.club= this.getClub(this.route.snapshot.params['id']);
+       this.getClub(this.route.snapshot.params['id']);
 
     }
 
