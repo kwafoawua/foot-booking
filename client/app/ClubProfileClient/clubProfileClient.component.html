@@ -11,7 +11,7 @@
                             <div class="detail-item-image item-image carousel slide" data-ride="carousel">
                                 <div class="carousel-inner">
                                     <div class="item active">
-                                        <img src="images/item/3.jpg" alt="" class="img-responsive">
+                                        <img [src]="club?.profileImg" alt="" class="img-responsive">
                                     </div>
                                     <div class="item">
                                         <img src="images/item/2.jpg" alt="" class="img-responsive">
@@ -34,7 +34,7 @@
                                 <div class="item-info item-meta">
 
                                     <div class="ad-title">
-                                        <h3>{{club?.name}}</h3>
+                                        <h3>{{club?.name | uppercase}}</h3>
                                     </div>
 
                                     <ul class="list-inline product-social">
@@ -48,28 +48,12 @@
 
 
 
-                                    <h4>Description</h4>
+                                    <h4>DESCRIPCIÓN</h4>
                                     <p>
-                                        {{club?.description}}
+                                        {{club?.description | uppercase}}
                                     </p>
                                   </div><!-- item-info -->
-                                <div class="item-info">
-                                    <h4>Other Info</h4>
-                                    <ul>
-                                        <li>Consectetur adipisicing elit</li>
-                                        <li>Sed do eiusmod tempor incididunt</li>
-                                        <li>Quis nostrud exercitation ullamco </li>
-                                        <li>Labore et dolore magna aliqua</li>
-                                        <li>Ut enim ad minim veniam</li>
-                                        <li>Consectetur adipisicing elit</li>
-                                        <li>Sed do eiusmod tempor incididunt</li>
-                                        <li>Quis nostrud exercitation ullamco </li>
-                                        <li>Labore et dolore magna aliqua</li>
-                                        <li>Ut enim ad minim veniam</li>
-                                        <li>Consectetur adipisicing elit</li>
-                                        <li>Sed do eiusmod tempor incididunt</li>
-                                    </ul>
-                                </div><!-- item-info -->
+
                             </div>
 
 
@@ -84,10 +68,10 @@
                         <div class="side-bar">
 
                             <div class="contact-seller widget">
-                                <h4>Datos de contacto</h4>
+                                <h4>DATOS DE CONTACTO</h4>
 
                                 <div class="seller-info">
-                                    <p><span> Nombre </span> {{club?.name}}</p>
+                                    <p><span> NOMBRE </span> {{club?.name | uppercase}}</p>
                                     <p><span> TEL </span> {{club?.phoneNumber}} </p>
                                 </div>
 
@@ -95,31 +79,22 @@
                             </div>
 
                             <div class="widget item-tag">
-                                <h4>Servicios del club</h4>
-                                <ul class="list-inline">
-                                    <li><a href="#">Modern</a></li>
-                                    <li><a href="#">Used</a></li>
-                                    <li><a href="#">New</a></li>
-                                    <li><a href="#">Light Weight</a></li>
-                                    <li><a href="#">Fresh</a></li>
-                                    <li><a href="#">Laptop</a></li>
-                                    <li><a href="#">Classified</a></li>
-                                    <li><a href="#">Business</a></li>
-                                    <li><a href="#">Popular</a></li>
-                                    <li><a href="#">Latest</a></li>
-                                    <li><a href="#">Accesories</a></li>
-                                    <li><a href="#">Free Ads</a></li>
+                                <h4>SERVICIOS DEL CLUB</h4>
+                                <ul class="list-inline"
+                                *ngFor="let serv of club?.services"
+                                >
+                                    <li><a href="#">{{serv.display | uppercase}}</a></li>
                                 </ul>
                             </div>
 
 
 
                             <div class="location-map">
-                                <h4>Ubicación</h4>
+                                <h4>UBICACIÓN</h4>
                                 <div id="gmap">
 
-                                    <agm-map [zoom]="16" [latitude]="lat" [longitude]="lng">
-                                        <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                                    <agm-map [zoom]="16" [latitude]="club?.address.lat" [longitude]="club?.address.lng">
+                                        <agm-marker [latitude]="club?.address.lat" [longitude]="club?.address.lng"></agm-marker>
                                     </agm-map>
 
 

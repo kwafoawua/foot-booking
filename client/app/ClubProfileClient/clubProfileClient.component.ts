@@ -2,13 +2,11 @@
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 
-
-
-
 import { User } from '../_models/index';
 import { UserService } from '../_services/index';
 import { Club } from '../_models/index';
 import { ClubService } from '../_services/index';
+
 
 @Component({
     moduleId: module.id,
@@ -19,24 +17,26 @@ export class ProfileClubClientComponent implements OnInit {
 
     currentUser: User;
     users: User[] = [];
-    club : Club;
-    lat: number = -31.421272;
-    lng: number = -64.183841;
+    club : Club = {};
     zoom = 16.88;
 
 
+
+
     constructor(private userService: UserService, private clubService: ClubService, private route: ActivatedRoute) {
-     //   this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
     }
 
 
     ngOnInit() {
-        this.getClub(this.route.snapshot.params['id']);
+      this.club= this.getClub(this.route.snapshot.params['id']);
 
     }
 
         private getClub (_id: string) {
         this.clubService.getById(_id).subscribe(club => {this.club = club});
     }
+
+
 
 }
