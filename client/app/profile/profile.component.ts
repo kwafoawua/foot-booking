@@ -31,8 +31,8 @@ export class ProfileComponent implements OnInit {
 
 
     ngOnInit() {
+        
         this.getClub(this.route.snapshot.params['id']);
-
     }
 
     deleteUser(_id: string) {
