@@ -22,3 +22,18 @@ div.profile-picture > img {
 .club-profile-fields > div{
 	display: inline-block;
 }
+
+div.file-upload.hr-inline-group > label.upload.button {
+	width: 150px;
+	text-align: center;
+	font-size: small;
+	background: #028b45;
+}
+
+div.file-upload.hr-inline-group > label.clear.button {
+	width: 150px;
+	text-align: center;
+	font-size: small;
+	background: firebrick;
+	margin-left: 10px;
+}

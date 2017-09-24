@@ -8,12 +8,17 @@ var _ = require('lodash');
 var Club = require('../models/Club');
 var User = require('../models/User');
 var Q = require('q');
+var multer = require('./uploads');
 
 /**
  * Create a Club
  */
 module.exports.registerClub = function (req,res) {
-     addClub(req.body)
+    console.log(req);
+    console.log(req.file);
+    var profilePath = req.file.path.replace('//', '/');
+    var club = JSON.parse(req.body.body);
+     addClub(club, profilePath)
     .then(function () {
             res.sendStatus(200);
         })
@@ -22,9 +27,11 @@ module.exports.registerClub = function (req,res) {
         });
 
 };
-function addClub (club) {
+function addClub (club, profilePath) {
     console.log('entra al club');
-    console.log(club);
+    //var clubcoso = JSON.parse(fullClub.body);
+    //console.log(clubcoso);
+
     var deferred = Q.defer();
     User.findOne({$or : [{ 'username': club.username }, {'email': club.email}]},
         function(err, user) {
@@ -36,33 +43,39 @@ function addClub (club) {
 
             } else {
 
+
                 var newClub = new Club({
                     name: club.name,
-                    address: club.address,
+                    address: {
+                        lat: club.address.lat,
+                        lng: club.address.lng,
+                        address: club.address.address
+                    },
                     phoneNumber: club.phoneNumber,
                     fields: club.fields || null,
-                    services: club.services || null,
-                    //user: newUser,
-                    socialMedia: club.socialMedia || null
+                    services: club.services,
+                    socialMedia: club.socialMedia || null,
+                    profileImg: profilePath,
+                    description: club.description
                 });
 
                 var newUser = new User({
-                    username: club.username.toLowerCase(),
-                    email: club.email,
+                    username: club.user.username.toLowerCase(),
+                    email: club.user.email,
                     creator: newClub,
                     rol: 'Club',
                 });
 
-                newUser.password = newUser.setPassword(club.password);
+                newUser.password = newUser.setPassword(club.user.password);
 
                  newUser.save(function (err) {
                     if(err) {
                         return deferred.reject(err.name + ' : ' + err.message);
                     }
-                    console.log('nuevo club'+newClub);
+                    console.log('nuevo usuario'+newClub);
                     newClub.save(function (err) {
                         if(err) return deferred.reject(err.name + ' : ' + err.message);
-                        console.log('nuevo user'+newUser);
+                        console.log('nuevo club'+newUser);
                         return deferred.resolve();
                     });
                  });
@@ -76,6 +89,7 @@ function addClub (club) {
 /**
  * Show the current Club
  */
+
 module.exports.findById = function(req, res) {
     console.log('busca por id');
     console.log(req);
@@ -96,12 +110,15 @@ module.exports.findById = function(req, res) {
 /**
  * Show all Clubs
  */
+
+
 module.exports.findAllClubs = function(req, res) {
+
     Club.find(function(err, clubs) {
             if (err) {
                return res.status(500).send(err);
             }
-        console.log('GET /clubController'); 
+        console.log('GET /holo');
         res.status(200).send(clubs);
     });
 };
@@ -151,4 +168,18 @@ module.exports.deleteClub = function(req, res) {
             res.json('Club eliminado');
         });
     });
+};
+
+
+module.exports.findClubsByFilter = function (req,res) {
+
+           Club.find({name : new RegExp(JSON.parse(req.params.clubfilter).clubname, "i")}, function (err, club) {
+            if (err) {
+                return res.status(500).send(err + "al menos entro");
+            }
+
+            res.status(200).send(club);
+
+        });
+
 };
