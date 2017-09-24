@@ -27,6 +27,7 @@ export class RegisterClubComponent implements OnInit{
     loading = false;
     registerClubForm: FormGroup;
     filesToUpload: File;
+    galleryToUpload: File = [];
 
 
     @ViewChild("address")
@@ -101,7 +102,7 @@ export class RegisterClubComponent implements OnInit{
             }),
             services: [[], Validators.required],
             profileImg: [null, Validators.required],
-            //galleryImg: [],
+            galleryImg: null,
             field: this.fb.group({//cancha
                 fieldName: null,
                 services: [],
@@ -123,37 +124,35 @@ export class RegisterClubComponent implements OnInit{
             ]);
         };
 
-    /*public profileUploaded(file: FileHolder) {
-       // this.registerClubForm.controls['profileImg'].setValue(file);
-        this.clubService.upload(file.target);
+    public profileUploaded(file: FileHolder) {
+       this.filesToUpload = file.file;
+        this.registerClubForm.controls['profileImg'].setValue(true);
+    }
+
+    public galleryUploaded(file: FileHolder) {
         console.log(file);
-    }*/
+        this.galleryToUpload.push(file.file);
+        console.log(this.galleryToUpload);
+        this.registerClubForm.controls['galleryImg'].setValue(true);
+    }
+
+    public galleryRemoved (file: FileHolder) {
+        for(let i = 0; i < this.galleryToUpload.length; i++){
+            if(this.galleryToUpload[i].lastModified === file.file.lastModified){
+                this.galleryToUpload.splice(i,1);
+                console.log(this.galleryToUpload);
+                break;
+            }
+        }
+        if(this.galleryToUpload.length === 0){
+            this.registerClubForm.controls['galleryImg'].setValue(null);
+        }
+    }
 
     public profileRemoved (file: FileHolder) {
         this.registerClubForm.controls['profileImg'].setValue(null);
         this.filesToUpload = null;
         console.log(this.registerClubForm.controls['profileImg'])
-    }
-
-    upload() {
-        const formData: any = new FormData();
-        const file: File = this.filesToUpload;
-
-        formData.append("image", file, file['name']);
-        formData.append(this.registerClubForm.value);
-
-        this.clubService.upload(formData)
-            .map(file => file.json())
-            .subscribe(file => console.log('files', file))
-    }
-
-    fileChangeEvent(file: FileHolder) {
-        //this.filesToUpload = fileInput.target.files[0];
-        this.filesToUpload = file.file;
-        this.registerClubForm.controls['profileImg'].setValue(true);
-
-        //this.upload();
-        //this.product.photo = fileInput.target.files[0]['name'];
     }
 
     registerClub (){
@@ -162,8 +161,12 @@ export class RegisterClubComponent implements OnInit{
 
             const formData: any = new FormData();
             const file: File = this.filesToUpload;
+            const gallery: File = this.galleryToUpload;
 
             formData.append("image", file, file['name']);
+            for(let i = 0; i < gallery.length ; i++){
+                formData.append("gallery[]", gallery[i], gallery[i].name);
+            }
             formData.append("body",JSON.stringify(this.registerClubForm.value) );
 
 
@@ -203,9 +206,5 @@ export class RegisterClubComponent implements OnInit{
         }
     };*/
 
-
-    public galleryUploaded (file: FileHolder) {
-        this.registerClubForm.controls['galleryImg'].setValue(file);
-    }
 
 }
