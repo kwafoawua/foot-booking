@@ -2,14 +2,16 @@
  * Created by pablo on 23/8/2017.
  */
 
-import { Component, OnInit } from '@angular/core';
-import { User } from '../_models/index';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, FormBuilder, ReactiveFormsModule} from '@angular/forms';
 import {Router} from '@angular/router'
 import {SearchService} from '../_services/index'
-import { Club } from '../_models/club';
+import {Club} from '../_models/club';
 import {ClubService} from '../_services/index';
-import { Observable }        from 'rxjs/Observable';
-import { Subject }           from 'rxjs/Subject';
+import {Observable}  from 'rxjs/Observable';
+import {Subject} from 'rxjs/Subject';
+import {ActivatedRoute} from '@angular/router';
+
 
 // Observable class extensions
 import 'rxjs/add/observable/of';
@@ -18,59 +20,52 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
+import {templateJitUrl} from "@angular/compiler";
+import {equalParamsAndUrlSegments} from "@angular/router/src/router_state";
+import {ClubFilter} from "../Filter/ClubFilter/clubfilter";
 
 @Component({
-
-    selector:'results',
+    selector: 'results',
     templateUrl: 'app/result/result.component.html',
-
+    providers: [SearchService],
 })
 
 
 export class ResultComponent implements OnInit {
-    club: Club[] = [];
-   // clubs: Observable<Club[]>;
-  //  private searchTerms = new Subject<string>();
-
-    constructor(private clubService : ClubService, private router: Router){}
-
-      //  search(term: string): void {
-       // this.searchTerms.next(term);
 
 
-    private loadAllClubs() {
-    this.clubService.getAll().subscribe(clubs => { this.club = clubs; });
+    private form: FormGroup;
+    private clubfilter: ClubFilter;
+    public clubs: Club[];
+
+
+    constructor(private activatedRoute: ActivatedRoute,
+                private searchService: SearchService,
+                private router: Router) {
+
+        this.form = new FormGroup({'clubname': new FormControl('clubname')});
     }
 
-    ngOnInit():void {
-        this.loadAllClubs();
-
+    ngOnInit(): void {
+        this.clubs = SearchService.clubs;
     }
 
-    /*   PARA BUSCAR POR FILTRO
 
-            ngOnInit():void {
+//LE PASO LOS DATOS PARA CREAR LOS FILTROS
+    private crearFiltros(): ClubFilter {
+        let modelform = this.form.value;
+        return new ClubFilter(
+            modelform.clubname
+        )
+    }
 
-            this.clubs = this.searchTerms
-                .debounceTime(300)        // wait 300ms after each keystroke before considering the term
-                .distinctUntilChanged()   // ignore if next search term is same as previous
-                .switchMap(term => term   // switch to new observable each time the term changes
-                  // return the http search observable
-                    ? this.clubSearchService.search(term)
-                    : Observable.of<Club[]>([]))
-                .catch(error => {
-                    // TODO: add real error handling
-                    console.log(error);
-                    return Observable.of<Club[]>([]);
-                });
-
-        }
-
-     FIN PARA BUSCAR CON FILTRO */
-
-   // gotoDetail(club: Club): void {
-   //     let link = ['/detail', club._id;
-   //     this.router.navigate(link);
-   // }
+//BUSCO POR LOS FILTROS
+    private buscarClubsPorFiltros() {
+        this.clubfilter = this.crearFiltros();
+        console.log("ya cree el filtro");
+        this.searchService.findClubsByFilters(this.clubfilter).subscribe(() => {
+            this.clubs = SearchService.clubs;
+        });
+    }
 
 }

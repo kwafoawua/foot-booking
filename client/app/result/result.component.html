@@ -1,152 +1,186 @@
-        <div class="page">
+<div class="page">
 
-            <div id="breadcrumb-section" class="section"  >
+    <div id="breadcrumb-section" class="section">
+        <div class="container">
+            <div class="page-title text-center">
+                <h1>Resultados</h1>
+            </div>
+        </div>
+    </div><!-- breadcrumb-section -->
 
-                <div class="container" >
-                    <div class="page-title text-center" >
-                        <h1>Resultados</h1>
-                    </div>
-                </div>
-            </div><!-- breadcrumb-section -->
+    <div class="all-categories section">
 
+        <div [formGroup]="form" novalidate>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-sm-4">
+                        <div class="sidebar">
 
+                            <div class="filter-list">
 
+                                <input (keyup.enter)="buscarClubsPorFiltros()" [(ngModel)]="clubname" name="clubname"
+                                       placeholder="Buscar por nombre de club" type="text" class="form-control"
+                                       formControlName="clubname"/>
 
-            <div class="all-categories section">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-3 col-sm-4">
-                            <div class="sidebar">
-                                <div class="filter-list">
-                                    <h4 class="list-title"><a href="categories.html">Categorías</a></h4>
-                                    <ul class="list-group">
-                                        <li><a href="sub-categories.html">Privados <span>(2056)</span></a> </li>
-                                        <li><a href="#">Campeonatos<span>(1317)</span></a></li>
-
-                                    </ul>
-                                </div><!-- filter-list -->
-
-
-                                <div class="filter-list brand-list">
-                                    <h4 class="list-title">Servicios</h4>
-                                    <ul class="list-group checkbox">
-                                        <li><label for="samsung"><input type="checkbox" name="samsung" id="samsung"> Árbitro </label></li>
-                                        <li><label for="apple"><input type="checkbox" name="apple" id="apple"> Bar </label></li>
-                                        <li><label for="lg"><input type="checkbox" name="lg" id="lg"> Asador </label></li>
-                                        <li><label for="xiaomi"><input type="checkbox" name="xiaomi" id="xiaomi"> Buffet </label></li>
-                                        <li><label for="nokia"><input type="checkbox" name="nokia" id="nokia"> Nocturnos </label></li>
-                                        <li><label for="huawei"><input type="checkbox" name="huawei" id="huawei"> Parking </label></li>
-                                        <li><label for="alcatel"><input type="checkbox" name="alcatel" id="alcatel"> Techado </label></li>
-                                    </ul>
-                                </div><!-- filter-list -->
-
-
-                                <div class="filter-list">
-                                    <div id="advanced-filter">
-                                        <div class="filter-heading">
-                                            <a data-toggle="collapse" data-parent="#advanced-filter" href="#advanced">
-                                                <h4 class="list-title">Más filtros<span class="pull-right"><i class="fa fa-plus"></i></span></h4>
-                                            </a>
-                                        </div><!-- filter-heading -->
-
-                                        <div id="advanced" class="panel-collapse collapse">
-                                            <!-- panel-body -->
-                                            <div class="panel-body">
-                                                <h5>Cantidad de jugadores</h5>
-                                                <div class="cantJugadores">
-                                                    <label for="cantJugadores"><input type="text" id="cantJugadores" title="Cantidad de jugares" placeholder="Cant jugadores" value="10"></label>
-                                                </div>
-                                                <!--
-                                                <ul class="list-group checkbox">
-                                                    <li><label for="new"><input type="checkbox" name="new" id="new">New</label></li>
-                                                    <li><label for="likeNew"><input type="checkbox" name="likeNew" id="likeNew"> Like New</label></li>
-                                                    <li><label for="used"><input type="checkbox" name="used" id="used"> Used</label></li>
-                                                    <li><label for="excellent"><input type="checkbox" name="excellent" id="excellent"> Excellent</label></li>
-                                                    <li><label for="good"><input type="checkbox" name="good" id="good"> Good</label></li>
-                                                    <li><label for="fair"><input type="checkbox" name="fair" id="fair"> Fair</label></li>
-                                                </ul>
-                                                -->
-                                                <h5>Precios</h5>
-                                                <div class="price-range">
-                                                    <label for="min"><input type="text" id="min" title="minimum price" placeholder="min" value=""></label>
-                                                    <label for="max"><input type="text" id="max" title="maximum price" placeholder="max" value=""></label>
-                                                    <button type="submit" class="btn btn-primary">Actualizar busqueda</button>
-                                                </div>
-                                            </div><!-- panel-body -->
-                                        </div>
-                                    </div><!-- advanced-filter -->
-                                </div><!-- filter-list -->
-                            </div><!-- sidebar -->
-                        </div><!-- col-sm-4 -->
-
-
-                        <div class="col-md-9 col-sm-8">
-                            <div class="category-adds">
-                                <div id="category-tab">
-
-
-                                    <div class="category-tab">
-
-                                        <!-- Tab panes -->
-
-                                        <div class="tab-content small-view-tab">
-
-                                            <div role="tabpanel" class="tab-pane active" id="recent">
-                                                <ul>
-                                                    <li class="item-wrap" *ngFor="let c of club">
-                                                        <div class="item">
-                                                            <div class="item-image">
-                                                                <a href="details.html"><img src="images/item/1.jpg" alt="" class="img-responsive"></a>
-                                                                <div class="item-price">
-                                                                    <span>$45</span>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="item-description">
-                                                                <div class="item-meta">
-                                                                    <div class="item-post-date">
-                                                                        <span> </span>
-                                                                    </div>
-                                                                    <ul class="list-inline product-social">
-                                                                        <li><a href="#"><i class="fa fa-bookmark-o" aria-hidden="true"></i></a></li>
-                                                                        <li><a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
-                                                                        <li><a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a></li>
-                                                                    </ul>
-                                                                </div>
-                                                                <div class="item-title">
-                                                                    <h3><a href="#">{{c?.name}}</a></h3>
-                                                                </div>
-                                                                <div class="item-info">
-                                                                    <p>Dirección {{c?.address}} TEL:{{c?.phoneNumber}} </p>
-                                                                </div>
-                                                            </div><!-- item-description -->
-                                                        </div><!-- item -->
-                                                    </li> <!-- item-wrap -->
-                                                </ul>
-                                                </div> <!--tab-pane-->
-                                             </div><!-- tab-pane-->
-
-
-                                    </div>
-                                </div><!-- category-tab-->
                             </div>
 
+                            <div class="filter-list">
+                                <h4 class="list-title"><a href="categories.html">Categorías</a></h4>
+                                <ul class="list-group">
+                                    <li><a href="sub-categories.html">Privados <span>(2056)</span></a></li>
+                                    <li><a href="#">Campeonatos<span>(1317)</span></a></li>
 
-                            <div class="pager-section">
-                                <ul class="pagination ">
-                                    <li><a href="#"><i class="fa fa-chevron-left"></i></a></li>
-                                    <li class="active"><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li ><a href="#">4</a></li>
-                                    <li><a href="#">5</a></li>
-                                    <li><a href="#">6</a></li>
-                                    <li><a href="#">7</a></li>
-                                    <li><a href="#"><i class="fa fa-chevron-right"></i></a></li>
                                 </ul>
-                            </div><!-- pager-section -->
+                            </div><!-- filter-list -->
+
+                            <div class="filter-list">
+                                <div id="advanced-filter">
+
+                                    <div class="filter-heading">
+                                        <a data-toggle="collapse" data-parent="#advanced-filter" href="#advanced">
+                                            <h4 class="list-title">Más filtros<span class="pull-right"><i
+                                                    class="fa fa-plus"></i></span></h4>
+                                        </a>
+                                    </div><!-- filter-heading -->
+
+
+                                    <div id="advanced" class="panel-collapse collapse">
+                                        <!-- panel-body -->
+                                        <div class="panel-body">
+
+
+                                            <h5>Servicios</h5>
+                                            <ul class="list-group checkbox">
+                                                <li><label for="samsung"><input type="checkbox" name="samsung"
+                                                                                id="samsung"> Árbitro </label></li>
+                                                <li><label for="apple"><input type="checkbox" name="apple" id="apple">
+                                                    Bar </label></li>
+                                                <li><label for="lg"><input type="checkbox" name="lg" id="lg"> Asador
+                                                </label></li>
+                                                <li><label for="xiaomi"><input type="checkbox" name="xiaomi"
+                                                                               id="xiaomi"> Buffet </label></li>
+                                                <li><label for="nokia"><input type="checkbox" name="nokia" id="nokia">
+                                                    Nocturnos </label></li>
+                                                <li><label for="huawei"><input type="checkbox" name="huawei"
+                                                                               id="huawei"> Parking </label></li>
+                                                <li><label for="alcatel"><input type="checkbox" name="alcatel"
+                                                                                id="alcatel"> Techado </label></li>
+                                            </ul>
+
+
+                                            <h5>Cantidad de jugadores</h5>
+
+                                            <div class="cantJugadores">
+                                                <label for="cantJugadores"><input type="text" id="cantJugadores"
+                                                                                  title="Cantidad de jugares"
+                                                                                  placeholder="Cant jugadores"
+                                                                                  value="10"></label>
+                                            </div>
+                                            <!--
+                                            <ul class="list-group checkbox">
+                                                <li><label for="new"><input type="checkbox" name="new" id="new">New</label></li>
+                                                <li><label for="likeNew"><input type="checkbox" name="likeNew" id="likeNew"> Like New</label></li>
+                                                <li><label for="used"><input type="checkbox" name="used" id="used"> Used</label></li>
+                                                <li><label for="excellent"><input type="checkbox" name="excellent" id="excellent"> Excellent</label></li>
+                                                <li><label for="good"><input type="checkbox" name="good" id="good"> Good</label></li>
+                                                <li><label for="fair"><input type="checkbox" name="fair" id="fair"> Fair</label></li>
+                                            </ul>
+                                            -->
+                                            <h5>Precios</h5>
+                                            <div class="price-range">
+                                                <label for="min"><input type="text" id="min" title="minimum price"
+                                                                        placeholder="min" value=""></label>
+                                                <label for="max"><input type="text" id="max" title="maximum price"
+                                                                        placeholder="max" value=""></label>
+                                                <button class="btn btn-primary">Actualizar busqueda</button>
+                                            </div>
+                                        </div><!-- panel-body -->
+                                    </div>
+                                </div><!-- advanced-filter -->
+                            </div><!-- filter-list -->
+                        </div><!-- sidebar -->
+                    </div><!-- col-sm-4 -->
+
+                    <!-- EL RESULTADO DE LA BUSQUEDA -->
+
+                    <div class="col-md-9 col-sm-8">
+                        <div class="category-adds">
+                            <div id="category-tab">
+
+
+
+
+                                <div class="category-tab">
+
+
+
+                                    <!-- Tab panes -->
+                                    <div class="tab-content small-view-tab">
+                                        <div role="tabpanel" class="tab-pane active" id="recent" >
+                                            <ul>
+                                                <li class="item-wrap owl-animated-in" *ngFor="let c of clubs">
+                                                    <div class="item"  [routerLink]="['/results/club/',c._id]">
+
+                                                        <div class="item-image">
+                                                           <img src="images/item/1.jpg" alt=""
+                                                                                        class="img-responsive">
+
+                                                        </div>
+
+                                                        <div class="item-description" >
+                                                            <div class="item-meta">
+                                                                <div class="item-post-date">
+                                                                    <span> </span>
+                                                                </div>
+                                                                <ul class="list-inline product-social">
+                                                                    <li><a href="#"><i class="fa fa-bookmark-o"
+                                                                                       aria-hidden="true"></i></a></li>
+                                                                    <li><a href="#"><i class="fa fa-heart-o"
+                                                                                       aria-hidden="true"></i></a></li>
+                                                                    <li><a href="#"><i class="fa fa-share-alt"
+                                                                                       aria-hidden="true"></i></a></li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="item-title" >
+                                                                <h3>{{c?.name}}</h3>
+                                                            </div>
+                                                            <div class="item-info">
+                                                                <p>Dirección {{c?.address}} TEL:{{c?.phoneNumber}} </p>
+                                                            </div>
+                                                        </div><!-- item-description -->
+                                                    </div><!-- item -->
+                                                </li> <!-- item-wrap -->
+                                            </ul>
+                                        </div> <!--tab-pane-->
+                                    </div><!-- tab-pane-->
+                                </div>
+                            </div><!-- category-tab-->
                         </div>
+
+                        <div class="pager-section">
+                            <ul class="pagination ">
+                                <li><a href="#"><i class="fa fa-chevron-left"></i></a></li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li><a href="#">6</a></li>
+                                <li><a href="#">7</a></li>
+                                <li><a href="#"><i class="fa fa-chevron-right"></i></a></li>
+                            </ul>
+                        </div><!-- pager-section -->
+
+
                     </div>
+
+                    <!-- fin del resultado de la busqueda -->
+
+
                 </div>
-            </div> <!-- all-categories -->
-        </div>	<!-- page -->
+
+
+            </div>
+        </div>
+    </div> <!-- all-categories -->
+</div>    <!-- page -->

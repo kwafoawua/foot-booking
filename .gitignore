@@ -2,7 +2,6 @@
 logs
 *.log
 npm-debug.log*
-
 # Runtime data
 pids
 *.pid
@@ -43,3 +42,4 @@ client/app/**/*.js.map
 
 .idea
 uploads
+client/uploads/*

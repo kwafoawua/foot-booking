@@ -89,6 +89,7 @@ function addClub (club, profilePath) {
 /**
  * Show the current Club
  */
+
 module.exports.findById = function(req, res) {
     console.log('busca por id');
     console.log(req);
@@ -109,12 +110,15 @@ module.exports.findById = function(req, res) {
 /**
  * Show all Clubs
  */
+
+
 module.exports.findAllClubs = function(req, res) {
+
     Club.find(function(err, clubs) {
             if (err) {
                return res.status(500).send(err);
             }
-        console.log('GET /clubController'); 
+        console.log('GET /holo');
         res.status(200).send(clubs);
     });
 };
@@ -164,4 +168,18 @@ module.exports.deleteClub = function(req, res) {
             res.json('Club eliminado');
         });
     });
+};
+
+
+module.exports.findClubsByFilter = function (req,res) {
+
+           Club.find({name : new RegExp(JSON.parse(req.params.clubfilter).clubname, "i")}, function (err, club) {
+            if (err) {
+                return res.status(500).send(err + "al menos entro");
+            }
+
+            res.status(200).send(club);
+
+        });
+
 };

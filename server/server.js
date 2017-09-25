@@ -1,4 +1,4 @@
-﻿require('rootpath')();
+require('rootpath')();
 var express = require('express');
 var app = express();
 var cors = require('cors');
@@ -23,7 +23,9 @@ app.use(expressJwt({
         }
         return null;
     }
-}).unless({ path: ['/users/authenticate', '/users/register', '/users', '/clubs/register', '/clubs', '/uploads'] }));
+
+}).unless({ path: ['/users/authenticate', '/users/register', '/users', '/clubs/register', '/clubs', '/results', '/findClub', '/results/club/', '/uploads'] }));
+
 
 // routes
 app.use('/', require('./routes/index'));

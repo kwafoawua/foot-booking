@@ -6,7 +6,6 @@ import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
 import { ImageUploadModule } from 'angular2-image-upload';
 import { CustomFormsModule } from 'ng2-validation';
-import { AgmCoreModule } from '@agm/core';
 
 
 
@@ -20,12 +19,18 @@ import { AlertService, AuthenticationService, UserService, ClubService } from '.
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import { RegisterClubComponent } from './register-club/index';
-
+//import { FormGroup, FormArray, FormBuilder,
+    //Validators,ReactiveFormsModule  } from '@angular/forms';
 import { SiteHeaderComponent } from './site-header/site-header.component';
 import { SiteFooterComponent } from './site-footer/site-footer.component';
-import { ProfileComponent } from './profile/index';
+import { ProfileClubClientComponent } from './ClubProfileClient/clubProfileClient.component';
 import {ResultComponent} from './result/index';
 import {SearchService} from "./_services/search.service";
+
+
+//API MAPS
+import { AgmCoreModule } from '@agm/core';
+
 
 @NgModule({
     imports: [
@@ -42,7 +47,6 @@ import {SearchService} from "./_services/search.service";
             apiKey: 'AIzaSyAAwaI8YafySsHraMA_9G_n30_FECUhoVs',
             libraries: ["places"]
         })
-
         ],
     declarations: [
         AppComponent,
@@ -52,7 +56,7 @@ import {SearchService} from "./_services/search.service";
         RegisterClubComponent,
         SiteHeaderComponent,
         SiteFooterComponent,
-        ProfileComponent,
+        ProfileClubClientComponent,
         ResultComponent
     ],
     providers: [
