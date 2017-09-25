@@ -27,7 +27,7 @@ export class RegisterClubComponent implements OnInit{
     loading = false;
     registerClubForm: FormGroup;
     filesToUpload: File;
-    galleryToUpload: File = [];
+    galleryToUpload: File[] = [];
 
 
     @ViewChild("address")
@@ -138,7 +138,7 @@ export class RegisterClubComponent implements OnInit{
 
     public galleryRemoved (file: FileHolder) {
         for(let i = 0; i < this.galleryToUpload.length; i++){
-            if(this.galleryToUpload[i].lastModified === file.file.lastModified){
+            if((<any>this).galleryToUpload[i].lastModified === (<any>file).file.lastModified){
                 this.galleryToUpload.splice(i,1);
                 console.log(this.galleryToUpload);
                 break;
@@ -161,7 +161,7 @@ export class RegisterClubComponent implements OnInit{
 
             const formData: any = new FormData();
             const file: File = this.filesToUpload;
-            const gallery: File = this.galleryToUpload;
+            const gallery: File[] = this.galleryToUpload;
 
             formData.append("image", file, file['name']);
             for(let i = 0; i < gallery.length ; i++){
