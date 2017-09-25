@@ -5,16 +5,18 @@ import { LoginComponent } from './login/index';
 import { RegisterClubComponent } from './register-club/index';
 import { RegisterPlayerComponent } from './register-player/index';
 import { ProfileComponent } from './profile/index';
+import { ProfilePlayerComponent } from './profile-player/index';
 import { AuthGuard } from './_guards/index';
 import {ResultComponent} from './result/index';
 
 const appRoutes: Routes = [
-      { path: '', component: HomeComponent },
+    { path: '', component: HomeComponent },
 
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterClubComponent },
     { path: 'registerPlayer', component: RegisterPlayerComponent },
     { path: 'profile/:id', component: ProfileComponent, canActivate: [AuthGuard]},
+    { path: 'profile-player/:id', component: ProfilePlayerComponent, canActivate: [AuthGuard]},
     {path: 'results', component: ResultComponent },
 
     // otherwise redirect to home

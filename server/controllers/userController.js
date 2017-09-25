@@ -69,9 +69,10 @@ function FindUser(username, password, rol) {
            console.log('existe');
             deferred.resolve({
                    _id: user._id,
-                    clubId: user.creator._id,
+                   id: user.creator._id,
                    username: user.username,
                    email: user.email,
+                   rol: rol,
                    token: jwt.sign({ sub: user._id }, config.secret)
 
                    });

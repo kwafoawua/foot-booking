@@ -30,6 +30,7 @@ route.get('/').get(function (req, res) {
 router.post('/users/authenticate', userController.authenticate);
 router.post('/clubs/register', clubController.registerClub);
 router.post('/players/register', playerController.registerPlayer);
+router.get('/players/:_id', playerController.findById);
 router.get('/clubs/:_id', clubController.findById);
 router.get('/users/', userController2.getAll);
 router.get('/users/current', userController2.getCurrent);

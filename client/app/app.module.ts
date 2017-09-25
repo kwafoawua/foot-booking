@@ -22,6 +22,7 @@ import { RegisterPlayerComponent } from './register-player/index';
 import { SiteHeaderComponent } from './site-header/site-header.component';
 import { SiteFooterComponent } from './site-footer/site-footer.component';
 import { ProfileComponent } from './profile/index';
+import { ProfilePlayerComponent } from './profile-player/index';
 import { ResultComponent } from './result/index';
 import { SearchService } from "./_services/search.service";
 
@@ -42,6 +43,7 @@ import { SearchService } from "./_services/search.service";
         SiteHeaderComponent,
         SiteFooterComponent,
         ProfileComponent,
+        ProfilePlayerComponent,
         ResultComponent
     ],
     providers: [

@@ -17,7 +17,8 @@ export class LoginComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
-        private alertService: AlertService) { }
+        private alertService: AlertService
+    ) { }
 
     ngOnInit() {
         // reset login status
@@ -32,7 +33,10 @@ export class LoginComponent implements OnInit {
         this.authenticationService.login(this.model.username, this.model.password)
             .subscribe(
                 data => {
-                    this.router.navigate(['/profile', data.clubId] );
+                    if (data.rol == "Club")
+                        this.router.navigate(['/profile', data.id] );
+                    else
+                        this.router.navigate(['/profile-player', data.id] );      
                 },
                 error => {
                     this.alertService.error(error);
