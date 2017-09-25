@@ -163,9 +163,9 @@ export class RegisterClubComponent implements OnInit{
             const file: File = this.filesToUpload;
             const gallery: File[] = this.galleryToUpload;
 
-            formData.append("image", file, file['name']);
+            formData.append("profile", file, file['name']);
             for(let i = 0; i < gallery.length ; i++){
-                formData.append("gallery[]", gallery[i], gallery[i].name);
+                formData.append("gallery", gallery[i], gallery[i].name);
             }
             formData.append("body",JSON.stringify(this.registerClubForm.value) );
 

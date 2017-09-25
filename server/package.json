@@ -31,6 +31,7 @@
     "mongoose": "^4.11.7",
     "mongoskin": "^2.1.0",
     "multer": "^1.3.0",
+    "path-to-regexp": "^2.0.0",
     "q": "^1.4.1",
     "request": "^2.58.0",
     "rootpath": "^0.1.2"

@@ -14,11 +14,18 @@ var multer = require('./uploads');
  * Create a Club
  */
 module.exports.registerClub = function (req,res) {
-    console.log(req);
-    console.log(req.file);
+    //console.log(req);
+    //console.log(req.file);
+    console.log(req.files.profile[0].filename);
+    var galleryPath = [];
+    for(var i = 0; i < req.files.gallery.length; i++) {
+        galleryPath.push(req.files.gallery[i].filename);
+    }
+    console.log(galleryPath);
+    //console.log(req.files['gallery[]']);
     var profilePath = req.file.path.replace('//', '/');
     var club = JSON.parse(req.body.body);
-     addClub(club, profilePath)
+     addClub(club,profilePath)
     .then(function () {
             res.sendStatus(200);
         })
