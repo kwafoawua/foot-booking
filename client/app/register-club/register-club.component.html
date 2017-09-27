@@ -236,7 +236,7 @@
                                                placeholder="&#xf0d5;" style="font-family: Arial, FontAwesome">
                                     </div>
                                 </div>
-                            </div><!-- post-inner google-->
+                            </div><!-- post-inner google+-->
                         </div>
                     </div>
                 </div><!-- social-media-section -->
@@ -253,7 +253,7 @@
                                     <div class="col-md-12">
                                         <image-upload
                                                 (onFileUploadFinish)="profileUploaded($event)"
-                                                (onRemove)="profileRemoved($event)"
+                                                (onRemove)="profileRemoved()"
                                                 [max]="1"
                                                 [extensions]="['jpg','png']"
                                                 buttonCaption="Subir"
@@ -300,6 +300,25 @@
                         </div>
                     </div>
                 </div><!-- carga de imagenes -section -->
+
+                <div class="avtpost-fields">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h3>Carga de Canchas</h3>
+                        </div>
+                        <fields-array
+                                formArrayName="fields"
+                                [fieldFormArray]="registerClubForm.get('fields')">
+                        </fields-array>
+
+
+                    </div>
+                </div><!-- carga de canchas -section -->
+
+
+                <h6 class="mt-3">FormGroup Model (<code>registerClubForm.value</code>)</h6>
+                <div><pre><code>{{ registerClubForm?.value | json }}</code></pre></div>
+
                 <div class="submit-section">
                     <div class="submit-button">
                         <br>

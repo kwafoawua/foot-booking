@@ -18,7 +18,7 @@ import { AuthGuard } from './_guards/index';
 import { AlertService, AuthenticationService, UserService, ClubService } from './_services/index';
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
-import { RegisterClubComponent } from './register-club/index';
+import { RegisterClubComponent, FieldFormArrayComponent, FieldFormControlComponent } from './register-club/index';
 //import { FormGroup, FormArray, FormBuilder,
     //Validators,ReactiveFormsModule  } from '@angular/forms';
 import { SiteHeaderComponent } from './site-header/site-header.component';
@@ -57,7 +57,9 @@ import { AgmCoreModule } from '@agm/core';
         SiteHeaderComponent,
         SiteFooterComponent,
         ProfileClubClientComponent,
-        ResultComponent
+        ResultComponent,
+        FieldFormArrayComponent,
+        FieldFormControlComponent
     ],
     providers: [
         customHttpProvider,

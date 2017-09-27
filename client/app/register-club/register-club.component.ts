@@ -1,6 +1,6 @@
 ﻿import { Component, ElementRef, NgZone, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
 import { } from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
@@ -16,6 +16,7 @@ import { AlertService, ClubService } from '../_services/index';
 import {Observable} from "rxjs/Observable";
 import {isUndefined} from "util";
 import {FileHolder} from "angular2-image-upload/lib/image-upload/image-upload.component";
+import {FieldFormArrayComponent} from "./field-form-array.component";
 
 @Component({
     moduleId: module.id,
@@ -70,19 +71,6 @@ export class RegisterClubComponent implements OnInit{
         });
     }
 
-    register() {
-        this.loading = true;
-        this.clubService.create(this.registerClubForm.value)
-            .subscribe(
-                data => {
-                    this.alertService.success('Registración Exitosa', true);
-                    this.router.navigate(['/login']);
-                },
-                error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
-    }
 
     createForm() {
         this.registerClubForm = this.fb.group({
@@ -103,18 +91,14 @@ export class RegisterClubComponent implements OnInit{
             services: [[], Validators.required],
             profileImg: [null, Validators.required],
             galleryImg: null,
-            field: this.fb.group({//cancha
-                fieldName: null,
-                services: [],
-                fieldImg: null
-            }),
             socialMedia: this.fb.group({
                 facebookId: null,
                 twitterId: null,
                 instagramId: null,
                 googleId: null
 
-            })
+            }),
+            fields: FieldFormArrayComponent.initFields()
         });
     }
 
@@ -149,10 +133,30 @@ export class RegisterClubComponent implements OnInit{
         }
     }
 
-    public profileRemoved (file: FileHolder) {
+    public profileRemoved () {
         this.registerClubForm.controls['profileImg'].setValue(null);
         this.filesToUpload = null;
         console.log(this.registerClubForm.controls['profileImg'])
+    }
+    /*FIELDS*/
+    initFields() {
+
+        return this.fb.group({
+            description: '',
+            cantPlayers: '',
+            services: []
+        });
+    }
+
+    public addFields() {
+        // add address to the list
+        const control = <FormArray>this.registerClubForm.controls['fields'];
+        control.push(this.initFields());
+    }
+    public removeFields(i: number) {
+        // remove address from the list
+        const control = <FormArray>this.registerClubForm.controls['fields'];
+        control.removeAt(i);
     }
 
     registerClub (){

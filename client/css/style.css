@@ -42,3 +42,31 @@ div.file-upload.hr-inline-group > label.clear.button {
 	display: inline-block !important;
 }
 
+div#field-control .field-control-container {
+	border-bottom: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	border-left: 1px solid #ddd;
+	border-radius: 0 4px 4px 4px;
+	padding: 25px 35px;
+}
+div#field-control div.field-control-header {
+	border: 1px solid #ddd;
+	border-radius: 4px 4px 0 0;
+	padding: 10px 35px;
+
+}
+div#field-control div.field-control-header > div > div {
+	display: flex;
+	justify-content: space-between;
+
+}
+div#field-control button.field-control-remove-btn {
+	float: right;
+}
+div#field-control {
+	margin-bottom: 15px;
+	margin-top: 15px;
+}
+button#field-array-add-btn {
+	float: right;
+}
