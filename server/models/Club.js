@@ -21,7 +21,16 @@ var clubSchema = new Schema({
         address: {type: String, required: true}
     },
     phoneNumber: String,
-    fields: [{ type: ObjectId, ref: 'Cancha' }],
+    //fields: [{ type: ObjectId, ref: 'Cancha' }],
+    fields: [{
+        description: String,
+        cantPlayers: { type: Number, required: true },
+        fieldType : String,
+        services: [{
+            display: { type: String, required: true },
+            value: String
+        }]
+    }],
     services: [{
         display: { type: String, required: true },
         value: { type: String}
@@ -34,6 +43,7 @@ var clubSchema = new Schema({
         googleId: String
     },
     profileImg: {type: String, required: true},
+    galleryImg: [String],
     description: String
 });
 

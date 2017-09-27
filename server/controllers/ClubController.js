@@ -18,14 +18,14 @@ module.exports.registerClub = function (req,res) {
     //console.log(req.file);
     console.log(req.files.profile[0].filename);
     var galleryPath = [];
+    var profilePath = req.files.profile[0].filename;
     for(var i = 0; i < req.files.gallery.length; i++) {
         galleryPath.push(req.files.gallery[i].filename);
     }
     console.log(galleryPath);
     //console.log(req.files['gallery[]']);
-    var profilePath = req.file.path.replace('//', '/');
     var club = JSON.parse(req.body.body);
-     addClub(club,profilePath)
+     addClub(club,profilePath, galleryPath)
     .then(function () {
             res.sendStatus(200);
         })
@@ -34,7 +34,7 @@ module.exports.registerClub = function (req,res) {
         });
 
 };
-function addClub (club, profilePath) {
+function addClub (club, profilePath, galleryPath) {
     console.log('entra al club');
     //var clubcoso = JSON.parse(fullClub.body);
     //console.log(clubcoso);
@@ -63,6 +63,7 @@ function addClub (club, profilePath) {
                     services: club.services,
                     socialMedia: club.socialMedia || null,
                     profileImg: profilePath,
+                    galleryImg: galleryPath,
                     description: club.description
                 });
 
@@ -70,7 +71,7 @@ function addClub (club, profilePath) {
                     username: club.user.username.toLowerCase(),
                     email: club.user.email,
                     creator: newClub,
-                    rol: 'Club',
+                    rol: 'Club'
                 });
 
                 newUser.password = newUser.setPassword(club.user.password);

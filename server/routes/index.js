@@ -8,7 +8,6 @@ var clubController = require('../controllers/ClubController.js');
 var userController = require('../controllers/userController.js');
 var userController2 = require('../controllers/users.controller.js');
 var uploadsManager = require('../controllers/uploads');
-//var multer = require('../controllers/uploads');
 
 
 //*User Controller*//
