@@ -9,6 +9,7 @@ var Club = require('../models/Club');
 var User = require('../models/User');
 var Q = require('q');
 var multer = require('./uploads');
+var async = require('async');
 
 /**
  * Create a Club
@@ -16,13 +17,11 @@ var multer = require('./uploads');
 module.exports.registerClub = function (req,res) {
     //console.log(req);
     //console.log(req.file);
-    console.log(req.files.profile[0].filename);
     var galleryPath = [];
     var profilePath = req.files.profile[0].filename;
     for(var i = 0; i < req.files.gallery.length; i++) {
         galleryPath.push(req.files.gallery[i].filename);
     }
-    console.log(galleryPath);
     //console.log(req.files['gallery[]']);
     var club = JSON.parse(req.body.body);
      addClub(club,profilePath, galleryPath)
@@ -50,7 +49,6 @@ function addClub (club, profilePath, galleryPath) {
 
             } else {
 
-
                 var newClub = new Club({
                     name: club.name,
                     address: {
@@ -73,6 +71,8 @@ function addClub (club, profilePath, galleryPath) {
                     creator: newClub,
                     rol: 'Club'
                 });
+
+                async.each()
 
                 newUser.password = newUser.setPassword(club.user.password);
 

@@ -17,8 +17,8 @@ var fieldSchema = new Schema({
     cantPlayers: { type: Number, required: true },
     fieldType : String,
     services: [{
-        name: { type: String, required: true },
-        description: String
+        display: { type: String, required: true },
+        value: String
     }]
 
 });
