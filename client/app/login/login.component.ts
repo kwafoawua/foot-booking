@@ -34,9 +34,13 @@ export class LoginComponent implements OnInit {
             .subscribe(
                 data => {
                     if (data.rol == "Club")
-                        this.router.navigate(['/profile', data.id] );
+                        this.router.navigate(['/profile', data.specificId] );
                     else
-                        this.router.navigate(['/profile-player', data.id] );      
+                        this.router.navigate(['/profile-player', data.specificId] );
+                    /*
+                    else
+                        this.router.navigate(['/home']);
+                    */      
                 },
                 error => {
                     this.alertService.error(error);

@@ -3,9 +3,9 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 
 import { User } from '../_models/index';
-import { UserService } from '../_services/index';
 import { Player } from '../_models/index';
-import { PlayerService } from '../_services/index';
+import { UserService, PlayerService, AlertService } from '../_services/index';
+
 
 @Component({
     moduleId: module.id,
@@ -18,11 +18,12 @@ export class ProfilePlayerComponent implements OnInit {
     users: User[] = [];
     player : Player;
     isEdit : Boolean;
+    model : any = {};
     
 
-    constructor(private userService: UserService, private playerService: PlayerService, private route: ActivatedRoute) {
+    constructor(private userService: UserService, private playerService: PlayerService, private route: ActivatedRoute, private alertService: AlertService) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        this.isEdit = false;
+        this.editData(false);
     }
 
     ngOnInit() {
@@ -42,4 +43,24 @@ export class ProfilePlayerComponent implements OnInit {
         this.playerService.getById(_id).subscribe(player => {this.player = player});
     }
 
+    private getUserByCreatorId (_id: string) {
+        this.userService.getUserByCreatorId(_id).subscribe(currentUser => {this.currentUser = currentUser});
+    }
+
+    editData(edit: boolean){
+        this.isEdit = edit;
+        console.log("" + this.isEdit);
+    }
+
+    updatePlayer(){
+        this.playerService.update(this.model)
+            .subscribe(
+                data => {
+                    this.alertService.success('Modificación exitosa', true)
+                },
+                error => {
+                    this.alertService.error(error);
+                }
+            );
+    }
 }

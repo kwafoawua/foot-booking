@@ -69,7 +69,7 @@ function FindUser(username, password, rol) {
            console.log('existe');
             deferred.resolve({
                    _id: user._id,
-                   id: user.creator._id,
+                   specificId: user.creator._id,
                    username: user.username,
                    email: user.email,
                    rol: rol,

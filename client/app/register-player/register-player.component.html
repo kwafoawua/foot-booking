@@ -1,7 +1,7 @@
 ﻿<div class="container">
   <div class="section services">
     <div class="row">
-      <div class="col-md-4 col-md-offset-1">
+      <div class="col-md-6 col-md-offset-3">
         <div class="category-avt">
           <h2>Registrar un jugador</h2>
           <form name="formPlayer" (ngSubmit)="f.form.valid && registerPlayer()" #f="ngForm" novalidate>
@@ -20,10 +20,10 @@
               <label for="phoneNumber">Número de teléfono</label>
               <input type="text" class="form-control" name="phoneNumber" [(ngModel)]="model.phoneNumber" #phoneNumber="ngModel" />
             </div>
-            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !bithDate.valid }">
-              <label for="bithDate">Fecha de nacimiento</label>
-              <input type="text" class="form-control" name="bithDate" [(ngModel)]="model.bithDate" #bithDate="ngModel" required />
-              <div *ngIf="f.submitted && !bithDate.valid" class="help-block">La fecha de nacimiento es requerida</div>
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !birthDate.valid }">
+              <label for="birthDate">Fecha de nacimiento</label>
+              <input type="text" class="form-control" name="birthDate" [(ngModel)]="model.birthDate" #birthDate="ngModel" required />
+              <div *ngIf="f.submitted && !birthDate.valid" class="help-block">La fecha de nacimiento es requerida</div>
             </div>
             <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
               <label for="username">Nombre de usuario</label>

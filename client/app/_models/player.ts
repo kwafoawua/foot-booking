@@ -4,4 +4,5 @@ export class Player {
     lastName: string;
     phoneNumber: string;
 	birthDate: Date;  
+	biography: string;
 }

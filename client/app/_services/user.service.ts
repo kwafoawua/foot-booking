@@ -32,6 +32,11 @@ export class UserService {
         return this.http.delete('/users/' + _id);
     }
 
+    getUserByCreatorId(_id: string){
+        return this.http.get('/users/' + _id)
+        .map((response:Response) => response.json());
+    }
+
     // private helper methods
     private jwt() {
         // create authorization header with jwt token

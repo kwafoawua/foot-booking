@@ -5,6 +5,7 @@ import { AlertService, PlayerService } from '../_services/index';
 
 @Component({
     moduleId: module.id,
+    //selector: playerForm,
     templateUrl: 'register-player.component.html'
 })
 
@@ -16,6 +17,9 @@ export class RegisterPlayerComponent {
         private router: Router,
         private playerService: PlayerService,
         private alertService: AlertService) { }
+
+//    submitted = false;
+//    onSubmit() { this.submitted = true; }
 
     registerPlayer() {
         this.loading = true;

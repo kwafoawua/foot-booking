@@ -21,9 +21,8 @@ module.exports.registerPlayer = function (req,res) {
         .catch(function (err) {
             res.status(400).send(err);
         });
-
 };
-
+    
 function addPlayer (player) {
     console.log('entra al player');
     console.log(player);
@@ -43,7 +42,6 @@ function addPlayer (player) {
                     lastName: player.lastName, 
                     birthDay: player.birthDay,
                     phoneNumber: player.phoneNumber,
-                    //user: newUser
                 });
 
                 var newUser = new User({
@@ -111,11 +109,16 @@ module.exports.findAllPlayers = function(req, res) {
  * Update a Player
  */
 module.exports.updatePlayer = function(req, res) {
-    Player.findById(req.params.id, function(err, player) {
+    console.log('');
+    console.log('entra al update player');
+    console.log(req.body);
+    console.log('');
+    Player.findById(req.id, function(err, player) {
         // Handle any possible database errors
         if (err) {
             return res.status(500).send(err);
         } else {
+            console.log("encuentra player");
             // Update each attribute with any possible attribute that may have been submitted in the body of the request
             // If that attribute isn't in the request body, default back to whatever it was before.
             player.name = req.body.name || player.name,
