@@ -8,6 +8,7 @@ var clubController = require('../controllers/ClubController.js');
 var userController = require('../controllers/userController.js');
 var userController2 = require('../controllers/users.controller.js');
 var uploadsManager = require('../controllers/uploads');
+var playerController = require('../controllers/playerController');
 
 
 //*User Controller*//
@@ -16,6 +17,11 @@ router.get('/users/', userController2.getAll);
 router.put('/users/:_id', userController2.update);
 router.delete('/users/:_id', userController2._delete);
 router.get('/users/current', userController2.getCurrent);
+
+
+/*Player Controller*/
+router.post('/players/register', playerController.registerPlayer);
+router.get('/players/:_id', playerController.findById);
 
 
 /*Club Controller*/

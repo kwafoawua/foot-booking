@@ -1,53 +1,58 @@
 <header id="header" class="clearfix">
-		<nav class="navbar navbar-default">
-			<div class="topbar">
-				<div class="container">
-					<div class="row">
-						<div class="col-sm-6">
-							<ul class="list-inline">
-								<li><span><i class="fa fa-envelope-o"></i></span> <a href="#">FootBooking</a></li>
-								<li><ul class="list-inline top-social">
-										<li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-										<li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-										<li><a class="google" href="#"><i class="fa fa-google-plus"></i></a></li>
-										<li><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></li>
-									</ul>
-								</li>
-							</ul>
-						</div>
-						<div class="col-sm-6">
-							<div class="user-section">			
-								<ul class="list-line">
-									<div *ngIf="auth.isAuthenticated()">
-										<li><a [routerLink]="['/login']"><i class="fa fa-sign-in" aria-hidden="true"></i> Iniciar sesión</a></li>
-										<li><a [routerLink]="['/register']"><i class="fa fa-user" aria-hidden="true"></i> Registrarse</a></li>
-										<li><a [routerLink]="['/club/register']" class="btn btn-primary">Complejo</a></li>
-									</div>
-									<div *ngIf="!auth.isAuthenticated()">
-										<li> <label>Hola {{auth.getUserAuthenticated()}}</label></li>
-										<li><a (onclick)=logout() [routerLink]="['/login']"><i class="fa fa-log-out" aria-hidden="true"></i> Cerrar Sesión</a></li>
-									</div>
-								</ul>
-								<!--<a href="ad-post.html" class="btn btn-primary">Complejo</a>-->
-							</div><!-- user-section -->
-						</div>
-					</div>
-				</div>
-			</div><!-- topbar -->
-
+	<nav class="navbar navbar-default">
+		<div class="topbar">
 			<div class="container">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="index.html"></a>
-				</div><!-- /navbar-header -->
-				
-				<div class="navbar-right">
-					<div class="collapse navbar-collapse" id="navbar-collapse">
+				<div class="row">
+					<div class="col-sm-6">
+						<ul class="list-inline">
+							<li><span><i class="fa fa-envelope-o"></i></span> <a href="#">FootBooking</a></li>
+							<li><ul class="list-inline top-social">
+								<li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+								<li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+								<li><a class="google" href="#"><i class="fa fa-google-plus"></i></a></li>
+								<li><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></li>
+							</ul>
+
+						</li>
+					</ul>
+				</div>
+				<div class="col-sm-6">
+					<div class="user-section">			
+						<ul class="list-line">
+							<div *ngIf="!auth.isAuthenticated()">
+								<li><a [routerLink]="['/login']"><i class="fa fa-sign-in" aria-hidden="true"></i> Iniciar sesión</a></li>
+								<li><a [routerLink]="['/player/register']"><i class="fa fa-user" aria-hidden="true"></i> Registrarse</a></li>
+								<li><a [routerLink]="['/club/register']" class="btn btn-primary">Complejo</a></li>
+							</div>
+							<div *ngIf="auth.isAuthenticated()">
+								<li> <label>Hola {{auth.getUserAuthenticated()}}</label></li>
+								<li><a (onclick)=logout() [routerLink]="['/login']"><i class="fa fa-log-out" aria-hidden="true"></i> Cerrar Sesión</a></li>
+							</div>
+						</ul>	
+					</div><!-- user-section -->
+				</div>
+			</div>
+		</div>
+	</div><!-- topbar -->
+
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="index.html"></a>
+		</div><!-- /navbar-header -->
+
+		<div class="navbar-right">
+			<div class="collapse navbar-collapse" id="navbar-collapse">
+				<div *ngIf="!auth.isAuthenticated()">
+				</div>
+				<div *ngIf="auth.isAuthenticated()">
+					<div *ngIf="auth.isUserClub()">
+						<!-- Usuario es un Club -->
 						<ul class="nav navbar-nav">
 							<li class="active"><a href="index.html">Inicio</a></li>
 
@@ -68,7 +73,24 @@
 							<li><a href="contact.html">Contactanos</a></li>
 						</ul>
 					</div>
-				</div>
-			</div><!-- container -->
-		</nav><!-- navbar -->
+					<div *ngIf="!auth.isUserClub()">
+						<!-- Usuario es un player -->
+						<ul class="nav navbar-nav">
+							<li class="active"><a href="index.html">Inicio</a></li>
+
+							<li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">Preferencias<span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="categories.html">Mis reservas</a></li>
+									<li><a href="sub-categories.html">Complejos preferidos</a></li>
+									<li><a href="sub-categories.html">Campeonatos</a></li>
+								</ul>
+							</li>
+							<li><a href="contact.html">Mi perfil</a></li>
+						</ul>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div><!-- container -->
+</nav><!-- navbar -->
 	</header><!-- header -->

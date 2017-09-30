@@ -30,9 +30,10 @@ export class AuthenticationService {
     public isAuthenticated(): boolean {
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if (currentUser != undefined) {
-            return false;
-        } else {
+
             return true;
+        } else {
+            return false;
         }
     }
 
@@ -40,6 +41,17 @@ export class AuthenticationService {
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if (currentUser != undefined) {
             return currentUser.username;
+        }
+    }
+
+
+    public isUserClub(): boolean {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (currentUser != undefined) {
+            if (currentUser.rol == "Club") 
+                return true;
+            else
+                return false;
         }
     }
 
