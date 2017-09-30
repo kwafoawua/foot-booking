@@ -72,7 +72,7 @@ function addClub (club, profilePath, galleryPath) {
                     rol: 'Club'
                 });
 
-                async.each()
+               // async.each()
 
                 newUser.password = newUser.setPassword(club.user.password);
 
