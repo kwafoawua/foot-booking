@@ -76,7 +76,7 @@ function addClub (club, profilePath, galleryPath) {
 
                 newUser.password = newUser.setPassword(club.user.password);
 
-                 newUser.save(function (err) {
+                newUser.save(function (err) {
                     if(err) {
                         return deferred.reject(err.name + ' : ' + err.message);
                     }

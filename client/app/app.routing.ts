@@ -11,9 +11,10 @@ const appRoutes: Routes = [
       { path: '', component: HomeComponent },
 
     { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterClubComponent },
+    //{ path: 'register', component: RegisterClubComponent },
     { path: 'results/club/:id', component: ProfileClubClientComponent},
     {path: 'results', component: ResultComponent },
+    {path: 'club/register', component: RegisterClubComponent},
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
