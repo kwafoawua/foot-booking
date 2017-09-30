@@ -5,7 +5,7 @@ import {UserService} from '../_services/index';
 import {ClubService} from '../_services/index';
 import {SearchService} from '../_services/index';
 import {Router} from '@angular/router';
-import {ClubFilter} from "../Filter/ClubFilter/clubfilter";
+import {ClubFilter} from "../_models/clubfilter";
 
 
 @Component({

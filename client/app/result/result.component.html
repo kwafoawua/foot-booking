@@ -10,7 +10,7 @@
 
     <div class="all-categories section">
 
-        <div [formGroup]="form" novalidate>
+        <div novalidate>
             <div class="container">
                 <div class="row">
                     <div class="col-md-3 col-sm-4">
@@ -20,7 +20,7 @@
 
                                 <input (keyup.enter)="buscarClubsPorFiltros()" [(ngModel)]="clubname" name="clubname"
                                        placeholder="Buscar por nombre de club" type="text" class="form-control"
-                                       formControlName="clubname"/>
+                                      />
 
                             </div>
 
@@ -50,21 +50,9 @@
 
 
                                             <h5>Servicios</h5>
-                                            <ul class="list-group checkbox">
-                                                <li><label for="samsung"><input type="checkbox" name="samsung"
-                                                                                id="samsung"> Árbitro </label></li>
-                                                <li><label for="apple"><input type="checkbox" name="apple" id="apple">
-                                                    Bar </label></li>
-                                                <li><label for="lg"><input type="checkbox" name="lg" id="lg"> Asador
-                                                </label></li>
-                                                <li><label for="xiaomi"><input type="checkbox" name="xiaomi"
-                                                                               id="xiaomi"> Buffet </label></li>
-                                                <li><label for="nokia"><input type="checkbox" name="nokia" id="nokia">
-                                                    Nocturnos </label></li>
-                                                <li><label for="huawei"><input type="checkbox" name="huawei"
-                                                                               id="huawei"> Parking </label></li>
-                                                <li><label for="alcatel"><input type="checkbox" name="alcatel"
-                                                                                id="alcatel"> Techado </label></li>
+
+                                            <ul class="list-group checkbox" *ngFor="let service of services">
+                                                <li><label> <input type="checkbox" [(ngModel)]="service.state" (ngModelChange)="addService(service)"> {{service.name}} </label></li>
                                             </ul>
 
 
@@ -92,7 +80,7 @@
                                                                         placeholder="min" value=""></label>
                                                 <label for="max"><input type="text" id="max" title="maximum price"
                                                                         placeholder="max" value=""></label>
-                                                <button class="btn btn-primary">Actualizar busqueda</button>
+                                                <button class="btn btn-primary" (click)="buscarClubsPorFiltros()" >Actualizar busqueda</button>
                                             </div>
                                         </div><!-- panel-body -->
                                     </div>
@@ -122,8 +110,8 @@
                                                     <div class="item"  [routerLink]="['/results/club/',c._id]">
 
                                                         <div class="item-image">
-                                                           <img src="images/item/1.jpg" alt=""
-                                                                                        class="img-responsive">
+                                                            <img src="images/item/1.jpg" alt=""
+                                                                 class="img-responsive">
 
                                                         </div>
 
@@ -145,7 +133,7 @@
                                                                 <h3>{{c?.name}}</h3>
                                                             </div>
                                                             <div class="item-info">
-                                                                <p>Dirección {{c?.address}} TEL:{{c?.phoneNumber}} </p>
+                                                                <p>Dirección {{c?.address.address}} TEL:{{c?.phoneNumber}} </p>
                                                             </div>
                                                         </div><!-- item-description -->
                                                     </div><!-- item -->
@@ -183,4 +171,4 @@
             </div>
         </div>
     </div> <!-- all-categories -->
-</div>    <!-- page -->
+    </div>    <!-- page -->

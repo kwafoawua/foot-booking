@@ -1,11 +1,11 @@
 /**
- * Created by pablo on 18/9/2017.
+ * Created by pablo on 27/9/2017.
  */
-export class Service {
 
-    display: string;
-    _id:number;
+export class Service {
+    id: number;
     name: string;
+
 
 
 }

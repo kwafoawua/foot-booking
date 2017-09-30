@@ -1,5 +1,6 @@
-import {Service} from "./service";
+
 import {Address} from "./address";
+
 export class Club {
     _id: string;
     name: string;
@@ -7,6 +8,6 @@ export class Club {
     phoneNumber: string;
     description: string;
     profileImg: string;
-    services: Service [];
+
 
 }

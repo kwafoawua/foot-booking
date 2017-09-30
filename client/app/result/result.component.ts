@@ -20,9 +20,8 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {templateJitUrl} from "@angular/compiler";
-import {equalParamsAndUrlSegments} from "@angular/router/src/router_state";
-import {ClubFilter} from "../Filter/ClubFilter/clubfilter";
+import {ClubFilter} from "../_models/clubfilter";
+import {Service} from "../_models/service";
 
 @Component({
     selector: 'results',
@@ -31,41 +30,72 @@ import {ClubFilter} from "../Filter/ClubFilter/clubfilter";
 })
 
 
+
+
+
+
 export class ResultComponent implements OnInit {
 
 
     private form: FormGroup;
     private clubfilter: ClubFilter;
     public clubs: Club[];
+    public services: Service[];
+    private servicesChecked : Service = [];
+
+
 
 
     constructor(private activatedRoute: ActivatedRoute,
                 private searchService: SearchService,
                 private router: Router) {
 
-        this.form = new FormGroup({'clubname': new FormControl('clubname')});
+       // this.form = new FormGroup({'clubname': new FormControl('clubname')});
     }
 
     ngOnInit(): void {
         this.clubs = SearchService.clubs;
+        this.services = this.searchService.getClubServices()
+
     }
 
 
 //LE PASO LOS DATOS PARA CREAR LOS FILTROS
     private crearFiltros(): ClubFilter {
-        let modelform = this.form.value;
+       // let modelform = this.form.value;
         return new ClubFilter(
-            modelform.clubname
+        this.clubname,
+        //    modelform.clubname,
+         this.servicesChecked
         )
     }
 
 //BUSCO POR LOS FILTROS
+
     private buscarClubsPorFiltros() {
         this.clubfilter = this.crearFiltros();
-        console.log("ya cree el filtro");
+        console.log("ya cree el filtro",this.clubfilter);
         this.searchService.findClubsByFilters(this.clubfilter).subscribe(() => {
             this.clubs = SearchService.clubs;
         });
+    console.log(this.clubfilter)
+    }
+
+   addService(e){
+
+        if(e.state){
+
+            console.log("agrego el servicio ",e.name)
+            this.servicesChecked.push({'id':e.id,'name': e.name});
+           // console.log("array", this.servicesChecked)
+        } else {
+            console.log("saco el servicio",e.name);
+            for (var i =0; i < this.servicesChecked.length; i++)
+                if (this.servicesChecked[i].name === e.name) {
+                    this.servicesChecked.splice(i,1);
+                    break;
+                }
+       }
     }
 
 }

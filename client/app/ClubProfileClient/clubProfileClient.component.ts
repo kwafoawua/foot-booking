@@ -21,9 +21,6 @@ export class ProfileClubClientComponent implements OnInit {
     zoom = 16.88;
 
 
-
-
-
     constructor(private userService: UserService, private clubService: ClubService, private route: ActivatedRoute) {
         //this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
         //this.isEdit = false;
