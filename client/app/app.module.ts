@@ -61,7 +61,7 @@ import { AgmCoreModule } from '@agm/core';
         ProfileClubClientComponent,
         ResultComponent,
         FieldFormArrayComponent,
-        FieldFormControlComponent
+        FieldFormControlComponent,
         ProfilePlayerComponent,
     ],
     providers: [
