@@ -9,16 +9,22 @@ var Club = require('../models/Club');
 var User = require('../models/User');
 var Q = require('q');
 var multer = require('./uploads');
+var async = require('async');
 
 /**
  * Create a Club
  */
 module.exports.registerClub = function (req,res) {
-    console.log(req);
-    console.log(req.file);
-    var profilePath = req.file.path.replace('//', '/');
+    //console.log(req);
+    //console.log(req.file);
+    var galleryPath = [];
+    var profilePath = req.files.profile[0].filename;
+    for(var i = 0; i < req.files.gallery.length; i++) {
+        galleryPath.push(req.files.gallery[i].filename);
+    }
+    //console.log(req.files['gallery[]']);
     var club = JSON.parse(req.body.body);
-     addClub(club, profilePath)
+     addClub(club,profilePath, galleryPath)
     .then(function () {
             res.sendStatus(200);
         })
@@ -27,7 +33,7 @@ module.exports.registerClub = function (req,res) {
         });
 
 };
-function addClub (club, profilePath) {
+function addClub (club, profilePath, galleryPath) {
     console.log('entra al club');
     //var clubcoso = JSON.parse(fullClub.body);
     //console.log(clubcoso);
@@ -43,7 +49,6 @@ function addClub (club, profilePath) {
 
             } else {
 
-
                 var newClub = new Club({
                     name: club.name,
                     address: {
@@ -56,6 +61,7 @@ function addClub (club, profilePath) {
                     services: club.services,
                     socialMedia: club.socialMedia || null,
                     profileImg: profilePath,
+                    galleryImg: galleryPath,
                     description: club.description
                 });
 
@@ -63,8 +69,10 @@ function addClub (club, profilePath) {
                     username: club.user.username.toLowerCase(),
                     email: club.user.email,
                     creator: newClub,
-                    rol: 'Club',
+                    rol: 'Club'
                 });
+
+               // async.each()
 
                 newUser.password = newUser.setPassword(club.user.password);
 

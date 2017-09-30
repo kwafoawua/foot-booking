@@ -1,6 +1,6 @@
 ﻿import { Component, ElementRef, NgZone, ViewChild, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
 import { } from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
@@ -16,6 +16,7 @@ import { AlertService, ClubService } from '../_services/index';
 import {Observable} from "rxjs/Observable";
 import {isUndefined} from "util";
 import {FileHolder} from "angular2-image-upload/lib/image-upload/image-upload.component";
+import {FieldFormArrayComponent} from "./field-form-array.component";
 
 @Component({
     moduleId: module.id,
@@ -27,6 +28,7 @@ export class RegisterClubComponent implements OnInit{
     loading = false;
     registerClubForm: FormGroup;
     filesToUpload: File;
+    galleryToUpload: File[] = [];
 
 
     @ViewChild("address")
@@ -69,19 +71,6 @@ export class RegisterClubComponent implements OnInit{
         });
     }
 
-    register() {
-        this.loading = true;
-        this.clubService.create(this.registerClubForm.value)
-            .subscribe(
-                data => {
-                    this.alertService.success('Registración Exitosa', true);
-                    this.router.navigate(['/login']);
-                },
-                error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
-    }
 
     createForm() {
         this.registerClubForm = this.fb.group({
@@ -101,19 +90,15 @@ export class RegisterClubComponent implements OnInit{
             }),
             services: [[], Validators.required],
             profileImg: [null, Validators.required],
-            //galleryImg: [],
-            field: this.fb.group({//cancha
-                fieldName: null,
-                services: [],
-                fieldImg: null
-            }),
+            galleryImg: null,
             socialMedia: this.fb.group({
                 facebookId: null,
                 twitterId: null,
                 instagramId: null,
                 googleId: null
 
-            })
+            }),
+            fields: FieldFormArrayComponent.initFields()
         });
     }
 
@@ -123,37 +108,55 @@ export class RegisterClubComponent implements OnInit{
             ]);
         };
 
-    /*public profileUploaded(file: FileHolder) {
-       // this.registerClubForm.controls['profileImg'].setValue(file);
-        this.clubService.upload(file.target);
-        console.log(file);
-    }*/
+    public profileUploaded(file: FileHolder) {
+       this.filesToUpload = file.file;
+        this.registerClubForm.controls['profileImg'].setValue(true);
+    }
 
-    public profileRemoved (file: FileHolder) {
+    public galleryUploaded(file: FileHolder) {
+        console.log(file);
+        this.galleryToUpload.push(file.file);
+        console.log(this.galleryToUpload);
+        this.registerClubForm.controls['galleryImg'].setValue(true);
+    }
+
+    public galleryRemoved (file: FileHolder) {
+        for(let i = 0; i < this.galleryToUpload.length; i++){
+            if((<any>this).galleryToUpload[i].lastModified === (<any>file).file.lastModified){
+                this.galleryToUpload.splice(i,1);
+                console.log(this.galleryToUpload);
+                break;
+            }
+        }
+        if(this.galleryToUpload.length === 0){
+            this.registerClubForm.controls['galleryImg'].setValue(null);
+        }
+    }
+
+    public profileRemoved () {
         this.registerClubForm.controls['profileImg'].setValue(null);
         this.filesToUpload = null;
         console.log(this.registerClubForm.controls['profileImg'])
     }
+    /*FIELDS*/
+    initFields() {
 
-    upload() {
-        const formData: any = new FormData();
-        const file: File = this.filesToUpload;
-
-        formData.append("image", file, file['name']);
-        formData.append(this.registerClubForm.value);
-
-        this.clubService.upload(formData)
-            .map(file => file.json())
-            .subscribe(file => console.log('files', file))
+        return this.fb.group({
+            description: '',
+            cantPlayers: '',
+            services: []
+        });
     }
 
-    fileChangeEvent(file: FileHolder) {
-        //this.filesToUpload = fileInput.target.files[0];
-        this.filesToUpload = file.file;
-        this.registerClubForm.controls['profileImg'].setValue(true);
-
-        //this.upload();
-        //this.product.photo = fileInput.target.files[0]['name'];
+    public addFields() {
+        // add address to the list
+        const control = <FormArray>this.registerClubForm.controls['fields'];
+        control.push(this.initFields());
+    }
+    public removeFields(i: number) {
+        // remove address from the list
+        const control = <FormArray>this.registerClubForm.controls['fields'];
+        control.removeAt(i);
     }
 
     registerClub (){
@@ -162,8 +165,12 @@ export class RegisterClubComponent implements OnInit{
 
             const formData: any = new FormData();
             const file: File = this.filesToUpload;
+            const gallery: File[] = this.galleryToUpload;
 
-            formData.append("image", file, file['name']);
+            formData.append("profile", file, file['name']);
+            for(let i = 0; i < gallery.length ; i++){
+                formData.append("gallery", gallery[i], gallery[i].name);
+            }
             formData.append("body",JSON.stringify(this.registerClubForm.value) );
 
 
@@ -203,9 +210,5 @@ export class RegisterClubComponent implements OnInit{
         }
     };*/
 
-
-    public galleryUploaded (file: FileHolder) {
-        this.registerClubForm.controls['galleryImg'].setValue(file);
-    }
 
 }

@@ -15,10 +15,11 @@ var ObjectId = Schema.Types.ObjectId;
 var fieldSchema = new Schema({
     description: String,
     cantPlayers: { type: Number, required: true },
+    fieldType : String,
     services: [{
-        name: { type: String, required: true },
-        description: String
-    }],
+        display: { type: String, required: true },
+        value: String
+    }]
 
 });
 
