@@ -6,6 +6,7 @@
             <div class="ad-details">
                 <div class="row">
                     <div class="col-md-8 col-sm-7">
+
                         <div class="item">
 
 
@@ -94,32 +95,20 @@
 
                                             </div>
                                         </ul>
-                                        <div id="calendar">
 
-                                            <div class="container">
-                                                <div class="row">
-                                                    <div class='col-sm-6'>
-                                                        <div class="form-group">
-                                                            <div class='input-group date' id='datetimepicker2'>
-                                                                <input type='text' class="form-control" />
-                                                                <span class="input-group-addon">
-                                                                <span class="glyphicon glyphicon-calendar"></span>
-                                                            </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                        <!--<input [dpDayPicker]="config" name="datePicker"-->
+                            <!--id="calendar" inputElementConteiner="#inputConteiner" theme="dp-material" [(ngModel)]="date">-->
 
 
-                                        </div>
 
 
-                                        <button class="btn btn-primary">Reservar cancha</button>
+                                       <button class="btn btn-primary">Reservar cancha</button>
                                     </div><!-- panel-body -->
                                 </div>
+
                             </div><!-- advanced-filter -->
                         </div><!-- filter-list -->
-
-              <!--fin item cancha-->
+                        <!--fin item cancha-->
 
 
 
@@ -133,8 +122,8 @@
                                 <h4>DATOS DE CONTACTO</h4>
 
                                 <div class="seller-info">
-                                    <p><span> NOMBRE </span> {{club?.name | uppercase}}</p>
-                                    <p><span> TEL </span> {{club?.phoneNumber}} </p>
+                                    <p> NOMBRE  <span>{{club?.name | uppercase}}</span></p>
+                                    <p> TEL <span>  {{club?.phoneNumber}} </span> </p>
                                 </div>
 
 

@@ -41,7 +41,9 @@ export class ResultComponent implements OnInit {
     private clubfilter: ClubFilter;
     public clubs: Club[];
     public services: Service[];
-    //private servicesChecked : Service = [];
+  //  private servicesChecked : Service = [];
+    clubname = "";
+
 
 
 
@@ -81,7 +83,8 @@ export class ResultComponent implements OnInit {
     console.log(this.clubfilter)
     }
 
- /*  addService(e){
+    /*
+ addService(e:any){
 
         if(e.state){
 
@@ -97,5 +100,6 @@ export class ResultComponent implements OnInit {
                 }
        }
     }
-*/
+    */
+
 }

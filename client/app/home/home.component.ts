@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
     lat: number = -31.421272;
     lng: number = -64.183841;
     zoom = 16.88;
-
+    clubname="";
 
     constructor(private searchService: SearchService, private router: Router) {
 
