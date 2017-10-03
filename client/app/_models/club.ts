@@ -1,5 +1,6 @@
 
 import {Address} from "./address";
+import {Field} from "./field";
 
 export class Club {
     _id: string;
@@ -8,6 +9,8 @@ export class Club {
     phoneNumber: string;
     description: string;
     profileImg: string;
+    galleryImg: string[];
+    fields: Field[];
 
 
 }

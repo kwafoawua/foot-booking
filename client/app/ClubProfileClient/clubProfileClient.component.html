@@ -1,4 +1,3 @@
-
 <div class="page">
 
 
@@ -8,16 +7,15 @@
                 <div class="row">
                     <div class="col-md-8 col-sm-7">
                         <div class="item">
+
+
                             <div class="detail-item-image item-image carousel slide" data-ride="carousel">
+
                                 <div class="carousel-inner">
-                                    <div class="item active">
-                                        <img [src]="club?.profileImg" alt="" class="img-responsive">
-                                    </div>
-                                    <div class="item">
-                                        <img src="images/item/2.jpg" alt="" class="img-responsive">
-                                    </div>
-                                    <div class="item">
-                                        <img src="images/item/6.jpg" alt="" class="img-responsive">
+
+                                    <div *ngFor="let img of club?.galleryImg; let i = index"
+                                         [ngClass]="i === 0 ? 'item active': 'item'">
+                                        <img src="/uploads/{{img}}" alt="" class="img-responsive">
                                     </div>
                                 </div>
                                 <a class="left-control" href=".detail-item-image" role="button" data-slide="prev">
@@ -30,6 +28,8 @@
                                 </a>
 
                             </div>
+
+
                             <div class="details-description">
                                 <div class="item-info item-meta">
 
@@ -38,7 +38,8 @@
                                     </div>
 
                                     <ul class="list-inline product-social">
-                                        <li><a href="#"><i class="fa fa-facebook-square" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-facebook-square" aria-hidden="true"></i></a>
+                                        </li>
                                         <li><a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
                                         <li><a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a></li>
                                     </ul>
@@ -46,19 +47,80 @@
                                 <div class="item-info">
 
 
-
-
                                     <h4>DESCRIPCIÓN</h4>
                                     <p>
                                         {{club?.description | uppercase}}
                                     </p>
-                                  </div><!-- item-info -->
+                                </div><!-- item-info -->
 
                             </div>
-
-
-
                         </div><!-- item -->
+
+                            <P></P>
+                        <h4>Canchas</h4>
+
+
+                        <!--ITEM CANCHAS-->
+
+                        <div class="filter-list" *ngFor="let field of club?.fields; let i = index">
+                            <div>
+
+                                <div class="filter-heading">
+                                    <a data-toggle="collapse" data-parent="#advanced-filter" href="#{{i}}">
+                                        <h4 class="list-title">{{field?.fieldName | uppercase}}<span class="pull-right"><i
+                                                class="fa fa-plus"></i></span></h4>
+                                    </a>
+                                </div><!-- filter-heading -->
+
+
+                                <div id="{{i}}" class="panel-collapse collapse">
+                                    <!-- panel-body -->
+                                    <div class="panel-body">
+
+                                        <div class="item-price">
+                                            <span>$45</span>
+                                        </div>
+
+                                        <ul>
+                                            <li>  Cantidad de jugadores <b>{{field?.cantPlayers}}</b> </li>
+                                            <li> Tipo de suelo <b>{{field.fieldType}}</b></li>
+                                            <p></p>
+                                            <P ALIGN=left> Servicios que incluye </P>
+                                            <div *ngFor="let serv of field?.services">
+                                                <li><b>
+                                                    {{serv?.display}}
+
+                                                </b></li>
+
+                                            </div>
+                                        </ul>
+                                        <div id="calendar">
+
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class='col-sm-6'>
+                                                        <div class="form-group">
+                                                            <div class='input-group date' id='datetimepicker2'>
+                                                                <input type='text' class="form-control" />
+                                                                <span class="input-group-addon">
+                                                                <span class="glyphicon glyphicon-calendar"></span>
+                                                            </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                        </div>
+
+
+                                        <button class="btn btn-primary">Reservar cancha</button>
+                                    </div><!-- panel-body -->
+                                </div>
+                            </div><!-- advanced-filter -->
+                        </div><!-- filter-list -->
+
+              <!--fin item cancha-->
+
 
 
                     </div>
@@ -80,13 +142,10 @@
 
                             <div class="widget item-tag">
                                 <h4>SERVICIOS DEL CLUB</h4>
-                                <ul class="list-inline"
-                                *ngFor="let serv of club?.services"
-                                >
-                                    <li><a >{{serv.display | uppercase}}</a></li>
+                                <ul class="list-inline">
+                                    <li *ngFor="let serv of club?.services"><a>{{serv.display | uppercase}}</a></li>
                                 </ul>
                             </div>
-
 
 
                             <div class="location-map">
@@ -94,15 +153,17 @@
                                 <div id="gmap">
 
                                     <agm-map [zoom]="16" [latitude]="club?.address.lat" [longitude]="club?.address.lng">
-                                        <agm-marker [latitude]="club?.address.lat" [longitude]="club?.address.lng"></agm-marker>
+                                        <agm-marker [latitude]="club?.address.lat"
+                                                    [longitude]="club?.address.lng"></agm-marker>
                                     </agm-map>
+                                    <div><label>{{club?.address.address}}</label></div>
 
 
                                 </div>
                             </div><!-- location-map -->
 
                             <div class="form-group text-center">
-                                <button type="submit" class="btn btn-primary">Reservar cancha</button>
+
                             </div>
 
                         </div><!-- side-bar -->
@@ -110,5 +171,9 @@
                 </div>
             </div>
         </div>
+
+
+
+
     </div> <!-- all-categories -->
-</div>	<!-- page -->
+</div>    <!-- page -->

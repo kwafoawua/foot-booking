@@ -51,7 +51,7 @@ export class HomeComponent implements OnInit {
     private crearFiltros(): ClubFilter {
         let modelform = this.form.value;
         return new ClubFilter(
-            modelform.clubname
+           this.clubname,
         )
     }
 

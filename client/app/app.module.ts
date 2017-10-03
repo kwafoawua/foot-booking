@@ -30,7 +30,7 @@ import {SearchService} from "./_services/search.service";
 
 //API MAPS
 import { AgmCoreModule } from '@agm/core';
-
+import {DpDatePickerModule} from 'ng2-date-picker';
 
 @NgModule({
     imports: [
@@ -43,6 +43,7 @@ import { AgmCoreModule } from '@agm/core';
         BrowserAnimationsModule,
         ImageUploadModule.forRoot(),
         CustomFormsModule,
+        DpDatePickerModule,
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyAAwaI8YafySsHraMA_9G_n30_FECUhoVs',
             libraries: ["places"]

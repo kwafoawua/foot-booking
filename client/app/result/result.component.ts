@@ -41,7 +41,7 @@ export class ResultComponent implements OnInit {
     private clubfilter: ClubFilter;
     public clubs: Club[];
     public services: Service[];
-    private servicesChecked : Service = [];
+    //private servicesChecked : Service = [];
 
 
 
@@ -64,9 +64,9 @@ export class ResultComponent implements OnInit {
     private crearFiltros(): ClubFilter {
        // let modelform = this.form.value;
         return new ClubFilter(
-        this.clubname,
+       this.clubname,
         //    modelform.clubname,
-         this.servicesChecked
+       //  this.servicesChecked
         )
     }
 
@@ -81,7 +81,7 @@ export class ResultComponent implements OnInit {
     console.log(this.clubfilter)
     }
 
-   addService(e){
+ /*  addService(e){
 
         if(e.state){
 
@@ -97,5 +97,5 @@ export class ResultComponent implements OnInit {
                 }
        }
     }
-
+*/
 }

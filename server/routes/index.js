@@ -24,6 +24,7 @@ router.post('/clubs/register',uploadsManager.upload.fields([
     { name: 'gallery', maxCount: 5 }
 ]), clubController.registerClub);
 router.get('/clubs/:_id', clubController.findById);
+router.get('/clubs/results/:_id', clubController.findById);
 router.get('/clubs/', clubController.findAllClubs);
 
 

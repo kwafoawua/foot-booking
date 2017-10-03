@@ -19,6 +19,10 @@ export class ClubService {
         return this.http.get('/clubs/' + _id).map((response: Response) => response.json());
     }
 
+    getResultById(_id: string) {
+        return this.http.get('/clubs/results/' + _id).map((response: Response) => response.json());
+    }
+
     update(club: Club) {
         return this.http.put('/clubs/' + club._id, club);
     }

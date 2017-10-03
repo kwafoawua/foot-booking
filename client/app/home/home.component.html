@@ -74,7 +74,7 @@
         <div id="search-section">
             <div class="container">
 
-                <form [formGroup]="form" (ngSubmit)="buscarClub()" novalidate="novalidate">
+                <form (ngSubmit)="buscarClub()" novalidate="novalidate">
 
                     <div class="search-section">
                         <ul>
@@ -94,7 +94,7 @@
 
                             <li>
                                 <input [(ngModel)]="clubname" name="clubname" (keyup.enter)="buscarClub()"
-                                       type="text" class="form-control" formControlName="clubname" placeholder="Donde queres jugar?">
+                                       type="text" class="form-control" placeholder="Donde queres jugar?">
                             </li>
 
                             <li>

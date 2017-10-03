@@ -23,7 +23,7 @@ var clubSchema = new Schema({
     phoneNumber: String,
    // fields: [{ type: ObjectId, ref: 'Cancha' }],
     fields: [{
-        description: String,
+        fieldName: String,
         cantPlayers: { type: Number, required: true },
         fieldType : String,
         services: [{

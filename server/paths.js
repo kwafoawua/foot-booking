@@ -1,6 +1,7 @@
 var pathToRegexp = require('path-to-regexp');
 
 var findClub = pathToRegexp('/findClub/:clubfilter');
+var getResultById = pathToRegexp('/clubs/results/:_id');
 
 module.exports.path = {
     path: ['/users/authenticate',
@@ -11,5 +12,7 @@ module.exports.path = {
         '/findClub',
         '/results/club/',
         '/uploads',
-        findClub]
+        findClub,
+        getResultById
+    ]
 };
