@@ -29,6 +29,7 @@
     "angular2-google-maps": "^0.17.0",
     "angular2-image-upload": "^0.6.6",
     "core-js": "^2.5.1",
+    "moment": "^2.18.1",
     "ng2-date-picker": "^2.4.0",
     "ng2-material-dropdown": "^0.7.10",
     "ng2-validation": "^4.2.0",

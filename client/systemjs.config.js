@@ -35,7 +35,8 @@
             'ng2-validation': 'npm:ng2-validation/bundles/ng2-validation.umd.js',
             'libphonenumber-js' : 'npm:libphonenumber-js/bundle/libphonenumber-js.min.js',
             '@agm/core': 'node_modules/@agm/core/core.umd.js',
-            'ng2-date-picker':'npm:ng2-date-picker/date-picker.module.js'
+            'ng2-date-picker':'npm:ng2-date-picker',
+            'moment' : 'npm:moment/moment.js'
 
 
         },
@@ -59,7 +60,8 @@
                 defaultExtension: 'js'
             },
             'ng2-date-picker':{
-                defaultExtension: 'js'
+                defaultExtension: 'js',
+                main: './index.js'
             }
         }
     });
