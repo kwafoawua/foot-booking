@@ -6,7 +6,9 @@ import { User } from '../_models/index';
 import { UserService } from '../_services/index';
 import { Club } from '../_models/index';
 import { ClubService } from '../_services/index';
-import {DpDatePickerModule} from  '../app.module';
+import {DpDatePickerModule, IDatePickerDirectiveConfig} from  'ng2-date-picker';
+import {Moment} from "moment";
+import {ITimeSelectConfig} from "ng2-date-picker/time-select/time-select-config.model";
 
 @Component({
     moduleId: module.id,
@@ -19,7 +21,21 @@ export class ProfileClubClientComponent implements OnInit {
     zoom = 16.88;
     galery: String [];
     selectedDate:any;
-    config: IDatePickerDirectiveConfig = {locale:es }
+    selectedTime: any;
+    configTime : ITimeSelectConfig = {
+        minutesInterval: 60,
+        minutesFormat: '00'
+    };
+    config: IDatePickerDirectiveConfig = {
+        format: 'DD/MM/YYYY',
+        enableMonthSelector: true,
+        showNearMonthDays: false ,
+        monthFormatter: (m: Moment): string => {
+            return [ 'ene', 'feb', 'mar', 'abr', 'may', 'jun',
+                    'jul', 'ago', 'sep', 'oct', 'nov', 'dic' ][m.month()] +
+                ', ' + m.year();
+        },
+        appendTo: 'body'};
 
 
     constructor(private userService: UserService, private clubService: ClubService, private route: ActivatedRoute) {

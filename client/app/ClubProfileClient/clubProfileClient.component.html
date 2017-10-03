@@ -96,10 +96,8 @@
                                             </div>
                                         </ul>
 
-                                        <!--<input [dpDayPicker]="config" name="datePicker"-->
-                            <!--id="calendar" inputElementConteiner="#inputConteiner" theme="dp-material" [(ngModel)]="date">-->
-
-
+                                        <input name="selectedDate" [(ngModel)]="selectedDate" [dpDayPicker]="config" theme="dp-material" />
+                                        <!--<dp-time-select [(ngModel)]="selectedTime" [config]="configTime"></dp-time-select>-->
 
 
                                        <button class="btn btn-primary">Reservar cancha</button>
