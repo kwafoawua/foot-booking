@@ -6,7 +6,7 @@ import { User } from '../_models/index';
 import { UserService } from '../_services/index';
 import { Club } from '../_models/index';
 import { ClubService } from '../_services/index';
-import {DpDatePickerModule} from  '../app.module';
+import {DpDatePickerModule} from 'ng2-date-picker';
 
 @Component({
     moduleId: module.id,
@@ -19,7 +19,7 @@ export class ProfileClubClientComponent implements OnInit {
     zoom = 16.88;
     galery: String [];
     selectedDate:any;
-    config: IDatePickerDirectiveConfig = {locale:es }
+   // config: IDatePickerDirectiveConfig = {}
 
 
     constructor(private userService: UserService, private clubService: ClubService, private route: ActivatedRoute) {
