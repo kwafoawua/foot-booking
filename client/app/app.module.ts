@@ -19,7 +19,6 @@ import { AlertService, AuthenticationService, UserService, ClubService, PlayerSe
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import { RegisterClubComponent, FieldFormArrayComponent, FieldFormControlComponent } from './register-club/index';
-
 import { SiteHeaderComponent } from './site-header/site-header.component';
 import { SiteFooterComponent } from './site-footer/site-footer.component';
 import { ProfileClubClientComponent } from './ClubProfileClient/clubProfileClient.component';
@@ -27,10 +26,12 @@ import {ResultComponent} from './result/index';
 import {SearchService} from "./_services/search.service";
 import { RegisterPlayerComponent } from './register-player/index';
 import { ProfilePlayerComponent } from './profile-player/index';
+import {AdminClubComponent} from "./admin-club/index";
 
 
 //API MAPS
 import { AgmCoreModule } from '@agm/core';
+
 
 
 @NgModule({
@@ -63,6 +64,7 @@ import { AgmCoreModule } from '@agm/core';
         FieldFormArrayComponent,
         FieldFormControlComponent,
         ProfilePlayerComponent,
+        AdminClubComponent
     ],
     providers: [
         customHttpProvider,

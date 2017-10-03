@@ -8,6 +8,7 @@ import { RegisterPlayerComponent } from './register-player/index';
 import { ProfilePlayerComponent } from './profile-player/index';
 import { AuthGuard } from './_guards/index';
 import {ResultComponent} from './result/index';
+import {AdminClubComponent} from "./admin-club/index";
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },
@@ -15,10 +16,10 @@ const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'results/club/:id', component: ProfileClubClientComponent},
     { path: 'player/register', component: RegisterPlayerComponent },
-    //{ path: 'profile/:id', component: ProfileComponent, canActivate: [AuthGuard]},
     { path: 'profile-player/:id', component: ProfilePlayerComponent, canActivate: [AuthGuard]},
     {path: 'results', component: ResultComponent },
     {path: 'club/register', component: RegisterClubComponent},
+    {path: 'club/admin', component: AdminClubComponent, canActivate:[AuthGuard]},
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
