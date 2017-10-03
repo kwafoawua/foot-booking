@@ -70,3 +70,7 @@ div#field-control {
 button#field-array-add-btn {
 	float: right;
 }
+/* Para cambiar el fondo del dropdown a un gris mas negro */
+#dropdown-top-alternative {
+	background-color: #25262a;
+}

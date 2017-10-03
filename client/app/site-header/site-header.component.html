@@ -3,7 +3,7 @@
 		<div class="topbar">
 			<div class="container">
 				<div class="row">
-					<div class="col-sm-6">
+					<div class="col-sm-4">
 						<ul class="list-inline">
 							<li><span><i class="fa fa-envelope-o"></i></span> <a href="#">FootBooking</a></li>
 							<li><ul class="list-inline top-social">
@@ -16,7 +16,7 @@
 						</li>
 					</ul>
 				</div>
-				<div class="col-sm-6">
+				<div class="col-sm-8">
 					<div class="user-section">			
 						<ul class="list-line">
 							<div *ngIf="!auth.isAuthenticated()">
@@ -25,16 +25,35 @@
 								<li><a [routerLink]="['/club/register']" class="btn btn-primary">Complejo</a></li>
 							</div>
 							<div *ngIf="auth.isAuthenticated()">
-							<div *ngIf="auth.isUserClub()">
-								<li> <label>Hola {{auth.getUserAuthenticated()}}</label></li>
-								<li><a (onclick)=logout() [routerLink]="['/login']"><i class="fa fa-log-out" aria-hidden="true"></i> Cerrar Sesión</a></li>
-							</div>
+								<div *ngIf="auth.isUserClub()">
+									<li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">Gestión de campeonato <span class="caret"></span></a>
+										<ul class="dropdown-menu" id="dropdown-top-alternative">
+											<li><a href="categories.html">Nuevo campeonato</a></li>
+											<li><a href="sub-categories.html">Administrar campeonatos</a></li>
+										</ul>
+									</li>
+									<li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">Gestión de canchas <span class="caret"></span></a>
+										<ul class="dropdown-menu" id="dropdown-top-alternative">
+											<li><a href="faq.html">Ver reservas</a></li>
+											<li><a href="ad-post.html">Administrar canchas</a></li>
+										</ul>
+									</li>
+									<li> <label>Hola {{auth.getUserAuthenticated()}}</label></li>
+									<li><a (onclick)=logout() [routerLink]="['/login']"><i class="fa fa-log-out" aria-hidden="true"></i> Cerrar Sesión</a></li>
+								</div>
 
-							
-							<div *ngIf="!auth.isUserClub()">
-								<li> <label>Hola {{auth.getUserAuthenticated()}}</label></li>
-								<li><a (onclick)=logout() [routerLink]="['/login']"><i class="fa fa-log-out" aria-hidden="true"></i> Cerrar Sesión</a></li>
-							</div>
+								<div *ngIf="!auth.isUserClub()">
+									<li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">Preferencias<span class="caret"></span></a>
+										<ul class="dropdown-menu" id="dropdown-top-alternative">
+											<li><a href="categories.html">Mis reservas</a></li>
+											<li><a href="sub-categories.html">Complejos preferidos</a></li>
+											<li><a href="sub-categories.html">Campeonatos</a></li>
+										</ul>
+									</li>
+									<li><label>Hola {{auth.getUserAuthenticated()}}</label></li>
+									<li><a href="contact.html">Mi perfil</a></li>
+									<li><a (onclick)=logout() [routerLink]="['/login']"><i class="fa fa-log-out" aria-hidden="true"></i> Cerrar Sesión</a></li>
+								</div>
 
 							</div>
 						</ul>	
@@ -66,39 +85,3 @@
 	</div><!-- container -->
 	</nav><!-- navbar -->
 </header><!-- header -->
-						
-
-<!--
-
-CLUB
-						<li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">Gestión de campeonato <span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="categories.html">Nuevo campeonato</a></li>
-								<li><a href="sub-categories.html">Administrar campeonatos</a></li>
-							</ul>
-						</li>
-						<li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">Gestión de canchas <span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="faq.html">Ver reservas</a></li>
-								<li><a href="ad-post.html">Administrar canchas</a></li>
-							</ul>
-						</li>
-
-
-
-
-
-PLAYER
-
-						<li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">Preferencias<span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="categories.html">Mis reservas</a></li>
-								<li><a href="sub-categories.html">Complejos preferidos</a></li>
-								<li><a href="sub-categories.html">Campeonatos</a></li>
-							</ul>
-						</li>
-						<li><a href="contact.html">Mi perfil</a></li>
-
-
-
--->

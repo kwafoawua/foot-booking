@@ -28,6 +28,9 @@ import {SearchService} from "./_services/search.service";
 import { RegisterPlayerComponent } from './register-player/index';
 import { ProfilePlayerComponent } from './profile-player/index';
 
+// Module for child routing
+import { ProfileInfoComponent } from './profile-player/options-component/profile-info.component';
+import { ProfileEditComponent } from './profile-player/options-component/profile-edit.component';
 
 //API MAPS
 import { AgmCoreModule } from '@agm/core';
@@ -63,6 +66,8 @@ import { AgmCoreModule } from '@agm/core';
         FieldFormArrayComponent,
         FieldFormControlComponent,
         ProfilePlayerComponent,
+        ProfileEditComponent,
+        ProfileInfoComponent,
     ],
     providers: [
         customHttpProvider,

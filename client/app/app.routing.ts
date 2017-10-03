@@ -9,13 +9,25 @@ import { ProfilePlayerComponent } from './profile-player/index';
 import { AuthGuard } from './_guards/index';
 import {ResultComponent} from './result/index';
 
+// Routes for child routing
+import { ProfileEditComponent, ProfileInfoComponent } from './profile-player/options-component/index';
+//import { ProfileEditComponent } from './profile-player/options-component/profile-edit.component';
+
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },
 
     { path: 'login', component: LoginComponent },
     { path: 'results/club/:id', component: ProfileClubClientComponent},
     { path: 'player/register', component: RegisterPlayerComponent },
-    //{ path: 'profile/:id', component: ProfileComponent, canActivate: [AuthGuard]},
+/*    { path: 'editPlayer', component: RegisterPlayerComponent,
+        children: [
+            { path: 'infoPlayer', component:ProfileInfoComponent, outlet:'profile-selection' },
+            { path: 'editPlayer', component:ProfileEditComponent, outlet:'profile-selection' },
+            { path: 'editPlayer', component:ProfileEditComponent, outlet:'profile-selection' }
+        ]
+    },
+    { path: 'editPlayer', component: ProfileEditComponent, outlet:'profile-selection' },
+*/
     { path: 'profile-player/:id', component: ProfilePlayerComponent, canActivate: [AuthGuard]},
     {path: 'results', component: ResultComponent },
     {path: 'club/register', component: RegisterClubComponent},
