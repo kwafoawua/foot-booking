@@ -28,6 +28,9 @@ import { RegisterPlayerComponent } from './register-player/index';
 import { ProfilePlayerComponent } from './profile-player/index';
 import {AdminClubComponent} from "./admin-club/index";
 
+// Module for child routing
+import { ProfileInfoComponent } from './profile-player/options-component/profile-info.component';
+import { ProfileEditComponent } from './profile-player/options-component/profile-edit.component';
 
 //API MAPS
 import { AgmCoreModule } from '@agm/core';
@@ -65,7 +68,9 @@ import {DpDatePickerModule} from 'ng2-date-picker';
         FieldFormArrayComponent,
         FieldFormControlComponent,
         ProfilePlayerComponent,
-        AdminClubComponent
+        AdminClubComponent,
+        ProfileEditComponent,
+        ProfileInfoComponent,
     ],
     providers: [
         customHttpProvider,
