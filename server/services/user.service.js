@@ -15,6 +15,7 @@ service.getById = getById;
 service.create = create;
 service.update = update;
 service.delete = _delete;
+service.getUserByCreatorId = getUserByCreatorId;
 
 module.exports = service;
 
@@ -175,6 +176,19 @@ function _delete(_id) {
 
             deferred.resolve();
         });
+
+    return deferred.promise;
+}
+
+function getUserByCreatorId(_id) {
+    var deferred = Q.defer();
+
+    db.users.findOne({creator:ObjectId("'" + _id + "'")}, function(err, user){
+        if (err) deferred.reject(err.name + ': ' + err.message);      
+        if (user) {
+            deferred.resolve(user);
+        }        
+    });
 
     return deferred.promise;
 }

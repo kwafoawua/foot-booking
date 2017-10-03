@@ -8,29 +8,31 @@ import { ImageUploadModule } from 'angular2-image-upload';
 import { CustomFormsModule } from 'ng2-validation';
 
 
-
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
+
 
 import { customHttpProvider } from './_helpers/index';
 import { AlertComponent } from './_directives/index';
 import { AuthGuard } from './_guards/index';
-import { AlertService, AuthenticationService, UserService, ClubService } from './_services/index';
+import { AlertService, AuthenticationService, UserService, ClubService, PlayerService } from './_services/index';
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import { RegisterClubComponent, FieldFormArrayComponent, FieldFormControlComponent } from './register-club/index';
-//import { FormGroup, FormArray, FormBuilder,
-    //Validators,ReactiveFormsModule  } from '@angular/forms';
 import { SiteHeaderComponent } from './site-header/site-header.component';
 import { SiteFooterComponent } from './site-footer/site-footer.component';
 import { ProfileClubClientComponent } from './ClubProfileClient/clubProfileClient.component';
 import {ResultComponent} from './result/index';
 import {SearchService} from "./_services/search.service";
+import { RegisterPlayerComponent } from './register-player/index';
+import { ProfilePlayerComponent } from './profile-player/index';
+import {AdminClubComponent} from "./admin-club/index";
 
 
 //API MAPS
 import { AgmCoreModule } from '@agm/core';
 import {DpDatePickerModule} from 'ng2-date-picker';
+
 
 @NgModule({
     imports: [
@@ -55,12 +57,15 @@ import {DpDatePickerModule} from 'ng2-date-picker';
         HomeComponent,
         LoginComponent,
         RegisterClubComponent,
+        RegisterPlayerComponent,
         SiteHeaderComponent,
         SiteFooterComponent,
         ProfileClubClientComponent,
         ResultComponent,
         FieldFormArrayComponent,
-        FieldFormControlComponent
+        FieldFormControlComponent,
+        ProfilePlayerComponent,
+        AdminClubComponent
     ],
     providers: [
         customHttpProvider,
@@ -69,6 +74,7 @@ import {DpDatePickerModule} from 'ng2-date-picker';
         AuthenticationService,
         UserService,
         ClubService,
+        PlayerService,
         SearchService
     ],
     bootstrap: [AppComponent]

@@ -4,6 +4,10 @@ var ObjectId = Schema.Types.ObjectId;
 
 /**
  * Player Schema
+ * @param {string} name - Player's name.
+ * @param {string} lastName - Player's last name.
+ * @param {date} birthDate - Player's birthday.
+ * @param {string} phoneNumber - Player's phone number.
  */
 
 var playerSchema = new Schema({
@@ -11,8 +15,7 @@ var playerSchema = new Schema({
 	lastName: {type: String, required: true},
 	birthDate: Date,
 	phoneNumber: String,
-	user: {type: ObjectId, ref: 'User'}
-
+	biography: {type: String, required: false},
 });
 
 module.exports = mongoose.model('Player', playerSchema);

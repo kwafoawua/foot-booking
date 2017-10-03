@@ -1,5 +1,6 @@
 var express = require('express');
 var player = express.Router();
+var playerController = require('./controllers/playerController.js');
 
 module.exports = function(app) {
 

@@ -16,6 +16,7 @@ export class SiteHeaderComponent implements OnInit {
 
   constructor(private auth:AuthenticationService) {
     auth.isAuthenticated();
+    auth.isUserClub();
   }
 
   ngOnInit() {
@@ -24,4 +25,5 @@ export class SiteHeaderComponent implements OnInit {
       this.username = this.currentUser.username;
     }
   }
+
 }

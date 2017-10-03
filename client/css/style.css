@@ -101,3 +101,87 @@ button#field-array-add-btn {
 }
 
 
+/*NAVBAR DE ADMIN CLUB*/
+
+.logo {
+	text-align: center;
+}
+
+/*#navigation{
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	transition: all 0.5s ease;
+}*/
+
+.navi i {
+	font-size: 20px;
+}
+
+#navigation {
+	background: #ffffff;
+}
+
+#navigation {
+	padding: 0;
+}
+
+
+.navi a {
+	border-bottom: 1px solid #0d172e;
+	border-top: 1px solid #0d172e;
+	color: #000000;
+	display: block;
+	font-size: 17px;
+	font-weight: 500;
+	padding: 28px 20px;
+	text-decoration: none;
+}
+
+.navi i {
+	margin-right: 15px;
+	color: #5584ff;
+}
+
+.navi .active a {
+	background: #ffffff;
+	border-left: 5px solid #5584ff;
+	padding-left: 15px;
+}
+
+.navi a:hover {
+	background: #122143 none repeat scroll 0 0;
+	border-left: 5px solid #5584ff;
+	display: block;
+	padding-left: 15px;
+}
+
+.navbar-default {
+	background-color: #ffffff;
+	border-color: #ffffff;
+}
+
+.navbar-toggle {
+	border: none;
+}
+
+.navbar-default .navbar-toggle:focus,
+.navbar-default .navbar-toggle:hover {
+	background-color: rgba(0, 0, 0, 0);
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+	background-color: #0e1a35;
+}
+
+.circle-logo {
+	margin: 0 auto;
+	max-width: 30px !important;
+	text-align: center;
+}
+.hidden-xs{
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	transition: all 0.5s ease;
+}

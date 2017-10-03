@@ -11,19 +11,7 @@ var bcrypt = require('bcryptjs');
 
 
 module.exports.authenticate = function(req, res) {
-   /* FindUser(req.body.username, req.body.password)
-    .then(function(user) {
-            if (user) {
-                // authentication successful
-                res.send(user);
-            } else {
-                // authentication failed
-                res.status(400).send('Username or password is incorrect');
-            }
-        })
-        .catch(function(err) {
-            res.status(400).send(err);
-        });*/
+
 
   getRol(req.body.username, req.body.password)
        .then(function (userRol) {
@@ -64,6 +52,7 @@ function getRol(us){
 function FindUser(username, password, rol) {
 	console.log('Entra al finduders');
 	console.log(username + password + rol);
+
     var deferred = Q.defer();
     User.findOne({ username: username })
     .populate('creator', null, rol)
@@ -71,29 +60,26 @@ function FindUser(username, password, rol) {
         if (err) {
             deferred.reject(err.name + ' : ' + err.message);
             return;
-            console.log(err);
+            //console.log(err);
         }
         if(!user) {
             deferred.reject('El usuario no existe.');
             return;
         }
-        console.log('entra con populate');
-        console.log(user);
-        console.log(err);
-        console.log(password);
-        console.log(bcrypt.compareSync(password, user.password));
-        if (user && bcrypt.compareSync(password, user.password)) {
-        	console.log('existe');
-            deferred.resolve({
-	                _id: user._id,
-                    clubId: user.creator._id,
-	                username: user.username,
-	                email: user.email,
-	                token: jwt.sign({ sub: user._id }, config.secret)
 
-           		 });
+        if (user && bcrypt.compareSync(password, user.password)) {
+           console.log('existe');
+            deferred.resolve({
+                   _id: user._id,
+                   playerOrClubId: user.creator._id,
+                   username: user.username,
+                   email: user.email,
+                   rol: rol,
+                   token: jwt.sign({ sub: user._id }, config.secret)
+
+                   });
         } else {
-        	deferred.resolve();
+           deferred.resolve();
         }
     });
         return deferred.promise;
