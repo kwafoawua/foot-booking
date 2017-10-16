@@ -3,108 +3,129 @@
 
         <div class="col-md-8 col-md-offset-2 avtpost-fields">
 
-            <div class="col-md-4 profile-sidebar">
-                <div class="profile-picture">
-                    <img src="../../images/blog/blog1.jpg">
-                    <h3>{{player?.name}} {{player?.lastName}}</h3>
-                    <a>{{currentUser?.username}}</a>
-                    <h3></h3>
-                    <div>
-                <ul>
-                <li><a href="#">Editar datos</a></li>
-                <li><a href="#">Contraseña</a></li>
-                <li><a href="#">Configuración</a></li>
-                </ul>
-            </div>
-                </div>
-            </div>
-
-            <div class="col-md-1">
-                <!-- Separación -->
-            </div> 
-
-            <div class="col-md-8">
-                <div class="player-profile-activity">
-                
-                    <div *ngIf="!idEdit">
-                        <div>
-                            <h3>Fecha de nacimiento</h3>
-                            {{player?.birthDate}}
-                        </div>
-                        <div>
-                            <h3>email</h3>
-                            {{currentUser?.email}}
-                        </div>
-                        <div>
-                            <h3>Teléfono</h3>
-                            {{player?.phoneNumber}}
-                        </div>
-                        <div>
-                            <h3>Sobre ti</h3>
-                            <div *ngIf="!player?.biography">
-                                <textarea class="form-control" rows="3" readonly="yes" placeholder="escribe algo acerca de tí"></textarea>
+            <div class="container">
+                <div class="row profile">
+                    <div class="col-md-3">
+                        <div class="profile-sidebar">
+                            <!-- SIDEBAR USERPIC -->
+                            <div class="profile-userpic">
+                                <img src="../../images/default-avatar/default-avatar.png" alt="">
                             </div>
-                            <div *ngIf="player?.biography">
-                                <textarea class="form-control" rows="3" readonly="yes">{{player?.biography}}</textarea>
+                            <!-- END SIDEBAR USERPIC -->
+                            <!-- SIDEBAR USER TITLE -->
+                            <div class="profile-usertitle" style="text-align: center;">
+                                <div class="profile-usertitle-name">
+                                    <h3>{{player?.name}} {{player?.lastName}}</h3>
+                                </div>
+                                <div class="profile-usertitle-job">
+                                    <h4 style="color: #00a651">{{currentUser?.username}}</h4>
+                                </div>
                             </div>
+                            <!-- END SIDEBAR USER TITLE -->
+                            <!-- SIDEBAR MENU -->
+                            <div class="profile-usermenu">
+                                <ul class="nav">
+                                    <li class="active">
+                                        <a>
+                                            <i class="glyphicon glyphicon-home"></i>
+                                        &nbsp;&nbsp;Mi Perfil </a>
+                                    </li>
+
+                                    <li>
+                                        <a>
+                                            <i class="glyphicon glyphicon-user"></i>
+                                        &nbsp;&nbsp;Editar Perfil </a>
+                                    </li>
+                                    <li>
+                                        <a>
+                                            <i class="glyphicon glyphicon-cog"></i>
+                                        &nbsp;&nbsp;Configuraciones </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- END MENU -->
                         </div>
-                        <h3></h3>
-                        <button (click)="editData(true)" class="btn btn-primary">Editar</button> 
                     </div>
 
+                    <div class="col-md-5">
+                        <div class="player-profile-activity" ng-hide="true">
 
+                            <div>
+                                <div>
+                                    <h3>Fecha de nacimiento</h3>
+                                    {{player?.birthDate}}
+                                </div>
+                                <div>
+                                    <h3>email</h3>
+                                    {{currentUser?.email}}
+                                </div>
+                                <div>
+                                    <h3>Teléfono</h3>
+                                    {{player?.phoneNumber}}
+                                </div>
+                                <div>
+                                    <h3>Sobre ti</h3>
+                                    <div *ngIf="!player?.biography">
+                                        <textarea class="form-control" rows="3" readonly="yes" placeholder="escribe algo acerca de tí"></textarea>
+                                    </div>
+                                    <div *ngIf="player?.biography">
+                                        <textarea class="form-control" rows="3" readonly="yes">{{player?.biography}}</textarea>
+                                    </div>
+                                </div>
+                                <h3></h3>
+                                <button (click)="editData(true)" class="btn btn-primary">Editar</button> 
+                            </div>
 <!--
-                    <form novalidate (ngSubmit)="onSubmit(form)">
-                        <div>
-                            <h3>Nombre</h3>
-                            <input type="text" name="name" value="{{player?.name}}" />
-                        </div>
-                        <div>
-                            <button type="submit" class="btn btn-success">Submit</button>
-                        </div>
-                    </form>
--->            
+
+ <a [routerLink]="[{ outlet: { 'profile-selection': ['editPlayer'] } }]">
+                                            <i class="glyphicon glyphicon-home"></i>
+                                        &nbsp;&nbsp;Mi Perfil </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a [routerLink]="[{ outlet: { 'profile-selection': ['editPlayer'] } }]">
+                                            <i class="glyphicon glyphicon-user"></i>
+                                        &nbsp;&nbsp;Editar Perfil </a>
+                                    </li>
+                                    <li>
+                                        <a [routerLink]="[{ outlet: { 'profile-selection': ['editPlayer'] } }]">
+                                            <i class="glyphicon glyphicon-cog"></i>
+                                        &nbsp;&nbsp;Configuraciones </a>
+                            <router-outlet name="profile-selection"></router-outlet>
 
 
-                <div *ngIf="idEdit">
-<form name="formUpdatePlayer" (ngSubmit)="f.form.valid && registerPlayer()">
-                    <div>
-                        <h3>Nombre</h3>
-                        <input type="text" name="name" value="{{player?.name}}" />
-                    </div>
-                    <div>
-                        <h3>Apellido</h3>
-                        <input type="text" name="lastName" value="{{player?.lastName}}" />
-                    </div>
-                    <div>
-                        <h3>Fecha de nacimiento</h3>
-                        <input type="text" name="birthDate" value="{{player?.birthDate}}" />
-                    </div>
-                    <div>
-                        <h3>email</h3>
-                        <input type="text" name="email" value="{{currentUser?.email}}" />
-                    </div>
-                    <div>
-                        <h3>Teléfono</h3>
-                        <input type="text" name="phoneNumber" value="{{player?.phoneNumber}}" />
-                    </div>
-                    <div>
-                        <h3>Sobre ti</h3>
-                        <div *ngIf="!player?.biography">
-                            <textarea class="form-control" rows="3" value="escribe algo acerca de tí"></textarea>
+
+
+                            <div *ngIf="!idEdit">
+                                <div>
+                                    <h3>Fecha de nacimiento</h3>
+                                    {{player?.birthDate}}
+                                </div>
+                                <div>
+                                    <h3>email</h3>
+                                    {{currentUser?.email}}
+                                </div>
+                                <div>
+                                    <h3>Teléfono</h3>
+                                    {{player?.phoneNumber}}
+                                </div>
+                                <div>
+                                    <h3>Sobre ti</h3>
+                                    <div *ngIf="!player?.biography">
+                                        <textarea class="form-control" rows="3" readonly="yes" placeholder="escribe algo acerca de tí"></textarea>
+                                    </div>
+                                    <div *ngIf="player?.biography">
+                                        <textarea class="form-control" rows="3" readonly="yes">{{player?.biography}}</textarea>
+                                    </div>
+                                </div>
+                                <h3></h3>
+                                <button (click)="editData(true)" class="btn btn-primary">Editar</button> 
+                            </div>
+-->
                         </div>
-                        <div *ngIf="player?.biography">
-                            <textarea class="form-control" rows="3">{{player?.biography}}</textarea>
-                        </div>
                     </div>
-                    <h3></h3>
-                    <button (click)="editData(false)" class="btn btn-primary">Guardar Cambios</button>
-</form>
                 </div>
-            </div>
-            <h3></h3>
-            </div>
+            </div>  
         </div>
-
     </div>
 </div>

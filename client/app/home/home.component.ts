@@ -5,7 +5,7 @@ import {UserService} from '../_services/index';
 import {ClubService} from '../_services/index';
 import {SearchService} from '../_services/index';
 import {Router} from '@angular/router';
-import {ClubFilter} from "../Filter/ClubFilter/clubfilter";
+import {ClubFilter} from "../_models/clubfilter";
 
 
 @Component({
@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
     lat: number = -31.421272;
     lng: number = -64.183841;
     zoom = 16.88;
-
+    clubname="";
 
     constructor(private searchService: SearchService, private router: Router) {
 
@@ -51,7 +51,7 @@ export class HomeComponent implements OnInit {
     private crearFiltros(): ClubFilter {
         let modelform = this.form.value;
         return new ClubFilter(
-            modelform.clubname
+           this.clubname,
         )
     }
 

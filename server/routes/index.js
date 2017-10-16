@@ -32,6 +32,7 @@ router.post('/clubs/register',uploadsManager.upload.fields([
 router.get('/clubs/:_id', clubController.findById);
 router.get('/clubs/results/:_id', clubController.findById);
 
+
 router.get('/clubs/', clubController.findAllClubs);
 
 
