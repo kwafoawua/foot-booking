@@ -19,6 +19,11 @@ const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'results/club/:id', component: ProfileClubClientComponent},
     { path: 'player/register', component: RegisterPlayerComponent },
+    { path: '', component: ProfilePlayerComponent,
+        children: [
+            { path: 'editPlayer', component: ProfileEditComponent, outlet: 'profileSelection' }
+        ]
+    },
 /*    { path: 'editPlayer', component: RegisterPlayerComponent,
         children: [
             { path: 'infoPlayer', component:ProfileInfoComponent, outlet:'profile-selection' },

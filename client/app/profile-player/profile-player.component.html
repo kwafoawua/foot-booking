@@ -32,7 +32,8 @@
                                     </li>
 
                                     <li>
-                                        <a>
+                                        <!--<a [routerLink]="[{ outlet: { 'profileSelection': ['editPlayer'] } }]">-->
+                                        <a [routerLink]="['/player-profile',{outlets:{'profileSelection':'editPlayer'}}]">
                                             <i class="glyphicon glyphicon-user"></i>
                                         &nbsp;&nbsp;Editar Perfil </a>
                                     </li>
@@ -49,31 +50,24 @@
 
                     <div class="col-md-5">
                         <div class="player-profile-activity" ng-hide="true">
+                            
+                            <router-outlet name="profileSelection"></router-outlet>
 
                             <div>
-                                <div>
-                                    <h3>Fecha de nacimiento</h3>
-                                    {{player?.birthDate}}
-                                </div>
-                                <div>
-                                    <h3>email</h3>
-                                    {{currentUser?.email}}
-                                </div>
-                                <div>
-                                    <h3>Teléfono</h3>
-                                    {{player?.phoneNumber}}
-                                </div>
-                                <div>
+
+                                <form name="editPlayer" (ngSubmit)="editPlayer()" #f="ngForm">
+                                    <h3>Nombre</h3><input type="text" class="form-control" name="namePlayer" [(ngModel)]="model.name" #name="ngModel" required value={{player?.name}} placeholder={{player?.name}} />
+                                    <h3>Apellido</h3><input type="text" class="form-control" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" required value={{player?.lastName}} placeholder={{player?.lastName}} />
+                                    <h3>Fecha de nacimiento</h3><input type="date" class="form-control" name="birthDate" [(ngModel)]="model.birthDate" #birthDate="ngModel" required />
+                                    <h3>email</h3><input type="text" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" required value={{currentUser?.email}} placeholder={{currentUser?.email}} />
+                                    <h3>Teléfono</h3><input type="text" class="form-control" name="phoneNumber" [(ngModel)]="model.phoneNumber" #phoneNumber="ngModel" required value={{player?.phoneNumber}} placeholder={{player?.phoneNumber}} />
                                     <h3>Sobre ti</h3>
-                                    <div *ngIf="!player?.biography">
-                                        <textarea class="form-control" rows="3" readonly="yes" placeholder="escribe algo acerca de tí"></textarea>
-                                    </div>
-                                    <div *ngIf="player?.biography">
-                                        <textarea class="form-control" rows="3" readonly="yes">{{player?.biography}}</textarea>
-                                    </div>
-                                </div>
-                                <h3></h3>
-                                <button (click)="editData(true)" class="btn btn-primary">Editar</button> 
+                                    <textarea type="text" rows="3" class="form-control" name="biography" [(ngModel)]="model.biography" #biography="ngModel" >{{player?.biography}}</textarea>
+                                    <h4></h4>
+                                    <button class="btn btn-primary">Guardar</button>
+                                    <button class="btn btn-primary" type="reset">Restablecer</button>
+                                </form>
+                            
                             </div>
 <!--
 
@@ -91,6 +85,8 @@
                                         <a [routerLink]="[{ outlet: { 'profile-selection': ['editPlayer'] } }]">
                                             <i class="glyphicon glyphicon-cog"></i>
                                         &nbsp;&nbsp;Configuraciones </a>
+
+                                        
                             <router-outlet name="profile-selection"></router-outlet>
 
 

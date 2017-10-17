@@ -9,7 +9,6 @@ var ObjectId = Schema.Types.ObjectId;
  * @param {date} birthDate - Player's birthday.
  * @param {string} phoneNumber - Player's phone number.
  */
-
 var playerSchema = new Schema({
 	name: {type: String, required: true},
 	lastName: {type: String, required: true},
