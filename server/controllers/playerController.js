@@ -40,7 +40,7 @@ function addPlayer (player) {
                 var newPlayer = new Player({
                     name: player.name,
                     lastName: player.lastName, 
-                    birthDay: player.birthDay,
+                    birthDate: player.birthDate,
                     phoneNumber: player.phoneNumber,
                 });
 
@@ -137,6 +137,7 @@ module.exports.updatePlayer = function(req, res) {
                     player.name = req.body.name || player.name,
                     player.lastName = req.body.lastName || player.lastName,
                     player.phoneNumber = req.body.phoneNumber || player.phoneNumber
+                    player.birthDate = req.body.birthDate || player.birthDate
                     player.biography = req.body.biography || player.biography
 
                     // Save the updated document back to the database

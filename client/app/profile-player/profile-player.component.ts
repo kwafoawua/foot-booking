@@ -39,7 +39,6 @@ export class ProfilePlayerComponent implements OnInit {
         this.userService.getAll().subscribe(users => { this.users = users; });
     }
 
-
     private getPlayer (_id: string) {
         this.playerService.getById(_id).subscribe(player => {this.player = player});
     }
@@ -58,6 +57,7 @@ export class ProfilePlayerComponent implements OnInit {
             .subscribe(
                 data => {
                     this.alertService.success('Modificación exitosa', true)
+                    this.ngOnInit();
                 },
                 error => {
                     this.alertService.error(error);

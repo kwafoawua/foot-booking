@@ -58,11 +58,11 @@
                                 <form name="editPlayer" (ngSubmit)="editPlayer()" #f="ngForm">
                                     <h3>Nombre</h3><input type="text" class="form-control" name="namePlayer" [(ngModel)]="model.name" #name="ngModel" required value={{player?.name}} placeholder={{player?.name}} />
                                     <h3>Apellido</h3><input type="text" class="form-control" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" required value={{player?.lastName}} placeholder={{player?.lastName}} />
-                                    <h3>Fecha de nacimiento</h3><input type="date" class="form-control" name="birthDate" [(ngModel)]="model.birthDate" #birthDate="ngModel" required />
+                                    <h3>Fecha de nacimiento</h3><input type="date" class="form-control" name="birthDate" [(ngModel)]="model.birthDate" #birthDate="ngModel" required value={{player?.birthDate}} placeholder={{player?.birthDate}} />
                                     <h3>email</h3><input type="text" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" required value={{currentUser?.email}} placeholder={{currentUser?.email}} />
                                     <h3>Teléfono</h3><input type="text" class="form-control" name="phoneNumber" [(ngModel)]="model.phoneNumber" #phoneNumber="ngModel" required value={{player?.phoneNumber}} placeholder={{player?.phoneNumber}} />
                                     <h3>Sobre ti</h3>
-                                    <textarea type="text" rows="3" class="form-control" name="biography" [(ngModel)]="model.biography" #biography="ngModel" >{{player?.biography}}</textarea>
+                                    <textarea type="text" rows="3" class="form-control" name="biography" [(ngModel)]="model.biography" #biography="ngModel" value={{player?.biography}} placeholder={{player?.biography}} ></textarea>
                                     <h4></h4>
                                     <button class="btn btn-primary">Guardar</button>
                                     <button class="btn btn-primary" type="reset">Restablecer</button>
