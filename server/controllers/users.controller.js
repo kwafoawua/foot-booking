@@ -47,7 +47,7 @@ module.exports.getAll = function (req, res) {
         .catch(function (err) {
             res.status(400).send(err);
         });
-}
+};
 
 module.exports.getCurrent = function (req, res) {
     userService.getById(req.user.sub)
@@ -61,7 +61,7 @@ module.exports.getCurrent = function (req, res) {
         .catch(function (err) {
             res.status(400).send(err);
         });
-}
+};
 
 module.exports.update = function (req, res) {
     userService.update(req.params._id, req.body)
@@ -71,7 +71,7 @@ module.exports.update = function (req, res) {
         .catch(function (err) {
             res.status(400).send(err);
         });
-}
+};
 
 module.exports._delete = function(req, res) {
     userService.delete(req.params._id)
@@ -81,4 +81,4 @@ module.exports._delete = function(req, res) {
         .catch(function (err) {
             res.status(400).send(err);
         });
-}
+};

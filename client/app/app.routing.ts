@@ -7,8 +7,8 @@ import { ProfileClubClientComponent } from './ClubProfileClient/clubProfileClien
 import { RegisterPlayerComponent } from './register-player/index';
 import { ProfilePlayerComponent } from './profile-player/index';
 import { AuthGuard } from './_guards/index';
-import {ResultComponent} from './result/index';
-import {AdminClubComponent} from "./admin-club/index";
+import { ResultComponent } from './result/index';
+import { AdminClubComponent } from "./admin-club/index";
 
 // Routes for child routing
 import { ProfileEditComponent, ProfileInfoComponent } from './profile-player/options-component/index';
@@ -34,6 +34,7 @@ const appRoutes: Routes = [
     {path: 'results', component: ResultComponent },
     {path: 'club/register', component: RegisterClubComponent},
     {path: 'club/admin', component: AdminClubComponent, canActivate:[AuthGuard]},
+
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
