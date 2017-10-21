@@ -5,7 +5,8 @@ var playerController = require('./controllers/playerController.js');
 module.exports = function(app) {
 
 	player.route('/playerController')
-	.get(PlayerController.findAllPlayers)
+	//.get(PlayerController.findAllPlayers)
+	.get(PlayerController.getPlayerByUserId)
 	.post(PlayerController.addPlayer);
 
 	player.route('/playerController/:id')

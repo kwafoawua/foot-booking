@@ -68,7 +68,6 @@ function addPlayer (player) {
 
         });
         return deferred.promise;
-
 };
 
 
@@ -169,4 +168,32 @@ module.exports.deletePlayer = function(req, res) {
             res.json('Player eliminado');
         });
     });
+};
+
+/**
+*   Get by user id
+*/
+module.exports.getPlayerByUserId = function(req, res) {
+    console.log("");
+    console.log("Entra al getPlayerByUserId");
+    console.log("Lo que entra en el req: " + req.body);
+    console.log("Id: " + req.body._id);
+
+    User.findById({_id:req.body._id}, function(err, user){
+         if(err){
+            console.log("No se encontro user");
+            return res.status(500).send(err);
+        } else {
+            console.log("Encontro usuario");
+            Player.findById({_id : user.creator}, function(err, player) {
+                if(err){
+                    console.log("No se encontro jugador");
+                    return res.status(500).send(err);
+                } else {
+                    console.log("Encontro al player");
+                    res.status(200).send(player);
+                }
+            });
+        }
+    }); 
 };

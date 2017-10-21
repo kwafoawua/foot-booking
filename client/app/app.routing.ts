@@ -10,8 +10,8 @@ import { AuthGuard } from './_guards/index';
 import {ResultComponent} from './result/index';
 
 // Routes for child routing
-import { ProfileEditComponent, ProfileInfoComponent } from './profile-player/options-component/index';
-//import { ProfileEditComponent } from './profile-player/options-component/profile-edit.component';
+import { ProfileEditComponent } from './profile-player/options-component/profile-edit.component';
+import { ProfileInfoComponent } from './profile-player/options-component/profile-info.component';
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },
@@ -19,21 +19,13 @@ const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'results/club/:id', component: ProfileClubClientComponent},
     { path: 'player/register', component: RegisterPlayerComponent },
-    { path: '', component: ProfilePlayerComponent,
+    { path: 'profile-player/:id', component: ProfilePlayerComponent, canActivate: [AuthGuard], 
         children: [
-            { path: 'editPlayer', component: ProfileEditComponent, outlet: 'profileSelection' }
+            { path: '', redirectTo: 'infoPlayer', pathMatch: 'full' },
+            { path: 'infoPlayer', component: ProfileInfoComponent },
+            { path: 'editPlayer', component: ProfileEditComponent }
         ]
     },
-/*    { path: 'editPlayer', component: RegisterPlayerComponent,
-        children: [
-            { path: 'infoPlayer', component:ProfileInfoComponent, outlet:'profile-selection' },
-            { path: 'editPlayer', component:ProfileEditComponent, outlet:'profile-selection' },
-            { path: 'editPlayer', component:ProfileEditComponent, outlet:'profile-selection' }
-        ]
-    },
-    { path: 'editPlayer', component: ProfileEditComponent, outlet:'profile-selection' },
-*/
-    { path: 'profile-player/:id', component: ProfilePlayerComponent, canActivate: [AuthGuard]},
     {path: 'results', component: ResultComponent },
     {path: 'club/register', component: RegisterClubComponent},
 
