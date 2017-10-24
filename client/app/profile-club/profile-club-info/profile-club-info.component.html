@@ -1,0 +1,215 @@
+<p>Profile Club Info</p>
+<div class="container">
+    <div class="avt-post">
+        <form enctype="multipart/form-data" [formGroup]="clubForm" (ngSubmit)="updateClubData()"
+              novalidate="novalidate">
+            <div class="avtpost-fields">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h3>Datos del Club</h3>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="post-inner">
+                            <div class="row form-group" [ngClass]="{ 'has-error': clubForm.get('name').invalid &&
+                        (clubForm.get('name').dirty || clubForm.get('name').touched)}">
+                                <label class="col-md-4">Nombre del Club *</label>
+                                <div class="col-md-8">
+                                    <input formControlName="name" class="form-control" type="text">
+                                    <div name="valida-nombreclub" *ngIf="clubForm.get('name').invalid &&
+                        (clubForm.get('name').dirty || clubForm.get('name').touched)">
+
+                                        <div *ngIf="clubForm.get('name').errors?.required" class="help-block">
+                                            El nombre del club es requerido.
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- post-inner nombre del club-->
+                        <div class="post-inner">
+                            <div class="row form-group" [ngClass]="{ 'has-error': clubForm.get('address.address').invalid &&
+                        (clubForm.get('address.address').dirty || clubForm.get('address.address').touched)}">
+                                <label class="col-md-4">Dirección * </label>
+                                <div class="col-md-8">
+                                    <input placeholder="Ingresar Direccion" autocorrect="off" autocapitalize="off"
+                                           spellcheck="off" type="text" class="form-control" #address>
+                                    <div name="valida-direccion" *ngIf="clubForm.get('address.address').invalid &&
+                        (clubForm.get('address.address').dirty || clubForm.get('address.address').touched)">
+                                        <div *ngIf="clubForm.get('address.address').errors?.required"
+                                             class="help-block">
+                                            El campo Dirección es requerido.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- post-inner direccion-->
+
+                        <div class="post-inner">
+                            <div class="row form-group"
+                                 [ngClass]="{ 'has-error': clubForm.get('phoneNumber').invalid}">
+                                <label class="col-md-4">Teléfono </label>
+                                <div class="col-md-8">
+                                    <input formControlName="phoneNumber" class="form-control" type="number">
+
+                                </div>
+                            </div>
+                        </div><!-- post-inner telefono-->
+
+                        <div class="post-inner">
+                            <div class="row form-group" [ngClass]="{ 'has-error': clubForm.get('services').invalid &&
+                        (clubForm.get('services').dirty || clubForm.get('services').touched)}">
+                                <label class="col-md-4">Servicios * </label>
+                                <div class="col-md-8">
+                                    <tag-input [formControlName]="'services'" name="items"
+                                               [onlyFromAutocomplete]="true">
+                                        <tag-input-dropdown [showDropdownIfEmpty]="true"
+                                                            [autocompleteObservable]="requestAutocompleteItemsFake">
+                                        </tag-input-dropdown>
+                                    </tag-input>
+
+                                    <div name="valida-servicio" *ngIf="clubForm.get('services').invalid &&
+                        (clubForm.get('services').dirty || clubForm.get('services').touched)">
+
+                                        <div *ngIf="clubForm.get('services').errors?.required"
+                                             class="help-block">
+                                            El campo Servicios es requerido.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- post-inner servicios-->
+
+                        <div class="post-inner">
+                            <div class="row form-group" [ngClass]="{ 'has-error': clubForm.get('description').invalid &&
+                        (clubForm.get('description').dirty || clubForm.get('description').touched)}">
+                                <label class="col-md-4">Descripción *</label>
+                                <div class="col-md-8">
+                                    <textarea formControlName="description" class="form-control"></textarea>
+                                    <div name="valida-descripcion" *ngIf="clubForm.get('description').invalid &&
+                        (clubForm.get('description').dirty || clubForm.get('description').touched)">
+
+                                        <div *ngIf="clubForm.get('description').errors?.required"
+                                             class="help-block">
+                                            El campo Descripción es requerido.
+                                        </div>
+                                        <div *ngIf="clubForm.get('description').errors?.maxlength"
+                                             class="help-block">
+                                            La descripción no debe ser de mas de 255 caracteres.
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- post-inner repeat descripcion-->
+                    </div>
+                </div>
+            </div><!-- club-section -->
+
+            <div formGroupName="socialMedia" class="avtpost-fields">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h3>Redes Sociales</h3>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="post-inner">
+                            <div class="row form-group">
+                                <label class="col-md-4">Facebook</label>
+                                <div class="col-md-8">
+                                    <input formControlName="facebookId" class="form-control input-md" type="text"
+                                           placeholder="&#xf230;" style="font-family:Arial, FontAwesome">
+                                </div>
+                            </div>
+                        </div><!-- post-inner facebook-->
+                        <div class="post-inner">
+                            <div class="row form-group">
+                                <label class="col-md-4">Twitter </label>
+                                <div class="col-md-8">
+                                    <input formControlName="twitterId" class="form-control" type="text"
+                                           placeholder="&#xf099;" style="font-family:Arial, FontAwesome">
+
+                                </div>
+                            </div>
+                        </div><!-- post-inner twitter-->
+
+                        <div class="post-inner">
+                            <div class="row form-group">
+                                <label class="col-md-4">Instagram</label>
+                                <div class="col-md-8">
+                                    <input type="text" formControlName="instagramId" class="form-control"
+                                           placeholder="&#xf16d;" style="font-family:Arial, FontAwesome">
+                                </div>
+                            </div>
+                        </div><!-- post-inner instagram-->
+
+                        <div class="post-inner">
+                            <div class="row form-group">
+                                <label class="col-md-4">Google +</label>
+                                <div class="col-md-8">
+                                    <input type="text" formControlName="googleId" class="form-control"
+                                           placeholder="&#xf0d5;" style="font-family: Arial, FontAwesome">
+                                </div>
+                            </div>
+                        </div><!-- post-inner google+-->
+                    </div>
+                </div>
+            </div><!-- social-media-section -->
+
+            <div class="avtpost-fields">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h3>Carga de Imágenes</h3>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="post-inner">
+                            <div class="row form-group" [ngClass]="{ 'has-error': clubForm.get('profileImg').invalid &&
+                        (clubForm.get('profileImg').dirty || clubForm.get('profileImg').touched)}">
+                                <label class="col-md-4">Imagen de portada</label>
+                                <div class="col-md-12">
+                                    <image-upload
+                                            (onFileUploadFinish)="profileUploaded($event)"
+                                            (onRemove)="profileRemoved()"
+                                            [max]="1"
+
+                                            [extensions]="['jpg','png']"
+                                            buttonCaption="Subir"
+                                            dropBoxMessage="Subir Imagen de portada">
+                                    </image-upload>
+                                    <div name="valida-imagen" *ngIf="clubForm.get('profileImg').invalid &&
+                        (clubForm.get('profileImg').dirty || clubForm.get('profileImg').touched)">
+
+                                        <div *ngIf="clubForm.get('profileImg').errors?.required"
+                                             class="help-block">
+                                            El campo Imagen de perfil es requerido.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- post-inner carga de portada-->
+
+                    </div>
+                    <div class="col-md-12">
+                        <div class="post-inner">
+                            <div class="row form-group">
+                                <label class="col-md-4">Galería de Imágenes</label>
+                                <div class="col-md-12">
+                                    <image-upload
+                                            (onFileUploadFinish)="galleryUploaded($event)"
+                                            (onRemove)="galleryRemoved($event)"
+                                            [max]="5"
+                                            [extensions]="['jpg','png']"
+                                            buttonCaption="Subir"
+                                            dropBoxMessage="Subir Galería de imagenes">
+                                    </image-upload>
+
+                                </div>
+                            </div>
+                        </div><!-- post-inner carga de galleria-->
+
+                    </div>
+                </div>
+            </div><!-- carga de imagenes -section -->
+        </form>
+    </div>
+</div>
+
+

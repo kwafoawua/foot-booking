@@ -23,7 +23,7 @@ export class SearchService {
         {id:4,name:"Techado"},
         {id:5,name:"Bar"},
         {id:6,name:"Nocturno"}
-]
+];
 
 
 

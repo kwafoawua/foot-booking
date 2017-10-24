@@ -7,9 +7,9 @@ import { ProfileClubClientComponent } from './ClubProfileClient/clubProfileClien
 import { RegisterPlayerComponent } from './register-player/index';
 import { ProfilePlayerComponent } from './profile-player/index';
 import { AuthGuard } from './_guards/index';
-import {ResultComponent} from './result/index';
-import {AdminClubComponent} from "./admin-club/index";
 import {confirmationComponent} from './booking-confirmation/confirmation.component';
+import { ResultComponent } from './result/index';
+import { AdminClubComponent } from "./admin-club/index";
 
 // Routes for child routing
 import { ProfileEditComponent } from './profile-player/options-component/profile-edit.component';

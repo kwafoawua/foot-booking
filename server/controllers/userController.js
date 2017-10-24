@@ -11,9 +11,7 @@ var bcrypt = require('bcryptjs');
 
 
 module.exports.authenticate = function(req, res) {
-
-
-  getRol(req.body.username, req.body.password)
+  getRol(req.body.username)
        .then(function (userRol) {
            return FindUser(req.body.username, req.body.password, userRol.rol);
        })
@@ -32,10 +30,12 @@ module.exports.authenticate = function(req, res) {
 };
 
 function getRol(us){
+    console.log(us);
     var deferred = Q.defer();
     return User.findOne({username: us}, function (err, user){
         console.log('entra al find de getrol');
         if(err) {
+            console.log('error');
             return deferred.reject(err.name + ' : ' + err.message);
         }
         if(!user) {
@@ -85,3 +85,68 @@ function FindUser(username, password, rol) {
         return deferred.promise;
 
 }
+
+
+module.exports.getByUsername = function (req, res) {
+    getRol(req.params.username)
+        .then(function (userRol) {
+            return findByUsername(req.params.username, userRol.rol);
+        })
+        .then(function (user) {
+            if (user) {
+                // found
+                res.send(user);
+            } else {
+                // not found
+                res.status(400).send('Username or password is incorrect');
+            }
+        })
+        .catch(function(err) {
+            res.status(400).send(err);
+        });
+};
+
+function findByUsername(username, rol) {
+    var deferred = Q.defer();
+    User.findOne({ username: username })
+        .select("-password")
+        .populate('creator', null, rol)
+        .exec(function(err, user) {
+            if (err) {
+                deferred.reject(err.name + ' : ' + err.message);
+                return;
+                //console.log(err);
+            }
+            if(!user) {
+                deferred.reject('El usuario no existe.');
+                return;
+            }
+
+            if (user) {
+                console.log('existe');
+                deferred.resolve(user);
+            } else {
+                deferred.resolve();
+            }
+        });
+    return deferred.promise;
+
+}
+
+/*function findByUsername(username) {
+    var deferred = Q.defer();
+
+    User.findById({ _id: _id }).exec(function (err, user) {
+        if (err) {deferred.reject(err.name + ': ' + err.message);}
+
+        if (user) {
+            // return user (without hashed password)
+            deferred.resolve(_.omit(user, 'hash'));
+        } else {
+            // user not found
+            deferred.resolve();
+        }
+    });
+
+    return deferred.promise;
+}*/
