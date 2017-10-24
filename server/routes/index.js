@@ -22,6 +22,7 @@ router.get('/users/current', userController2.getCurrent);
 /*Player Controller*/
 router.post('/players/register', playerController.registerPlayer);
 router.get('/players/:_id', playerController.findById);
+//router.get('/players/:_id', playerController.getPlayerByUserId);
 
 
 /*Club Controller*/

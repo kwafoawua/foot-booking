@@ -181,16 +181,40 @@ module.exports.deleteClub = function(req, res) {
 
 module.exports.findClubsByFilter = function (req,res) {
 
-           Club.find({name : new RegExp(JSON.parse(req.params.clubfilter).clubname, "i"),
-                   //  services : new RegExp(JSON.parse(req.params.services).services, "i")
+    Club.find({name : new RegExp(JSON.parse(req.params.clubfilter).clubname, "i"),
+        //  services : new RegExp(JSON.parse(req.params.services).services, "i")
 
-           }, function (err, club) {
-            if (err) {
-                return res.status(500).send(err + "al menos entro");
-            }
+    }, function (err, club) {
+        if (err) {
+            return res.status(500).send(err + "al menos entro");
+        }
 
-            res.status(200).send(club);
+        res.status(200).send(club);
 
-        });
+    });
+    // var query = {};
+    // if (JSON.parse((req.param.clubfilter).clubname) !== undefined) {
+    //
+    //     query.name = new RegExp(JSON.parse(req.params.clubfilter).clubname, "i");
+    //     console.log("query.name")
+    // };
+    // if (JSON.parse(req.param.clubfilter).services) {
+    //     query.services = {$elemMatch: {display: new RegExp(JSON.parse(req.params.clubfilter).services, "i")}};
+    //
+    // };
+    //
+    // Club.find(query, function (err, club) {
+    //     if (err) {
+    //         return res.status(500).send(err + "al menos entro");
+    //     }
+    //
+    //     res.status(200).send(club);
+    //
+    // })
+
+
+
+
+
 
 };

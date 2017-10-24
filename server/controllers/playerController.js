@@ -76,6 +76,18 @@ function addPlayer (player) {
  * Show the current Player
  */
 module.exports.findById = function(req, res) {
+
+    console.log('()*)&^&%^%$#@$%^&*(^)&^%#%$$#%&^$*&$^&(^&*(%*(%&*(%&(&*');
+    console.log('()*)&^&%^%$#@$%^&*(^)&^%#%$$#%&^$*&$^&(^&*(%*(%&*(%&(&*');
+    console.log('()*)&^&%^%$#@$%^&*(^)&^%#%$$#%&^$*&$^&(^&*(%*(%&*(%&(&*');
+    console.log('()*)&^&%^%$#@$%^&*(^)&^%#%$$#%&^$*&$^&(^&*(%*(%&*(%&(&*');
+    console.log('()*)&^&%^%$#@$%^&*(^)&^%#%$$#%&^$*&$^&(^&*(%*(%&*(%&(&*');
+    console.log('()*)&^&%^%$#@$%^&*(^)&^%#%$$#%&^$*&$^&(^&*(%*(%&*(%&(&*');
+    console.log('()*)&^&%^%$#@$%^&*(^)&^%#%$$#%&^$*&$^&(^&*(%*(%&*(%&(&*');
+    console.log('()*)&^&%^%$#@$%^&*(^)&^%#%$$#%&^$*&$^&(^&*(%*(%&*(%&(&*');
+    console.log('()*)&^&%^%$#@$%^&*(^)&^%#%$$#%&^$*&$^&(^&*(%*(%&*(%&(&*');
+    console.log('()*)&^&%^%$#@$%^&*(^)&^%#%$$#%&^$*&$^&(^&*(%*(%&*(%&(&*');
+    console.log('()*)&^&%^%$#@$%^&*(^)&^%#%$$#%&^$*&$^&(^&*(%*(%&*(%&(&*');
     console.log('busca por id');
     console.log(req);
 
@@ -85,7 +97,7 @@ module.exports.findById = function(req, res) {
 
             return res.status(500).send(err);
         }
-        console.log('GET /Player/' + req.params._id);
+        console.log('GET /Player/' + player);
 
         res.send(player);
     });
@@ -109,7 +121,7 @@ module.exports.findAllPlayers = function(req, res) {
  * Update a Player
  */
 module.exports.updatePlayer = function(req, res) {
-    console.log('');
+
     console.log('entra al update player');
     console.log(req.body);
     console.log('');
@@ -154,3 +166,4 @@ module.exports.deletePlayer = function(req, res) {
         });
     });
 };
+

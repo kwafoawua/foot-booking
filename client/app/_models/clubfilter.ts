@@ -9,13 +9,20 @@ import {Service} from "./service";
 export class ClubFilter {
     clubname: string;
     services: Service [];
+    cantPlayers: number;
+    minPrice: number;
+    maxPrice: number;
+
 
     //Agregar los otros valores del filtro
 
 
 
-    constructor(clubname?: string, service?:Service[]) {
-        this.clubname = clubname;
-         this.services = service;
+    constructor(clubname?: string, service?:Service[], cantPlayers?: number, maxPrice?: number, minPrice?: number) {
+         this.clubname = clubname,
+         this.services = service,
+         this.cantPlayers = cantPlayers;
+         this.maxPrice=maxPrice;
+         this.minPrice=minPrice;
     }
 }

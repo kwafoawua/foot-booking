@@ -9,17 +9,13 @@ import {Pipe, PipeTransform} from "@angular/core";
 })
 export class Sinfotopipe implements PipeTransform{
 
-    transform(value:any, args?: any ): any{
+    transform(club:any, args?: any ): any{
 
-        let noimagen = "/noimagen.jpg";
+        if(club.profileImg){
 
-
-        if(!value){
-            return noimagen ;
-
-
+            return club.profileImg;
         }
-        return (value.lenght > 0 ) ? value[1].url : noimagen;
+        else { return "noimagen.jpg"}
 
     }
 

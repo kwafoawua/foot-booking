@@ -11,6 +11,7 @@ import {formArrayNameProvider} from "@angular/forms/src/directives/reactive_dire
 import {ClubFilter} from "../_models/clubfilter";
 import {Service} from "../_models/service";
 
+
 @Injectable()
 
 export class SearchService {
@@ -32,6 +33,8 @@ export class SearchService {
 
     constructor(private http: Http) {
     }
+
+
 
 
     findClubsByFilters(filter: ClubFilter) {

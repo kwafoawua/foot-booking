@@ -1,10 +1,209 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<div>
+    <div class="page">
+        <div id="breadcrumb-section" class="section">
+            <div class="container">
+                <div class="page-title text-center">
+                    <h1>Confirma tu reserva</h1>
+
+                </div>
+            </div>
+        </div><!-- breadcrumb-section -->
+
+        <div class="avt-post-wrapper section">
+            <div class="container">
+                <div class="avt-post">
+                    <form action="#">
+
+                    <!-- client information -->
+
+                        <div class="seller-option avtpost-fields">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <h3>Tus datos</h3>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="post-inner">
+                                        <div class="row form-group">
+                                            <label class="col-md-4"> Nombre </label>
+                                            <div class="col-md-8">
+<!--NOMBRE-->                                   {{player?.name}}
+                                            </div>
+                                        </div>
+                                    </div><!-- post-inner -->
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="post-inner">
+                                        <div class="row form-group">
+                                            <label class="col-md-4"> Apellido </label>
+                                            <div class="col-md-8">
+                                                {{player?.lastName}}
+<!--APELLIDO-->
+
+                                            </div>
+                                        </div>
+                                    </div><!-- post-inner -->
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="post-inner">
+                                        <div class="row form-group">
+                                            <label class="col-md-4">Telefono de contacto</label>
+                                            <div class="col-md-8">
+<!--NUMERO DE CONTACTO DEL USER-->              {{player?.phoneNumber}}
+                                            </div>
+                                        </div>
+                                    </div><!-- post-inner -->
+                                </div>
+                            </div>
+                        </div><!-- seller-section -->
+
+
+                        <fieldset>
+                            <div class="seller-option avtpost-fields">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <h3>Datos de la reserva</h3>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="post-inner">
+                                            <div class="row form-group">
+                                                <label class="col-md-4">Club </label>
+                                                <div class="col-md-8">
+                                                    <label class="col-md-4">{{booking.club.name}} </label>
+                                                </div>
+                                            </div>
+                                        </div><!-- post-inner -->
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="post-inner">
+                                            <div class="row form-group">
+                                                <label class="col-md-4">Direccion</label>
+                                                <div class="col-md-8">
+                                                    <label class="col-md-10">{{booking.club.address.address}} </label>
+                                                </div>
+                                            </div>
+                                        </div><!-- post-inner -->
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="post-inner">
+                                            <div class="row form-group">
+                                                <label class="col-md-4">Telefono</label>
+                                                <div class="col-md-8">
+                                                    <label class="col-md-4">{{booking.club.phoneNumber}} </label>
+                                                </div>
+                                            </div>
+                                        </div><!-- post-inner -->
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="post-inner">
+                                            <div class="row form-group">
+                                                <label class="col-md-4"> Cancha </label>
+                                                <div class="col-md-8">
+                                                    {{booking.field.description}}
+                                                </div>
+                                            </div>
+                                        </div><!-- post-inner -->
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="post-inner">
+                                            <div class="row form-group">
+                                                <label class="col-md-4"> Tipo de cancha </label>
+                                                <div class="col-md-8">
+                                                    {{booking.field.fieldType}}
+                                                </div>
+                                            </div>
+                                        </div><!-- post-inner -->
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="post-inner">
+                                            <div class="row form-group">
+                                                <label class="col-md-4">Cantidad de jugadores </label>
+                                                <div class="col-md-8">
+                                                    {{booking.field.cantPlayers}}
+                                                </div>
+                                            </div>
+                                        </div><!-- post-inner -->
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="post-inner">
+                                            <div class="row form-group">
+                                                <label class="col-md-4"> Servicios disponibles </label>
+                                                <div class="col-md-8" *ngFor="let s of booking.field.services">
+                                                    {{s.display}}
+                                                </div>
+                                            </div>
+                                        </div><!-- post-inner -->
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="post-inner">
+                                            <div class="row form-group">
+                                                <label class="col-md-4">Hora de la reserva </label>
+                                                <div class="col-md-8">
+                                                    {{booking.timeBook}}
+                                                </div>
+                                            </div>
+                                        </div><!-- post-inner -->
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="post-inner">
+                                            <div class="row form-group">
+                                                <label class="col-md-4">Fecha de la reserva </label>
+                                                <div class="col-md-8">
+                                                    {{booking.dateBook}}
+                                                </div>
+                                            </div>
+                                        </div><!-- post-inner -->
+                                    </div>
+
+
+
+
+
+                                </div>
+                            </div><!-- product-section -->
+
+
+                            <div class="seller-option avtpost-fields">
+                                <div class="row">
+                                     <div class="col-md-6">
+                                        <div class="post-inner">
+                                            <div class="form-group">
+                                                <span>Por favor, selecciona una forma de pago </span>
+                                                <div class="payment-options">
+                                                    <ul>
+                                                        <li class="payment-option">
+                                                            <input type="radio" name="payment-option" value="payment-one">
+                                                            <label for="payment-one">En sitio</label>
+                                                        </li>
+                                                        <li class="payment-option">
+                                                            <input type="radio" name="payment-option" value="payment-two">
+                                                            <label for="payment-two">Mercado Pago</label>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div><!-- post-inner -->
+                                    </div>
+                                </div>
+                            </div><!-- seller-option -->
+                            <div class="submit-section">
+                                <div class="ad-condition checkbox">
+                                    <label for="submit-post">
+                                        <input type="checkbox" name="submit-post" id="submit-post">
+                                         <a href="#">Aceptar término y condiciones</a>
+
+                                    </label>
+                                </div>
+                                <div class="submit-button">
+                                    <button class="btn btn-primary" type="submit">Confirmar</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div> <!-- avt-post -->
+    </div>	<!-- page -->
+</div>

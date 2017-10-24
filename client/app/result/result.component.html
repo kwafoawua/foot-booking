@@ -56,13 +56,14 @@
                                             </ul>
 
 
-                                            <h5>Cantidad de jugadores</h5>
+                                            <h5></h5>
 
                                             <div class="cantJugadores">
                                                 <label for="cantJugadores"><input type="text" id="cantJugadores"
                                                                                   title="Cantidad de jugares"
-                                                                                  placeholder="Cant jugadores"
-                                                                                  value="10"></label>
+                                                                                  placeholder="Cantidad de jugadores"
+                                                                                  value="10" [(ngModel)]="cantPlayers"
+                                                                                    ></label>
                                             </div>
                                             <!--
                                             <ul class="list-group checkbox">
@@ -77,9 +78,9 @@
                                             <h5>Precios</h5>
                                             <div class="price-range">
                                                 <label for="min"><input type="text" id="min" title="minimum price"
-                                                                        placeholder="min" value=""></label>
+                                                                        placeholder="min" value="" [(ngModel)]="minPrice"></label>
                                                 <label for="max"><input type="text" id="max" title="maximum price"
-                                                                        placeholder="max" value=""></label>
+                                                                        placeholder="max" value="" [(ngModel)]="maxPrice"></label>
                                                 <button class="btn btn-primary" (click)="buscarClubsPorFiltros()" >Actualizar busqueda</button>
                                             </div>
                                         </div><!-- panel-body -->

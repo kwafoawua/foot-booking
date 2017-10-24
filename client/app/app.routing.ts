@@ -9,6 +9,7 @@ import { ProfilePlayerComponent } from './profile-player/index';
 import { AuthGuard } from './_guards/index';
 import {ResultComponent} from './result/index';
 import {AdminClubComponent} from "./admin-club/index";
+import {confirmationComponent} from './booking-confirmation/confirmation.component';
 
 // Routes for child routing
 import { ProfileEditComponent, ProfileInfoComponent } from './profile-player/options-component/index';
@@ -19,6 +20,7 @@ const appRoutes: Routes = [
 
     { path: 'login', component: LoginComponent },
     { path: 'results/club/:id', component: ProfileClubClientComponent},
+    {path: 'confirmation', component:confirmationComponent},
     { path: 'player/register', component: RegisterPlayerComponent },
 
 /*    { path: 'editPlayer', component: RegisterPlayerComponent,
@@ -34,6 +36,7 @@ const appRoutes: Routes = [
     {path: 'results', component: ResultComponent },
     {path: 'club/register', component: RegisterClubComponent},
     {path: 'club/admin', component: AdminClubComponent, canActivate:[AuthGuard]},
+
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }

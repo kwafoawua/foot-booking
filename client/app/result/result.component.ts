@@ -22,6 +22,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import {ClubFilter} from "../_models/clubfilter";
 import {Service} from "../_models/service";
+import {Field} from "../_models/field";
 
 @Component({
     selector: 'results',
@@ -37,12 +38,14 @@ import {Service} from "../_models/service";
 export class ResultComponent implements OnInit {
 
 
-    private form: FormGroup;
     private clubfilter: ClubFilter;
     public clubs: Club[];
     public services: Service[];
-  //  private servicesChecked : Service = [];
+    private servicesChecked : Service [];
     clubname = "";
+    cantPlayers: any;
+    minPrice: any;
+    maxPrice : any;
 
 
 
@@ -57,7 +60,7 @@ export class ResultComponent implements OnInit {
 
     ngOnInit(): void {
         this.clubs = SearchService.clubs;
-        this.services = this.searchService.getClubServices()
+        this.services = this.searchService.getClubServices();
 
     }
 
@@ -66,9 +69,9 @@ export class ResultComponent implements OnInit {
     private crearFiltros(): ClubFilter {
        // let modelform = this.form.value;
         return new ClubFilter(
-       this.clubname,
-        //    modelform.clubname,
-       //  this.servicesChecked
+        this.clubname,
+        this.servicesChecked,
+        this.cantPlayers, this.maxPrice, this.minPrice
         )
     }
 
@@ -83,7 +86,7 @@ export class ResultComponent implements OnInit {
     console.log(this.clubfilter)
     }
 
-    /*
+
  addService(e:any){
 
         if(e.state){
@@ -100,6 +103,6 @@ export class ResultComponent implements OnInit {
                 }
        }
     }
-    */
+
 
 }

@@ -63,11 +63,11 @@
 
                         <!--ITEM CANCHAS-->
 
-                        <div class="filter-list" *ngFor="let field of club?.fields; let i = index">
+                        <div  class="filter-list" *ngFor="let field of club?.fields; let i = index">
 
 
 
-                            <div>
+                              <div>
 
 
                                 <div class="filter-heading">
@@ -110,43 +110,44 @@
 
                                         <ul class="list-inline">
 
-                                        <li>
-                                        <input class="btn btn-default dropdown-toggle" [dpDayPicker]="config" name="datePicker"  placeholder="dd-MM-aaaa"
-                                         id="calendar" inputElementConteiner="#inputConteiner" theme="dp-material" [(ngModel)]="date">
 
-                                        </li>
+                                            <li>
+                                                <input class="btn btn-default dropdown-toggle" [dpDayPicker]="config" name="datePicker"  placeholder="dd-MM-aaaa"
+                                                       id="calendar" inputElementConteiner="#inputConteiner" theme="dp-material" [(ngModel)]="date">
 
-                                        <li>
-                                            <div class="dropdown">
-                                                <select class="btn btn-default dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            </li>
 
-
-                                                    <option value="1">Horarios</option>
-                                                    <option value="1">11:00 - 12:00</option>
-                                                    <option value="2">12:00 - 13:00</option>
-                                                    <option value="3">15:00 - 16:00</option>
-                                                    <option value="4">16:00 - 17:00</option>
-                                                    <option value="5">17:00 - 18:00</option>
-                                                    <option value="6">21:00 - 22:00</option>
-
-                                                </select>
-                                            </div>
-
-                                        </li>
+                                                    <li>
+                                                        <div class="dropdown">
+                                                            <select name="category-group" id="category-group" class="form-control"
+                                                                    [(ngModel)]="selectedTime" >
 
 
-                                            <button class="btn btn-success">Reservar cancha</button>
+                                                                <option value="0" selected="selected">Horarios</option>
+                                                                <option value="11:00 - 12:00">11:00 - 12:00</option>
+                                                                <option value="12:00 - 13:00">12:00 - 13:00</option>
+                                                                <option value="15:00 - 16:00">15:00 - 16:00</option>
+                                                                <option value="16:00 - 17:00">16:00 - 17:00</option>
+                                                                <option value="17:00 - 18:00">17:00 - 18:00</option>
+                                                                <option value="21:00 - 22:00">21:00 - 22:00</option>
+
+                                                            </select>
+                                                        </div>
+
+                                                    </li>
+
+
+                                            <button  (click)="reservar(field)"  type="submit" class="btn btn-success" >Reservar cancha</button>
 
                                         </ul>
-
 
                                     </div><!-- panel-body -->
                                 </div>
 
                             </div><!-- advanced-filter -->
+
                         </div><!-- filter-list -->
                         <!--fin item cancha-->
-
 
 
                     </div>

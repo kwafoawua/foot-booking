@@ -1,14 +1,14 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
-
-import { User } from '../_models/index';
-import { UserService } from '../_services/index';
+import { UserService, AuthenticationService } from '../_services/index';
 import { Club } from '../_models/index';
 import { ClubService } from '../_services/index';
 import {DpDatePickerModule, IDatePickerDirectiveConfig} from  'ng2-date-picker';
 import {Moment} from "moment";
 import {ITimeSelectConfig} from "ng2-date-picker/time-select/time-select-config.model";
+import {Field} from "../_models/field";
+import {Booking} from "../_models/booking";
 
 @Component({
     moduleId: module.id,
@@ -17,11 +17,16 @@ import {ITimeSelectConfig} from "ng2-date-picker/time-select/time-select-config.
 
 export class ProfileClubClientComponent implements OnInit {
 
+
     club : Club ;
     zoom = 16.88;
     galery: String [];
     selectedDate:any;
     selectedTime: any;
+    NotanUser = true;
+
+    booking1: Booking = new Booking();
+
     configTime : ITimeSelectConfig = {
         minutesInterval: 60,
         minutesFormat: '00'
@@ -38,18 +43,13 @@ export class ProfileClubClientComponent implements OnInit {
         appendTo: 'body'};
 
 
-    constructor(private userService: UserService, private clubService: ClubService, private route: ActivatedRoute) {
-        //this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        //this.isEdit = false;
-
-
+    constructor(private autentication: AuthenticationService, private clubService: ClubService, private route: ActivatedRoute, private router: Router) {
     }
 
 
-    ngOnInit() {
-      // this.getClub(this.route.snapshot.params['id']);
+    ngOnInit(): void{
+
         this.getClub(this.route.snapshot.params['id']);
-        console.log(this.club)
 
     }
 
@@ -57,6 +57,44 @@ export class ProfileClubClientComponent implements OnInit {
         this.clubService.getResultById(_id).subscribe(club => {this.club = club, this.galery = club.galleryImg});
 
     }
+
+
+    reservar(e:any){
+
+        if (this.autentication.isAuthenticated()){
+
+            this.NotanUser =false;
+
+            if(e!=null){
+
+
+                this.booking1.field=e;
+                this.booking1.club=this.club;
+                this.booking1.dateBook=this.selectedDate;
+                this.booking1.timeBook=this.selectedTime;
+
+
+                ClubService.guardarBooking(this.booking1)
+                console.log(this.booking1);
+                this.router.navigate(['confirmation'])
+            }
+
+        }
+
+    else {
+           console.log("No esa autenticado")
+        }
+
+    }
+
+
+
+   /* booking(){
+
+       ClubService.guardarBooking(this.booking);
+       this.router.navigate(['confirmation'])
+
+    }*/
 
 
 

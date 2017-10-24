@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
-
+import {Booking} from "../_models/booking";
 import { Club } from '../_models/club';
 
 @Injectable()
 export class ClubService {
+
+    public static  booking: Booking;
+
     constructor(private http: Http) { }
 
     create(club: any) {
@@ -34,4 +37,18 @@ export class ClubService {
     upload(image: any) {
         return this.http.post('/uploads/', image);
     }
+
+
+    //SET
+    public static guardarBooking(book:Booking){
+        ClubService.booking=book;
+        console.log(this.booking);
+        return;
+    }
+
+    //GET
+    public static obtenerBooking():Booking{
+        return ClubService.booking;
+    }
+
 }

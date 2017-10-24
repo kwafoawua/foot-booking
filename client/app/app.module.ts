@@ -28,6 +28,7 @@ import { RegisterPlayerComponent } from './register-player/index';
 import { ProfilePlayerComponent } from './profile-player/index';
 import {AdminClubComponent} from "./admin-club/index";
 
+
 // Module for child routing
 import { ProfileInfoComponent } from './profile-player/options-component/profile-info.component';
 import { ProfileEditComponent } from './profile-player/options-component/profile-edit.component';
@@ -35,6 +36,7 @@ import { ProfileEditComponent } from './profile-player/options-component/profile
 //API MAPS
 import { AgmCoreModule } from '@agm/core';
 import {DpDatePickerModule} from 'ng2-date-picker';
+import {confirmationComponent} from "./booking-confirmation/confirmation.component";
 
 
 @NgModule({
@@ -49,6 +51,7 @@ import {DpDatePickerModule} from 'ng2-date-picker';
         ImageUploadModule.forRoot(),
         CustomFormsModule,
         DpDatePickerModule,
+
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyAAwaI8YafySsHraMA_9G_n30_FECUhoVs',
             libraries: ["places"]
@@ -71,6 +74,9 @@ import {DpDatePickerModule} from 'ng2-date-picker';
         AdminClubComponent,
         ProfileEditComponent,
         ProfileInfoComponent,
+        confirmationComponent,
+
+
     ],
     providers: [
         customHttpProvider,
@@ -80,7 +86,8 @@ import {DpDatePickerModule} from 'ng2-date-picker';
         UserService,
         ClubService,
         PlayerService,
-        SearchService
+        SearchService,
+
     ],
     bootstrap: [AppComponent]
 })

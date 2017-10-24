@@ -7,7 +7,10 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class AuthenticationService {
 
-    constructor(private http: Http) {}
+
+    constructor(private http: Http) {
+        this.getUserAuthenticated();
+    }
 
     login(username: string, password: string) {
         return this.http.post('/users/authenticate', { username: username, password: password })
@@ -30,7 +33,6 @@ export class AuthenticationService {
     public isAuthenticated(): boolean {
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if (currentUser != undefined) {
-
             return true;
         } else {
             return false;
@@ -54,5 +56,7 @@ export class AuthenticationService {
                 return false;
         }
     }
+
+
 
 }
