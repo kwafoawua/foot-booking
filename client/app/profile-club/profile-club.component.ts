@@ -25,7 +25,7 @@ user: any = {};
     }
     ngOnInit() {
         this.username = JSON.parse(localStorage.getItem('currentUser')).username;
-        this.userService.getByUsername(this.username);
+       /* this.userService.getByUsername(this.username);
         this.userService.usuario$.subscribe(
             userClub => {
                 this.user.username = userClub.username;
@@ -34,13 +34,13 @@ user: any = {};
                     this.club = userClub.creator
             });
 
-    }
-
-
-       /* this.getUserAndClub(this.username);
-        // this.user = this.userService.user;
-        // this.userService.getByUsername(this.username);
     }*/
+
+
+        this.getUserAndClub(this.username);
+        //this.user = this.userService.user;
+        //this.userService.getByUsername(this.username);
+    }
 
     public goToInfo() {
         this.router.navigate(['./info'], {relativeTo: this.route});
@@ -54,13 +54,13 @@ user: any = {};
         this.router.navigate(['./password'], {relativeTo: this.route});
     }
 
-   /*private getUserAndClub (username: string) {
+   private getUserAndClub (username: string) {
         this.userService.getByUsername(username).subscribe(userClub => {
             this.user.username = userClub.username,
                 this.user.email = userClub.email,
                 this.user._id = userClub._id,
                 this.club = userClub.creator});
-    }*/
+    }
 
 
 }

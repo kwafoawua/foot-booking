@@ -40,9 +40,9 @@ export class UserService {
 
     getByUsername(username: string) {
        return this.http.get('/users/' + username).map((response: Response) => response.json())
-           .subscribe(user => {
+          /* .subscribe(user => {
                this.usuario.next(user);
-           });
+           });*/
        /* this.http.get('/users/' + username)
             .map((response: Response) => response.json()).subscribe(data =>{
              //   console.log(data);

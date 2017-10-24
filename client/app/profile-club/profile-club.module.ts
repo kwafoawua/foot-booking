@@ -4,6 +4,13 @@
 import { NgModule }       from '@angular/core';
 import { CommonModule }   from '@angular/common';
 import { FormsModule, ReactiveFormsModule  }    from '@angular/forms';
+import { TagInputModule } from 'ngx-chips';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
+import { ImageUploadModule } from 'angular2-image-upload';
+import { CustomFormsModule } from 'ng2-validation';
+//API MAPS
+import { AgmCoreModule } from '@agm/core';
+import {DpDatePickerModule} from 'ng2-date-picker';
 
 import { ProfileClubComponent, ProfileClubInfoComponent, ProfileClubPasswordComponent, ProfileClubUserComponent }    from './index';
 import { ProfileClubRoutingModule } from './profile-club-routing.module';
@@ -13,7 +20,16 @@ import { ProfileClubRoutingModule } from './profile-club-routing.module';
         CommonModule,
         FormsModule,
         ProfileClubRoutingModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        TagInputModule,
+        BrowserAnimationsModule,
+        ImageUploadModule.forRoot(),
+        CustomFormsModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyAAwaI8YafySsHraMA_9G_n30_FECUhoVs',
+            libraries: ["places"]
+        }),
+        DpDatePickerModule
     ],
     declarations: [
         ProfileClubUserComponent,

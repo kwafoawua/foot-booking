@@ -3,7 +3,7 @@
  */
 export class Address{
 
-    address: Address;
+    address: string;
     lat: number;
     lng: number;
 
