@@ -28,6 +28,7 @@ export class ProfilePlayerComponent implements OnInit {
 
     ngOnInit() {
         this.getPlayer(this.route.snapshot.params['id']);
+        this.updateForm();
     }
 
     deleteUser(_id: string) {
@@ -37,7 +38,6 @@ export class ProfilePlayerComponent implements OnInit {
     private loadAllUsers() {
         this.userService.getAll().subscribe(users => { this.users = users; });
     }
-
 
     private getPlayer (_id: string) {
         this.playerService.getById(_id).subscribe(player => {this.player = player});
@@ -52,15 +52,22 @@ export class ProfilePlayerComponent implements OnInit {
         console.log("" + this.isEdit);
     }
 
-    updatePlayer(){
+    editPlayer(){
         this.playerService.update(this.model)
             .subscribe(
                 data => {
                     this.alertService.success('Modificación exitosa', true)
+                    this.ngOnInit();
                 },
                 error => {
                     this.alertService.error(error);
                 }
             );
+    }
+
+    updateForm(): void {
+        this.model = {
+            idUser: this.currentUser._id
+        }
     }
 }

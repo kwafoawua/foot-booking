@@ -12,8 +12,8 @@ import {AdminClubComponent} from "./admin-club/index";
 import {confirmationComponent} from './booking-confirmation/confirmation.component';
 
 // Routes for child routing
-import { ProfileEditComponent, ProfileInfoComponent } from './profile-player/options-component/index';
-//import { ProfileEditComponent } from './profile-player/options-component/profile-edit.component';
+import { ProfileEditComponent } from './profile-player/options-component/profile-edit.component';
+import { ProfileInfoComponent } from './profile-player/options-component/profile-info.component';
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },
@@ -23,16 +23,14 @@ const appRoutes: Routes = [
     {path: 'confirmation', component:confirmationComponent},
     { path: 'player/register', component: RegisterPlayerComponent },
 
-/*    { path: 'editPlayer', component: RegisterPlayerComponent,
+    { path: 'editPlayer', component: RegisterPlayerComponent},//preguntarle a colo
+    { path: 'profile-player/:id', component: ProfilePlayerComponent, canActivate: [AuthGuard],
         children: [
-            { path: 'infoPlayer', component:ProfileInfoComponent, outlet:'profile-selection' },
-            { path: 'editPlayer', component:ProfileEditComponent, outlet:'profile-selection' },
-            { path: 'editPlayer', component:ProfileEditComponent, outlet:'profile-selection' }
+            { path: '', redirectTo: 'infoPlayer', pathMatch: 'full' },
+            { path: 'infoPlayer', component: ProfileInfoComponent },
+            { path: 'editPlayer', component: ProfileEditComponent }
         ]
     },
-    { path: 'editPlayer', component: ProfileEditComponent, outlet:'profile-selection' },
-*/
-    { path: 'profile-player/:id', component: ProfilePlayerComponent, canActivate: [AuthGuard]},
     {path: 'results', component: ResultComponent },
     {path: 'club/register', component: RegisterClubComponent},
     {path: 'club/admin', component: AdminClubComponent, canActivate:[AuthGuard]},

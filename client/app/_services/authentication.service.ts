@@ -57,6 +57,11 @@ export class AuthenticationService {
         }
     }
 
-
+    public getPlayerByUserId(){
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (currentUser != undefined) {
+            return this.http.get('/player', currentUser._id).map((response:Response) => response.json());
+        }
+    }
 
 }

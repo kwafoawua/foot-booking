@@ -40,7 +40,7 @@ function addPlayer (player) {
                 var newPlayer = new Player({
                     name: player.name,
                     lastName: player.lastName, 
-                    birthDay: player.birthDay,
+                    birthDate: player.birthDate,
                     phoneNumber: player.phoneNumber,
                 });
 
@@ -68,7 +68,6 @@ function addPlayer (player) {
 
         });
         return deferred.promise;
-
 };
 
 
@@ -125,29 +124,45 @@ module.exports.updatePlayer = function(req, res) {
     console.log('entra al update player');
     console.log(req.body);
     console.log('');
-    Player.findById(req.id, function(err, player) {
-        // Handle any possible database errors
-        if (err) {
+    console.log(req.body.name);
+    User.findById({_id : req.body.idUser}, function(err, user) {
+        if(err){
+            console.log("No se encontro user");
             return res.status(500).send(err);
         } else {
-            console.log("encuentra player");
-            // Update each attribute with any possible attribute that may have been submitted in the body of the request
-            // If that attribute isn't in the request body, default back to whatever it was before.
-            player.name = req.body.name || player.name,
-            player.lastName = req.body.lastName || player.lastName,
-            player.phoneNumber = req.body.phoneNumber || player.phoneNumber
-
-            // Save the updated document back to the database
-            player.save(function(err, player) {
+            console.log("Encontro usuario");
+            user.email = req.body.email || user.email
+            user.save(function(err, user){
                 if (err) {
                     return res.status(500).send(err);
                 }
-                res.status(200).json(player);
+                res.status(200).json(user);
+            });
+
+            Player.findById({_id : user.creator}, function(err, player) {
+                if(err){
+                    console.log("No se encontro jugador");
+                    return res.status(500).send(err);
+                } else {
+                    console.log("Encontro al player");
+                    player.name = req.body.name || player.name,
+                    player.lastName = req.body.lastName || player.lastName,
+                    player.phoneNumber = req.body.phoneNumber || player.phoneNumber
+                    player.birthDate = req.body.birthDate || player.birthDate
+                    player.biography = req.body.biography || player.biography
+
+                    // Save the updated document back to the database
+                    player.save(function(err, player) {
+                        if (err) {
+                            return res.status(500).send(err);
+                        }
+                        //res.status(200).json(player);
+                    });
+                }
             });
         }
     });
 };
-
 
 /**
  * Delete a Player
@@ -167,3 +182,30 @@ module.exports.deletePlayer = function(req, res) {
     });
 };
 
+/**
+*   Get by user id
+*/
+module.exports.getPlayerByUserId = function(req, res) {
+    console.log("");
+    console.log("Entra al getPlayerByUserId");
+    console.log("Lo que entra en el req: " + req.body);
+    console.log("Id: " + req.body._id);
+
+    User.findById({_id:req.body._id}, function(err, user){
+         if(err){
+            console.log("No se encontro user");
+            return res.status(500).send(err);
+        } else {
+            console.log("Encontro usuario");
+            Player.findById({_id : user.creator}, function(err, player) {
+                if(err){
+                    console.log("No se encontro jugador");
+                    return res.status(500).send(err);
+                } else {
+                    console.log("Encontro al player");
+                    res.status(200).send(player);
+                }
+            });
+        }
+    }); 
+};
