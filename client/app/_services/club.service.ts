@@ -11,14 +11,6 @@ export class ClubService {
 
     public static  booking: Booking;
 
-    constructor(private http: Http) { }
-    // Observable string sources
-   /* clubs: Observable<Club[]>;
-    private _clubs: BehaviorSubject<Club[]>;
-    private dataStore: {
-        clubs: Club[]
-    };*/
-
     constructor(private http: Http) {
        /* this.dataStore = { clubs: [] };
         this._clubs = <BehaviorSubject<Club[]>>new BehaviorSubject([]);

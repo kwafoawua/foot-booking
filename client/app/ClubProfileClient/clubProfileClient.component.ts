@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
-import { UserService, AuthenticationService } from '../_services/index';
+import { AlertService, UserService, AuthenticationService } from '../_services/index';
 import { Club } from '../_models/index';
 import { ClubService } from '../_services/index';
 import {DpDatePickerModule, IDatePickerDirectiveConfig} from  'ng2-date-picker';
@@ -9,6 +9,7 @@ import {Moment} from "moment";
 import {ITimeSelectConfig} from "ng2-date-picker/time-select/time-select-config.model";
 import {Field} from "../_models/field";
 import {Booking} from "../_models/booking";
+
 
 @Component({
     moduleId: module.id,
@@ -19,12 +20,13 @@ export class ProfileClubClientComponent implements OnInit {
 
 
     club : Club ;
-    zoom = 16.88;
     galery: String [];
     selectedDate:any;
     selectedTime: any;
     NotanUser = true;
-
+    model: any = {};
+    username:any    ;
+    password : any;
     booking1: Booking = new Booking();
 
     configTime : ITimeSelectConfig = {
@@ -43,8 +45,12 @@ export class ProfileClubClientComponent implements OnInit {
         appendTo: 'body'};
 
 
-    constructor(private autentication: AuthenticationService, private clubService: ClubService, private route: ActivatedRoute, private router: Router) {
-    }
+    constructor(private autentication: AuthenticationService,
+                private clubService: ClubService,
+                private route: ActivatedRoute,
+                private router: Router,
+                 private alertService: AlertService
+    ) {    }
 
 
     ngOnInit(): void{
@@ -87,14 +93,18 @@ export class ProfileClubClientComponent implements OnInit {
 
     }
 
+    login(e:any) {
 
+        this.autentication.login(this.model.username, this.model.password)
+            .subscribe(
+                data => {
+                    this.reservar(e);
+                },
+                error => {
+                    this.alertService.error(error);
 
-   /* booking(){
-
-       ClubService.guardarBooking(this.booking);
-       this.router.navigate(['confirmation'])
-
-    }*/
+                });
+    }
 
 
 

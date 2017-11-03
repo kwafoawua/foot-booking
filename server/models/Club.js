@@ -29,7 +29,8 @@ var clubSchema = new Schema({
         services: [{
             display: { type: String, required: true },
             value: String
-        }]
+        }],
+       // price: String
     }],
     services: [{
         display: { type: String, required: true },

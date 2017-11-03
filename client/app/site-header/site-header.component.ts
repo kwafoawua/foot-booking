@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../_services/authentication.service';
 import {} from '@angular/http';
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -14,7 +15,7 @@ export class SiteHeaderComponent implements OnInit {
   currentUser: any;
   username: string;
 
-  constructor(private auth:AuthenticationService) {
+  constructor(private auth:AuthenticationService, private router: Router) {
     auth.isAuthenticated();
     auth.isUserClub();
   }
@@ -23,6 +24,18 @@ export class SiteHeaderComponent implements OnInit {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if(this.currentUser != undefined){
       this.username = this.currentUser.username;
+    }
+  }
+
+  public goToProfile() {
+    console.log('hola');
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    console.log(currentUser.rol);
+    if (currentUser.rol == 'Club') {
+      this.router.navigate(['/club/profile']);
+    }
+    else {
+      this.router.navigate(['/profile-player', currentUser.playerOrClubId]);
     }
   }
 

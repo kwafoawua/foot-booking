@@ -3,12 +3,13 @@ import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import {} from '@angular/http';
 import 'rxjs/add/operator/map';
+import {Router} from "@angular/router";
 
 @Injectable()
 export class AuthenticationService {
 
 
-    constructor(private http: Http) {
+    constructor(private http: Http,  private router: Router) {
         this.getUserAuthenticated();
     }
 
