@@ -46,6 +46,7 @@ export class ProfileClubInfoComponent implements OnInit{
             let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
                 types: ["address"]
             });
+
            autocomplete.addListener("place_changed", () => {
 
                 this.ngZone.run(() => {
@@ -56,6 +57,7 @@ export class ProfileClubInfoComponent implements OnInit{
                     if (place.geometry === undefined || place.geometry === null) {
                         return;
                     }
+
 
                     //set latitude, longitude and zoom
                     this.clubForm.get('address.lat').setValue(place.geometry.location.lat());
@@ -87,6 +89,12 @@ export class ProfileClubInfoComponent implements OnInit{
                 galleryImg: this.club.galleryImg,
                 socialMedia: this.club.socialMedia
             });
+
+            if (this.club.address.address) {
+                console.log('entra al iff address addres');
+                this.searchElementRef.nativeElement.value = this.club.address.address;
+
+            }
         });
     }
 
