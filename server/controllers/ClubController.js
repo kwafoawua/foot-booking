@@ -135,7 +135,10 @@ module.exports.findAllClubs = function(req, res) {
  * Update a Club
  */
 module.exports.updateClub = function(req, res) {
-    Club.findById(req.params.id, function(err, club) {
+    console.log(req.body);
+    console.log(req.params.id);
+   // Club.findByIdAndUpdate();
+ /*   Club.findById(req.params.id, function(err, club) {
         // Handle any possible database errors
         if (err) {
             return res.status(500).send(err);
@@ -157,7 +160,7 @@ module.exports.updateClub = function(req, res) {
                 res.status(200).json(club);
             });
         }
-    });
+    });*/
 };
 
 /**

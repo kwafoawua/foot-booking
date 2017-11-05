@@ -131,7 +131,7 @@ module.exports.updatePlayer = function(req, res) {
             return res.status(500).send(err);
         } else {
             console.log("Encontro usuario");
-            user.email = req.body.email || user.email
+            user.email = req.body.email || user.email;
             user.save(function(err, user){
                 if (err) {
                     return res.status(500).send(err);
@@ -145,11 +145,11 @@ module.exports.updatePlayer = function(req, res) {
                     return res.status(500).send(err);
                 } else {
                     console.log("Encontro al player");
-                    player.name = req.body.name || player.name,
-                    player.lastName = req.body.lastName || player.lastName,
-                    player.phoneNumber = req.body.phoneNumber || player.phoneNumber
-                    player.birthDate = req.body.birthDate || player.birthDate
-                    player.biography = req.body.biography || player.biography
+                    player.name = req.body.name || player.name;
+                    player.lastName = req.body.lastName || player.lastName;
+                    player.phoneNumber = req.body.phoneNumber || player.phoneNumber;
+                    player.birthDate = req.body.birthDate || player.birthDate;
+                    player.biography = req.body.biography || player.biography;
 
                     // Save the updated document back to the database
                     player.save(function(err, player) {
