@@ -189,7 +189,7 @@ export class ProfileClubInfoComponent implements OnInit{
             this.loading = true;
             const formData: any = new FormData();
 
-            if(this.clubForm.get('profileImg') == true) {
+           /* if(this.clubForm.get('profileImg') == true) {
                 const file: File = this.filesToUpload;
                 formData.append("profile", file, file['name']);
 
@@ -199,7 +199,7 @@ export class ProfileClubInfoComponent implements OnInit{
                 for(let i = 0; i < gallery.length ; i++){
                     formData.append("gallery", gallery[i], gallery[i].name);
                 }
-            }
+            }*/
             formData.append("body",JSON.stringify(this.clubForm.value) );
 
             console.log(formData);
