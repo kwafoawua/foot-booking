@@ -15,6 +15,7 @@ import {DpDatePickerModule} from 'ng2-date-picker';
 import { ProfileClubComponent, ProfileClubInfoComponent, ProfileClubPasswordComponent, ProfileClubUserComponent }    from './index';
 import { ProfileClubRoutingModule } from './profile-club-routing.module';
 
+
 @NgModule({
     imports: [
         CommonModule,

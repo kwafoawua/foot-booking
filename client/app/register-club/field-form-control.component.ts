@@ -33,8 +33,9 @@ export class FieldFormControlComponent {
         return new FormGroup({
             fieldName: new FormControl(''),
             cantPlayers: new FormControl(''),
+            fieldType: new FormControl(''),
             services: new FormControl([]),
-            fieldType: new FormControl('')
+
         });
     }
 

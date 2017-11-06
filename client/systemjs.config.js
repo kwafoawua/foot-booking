@@ -31,12 +31,14 @@
             'rxjs': 'npm:rxjs',
             'ngx-chips': 'npm:ngx-chips/dist/ngx-chips.bundle.js',
             'ng2-material-dropdown' : 'npm:ng2-material-dropdown/dist/ng2-dropdown.bundle.js',
-            'angular2-image-upload': 'npm:angular2-image-upload',
+            'angular2-image-upload': 'node_modules/angular2-image-upload',
             'ng2-validation': 'npm:ng2-validation/bundles/ng2-validation.umd.js',
             'libphonenumber-js' : 'npm:libphonenumber-js/bundle/libphonenumber-js.min.js',
             '@agm/core': 'node_modules/@agm/core/core.umd.js',
             'ng2-date-picker':'npm:ng2-date-picker',
-            'moment' : 'npm:moment/moment.js'
+            'moment' : 'npm:moment/moment.js',
+            'traceur' : 'npm:traceur/bin'
+
 
 
         },
@@ -46,14 +48,17 @@
                 main: './main.js',
                 defaultExtension: 'js'
             },
-            rxjs: {
-                defaultExtension: 'js'
+            'traceur':{
+                main: 'traceur.js'
             },
-            'ngx-chips': {
+            rxjs: {
                 defaultExtension: 'js'
             },
             'angular2-image-upload': {
                 main: './index.js',
+                defaultExtension: 'js'
+            },
+            'ngx-chips': {
                 defaultExtension: 'js'
             },
             'ng2-validation' : {

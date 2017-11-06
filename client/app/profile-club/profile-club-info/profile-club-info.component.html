@@ -172,7 +172,9 @@
 
                                             [extensions]="['jpg','png']"
                                             buttonCaption="Subir"
-                                            dropBoxMessage="Subir Imagen de portada">
+                                            dropBoxMessage="Subir Imagen de portada"
+                                            clearButtonCaption="Eliminar"
+                                            [uploadedFiles]="profileImage">
                                     </image-upload>
                                     <div name="valida-imagen" *ngIf="clubForm.get('profileImg').invalid &&
                         (clubForm.get('profileImg').dirty || clubForm.get('profileImg').touched)">
@@ -198,7 +200,9 @@
                                             [max]="5"
                                             [extensions]="['jpg','png']"
                                             buttonCaption="Subir"
-                                            dropBoxMessage="Subir Galería de imagenes">
+                                            dropBoxMessage="Subir Galería de imagenes"
+                                            clearButtonCaption="Eliminar Todos"
+                                            [uploadedFiles]="profileGallery">
                                     </image-upload>
 
                                 </div>
@@ -208,6 +212,7 @@
                     </div>
                 </div>
             </div><!-- carga de imagenes -section -->
+
             <input type="submit" value="Actualizar" class="btn btn-primary">
 
             {{clubForm.value | json}}
