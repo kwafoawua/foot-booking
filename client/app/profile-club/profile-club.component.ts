@@ -56,6 +56,7 @@ user: any = {};
 
    private getUserAndClub (username: string) {
         this.userService.getByUsername(username).subscribe(userClub => {
+            console.log(userClub);
             this.user.username = userClub.username,
                 this.user.email = userClub.email,
                 this.user._id = userClub._id,
