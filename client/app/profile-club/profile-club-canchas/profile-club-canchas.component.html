@@ -1,0 +1,25 @@
+<div class="avt-post-wrapper section">
+    <div class="container">
+        <div class="avt-post">
+
+            <form enctype="multipart/form-data" [formGroup]="fieldClubForm"
+                  novalidate="novalidate">
+                <h2 class="center-block">Canchas del complejo</h2>
+
+                <!-- carga de canchas -section -->
+                <div class="avtpost-fields">
+                    <div class="row">
+                        <fields-array
+                                formArrayName="fields"
+                                [fieldFormArray]="fieldClubForm.get('fields')">
+                        </fields-array>
+
+
+                    </div>
+                </div><!-- carga de canchas -section -->
+
+            </form>
+
+        </div>
+    </div>
+</div>

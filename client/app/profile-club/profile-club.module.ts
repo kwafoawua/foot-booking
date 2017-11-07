@@ -12,8 +12,10 @@ import { CustomFormsModule } from 'ng2-validation';
 import { AgmCoreModule } from '@agm/core';
 import {DpDatePickerModule} from 'ng2-date-picker';
 
-import { ProfileClubComponent, ProfileClubInfoComponent, ProfileClubPasswordComponent, ProfileClubUserComponent }    from './index';
+import { ProfileClubComponent, ProfileClubCanchasComponent, ProfileClubInfoComponent, ProfileClubPasswordComponent, ProfileClubUserComponent }    from './index';
 import { ProfileClubRoutingModule } from './profile-club-routing.module';
+import {FieldFormControlComponent} from "./profile-club-canchas/field-form-control.component";
+import {FieldFormArrayComponent} from "./profile-club-canchas/field-form-array.component";
 
 
 @NgModule({
@@ -36,7 +38,10 @@ import { ProfileClubRoutingModule } from './profile-club-routing.module';
         ProfileClubUserComponent,
         ProfileClubPasswordComponent,
         ProfileClubInfoComponent,
-        ProfileClubComponent
+        ProfileClubComponent,
+        ProfileClubCanchasComponent,
+        FieldFormArrayComponent,
+        FieldFormControlComponent,
     ],
     providers: [  ]
 })
