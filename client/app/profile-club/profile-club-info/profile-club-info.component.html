@@ -166,8 +166,8 @@
                                 <label class="col-md-4">Imagen de portada</label>
                                 <div class="col-md-12">
                                     <image-upload
-                                            (onFileUploadFinish)="profileUploaded($event)"
-                                            (onRemove)="profileRemoved()"
+                                            (uploadFinished)="profileUploaded($event)"
+                                            (removed)="profileRemoved()"
                                             [max]="1"
 
                                             [extensions]="['jpg','png']"
@@ -195,8 +195,8 @@
                                 <label class="col-md-4">Galería de Imágenes</label>
                                 <div class="col-md-12">
                                     <image-upload
-                                            (onFileUploadFinish)="galleryUploaded($event)"
-                                            (onRemove)="galleryRemoved($event)"
+                                            (uploadFinished)="galleryUploaded($event)"
+                                            (removed)="galleryRemoved($event)"
                                             [max]="5"
                                             [extensions]="['jpg','png']"
                                             buttonCaption="Subir"
