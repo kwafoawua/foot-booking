@@ -28,6 +28,10 @@ import { RegisterPlayerComponent } from './register-player/index';
 import { ProfilePlayerComponent } from './profile-player/index';
 import { AdminClubComponent } from "./admin-club/index";
 import { ProfileClubModule } from './profile-club/profile-club.module';
+import { CalendarModule } from 'angular-calendar';
+import { FieldsManagementComponent} from "./fields-management/index";
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 
 // Module for child routing
@@ -52,12 +56,13 @@ import {confirmationComponent} from "./booking-confirmation/confirmation.compone
         ImageUploadModule.forRoot(),
         CustomFormsModule,
         DpDatePickerModule,
-
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyAAwaI8YafySsHraMA_9G_n30_FECUhoVs',
             libraries: ["places"]
         }),
-        ProfileClubModule
+        ProfileClubModule,
+        CalendarModule.forRoot(),
+        NgbModule.forRoot()
         ],
     declarations: [
         AppComponent,
@@ -77,6 +82,7 @@ import {confirmationComponent} from "./booking-confirmation/confirmation.compone
         ProfileEditComponent,
         ProfileInfoComponent,
         confirmationComponent,
+        FieldsManagementComponent
     ],
     providers: [
         customHttpProvider,

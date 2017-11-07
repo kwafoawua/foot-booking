@@ -37,7 +37,13 @@
             '@agm/core': 'node_modules/@agm/core/core.umd.js',
             'ng2-date-picker':'npm:ng2-date-picker',
             'moment' : 'npm:moment/moment.js',
-            'traceur' : 'npm:traceur/bin'
+            'traceur' : 'npm:traceur/bin',
+            'angular-calendar' : 'npm:angular-calendar/dist/umd/angular-calendar.js',
+            'calendar-utils': 'npm:calendar-utils/dist/umd/calendar-utils.js',
+            'angular-resizable-element': 'npm:angular-resizable-element/dist/umd/angular-resizable-element.js',
+            'angular-draggable-droppable': 'npm:angular-draggable-droppable/dist/umd/angular-draggable-droppable.js',
+            'date-fns': 'npm:date-fns',
+            '@ng-bootstrap/ng-bootstrap': 'npm:@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.js'
 
 
 
@@ -67,7 +73,16 @@
             'ng2-date-picker':{
                 defaultExtension: 'js',
                 main: './index.js'
+            },
+            'date-fns': {
+                main: './index.js',
+                defaultExtension: 'js'
             }
+            // '@ng-bootstrap/ng-bootstrap': {
+            //     main: './index.js',
+            //     defaultExtension: 'js'
+            // }
+
         }
     });
 })(this);
