@@ -40,6 +40,7 @@ router.get('/clubs/', clubController.findAllClubs);
 
 
 router.get('/findClub/:clubfilter', clubController.findClubsByFilter);
+router.get('/findClubsByFilters/:clubfilter', clubController.findClubsByMultipleFilter);
 
 
 

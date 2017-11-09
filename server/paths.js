@@ -10,6 +10,7 @@ module.exports.path = {
         '/clubs/register',
         '/clubs', '/results',
         '/findClub',
+        '/findClubsByFilters',
         '/results/club/',
         '/uploads',
         '/players/register',

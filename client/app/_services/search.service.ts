@@ -34,9 +34,6 @@ export class SearchService {
     constructor(private http: Http) {
     }
 
-
-
-
     findClubsByFilters(filter: ClubFilter) {
         console.log("en esl servico",filter)
         return this.http.get('/findClub/' + JSON.stringify(filter))
@@ -54,6 +51,13 @@ export class SearchService {
         return this.service;
     }
 
+    findClubsByMultipleFilter(filter: ClubFilter){
+        console.log("en esl servico",filter)
+        return this.http.get('/findClubsByFilters/' + JSON.stringify(filter))
+            .map((response: Response) => {
+            SearchService.clubs = response.json();
+            // return  response.json()
+        });
+    }
 
 }
-

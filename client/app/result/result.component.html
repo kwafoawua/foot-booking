@@ -18,7 +18,7 @@
 
                             <div class="filter-list">
 
-                                <input (keyup.enter)="buscarClubsPorFiltros()" [(ngModel)]="clubname" name="clubname"
+                                <input (keyup.enter)="buscarClubsPorNombre()" [(ngModel)]="clubname" name="clubname"
                                        placeholder="Buscar por nombre de club" type="text" class="form-control"
                                       />
 
@@ -59,11 +59,9 @@
                                             <h5></h5>
 
                                             <div class="cantJugadores">
-                                                <label for="cantJugadores"><input type="text" id="cantJugadores"
-                                                                                  title="Cantidad de jugares"
-                                                                                  placeholder="Cantidad de jugadores"
-                                                                                  value="10" [(ngModel)]="cantPlayers"
-                                                                                    ></label>
+                                                <label for="cantJugadores">
+                                                    <input type="text" id="cantJugadores" title="Cantidad de jugares" placeholder="Cantidad de jugadores" value="10" [(ngModel)]="cantPlayers">
+                                                </label>
                                             </div>
                                             <!--
                                             <ul class="list-group checkbox">
@@ -77,7 +75,8 @@
                                             -->
                                             <h5>Precios</h5>
                                             <div class="price-range">
-                                                <label for="min"><input type="text" id="min" title="minimum price"
+                                                <label for="min">
+                                                    <input type="text" id="min" title="minimum price"
                                                                         placeholder="min" value="" [(ngModel)]="minPrice"></label>
                                                 <label for="max"><input type="text" id="max" title="maximum price"
                                                                         placeholder="max" value="" [(ngModel)]="maxPrice"></label>

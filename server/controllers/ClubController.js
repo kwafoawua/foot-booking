@@ -181,9 +181,71 @@ module.exports.deleteClub = function(req, res) {
 
 module.exports.findClubsByFilter = function (req,res) {
 
-    Club.find({name : new RegExp(JSON.parse(req.params.clubfilter).clubname, "i"),
-        //  services : new RegExp(JSON.parse(req.params.services).services, "i")
+    console.log("#");
+    console.log("#");
+    console.log("#");
+    console.log("#");
+    console.log("Entro al findClubsByFilter!!");
+    console.log("En este se busca solo por nombre");
+    console.log("#");
+    console.log("#");
+    console.log("#");
+    console.log("#");
 
+    Club.find({name : new RegExp(JSON.parse(req.params.clubfilter).clubname, "i"),
+                   //  services : new RegExp(JSON.parse(req.params.services).services, "i")
+
+            }, function (err, club) {
+                if (err) {
+                    return res.status(500).send(err + "al menos entro");
+                }
+
+                res.status(200).send(club);
+
+            });
+
+};
+
+module.exports.findClubsByMultipleFilter = function (req,res) {
+
+    console.log("#");
+    console.log("#");
+    console.log("#");
+    console.log("#");
+    console.log("Entro al findClubsByMultipleFilter!!");
+    console.log("En este se tienen en cuenta los filtras");
+    console.log("#");
+    console.log("#");
+    console.log("#");
+    console.log("#");
+
+    // Se arma solo el array de servicios para utilizar el $in
+    var servicesNameArray = [];
+    
+    if (JSON.parse(req.params.clubfilter).services.length==0) {
+        // traigo todos
+        Club.find({name : new RegExp(JSON.parse(req.params.clubfilter).clubname, "i"),
+                   //  services : new RegExp(JSON.parse(req.params.services).services, "i")
+
+            }, function (err, club) {
+                if (err) {
+                    return res.status(500).send(err + "al menos entro");
+                }
+
+                res.status(200).send(club);
+
+            });
+    } else  {
+        // Lleno el array con todos los servicios que me llegan en el req
+        for (var i = JSON.parse(req.params.clubfilter).services.length - 1; i >= 0; i--) {
+            servicesNameArray[i]=JSON.parse(req.params.clubfilter).services[i].name;
+        }
+        // Realizo la consulta con el array del servicio y el nombre del club en el caso de que venga como parametro
+        Club.find({ $and:
+            [
+                {name : new RegExp(JSON.parse(req.params.clubfilter).clubname, "i")},
+                { "services.name": { "$all": servicesNameArray } }
+            ]
     }, function (err, club) {
         if (err) {
             return res.status(500).send(err + "al menos entro");
@@ -192,29 +254,7 @@ module.exports.findClubsByFilter = function (req,res) {
         res.status(200).send(club);
 
     });
-    // var query = {};
-    // if (JSON.parse((req.param.clubfilter).clubname) !== undefined) {
-    //
-    //     query.name = new RegExp(JSON.parse(req.params.clubfilter).clubname, "i");
-    //     console.log("query.name")
-    // };
-    // if (JSON.parse(req.param.clubfilter).services) {
-    //     query.services = {$elemMatch: {display: new RegExp(JSON.parse(req.params.clubfilter).services, "i")}};
-    //
-    // };
-    //
-    // Club.find(query, function (err, club) {
-    //     if (err) {
-    //         return res.status(500).send(err + "al menos entro");
-    //     }
-    //
-    //     res.status(200).send(club);
-    //
-    // })
-
-
-
-
-
+    }
+    console.log(servicesNameArray);
 
 };

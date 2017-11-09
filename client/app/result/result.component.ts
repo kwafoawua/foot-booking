@@ -41,7 +41,7 @@ export class ResultComponent implements OnInit {
     private clubfilter: ClubFilter;
     public clubs: Club[];
     public services: Service[];
-    private servicesChecked : Service [];
+    private servicesChecked : Service [] = [];
     clubname = "";
     cantPlayers: any;
     minPrice: any;
@@ -75,25 +75,34 @@ export class ResultComponent implements OnInit {
         )
     }
 
-//BUSCO POR LOS FILTROS
+    //BUSCO POR NOMBRE
 
-    private buscarClubsPorFiltros() {
+    private buscarClubsPorNombre() {
         this.clubfilter = this.crearFiltros();
         console.log("ya cree el filtro",this.clubfilter);
         this.searchService.findClubsByFilters(this.clubfilter).subscribe(() => {
             this.clubs = SearchService.clubs;
         });
-    console.log(this.clubfilter)
+        console.log(this.clubfilter)
     }
 
+    //BUSCO POR LOS FILTROS
 
- addService(e:any){
+    private buscarClubsPorFiltros() {
+        this.clubfilter = this.crearFiltros();
+        console.log("ya cree el filtro",this.clubfilter);
+        this.searchService.findClubsByMultipleFilter(this.clubfilter).subscribe(() => {
+            this.clubs = SearchService.clubs;
+        });
+        console.log(this.clubfilter)
+    }
+
+    addService(e:any){
 
         if(e.state){
-
             console.log("agrego el servicio ",e.name)
             this.servicesChecked.push({'id':e.id,'name': e.name});
-           // console.log("array", this.servicesChecked)
+            // console.log("array", this.servicesChecked)
         } else {
             console.log("saco el servicio",e.name);
             for (var i =0; i < this.servicesChecked.length; i++)
@@ -101,8 +110,8 @@ export class ResultComponent implements OnInit {
                     this.servicesChecked.splice(i,1);
                     break;
                 }
-       }
+            }
+        }
+
+
     }
-
-
-}
