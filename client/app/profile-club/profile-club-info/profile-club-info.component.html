@@ -166,13 +166,15 @@
                                 <label class="col-md-4">Imagen de portada</label>
                                 <div class="col-md-12">
                                     <image-upload
-                                            (onFileUploadFinish)="profileUploaded($event)"
-                                            (onRemove)="profileRemoved()"
+                                            (uploadFinished)="profileUploaded($event)"
+                                            (removed)="profileRemoved()"
                                             [max]="1"
 
                                             [extensions]="['jpg','png']"
                                             buttonCaption="Subir"
-                                            dropBoxMessage="Subir Imagen de portada">
+                                            dropBoxMessage="Subir Imagen de portada"
+                                            clearButtonCaption="Eliminar"
+                                            [uploadedFiles]="profileImage">
                                     </image-upload>
                                     <div name="valida-imagen" *ngIf="clubForm.get('profileImg').invalid &&
                         (clubForm.get('profileImg').dirty || clubForm.get('profileImg').touched)">
@@ -193,12 +195,14 @@
                                 <label class="col-md-4">Galería de Imágenes</label>
                                 <div class="col-md-12">
                                     <image-upload
-                                            (onFileUploadFinish)="galleryUploaded($event)"
-                                            (onRemove)="galleryRemoved($event)"
+                                            (uploadFinished)="galleryUploaded($event)"
+                                            (removed)="galleryRemoved($event)"
                                             [max]="5"
                                             [extensions]="['jpg','png']"
                                             buttonCaption="Subir"
-                                            dropBoxMessage="Subir Galería de imagenes">
+                                            dropBoxMessage="Subir Galería de imagenes"
+                                            clearButtonCaption="Eliminar Todos"
+                                            [uploadedFiles]="profileGallery">
                                     </image-upload>
 
                                 </div>
@@ -208,7 +212,10 @@
                     </div>
                 </div>
             </div><!-- carga de imagenes -section -->
+
             <input type="submit" value="Actualizar" class="btn btn-primary">
+
+            {{clubForm.value | json}}
 
         </form>
     </div>

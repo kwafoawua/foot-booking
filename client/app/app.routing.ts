@@ -14,6 +14,7 @@ import { AdminClubComponent } from "./admin-club/index";
 // Routes for child routing
 import { ProfileEditComponent } from './profile-player/options-component/profile-edit.component';
 import { ProfileInfoComponent } from './profile-player/options-component/profile-info.component';
+import {FieldsManagementComponent} from "./fields-management/index";
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },
@@ -34,6 +35,7 @@ const appRoutes: Routes = [
     {path: 'results', component: ResultComponent },
     {path: 'club/register', component: RegisterClubComponent},
     {path: 'club/admin', component: AdminClubComponent, canActivate:[AuthGuard]},
+    {path: 'club/gestion-canchas', component: FieldsManagementComponent},
 
 
     // otherwise redirect to home

@@ -4,7 +4,7 @@
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { ProfileClubComponent, ProfileClubUserComponent, ProfileClubPasswordComponent, ProfileClubInfoComponent }     from './index';
+import { ProfileClubComponent, ProfileClubCanchasComponent, ProfileClubUserComponent, ProfileClubPasswordComponent, ProfileClubInfoComponent }     from './index';
 
 const profileClubRoutes: Routes = [
     {
@@ -22,6 +22,10 @@ const profileClubRoutes: Routes = [
             {
                 path: 'info',
                 component: ProfileClubInfoComponent
+            },
+            {
+                path: 'canchas',
+                component: ProfileClubCanchasComponent
             }
         ]
     }

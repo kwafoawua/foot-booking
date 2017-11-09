@@ -34,11 +34,13 @@ function getRol(us){
     var deferred = Q.defer();
     return User.findOne({username: us}, function (err, user){
         console.log('entra al find de getrol');
+        console.log(user);
         if(err) {
             console.log('error');
             return deferred.reject(err.name + ' : ' + err.message);
         }
         if(!user) {
+            console.log('no user');
             return deferred.reject('El usuario no existe.');
         }
         console.log(user.rol);

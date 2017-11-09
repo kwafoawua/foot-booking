@@ -54,8 +54,13 @@ user: any = {};
         this.router.navigate(['./password'], {relativeTo: this.route});
     }
 
+    public goToFields() {
+            this.router.navigate(['./canchas'], {relativeTo: this.route});
+    }
+
    private getUserAndClub (username: string) {
         this.userService.getByUsername(username).subscribe(userClub => {
+            console.log(userClub);
             this.user.username = userClub.username,
                 this.user.email = userClub.email,
                 this.user._id = userClub._id,
