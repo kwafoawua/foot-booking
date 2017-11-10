@@ -14,7 +14,6 @@ export class Booking{
     club : Club;
     dateBook: any;
     timeBook: any;
-  //  state: any;
+  //state: any;
     player: Player;
-
 }

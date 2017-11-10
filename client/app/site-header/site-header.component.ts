@@ -41,12 +41,8 @@ export class SiteHeaderComponent implements OnInit {
 
   public goToMisReservas(){
     this.router.navigate(['/mis-reservas']);
-
   }
 
-  public goToAdminCanchas(){
-    this.router.navigate(['./canchas'], {relativeTo: this.route});
 
-  }
 
 }
