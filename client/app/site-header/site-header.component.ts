@@ -44,4 +44,9 @@ export class SiteHeaderComponent implements OnInit {
 
   }
 
+  public goToAdminCanchas(){
+    this.router.navigate(['./canchas'], {relativeTo: this.route});
+
+  }
+
 }

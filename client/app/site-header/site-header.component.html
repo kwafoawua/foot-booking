@@ -34,8 +34,8 @@
 									</li>
 									<li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">Gestión de canchas <span class="caret"></span></a>
 										<ul class="dropdown-menu" id="dropdown-top-alternative">
-											<li><a (click)=goToMisReservas()>Ver reservas</a></li>
-											<li><a>Administrar canchas</a></li>
+											<li><a>Ver reservas</a></li>
+											<li><a (click)="goToAdminCanchas">Administrar canchas</a></li>
 										</ul>
 									</li>
 									<li> <label>Hola {{auth.getUserAuthenticated()}}</label></li>
@@ -46,7 +46,7 @@
 								<div *ngIf="!auth.isUserClub()">
 									<li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">Preferencias<span class="caret"></span></a>
 										<ul class="dropdown-menu" id="dropdown-top-alternative">
-											<li><a>Mis reservas</a></li>
+											<li><a (click)=goToMisReservas()>Mis reservas</a></li>
 											<li><a>Complejos preferidos</a></li>
 											<li><a>Campeonatos</a></li>
 										</ul>
