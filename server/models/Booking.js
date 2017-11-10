@@ -21,27 +21,20 @@ var bookingSchema = new Schema({
         address: String,
         phoneNumber: Number
     },
-    fields: {
+    field: {
         fieldName: String,
         cantPlayers: { type: Number, required: true },
         fieldType : String,
-        services: [{
-            display: { type: String, required: true },
-            value: String
-        }],
+        services: [ { type: String, required: true }],
          price: String
     },
     playingDate: { type: Date, required: true },
     playingTime: String,
-    status: { type: String, default: 'Esperando', required: true, enum: ['Declinado', 'Aceptado', 'Esperando'] }, //modificar con los estados verdaderos
-    payment: {
+    status: { type: String, default: 'Reservado', required: true, enum: ['Cancelado', 'Finalizado', 'Reservado'] }, //modificar con los estados verdaderos
         paidMethod: {type: String, required: true},
-        reference: {type: String, required: true}
-        },
     player: {
         name: {type: String, required: true},
         lastName: {type: String, required: true},
-        userName: {type: String, required: true},
         phoneNumber: Number,
         id: {type: String}
 
