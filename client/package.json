@@ -25,6 +25,7 @@
     "@angular/platform-browser": "^4.4.4",
     "@angular/platform-browser-dynamic": "^4.4.4",
     "@angular/router": "^4.4.4",
+    "@ng-bootstrap/ng-bootstrap": "^1.0.0-beta.5",
     "@types/node": "^6.0.88",
     "angular-calendar": "^0.21.3",
     "angular2-google-maps": "^0.17.0",

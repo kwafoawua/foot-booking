@@ -10,6 +10,7 @@ import { AuthGuard } from './_guards/index';
 import {confirmationComponent} from './booking-confirmation/confirmation.component';
 import { ResultComponent } from './result/index';
 import { AdminClubComponent } from "./admin-club/index";
+import {bookingPlayerComponent} from "./booking-player/booking-player.component";
 
 // Routes for child routing
 import { ProfileEditComponent } from './profile-player/options-component/profile-edit.component';
@@ -36,7 +37,7 @@ const appRoutes: Routes = [
     {path: 'club/register', component: RegisterClubComponent},
     {path: 'club/admin', component: AdminClubComponent, canActivate:[AuthGuard]},
     {path: 'club/gestion-canchas', component: FieldsManagementComponent},
-
+    {path: 'mis-reservas', component: bookingPlayerComponent},
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }

@@ -31,6 +31,7 @@ import { ProfileClubModule } from './profile-club/profile-club.module';
 import { CalendarModule } from 'angular-calendar';
 import { FieldsManagementComponent} from "./fields-management/index";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {bookingPlayerComponent} from "./booking-player/booking-player.component";
 
 
 
@@ -82,7 +83,8 @@ import {confirmationComponent} from "./booking-confirmation/confirmation.compone
         ProfileEditComponent,
         ProfileInfoComponent,
         confirmationComponent,
-        FieldsManagementComponent
+        FieldsManagementComponent,
+        bookingPlayerComponent,
     ],
     providers: [
         customHttpProvider,

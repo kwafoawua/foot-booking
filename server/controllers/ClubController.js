@@ -247,7 +247,7 @@ module.exports.findClubsByMultipleFilter = function (req,res) {
         Club.find({ $and:
             [
                 {name : new RegExp(JSON.parse(req.params.clubfilter).clubname, "i")},
-                { "services.name": { "$all": servicesNameArray } }
+                { "services.value": { "$all": servicesNameArray } }
             ]
     }, function (err, club) {
         if (err) {
