@@ -29,7 +29,7 @@ var bookingSchema = new Schema({
             display: { type: String, required: true },
             value: String
         }],
-        // price: String
+         price: String
     },
     playingDate: { type: Date, required: true },
     playingTime: String,
@@ -45,9 +45,10 @@ var bookingSchema = new Schema({
         phoneNumber: Number,
         id: {type: String}
 
-    },
-    regularBooking: { type: Boolean, required: true },
-    endingDateRegularBooking: Date
+    }
+    //es que reservan la cancha todos los martes
+    //regularBooking: { type: Boolean, required: true, default: true },
+    //endingDateRegularBooking: Date
 
 });
 
