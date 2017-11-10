@@ -35,6 +35,7 @@ export class FieldFormControlComponent {
             cantPlayers: new FormControl(''),
             fieldType: new FormControl(''),
             services: new FormControl([]),
+            price: new FormControl('')
 
         });
     }
