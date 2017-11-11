@@ -65,55 +65,23 @@ function addBooking (booking) {
  * FindBy Functions
  */
 
-module.exports.findAllByPlayer = function (req, res) {
-    var playerId = JSON.parse(req.body.playerId);
-    findByPlayer(playerId)
-        .then(function (bookings) {
-            res.sendStatus(200).send(bookings);
-        })
-        .catch(function (err) {
-            res.status(400).send(err);
-        });
-};
 
-function findByPlayer (playerId) {
-    var deferred = Q.defer();
+module.exports.findAllByReferenceId = function(req, res) {
+    console.log("Entra al findById");
 
-    Booking.find({ 'player.id': playerId }, function (err, bookings) {
+    Booking.find({$or:
+            [
+               {"club.id":JSON.parse(req.body.referenceId)},
+               {"player.id":JSON.parse(req.body.referenceId)}
+            ]
+        }, function (err, club) {
         if (err) {
-            return deferred.reject(err.name + ' : ' + err.message);
-        } else {
-            deferred.resolve(bookings);
+            return res.status(500).send(err);
         }
-        return deferred.promise;
-    }).exec();
+        res.status(200).send(club);
+    });
 
-}
-module.exports.findAllByClub = function (req, res) {
-    //o params... ver
-    var clubId = JSON.parse(req.body.clubId);
-    findByClub(clubId)
-        .then(function (bookings) {
-            res.sendStatus(200).send(bookings);
-        })
-        .catch(function (err) {
-            res.status(400).send(err);
-        });
 };
-
-function findByClub (clubId) {
-    var deferred = Q.defer();
-
-    Booking.find({ 'club.id': clubId }, function (err, bookings) {
-        if (err) {
-            return deferred.reject(err.name + ' : ' + err.message);
-        } else {
-            deferred.resolve(bookings);
-        }
-        return deferred.promise;
-    }).exec();
-
-}
 
 /**
  * Update a Booking
