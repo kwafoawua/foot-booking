@@ -44,16 +44,15 @@
 								</div>
 
 								<div *ngIf="!auth.isUserClub()">
-									<li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">Preferencias<span class="caret"></span></a>
-										<ul class="dropdown-menu" id="dropdown-top-alternative">
-											<li><a (click)=goToMisReservas()>Mis reservas</a></li>
-											<li><a>Complejos preferidos</a></li>
-											<li><a>Campeonatos</a></li>
+									<li class="nav-item dropdown">
+										<a class="nav-link dropdown-toggle" id="dropdown-preferencias" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Preferencias</a>
+										<ul class="dropdown-menu" aria-labelledby="dropdown-preferencias" id="dropdown-top-alternative">
+											<li class="dropdown-item"><a (click)=goToMisReservas()>Mis reservas</a></li>
+											<li class="dropdown-item"><a>Complejos preferidos</a></li>
+											<li class="dropdown-item"><a>Campeonatos</a></li>
+
 										</ul>
 									</li>
-									<li><label>Hola {{auth.getUserAuthenticated()}}</label></li>
-									<li><a (click)=goToProfile()>Mi perfil</a></li>
-									<li><a (onclick)=logout() [routerLink]="['/login']"><i class="fa fa-log-out" aria-hidden="true"></i> Cerrar Sesión</a></li>
 								</div>
 
 							</div>

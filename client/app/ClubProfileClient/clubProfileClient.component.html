@@ -15,10 +15,11 @@
                                 <div class="carousel-inner">
 
                                     <div *ngFor="let img of club?.galleryImg; let i = index"
-                                         [ngClass]="i === 0 ? 'item active': 'item'">
-                                        <img src="/uploads/{{img}}" alt="" class="img-responsive">
+                                         [ngClass]="i === 0 ? 'carousel-item active': 'carousel-item'">
+                                        <img src="/uploads/{{img}}" class="img-fluid">
                                     </div>
                                 </div>
+
                                 <a class="left-control" href=".detail-item-image" role="button" data-slide="prev">
                                     <i class="fa fa-angle-left" aria-hidden="true"></i>
                                     <span class="sr-only">Previous</span>
@@ -39,10 +40,18 @@
                                     </div>
 
                                     <ul class="list-inline product-social">
-                                        <li><a href="#"><i class="fa fa-facebook-square" aria-hidden="true"></i></a>
+                                        <a href="#">
+                                            <i class="fa fa-facebook-square" aria-hidden="true"></i>
+                                            </a>
+                                        
+                                        <li><a href="#">
+                                            <i class="list-inline-item fa fa-heart-o" aria-hidden="true"></i>
+                                            </a>
                                         </li>
-                                        <li><a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a></li>
+                                        <li><a href="#">
+                                            <i class="list-inline-item fa fa-share-alt" aria-hidden="true"></i>
+                                        </a>
+                                        </li>
                                     </ul>
                                 </div><!-- item-info -->
                                 <div class="item-info">
@@ -90,7 +99,7 @@
 
                                 <div id="{{i}}" class="panel-collapse collapse">
                                     <!-- panel-body -->
-                                    <div class="panel-body">
+                                    <div class="card-body">
 
 
 
@@ -101,75 +110,66 @@
 
                                             <p></p>
                                             <P ALIGN=left> Servicios que incluye </P>
-                                            <div *ngFor="let serv of field?.services">
-                                                <li><b>
-                                                    {{serv?.display}}
 
-                                                </b></li>
 
-                                            </div>
+                                                <div  class="list-inline-item" *ngFor="let serv of field?.services">
+                                                    <li><b>{{serv?.display}}</b></li>
+                                                </div>
+
                                         </ul>
 
                                         <ul class="list-inline">
 
 
-                                            <li>
-                                                <input class="btn btn-default dropdown-toggle" [dpDayPicker]="config" name="datePicker"  placeholder="DD-MM-AAAA"
+                                            <li class="list-inline-item" >
+                                                <input class="btn dropdown-toggle" [dpDayPicker]="config" name="datePicker"  placeholder="DD-MM-AAAA"
                                                        id="calendar" inputElementConteiner="#inputConteiner" theme="dp-material" [(ngModel)]="date">
 
                                             </li>
 
-                                                    <li>
+                                            <li class="list-inline-item" >
                                                         <div class="dropdown">
                                                             <select name="category-group" id="category-group" class="form-control"
                                                                     [(ngModel)]="selectedTime" >
 
 
-                                                                <option value=" " selected>Horarios</option>
-                                                                <option value="11:00">11:00</option>
-                                                                <option value="12:00">12:00</option>
-                                                                <option value="13:00">13:00</option>
-                                                                <option value="14:00">14:00</option>
-                                                                <option value="15:00">15:00</option>
-                                                                <option value="16:00">16:00</option>
-                                                                <option value="17:00">17:00</option>
-                                                                <option value="18:00">18:00</option>
-                                                                <option value="19:00">19:00</option>
-                                                                <option value="20:00">20:00</option>
-                                                                <option value="21:00">21:00</option>
-
-
+                                                                <option value=" " selected class="dropdown-item">Horarios</option>
+                                                                <option value="11:00" class="dropdown-item">11:00</option>
+                                                                <option value="12:00" class="dropdown-item">12:00</option>
+                                                                <option value="13:00" class="dropdown-item">13:00</option>
+                                                                <option value="14:00" class="dropdown-item">14:00</option>
+                                                                <option value="15:00" class="dropdown-item">15:00</option>
 
                                                             </select>
                                                         </div>
 
                                                     </li>
 
-
+                                            <li class="list-inline-item" >
                                             <button (click)="reservar(field)"   type="button" class="btn btn-primary"  data-toggle="modal" data-target="#myModal">Reservar</button>
-
-                                            <!-- Modal -->
+                                            </li>
+                                                <!-- Modal -->
                                             <div *ngIf="NotanUser" id="myModal" class="modal fade" role="dialog">
                                                 <div class="modal-dialog">
 
                                                     <!-- Modal content-->
                                                     <div class="modal-content">
-                                                        <div class="modal-header">
+                                                        <div class="pointer-events: auto">
                                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                            <h4 class="modal-title">Inicia sesión</h4>
+                                                            <h4 class="modal-title" align="center">Inicia sesión</h4>
                                                         </div>
 
                                                         <!--INICIAR SESION-->
                                                         <form name="form" (ngSubmit)="f.form.valid && login(field)" #f="ngForm" novalidate>
                                                             <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-                                                                <label for="username">Nombre de usuario</label>
-                                                                <input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" required />
+                                                                <label for="username"></label>
+                                                                <input type="text" placeholder="Usuario" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" required />
                                                                 <div *ngIf="f.submitted && !username.valid" class="help-block">El nombre de usuario es requerido</div>
                                                             </div>
                                                             <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-                                                                <label for="password">Constraseña</label>
+                                                                <label for="password"></label>
 
-                                                                <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
+                                                                <input type="password" placeholder="Contraseña" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
                                                                 <div *ngIf="f.submitted && !password.valid" class="help-block">La contraseña es requerida</div>
                                                             </div>
 
@@ -220,7 +220,7 @@
 
                             <div class="widget item-tag">
                                 <h4>SERVICIOS DEL CLUB</h4>
-                                <ul class="list-inline">
+                                <ul class="list-inline-item">
                                     <li *ngFor="let serv of club?.services"><a>{{serv.display | uppercase}}</a></li>
                                 </ul>
                             </div>

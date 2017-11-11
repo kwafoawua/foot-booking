@@ -51,7 +51,7 @@
 
                                             <h5>Servicios</h5>
 
-                                            <ul class="list-group checkbox" *ngFor="let service of services">
+                                            <ul class=".form-check" *ngFor="let service of services">
                                                 <li><label> <input type="checkbox" [(ngModel)]="service.state" (ngModelChange)="addService(service)"> {{service.name}} </label></li>
                                             </ul>
 
@@ -117,15 +117,13 @@
 
                                                         <div class="item-description" >
                                                             <div class="item-meta">
-                                                                <div class="item-post-date">
-                                                                    <span> </span>
-                                                                </div>
+
                                                                 <ul class="list-inline product-social">
-                                                                    <li><a href="#"><i class="fa fa-bookmark-o"
+                                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-bookmark-o"
                                                                                        aria-hidden="true"></i></a></li>
-                                                                    <li><a href="#"><i class="fa fa-heart-o"
+                                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-heart-o"
                                                                                        aria-hidden="true"></i></a></li>
-                                                                    <li><a href="#"><i class="fa fa-share-alt"
+                                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-share-alt"
                                                                                        aria-hidden="true"></i></a></li>
                                                                 </ul>
                                                             </div>
