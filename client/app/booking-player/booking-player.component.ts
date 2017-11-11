@@ -14,7 +14,7 @@ import {ClubService} from "../_services/club.service";
 
 export class bookingPlayerComponent implements OnInit{
 
-    booking:Booking[];
+    public booking:Booking[];
 
     constructor(private route: ActivatedRoute, private clubService: ClubService){
 
