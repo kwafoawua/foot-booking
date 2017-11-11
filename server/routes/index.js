@@ -9,7 +9,7 @@ var userController = require('../controllers/userController.js');
 var userController2 = require('../controllers/users.controller.js');
 var uploadsManager = require('../controllers/uploads');
 var playerController = require('../controllers/playerController');
-
+var bookingController = require('../controllers/BookingController')
 
 //*User Controller*//
 router.post('/users/authenticate', userController.authenticate);
@@ -42,8 +42,8 @@ router.get('/clubs/', clubController.findAllClubs);
 router.get('/findClub/:clubfilter', clubController.findClubsByFilter);
 router.get('/findClubsByFilters/:clubfilter', clubController.findClubsByMultipleFilter);
 
-
-
+/*Booking Controller*/
+router.post('/book', bookingController.registerBooking);
 
 module.exports = router;
 

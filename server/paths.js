@@ -1,6 +1,7 @@
 var pathToRegexp = require('path-to-regexp');
 
 var findClub = pathToRegexp('/findClub/:clubfilter');
+var findClubsByFilters = pathToRegexp('/findClubsByFilters/:clubfilter');
 var getResultById = pathToRegexp('/clubs/results/:_id');
 
 module.exports.path = {
@@ -14,7 +15,11 @@ module.exports.path = {
         '/results/club/',
         '/uploads',
         '/players/register',
+        '/book',
         findClub,
-        getResultById
+        getResultById,
+        findClubsByFilters
     ]
 };
+
+//"_id" : ObjectId("5a02044d00345f1d16047bd1")

@@ -30,7 +30,7 @@ var clubSchema = new Schema({
             display: { type: String, required: true },
             value: String
         }],
-        price: String
+        price: Number
     }],
     services: [{
         display: { type: String, required: true },

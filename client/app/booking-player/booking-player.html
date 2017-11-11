@@ -1,0 +1,52 @@
+    <div class="ad-post-wrapper section">
+        <div class="container">
+            <div id="faq-filter">
+                <h3>Reservas </h3>
+
+                <div class="tab-content">
+                    <div id="all-faq" class="faq-post tab-pane active">
+                        <div class="faq">
+
+                            <div class="faq-ans" *ngFor="let book of booking" >
+                                <div class="post-inner">
+                                    <div class="row form-group">
+                                        <label class="col-md-4"> Estado de la reserva </label>
+                                        <div class="col-md-8">
+                                            <h3>Pendiente de pago</h3>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <label class="col-md-4"> Fecha de reserva </label>
+                                        <div class="col-md-8">
+                                            {{book.date}}
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <label class="col-md-4"> Club </label>
+                                        <div class="col-md-8">
+                                            {{book.club}}
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <label class="col-md-4"> Cancha </label>
+                                        <div class="col-md-8">
+                                            {{book.field}}
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <label class="col-md-4"> Fecha y Hora de juego </label>
+                                        <div class="col-md-8">
+                                            {{book.dateBook}}{{book.timeBook}}
+                                        </div>
+                                    </div>
+                                </div><!-- post-inner -->
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div><!-- #faq-filter -->
+        </div>
+    </div> <!-- ad-post -->

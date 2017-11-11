@@ -68,7 +68,7 @@
             <div class="row form-group">
                 <label class="col-md-4" [attr.for]="'price'+index">Precio de cancha</label>
                 <div class="col-md-8">
-                    <input formControlName="price" [attr.id]="'price'+index" class="form-control" type="text">
+                    <input formControlName="price" [attr.id]="'price'+index" class="form-control" type="number" min="0">
                 </div>
             </div>
         </div><!-- post-inner cantidad de jugadores-->
