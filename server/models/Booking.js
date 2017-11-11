@@ -22,6 +22,7 @@ var bookingSchema = new Schema({
         phoneNumber: Number
     },
     field: {
+        id: String,
         fieldName: String,
         cantPlayers: { type: Number, required: true },
         fieldType : String,

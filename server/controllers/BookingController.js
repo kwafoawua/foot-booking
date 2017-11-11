@@ -33,12 +33,12 @@ function addBooking (booking) {
             phoneNumber: booking.club.phoneNumber
         },
         field: {
-            id: booking.club.fieldId,
-            fieldName: booking.club.fieldName,
-            cantPlayers: booking.club.cantPlayers,
-            fieldType : booking.club.fieldType,
-            services: booking.club.fieldServices,
-            price: booking.club.price
+            id: booking.field.fieldId,
+            fieldName: booking.field.fieldName,
+            cantPlayers: booking.field.cantPlayers,
+            fieldType : booking.field.fieldType,
+            services: booking.field.fieldServices,
+            price: booking.field.price
         },
         playingDate: booking.playingDate,
         playingTime: booking.playingTime,
@@ -56,8 +56,6 @@ function addBooking (booking) {
                     } else {
                         deferred.resolve();
                     }
-
-
                 });
     return deferred.promise;
 
@@ -66,10 +64,6 @@ function addBooking (booking) {
 /**
  * FindBy Functions
  */
-
-module.exports.findById = function(req, res) {
-
-};
 
 module.exports.findAllByPlayer = function (req, res) {
     var playerId = JSON.parse(req.body.playerId);
