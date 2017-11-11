@@ -27,27 +27,27 @@ function addBooking (booking) {
 
     var newBooking = new Booking({
         club: {
-            id: booking.club.id,
-            name: booking.club.name,
-            address: booking.club.address,
-            phoneNumber: booking.club.phoneNumber
+            id: booking.clubId,
+            name: booking.clubName,
+            address: booking.clubAddress,
+            phoneNumber: booking.clubPhoneNumber
         },
         field: {
-            id: booking.field.fieldId,
-            fieldName: booking.field.fieldName,
-            cantPlayers: booking.field.cantPlayers,
-            fieldType : booking.field.fieldType,
-            services: booking.field.fieldServices,
-            price: booking.field.price
+            id: booking.fieldId,
+            fieldName: booking.fieldName,
+            cantPlayers: booking.cantPlayers,
+            fieldType : booking.fieldType,
+          //  services: booking.fieldServices,
+            price: booking.price
         },
         playingDate: booking.playingDate,
         playingTime: booking.playingTime,
         paidMethod: booking.paidMethod,
         player: {
-            name: booking.player.name,
-            lastName: booking.player.lastName,
-            phoneNumber: booking.player.phoneNumber,
-            id: booking.player.id
+            name: booking.playerName,
+            lastName: booking.playerLastName,
+            phoneNumber: booking.playerPhoneNumber,
+            id: booking.playerId
         }
     });
     newBooking.save(function (err) {
