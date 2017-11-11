@@ -29,13 +29,16 @@ export class confirmationComponent implements OnInit{
     booking:Booking;
     player:Player;
     reservaFinal: any = {};
+    loading = true;
     //subscription: Subscription;
 
 
     constructor(private playerService: PlayerService,
                 private userService: UserService,
                 private route: ActivatedRoute,
-                private clubService: ClubService){
+                private clubService: ClubService,
+                private alertService: AlertService
+    ){
 
        }
 
@@ -44,6 +47,12 @@ export class confirmationComponent implements OnInit{
         this.booking = ClubService.obtenerBooking();
         if(this.booking) {
             console.log('hola culia');
+
+            const parts : any = this.booking.dateBook.split("/");
+
+            const mydate = new Date(parts[2],parts[0]-1,parts[1]);
+            console.log('dateObject '+mydate);
+
             this.reservaFinal.clubId = this.booking.club._id;
             this.reservaFinal.clubName= this.booking.club.name;
             this.reservaFinal.clubAddress= this.booking.club.address.address;
@@ -53,7 +62,7 @@ export class confirmationComponent implements OnInit{
             this.reservaFinal.fieldCantPlayers= this.booking.field.cantPlayers;
             this.reservaFinal.fieldFieldType= this.booking.field.fieldType;
             this.reservaFinal.fieldPrice= this.booking.field.price;
-            this.reservaFinal.playingDate= this.booking.dateBook;
+            this.reservaFinal.playingDate= mydate;
             this.reservaFinal.playingTime= this.booking.timeBook;
             this.reservaFinal.paidMethod="EN SITIO";
         }
@@ -88,8 +97,18 @@ export class confirmationComponent implements OnInit{
 
     }
 
-    private confirm(){
-        this.clubService.guardarReserva(this.reservaFinal);
+    public confirm(){
+
+        console.log('Reserva Final ' + JSON.stringify(this.reservaFinal));
+        this.clubService.guardarReserva(this.reservaFinal)
+            .subscribe(
+                data => {
+                    this.alertService.success('SE GENERO BIEN LA RESERVA', true);
+                },
+                error => {
+                    this.alertService.error(error);
+                    this.loading = false;
+                });
     }
 
 

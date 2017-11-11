@@ -28,7 +28,7 @@ export class ProfileClubClientComponent implements OnInit {
     username:any    ;
     password : any;
     booking1: Booking = new Booking();
-
+    date: string;
     configTime : ITimeSelectConfig = {
         minutesInterval: 60,
         minutesFormat: '00'
@@ -38,8 +38,8 @@ export class ProfileClubClientComponent implements OnInit {
         enableMonthSelector: true,
         showNearMonthDays: false ,
         monthFormatter: (m: Moment): string => {
-            return [ 'ene', 'feb', 'mar', 'abr', 'may', 'jun',
-                    'jul', 'ago', 'sep', 'oct', 'nov', 'dic' ][m.month()] +
+            return [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
+                    'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ][m.month()] +
                 ', ' + m.year();
         },
         appendTo: 'body'};
@@ -54,6 +54,7 @@ export class ProfileClubClientComponent implements OnInit {
 
 
     ngOnInit(): void{
+
 
         this.getClub(this.route.snapshot.params['id']);
 
@@ -74,10 +75,9 @@ export class ProfileClubClientComponent implements OnInit {
 
             if(e!=null){
 
-
                 this.booking1.field=e;
                 this.booking1.club=this.club;
-                this.booking1.dateBook=this.selectedDate;
+                this.booking1.dateBook=this.date;
                 this.booking1.timeBook=this.selectedTime;
 
 

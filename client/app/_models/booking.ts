@@ -12,8 +12,8 @@ export class Booking{
     date: any;
     field : Field;
     club : Club;
-    dateBook: any;
-    timeBook: any;
+    dateBook: string;
+    timeBook: string;
   //state: any;
     player: Player;
 }
