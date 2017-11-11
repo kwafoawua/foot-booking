@@ -8,10 +8,9 @@
     <!-- bootstrap css -->
 
     <!--<link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />-->
-
+    <link  rel="stylesheet" href="css2/bootstrap.min.css">
     <link href="node_modules/angular-calendar/dist/css/angular-calendar.css" rel="stylesheet"/>
     <!--<link rel="stylesheet" href="css/bootstrap.min.css" >-->
-    <link rel="stylesheet" href="css2/bootstrap.min.css">
 
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/animate.css">
@@ -19,9 +18,12 @@
     <link rel="stylesheet" href="css/main.css">  
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <script src="js/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+    <script src="js2/bootstrap.min.js"></script>
+    <!--<script src="js2/bootstrap.bundle.min.js"></script>-->
+    <!--<script src="js/jquery.min.js"></script>-->
     <!--<script src="js/bootstrap.min.js"></script>-->
-    <script src="js2/bootstrap.bundle.min.js"></script>
 
 
     <!-- application css -->
@@ -30,7 +32,7 @@
     <!-- polyfill(s) for older browsers -->
     <script src="js/main.js"></script>
     <script src="node_modules/core-js/client/shim.min.js"></script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <!--<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>-->
 
     <script src="node_modules/zone.js/dist/zone.js"></script>
     <script src="node_modules/systemjs/dist/system.src.js"></script>
@@ -41,6 +43,7 @@
 
     <script src="systemjs.config.js"></script>
     <script>
+        $('#navbarDropdownMenuLink').dropdown('toggle');
            System.import('app').catch(function (err) { console.error(err); });
     </script>
 

@@ -156,10 +156,6 @@ button#field-array-add-btn {
 	padding-left: 15px;
 }
 
-.navbar-default {
-	background-color: #ffffff;
-	border-color: #ffffff;
-}
 
 .navbar-toggle {
 	border: none;
@@ -421,4 +417,13 @@ div#profileClubImage > img {
 
 div#profileClubContainer {
 	margin-top: 50px;
+}
+
+.carousel-inner {
+	height:22rem !important;
+}
+.carousel-item.active{
+	height:22rem !important;
+	background-repeat: no-repeat;
+	-moz-background-size: cover;
 }
