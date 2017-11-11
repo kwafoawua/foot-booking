@@ -13,10 +13,10 @@ var Q = require('q');
  * Create a Booking
  */
 module.exports.registerBooking = function (req,res) {
-    var booking = JSON.parse(req.body);
+    var booking = req.body;
     addBooking(booking)
         .then(function () {
-            res.sendStatus(200);
+            res.send(200).send();
         })
         .catch(function (err) {
             res.status(400).send(err);
@@ -24,6 +24,7 @@ module.exports.registerBooking = function (req,res) {
 };
 function addBooking (booking) {
     var deferred = Q.defer();
+    console.log('El booking '+booking.field);
 
     var newBooking = new Booking({
         club: {
@@ -35,12 +36,11 @@ function addBooking (booking) {
         field: {
             id: booking.fieldId,
             fieldName: booking.fieldName,
-            cantPlayers: booking.cantPlayers,
+            cantPlayers: booking.fieldCantPlayers,
             fieldType : booking.fieldType,
-          //  services: booking.fieldServices,
-            price: booking.price
+            price: booking.fieldPrice
         },
-        playingDate: booking.playingDate,
+        playingDate: new Date(booking.playingDate),
         playingTime: booking.playingTime,
         paidMethod: booking.paidMethod,
         player: {
@@ -50,7 +50,10 @@ function addBooking (booking) {
             id: booking.playerId
         }
     });
+
+    console.log( newBooking);
     newBooking.save(function (err) {
+        console.log(err);
                     if (err) {
                         return deferred.reject(err.name + ' : ' + err.message);
                     } else {

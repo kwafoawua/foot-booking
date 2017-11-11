@@ -29,13 +29,16 @@ export class confirmationComponent implements OnInit{
     booking:Booking;
     player:Player;
     reservaFinal: any = {};
+    loading = true;
     //subscription: Subscription;
 
 
     constructor(private playerService: PlayerService,
                 private userService: UserService,
                 private route: ActivatedRoute,
-                private clubService: ClubService){
+                private clubService: ClubService,
+                private alertService: AlertService
+    ){
 
        }
 
@@ -88,8 +91,16 @@ export class confirmationComponent implements OnInit{
 
     }
 
-    private confirm(){
-        this.clubService.guardarReserva(this.reservaFinal);
+    public confirm(){
+        this.clubService.guardarReserva(this.reservaFinal)
+            .subscribe(
+                data => {
+                    this.alertService.success('SE GENERO BIEN LA RESERVA', true);
+                },
+                error => {
+                    this.alertService.error(error);
+                    this.loading = false;
+                });
     }
 
 

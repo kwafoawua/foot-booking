@@ -78,7 +78,8 @@ export class ClubService {
         return ClubService.booking;
     }
 
-    guardarReserva(book:any){
+    guardarReserva(reservaFinal:any){
+        return this.http.post('/bookings/register', reservaFinal);
 
     }
 

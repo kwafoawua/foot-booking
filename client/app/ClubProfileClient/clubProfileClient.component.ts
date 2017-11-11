@@ -9,6 +9,7 @@ import {Moment} from "moment";
 import {ITimeSelectConfig} from "ng2-date-picker/time-select/time-select-config.model";
 import {Field} from "../_models/field";
 import {Booking} from "../_models/booking";
+import moment = require("moment");
 
 
 @Component({
@@ -28,18 +29,20 @@ export class ProfileClubClientComponent implements OnInit {
     username:any    ;
     password : any;
     booking1: Booking = new Booking();
-
+    date1: Date;
+    date: moment;
     configTime : ITimeSelectConfig = {
         minutesInterval: 60,
         minutesFormat: '00'
     };
     config: IDatePickerDirectiveConfig = {
         format: 'DD/MM/YYYY',
+        returnedValueType: moment,
         enableMonthSelector: true,
         showNearMonthDays: false ,
         monthFormatter: (m: Moment): string => {
-            return [ 'ene', 'feb', 'mar', 'abr', 'may', 'jun',
-                    'jul', 'ago', 'sep', 'oct', 'nov', 'dic' ][m.month()] +
+            return [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
+                    'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ][m.month()] +
                 ', ' + m.year();
         },
         appendTo: 'body'};
@@ -54,6 +57,7 @@ export class ProfileClubClientComponent implements OnInit {
 
 
     ngOnInit(): void{
+
 
         this.getClub(this.route.snapshot.params['id']);
 
@@ -77,7 +81,7 @@ export class ProfileClubClientComponent implements OnInit {
 
                 this.booking1.field=e;
                 this.booking1.club=this.club;
-                this.booking1.dateBook=this.selectedDate;
+                this.booking1.dateBook=this.date;
                 this.booking1.timeBook=this.selectedTime;
 
 

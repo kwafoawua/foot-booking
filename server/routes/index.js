@@ -43,7 +43,7 @@ router.get('/findClub/:clubfilter', clubController.findClubsByFilter);
 router.get('/findClubsByFilters/:clubfilter', clubController.findClubsByMultipleFilter);
 
 /*Booking Controller*/
-router.post('/book', bookingController.registerBooking);
+router.post('/bookings/register', bookingController.registerBooking);
 
 module.exports = router;
 
