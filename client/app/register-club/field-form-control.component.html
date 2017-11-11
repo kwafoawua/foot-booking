@@ -11,60 +11,69 @@
     </div>
     <div class="field-control-container">
         <div class="row">
-    <div class="col-md-6">
-        <div class="post-inner">
-            <div class="row form-group">
-                <label class="col-md-4" [attr.for]="'fieldName'+index">Nombre de la Cancha</label>
-                <div class="col-md-8">
-                    <input formControlName="fieldName" [attr.id]="'fieldName'+index" class="form-control" type="text">
-                </div>
+            <div class="col-md-6">
+                <div class="post-inner">
+                    <div class="row form-group">
+                        <label class="col-md-4" [attr.for]="'fieldName'+index">Nombre de la Cancha</label>
+                        <div class="col-md-8">
+                            <input formControlName="fieldName" [attr.id]="'fieldName'+index" class="form-control" type="text">
+                        </div>
+                    </div>
+                </div><!-- post-inner nombre de la cancha descriptivo-->
+                <div class="post-inner">
+                    <div class="row form-group">
+                        <label class="col-md-4">Servicios</label>
+                        <div class="col-md-8">
+                            <tag-input [formControlName]="'services'" name="items"
+                                       [onlyFromAutocomplete]="true">
+                                <tag-input-dropdown [showDropdownIfEmpty]="true"
+                                                    [autocompleteObservable]="requestAutocompleteItemsFake">
+                                </tag-input-dropdown>
+                            </tag-input>
+                        </div>
+                    </div>
+                </div><!-- post-inner servicios-->
             </div>
-        </div><!-- post-inner nombre de la cancha descriptivo-->
-        <div class="post-inner">
-            <div class="row form-group">
-                <label class="col-md-4">Servicios</label>
-                <div class="col-md-8">
-                    <tag-input [formControlName]="'services'" name="items"
-                               [onlyFromAutocomplete]="true">
-                        <tag-input-dropdown [showDropdownIfEmpty]="true"
-                                            [autocompleteObservable]="requestAutocompleteItemsFake">
-                        </tag-input-dropdown>
-                    </tag-input>
-                </div>
-            </div>
-        </div><!-- post-inner servicios-->
-    </div>
 
-    <div class="col-md-6">
-        <div class="post-inner">
-            <div class="row form-group">
-                <label class="col-md-4" [attr.for]="'cantPlayers'+index">Cantidad de Jugadores</label>
-                <div class="col-md-8">
-                    <select class="form-control" (change)="onSelectCant($event.target.value)"
-                            [attr.id]="'cantPlayers'+index" formControlName="cantPlayers">
-                        <option value="" disabled selected hidden>Seleccione...</option>
-                        <option *ngFor="let cantPlayer of cantPlayerSelect" value={{cantPlayer.cant}}>
-                            {{cantPlayer.desc}}
-                        </option>
-                    </select>
-                </div>
-            </div>
-        </div><!-- post-inner cantidad de jugadores-->
+            <div class="col-md-6">
+                <div class="post-inner">
+                    <div class="row form-group">
+                        <label class="col-md-4" [attr.for]="'cantPlayers'+index">Cantidad de Jugadores</label>
+                        <div class="col-md-8">
+                            <select class="form-control" (change)="onSelectCant($event.target.value)"
+                                    [attr.id]="'cantPlayers'+index" formControlName="cantPlayers">
+                                <option value="" disabled selected hidden>Seleccione...</option>
+                                <option *ngFor="let cantPlayer of cantPlayerSelect" value={{cantPlayer.cant}}>
+                                    {{cantPlayer.desc}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div><!-- post-inner cantidad de jugadores-->
 
-        <div class="post-inner">
-            <div class="row form-group">
-                <label class="col-md-4" [attr.for]="'cantPlayers'+index">Tipo de Cancha</label>
-                <div class="col-md-8">
-                    <select class="form-control" (change)="onSelectType($event.target.value)"
-                            [attr.id]="'fieldType'+index" formControlName="fieldType">
-                        <option value="" disabled selected hidden>Seleccione...</option>
-                        <option *ngFor="let type of fieldTypeSelect" value={{type}}>{{type}}</option>
-                    </select>
-                </div>
-            </div>
-        </div><!-- post-inner cantidad de jugadores-->
-    </div>
+                <div class="post-inner">
+                    <div class="row form-group">
+                        <label class="col-md-4" [attr.for]="'cantPlayers'+index">Tipo de Cancha</label>
+                        <div class="col-md-8">
+                            <select class="form-control" (change)="onSelectType($event.target.value)"
+                                    [attr.id]="'fieldType'+index" formControlName="fieldType">
+                                <option value="" disabled selected hidden>Seleccione...</option>
+                                <option *ngFor="let type of fieldTypeSelect" value={{type}}>{{type}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div><!-- post-inner cantidad de jugadores-->
 
+                <div class="post-inner">
+                    <div class="row form-group">
+                        <label class="col-md-4" [attr.for]="'price'+index">Precio de cancha</label>
+                        <div class="col-md-8">
+                            <input formControlName="price" [attr.id]="'price'+index" class="form-control" type="number" min="0">
+                        </div>
+                    </div>
+                </div><!-- post-inner precio-->
+            </div>
+
+        </div>
     </div>
-</div>
 </div>

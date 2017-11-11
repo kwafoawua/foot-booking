@@ -14,27 +14,41 @@ var ObjectId = Schema.Types.ObjectId;
  */
 
 var bookingSchema = new Schema({
-    date: { type: Date, default: Date.now },
-    field: { 
-        description: String,
+    createdOn: { type: Date, default: Date.now },
+    club: {
+        id: {type: String, required: true},
+        name: String,
+        address: String,
+        phoneNumber: Number
+    },
+    fields: {
+        fieldName: String,
         cantPlayers: { type: Number, required: true },
+        fieldType : String,
         services: [{
-            name: { type: String},
-            description: String}]
-        },
-    bookingDate: { type: Date, required: true },
+            display: { type: String, required: true },
+            value: String
+        }],
+         price: Number
+    },
+    playingDate: { type: Date, required: true },
+    playingTime: String,
     status: { type: String, default: 'Esperando', required: true, enum: ['Declinado', 'Aceptado', 'Esperando'] }, //modificar con los estados verdaderos
-    payment: {paidMethod: {type: String, required: true},
+    payment: {
+        paidMethod: {type: String, required: true},
         reference: {type: String, required: true}
         },
     player: {
         name: {type: String, required: true},
         lastName: {type: String, required: true},
         userName: {type: String, required: true},
+        phoneNumber: Number,
+        id: {type: String}
 
-    },
-    regularBooking: { type: Boolean, required: true },
-    endingDateRegularBooking: Date
+    }
+    //es que reservan la cancha todos los martes
+    //regularBooking: { type: Boolean, required: true, default: true },
+    //endingDateRegularBooking: Date
 
 });
 
