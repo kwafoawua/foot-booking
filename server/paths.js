@@ -3,13 +3,17 @@ var pathToRegexp = require('path-to-regexp');
 var findClub = pathToRegexp('/findClub/:clubfilter');
 var findClubsByFilters = pathToRegexp('/findClubsByFilters/:clubfilter');
 var getResultById = pathToRegexp('/clubs/results/:_id');
+var findAllByReferenceId = pathToRegexp('/booking/:_id');
+var updateBookingStatus = pathToRegexp('/booking')
 
 module.exports.path = {
-    path: ['/users/authenticate',
+    path: [
+        '/users/authenticate',
         '/users/register',
         '/users',
         '/clubs/register',
-        '/clubs', '/results',
+        '/clubs', 
+        '/results',
         '/findClub',
         '/findClubsByFilters',
         '/results/club/',
@@ -18,8 +22,8 @@ module.exports.path = {
         '/book',
         findClub,
         getResultById,
-        findClubsByFilters
+        findClubsByFilters,
+        findAllByReferenceId,
+        updateBookingStatus
     ]
 };
-
-//"_id" : ObjectId("5a02044d00345f1d16047bd1")
