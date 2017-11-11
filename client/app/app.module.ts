@@ -24,6 +24,7 @@ import { SiteFooterComponent } from './site-footer/site-footer.component';
 import { ProfileClubClientComponent } from './ClubProfileClient/clubProfileClient.component';
 import {ResultComponent} from './result/index';
 import {SearchService} from "./_services/search.service";
+import { BookingService } from './_services/booking.service';
 import { RegisterPlayerComponent } from './register-player/index';
 import { ProfilePlayerComponent } from './profile-player/index';
 import { AdminClubComponent } from "./admin-club/index";
@@ -95,7 +96,7 @@ import {confirmationComponent} from "./booking-confirmation/confirmation.compone
         ClubService,
         PlayerService,
         SearchService,
-
+        BookingService
     ],
     bootstrap: [AppComponent]
 })
