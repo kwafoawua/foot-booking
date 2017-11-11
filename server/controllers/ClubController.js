@@ -92,7 +92,7 @@ function addClub (club, profilePath, galleryPath) {
         });
         return deferred.promise;
 
-};
+}
 
 /**
  * Show the current Club

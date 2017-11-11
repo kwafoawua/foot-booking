@@ -24,10 +24,4 @@ export class bookingPlayerComponent implements OnInit{
 
     }
 
-
-
-
-
-
-
 }
