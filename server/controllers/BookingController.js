@@ -68,6 +68,19 @@ function addBooking (booking) {
  */
 
 module.exports.findById = function(req, res) {
+    console.log("Entra al findById");
+
+    Booking.find({$or:
+            [
+               {"club.id":JSON.parse(req.body.referenceId)},
+               {"player.id":JSON.parse(req.body.referenceId)}
+            ]
+        }, function (err, club) {
+        if (err) {
+            return res.status(500).send(err);
+        }
+        res.status(200).send(club);
+    });
 
 };
 
@@ -106,6 +119,31 @@ module.exports.findAllByClub = function (req, res) {
             res.status(400).send(err);
         });
 };
+
+/*
+*   Funciones de soporte
+*/
+/*
+function findCollectionById(unknownId){
+    console.log(unknownId);
+    var deferred = Q.defer();
+
+    return User.findOne({creator: unknownId}, function (err, user){
+        if(err) {
+            console.log('error');
+            return deferred.reject(err.name + ' : ' + err.message);
+        }
+        if(!user) {
+            console.log('El id no se encuentra en la base de datos');
+            return deferred.reject('El id enviado no se encuentra en la base de datos.');
+        }
+        console.log(user.rol);
+        var userPromise = {rol: user.rol};
+        deferred.resolve(userPromise);
+        return deferred.promise;
+    }).exec();
+}
+*/
 
 function findByClub (clubId) {
     var deferred = Q.defer();
