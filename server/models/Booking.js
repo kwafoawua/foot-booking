@@ -26,11 +26,18 @@ var bookingSchema = new Schema({
         fieldName: String,
         cantPlayers: { type: Number, required: true },
         fieldType : String,
+<<<<<<< HEAD
         services: [{
             display: { type: String, required: true },
             value: String
         }],
         price: Number
+=======
+
+       //services: [ { type: String, required: true }],
+         price: Number
+
+>>>>>>> 12432dac91ad897f296900462fd3779224226f36
     },
     playingDate: { type: Date, required: true },
     playingTime: String,

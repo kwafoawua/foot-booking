@@ -11,6 +11,8 @@ export class Field {
         display: string,
         value: string
     }];
+    price: string;
+    fieldName: string
 
 
 }

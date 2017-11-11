@@ -23,7 +23,7 @@ export class ProfileClubClientComponent implements OnInit {
     galery: String [];
     selectedDate:any;
     selectedTime: any;
-    NotanUser = true;
+    NotanUser: Boolean;
     model: any = {};
     username:any    ;
     password : any;
@@ -67,9 +67,10 @@ export class ProfileClubClientComponent implements OnInit {
 
     reservar(e:any){
 
-        if (this.autentication.isAuthenticated()){
+        //if (this.autentication.isAuthenticated()){
+        if(localStorage.currentUser){
 
-            this.NotanUser =false;
+            this.NotanUser =false ;
 
             if(e!=null){
 
@@ -80,14 +81,17 @@ export class ProfileClubClientComponent implements OnInit {
                 this.booking1.timeBook=this.selectedTime;
 
 
-                ClubService.guardarBooking(this.booking1)
-                console.log(this.booking1);
-                this.router.navigate(['confirmation'])
+                if(ClubService.guardarBooking(this.booking1)){
+                    console.log(this.booking1);
+                    this.router.navigate(['confirmation'])
+                }
+
             }
 
         }
 
     else {
+            this.NotanUser = true;
            console.log("No esa autenticado")
         }
 

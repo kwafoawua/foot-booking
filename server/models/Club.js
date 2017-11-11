@@ -43,6 +43,10 @@ var clubSchema = new Schema({
         snapchatId: String,
         googleId: String
     },
+    // coments: [{
+    //     description: String,
+    //     user:String
+    // }],
     profileImg: {type: String, required: true},
     galleryImg: [String],
     description: String
