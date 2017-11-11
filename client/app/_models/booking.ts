@@ -12,7 +12,7 @@ export class Booking{
     date: any;
     field : Field;
     club : Club;
-    dateBook: Date;
+    dateBook: string;
     timeBook: string;
   //state: any;
     player: Player;
