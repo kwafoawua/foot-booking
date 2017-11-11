@@ -65,7 +65,7 @@ function addBooking (booking) {
  * FindBy Functions
  */
 
-<<<<<<< HEAD
+
 module.exports.findAllByReferenceId = function(req, res) {
     console.log("Entra al findById");
 
@@ -75,23 +75,6 @@ module.exports.findAllByReferenceId = function(req, res) {
                {"player.id":JSON.parse(req.body.referenceId)}
             ]
         }, function (err, club) {
-=======
-module.exports.findAllByPlayer = function (req, res) {
-    var playerId = JSON.parse(req.body.playerId);
-    findByPlayer(playerId)
-        .then(function (bookings) {
-            res.sendStatus(200).send(bookings);
-        })
-        .catch(function (err) {
-            res.status(400).send(err);
-        });
-};
-
-function findByPlayer (playerId) {
-    var deferred = Q.defer();
-
-    Booking.find({ 'player.id': playerId }, function (err, bookings) {
->>>>>>> 12432dac91ad897f296900462fd3779224226f36
         if (err) {
             return res.status(500).send(err);
         }
