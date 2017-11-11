@@ -25,8 +25,11 @@ var bookingSchema = new Schema({
         fieldName: String,
         cantPlayers: { type: Number, required: true },
         fieldType : String,
-        services: [ { type: String, required: true }],
-         price: String
+        services: [{
+            display: { type: String, required: true },
+            value: String
+        }],
+         price: Number
     },
     playingDate: { type: Date, required: true },
     playingTime: String,

@@ -181,7 +181,9 @@ module.exports.deleteClub = function(req, res) {
     });
 };
 
-
+/*
+*   Método que busca solo por nombre, se llama desde el home o cuando la busqueda viene sin filtros
+*/
 module.exports.findClubsByFilter = function (req,res) {
 
     console.log("#");
@@ -209,6 +211,11 @@ module.exports.findClubsByFilter = function (req,res) {
 
 };
 
+/*
+*   Método que busca solo por nombre o sin nombre y filtro, se llama desde la busqueda en la pagina de /result
+*   cuando la busqueda viene con filtros desde el boton 'actualizar busqueda'. Se que es una negrada todos los if else que hay,
+*   solucionar eso cuando se pueda
+*/
 module.exports.findClubsByMultipleFilter = function (req,res) {
 
     console.log("#");
@@ -222,14 +229,40 @@ module.exports.findClubsByMultipleFilter = function (req,res) {
     console.log("#");
     console.log("#");
 
-    // Se arma solo el array de servicios para utilizar el $in
+    // Se arma solo el array de servicios para utilizar el $in y setean los valores por defecto
     var servicesNameArray = [];
-    
-    if (JSON.parse(req.params.clubfilter).services.length==0) {
-        // traigo todos
-        Club.find({name : new RegExp(JSON.parse(req.params.clubfilter).clubname, "i"),
-                   //  services : new RegExp(JSON.parse(req.params.services).services, "i")
+    var cantPlayers = [];
+    // @priceMax tiene que ser un número muy grande para que por defecto traiga clubes con precio menor al precio maximo
+    // es decir, si no se ingresa esta campo deberia traer todos
+    var priceMax = 99999; 
+    var priceMin = 0;
 
+    /*
+    *   Se realizan validaciones para ver si toman un valor por defecto o el propio de la consulta en el 
+    *   caso de que venga un valor
+    */
+    if (JSON.parse(req.params.clubfilter).cantPlayers == undefined) {
+        cantPlayers.push(5,7,11);
+    } else {
+        cantPlayers.push(JSON.parse(req.params.clubfilter).cantPlayers);        
+    }
+    if (JSON.parse(req.params.clubfilter).maxPrice != null) {
+        priceMax = JSON.parse(req.params.clubfilter).maxPrice;
+    }
+    if (JSON.parse(req.params.clubfilter).minPrice != null) {
+        priceMin = JSON.parse(req.params.clubfilter).minPrice;
+    }
+    
+    
+    // dentro de este if estan las 2 posibles consultas
+    if (JSON.parse(req.params.clubfilter).services.length==0) {
+        // como no se selecciono un tipo de servicio traigo por todos los servicios
+        Club.find({ $and:
+            [
+                {name : new RegExp(JSON.parse(req.params.clubfilter).clubname, "i")},
+                {"fields.cantPlayers": { "$in": cantPlayers } },
+                {"fields.price": {"$gte": priceMin, "$lte": priceMax } }
+            ]
             }, function (err, club) {
                 if (err) {
                     return res.status(500).send(err + "al menos entro");
@@ -247,7 +280,9 @@ module.exports.findClubsByMultipleFilter = function (req,res) {
         Club.find({ $and:
             [
                 {name : new RegExp(JSON.parse(req.params.clubfilter).clubname, "i")},
-                { "services.value": { "$all": servicesNameArray } }
+                { "services.value": { "$all": servicesNameArray } },
+                {"fields.cantPlayers": { "$in": cantPlayers } },
+                {"fields.price": {"$gte": priceMin, "$lte": priceMax } }
             ]
     }, function (err, club) {
         if (err) {
