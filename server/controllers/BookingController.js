@@ -117,6 +117,12 @@ function setBookingStatus (bookingId,status) {
 }
 
 /**
+*   Find hours that are not avaible to booking
+*/
+
+module.export.findAllHoursBookings = function(req, res){};
+
+/**
  * Delete a Booking
  */
 module.exports.deleteBooking = function(req, res) {
