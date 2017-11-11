@@ -12,60 +12,84 @@ import {Booking} from "../_models/booking";
 import { Player } from '../_models/index';
 import {PlayerService, AlertService,AuthenticationService } from '../_services/index';
 import {preserveWhitespacesDefault} from "@angular/compiler";
+import {reservaFinal} from "../_models/reservaFinal";
+import {forEach} from "@angular/router/src/utils/collection";
 
 
 @Component({
     moduleId: module.id,
-    templateUrl: 'confirmation.html'
+    templateUrl: 'confirmation.html',
+    providers: [ClubService]
+
 })
 
 
 export class confirmationComponent implements OnInit{
 
     booking:Booking;
-    player:Player  ;
+    player:Player;
     reservaFinal: any = {};
+    //subscription: Subscription;
 
 
-    constructor(private playerService: PlayerService, userService: UserService, private route: ActivatedRoute, private clubService: ClubService){
+    constructor(private playerService: PlayerService,
+                private userService: UserService,
+                private route: ActivatedRoute,
+                private clubService: ClubService){
 
        }
 
     ngOnInit(){
-        this.booking=ClubService.obtenerBooking();
+
+        this.booking = ClubService.obtenerBooking();
+        if(this.booking) {
+            console.log('hola culia');
+            this.reservaFinal.clubId = this.booking.club._id;
+            this.reservaFinal.clubName= this.booking.club.name;
+            this.reservaFinal.clubAddress= this.booking.club.address.address;
+            this.reservaFinal.clubPhoneNumber= this.booking.club.phoneNumber;
+            this.reservaFinal.fieldId= this.booking.field._id;
+            this.reservaFinal.fieldName= this.booking.field.fieldName;
+            this.reservaFinal.fieldCantPlayers= this.booking.field.cantPlayers;
+            this.reservaFinal.fieldFieldType= this.booking.field.fieldType;
+            this.reservaFinal.fieldPrice= this.booking.field.price;
+            this.reservaFinal.playingDate= this.booking.dateBook;
+            this.reservaFinal.playingTime= this.booking.timeBook;
+            this.reservaFinal.paidMethod="EN SITIO";
+        }
+        console.log(this.booking);
+
+
+
+        console.log('Reserva Final '+this.reservaFinal);
 
         const _id: string = JSON.parse(localStorage.getItem('currentUser')).playerOrClubId;
         this.getPlayer(_id);
         console.log("kakak",+this.player);
+
     }
 
 
     private getPlayer (_id: string) {
         console.log("ESTOOO",_id);
-
-        this.playerService.getById(_id).subscribe(player => {this.player = player});
         console.log(this.player);
+       // this.player=getUserAuthenticated();
+       this.playerService.getById(_id).subscribe(player => {
+           this.player = player;
+           this.reservaFinal.playerName= player.name;
+           this.reservaFinal.playerLastName= player.lastName;
+           this.reservaFinal.playerPhoneNumer= player.phoneNumber;
+           this.reservaFinal.playerId= player._id;
+           console.log(this.reservaFinal);
 
-        reservaFinal.club.id = this.booking.club._id;
-        reservaFinal.club.name=this.booking.club.name;
-        reservaFinal.club.address= this.booking.club.address.address;
-        reservaFinal.club.phoneNumber=this.booking.club.phoneNumber;
-        reservaFinal.field.id=this.booking.field._id;
-        reservaFinal.field.name=this.booking.field.description;
-        reservaFinal.field.cantPlayers=this.booking.field.cantPlayers;
-        reservaFinal.field.fieldType=this.booking.field.fieldType;
-        reservaFinal.field.services=this.booking.field.services;
-        reservaFinal.field.price=this.booking.price;
-        reservaFinal.playingDate=this.booking.dateBook;
-        reservaFinal.playingTime=this.booking.timeBook;
-        reservaFinal.paidMethod="EN SITIO";
-        reservaFinal.player.name=this.player.name;
-        reservaFinal.player.lastName=this.player.lastName;
-        reservaFinal.phoneNumer=this.player.phoneNumber;
-        reservaFinal.player.id=this.player._id;
+       });
 
 
 
+    }
+
+    private confirm(){
+        this.clubService.guardarReserva(this.reservaFinal);
     }
 
 

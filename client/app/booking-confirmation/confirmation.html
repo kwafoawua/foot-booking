@@ -101,7 +101,7 @@
                                             <div class="row form-group">
                                                 <label class="col-md-4"> Cancha </label>
                                                 <div class="col-md-8">
-                                                    {{booking.field.description}}
+                                                    {{booking.field.fieldName}}
                                                 </div>
                                             </div>
                                         </div><!-- post-inner -->
@@ -174,7 +174,7 @@
                                             <div class="row form-group">
                                                 <label class="col-md-4"> Total a pagar </label>
                                                 <div class="col-md-4">
-                                                   <h3> $ {{booking.field.price}}</h3>
+                                                   <h3> $ {{booking.field?.price}}</h3>
                                                 </div>
                                             </div>
                                         </div><!-- post-inner -->

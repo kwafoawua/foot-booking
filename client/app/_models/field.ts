@@ -12,6 +12,7 @@ export class Field {
         value: string
     }];
     price: string;
+    fieldName: string
 
 
 }

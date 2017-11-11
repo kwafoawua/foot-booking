@@ -14,6 +14,7 @@ module.exports.path = {
         '/results/club/',
         '/uploads',
         '/players/register',
+        '/book',
         findClub,
         getResultById
     ]

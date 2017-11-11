@@ -70,12 +70,16 @@ export class ClubService {
     public static guardarBooking(book:Booking){
         ClubService.booking=book;
         console.log(this.booking);
-        return;
+        return true;
     }
 
     //GET
     public static obtenerBooking():Booking{
         return ClubService.booking;
+    }
+
+    guardarReserva(book:any){
+
     }
 
 }
