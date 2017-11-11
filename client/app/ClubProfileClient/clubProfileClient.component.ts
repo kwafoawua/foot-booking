@@ -9,6 +9,8 @@ import {Moment} from "moment";
 import {ITimeSelectConfig} from "ng2-date-picker/time-select/time-select-config.model";
 import {Field} from "../_models/field";
 import {Booking} from "../_models/booking";
+import * as moment from 'moment';
+
 
 
 @Component({
@@ -37,6 +39,7 @@ export class ProfileClubClientComponent implements OnInit {
         format: 'DD/MM/YYYY',
         enableMonthSelector: true,
         showNearMonthDays: false ,
+        min: moment().format('L'),
         monthFormatter: (m: Moment): string => {
             return [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
                     'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ][m.month()] +
@@ -54,7 +57,7 @@ export class ProfileClubClientComponent implements OnInit {
 
 
     ngOnInit(): void{
-
+    console.log(moment().format());
 
         this.getClub(this.route.snapshot.params['id']);
 
