@@ -6,7 +6,6 @@ import { Booking } from '../_models/booking';
 @Injectable()
 export class BookingService {
 
-    public bookings: Booking [] = [];
 
     constructor(private http: Http) { }
 
@@ -20,9 +19,8 @@ export class BookingService {
     }
 
     findAllByReferenceId(_id: string) {
-        return this.http.get('/booking/' + _id).map((response: Response) => {
-            this.bookings = response.json();
-        });
+        console.log(_id);
+        return this.http.get('/bookings/' + _id).map((response: Response) => response.json());
     }
 
     update(booking: Booking, _id: string) {

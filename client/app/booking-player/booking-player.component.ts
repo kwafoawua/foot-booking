@@ -17,7 +17,7 @@ import {PlayerService} from "../_services/player.service";
 
 export class bookingPlayerComponent implements OnInit{
 
-    public bookings:any =  [];
+    public bookings:any []=  [];
 
 
     constructor(private route: ActivatedRoute,
@@ -27,12 +27,17 @@ export class bookingPlayerComponent implements OnInit{
     }
 
     ngOnInit(){
+        const _id: string = JSON.parse(localStorage.getItem('currentUser')).playerOrClubId;
 
+        this.getBookings(_id);
     }
 
-    private getBookings(){
-        const _id: string = JSON.parse(localStorage.getItem('currentUser')).playerOrClubId;
-        this.bookings= this.bookingService.findAllByReferenceId(_id);
+    private getBookings(_id: string){
+        this.bookingService.findAllByReferenceId(_id).subscribe((bookings)=>{
+            this.bookings = bookings;
+            console.log("esto",this.bookings);
+        });
+
     }
 
 }

@@ -37,7 +37,7 @@ const appRoutes: Routes = [
     {path: 'club/register', component: RegisterClubComponent},
     {path: 'club/admin', component: AdminClubComponent, canActivate:[AuthGuard]},
     {path: 'club/gestion-canchas', component: FieldsManagementComponent},
-    {path: 'mis-reservas', component: bookingPlayerComponent},
+    {path: 'player/mis-reservas', component: bookingPlayerComponent},
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
