@@ -12,7 +12,7 @@
                                     <div class="row form-group">
                                         <label class="col-md-4"> Estado de la reserva </label>
                                         <div class="col-md-8">
-                                            <h3>Pendiente de pago</h3>
+                                            <h3>{{r.status}}</h3>
                                         </div>
                                     </div>
                                     <div class="row form-group">
@@ -24,13 +24,13 @@
                                     <div class="row form-group">
                                         <label class="col-md-4"> Club </label>
                                         <div class="col-md-8">
-                                            {{r.name}}
+                                            {{r.club.name}}
                                         </div>
                                     </div>
                                     <div class="row form-group">
                                         <label class="col-md-4"> Cancha </label>
                                         <div class="col-md-8">
-                                            {{r.fieldName}}
+                                            {{r.field.fieldName}}
                                         </div>
                                     </div>
                                     <div class="row form-group">
