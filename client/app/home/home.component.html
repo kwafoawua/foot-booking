@@ -6,7 +6,7 @@
             <div class="carousel-inner">
 
 
-                <div class="item active" style="background-image:url(images/bg/4.jpg)">
+                <div class="carousel-item active" style="background-image:url(images/bg/4.jpg); ">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-9">
@@ -23,7 +23,7 @@
                     </div><!-- contaioner -->
                 </div><!-- item -->
 
-                <div class="item" style="background-image:url(images/bg/1.jpeg)">
+                <div class="carousel-item" style="background-image:url(images/bg/1.jpeg)">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-9">
@@ -40,7 +40,7 @@
                     </div><!-- contaioner -->
                 </div><!-- item -->
 
-                <div class="item" style="background-image:url(images/bg/3.jpg)">
+                <div class="carousel-item" style="background-image:url(images/bg/3.jpg)">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-9">
@@ -59,13 +59,13 @@
 
             </div>
 
-            <a class="left carousel-control" href="#home-section" role="button" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <a class="carousel-control-prev carousel-control" href="#home-section" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="sr-only">Previous</span>
             </a>
 
-            <a class="right carousel-control" href="#home-section" role="button" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <a class="carousel-control-next carousel-control" href="#home-section" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="sr-only">Next</span>
             </a>
 
@@ -79,7 +79,7 @@
                     <div class="search-section">
                         <ul>
                             <li>
-                                <input class="dropdown category-dropdown" [dpDayPicker]="config" name="datePicker"  placeholder="dd-MM-aaaa"
+                                <input class="dropdown category-dropdown" [dpDayPicker]="config" name="datePicker"  placeholder="DD-MM-AAAA"
                                        id="calendar" inputElementConteiner="#inputConteiner" theme="dp-material" [(ngModel)]="date">
 
                             </li>

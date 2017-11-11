@@ -199,18 +199,31 @@ textarea {
 	color: #777;  
 }
 
-.navbar-default .navbar-toggle {
-	border-color:#00a651;
+/*.navbar-dark .navbar-toggle {*/
+	/*border-color:#00a651;*/
+/*}*/
+
+/*.navbar-dark .navbar-toggle .icon-bar{*/
+	/*background-color: #00a651;*/
+/*}*/
+
+/*.navbar-dark .navbar-toggle:focus, */
+/*.navbar-dark .navbar-toggle:hover {*/
+	/*background-color: transparent;*/
+/*}*/
+.navbar-dark .navbar-toggle {
+border-color:#00a651;
 }
 
-.navbar-default .navbar-toggle .icon-bar{
-	background-color: #00a651;
+.navbar-dark .navbar-toggle .icon-bar{
+background-color: #00a651;
 }
 
-.navbar-default .navbar-toggle:focus, 
-.navbar-default .navbar-toggle:hover {
-	background-color: transparent;
+.navbar-dark .navbar-toggle:focus,
+.navbar-dark .navbar-toggle:hover {
+background-color: transparent;
 }
+
 
 .page {
 	padding-bottom:0;
@@ -311,7 +324,7 @@ a, .topbar a,
  	Header
  ========================================================================== */
 
-#header .navbar-default {
+#header .navbar-dark {
     border-top: none;
     border-bottom: 1px solid #ddd;
     border-left: 0;
@@ -327,7 +340,7 @@ a, .topbar a,
 }
 
 .nav li a,
-.navbar-default .navbar-nav>li>a {
+.navbar-dark .navbar-nav>li>a {
 	background-color: transparent;
 	font-weight: 500;
 	font-size: 14px;
@@ -337,14 +350,14 @@ a, .topbar a,
 }
 
 .nav li a:hover,
-.navbar-default .navbar-nav>li>a:focus,
-.navbar-default .navbar-nav>li>a:hover,
-.navbar-default .navbar-nav>.active>a:focus,
-.navbar-default .navbar-nav>.active>a:hover,
-.navbar-default .navbar-nav>.active>a, 
-.navbar-default .navbar-nav>.open>a, 
-.navbar-default .navbar-nav>.open>a:focus, 
-.navbar-default .navbar-nav>.open>a:hover, 
+.navbar-dark .navbar-nav>li>a:focus,
+.navbar-dark .navbar-nav>li>a:hover,
+.navbar-dark .navbar-nav>.active>a:focus,
+.navbar-dark .navbar-nav>.active>a:hover,
+.navbar-dark .navbar-nav>.active>a,
+.navbar-dark .navbar-nav>.open>a,
+.navbar-dark .navbar-nav>.open>a:focus,
+.navbar-dark .navbar-nav>.open>a:hover,
 .dropdown-menu>.active>a, 
 .dropdown-menu>.active>a:focus, 
 .dropdown-menu>.active>a:hover {
@@ -395,15 +408,11 @@ a, .topbar a,
 	line-height: 22px;
 }
 
-.dropdown-menu>li>a, 
-.dropdown-menu>li>a:hover {
-	background-color:transparent;
-}
+/*.dropdown-menu>li>a, */
+/*.dropdown-menu>li>a:hover {*/
+	/*background-color:transparent;*/
+/*}*/
 
-.nav-right {
-	margin-top: 4px;
-	text-align: right;
-}
 
 .language-dropdown {
 	display:inline;
