@@ -45,5 +45,6 @@ router.get('/findClubsByFilters/:clubfilter', clubController.findClubsByMultiple
 /*Booking Controller*/
 router.post('/bookings/register', bookingController.registerBooking);
 router.put('/bookings/:_id', bookingController.updateBookingStatus);
+router.get('/bookings/:_id', bookingController.findAllByReferenceId);
 
 module.exports = router;

@@ -70,12 +70,11 @@ function addBooking (booking) {
 
 
 module.exports.findAllByReferenceId = function(req, res) {
-    console.log("Entra al findById");
 
     Booking.find({$or:
             [
-               {"club.id":JSON.parse(req.body.referenceId)},
-               {"player.id":JSON.parse(req.body.referenceId)}
+               {"club.id":req.params._id},
+               {"player.id":req.params._id}
             ]
         }, function (err, club) {
         if (err) {

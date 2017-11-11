@@ -40,7 +40,7 @@ export class SiteHeaderComponent implements OnInit {
   }
 
   public goToMisReservas(){
-    this.router.navigate(['/mis-reservas']);
+    this.router.navigate(['/player/mis-reservas']);
   }
 
 
