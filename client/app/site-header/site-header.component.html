@@ -55,6 +55,9 @@
 
 										</ul>
 									</li>
+									<li> <label>Hola {{auth.getUserAuthenticated()}}</label></li>
+									<li><a (click)=goToProfile()>Mi perfil</a></li>
+									<li><a (onclick)=logout() [routerLink]="['/login']"><i class="fa fa-log-out" aria-hidden="true"></i> Cerrar Sesión</a></li>
 								</div>
 
 							</div>
