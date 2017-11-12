@@ -1,7 +1,7 @@
     <div class="ad-post-wrapper section">
         <div class="container">
             <div id="faq-filter">
-                <h3>Reservas </h3>
+                <h3>Historial de reservas </h3>
 
                 <div class="tab-content">
                     <div id="all-faq" class="faq-post tab-pane active">
@@ -9,15 +9,22 @@
 
                             <div class="card" *ngFor="let r of bookings">
                                 <div class="card-header">
-                                   Club {{r.club.name}}
+                                    <b>Club {{r.club.name | uppercase}}</b>
                                 </div>
                                 <div class="card-body">
-                                    <h4 class="card-title">{{r.status}} </h4>
-                                    <p class="card-text">Fecha de reserva {{r.createdOn | date:"dd/MM/yy"}} </p>
-                                    <p class="card-text">Fecha de juego {{r.playingDate | date:"dd/MM/yy"}}, Hora de juego {{r.playingTime}}</p>
-                                    <p class="card-text">Cancha {{r.field.fieldName}}</p>
-                                    <p class="card-text"></p>
-                                    <p class="card-text"></p>
+
+                                    <div class="row">
+                                        <div class="col card-text">Fecha de reserva: {{r.createdOn | date:"dd/MM/yy"}} </div>
+                                        <div class="col card-text">{{r.status | uppercase}}</div>
+                                        <div class="w-100"></div>
+                                        <div class="col card-text">Fecha de juego: {{r.playingDate | date:"dd/MM/yy"}}</div>
+                                        <div class="col card-text">Hora de juego: {{r.playingTime}}</div>
+                                        <div class="w-100"></div>
+                                        <div class="col card-text">Dirección del complejo: {{r.club.address}}</div>
+                                        <div class="col card-text">Teléfono de contacto: {{r.club.phoneNumber}}</div>
+
+                                    </div>
+
                                   </div>
                             </div>
                             <!--<div class="faq-ans" *ngFor="let r of bookings" >-->
