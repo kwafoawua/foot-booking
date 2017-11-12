@@ -14,40 +14,58 @@ var ObjectId = Schema.Types.ObjectId;
  */
 
 var bookingSchema = new Schema({
-    createdOn: { type: Date, default: Date.now },
-    club: {
-        id: {type: String, required: true},
-        name: String,
-        address: String,
-        phoneNumber: Number
-    },
-    field: {
-        id: String,
-        fieldName: String,
-        cantPlayers: { type: Number, required: true },
-        fieldType : String,
-        services: [{
-            display: { type: String, required: true },
-            value: String
-        }],
-        price: Number
+        createdOn: {type: Date, default: Date.now},
+        club: {
+            id: {type: String, required: true},
+            name: String,
+            address: String,
+            phoneNumber: Number
+        },
+        field: {
+            id: String,
+            fieldName: String,
+            cantPlayers: {type: Number, required: true},
+            fieldType: String,
+            services: [{
+                display: {type: String, required: true},
+                value: String
+            }],
+            price: Number
 
-    },
-    playingDate: { type: Date, required: true },
-    playingTime: String,
-    status: { type: String, default: 'Reservado', required: true, enum: ['Cancelado', 'Finalizado', 'Reservado'] }, //modificar con los estados verdaderos
+        },
+        playingDate: {type: Date, required: true},
+        playingTime: String,
+        status: {
+            type: String,
+            default: 'Reservado',
+            required: true,
+            enum: ['Asistido', 'Pendiente de Pago', 'Cancelado', 'Finalizado', 'Reservado']
+        }, //modificar con los estados verdaderos
         paidMethod: {type: String, required: true},
-    player: {
-        name: {type: String, required: true},
-        lastName: {type: String, required: true},
-        phoneNumber: Number,
-        id: {type: String}
+        player: {
+            name: {type: String, required: true},
+            lastName: {type: String, required: true},
+            phoneNumber: Number,
+            id: {type: String}
+
+        }
+        //es que reservan la cancha todos los martes
+        //regularBooking: { type: Boolean, required: true, default: true },
+        //endingDateRegularBooking: Date
 
     }
-    //es que reservan la cancha todos los martes
-    //regularBooking: { type: Boolean, required: true, default: true },
-    //endingDateRegularBooking: Date
+    , {
+        toObject: {
+            virtuals: true
+        },
+        toJSON: {
+            virtuals: true
+        }});
 
+// Returns an array of all possible role enum values
+bookingSchema.virtual('estados').get(function () {
+    return bookingSchema.path('status').enumValues;
+    //console.log(Temp.schema.path('salutation').enumValues);
 });
 
 module.exports = mongoose.model('Booking', bookingSchema);

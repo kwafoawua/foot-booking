@@ -135,7 +135,7 @@ export class FieldsManagementComponent implements OnInit{
                 let event = {
                     start: startOfDay(booking.playingDate),
                     end: startOfDay(booking.playingDate),
-                    title: 'Reserva del dia'+booking.playingDate,
+                    title: booking.field.fieldName,
                     color: colors.yellow,
                     actions: this.actions,
                     booking: booking
