@@ -25,30 +25,17 @@
                             </div>
 
                             <div class="row">
-
-                                <div class="col-md-6">
-                                    <div class="post-inner">
-                                        <div class="row form-group">
-                                            <label class="col-md-4"> Nombre {{player?.name | uppercase}} </label>
-                                        </div>
-                                    </div><!-- post-inner -->
+                                <div class="col">
+                                    <label class="col-md-4"> Nombre <b>{{player?.name | uppercase}}</b></label>
                                 </div>
-
-                                <div class="col-md-6">
-                                    <div class="post-inner">
-                                        <div class="row form-group">
-                                            <label class="col-md-4"> Apellido {{player?.lastName | uppercase}} </label>
-                                        </div>
-                                    </div><!-- post-inner -->
+                                <div class="col">
+                                    <label class="col-md-4"> Apellido <b>{{player?.lastName | uppercase}} </b></label>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="post-inner">
-                                        <div class="row form-group">
-                                            <label class="col-md-4">Telefono de Contacto   {{player?.phoneNumber | uppercase}}</label>
-                                        </div>
-                                    </div><!-- post-inner -->
+                                <div class="col">
+                                    <label class="col-md-4">Telefono <b>{{player?.phoneNumber | uppercase}}</b></label>
                                 </div>
                             </div>
+
                         </div><!-- seller-section -->
 
 
@@ -59,108 +46,47 @@
                                 </div>
 
                                 <div class="row">
-
-                                    <div class="col-md-6">
-                                        <div class="post-inner">
-                                            <div class="row form-group">
-                                                <label class="col-md-4">Club </label>
-                                                <div class="col-md-8">
-                                                    <label class="col-md-4">{{booking.club.name}} </label>
-                                                </div>
-                                            </div>
-                                        </div><!-- post-inner -->
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="post-inner">
-                                            <div class="row form-group">
-                                                <label class="col-md-4">Direccion</label>
-                                                <div class="col-md-8">
-                                                    <label class="col-md-10">{{booking.club.address.address}} </label>
-                                                </div>
-                                            </div>
-                                        </div><!-- post-inner -->
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="post-inner">
-                                            <div class="row form-group">
-                                                <label class="col-md-4">Telefono</label>
-                                                <div class="col-md-8">
-                                                    <label class="col-md-4">{{booking.club.phoneNumber}} </label>
-                                                </div>
-                                            </div>
-                                        </div><!-- post-inner -->
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="post-inner">
-                                            <div class="row form-group">
-                                                <label class="col-md-4"> Cancha </label>
-                                                <div class="col-md-8">
-                                                    {{booking.field.fieldName}}
-                                                </div>
-                                            </div>
-                                        </div><!-- post-inner -->
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="post-inner">
-                                            <div class="row form-group">
-                                                <label class="col-md-4"> Tipo de cancha </label>
-                                                <div class="col-md-8">
-                                                    {{booking.field.fieldType}}
-                                                </div>
-                                            </div>
-                                        </div><!-- post-inner -->
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="post-inner">
-                                            <div class="row form-group">
-                                                <label class="col-md-4">Cantidad de jugadores </label>
-                                                <div class="col-md-8">
-                                                    {{booking.field.cantPlayers}}
-                                                </div>
-                                            </div>
-                                        </div><!-- post-inner -->
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="post-inner">
-                                            <div class="row form-group">
-                                                <label class="col-md-4"> Servicios disponibles </label>
-                                                <div class="col-md-8" *ngFor="let s of booking.field.services">
-                                                    {{s.display}}
-                                                </div>
-                                            </div>
-                                        </div><!-- post-inner -->
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="post-inner">
-                                            <div class="row form-group">
-                                                <label class="col-md-4">Hora de la reserva </label>
-                                                <div class="col-md-8">
-                                                    {{booking.timeBook}}
-                                                </div>
-                                            </div>
-                                        </div><!-- post-inner -->
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="post-inner">
-                                            <div class="row form-group">
-                                                <label class="col-md-4">Fecha de la reserva </label>
-                                                <div class="col-md-8">
-                                                    {{booking.dateBook}}
-                                                </div>
-                                            </div>
-                                        </div><!-- post-inner -->
-                                    </div>
-
-
-
-
-
+                                <div class="col">Club</div>
+                                <div class="col"><b>{{booking.club.name}}</b></div>
+                                <div class="col">Cancha</div>
+                                <div class="col"><b>{{booking.field.fieldName}}</b></div>
                                 </div>
-                            </div><!-- product-section -->
 
+                                <div class="row">
+                                    <div class="col">Teléfono</div>
+                                    <div class="col"><b>{{booking.club.phoneNumber}}</b></div>
+                                    <div class="col"></div>
+                                    <div class="col"></div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">Tipo de cancha</div>
+                                    <div class="col"><b> {{booking.field.fieldType}}</b></div>
+                                    <div class="col">Cantidad de jugadores</div>
+                                    <div class="col"><b>{{booking.field.cantPlayers}}</b></div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">Servicios incluidos</div>
+                                    <div class="col" *ngFor="let s of booking.field.services"><b>{{s.display}}</b></div>
+                                    <div class="col">Direccion</div>
+                                    <div class="col"><b>{{booking.club.address.address}}</b></div>
+                                </div>
+
+                            </div><!-- product-section -->
+                        </fieldset>
+
+                        <div class="seller-option avtpost-fields">
+                            <div class="col-xs-12">
+                                <h4>Reserva</h4>
+                            </div>
+                            <div class="row">
+                                <div class="col">Fecha de la reserva</div>
+                                <div class="col"><b> {{booking.dateBook}}</b> </div>
+                                <div class="col">Hora de la reserva</div>
+                                <div class="col"><b> {{booking.timeBook}}</b> </div>
+                                </div>
+                        </div>
 
                             <div class="seller-option avtpost-fields">
                                 <div class="row">
@@ -170,7 +96,7 @@
                                             <div class="row form-group">
                                                 <label class="col-md-4"> Total a pagar </label>
                                                 <div class="col-md-4">
-                                                   <h4> $ {{booking.field?.price}}</h4>
+                                                   <h4><b>$ {{booking.field?.price}}</b></h4>
                                                 </div>
                                             </div>
                                         </div><!-- post-inner -->
@@ -205,11 +131,42 @@
 
                                     </label>
                                 </div>
-                                <div class="submit-button">
-                                    <button class="btn btn-primary" type="submit" (click)="confirm()">Confirmar</button>
+                                <li class="list-inline-item" >
+                                    <button (click)="confirm()"   type="button" class="btn btn-primary"  data-toggle="modal" data-target="#myModal">Reservar</button>
+                                </li>
+                                <!-- Modal -->
+                                <div *ngIf="confirmado" id="myModal" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Información</h4>
+
+                                            </div>
+
+                                            <!-- Modal body -->
+                                            <div class="modal-body">
+                                                Su reserva se ha generado con éxito.
+                                            </div>
+
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal"  (click)="goToMisReservas()">Cerrar</button>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
                                 </div>
+
+                                <!--FIN MODAL-->
+
+
+
                             </div>
-                        </fieldset>
+
                     </form>
                 </div>
             </div>

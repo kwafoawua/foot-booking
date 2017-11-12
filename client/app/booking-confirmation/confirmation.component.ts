@@ -30,6 +30,8 @@ export class confirmationComponent implements OnInit{
     player:Player;
     reservaFinal: any = {};
     loading = true;
+    confirmado: Boolean;
+
     //subscription: Subscription;
 
 
@@ -37,17 +39,17 @@ export class confirmationComponent implements OnInit{
                 private userService: UserService,
                 private route: ActivatedRoute,
                 private clubService: ClubService,
-                private alertService: AlertService
+                private alertService: AlertService,
+                private router: Router
     ){
 
        }
 
     ngOnInit(){
 
+        this.confirmado=false;
         this.booking = ClubService.obtenerBooking();
         if(this.booking) {
-            console.log('hola culia');
-
             const parts : any = this.booking.dateBook.split("/");
 
             const mydate = new Date(parts[2],parts[1]-1,parts[0]);
@@ -67,7 +69,7 @@ export class confirmationComponent implements OnInit{
             this.reservaFinal.paidMethod="EN SITIO";
         }
         console.log(this.booking);
-
+        console.log("el confirmado",this.confirmado);
 
 
         console.log('Reserva Final '+this.reservaFinal);
@@ -103,12 +105,19 @@ export class confirmationComponent implements OnInit{
         this.clubService.guardarReserva(this.reservaFinal)
             .subscribe(
                 data => {
-                    this.alertService.success('SE GENERO BIEN LA RESERVA', true);
+                    //this.alertService.success('SE GENERO BIEN LA RESERVA', true);
+                    this.confirmado=true;
                 },
                 error => {
                     this.alertService.error(error);
                     this.loading = false;
                 });
+        }
+
+    public  goToMisReservas(){
+        this.router.navigate(['/player/mis-reservas']);
+
+
     }
 
 
