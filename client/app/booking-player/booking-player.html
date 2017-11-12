@@ -7,40 +7,53 @@
                     <div id="all-faq" class="faq-post tab-pane active">
                         <div class="faq">
 
-                            <div class="faq-ans" *ngFor="let r of bookings" >
-                                <div class="post-inner">
-                                    <div class="row form-group">
-                                        <label class="col-md-4"> Estado de la reserva </label>
-                                        <div class="col-md-8">
-                                            <h3>{{r.status}}</h3>
-                                        </div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <label class="col-md-4"> Fecha de reserva </label>
-                                        <div class="col-md-8">
-                                            {{r.createdOn}}
-                                        </div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <label class="col-md-4"> Club </label>
-                                        <div class="col-md-8">
-                                            {{r.club.name}}
-                                        </div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <label class="col-md-4"> Cancha </label>
-                                        <div class="col-md-8">
-                                            {{r.field.fieldName}}
-                                        </div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <label class="col-md-4"> Fecha y Hora de juego </label>
-                                        <div class="col-md-8">
-                                            {{r.playingDate}}{{r.playingTime}}
-                                        </div>
-                                    </div>
-                                </div><!-- post-inner -->
+                            <div class="card" *ngFor="let r of bookings">
+                                <div class="card-header">
+                                   Club {{r.club.name}}
+                                </div>
+                                <div class="card-body">
+                                    <h4 class="card-title">{{r.status}} </h4>
+                                    <p class="card-text">Fecha de reserva {{r.createdOn | date:"dd/MM/yy"}} </p>
+                                    <p class="card-text">Fecha de juego {{r.playingDate | date:"dd/MM/yy"}}, Hora de juego {{r.playingTime}}</p>
+                                    <p class="card-text">Cancha {{r.field.fieldName}}</p>
+                                    <p class="card-text"></p>
+                                    <p class="card-text"></p>
+                                  </div>
                             </div>
+                            <!--<div class="faq-ans" *ngFor="let r of bookings" >-->
+                                <!--<div class="post-inner">-->
+                                    <!--<div class="row form-group">-->
+                                        <!--<label class="col-md-4"> Estado de la reserva </label>-->
+                                        <!--<div class="col-md-8">-->
+                                            <!--<h3>{{r.status}}</h3>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="row form-group">-->
+                                        <!--<label class="col-md-4"> Fecha de reserva </label>-->
+                                        <!--<div class="col-md-8">-->
+                                            <!--{{r.createdOn}}-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="row form-group">-->
+                                        <!--<label class="col-md-4"> Club </label>-->
+                                        <!--<div class="col-md-8">-->
+                                            <!--{{r.club.name}}-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="row form-group">-->
+                                        <!--<label class="col-md-4"> Cancha </label>-->
+                                        <!--<div class="col-md-8">-->
+                                            <!--{{r.field.fieldName}}-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="row form-group">-->
+                                        <!--<label class="col-md-4"> Fecha y Hora de juego </label>-->
+                                        <!--<div class="col-md-8">-->
+                                            <!--{{r.playingDate}}{{r.playingTime}}-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>&lt;!&ndash; post-inner &ndash;&gt;-->
+                            <!--</div>-->
 
                         </div>
 

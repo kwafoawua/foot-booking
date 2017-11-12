@@ -205,9 +205,40 @@
 
                                     </label>
                                 </div>
-                                <div class="submit-button">
-                                    <button class="btn btn-primary" type="submit" (click)="confirm()">Confirmar</button>
+                                <li class="list-inline-item" >
+                                    <button (click)="confirm()"   type="button" class="btn btn-primary"  data-toggle="modal" data-target="#myModal">Reservar</button>
+                                </li>
+                                <!-- Modal -->
+                                <div *ngIf="confirmado" id="myModal" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Información</h4>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+
+                                            <!-- Modal body -->
+                                            <div class="modal-body">
+                                                Su reserva se ha confirmado
+                                            </div>
+
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal"  (click)="goToMisReservas()">Cerrar</button>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
                                 </div>
+
+                                <!--FIN MODAL-->
+
+
+
                             </div>
                         </fieldset>
                     </form>
