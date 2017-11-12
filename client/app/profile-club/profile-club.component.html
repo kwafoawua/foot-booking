@@ -1,61 +1,70 @@
-<div class="container-fluid">
-    <div class="row" id="profileClubContainer">
-        <div class="col-lg-4 col-md-5">
+<div class="container-fluid h100">
+    <div class="row" id="profileClubContainer"  h-100 justify-content-center align-items-center>
 
-            <div class="card card-user">
-                <div id="profileClubImage" class="image">
-                    <img src="/uploads/{{club?.profileImg}}" alt="..."/>
-                </div>
-                <div>
-                    <div class="author">
-                        <h4 class="title">{{club?.name}}<br />
-                            <a href="#"><small>@{{user?.username}}</small></a>
-                        </h4>
-                    </div>
-                    <p class="description text-center">
-                        {{club?.description}}
-                    </p>
-                </div>
-                <hr>
+        <div class="container h-100">
+            <div class="row h-100 justify-content-center">
 
-                <div class="profile-usermenu">
-                    <ul class="nav">
-                        <li class="active">
-                            <a (click)="goToUser()">
-                                <i class="glyphicon glyphicon-home"></i>
-                                &nbsp;&nbsp;Usuario </a>
-                        </li>
 
-                        <li>
-                             <a a (click)="goToInfo()">
-                                <i class="glyphicon glyphicon-user"></i>
+                <div class="col-lg-3 col-md-5">
+                    <div class="card card-user">
+                        <div id="profileClubImage" class="card-img-top image">
+                            <img src="/uploads/{{club?.profileImg}}" alt="..."/>
+                        </div>
+                        <div>
+                            <div class="author">
+                                <h4 class="title">{{club?.name}}<br />
+                                    <a href="#"><small>@{{user?.username}}</small></a>
+                                </h4>
+                            </div>
+                            <p class="description text-center">
+                                {{club?.description}}
+                            </p>
+                        </div>
+                        <hr>
+
+                        <div class="profile-usermenu">
+                            <ul class="list-group list-group-flush">
+                                <li>
+                                    <a (click)="goToUser()" data-toggle="tab" id="1_tab" class="list-group-item list-group-item-action active" data-toggle="list" role="tab" aria-controls="home">
+                                        <i class="fa fa-home" aria-hidden="true"></i>
+                                    &nbsp;&nbsp;Usuario </a>
+                                </li>
+
+                                <li>
+                                   <a a (click)="goToInfo()" data-toggle="tab" id="2_tab" class="list-group-item list-group-item-action" data-toggle="list" role="tab" aria-controls="home">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
                                 &nbsp;&nbsp;Info del Club</a>
-                        </li>
-                        <li>
-                            <a (click)="goToPassword()">
-                                <i class="glyphicon glyphicon-cog"></i>
-                                &nbsp;&nbsp;Password </a>
-                        </li>
-                        <li>
-                            <a (click)="goToFields()">
-                                <i class="glyphicon glyphicon-cog" ></i>
+                            </li>
+                            <li>
+                                <a (click)="goToPassword()" data-toggle="tab" id="3_tab" class="list-group-item list-group-item-action" data-toggle="list" role="tab" aria-controls="home">
+                                    <i class="fa fa-cog" aria-hidden="true"></i>
+                                &nbsp;&nbsp;Contraseña </a>
+                            </li>
+                            <li>
+                                <a (click)="goToFields()" data-toggle="tab" id="4_tab" class="list-group-item list-group-item-action" data-toggle="list" role="tab" aria-controls="home">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
                                 &nbsp;&nbsp;Modificar Canchas </a>
-                        </li>
-                    </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+
                 </div>
 
-
+            </div>
+            <div class="col-lg-6 col-md-7">
+                <div class="card">
+                    <!--{{user | json}}-->
+                    <!--{{club | json}}-->
+                    <!--{{club | json}}-->
+                    <div class="card-body">
+                        <router-outlet></router-outlet>
+                    </div>
+                </div>
             </div>
 
-        </div>
-        <div class="col-lg-8 col-md-7">
-            <div class="card">
-                <!--{{user | json}}-->
-                <!--{{club | json}}-->
-                <!--{{club | json}}-->
-            <router-outlet></router-outlet>
-            </div>
         </div>
     </div>
-</div>
 
+</div>
+</div>
