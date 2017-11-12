@@ -422,6 +422,14 @@ div#profileClubContainer {
 	margin-top: 50px;
 }
 
+div#profilePlayerContainer {
+	margin-top: 50px;
+}
+
+div#loginContainer {
+	margin-top: 50px;
+}
+
 .carousel-inner {
 	height:22rem !important;
 }

@@ -4,7 +4,7 @@
 
 <form [formGroup]="userForm">
 <div class="row" >
-    <div class="col-md-8">
+    <div class="col-md-12">
         <div class="post-inner">
             <div class="row form-group">
                 <label class="col-md-4" for="username">Nombre de Usuario * </label>
@@ -18,8 +18,9 @@
                     <input formControlName="email" id="email" class="form-control" type="text"/>
                 </div>
             </div>
-
-            <input type="submit" value="Actualizar" class="btn btn-primary" l>
+            <div style="text-align: right;">
+                <input type="submit" value="Actualizar" class="btn btn-primary">
+            </div>
         </div>
 
     </div>

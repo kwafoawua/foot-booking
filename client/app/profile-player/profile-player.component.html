@@ -1,11 +1,10 @@
-<div class="container-fluid">
-    <div class="row">
-            <div class="col-2"></div>
-            <!-- Div del lateral izquiedo, donde estan las opciones y la imagen del perfil -->
-            <div class="col-8">
-                <div class="container">
-                    <div class="row profile">
-                        <div class="col-xl-5">
+<div class="container-fluid h100">
+    <div class="row h-100 justify-content-center align-items-center" id="profilePlayerContainer">
+        <!-- Div del lateral izquiedo, donde estan las opciones y la imagen del perfil -->
+        <div class="col-8">
+            <div class="container">
+                <div class="row profile">
+                    <div class="col-xl-5">
                         <div class="card">
                             <!-- SIDEBAR USERPIC -->
                             <div class="profile-userpic">
@@ -24,16 +23,22 @@
                             <!-- END SIDEBAR USER TITLE -->
                             <!-- SIDEBAR MENU -->
                             <div class="card-body profile-usermenu">                                  
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">
-                                            Mi Perfil 
-                                        </li>
-                                        <li class="list-group-item active">
-                                            Editar Perfil
-                                        </li>
-                                        <li class="list-group-item">
-                                            Contraseña
-                                        </li>
+                                <ul class="list-group list-group-flush">
+                                    <li>
+                                        <a data-toggle="tab" id="1_tab" class="list-group-item list-group-item-action" data-toggle="list" role="tab" aria-controls="home">
+                                            <i class="fa fa-home" aria-hidden="true"></i>
+                                        &nbsp;&nbsp;Mi Perfil</a>   
+                                    </li>
+                                    <li>
+                                        <a data-toggle="tab" id="2_tab" class="list-group-item list-group-item-action active" data-toggle="list" role="tab" aria-controls="home">
+                                            <i class="fa fa-user" aria-hidden="true"></i>
+                                        &nbsp;&nbsp;Editar Perfil</a>                                            
+                                    </li>
+                                    <li>
+                                        <a data-toggle="tab" id="3_tab" class="list-group-item list-group-item-action" data-toggle="list" role="tab" aria-controls="home">
+                                            <i class="fa fa-cog" aria-hidden="true"></i>
+                                        &nbsp;&nbsp;Contraseña </a>                                            
+                                    </li>
                                     <!--
                                         <li class="list-group-item">
                                             <a>
@@ -51,18 +56,21 @@
                                             Contraseña </a>
                                         </li>
                                     -->
-                                    </ul>
+                                </ul>
                             </div>
                             <!-- END MENU -->
-                         </div>
-                          </div>
+                        </div>
+                    </div>
                     <!-- Div del lateral derecho -->
                     <div class="col-xl-6">
                         <div class="card player-profile-activity" ng-hide="true">
-                            
+
                             <router-outlet name="profileSelection"></router-outlet>
 
                             <div class="card-body form-group">
+                                <div class="col-xs-12">
+                                    <h3>Editar Perfil</h3>
+                                </div>
 
                                 <form name="editPlayer" (ngSubmit)="editPlayer()" #f="ngForm">
                                     <label class="label-form" for="name">Nombre</label>
@@ -76,23 +84,24 @@
                                     <label class="label-form" for="phoneNumber">Teléfono</label>
                                     <input type="text" class="form-control" name="phoneNumber" [(ngModel)]="model.phoneNumber" #phoneNumber="ngModel" required value={{player?.phoneNumber}} placeholder={{player?.phoneNumber}} />
                                     <div class="form-group">
-                                    <label class="label-form" for="biography">Sobre tí</label>
-                                    <textarea class="form-control" style="min-height: 120px" name="biography" [(ngModel)]="model.biography" #biography="ngModel" value={{player?.biography}} placeholder={{player?.biography}} ></textarea>
+                                        <label class="label-form" for="biography">Sobre tí</label>
+                                        <textarea class="form-control" style="min-height: 120px" name="biography" [(ngModel)]="model.biography" #biography="ngModel" value={{player?.biography}} placeholder={{player?.biography}} ></textarea>
                                     </div>
                                     <h4></h4>
-                                    <button class="btn btn-primary">Guardar</button>
-                                    <button class="btn btn-primary" type="reset">Restablecer</button>
+                                    <div style="text-align: right;">
+                                        <button class="btn btn-primary">Guardar</button>
+                                        <button class="btn btn-primary" type="reset">Restablecer</button>
+                                    </div>
                                 </form>
-                            
+
                             </div>
                         </div>
                     </div>
                 </div>
 
             </div>
-            <div class="col-2"></div>
+        </div>
     </div>
-</div>
 
 
 
