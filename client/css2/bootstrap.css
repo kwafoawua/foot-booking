@@ -4829,7 +4829,7 @@ button.list-group-item-secondary {
 a.list-group-item-secondary:focus, a.list-group-item-secondary:hover,
 button.list-group-item-secondary:focus,
 button.list-group-item-secondary:hover {
-  color: #464a4e;
+  color: #fff;
   background-color: #cfd2d6;
 }
 
