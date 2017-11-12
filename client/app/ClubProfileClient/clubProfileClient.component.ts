@@ -39,7 +39,6 @@ export class ProfileClubClientComponent implements OnInit {
         format: 'DD/MM/YYYY',
         enableMonthSelector: true,
         showNearMonthDays: false ,
-        min: moment().format('L'),
         monthFormatter: (m: Moment): string => {
             return [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
                     'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ][m.month()] +

@@ -50,7 +50,7 @@ export class confirmationComponent implements OnInit{
 
             const parts : any = this.booking.dateBook.split("/");
 
-            const mydate = new Date(parts[2],parts[0]-1,parts[1]);
+            const mydate = new Date(parts[2],parts[1]-1,parts[0]);
             console.log('dateObject '+mydate);
 
             this.reservaFinal.clubId = this.booking.club._id;

@@ -6,6 +6,8 @@ import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
 import { ImageUploadModule } from 'angular2-image-upload';
 import { CustomFormsModule } from 'ng2-validation';
+import { DemoUtilsModule } from './_helpers/demo-utils/module';
+
 
 
 import { AppComponent } from './app.component';
@@ -64,7 +66,8 @@ import {confirmationComponent} from "./booking-confirmation/confirmation.compone
         }),
         ProfileClubModule,
         CalendarModule.forRoot(),
-        NgbModule.forRoot()
+        NgbModule.forRoot(),
+        DemoUtilsModule
         ],
     declarations: [
         AppComponent,

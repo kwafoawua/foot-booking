@@ -1,79 +1,64 @@
 <ng-template #modalContent let-close="close">
     <div class="modal-header">
-        <h5 class="modal-title">Event action occurred</h5>
+        <h5 class="modal-title">{{modalData?.event.booking.field.fieldName}}</h5>
         <button type="button" class="close" (click)="close()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body">
-        <div>
-            Action:
-            <pre>{{ modalData?.action }}</pre>
+        <div class="container">
+            <div class="row">
+                <div class="col-12"><h4>Reserva</h4></div>
+                <div class="col-6"><strong>Cancha: </strong><label>{{modalData?.event.booking.field.fieldName}}</label>
+                </div>
+                <div class="col-6"><strong>Fecha de Reserva: </strong><label>{{modalData?.event.booking.playingDate |
+                    date:"dd/MM/yy"}}</label></div>
+                <div class="col-6"><strong>Precio: </strong><label>${{modalData?.event.booking.field.price}}</label>
+                </div>
+                <div class="col-6"><strong>Hora de
+                    Reserva: </strong><label>{{modalData?.event.booking.playingTime}}</label></div>
+                <div class="col-6"><strong>Estado: </strong><label>{{modalData?.event.booking.status}}</label></div>
+                <div class="col-6"><strong>Forma de
+                    Pago: </strong><label>{{modalData?.event.booking.paidMethod}}</label></div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-12"><h4>Datos del Cliente</h4></div>
+                <div class="col-6"><strong>Nombre: </strong><label>{{modalData?.event.booking.player.name}}</label>
+                </div>
+                <div class="col-6">
+                    <strong>Apellido: </strong><label>{{modalData?.event.booking.player.lastName}}</label></div>
+                <div class="col-6">
+                    <strong>Teléfono: </strong><label>{{modalData?.event.booking.player.phoneNumber}}</label></div>
+
+                <hr>
+            </div>
+
+            <div class="row">
+                <div class="col-12"><h4>Asistencia</h4></div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input [(ngModel)]="asistenciaChk" class="form-check-input" type="checkbox" value="">
+                        El cliente asistió a la correspondiente reserva.
+                    </label>
+                </div>
+
+            </div>
         </div>
-        <div>
-            Event:
-            <pre>{{ modalData?.event | json }}</pre>
-        </div>
+
+        <!--<pre>{{ modalData?.event.booking | json }}</pre>-->
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-secondary" (click)="close()">OK</button>
     </div>
 </ng-template>
-
-<div class="row text-center">
-    <div class="col-md-4">
-        <div class="btn-group">
-            <div
-                    class="btn btn-primary"
-                    mwlCalendarPreviousView
-                    [view]="view"
-                    [(viewDate)]="viewDate"
-                    (viewDateChange)="activeDayIsOpen = false">
-                Previous
-            </div>
-            <div
-                    class="btn btn-outline-secondary"
-                    mwlCalendarToday
-                    [(viewDate)]="viewDate">
-                Today
-            </div>
-            <div
-                    class="btn btn-primary"
-                    mwlCalendarNextView
-                    [view]="view"
-                    [(viewDate)]="viewDate"
-                    (viewDateChange)="activeDayIsOpen = false">
-                Next
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
-    </div>
-    <div class="col-md-4">
-        <div class="btn-group">
-            <div
-                    class="btn btn-primary"
-                    (click)="view = 'month'"
-                    [class.active]="view === 'month'">
-                Month
-            </div>
-            <div
-                    class="btn btn-primary"
-                    (click)="view = 'week'"
-                    [class.active]="view === 'week'">
-                Week
-            </div>
-            <div
-                    class="btn btn-primary"
-                    (click)="view = 'day'"
-                    [class.active]="view === 'day'">
-                Day
-            </div>
-        </div>
-    </div>
-</div>
+<mwl-demo-utils-calendar-header
+        [(view)]="view"
+        [(viewDate)]="viewDate"
+        [(locale)]="locale">
+</mwl-demo-utils-calendar-header>
 <br>
+
 <div [ngSwitch]="view">
     <mwl-calendar-month-view
             *ngSwitchCase="'month'"
