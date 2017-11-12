@@ -10,11 +10,13 @@
 //     ngOnInit(){}
 // }
 
-import { Component, ChangeDetectionStrategy, ViewChild, TemplateRef } from '@angular/core';
+import {Component, ChangeDetectionStrategy, ViewChild, TemplateRef, OnInit} from '@angular/core';
 import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
 import { Subject } from 'rxjs/Subject';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent } from 'angular-calendar';
+import {BookingService} from "../_services/booking.service";
+import {date} from "ng2-validation/dist/date";
 
 const colors: any = {
     red: {
@@ -38,7 +40,8 @@ const colors: any = {
     //styleUrls: ['styles.css'],
     templateUrl: 'fields-management.component.html'
 })
-export class FieldsManagementComponent {
+export class FieldsManagementComponent implements OnInit{
+
     @ViewChild('modalContent') modalContent: TemplateRef<any>;
 
     view: string = 'month';
@@ -49,6 +52,9 @@ export class FieldsManagementComponent {
         action: string;
         event: CalendarEvent;
     };
+    events: CalendarEvent[] = [];
+
+    bookings : any[] = [];
 
     actions: CalendarEventAction[] = [
         {
@@ -68,43 +74,73 @@ export class FieldsManagementComponent {
 
     refresh: Subject<any> = new Subject();
 
-    events: CalendarEvent[] = [
-        {
-            start: subDays(startOfDay(new Date()), 1),
-            end: addDays(new Date(), 1),
-            title: 'A 3 day event',
-            color: colors.red,
-            actions: this.actions
-        },
-        {
-            start: startOfDay(new Date()),
-            title: 'An event with no end date',
-            color: colors.yellow,
-            actions: this.actions
-        },
-        {
-            start: subDays(endOfMonth(new Date()), 3),
-            end: addDays(endOfMonth(new Date()), 3),
-            title: 'A long event that spans 2 months',
-            color: colors.blue
-        },
-        {
-            start: addHours(startOfDay(new Date()), 2),
-            end: new Date(),
-            title: 'A draggable and resizable event',
-            color: colors.yellow,
-            actions: this.actions,
-            resizable: {
-                beforeStart: true,
-                afterEnd: true
-            },
-            draggable: true
-        }
-    ];
+    // events: CalendarEvent[] = [
+    //     {
+    //         start: subDays(startOfDay(new Date()), 1),
+    //         end: addDays(new Date(), 1),
+    //         title: 'A 3 day event',
+    //         color: colors.red,
+    //         actions: this.actions
+    //     },
+    //     {
+    //         start: startOfDay(new Date()),
+    //         end: startOfDay(new Date()),
+    //         title: 'An one day event',
+    //         color: colors.yellow,
+    //         actions: this.actions
+    //     },
+    //     {
+    //         start: subDays(endOfMonth(new Date()), 3),
+    //         end: addDays(endOfMonth(new Date()), 3),
+    //         title: 'A long event that spans 2 months',
+    //         color: colors.blue
+    //     },
+    //     {
+    //         start: addHours(startOfDay(new Date()), 2),
+    //         end: new Date(),
+    //         title: 'A draggable and resizable event',
+    //         color: colors.yellow,
+    //         actions: this.actions,
+    //         resizable: {
+    //             beforeStart: true,
+    //             afterEnd: true
+    //         },
+    //         draggable: true
+    //     }
+    // ];
 
     activeDayIsOpen: boolean = true;
 
-    constructor(private modal: NgbModal) {}
+    constructor(private modal: NgbModal,
+    private bookingService: BookingService) {}
+
+    ngOnInit(){
+        const _id: string = JSON.parse(localStorage.getItem('currentUser')).playerOrClubId;
+        this.getBookings(_id);
+    }
+
+    private getBookings(_id: string){
+        this.bookingService.findAllByReferenceId(_id).subscribe((bookings)=>{
+            this.bookings = bookings;
+            console.log("esto",this.bookings);
+
+            this.bookings.forEach((booking) => {
+                let event = {
+                    start: startOfDay(booking.playingDate),
+                    end: startOfDay(booking.playingDate),
+                    title: 'Reserva del dia'+booking.playingDate,
+                    color: colors.yellow,
+                    actions: this.actions
+
+                };
+                this.events.push(event);
+            });
+
+            console.log(this.events);
+        });
+
+    }
+
 
     dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
         if (isSameMonth(date, this.viewDate)) {
