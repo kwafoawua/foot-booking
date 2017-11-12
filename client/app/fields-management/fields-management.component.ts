@@ -14,9 +14,9 @@ import {Component, ChangeDetectionStrategy, ViewChild, TemplateRef, OnInit} from
 import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
 import { Subject } from 'rxjs/Subject';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent } from 'angular-calendar';
+import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent ,CalendarDateFormatter, DAYS_OF_WEEK} from 'angular-calendar';
 import {BookingService} from "../_services/booking.service";
-import {date} from "ng2-validation/dist/date";
+import { CustomDateFormatter } from './custom-date-formatter.provider';
 
 const colors: any = {
     red: {
@@ -38,15 +38,22 @@ const colors: any = {
     moduleId: module.id,
     changeDetection: ChangeDetectionStrategy.OnPush,
     //styleUrls: ['styles.css'],
-    templateUrl: 'fields-management.component.html'
+    templateUrl: 'fields-management.component.html',
+    providers: [
+        {
+            provide: CalendarDateFormatter,
+            useClass: CustomDateFormatter
+        }
+    ]
 })
 export class FieldsManagementComponent implements OnInit{
 
     @ViewChild('modalContent') modalContent: TemplateRef<any>;
 
     view: string = 'month';
-
+    locale: string = 'es';
     viewDate: Date = new Date();
+    asistenciaChk: Boolean;
 
     modalData: {
         action: string;
@@ -123,19 +130,23 @@ export class FieldsManagementComponent implements OnInit{
         this.bookingService.findAllByReferenceId(_id).subscribe((bookings)=>{
             this.bookings = bookings;
             console.log("esto",this.bookings);
-
+            const eventArray :CalendarEvent[] = [];
             this.bookings.forEach((booking) => {
                 let event = {
                     start: startOfDay(booking.playingDate),
                     end: startOfDay(booking.playingDate),
-                    title: 'Reserva del dia'+booking.playingDate,
+                    title: booking.field.fieldName,
                     color: colors.yellow,
-                    actions: this.actions
+                    actions: this.actions,
+                    booking: booking
 
                 };
-                this.events.push(event);
+                eventArray.push(event);
             });
-
+                this.events = eventArray;
+                if(this.events) {
+                    this.refresh.next();
+                }
             console.log(this.events);
         });
 
@@ -156,11 +167,7 @@ export class FieldsManagementComponent implements OnInit{
         }
     }
 
-    eventTimesChanged({
-                          event,
-                          newStart,
-                          newEnd
-                      }: CalendarEventTimesChangedEvent): void {
+    eventTimesChanged({event, newStart, newEnd}: CalendarEventTimesChangedEvent): void {
         event.start = newStart;
         event.end = newEnd;
         this.handleEvent('Dropped or resized', event);

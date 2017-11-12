@@ -76,11 +76,12 @@ module.exports.findAllByReferenceId = function(req, res) {
                {"club.id":req.params._id},
                {"player.id":req.params._id}
             ]
-        }, function (err, club) {
+        }, function (err, booking) {
         if (err) {
             return res.status(500).send(err);
         }
-        res.status(200).send(club);
+
+        res.status(200).send(booking);
     });
 
 };
