@@ -428,7 +428,18 @@ div#profileClubContainer {
 	-moz-background-size: cover;
 }
 
-
  div.carousel-item > img {
 	 width: 100%;
  }
+
+.list-group-item.active {
+	z-index: 2;
+    color: #fff;
+    background-color: #028b45;
+    border-color: #028b45;
+}
+
+.label-form {
+    margin-left: 10px; 
+    margin-top: 10px;
+}
