@@ -364,7 +364,7 @@ a, .topbar a,
 	background-color: transparent;
 	color: #00a651;
 }
-
+/* ESTO ES LO QUE GENERA EL PROBLEMA CON EL DROPDOWNMENU EN BOOTSTRAP 4
 .dropdown-menu{
 	border-radius: 0;
 	padding:10px 0;
@@ -392,6 +392,7 @@ a, .topbar a,
 	-o-transition: all 0.2s linear;
 	transition: all 0.2s linear;
 }
+*/
 
 .open .dropdown-menu {
 	-moz-transform: scale(1,1);
