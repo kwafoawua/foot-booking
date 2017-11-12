@@ -5,7 +5,7 @@
 		<div class="container">
 
 				<div class="row">
-					<div class="col-sm-4">
+					<div class="col-md-3">
 						<ul class="list-inline">
 							<li class="list-inline-item"><span><i class="fa fa-envelope-o"></i></span> <a href="#">FootBooking</a></li>
 							<li class="list-inline-item"><ul class="list-inline top-social">
@@ -18,8 +18,8 @@
 						</li>
 					</ul>
 				</div>
-				<div class="col-md-8">
-					<div class="user-section">
+				<div class="col-md-9">
+					<div class="user-section">			
 						<ul class="list-line">
 							<div *ngIf="!auth.isAuthenticated()">
 								<li class="list-inline-item"><a [routerLink]="['/login']"><i class="fa fa-sign-in" aria-hidden="true"></i> Iniciar sesión</a></li>
@@ -28,7 +28,32 @@
 							</div>
 							<div *ngIf="auth.isAuthenticated()">
 								<div *ngIf="auth.isUserClub()">
-									<li class="nav-item dropdown"><a href="javascript:void(0);" class="nav-link dropdown-toggle" data-toggle="dropdown">Gestión de campeonato</a>
+									<!-- Dropdown-menu gestion de campeonato -->
+									<li>
+									<div class="dropdown show">
+  										<a class="dropdown-toggle" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gestión de campeonato
+    									</a>
+  										<div class="dropdown-menu" id="dropdown-top-alternative">
+    										<a class="dropdown-item">Nuevo campeonato</a>
+    										<a class="dropdown-item">Administrar campeonatos</a>
+										</div>
+									</div>
+									</li>
+									<!-- Dropdown-menu gestion de canchas -->
+									<li>
+									<div class="dropdown show">
+  										<a class="dropdown-toggle" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gestión de canchas
+    									</a>
+
+  										<div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="dropdown-top-alternative">
+    										<a class="dropdown-item">Ver reservas</a>
+    										<a class="dropdown-item">Administrar canchas</a>
+										</div>
+									</div>
+									</li>
+								<!--	Lo que habia antes
+									<li class="dropdown">
+										<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">Gestión de campeonato <span class="caret"></span></a>
 										<ul class="dropdown-menu" id="dropdown-top-alternative">
 											<li class="dropdown-item"><a>Nuevo campeonato</a></li>
 											<li class="dropdown-item"><a>Administrar campeonatos</a></li>
@@ -40,24 +65,40 @@
 											<li class="dropdown-item"><a>Administrar canchas</a></li>
 										</ul>
 									</li>
-									<li> <label>Hola {{auth.getUserAuthenticated()}}</label></li>
-									<li><a (click)=goToProfile()>Mi perfil</a></li>
-									<li><a (onclick)=logout() [routerLink]="['/login']"><i class="fa fa-log-out" aria-hidden="true"></i> Cerrar Sesión</a></li>
+								-->
+
+									<li class="list-inline-item"> <label>Hola {{auth.getUserAuthenticated()}}</label></li>
+									<li class="list-inline-item"><a (click)=goToProfile()>Mi perfil</a></li>
+									<li class="list-inline-item"><a (onclick)=logout() [routerLink]="['/login']"><i class="fa fa-log-out" aria-hidden="true"></i> Cerrar Sesión</a></li>
 								</div>
 
 								<div *ngIf="!auth.isUserClub()">
-									<li class="nav-item dropdown">
-										<a class="nav-link dropdown-toggle" id="dropdown-preferencias" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Preferencias</a>
-										<ul class="dropdown-menu" aria-labelledby="dropdown-preferencias" id="dropdown-top-alternative">
-											<li class="dropdown-item"><a (click)=goToMisReservas()>Mis reservas</a></li>
+									<!-- Dropdown-menu preferencias player -->
+									<li>
+									<div class="dropdown show">
+  										<a class="dropdown-toggle" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Preferencias
+    									</a>
+
+  										<div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="dropdown-top-alternative">
+    										<a class="dropdown-item">Mis reservas</a>
+    										<a class="dropdown-item">Complejos preferidos</a>
+    										<a class="dropdown-item">Campeonatos</a>
+										</div>
+									</div>
+									</li>
+								<!--	
+									<li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">Preferencias<span class="caret"></span></a>
+										<ul class="dropdown-menu" id="dropdown-top-alternative">
+											<li class="dropdown-item"><a>Mis reservas</a></li>
 											<li class="dropdown-item"><a>Complejos preferidos</a></li>
 											<li class="dropdown-item"><a>Campeonatos</a></li>
 
 										</ul>
 									</li>
-									<li> <label>Hola {{auth.getUserAuthenticated()}}</label></li>
-									<li><a (click)=goToProfile()>Mi perfil</a></li>
-									<li><a (onclick)=logout() [routerLink]="['/login']"><i class="fa fa-log-out" aria-hidden="true"></i> Cerrar Sesión</a></li>
+								-->	
+									<li class="list-inline-item"><label>Hola {{auth.getUserAuthenticated()}}</label></li>
+									<li class="list-inline-item"><a (click)=goToProfile()>Mi perfil</a></li>
+									<li class="list-inline-item"><a (onclick)=logout() [routerLink]="['/login']"><i class="fa fa-log-out" aria-hidden="true"></i> Cerrar Sesión</a></li>
 								</div>
 
 							</div>
@@ -77,9 +118,5 @@
 			</li>
 		</ul>
 	</div>
-
-
-	</nav><!-- navbar -->
-
+</nav><!-- navbar -->
 </header><!-- header -->
-

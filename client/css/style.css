@@ -184,10 +184,13 @@ button#field-array-add-btn {
 /* Para cambiar el fondo del dropdown a un gris mas negro */
 #dropdown-top-alternative {
 	background-color: #25262a;
+	color: white;
 }
 
-
-
+#dropdown-top-alternative> a:hover{
+	color: #00a651;
+	background: transparent;
+}
 
 
 .card {
@@ -419,6 +422,14 @@ div#profileClubContainer {
 	margin-top: 50px;
 }
 
+div#profilePlayerContainer {
+	margin-top: 50px;
+}
+
+div#loginContainer {
+	margin-top: 50px;
+}
+
 .carousel-inner {
 	height:22rem !important;
 }
@@ -426,4 +437,24 @@ div#profileClubContainer {
 	height:22rem !important;
 	background-repeat: no-repeat;
 	-moz-background-size: cover;
+}
+
+ div.carousel-item > img {
+	 width: 100%;
+ }
+
+.list-group-item.active {
+	z-index: 2;
+    color: #fff;
+    background-color: #028b45;
+    border-color: #028b45;
+}
+
+.label-form {
+    margin-left: 10px; 
+    margin-top: 10px;
+}
+
+body {
+	font-size: 14px;
 }

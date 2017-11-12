@@ -40,18 +40,12 @@
                                     </div>
 
                                     <ul class="list-inline product-social">
-                                        <a href="#">
-                                            <i class="fa fa-facebook-square" aria-hidden="true"></i>
-                                            </a>
-                                        
-                                        <li><a href="#">
-                                            <i class="list-inline-item fa fa-heart-o" aria-hidden="true"></i>
-                                            </a>
-                                        </li>
-                                        <li><a href="#">
-                                            <i class="list-inline-item fa fa-share-alt" aria-hidden="true"></i>
-                                        </a>
-                                        </li>
+                                        <li class="list-inline-item"><a href="#"><i class="fa fa-bookmark-o"
+                                                                                    aria-hidden="true"></i></a></li>
+                                        <li class="list-inline-item"><a href="#"><i class="fa fa-heart-o"
+                                                                                    aria-hidden="true"></i></a></li>
+                                        <li class="list-inline-item"><a href="#"><i class="fa fa-share-alt"
+                                                                                    aria-hidden="true"></i></a></li>
                                     </ul>
                                 </div><!-- item-info -->
                                 <div class="item-info">
@@ -67,10 +61,7 @@
                         </div><!-- item -->
 
                             <P></P>
-                        <h4>Canchas</h4>
-
-
-                        <!--ITEM CANCHAS-->
+                      <!--ITEM CANCHAS-->
 
                         <div  class="filter-list" *ngFor="let field of club?.fields; let i = index">
 
@@ -104,16 +95,16 @@
 
 
                                         <ul>
-                                            <li>  Cantidad de jugadores <b>{{field?.cantPlayers}}</b> </li>
-                                            <li> Tipo de suelo <b>{{field.fieldType}}</b></li>
-                                            <li> Precio de cancha <b>{{field?.price}}</b> </li>
+                                            <li>  Cantidad de jugadores <b>{{field?.cantPlayers | uppercase}}</b> </li>
+                                            <li> Tipo de suelo <b>{{field.fieldType | uppercase}}</b></li>
+                                            <li> Costo total <b>{{field?.price | uppercase}}</b> </li>
 
                                             <p></p>
                                             <P ALIGN=left> Servicios que incluye </P>
 
 
                                                 <div  class="list-inline-item" *ngFor="let serv of field?.services">
-                                                    <li><b>{{serv?.display}}</b></li>
+                                                    <li><b>{{serv?.display | uppercase}}</b></li>
                                                 </div>
 
                                         </ul>
