@@ -427,3 +427,8 @@ div#profileClubContainer {
 	background-repeat: no-repeat;
 	-moz-background-size: cover;
 }
+
+
+ div.carousel-item > img {
+	 width: 100%;
+ }
