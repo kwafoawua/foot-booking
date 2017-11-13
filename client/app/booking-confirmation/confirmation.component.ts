@@ -47,7 +47,6 @@ export class confirmationComponent implements OnInit{
 
     ngOnInit(){
 
-        this.confirmado=false;
         this.booking = ClubService.obtenerBooking();
         if(this.booking) {
             const parts : any = this.booking.dateBook.split("/");
@@ -105,8 +104,9 @@ export class confirmationComponent implements OnInit{
         this.clubService.guardarReserva(this.reservaFinal)
             .subscribe(
                 data => {
-                    //this.alertService.success('SE GENERO BIEN LA RESERVA', true);
-                    this.confirmado=true;
+                    this.alertService.success('SE GENERO BIEN LA RESERVA', true);
+                    this.router.navigate(['/player/mis-reservas']);
+                    // this.confirmado=true;
                 },
                 error => {
                     this.alertService.error(error);
@@ -116,7 +116,6 @@ export class confirmationComponent implements OnInit{
 
     public  goToMisReservas(){
         this.router.navigate(['/player/mis-reservas']);
-
 
     }
 
