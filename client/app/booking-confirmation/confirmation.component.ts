@@ -119,6 +119,11 @@ export class confirmationComponent implements OnInit{
 
     }
 
+    public goToBusqueda(){
+        this.router.navigate(['results'])
+
+    }
+
 
 
 
