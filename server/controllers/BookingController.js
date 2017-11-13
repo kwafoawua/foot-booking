@@ -48,7 +48,7 @@ function addBooking (booking) {
             name: booking.playerName,
             lastName: booking.playerLastName,
             phoneNumber: booking.playerPhoneNumber,
-            id: booking.playerId
+            id: booking.playerId || null
         }
     });
 
