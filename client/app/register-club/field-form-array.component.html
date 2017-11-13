@@ -3,5 +3,5 @@
 	*ngFor="let item of fieldFormArray.controls; let i=index"
 	[index]="i" [field]="item" (removed)="fieldFormArray.removeAt($event)">
 </field-control>
-<button type="button" id="field-array-add-btn" class="btn btn-primary" (click)="addFields()">Agregar Cancha</button>
+<button type="button" id="field-array-add-btn" class="btn btn-success" (click)="addFields()">Agregar Cancha</button>
 </div>
