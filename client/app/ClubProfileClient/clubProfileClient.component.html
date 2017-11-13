@@ -64,26 +64,15 @@
                       <!--ITEM CANCHAS-->
 
                         <div  class="filter-list" *ngFor="let field of club?.fields; let i = index">
-
-
-
                               <div>
-
-
                                 <div class="filter-heading">
-
-
-
                                     <a data-toggle="collapse" data-parent="#advanced-filter" href="#{{i}}">
 
                                         <h4 class="list-title">{{field?.fieldName | uppercase}}<span class="pull-right">
 
                                             <i class="fa fa-plus"></i></span>
-
-
                                         </h4>
                                     </a>
-
 
                                 </div><!-- filter-heading -->
 
@@ -91,21 +80,20 @@
                                 <div id="{{i}}" class="panel-collapse collapse">
                                     <!-- panel-body -->
                                     <div class="card-body">
-
-
-
                                         <ul>
                                             <li>  Cantidad de jugadores <b>{{field?.cantPlayers}}</b> </li>
                                             <li> Tipo de suelo <b>{{field.fieldType}}</b></li>
                                             <li> Costo total <b>{{field?.price}}</b> </li>
 
                                             <p></p>
-                                            <P ALIGN=left> Servicios que incluye </P>
+                                            <!--<P ALIGN=left> Servicios que incluye: </P>-->
 
-
-                                                <div  class="list-inline-item" *ngFor="let serv of field?.services">
-                                                    <li><b>{{serv?.display | uppercase}}</b></li>
-                                                </div>
+                                            <div class="widget item-tag">
+                                                <p ALIGN=left> Servicios que incluye: </p>
+                                                <ul  class="list-inline">
+                                                    <li class="list-inline-item" *ngFor="let serv of field?.services"><a>{{serv?.display | uppercase}}</a></li>
+                                                </ul>
+                                            </div>
 
                                         </ul>
 
@@ -204,6 +192,15 @@
                                 <div class="seller-info">
                                     <p> NOMBRE  <span>{{club?.name | uppercase}}</span></p>
                                     <p> TEL <span>  {{club?.phoneNumber}} </span> </p>
+
+                                    <ul class="list-inline">
+
+                                        <li  *ngIf="(club?.socialMedia.facebookId !== null && club?.socialMedia.facebookId.length >= 1)" class="list-inline-item"><a target="_blank" href="{{club?.socialMedia.facebookId}}"> <i class="fa fa-facebook-square" aria-hidden="true"></i></a></li>
+                                        <li  *ngIf="(club?.socialMedia.twitterId !== null && club?.socialMedia.twitterId.length >= 1)" class="list-inline-item"><a target="_blank" href="{{club?.socialMedia.twitterId}}"> <i class="fa fa-twitter-square" aria-hidden="true"></i></a></li>
+                                        <li  *ngIf="(club?.socialMedia.googleId !== null && club?.socialMedia.googleId.length >= 1)" class="list-inline-item"><a target="_blank" href="{{club?.socialMedia.googleId}}"> <i class="fa fa-google-plus-square" aria-hidden="true"></i></a></li>
+                                        <li  *ngIf="(club?.socialMedia.instagramId !== null && club?.socialMedia.instagramId.length >= 1)" class="list-inline-item"><a target="_blank" href="{{club?.socialMedia.instagramId}}"> <i class="fa fa-instagram-square" aria-hidden="true"></i></a></li>
+
+                                    </ul>
                                 </div>
 
 
@@ -211,8 +208,8 @@
 
                             <div class="widget item-tag">
                                 <h4>SERVICIOS DEL CLUB</h4>
-                                <ul class="list-inline-item">
-                                    <li *ngFor="let serv of club?.services"><a>{{serv.display | uppercase}}</a></li>
+                                <ul class="list-inline">
+                                    <li class="list-inline-item" *ngFor="let serv of club?.services"><a>{{serv.display | uppercase}}</a></li>
                                 </ul>
                             </div>
 

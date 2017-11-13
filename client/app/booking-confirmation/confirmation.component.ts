@@ -31,6 +31,7 @@ export class confirmationComponent implements OnInit{
     reservaFinal: any = {};
     loading = true;
     confirmado: Boolean;
+    reservaRealizada: Boolean;
 
     //subscription: Subscription;
 
@@ -47,7 +48,6 @@ export class confirmationComponent implements OnInit{
 
     ngOnInit(){
 
-        this.confirmado=false;
         this.booking = ClubService.obtenerBooking();
         if(this.booking) {
             const parts : any = this.booking.dateBook.split("/");
@@ -89,7 +89,7 @@ export class confirmationComponent implements OnInit{
            this.player = player;
            this.reservaFinal.playerName= player.name;
            this.reservaFinal.playerLastName= player.lastName;
-           this.reservaFinal.playerPhoneNumer= player.phoneNumber;
+           this.reservaFinal.playerPhoneNumber= player.phoneNumber;
            this.reservaFinal.playerId= player._id;
            console.log(this.reservaFinal);
 
@@ -105,13 +105,16 @@ export class confirmationComponent implements OnInit{
         this.clubService.guardarReserva(this.reservaFinal)
             .subscribe(
                 data => {
-                    //this.alertService.success('SE GENERO BIEN LA RESERVA', true);
-                    this.confirmado=true;
+                    console.log(data);
+                    this.alertService.success('SE GENERO BIEN LA RESERVA', true);
+                    this.reservaRealizada = true;
                 },
                 error => {
                     this.alertService.error(error);
                     this.loading = false;
+                    this.reservaRealizada = false;
                 });
+            this.confirmado = this.reservaRealizada;
         }
 
     public  goToMisReservas(){

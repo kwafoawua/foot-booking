@@ -42,7 +42,7 @@ export class FieldFormControlComponent {
 
     public requestAutocompleteItemsFake = (text: string): Observable<string[]> => {
         return Observable.of([
-            'Asador', 'Buffet', 'Parking', 'Techado', 'Bar', 'Nocturno'
+            'Techado', 'Marcador', 'Iluminación'
         ]);
     };
 
