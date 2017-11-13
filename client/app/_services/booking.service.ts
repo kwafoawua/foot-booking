@@ -30,4 +30,9 @@ export class BookingService {
     delete(_id: string) {
         return this.http.delete('/booking/' + _id);
     }
+
+    updateBookingStatus(newStatus: any) {
+        return this.http.put('/bookings/setStatus/', newStatus).map((response: Response)=> response.json());
+
+    }
 }
