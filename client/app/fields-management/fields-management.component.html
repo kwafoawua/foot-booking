@@ -35,12 +35,12 @@
             <hr>
 
             <div class="row">
-                <div class="col-12"><h4>Asistencia</h4></div>
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input [(ngModel)]="asistenciaChk" class="form-check-input" type="checkbox" value="">
-                        El cliente asistió a la correspondiente reserva.
-                    </label>
+                <div class="col-12"><h4>Estado de la reserva</h4></div>
+                <div class="form-group">
+                    <label for="bookingStatus">Seleccione estado de reserva</label>
+                    <select class="form-control" id="bookingStatus">
+                        <option *ngFor="let status of modalData?.event.booking.estados" [value]="status" [selected]="status == modalData?.event.booking.status">{{status}}</option>
+                    </select>
                 </div>
 
             </div>
@@ -49,7 +49,7 @@
         <pre>{{ modalData?.event.booking | json }}</pre>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" (click)="close()">OK</button>
+        <button type="button" class="btn btn-outline-secondary" (click)="close()">Aceptar</button>
     </div>
 </ng-template>
 <mwl-demo-utils-calendar-header

@@ -80,35 +80,61 @@
                                 <div id="{{i}}" class="panel-collapse collapse">
                                     <!-- panel-body -->
                                     <div class="card-body">
-                                        <ul>
-                                            <li>  Cantidad de jugadores <b>{{field?.cantPlayers}}</b> </li>
-                                            <li> Tipo de suelo <b>{{field.fieldType}}</b></li>
-                                            <li> Costo total <b>{{field?.price}}</b> </li>
 
-                                            <p></p>
-                                            <!--<P ALIGN=left> Servicios que incluye: </P>-->
 
-                                            <div class="widget item-tag">
-                                                <p ALIGN=left> Servicios que incluye: </p>
-                                                <ul  class="list-inline">
-                                                    <li class="list-inline-item" *ngFor="let serv of field?.services"><a>{{serv?.display | uppercase}}</a></li>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                Cantidad de jugadores
+                                            </div>
+                                            <div class="col">
+                                                <b>{{field?.cantPlayers}}</b>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                Tipo de suelo
+                                            </div>
+                                            <div class="col">
+                                             <b>{{field.fieldType}}</b>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                Costo total
+                                            </div>
+                                            <div class="col">
+                                                <b>{{field?.price}}</b>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                Servicios que incluye:
+                                            </div>
+                                            <div class="col">
+                                                <ul  class="list-inline ">
+                                                    <li class="list-inline-item" *ngFor="let serv of field?.services"><a>{{serv?.display}}</a></li>
                                                 </ul>
                                             </div>
+                                        </div>
 
-                                        </ul>
 
-                                        <ul class="list-inline">
+
+                                        <ul class="list-inline l">
 
 
                                             <li class="list-inline-item" >
-                                                <input class="btn dropdown-toggle" [dpDayPicker]="config" name="datePicker"  placeholder="DD-MM-AAAA"
+
+                                                <input class="btn form-control dropdown-toggle" [dpDayPicker]="config" name="datePicker"  placeholder="DD-MM-AAAA"
                                                        id="calendar" inputElementConteiner="#inputConteiner" theme="dp-material" [(ngModel)]="date">
 
                                             </li>
 
                                             <li class="list-inline-item" >
-                                                        <div class="dropdown">
-                                                            <select name="category-group" id="category-group" class="form-control"
+                                                <div class="form-group">
+                                                            <select name="category-group" id="category-group" class="btn form-control dropdown-toggle"
                                                                     [(ngModel)]="selectedTime" >
 
 

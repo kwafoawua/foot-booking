@@ -17,6 +17,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent ,CalendarDateFormatter, DAYS_OF_WEEK} from 'angular-calendar';
 import {BookingService} from "../_services/booking.service";
 import { CustomDateFormatter } from './custom-date-formatter.provider';
+import {ClubService} from "../_services/club.service";
 
 const colors: any = {
     red: {
@@ -62,6 +63,7 @@ export class FieldsManagementComponent implements OnInit{
     events: CalendarEvent[] = [];
 
     bookings : any[] = [];
+    club : any = {};
 
     actions: CalendarEventAction[] = [
         {
@@ -119,11 +121,17 @@ export class FieldsManagementComponent implements OnInit{
     activeDayIsOpen: boolean = true;
 
     constructor(private modal: NgbModal,
-    private bookingService: BookingService) {}
+    private bookingService: BookingService,
+    private clubService: ClubService) {}
 
     ngOnInit(){
         const _id: string = JSON.parse(localStorage.getItem('currentUser')).playerOrClubId;
         this.getBookings(_id);
+        this.getClub(_id);
+    }
+
+    private getClub (_id: string) {
+        this.clubService.getById(_id);
     }
 
     private getBookings(_id: string){
