@@ -55,6 +55,7 @@ export class SearchService {
         console.log("en esl servico",filter)
         return this.http.get('/findClubsByFilters/' + JSON.stringify(filter))
             .map((response: Response) => {
+                console.log(response);
             SearchService.clubs = response.json();
             // return  response.json()
         });
