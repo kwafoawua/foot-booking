@@ -123,7 +123,7 @@ export class FieldsManagementComponent implements OnInit{
     //     }
     // ];
 
-    activeDayIsOpen: boolean = true;
+    activeDayIsOpen: boolean = false;
 
     constructor(private modal: NgbModal,
     private bookingService: BookingService,

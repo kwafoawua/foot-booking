@@ -35,7 +35,6 @@ export class ProfileClubClientComponent implements OnInit {
     password : any;
     booking1: Booking = new Booking();
     selectedField: Field = new Field();
-    boo
     date: string[] = [];
     configTime : ITimeSelectConfig = {
         minutesInterval: 60,
@@ -86,6 +85,8 @@ export class ProfileClubClientComponent implements OnInit {
 
             if(e!=null){
 
+               // console.lo
+
                 this.booking1.field=e;
                 this.booking1.club=this.club;
                 this.booking1.dateBook=this.date[i];
@@ -107,12 +108,14 @@ export class ProfileClubClientComponent implements OnInit {
 
     }
 
-    login(e:any, i: any) {
+    login(field:any, index: any) {
+    console.log('ENTRA AL MODAL DE MODAL');
+        console.log(field, index);
 
         this.autentication.login(this.model.username, this.model.password)
             .subscribe(
                 data => {
-                    this.reservar(e, i);
+                    this.reservar(field, index);
                 },
                 error => {
                     this.alertService.error(error);
