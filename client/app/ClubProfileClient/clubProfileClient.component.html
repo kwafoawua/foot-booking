@@ -126,22 +126,18 @@
 
 
                                             <li class="list-inline-item" >
-
-                                                <input class="btn form-control dropdown-toggle" [dpDayPicker]="config" name="datePicker"  placeholder="DD-MM-AAAA"
-                                                       id="calendar" inputElementConteiner="#inputConteiner" theme="dp-material" [(ngModel)]="date">
-
+                                                <input (ngModelChange)="loadHoursValues($event,field)" class="btn dropdown-toggle" [dpDayPicker]="config" name="datePicker"  placeholder="DD-MM-AAAA"
+                                                       id="calendar" inputElementConteiner="#inputConteiner" theme="dp-material" [(ngModel)]="date[i]">
                                             </li>
 
                                             <li class="list-inline-item" >
-                                                <div class="form-group">
-                                                    <select class="form-control"  [(ngModel)]="selectedTime" >
+                                                        <div class="dropdown">
+                                                            <select name="category-group" id="category-group" class="form-control"
+                                                                    [(ngModel)]="selectedTime[i]" >
 
-                                                                 <option value=" " selected class="dropdown-item">Horarios</option>
-                                                                <option value="11:00" class="dropdown-item">11:00</option>
-                                                                <option value="12:00" class="dropdown-item">12:00</option>
-                                                                <option value="13:00" class="dropdown-item">13:00</option>
-                                                                <option value="14:00" class="dropdown-item">14:00</option>
-                                                                <option value="15:00" class="dropdown-item">15:00</option>
+
+                                                                <option value=" " selected class="dropdown-item">Horarios</option>
+                                                                <option *ngFor="let hora of horasDisponibles" [value]="hora">{{hora}}</option>
 
                                                             </select>
                                                         </div>
@@ -149,7 +145,7 @@
                                                     </li>
 
                                             <li class="list-inline-item" >
-                                            <button (click)="reservar(field)"   type="button" class="btn btn-primary"  data-toggle="modal" data-target="#myModal">Reservar</button>
+                                            <button (click)="reservar(field, i)"   type="button" class="btn btn-primary"  data-toggle="modal" data-target="#myModal">Reservar</button>
                                             </li>
                                             <!-- Modal -->
                                             <div *ngIf="NotanUser" id="myModal" class="modal fade" role="dialog" tabindex="-1">
@@ -266,9 +262,6 @@
                 </div>
             </div>
         </div>
-
-
-
 
     </div> <!-- all-categories -->
 </div>    <!-- page -->

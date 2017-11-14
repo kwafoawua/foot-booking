@@ -21,7 +21,8 @@ export class ProfilePlayerComponent implements OnInit {
     model : any = {};
     
 
-    constructor(private userService: UserService, private playerService: PlayerService, private route: ActivatedRoute, private alertService: AlertService) {
+    constructor(private userService: UserService, private playerService: PlayerService,private route: ActivatedRoute,
+                private alertService: AlertService, private router: Router) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.editData(false);
     }
@@ -69,5 +70,17 @@ export class ProfilePlayerComponent implements OnInit {
         this.model = {
             idUser: this.currentUser._id
         }
+    }
+
+    public goToInfo() {
+        this.router.navigate(['./info'], {relativeTo: this.route});
+    }
+
+    public goToUser () {
+        this.router.navigate(['./'],{relativeTo: this.route});
+    }
+
+    public goToPassword() {
+        this.router.navigate(['./password'], {relativeTo: this.route});
     }
 }
