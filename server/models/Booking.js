@@ -39,9 +39,11 @@ var bookingSchema = new Schema({
             type: String,
             default: 'Reservado',
             required: true,
-            enum: ['Asistido', 'Pendiente de Pago', 'Cancelado', 'Finalizado', 'Reservado']
+            enum: ['Asistido', 'Pendiente de Pago', 'Cancelado', 'Reservado']
         }, //modificar con los estados verdaderos
-        paidMethod: {type: String, required: true},
+        paidMethod: {type: String,
+            default: 'En sitio',
+            required: true},
         player: {
             name: {type: String, required: true},
             lastName: {type: String, required: true},

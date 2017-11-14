@@ -32,6 +32,10 @@ const colors: any = {
     yellow: {
         primary: '#e3bc08',
         secondary: '#FDF1BA'
+    },
+    green: {
+        primary: '#009900',
+        secondary: '#ccffcc'
     }
 };
 
@@ -141,11 +145,27 @@ export class FieldsManagementComponent implements OnInit{
             console.log("esto",this.bookings);
             const eventArray :CalendarEvent[] = [];
             this.bookings.forEach((booking) => {
+                let colorStatus: any;
+                switch (booking.status){
+
+                    case 'Reservado':
+                        colorStatus= colors.blue;
+                        break;
+                    case 'Cancelado':
+                        colorStatus= colors.red;
+                        break;
+                    case 'Asistido':
+                        colorStatus = colors.green;
+                        break;
+                    case 'Pendiente de Pago':
+                        colorStatus = colors.yellow;
+                        break;
+                }
                 let event = {
                     start: startOfDay(booking.playingDate),
                     end: startOfDay(booking.playingDate),
-                    title: booking.field.fieldName,
-                    color: colors.yellow,
+                    title: booking.field.fieldName + ' Horario: '+booking.playingTime+' Cliente: '+booking.player.name+' '+booking.player.lastName,
+                    color: colorStatus,
                     actions: this.actions,
                     booking: booking
 

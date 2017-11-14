@@ -66,7 +66,7 @@ export class confirmationComponent implements OnInit{
             this.reservaFinal.fieldPrice= this.booking.field.price;
             this.reservaFinal.playingDate= mydate;
             this.reservaFinal.playingTime= this.booking.timeBook;
-            this.reservaFinal.paidMethod="EN SITIO";
+            //this.reservaFinal.paidMethod="EN SITIO";
         }
 
         console.log(this.booking);
