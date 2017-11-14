@@ -91,7 +91,6 @@ export class ProfileClubClientComponent implements OnInit {
                 this.booking1.dateBook=this.date[i];
                 this.booking1.timeBook=this.selectedTime[i];
 
-
                 if(ClubService.guardarBooking(this.booking1)){
                     console.log(this.booking1);
                     this.router.navigate(['confirmation'])

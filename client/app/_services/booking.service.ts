@@ -48,4 +48,8 @@ export class BookingService {
             .map((horarios: Response) => horarios.json());
     }
 
+    updateBookingStatus(newStatus: any) {
+        return this.http.put('/bookings/setStatus/', newStatus).map((response: Response)=> response.json());
+
+    }
 }

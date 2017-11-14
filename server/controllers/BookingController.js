@@ -16,7 +16,8 @@ module.exports.registerBooking = function (req,res) {
     var booking = req.body;
     addBooking(booking)
         .then(function () {
-            res.send(200).send();
+            console.log('Se creo la reserva');
+            res.send(200).send('Se creo la reserva');
         })
         .catch(function (err) {
             res.status(400).send(err);
@@ -42,12 +43,12 @@ function addBooking (booking) {
         },
         playingDate: new Date(booking.playingDate),
         playingTime: booking.playingTime,
-        paidMethod: booking.paidMethod,
+       // paidMethod: booking.paidMethod,
         player: {
             name: booking.playerName,
             lastName: booking.playerLastName,
             phoneNumber: booking.playerPhoneNumber,
-            id: booking.playerId
+            id: booking.playerId || null
         }
     });
 
@@ -90,14 +91,18 @@ module.exports.findAllByReferenceId = function(req, res) {
  * Update a Booking
  */
 module.exports.updateBookingStatus = function(req, res) {
+
+    console.log(req.body);
     var bookingId = req.body.bookingId;
     var status = req.body.status;
 
-    setBookingStatus(bookingId, status)
-        .then(function () {
-            res.sendStatus(200);
+    setBookingStatus(req.body.bookingId, req.body.status)
+        .then(function (estado) {
+            console.log(estado);
+            res.status(200).send(estado);
         })
         .catch(function (err) {
+            console.log(err);
             res.status(400).send(err);
         });
 };
@@ -105,15 +110,22 @@ module.exports.updateBookingStatus = function(req, res) {
 function setBookingStatus (bookingId,status) {
     var deferred = Q.defer();
 
-    Booking.findById(bookingId, function (err, booking) {
+    return Booking.findById(bookingId, function (err, booking) {
         if (err) {
             return deferred.reject(err.name + ' : ' + err.message);
         } else {
             booking.status = status;
-            booking.save();
-            deferred.resolve();
+            booking.save(function (err) {
+                console.log(err);
+                if (err) {
+                    return deferred.reject(err.name + ' : ' + err.message);
+                }
+                console.log(booking.status);
+                deferred.resolve({estado:booking.status});
+
+            });
+            return deferred.promise;
         }
-        return deferred.promise;
     }).exec();
 }
 

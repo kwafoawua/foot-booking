@@ -25,72 +25,95 @@
                             </div>
 
                             <div class="row">
-                                <div class="col">
-                                    <label class="col-md-4"> Nombre <b>{{player?.name | uppercase}}</b></label>
+                                <div class="col-md-1">
+                                    <label class="col-md-1"> Nombre </label>
                                 </div>
                                 <div class="col">
-                                    <label class="col-md-4"> Apellido <b>{{player?.lastName | uppercase}} </b></label>
+                                    <label class="col-md-10"> <b>{{player?.name | uppercase}}</b></label>
+                                </div>
+                                <div class="col-md-1">
+                                    <label class="col-md-1"> Apellido </label>
                                 </div>
                                 <div class="col">
-                                    <label class="col-md-4">Telefono <b>{{player?.phoneNumber | uppercase}}</b></label>
+                                    <label class="col-md-10"> <b>{{player?.lastName | uppercase}} </b></label>
+                                </div>
+                                <div class="col-md-1">
+                                    <label class="col-md-1">Telefono </label>
+                                </div>
+                                <div class="col">
+                                    <label class="col-md-10"> <b>{{player?.phoneNumber | uppercase}}</b></label>
                                 </div>
                             </div>
 
                         </div><!-- seller-section -->
 
 
-                        <fieldset>
-                            <div class="seller-option avtpost-fields">
+                        <div class="seller-option avtpost-fields">
+
                                 <div class="col-xs-12">
                                     <h4>Datos de la reserva</h4>
                                 </div>
 
                                 <div class="row">
-                                <div class="col">Club</div>
-                                <div class="col"><b>{{booking.club.name}}</b></div>
-                                <div class="col">Cancha</div>
-                                <div class="col"><b>{{booking.field.fieldName}}</b></div>
+                                    <div class="col-sm-2">
+                                        Fecha
+                                    </div>
+                                    <div class="col-sm">
+                                        <b>  {{booking.dateBook}}</b>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        Hora
+                                    </div>
+                                    <div class="col-sm">
+                                        <b>{{booking.timeBook}}</b>
+                                    </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col">Teléfono</div>
-                                    <div class="col"><b>{{booking.club.phoneNumber}}</b></div>
-                                    <div class="col"></div>
-                                    <div class="col"></div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col">Tipo de cancha</div>
-                                    <div class="col"><b> {{booking.field.fieldType}}</b></div>
-                                    <div class="col">Cantidad de jugadores</div>
-                                    <div class="col"><b>{{booking.field.cantPlayers}}</b></div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col">Servicios incluidos</div>
-                                    <div class="col" *ngFor="let s of booking.field.services"><b>{{s.display}}</b></div>
-                                    <div class="col">Direccion</div>
-                                    <div class="col"><b>{{booking.club.address.address}}</b></div>
-                                </div>
-
-                            </div><!-- product-section -->
-                        </fieldset>
-
-                        <div class="seller-option avtpost-fields">
-                            <div class="col-xs-12">
-                                <h4>Reserva</h4>
-                            </div>
                             <div class="row">
-                                <div class="col">Fecha de la reserva</div>
-                                <div class="col"><b> {{booking.dateBook}}</b> </div>
-                                <div class="col">Hora de la reserva</div>
-                                <div class="col"><b> {{booking.timeBook}}</b> </div>
+                                <div class="col-sm-2">
+                                   Cancha de juego
                                 </div>
+                                <div class="col-sm-4">
+                                    <b>{{booking.field.fieldName| uppercase}}</b>
+                                </div>
+                                <div class="col-sm-2">
+                                    Cantidad de jugadores
+                                </div>
+                                <div class="col">
+                                    <b>{{booking.field.cantPlayers}}</b>
+                                </div>
+                            </div>
+
                         </div>
 
-                            <div class="seller-option avtpost-fields">
-                                <div class="row">
+                        <div class="seller-option avtpost-fields">
 
+                            <div class="col-xs-12">
+                                <h4>Datos del Club</h4>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    Nombre del club
+                                </div>
+                                <div class="col">
+                                    <b> {{booking.club.name| uppercase}}</b>
+                                </div>
+                                <div class="col-sm-2">
+                                   Teléfono
+                                </div>
+                                <div class="col">
+                                    <b>  {{booking.club.phoneNumber}}</b>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1">Dirección</div>
+                                <div class="col-8"><b>{{booking.club.address.address| uppercase}}</b></div>
+                            </div>
+                        </div>
+
+                        <div class="seller-option avtpost-fields">
+                                <div class="row">
                                     <div class="col-md-6">
                                         <div class="post-inner">
                                             <div class="row form-group">
@@ -131,12 +154,25 @@
 
                                     </label>
                                 </div>
-                                <li class="list-inline-item" >
-                                    <button (click)="confirm()"   type="button" class="btn btn-primary"  data-toggle="modal" data-target="#myModal">Reservar</button>
-                                </li>
+
+
+
+                                    <div class="col align-self-end" align="right">
+
+                                    <li class="list-inline-item"  >
+                                        <button type="button" class="btn btn-outline-danger" (click)="goToBusqueda()">Cancelar</button>
+                                        <button (click)="confirm()"   type="button" class="btn btn-outline-success"  data-toggle="modal" data-target="#myModal">Reservar</button>
+                                    </li>
+
+                                    </div>
+
                                 <!-- Modal -->
+
+
+
+
                                 <div *ngIf="confirmado" id="myModal" class="modal fade" role="dialog">
-                                    <div class="modal-dialog">
+                                    <div class="modal-dialog" role="document">
 
                                         <!-- Modal content-->
                                         <div class="modal-content">
@@ -162,6 +198,8 @@
                                 </div>
 
                                 <!--FIN MODAL-->
+
+
 
 
 

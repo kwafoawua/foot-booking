@@ -30,7 +30,8 @@ export class confirmationComponent implements OnInit{
     player:Player;
     reservaFinal: any = {};
     loading = true;
-    confirmado: Boolean;
+    confirmado: Boolean = false;
+
 
     //subscription: Subscription;
 
@@ -47,7 +48,6 @@ export class confirmationComponent implements OnInit{
 
     ngOnInit(){
 
-        this.confirmado=false;
         this.booking = ClubService.obtenerBooking();
         if(this.booking) {
             const parts : any = this.booking.dateBook.split("/");
@@ -66,14 +66,12 @@ export class confirmationComponent implements OnInit{
             this.reservaFinal.fieldPrice= this.booking.field.price;
             this.reservaFinal.playingDate= mydate;
             this.reservaFinal.playingTime= this.booking.timeBook;
-            this.reservaFinal.paidMethod="EN SITIO";
+            //this.reservaFinal.paidMethod="EN SITIO";
         }
+
         console.log(this.booking);
         console.log("el confirmado",this.confirmado);
-
-
         console.log('Reserva Final '+this.reservaFinal);
-
         const _id: string = JSON.parse(localStorage.getItem('currentUser')).playerOrClubId;
         this.getPlayer(_id);
         console.log("kakak",+this.player);
@@ -89,34 +87,38 @@ export class confirmationComponent implements OnInit{
            this.player = player;
            this.reservaFinal.playerName= player.name;
            this.reservaFinal.playerLastName= player.lastName;
-           this.reservaFinal.playerPhoneNumer= player.phoneNumber;
+           this.reservaFinal.playerPhoneNumber= player.phoneNumber;
            this.reservaFinal.playerId= player._id;
            console.log(this.reservaFinal);
 
        });
-
-
-
-    }
+ }
 
     public confirm(){
+
 
         console.log('Reserva Final ' + JSON.stringify(this.reservaFinal));
         this.clubService.guardarReserva(this.reservaFinal)
             .subscribe(
                 data => {
-                    //this.alertService.success('SE GENERO BIEN LA RESERVA', true);
                     this.confirmado=true;
-                },
+                    this.alertService.success('Su reserva se ha registrado con exito', true);
+                    this.router.navigate(['/player/mis-reservas']);
+                     },
                 error => {
                     this.alertService.error(error);
                     this.loading = false;
+
                 });
-        }
+              }
 
     public  goToMisReservas(){
         this.router.navigate(['/player/mis-reservas']);
 
+    }
+
+    public goToBusqueda(){
+        this.router.navigate(['results'])
 
     }
 

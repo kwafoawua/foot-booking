@@ -15,14 +15,14 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
                             [view]="view"
                             [(viewDate)]="viewDate"
                             (viewDateChange)="viewDateChange.next(viewDate)">
-                        Previous
+                        Anterior
                     </div>
                     <div
                             class="btn btn-outline-secondary"
                             mwlCalendarToday
                             [(viewDate)]="viewDate"
                             (viewDateChange)="viewDateChange.next(viewDate)">
-                        Today
+                        Hoy
                     </div>
                     <div
                             class="btn btn-primary"
@@ -30,7 +30,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
                             [view]="view"
                             [(viewDate)]="viewDate"
                             (viewDateChange)="viewDateChange.next(viewDate)">
-                        Next
+                        Siguiente
                     </div>
                 </div>
             </div>
@@ -43,20 +43,20 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
                             class="btn btn-primary"
                             (click)="viewChange.emit('month')"
                             [class.active]="view === 'month'">
-                        Month
+                        Mes
                     </div>
                     <div
                             class="btn btn-primary"
                             (click)="viewChange.emit('week')"
                             [class.active]="view === 'week'">
-                        Week
+                        Semana
                     </div>
-                    <div
-                            class="btn btn-primary"
-                            (click)="viewChange.emit('day')"
-                            [class.active]="view === 'day'">
-                        Day
-                    </div>
+                    <!--<div-->
+                            <!--class="btn btn-primary"-->
+                            <!--(click)="viewChange.emit('day')"-->
+                            <!--[class.active]="view === 'day'">-->
+                        <!--Day-->
+                    <!--</div>-->
                 </div>
             </div>
         </div>

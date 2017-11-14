@@ -49,40 +49,43 @@
                                         <div class="panel-body">
 
 
-                                            <h5>Servicios</h5>
+                                            <h6>Servicios</h6>
 
                                             <ul class=".form-check" *ngFor="let service of services">
                                                 <li><label> <input type="checkbox" [(ngModel)]="service.state" (ngModelChange)="addService(service)"> {{service.name}} </label></li>
                                             </ul>
 
+                                        </div>
 
-                                            <h5></h5>
+                                        <div class="col-md-12">
 
-                                            <div class="cantJugadores">
-                                                <label for="cantJugadores">
-                                                    <input type="text" id="cantJugadores" title="Cantidad de jugares" placeholder="Cantidad de jugadores" value="10" [(ngModel)]="cantPlayers">
-                                                </label>
-                                            </div>
-                                            <!--
-                                            <ul class="list-group checkbox">
-                                                <li><label for="new"><input type="checkbox" name="new" id="new">New</label></li>
-                                                <li><label for="likeNew"><input type="checkbox" name="likeNew" id="likeNew"> Like New</label></li>
-                                                <li><label for="used"><input type="checkbox" name="used" id="used"> Used</label></li>
-                                                <li><label for="excellent"><input type="checkbox" name="excellent" id="excellent"> Excellent</label></li>
-                                                <li><label for="good"><input type="checkbox" name="good" id="good"> Good</label></li>
-                                                <li><label for="fair"><input type="checkbox" name="fair" id="fair"> Fair</label></li>
-                                            </ul>
-                                            -->
-                                            <h5>Precios</h5>
-                                            <div class="price-range">
+                                                        <h6>Cantidad de Jugadores</h6>
+
+                                                        <div class="form-group">
+                                                            <select class="form-control" [(ngModel)]="cantPlayers">
+                                                                <option *ngFor="let cantPlayer of cantPlayerSelect" value={{cantPlayer.cant}}>
+                                                                    {{cantPlayer.desc}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+
+
+                                        </div>
+                                        <p></p>
+                                       <div class="col-md-12">
+                                        <h6>Precios</h6>
+                                            <div class="price-range ">
                                                 <label for="min">
-                                                    <input type="number" min="0" id="min" title="minimum price"
-                                                                        placeholder="min" value="" [(ngModel)]="minPrice"></label>
-                                                <label for="max"><input type="number" min="0" id="max" title="maximum price"
-                                                                        placeholder="max" value="" [(ngModel)]="maxPrice"></label>
+                                                    <input class="form-control" type="number" min="0" id="min" title="minimum price" placeholder="min" value="" [(ngModel)]="minPrice"></label>
+                                                <label for="max">
+                                                    <input class="form-control"  type="number" min="0" id="max" title="maximum price" placeholder="max" value="" [(ngModel)]="maxPrice"></label>
                                                 <button class="btn btn-primary" (click)="buscarClubsPorFiltros()" >Actualizar busqueda</button>
                                             </div>
-                                        </div><!-- panel-body -->
+                                        </div>
+                                    </div>
+                                    <div>
+
+
                                     </div>
                                 </div><!-- advanced-filter -->
                             </div><!-- filter-list -->

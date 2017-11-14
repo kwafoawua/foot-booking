@@ -17,6 +17,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent ,CalendarDateFormatter, DAYS_OF_WEEK} from 'angular-calendar';
 import {BookingService} from "../_services/booking.service";
 import { CustomDateFormatter } from './custom-date-formatter.provider';
+import {ClubService} from "../_services/club.service";
+import {AlertService} from "../_services/alert.service";
 
 const colors: any = {
     red: {
@@ -30,6 +32,10 @@ const colors: any = {
     yellow: {
         primary: '#e3bc08',
         secondary: '#FDF1BA'
+    },
+    green: {
+        primary: '#009900',
+        secondary: '#ccffcc'
     }
 };
 
@@ -53,15 +59,16 @@ export class FieldsManagementComponent implements OnInit{
     view: string = 'month';
     locale: string = 'es';
     viewDate: Date = new Date();
-    asistenciaChk: Boolean;
-
+    selectedStatus: string;
     modalData: {
         action: string;
         event: CalendarEvent;
     };
     events: CalendarEvent[] = [];
-
     bookings : any[] = [];
+    club : any = {};
+     _id: string = JSON.parse(localStorage.getItem('currentUser')).playerOrClubId;
+
 
     actions: CalendarEventAction[] = [
         {
@@ -119,11 +126,17 @@ export class FieldsManagementComponent implements OnInit{
     activeDayIsOpen: boolean = true;
 
     constructor(private modal: NgbModal,
-    private bookingService: BookingService) {}
+    private bookingService: BookingService,
+    private clubService: ClubService,
+                private alertService: AlertService) {}
 
     ngOnInit(){
-        const _id: string = JSON.parse(localStorage.getItem('currentUser')).playerOrClubId;
-        this.getBookings(_id);
+        this.getBookings(this._id);
+        this.getClub(this._id);
+    }
+
+    private getClub (_id: string) {
+        this.clubService.getById(_id);
     }
 
     private getBookings(_id: string){
@@ -132,11 +145,27 @@ export class FieldsManagementComponent implements OnInit{
             console.log("esto",this.bookings);
             const eventArray :CalendarEvent[] = [];
             this.bookings.forEach((booking) => {
+                let colorStatus: any;
+                switch (booking.status){
+
+                    case 'Reservado':
+                        colorStatus= colors.blue;
+                        break;
+                    case 'Cancelado':
+                        colorStatus= colors.red;
+                        break;
+                    case 'Asistido':
+                        colorStatus = colors.green;
+                        break;
+                    case 'Pendiente de Pago':
+                        colorStatus = colors.yellow;
+                        break;
+                }
                 let event = {
                     start: startOfDay(booking.playingDate),
                     end: startOfDay(booking.playingDate),
-                    title: booking.field.fieldName,
-                    color: colors.yellow,
+                    title: booking.field.fieldName + ' Horario: '+booking.playingTime+' Cliente: '+booking.player.name+' '+booking.player.lastName,
+                    color: colorStatus,
                     actions: this.actions,
                     booking: booking
 
@@ -152,7 +181,17 @@ export class FieldsManagementComponent implements OnInit{
 
     }
 
+    onStatusChange(newStatus) {
+        console.log(newStatus);
+        this.selectedStatus = newStatus;
+    }
 
+
+
+    closeResult: string;
+    // open(content) {
+    //     this.modal.open(content)
+    // }
     dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
         if (isSameMonth(date, this.viewDate)) {
             if (
@@ -176,7 +215,25 @@ export class FieldsManagementComponent implements OnInit{
 
     handleEvent(action: string, event: CalendarEvent): void {
         this.modalData = { event, action };
-        this.modal.open(this.modalContent, { size: 'lg' });
+        this.modal.open(this.modalContent, { size: 'lg' }).result.then((result) => {
+            console.log(this.selectedStatus);
+
+            if (this.selectedStatus) {
+                this.closeResult = result;
+                let newStatus: any = {};
+                newStatus.bookingId = result._id;
+                newStatus.status = this.selectedStatus;
+                this.bookingService.updateBookingStatus(newStatus).subscribe((data) => {
+                    this.selectedStatus = undefined;
+
+                    this.alertService.success('Se actualizó correctamente el estado de la reserva', false);
+                    this.getBookings(this._id);
+                    console.log(this.selectedStatus);
+                }, error => {
+                    this.alertService.error('el error q viene de backend '+error);
+                });
+            }
+        });
     }
 
     addEvent(): void {

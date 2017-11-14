@@ -3,8 +3,19 @@
         <div>
             <form enctype="multipart/form-data" [formGroup]="registerClubForm" (ngSubmit)="registerClub()"
                   novalidate="novalidate">
-                    <h2 class="center-block">Registro Complejo</h2>
-               
+
+
+                <div class="card" formGroupName="user">
+                    <div class="row card-body">
+                        <div class="col-12">
+
+                    <h2 class="center-block" align="center">Registro Complejo</h2>
+
+                        </div>
+                    </div>
+                </div>
+
+
 
                 <div class="card" formGroupName="user">
                     <div class="row card-body">
@@ -311,13 +322,14 @@
                 </div><!-- carga de imagenes -section -->
 
                 <div class="card">
-                    <div class="row card-body">
+                    <div class="card-body">
                         <div class="col-12">
                             <h3>Carga de Canchas</h3>
                         </div>
                         <fields-array
                                 formArrayName="fields"
-                                [fieldFormArray]="registerClubForm.get('fields')">
+                                [fieldFormArray]="registerClubForm.get('fields')"
+                        class="col-12">
                         </fields-array>
 
 

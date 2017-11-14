@@ -44,7 +44,7 @@ router.get('/findClubsByFilters/:clubfilter', clubController.findClubsByMultiple
 
 /*Booking Controller*/
 router.post('/bookings/register', bookingController.registerBooking);
-router.put('/bookings/:_id', bookingController.updateBookingStatus);
+router.put('/bookings/setStatus/', bookingController.updateBookingStatus);
 router.get('/bookings/:_id', bookingController.findAllByReferenceId);
 router.get('/bookings/getHoursToPlay', bookingController.findAllHoursBookings);
 router.get('/bookings/horarios/:bookingfilter', bookingController.findAllBookingsByFieldAndDay);

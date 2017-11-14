@@ -228,7 +228,7 @@ module.exports.findClubsByMultipleFilter = function (req,res) {
     console.log("#");
     console.log("#");
     console.log("#");
-
+    console.log(req.params.clubfilter);
     // Se arma solo el array de servicios para utilizar el $in y setean los valores por defecto
     var servicesNameArray = [];
     var cantPlayers = [];
@@ -259,7 +259,7 @@ module.exports.findClubsByMultipleFilter = function (req,res) {
         // como no se selecciono un tipo de servicio traigo por todos los servicios
         Club.find({ $and:
             [
-                {name : new RegExp(JSON.parse(req.params.clubfilter).clubname, "i")},
+                {"name" : new RegExp(JSON.parse(req.params.clubfilter).clubname, "i")},
                 {"fields.cantPlayers": { "$in": cantPlayers } },
                 {"fields.price": {"$gte": priceMin, "$lte": priceMax } }
             ]
@@ -279,7 +279,7 @@ module.exports.findClubsByMultipleFilter = function (req,res) {
         // Realizo la consulta con el array del servicio y el nombre del club en el caso de que venga como parametro
         Club.find({ $and:
             [
-                {name : new RegExp(JSON.parse(req.params.clubfilter).clubname, "i")},
+                {"name" : new RegExp(JSON.parse(req.params.clubfilter).clubname, "i")},
                 { "services.value": { "$all": servicesNameArray } },
                 {"fields.cantPlayers": { "$in": cantPlayers } },
                 {"fields.price": {"$gte": priceMin, "$lte": priceMax } }
@@ -288,7 +288,8 @@ module.exports.findClubsByMultipleFilter = function (req,res) {
         if (err) {
             return res.status(500).send(err + "al menos entro");
         }
-
+        console.log('El club de arrays');
+        console.log(club);
         res.status(200).send(club);
 
     });
