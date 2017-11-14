@@ -18,6 +18,7 @@ import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent ,Cal
 import {BookingService} from "../_services/booking.service";
 import { CustomDateFormatter } from './custom-date-formatter.provider';
 import {ClubService} from "../_services/club.service";
+import {AlertService} from "../_services/alert.service";
 
 const colors: any = {
     red: {
@@ -54,16 +55,16 @@ export class FieldsManagementComponent implements OnInit{
     view: string = 'month';
     locale: string = 'es';
     viewDate: Date = new Date();
-    asistenciaChk: Boolean;
-
+    selectedStatus: string;
     modalData: {
         action: string;
         event: CalendarEvent;
     };
     events: CalendarEvent[] = [];
-
     bookings : any[] = [];
     club : any = {};
+     _id: string = JSON.parse(localStorage.getItem('currentUser')).playerOrClubId;
+
 
     actions: CalendarEventAction[] = [
         {
@@ -122,12 +123,12 @@ export class FieldsManagementComponent implements OnInit{
 
     constructor(private modal: NgbModal,
     private bookingService: BookingService,
-    private clubService: ClubService) {}
+    private clubService: ClubService,
+                private alertService: AlertService) {}
 
     ngOnInit(){
-        const _id: string = JSON.parse(localStorage.getItem('currentUser')).playerOrClubId;
-        this.getBookings(_id);
-        this.getClub(_id);
+        this.getBookings(this._id);
+        this.getClub(this._id);
     }
 
     private getClub (_id: string) {
@@ -160,7 +161,17 @@ export class FieldsManagementComponent implements OnInit{
 
     }
 
+    onStatusChange(newStatus) {
+        console.log(newStatus);
+        this.selectedStatus = newStatus;
+    }
 
+
+
+    closeResult: string;
+    // open(content) {
+    //     this.modal.open(content)
+    // }
     dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
         if (isSameMonth(date, this.viewDate)) {
             if (
@@ -184,7 +195,25 @@ export class FieldsManagementComponent implements OnInit{
 
     handleEvent(action: string, event: CalendarEvent): void {
         this.modalData = { event, action };
-        this.modal.open(this.modalContent, { size: 'lg' });
+        this.modal.open(this.modalContent, { size: 'lg' }).result.then((result) => {
+            console.log(this.selectedStatus);
+
+            if (this.selectedStatus) {
+                this.closeResult = result;
+                let newStatus: any = {};
+                newStatus.bookingId = result._id;
+                newStatus.status = this.selectedStatus;
+                this.bookingService.updateBookingStatus(newStatus).subscribe((data) => {
+                    this.selectedStatus = undefined;
+
+                    this.alertService.success('Se actualizó correctamente el estado de la reserva', false);
+                    this.getBookings(this._id);
+                    console.log(this.selectedStatus);
+                }, error => {
+                    this.alertService.error('el error q viene de backend '+error);
+                });
+            }
+        });
     }
 
     addEvent(): void {

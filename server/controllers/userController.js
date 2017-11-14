@@ -21,7 +21,7 @@ module.exports.authenticate = function(req, res) {
                     res.send(user);
                 } else {
                     // authentication failed
-                    res.status(400).send('Username or password is incorrect');
+                    res.status(400).send('Usuario o contraseña incorrecto');
                 }
             })
        .catch(function(err) {
@@ -81,7 +81,7 @@ function FindUser(username, password, rol) {
 
                    });
         } else {
-           deferred.resolve();
+           deferred.resolve('Usuario o contraseña incorrecto');
         }
     });
         return deferred.promise;
