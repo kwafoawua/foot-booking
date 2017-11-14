@@ -115,7 +115,7 @@
                                             </div>
                                             <div class="col">
                                                 <ul  class="list-inline ">
-                                                    <li class="list-inline-item" *ngFor="let serv of field?.services"><a>{{serv?.display}}</a></li>
+                                                    <li class="list-inline-item" *ngFor="let serv of field?.services"><b>{{serv?.display}}</b></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -134,11 +134,9 @@
 
                                             <li class="list-inline-item" >
                                                 <div class="form-group">
-                                                            <select name="category-group" id="category-group" class="btn form-control dropdown-toggle"
-                                                                    [(ngModel)]="selectedTime" >
+                                                    <select class="form-control"  [(ngModel)]="selectedTime" >
 
-
-                                                                <option value=" " selected class="dropdown-item">Horarios</option>
+                                                                 <option value=" " selected class="dropdown-item">Horarios</option>
                                                                 <option value="11:00" class="dropdown-item">11:00</option>
                                                                 <option value="12:00" class="dropdown-item">12:00</option>
                                                                 <option value="13:00" class="dropdown-item">13:00</option>
@@ -153,49 +151,46 @@
                                             <li class="list-inline-item" >
                                             <button (click)="reservar(field)"   type="button" class="btn btn-primary"  data-toggle="modal" data-target="#myModal">Reservar</button>
                                             </li>
-                                                <!-- Modal -->
-                                            <div *ngIf="NotanUser" id="myModal" class="modal fade" role="dialog">
-                                                <div class="modal-dialog">
+                                            <!-- Modal -->
+                                            <div *ngIf="NotanUser" id="myModal" class="modal fade" role="dialog" tabindex="-1">
+                                                <div class="modal-dialog" role="document">
+
                                                     <!-- Modal content-->
                                                     <div class="modal-content">
 
-                                                       <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Inicio de sesión</h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                       </div>
+                                                        <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Inciar sesión</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                        </div>
 
                                                         <!--INICIAR SESION-->
-                                                        <div class="modal-body">
-                                                                <form name="form" (ngSubmit)="f.form.valid && login(field)" #f="ngForm" novalidate>
+                                                        <form name="form" (ngSubmit)="f.form.valid && login(field)" #f="ngForm" novalidate>
+                                                            <div class="modal-body">
+                                                            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+                                                                <label for="username">Nombre de usuario</label>
+                                                                <input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" required />
+                                                                <div *ngIf="f.submitted && !username.valid" class="help-block">El nombre de usuario es requerido</div>
+                                                            </div>
 
-                                                                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-                                                                        <label for="username"></label>
-                                                                        <input type="text" placeholder="Usuario" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" required />
-                                                                        <div *ngIf="f.submitted && !username.valid" class="help-block">El nombre de usuario es requerido</div>
-                                                                    </div>
+                                                            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+                                                                <label for="password">Constraseña</label>
 
-                                                                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-                                                                        <label for="password"></label>
-                                                                        <input type="password" placeholder="Contraseña" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
-                                                                        <div *ngIf="f.submitted && !password.valid" class="help-block">La contraseña es requerida</div>
-                                                                    </div>
-
-                                                                </form>
-                                                        </div>
-
-                                                        <div class="modal-footer">
+                                                                <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
+                                                                <div *ngIf="f.submitted && !password.valid" class="help-block">La contraseña es requerida</div>
+                                                            </div>
+                                                            </div>
+                                                            <div class="modal-footer">
                                                                 <div class="form-group">
-                                                                <button (click)="login(field)" class="btn btn-primary" data-dismiss="modal">Iniciar</button>
-                                                                <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                                                                <a [routerLink]="['/player/register']" class="btn btn-link" data-dismiss="modal">Registrarse</a>
+                                                                    <button (click)="login(field)" class="btn btn-primary" data-dismiss="modal">Iniciar</button>
+                                                                    <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                                                                    <a [routerLink]="['/player/register']" class="btn btn-link" data-dismiss="modal">Registrarse</a>
                                                                 </div>
-                                                        </div>
-
-
+                                                            </div>
+                                                        </form>
                                                         <!--FIN INICIAR SESION-->
-                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -208,7 +203,7 @@
                                     </div><!-- panel-body -->
                                 </div>
 
-                            </div><!-- advanced-filter -->
+                              </div><!-- advanced-filter -->
 
                         </div><!-- filter-list -->
                         <!--fin item cancha-->
@@ -233,8 +228,8 @@
                                         <li  *ngIf="(club?.socialMedia.twitterId !== null && club?.socialMedia.twitterId.length >= 1)" class="list-inline-item"><a target="_blank" href="{{club?.socialMedia.twitterId}}"> <i class="fa fa-twitter-square" aria-hidden="true"></i></a></li>
                                         <li  *ngIf="(club?.socialMedia.googleId !== null && club?.socialMedia.googleId.length >= 1)" class="list-inline-item"><a target="_blank" href="{{club?.socialMedia.googleId}}"> <i class="fa fa-google-plus-square" aria-hidden="true"></i></a></li>
                                         <li  *ngIf="(club?.socialMedia.instagramId !== null && club?.socialMedia.instagramId.length >= 1)" class="list-inline-item"><a target="_blank" href="{{club?.socialMedia.instagramId}}"> <i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-
                                     </ul>
+
                                 </div>
 
 

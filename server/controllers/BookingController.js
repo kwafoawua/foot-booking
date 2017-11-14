@@ -43,7 +43,7 @@ function addBooking (booking) {
         },
         playingDate: new Date(booking.playingDate),
         playingTime: booking.playingTime,
-        paidMethod: booking.paidMethod,
+       // paidMethod: booking.paidMethod,
         player: {
             name: booking.playerName,
             lastName: booking.playerLastName,
