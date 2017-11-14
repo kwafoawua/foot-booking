@@ -81,7 +81,7 @@ function FindUser(username, password, rol) {
 
                    });
         } else {
-           deferred.resolve('Usuario o contraseña incorrecto');
+           return deferred.reject('Usuario o contraseña incorrecto');
         }
     });
         return deferred.promise;
