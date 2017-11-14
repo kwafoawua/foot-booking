@@ -7,6 +7,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/first';
+import {Field} from "../../_models/field";
 /**
  * Created by USUARIO on 26/09/2017.
  */
@@ -15,8 +16,9 @@ import 'rxjs/add/operator/first';
     selector: 'field-control',
     templateUrl:'field-form-control.component.html'
 })
-export class FieldFormControlComponent {
+export class FieldFormControlComponent  {
 
+    public fields : Field[];
     public cantPlayerSelect: any[] = [{cant: 5, desc: '5 Jugadores'},{cant:7, desc: '7 Jugadores'},{cant:11, desc: '11 Jugadores'}];
     public fieldTypeSelect: string[] = ['Cesped', 'Sintético', 'Tierra'];
 

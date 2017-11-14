@@ -152,7 +152,7 @@ export class FieldsManagementComponent implements OnInit{
                         colorStatus= colors.blue;
                         break;
                     case 'Cancelado':
-                        colorStatus= colors.red;
+                        colorStatus = colors.red;
                         break;
                     case 'Asistido':
                         colorStatus = colors.green;
@@ -160,7 +160,11 @@ export class FieldsManagementComponent implements OnInit{
                     case 'Pendiente de Pago':
                         colorStatus = colors.yellow;
                         break;
+                    default:
+                        colorStatus = colors.yellow;
+                        break;
                 }
+                //console.log(colorStatus);
                 let event = {
                     start: startOfDay(booking.playingDate),
                     end: startOfDay(booking.playingDate),
