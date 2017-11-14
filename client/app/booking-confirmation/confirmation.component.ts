@@ -104,8 +104,7 @@ export class confirmationComponent implements OnInit{
                     this.confirmado=true;
                     this.alertService.success('Su reserva se ha registrado con exito', true);
                     this.router.navigate(['/player/mis-reservas']);
-                   // return this.confirmado
-                },
+                     },
                 error => {
                     this.alertService.error(error);
                     this.loading = false;
