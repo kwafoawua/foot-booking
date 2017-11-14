@@ -64,9 +64,11 @@
                     <!-- Div del lateral derecho -->
                     <div class="col-xl-6">
                         <div class="card player-profile-activity" ng-hide="true">
-
-                            <router-outlet name="profileSelection"></router-outlet>
-
+<!--
+                            <div class="card-body">
+                                <router-outlet></router-outlet>
+                            </div>
+-->
                             <div class="card-body form-group">
                                 <div class="col-xs-12">
                                     <h3>Editar Perfil</h3>
@@ -102,73 +104,4 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--
-
-                                    <a [routerLink]="[{ outlet: { 'profile-selection': ['editPlayer'] } }]">
-                                            <i class="glyphicon glyphicon-home"></i>
-                                        &nbsp;&nbsp;Mi Perfil </a>
-                                    </li>
-                                    
-                                    <li>
-                                        <a [routerLink]="[{ outlet: { 'profile-selection': ['editPlayer'] } }]">
-                                            <i class="glyphicon glyphicon-user"></i>
-                                        &nbsp;&nbsp;Editar Perfil </a>
-                                    </li>
-                                    <li>
-                                        <a [routerLink]="[{ outlet: { 'profile-selection': ['editPlayer'] } }]">
-                                            <i class="glyphicon glyphicon-cog"></i>
-                                        &nbsp;&nbsp;Configuraciones </a>
-
-                                        
-                            <router-outlet name="profile-selection"></router-outlet>
-
-
-
-
-                            <div *ngIf="!idEdit">
-                                <div>
-                                    <h3>Fecha de nacimiento</h3>
-                                    {{player?.birthDate}}
-                                </div>
-                                <div>
-                                    <h3>email</h3>
-                                    {{currentUser?.email}}
-                                </div>
-                                <div>
-                                    <h3>Teléfono</h3>
-                                    {{player?.phoneNumber}}
-                                </div>
-                                <div>
-                                    <h3>Sobre ti</h3>
-                                    <div *ngIf="!player?.biography">
-                                        <textarea class="form-control" rows="3" readonly="yes" placeholder="escribe algo acerca de tí"></textarea>
-                                    </div>
-                                    <div *ngIf="player?.biography">
-                                        <textarea class="form-control" rows="3" readonly="yes">{{player?.biography}}</textarea>
-                                    </div>
-                                </div>
-                                <h3></h3>
-                                <button (click)="editData(true)" class="btn btn-primary">Editar</button> 
-                            </div>
--->
+</div>

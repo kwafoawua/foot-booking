@@ -4,7 +4,9 @@ var findClub = pathToRegexp('/findClub/:clubfilter');
 var findClubsByFilters = pathToRegexp('/findClubsByFilters/:clubfilter');
 var getResultById = pathToRegexp('/clubs/results/:_id');
 var findAllByReferenceId = pathToRegexp('/booking/:_id');
-var updateBookingStatus = pathToRegexp('/booking')
+var updateBookingStatus = pathToRegexp('/booking');
+var findAllHoursBookings = pathToRegexp('/bookings/getHoursToPlay');
+var findAllBookingsByFieldAndDay = pathToRegexp('/bookings/horarios/:_id');
 
 module.exports.path = {
     path: [
@@ -24,6 +26,8 @@ module.exports.path = {
         getResultById,
         findClubsByFilters,
         findAllByReferenceId,
-        updateBookingStatus
+        updateBookingStatus,
+        findAllHoursBookings,
+        findAllBookingsByFieldAndDay
     ]
 };

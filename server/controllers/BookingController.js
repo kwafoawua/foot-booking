@@ -119,12 +119,85 @@ function setBookingStatus (bookingId,status) {
 
 /**
 *   Find hours that are not avaible to booking
+*   Recibe el id de una cancha y un dia
+*   Devuelve un horarios de los bookings
 */
+module.exports.findAllHoursBookings = function(req, res){
+    console.log("Entra al BookingController, metodo findAllHoursBookings");
+    Booking.find({$and:
+            [
+                {"field.id":"5a06574cf0c3f1550117a2a0"},
+                //{"field.id":req.params.idField},
+                //{"playingDate":req.params.playingDate},
+                {"status": {"$ne":"Cancelado"} }
+            ]
+        }, function (err, booking) {
+        if (err) {
+            return res.status(500).send(err);
+        }
+        res.status(200).send(booking);
+    });
+};
 
-module.exports.findAllHoursBookings = function(req, res){};
+module.exports.findAllBookingsByFieldAndDay = function(req,res){
+    console.log("#");
+    console.log("#");
+    console.log("#");
+    console.log("#");
+    console.log("3- Entro al BookingController!!");
+    console.log("#");
+    console.log("#");
+    console.log("#");
+    console.log("#");
+    console.log("#");
+    console.log("#");
+    console.log("#");
+    console.log("#");
+    console.log("3.A- El id: " + JSON.parse(req.params.bookingfilter).idField);
+    console.log("3.A- EL playingDate: " + JSON.parse(req.params.bookingfilter).playingDate);
+    console.log("#");
+    console.log("#");
+    console.log("#");
+    console.log("#");
+    Booking.find({$and:
+            [
+                {"field.id":JSON.parse(req.params.bookingfilter).idField},
+                {"playingDate":JSON.parse(req.params.bookingfilter).playingDate},
+                {"status": {"$ne":"Cancelado"} }
+            ]
+        }, function (err, booking) {
+        if (err) {
+            return res.status(500).send(err);
+        }
+        console.log(booking);
+        res.status(200).send(booking);
+    });
+}
+
 
 /**
  * Delete a Booking
  */
 module.exports.deleteBooking = function(req, res) {
+    var bookingId = req.body.bookingId;
+
+    deleteBooking(bookingId)
+        .then(function () {
+            res.sendStatus(200);
+        })
+        .catch(function (err) {
+            res.status(400).send(err);
+        });
 };
+
+function deleteBooking (bookingId) {
+    var deferred = Q.defer();
+
+    Booking.deleteOne({"_id": bookingId }, function(err){
+        if (err) 
+            return deferred.reject(err.name + ' : ' + err.message);
+        else
+            deferred.resolve;
+        return deferred.promise;
+    }).exec();
+}

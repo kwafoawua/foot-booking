@@ -2,10 +2,13 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
 import { Booking } from '../_models/booking';
+import { BookingFilter } from "../_models/bookingfilter";
 
 @Injectable()
 export class BookingService {
 
+
+    public static bookings: Booking [] = [];
 
     constructor(private http: Http) { }
 
@@ -30,4 +33,19 @@ export class BookingService {
     delete(_id: string) {
         return this.http.delete('/booking/' + _id);
     }
+
+    findAllHoursBookings(){
+        console.log("En el servicio de findAllHoursBookings, datos de entrada:");
+        return this.http.get('/bookings/getHoursToPlay')
+            .map((response: Response) => response.json());
+    }
+
+    findAllBookingsByFieldAndDay(filter: BookingFilter){
+        //console.log("2- Entro al servicio con id: " + _id);
+        //console.log("2- Entro al servicio con playingDate: " + playingDate);
+        console.log("2- Entro al servicio con filter: ");
+        return this.http.get('/bookings/horarios/' + JSON.stringify(filter))
+            .map((horarios: Response) => horarios.json());
+    }
+
 }

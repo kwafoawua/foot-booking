@@ -9,7 +9,7 @@ var userController = require('../controllers/userController.js');
 var userController2 = require('../controllers/users.controller.js');
 var uploadsManager = require('../controllers/uploads');
 var playerController = require('../controllers/playerController');
-var bookingController = require('../controllers/BookingController')
+var bookingController = require('../controllers/BookingController');
 
 //*User Controller*//
 router.post('/users/authenticate', userController.authenticate);
@@ -46,5 +46,7 @@ router.get('/findClubsByFilters/:clubfilter', clubController.findClubsByMultiple
 router.post('/bookings/register', bookingController.registerBooking);
 router.put('/bookings/:_id', bookingController.updateBookingStatus);
 router.get('/bookings/:_id', bookingController.findAllByReferenceId);
+router.get('/bookings/getHoursToPlay', bookingController.findAllHoursBookings);
+router.get('/bookings/horarios/:bookingfilter', bookingController.findAllBookingsByFieldAndDay);
 
 module.exports = router;
