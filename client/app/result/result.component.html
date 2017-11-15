@@ -8,12 +8,12 @@
         </div>
     </div><!-- breadcrumb-section -->
 
-    <div class="all-categories section">
+    <div class="all-categories section" >
 
         <div novalidate>
-            <div class="container">
+            <div class="container col-11">
                 <div class="row">
-                    <div class="col-md-3 col-sm-4">
+                    <div class="col-md-4 col-sm-4">
                         <div class="sidebar">
 
                             <div class="filter-list">
@@ -26,11 +26,26 @@
 
                             <div class="filter-list">
                                 <h4 class="list-title"><a href="categories.html">Categorías</a></h4>
-                                <ul class="list-group">
-                                    <li><a href="sub-categories.html">Privados <span>(2056)</span></a></li>
-                                    <li><a href="#">Campeonatos<span>(1317)</span></a></li>
 
-                                </ul>
+                                <div class="location-map">
+                                    <h4>UBICACIÓN</h4>
+                                    <div id="gmap">
+                                       <agm-map [zoom]="15" [latitude]="lat" [longitude]="lng">
+                                        <div *ngFor="let c of clubs">
+
+                                            <agm-marker [latitude]="c?.address.lat"
+                                                        [longitude]="c?.address.lng">
+                                                <agm-info-window>{{c?.name}}</agm-info-window>
+                                            </agm-marker>
+
+                                        </div>
+                                       </agm-map>
+
+                                    </div>
+
+
+
+                                </div><!-- location-map -->
                             </div><!-- filter-list -->
 
                             <div class="filter-list">
@@ -94,7 +109,7 @@
 
                     <!-- EL RESULTADO DE LA BUSQUEDA -->
 
-                    <div class="col-md-9 col-sm-8">
+                    <div class="col-md-8 col-sm-8">
                         <div class="category-adds">
                             <div id="category-tab">
 
@@ -137,8 +152,16 @@
                                                                 <p>Dirección {{c?.address.address}} TEL:{{c?.phoneNumber}} </p>
                                                             </div>
                                                         </div><!-- item-description -->
+
                                                     </div><!-- item -->
+
+
+
                                                 </li> <!-- item-wrap -->
+
+
+
+
                                             </ul>
                                         </div> <!--tab-pane-->
                                     </div><!-- tab-pane-->

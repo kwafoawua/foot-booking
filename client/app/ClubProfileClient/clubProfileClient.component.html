@@ -105,7 +105,7 @@
                                                 Costo total
                                             </div>
                                             <div class="col">
-                                                <b>{{field?.price}}</b>
+                                                <b>$ {{field?.price}}</b>
                                             </div>
                                         </div>
 
@@ -245,7 +245,9 @@
 
                                     <agm-map [zoom]="16" [latitude]="club?.address.lat" [longitude]="club?.address.lng">
                                         <agm-marker [latitude]="club?.address.lat"
-                                                    [longitude]="club?.address.lng"></agm-marker>
+                                                    [longitude]="club?.address.lng">
+                                            <agm-info-window>{{club?.name}}</agm-info-window>
+                                        </agm-marker>
                                     </agm-map>
                                     <div><label>{{club?.address.address}}</label></div>
 
