@@ -148,6 +148,9 @@
                                 </div>
                             </div><!-- post-inner direccion-->
 
+
+
+
                             <div class="post-inner">
                                 <div class="row form-group" [ngClass]="{ 'has-error': registerClubForm.get('phoneNumber').invalid}">
                                     <label class="col-md-4">Teléfono </label>
@@ -180,13 +183,11 @@
                                     </div>
                                 </div>
                             </div><!-- post-inner servicios-->
-                        </div>
 
-                        <div class="col-md-6">
                             <div class="post-inner">
                                 <div class="row form-group" [ngClass]="{ 'has-error': registerClubForm.get('description').invalid &&
                         (registerClubForm.get('description').dirty || registerClubForm.get('description').touched)}">
-                                    <label class="col-md-12">Descripción *</label>
+                                    <label class="col-md-4">Descripción *</label>
                                     <div class="col-md-12">
                                         <textarea formControlName="description" class="form-control"></textarea>
                                         <div name="valida-descripcion" *ngIf="registerClubForm.get('description').invalid &&
@@ -203,7 +204,31 @@
                                     </div>
                                 </div>
                             </div><!-- post-inner repeat descripcion-->
+
+
                         </div>
+
+                        <div class="col-md-6">
+                            <div class="location-map">
+                                <label>Ubicación</label>
+                                <div id="gmap">
+
+                                    <agm-map [zoom]="16" [latitude]="-31.442217" [longitude]="-64.193182" (mapClick)="clickMapa($event)">
+                                        <agm-marker [latitude]="lat"
+                                                    [longitude]="lng"
+                                        [markerDraggable]="draggable" (dragEnd)="nuevaPosicionMarcador($event)">
+
+
+
+
+                                        </agm-marker>
+                                    </agm-map>
+                                    <div><label>{{club?.address.address}}</label></div>
+                                </div>
+                            </div><!-- location-map -->
+                        </div>
+
+
                     </div>
                 </div><!-- club-section -->
 

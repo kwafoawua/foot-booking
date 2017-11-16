@@ -37,12 +37,15 @@ import {Field} from "../_models/field";
 
 export class ResultComponent implements OnInit {
 
+    lat: number = -31.442217;
+    lng: number = -64.193182;
+
     public cantPlayerSelect: any[] = [{cant: 5, desc: '5 Jugadores'},{cant:7, desc: '7 Jugadores'},{cant:11, desc: '11 Jugadores'}];
     private clubfilter: ClubFilter;
     public clubs: Club[];
     public services: Service[];
     private servicesChecked : Service [] = [];
-    clubname = "";
+    clubname: string = "";
     cantPlayers: any;
     minPrice: any;
     maxPrice : any;
