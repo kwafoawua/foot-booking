@@ -29,6 +29,10 @@ export class RegisterClubComponent implements OnInit{
     registerClubForm: FormGroup;
     filesToUpload: File;
     galleryToUpload: File[] = [];
+    lat:number;
+    lng:number;
+    draggable:boolean=true; //Necesario para el que el marcador del mapa se mueva
+
 
 
     @ViewChild("address")
@@ -153,6 +157,7 @@ export class RegisterClubComponent implements OnInit{
         const control = <FormArray>this.registerClubForm.controls['fields'];
         control.push(this.initFields());
     }
+
     public removeFields(i: number) {
         // remove address from the list
         const control = <FormArray>this.registerClubForm.controls['fields'];
@@ -199,6 +204,30 @@ export class RegisterClubComponent implements OnInit{
             }
         });
     }
+
+
+    //El primer click sobre el mapa
+    clickMapa(e){
+
+    console.log(e)
+        this.lng=e.coords.lng;
+        this.lat=e.coords.lat;
+
+        console.log("lat" + this.lat, "long" + this.lng);
+    //     this.registerClubForm.address.lat = e.coords.lat;
+    //     this.registerClubForm.address.lng=e.coords.lng;
+     }
+
+     //se actualiza la ubicacion de lat y log al terminar de arrastrar el marcador
+    nuevaPosicionMarcador(e){
+        this.lat= e.coords.lat;
+        this.lng = e.coords.lng;
+        console.log("nueva lat " + this.lat, "nueva lng" + this.lng);
+
+
+    }
+
+
 
    /* comparePassword = (control: FormControl): { [s:string]:boolean} => {
         let formulario: any = this;
