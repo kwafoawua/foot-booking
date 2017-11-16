@@ -199,7 +199,6 @@ module.exports.findClubsByFilter = function (req,res) {
 
     Club.find({name : new RegExp(JSON.parse(req.params.clubfilter).clubname, "i"),
                    //  services : new RegExp(JSON.parse(req.params.services).services, "i")
-
             }, function (err, club) {
                 if (err) {
                     return res.status(500).send(err + "al menos entro");
@@ -208,7 +207,6 @@ module.exports.findClubsByFilter = function (req,res) {
                 res.status(200).send(club);
 
             });
-
 };
 
 /*

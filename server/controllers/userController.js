@@ -152,3 +152,71 @@ function findByUsername(username, rol) {
 
     return deferred.promise;
 }*/
+
+module.exports.setEmail = function(req, res) {
+    var username = req.body.username;
+    var email = req.body.email;
+    setUserEmail(username, email)
+        .then(function(){
+            res.sendStatus(200);
+        })
+        .catch(function(error){
+            res.status(400).send('El email ya está en uso');
+        });
+};
+
+function setUserEmail(username, email) {
+    var deferred = Q.defer();
+
+    return User.findOne({username: username}, function (err, user) {
+        if (err) {
+            return deferred.reject(err.name + ' : ' + err.message);
+        } else {
+            user.email = email;
+            user.save(function (err) {
+                console.log(err);
+                if (err) {
+                    return deferred.reject(err.name + ' : ' + err.message);
+                }
+                console.log(user.email);
+                deferred.resolve();
+
+            });
+            return deferred.promise;
+        }
+    }).exec();
+}
+
+module.exports.setPassword = function(req, res) {
+    var username = req.body.username;
+    var password = req.body.password;
+    setUserPassword(username, password)
+        .then(function(){
+            res.sendStatus(200);
+        })
+        .catch(function(error){
+            res.status(400).send('No se pudo actualizar la contraseña');
+        });
+};
+
+function setUserPassword(username, newPassword) {
+    var deferred = Q.defer();
+
+    return User.findOne({username: username}, function (err, user) {
+        if (err) {
+            return deferred.reject(err.name + ' : ' + err.message);
+        } else {
+            user.password =user.setPassword(newPassword);
+            user.save(function (err) {
+                console.log(err);
+                if (err) {
+                    return deferred.reject(err.name + ' : ' + err.message);
+                }
+                console.log(user.password);
+                deferred.resolve();
+
+            });
+            return deferred.promise;
+        }
+    }).exec();
+}
