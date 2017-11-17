@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
 import { } from 'googlemaps';
-import { MapsAPILoader } from '@agm/core';
+import { MapsAPILoader,AgmCoreModule } from '@agm/core';
 
 /*ng-chhips*/
 import 'rxjs/add/operator/filter';
@@ -31,6 +31,7 @@ export class RegisterClubComponent implements OnInit{
     galleryToUpload: File[] = [];
     lat:number;
     lng:number;
+    zoom: number;
     draggable:boolean=true; //Necesario para el que el marcador del mapa se mueva
 
 
@@ -47,8 +48,12 @@ export class RegisterClubComponent implements OnInit{
         private ngZone: NgZone) {
         this.createForm();
     }
-
     ngOnInit() {
+        this.lat = -31.4;
+        this.lng = -64.1833;
+
+        this.setCurrentPosition();
+
         //load Places Autocomplete
         this.mapsAPILoader.load().then(() => {
             let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
@@ -65,6 +70,11 @@ export class RegisterClubComponent implements OnInit{
                     }
 
                     //set latitude, longitude and zoom
+
+                    this.lat = place.geometry.location.lat();
+                    this.lng = place.geometry.location.lng();
+                    this.zoom = 16;
+
                     this.registerClubForm.get('address.lat').setValue(place.geometry.location.lat());
                     this.registerClubForm.get('address.lng').setValue(place.geometry.location.lng());
                     this.registerClubForm.get('address.address').setValue(place.formatted_address);
@@ -73,6 +83,41 @@ export class RegisterClubComponent implements OnInit{
                 });
             });
         });
+    }
+
+    setAutocompleteInput() {
+        let geocoder = new google.maps.Geocoder();
+        let latlng = new google.maps.LatLng(this.lat, this.lng);
+        let request = {
+            location: latlng
+        };
+        geocoder.geocode(request, (results, status) => {
+            if (status == google.maps.GeocoderStatus.OK) {
+                console.log('Results: ');
+                console.log(results);
+                if (results[0] != null) {
+                    this.searchElementRef.nativeElement.value = results[0].formatted_address;
+                    this.registerClubForm.get('address.lat').setValue(results[0].geometry.location.lat());
+                    this.registerClubForm.get('address.lng').setValue(results[0].geometry.location.lng());
+                    this.registerClubForm.get('address.address').setValue(results[0].formatted_address);
+                    console.log(this.registerClubForm.get('address').value);
+
+                } else {
+                    alert("No address available");
+                }
+            }
+        });
+    }
+
+    private setCurrentPosition() {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.lat = position.coords.latitude;
+                this.lng = position.coords.longitude;
+                this.zoom = 16;
+                this.setAutocompleteInput();
+            });
+        }
     }
 
 
@@ -212,6 +257,7 @@ export class RegisterClubComponent implements OnInit{
     console.log(e)
         this.lng=e.coords.lng;
         this.lat=e.coords.lat;
+        this.setAutocompleteInput();
 
         console.log("lat" + this.lat, "long" + this.lng);
     //     this.registerClubForm.address.lat = e.coords.lat;
@@ -222,6 +268,7 @@ export class RegisterClubComponent implements OnInit{
     nuevaPosicionMarcador(e){
         this.lat= e.coords.lat;
         this.lng = e.coords.lng;
+        this.setAutocompleteInput();
         console.log("nueva lat " + this.lat, "nueva lng" + this.lng);
 
 

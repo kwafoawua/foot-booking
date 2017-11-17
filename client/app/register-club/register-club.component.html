@@ -131,24 +131,6 @@
                                     </div>
                                 </div>
                             </div><!-- post-inner nombre del club-->
-                            <div class="post-inner">
-                                <div class="row form-group" [ngClass]="{ 'has-error': registerClubForm.get('address.address').invalid &&
-                        (registerClubForm.get('address.address').dirty || registerClubForm.get('address.address').touched)}">
-                                    <label class="col-md-4">Dirección * </label>
-                                    <div class="col-md-8">
-                                        <input placeholder="Ingresar Direccion" autocorrect="off" autocapitalize="off"
-                                               spellcheck="off" type="text" class="form-control" #address>
-                                        <div name="valida-direccion" *ngIf="registerClubForm.get('address.address').invalid &&
-                        (registerClubForm.get('address.address').dirty || registerClubForm.get('address.address').touched)">
-                                            <div *ngIf="registerClubForm.get('address.address').errors?.required" class="help-block">
-                                                El campo Dirección es requerido.
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><!-- post-inner direccion-->
-
-
 
 
                             <div class="post-inner">
@@ -209,23 +191,30 @@
                         </div>
 
                         <div class="col-md-6">
-                            <div class="location-map">
-                                <label>Ubicación</label>
-                                <div id="gmap">
+                            <div class="post-inner">
+                                <div class="row form-group" [ngClass]="{ 'has-error': registerClubForm.get('address.address').invalid &&
+                        (registerClubForm.get('address.address').dirty || registerClubForm.get('address.address').touched)}">
+                                    <label class="col-md-12">Dirección * </label>
+                                    <div class="col-md-12">
+                                        <input placeholder="Ingresar Direccion" autocorrect="off" autocapitalize="off"
+                                               spellcheck="off" type="text" class="form-control" #address>
+                                        <div name="valida-direccion" *ngIf="registerClubForm.get('address.address').invalid &&
+                        (registerClubForm.get('address.address').dirty || registerClubForm.get('address.address').touched)">
+                                            <div *ngIf="registerClubForm.get('address.address').errors?.required" class="help-block">
+                                                El campo Dirección es requerido.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- post-inner direccion-->
 
-                                    <agm-map [zoom]="16" [latitude]="-31.442217" [longitude]="-64.193182" (mapClick)="clickMapa($event)">
+                                    <agm-map [zoom]="zoom" [latitude]="lat" [longitude]="lng" (mapClick)="clickMapa($event)">
                                         <agm-marker [latitude]="lat"
                                                     [longitude]="lng"
                                         [markerDraggable]="draggable" (dragEnd)="nuevaPosicionMarcador($event)">
-
-
-
-
                                         </agm-marker>
                                     </agm-map>
-                                    <div><label>{{club?.address.address}}</label></div>
-                                </div>
-                            </div><!-- location-map -->
+
                         </div>
 
 
@@ -373,7 +362,6 @@
     </div>
 </div>
 
-<!--
+
                 <h6 class="mt-3">FormGroup Model (<code>registerClubForm.value</code>)</h6>
                 <div><pre><code>{{ registerClubForm?.value | json }}</code></pre></div>
--->
