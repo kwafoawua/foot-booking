@@ -49,7 +49,7 @@ function addBooking (booking) {
             lastName: booking.playerLastName,
             phoneNumber: booking.playerPhoneNumber,
             id: booking.playerId || null,
-            dni: booking.dni
+            dni: booking.dni || null,
         },
         payment: {
             date: null,

@@ -138,7 +138,7 @@ module.exports.updatePlayer = function(req, res) {
                     player.phoneNumber = req.body.phoneNumber || player.phoneNumber;
                     player.birthDate = req.body.birthDate || player.birthDate;
                     player.biography = req.body.biography || player.biography;
-                    player.biography = req.body.dni || player.dni;
+                    player.dni = req.body.dni || player.dni;
 
                     // Save the updated document back to the database
                     player.save(function(err, player) {
