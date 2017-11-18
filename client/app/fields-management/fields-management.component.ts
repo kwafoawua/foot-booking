@@ -57,6 +57,7 @@ const colors: any = {
         }
     ]
 })
+
 export class FieldsManagementComponent implements OnInit{
 
     @ViewChild('modalContent') modalContent: TemplateRef<any>;
@@ -230,7 +231,7 @@ export class FieldsManagementComponent implements OnInit{
     handleEvent(action: string, event: CalendarEvent): void {
         this.modalData = { event, action };
         console.log(event);
-        this.montoPagado = event.booking.payment.fee;
+        this.montoPagado = (event as any).booking.payment.fee;
         this.modal.open(this.modalContent, { size: 'lg' }).result.then((result) => {
             console.log(this.selectedStatus);
 
