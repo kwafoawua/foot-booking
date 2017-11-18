@@ -79,6 +79,8 @@
                                     <input type="text" class="form-control" name="namePlayer" [(ngModel)]="model.name" #name="ngModel" required value={{player?.name}} placeholder={{player?.name}} />
                                     <label class="label-form" for="lastName">Apellido</label>
                                     <input type="text" class="form-control" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" required value={{player?.lastName}} placeholder={{player?.lastName}} />
+                                    <label class="label-form" for="dni">DNI</label>
+                                    <input type="number" class="form-control" name="dni" [(ngModel)]="model.dni" #dni="ngModel" required value={{player?.dni}} placeholder={{player?.dni}} />
                                     <label class="label-form" for="birthDate">Fecha de nacimiento</label>
                                     <input type="date" class="form-control" name="birthDate" [(ngModel)]="model.birthDate" #birthDate="ngModel" required value={{player?.birthDate}} placeholder={{player?.birthDate}} />
                                     <label class="label-form" for="email">E-mail</label>
