@@ -37,7 +37,7 @@ var bookingSchema = new Schema({
         playingTime: String,
         status: {
             type: String,
-            default: 'Reservado',
+            default: 'Pendiente de Pago',
             required: true,
             enum: ['Asistido', 'Pendiente de Pago', 'Cancelado', 'Reservado']
         }, //modificar con los estados verdaderos
