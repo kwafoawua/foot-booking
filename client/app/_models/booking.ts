@@ -16,5 +16,5 @@ export class Booking{
     timeBook: string;
   //state: any;
     player: Player;
-    fee: number;
+   // fee: number;
 }

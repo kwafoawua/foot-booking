@@ -130,11 +130,14 @@ function setBookingStatus (newStatus) {
                 booking.status = status;
             }
             if(newStatus.fee) {
+
                 if(booking.payment.fee === null && newStatus.fee < booking.field.price) {
                     booking.payment.fee = newStatus.fee;
                     booking.payment.date = Date.now();
                     booking.status = 'Pago Parcial';
                 } else if((newStatus.fee + booking.payment.fee) < booking.field.price) {
+                    console.log("HOLAAAAAAAAA",booking.payment.fee);
+
                     booking.status = 'Pago Parcial';
                     booking.payment.fee += newStatus.fee;
                     booking.payment.date = Date.now();
