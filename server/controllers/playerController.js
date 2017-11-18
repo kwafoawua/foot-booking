@@ -42,13 +42,14 @@ function addPlayer (player) {
                     lastName: player.lastName, 
                     birthDate: player.birthDate,
                     phoneNumber: player.phoneNumber,
+                    dni : player.dni
                 });
 
                 var newUser = new User({
                     username: player.username.toLowerCase(),
                     email: player.email,
                     creator: newPlayer,
-                    rol: 'Player',
+                    rol: 'Player'
                 });
 
                 newUser.password = newUser.setPassword(player.password);
@@ -137,6 +138,7 @@ module.exports.updatePlayer = function(req, res) {
                     player.phoneNumber = req.body.phoneNumber || player.phoneNumber;
                     player.birthDate = req.body.birthDate || player.birthDate;
                     player.biography = req.body.biography || player.biography;
+                    player.biography = req.body.dni || player.dni;
 
                     // Save the updated document back to the database
                     player.save(function(err, player) {
@@ -152,7 +154,7 @@ module.exports.updatePlayer = function(req, res) {
 };
 
 /**
- * Delete a Player
+ * Delete a Player Esto no borra nada
  */
 module.exports.deletePlayer = function(req, res) {
     Player.findById(req.params.id, function(err, player) {
