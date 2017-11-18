@@ -68,7 +68,7 @@ export class FieldsManagementComponent implements OnInit{
     bookings : any[] = [];
     club : any = {};
      _id: string = JSON.parse(localStorage.getItem('currentUser')).playerOrClubId;
-
+    private montoPagado:Number;
 
     actions: CalendarEventAction[] = [
         {
@@ -127,8 +127,8 @@ export class FieldsManagementComponent implements OnInit{
 
     constructor(private modal: NgbModal,
     private bookingService: BookingService,
-    private clubService: ClubService,
-                private alertService: AlertService) {}
+    private clubService: ClubService, private alertService: AlertService) {}
+
 
     ngOnInit(){
         this.getBookings(this._id);
@@ -222,11 +222,19 @@ export class FieldsManagementComponent implements OnInit{
         this.modal.open(this.modalContent, { size: 'lg' }).result.then((result) => {
             console.log(this.selectedStatus);
 
-            if (this.selectedStatus) {
+            if (this.selectedStatus || this.montoPagado) {
                 this.closeResult = result;
                 let newStatus: any = {};
                 newStatus.bookingId = result._id;
-                newStatus.status = this.selectedStatus;
+
+                if(this.selectedStatus){
+                    newStatus.status = this.selectedStatus;
+                }
+
+                if(this.montoPagado){
+                    newStatus.fee=this.montoPagado;
+                }
+
                 this.bookingService.updateBookingStatus(newStatus).subscribe((data) => {
                     this.selectedStatus = undefined;
 
@@ -254,4 +262,5 @@ export class FieldsManagementComponent implements OnInit{
         });
         this.refresh.next();
     }
+
 }
