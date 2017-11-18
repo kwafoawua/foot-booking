@@ -36,10 +36,12 @@
                 <div class="col-6">Estado: <label>{{modalData?.event.booking.status}}</label></div>
                 <div class="col-6">Forma de Pago:
                     <label><b>{{modalData?.event.booking.paidMethod}}</b></label></div>
-                <div class="col-6">Precio: <label><b>{{modalData?.event.booking.field.price}}</b></label>
+                <div class="col-6">Monto total <label><b>{{modalData?.event.booking.field.price}}</b></label>
+                </div>
+                <div class="col-6">Monto pagado<label><b>{{modalData?.event.booking.payment.fee}}</b></label>
                 </div>
                 <div class="col-6">Monto
-                    <input [(ngModel)]="montoPagado" type="number" class="form-control" placeholder="Monto Pagado">
+                    <input [(ngModel)]="montoPagado" type="number" class="form-control" placeholder="Monto Pagado" max="{{modalData?.event.booking.field.price}}" value="{{modalData?.event.booking.payment.fee}}">
 
                 </div>
             </div>

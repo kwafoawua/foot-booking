@@ -133,6 +133,7 @@ export class FieldsManagementComponent implements OnInit{
     ngOnInit(){
         this.getBookings(this._id);
         this.getClub(this._id);
+
     }
 
     private getClub (_id: string) {
@@ -171,7 +172,8 @@ export class FieldsManagementComponent implements OnInit{
                     title: booking.field.fieldName + ' Horario: '+booking.playingTime+' Cliente: '+booking.player.name+' '+booking.player.lastName,
                     color: colorStatus,
                     actions: this.actions,
-                    booking: booking
+                    booking: booking,
+
 
                 };
                 eventArray.push(event);
@@ -221,6 +223,7 @@ export class FieldsManagementComponent implements OnInit{
         this.modalData = { event, action };
         this.modal.open(this.modalContent, { size: 'lg' }).result.then((result) => {
             console.log(this.selectedStatus);
+
 
             if (this.selectedStatus || this.montoPagado) {
                 this.closeResult = result;
