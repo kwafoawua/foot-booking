@@ -99,10 +99,16 @@ module.exports.findAllByReferenceId = function(req, res) {
 module.exports.updateBookingStatus = function(req, res) {
 
     console.log(req.body);
-    var bookingId = req.body.bookingId;
-    var status = req.body.status;
+    var newStatus = {};
+    newStatus.bookingId = req.body.bookingId;
+    if(req.body.status){
+        newStatus.status = req.body.status;
+    }
+    if(req.body.fee){
+        newStatus.fee = req.body.fee;
+    }
 
-    setBookingStatus(req.body.bookingId, req.body.status)
+    setBookingStatus(newStatus)
         .then(function (estado) {
             console.log(estado);
             res.status(200).send(estado);
@@ -113,14 +119,31 @@ module.exports.updateBookingStatus = function(req, res) {
         });
 };
 
-function setBookingStatus (bookingId,status) {
+function setBookingStatus (newStatus) {
     var deferred = Q.defer();
 
-    return Booking.findById(bookingId, function (err, booking) {
+    return Booking.findById(newStatus.bookingId, function (err, booking) {
         if (err) {
-            return deferred.reject(err.name + ' : ' + err.message);
+            return deferred.reject(err.name + ' : ' + err.message);//aprender a parsear errores
         } else {
-            booking.status = status;
+            if(newStatus.status){
+                booking.status = status;
+            }
+            if(newStatus.fee) {
+                if(booking.payment.fee === null && newStatus.fee < booking.field.price) {
+                    booking.payment.fee = newStatus.fee;
+                    booking.payment.date = Date.now();
+                    booking.status = 'Pago Parcial';
+                } else if((newStatus.fee + booking.payment.fee) < booking.field.price) {
+                    booking.status = 'Pago Parcial';
+                    booking.payment.fee += newStatus.fee;
+                    booking.payment.date = Date.now();
+                } else {
+                    booking.status = 'Pago Total';
+                    booking.payment.fee += newStatus.fee;
+                    booking.payment.date = Date.now();
+                }
+            }
             booking.save(function (err) {
                 console.log(err);
                 if (err) {
@@ -208,3 +231,8 @@ function deleteBooking (bookingId) {
         return deferred.promise;
     }).exec();
 }
+
+/*
+* Se paga la cancha parcial o total
+*/
+
