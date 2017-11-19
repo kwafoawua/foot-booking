@@ -138,7 +138,7 @@ export class EstadisticasClubComponent implements OnInit{
     ];
 
     view: any[] = [1200, 400];
-    view1: any[] = [1100, 400];
+    view1: any[] = [1200, 400];
 
     // options
     showXAxis = true;

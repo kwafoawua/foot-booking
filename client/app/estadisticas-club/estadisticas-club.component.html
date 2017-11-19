@@ -1,37 +1,98 @@
+<style>
+    div.comments > .rounded-circle, div.heart > .rounded-circle {
+        height: 4rem;
+        font-size: 40px;
+    }
 
-<div class="container">
-    <div class="row justify-content-md-center">
-        <div class="col-12" align="center">
+    div.comments, div.heart {
+        display: flex;
+    }
 
-           <!-- <ngx-charts-pie-grid
-                    [view]="view"
-                    [scheme]="colorScheme"
-                    [results]="single"
-                    (select)="onSelect($event)">
-            </ngx-charts-pie-grid>-->
-            <ngx-charts-advanced-pie-chart
 
-                    [view]="view"
-                    [scheme]="colorScheme1"
-                    [results]="single"
-                    [label]="'Cantidad de reservas'"
-                    [animations]="animations"
-                    (select)="onSelect($event)">
-            </ngx-charts-advanced-pie-chart>
+    div.heart .score, div.comments .score {
+        font-size: 29px;
+    }
+</style>
+<div class="container-fluid">
+    <div class="row justify-content-md-center mt-lg-5">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body comments">
+                    <div class="bg-success text-white rounded-circle col-3"><i class="fa fa-comments align-middle"
+                                                                               aria-hidden="true"></i></div>
+                    <div class="col-8 align-middle text-center">
+                        <span class="col-8 score">24</span>
+                        <span class="col-8">Comentarios</span></div>
+                </div>
+            </div>
         </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body heart">
+                    <div class="bg-danger text-white rounded-circle col-3"><i class="fa fa-heart align-middle"
+                                                                              aria-hidden="true"></i></div>
+                    <div class="col-8 align-middle text-center">
+                        <span class="col-8 score">4.0</span>
+                        <span class="col-8">Valoración</span></div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    450 Comentarios
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    450 Comentarios
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-md-center mt-lg-5">
         <div class="col-12">
-            <ngx-charts-bar-vertical
-                    [view]="view1"
-                    [scheme]="colorScheme"
-                    [results]="single2"
-                    [gradient]="gradient"
-                    [xAxis]="showXAxis"
-                    [yAxis]="showYAxis"
-                    [showXAxisLabel]="showXAxisLabel"
-                    [showYAxisLabel]="showYAxisLabel"
-                    [yAxisLabel]="yAxisLabel1"
-                    (select)="onSelect($event)">
-            </ngx-charts-bar-vertical>
+            <div class="card">
+                <div class="card-header">
+                    Reservas realizadas en el año
+                </div>
+                <div class="card-body">
+                    <ngx-charts-bar-vertical
+                            [view]="view1"
+                            [scheme]="colorScheme"
+                            [results]="single2"
+                            [gradient]="gradient"
+                            [xAxis]="showXAxis"
+                            [yAxis]="showYAxis"
+                            [showXAxisLabel]="showXAxisLabel"
+                            [showYAxisLabel]="showYAxisLabel"
+                            [yAxisLabel]="yAxisLabel1"
+                            (select)="onSelect($event)">
+                    </ngx-charts-bar-vertical>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row justify-content-md-center mt-lg-5">
+        <div class="col-12" align="center">
+            <div class="card">
+                <div class="card-body">
+                    <ngx-charts-advanced-pie-chart
+                            [view]="view"
+                            [scheme]="colorScheme1"
+                            [animations]="animations"
+                            [results]="single"
+                            [label]="'Cantidad de reservas'"
+                            (select)="onSelect($event)">
+                    </ngx-charts-advanced-pie-chart>
+                </div>
+            </div>
         </div>
     </div>
 
