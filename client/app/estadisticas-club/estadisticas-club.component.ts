@@ -67,6 +67,7 @@ export class EstadisticasClubComponent implements OnInit{
         }
     ];
 
+    view: any[] = [700, 400];
 
     // options
     showXAxis = true;
