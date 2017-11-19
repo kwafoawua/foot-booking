@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
+import {NgxChartsModule} from '@swimlane/ngx-charts';
 import { ImageUploadModule } from 'angular2-image-upload';
 import { CustomFormsModule } from 'ng2-validation';
 import { DemoUtilsModule } from './_helpers/demo-utils/module';
@@ -36,6 +37,7 @@ import { CalendarModule } from 'angular-calendar';
 import { FieldsManagementComponent} from "./fields-management/index";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {bookingPlayerComponent} from "./booking-player/booking-player.component";
+import {EstadisticasClubComponent} from "./estadisticas-club/index";
 
 
 
@@ -57,6 +59,7 @@ import {confirmationComponent} from "./booking-confirmation/confirmation.compone
         routing,
         ReactiveFormsModule,
         TagInputModule,
+        NgxChartsModule,
         BrowserAnimationsModule,
         ImageUploadModule.forRoot(),
         CustomFormsModule,
@@ -89,6 +92,7 @@ import {confirmationComponent} from "./booking-confirmation/confirmation.compone
         ProfileInfoComponent,
         confirmationComponent,
         FieldsManagementComponent,
+        EstadisticasClubComponent,
         bookingPlayerComponent,
     ],
     providers: [

@@ -16,6 +16,7 @@ import {bookingPlayerComponent} from "./booking-player/booking-player.component"
 import { ProfileEditComponent } from './profile-player/options-component/profile-edit.component';
 import { ProfileInfoComponent } from './profile-player/options-component/profile-info.component';
 import {FieldsManagementComponent} from "./fields-management/index";
+import {EstadisticasClubComponent} from "./estadisticas-club/index";
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },
@@ -36,6 +37,7 @@ const appRoutes: Routes = [
     {path: 'results', component: ResultComponent },
     {path: 'club/register', component: RegisterClubComponent},
     {path: 'club/admin', component: AdminClubComponent, canActivate:[AuthGuard]},
+    {path: 'club/estadisticas', component: EstadisticasClubComponent},
     {path: 'club/gestion-canchas', component: FieldsManagementComponent},
     {path: 'player/mis-reservas', component: bookingPlayerComponent},
 
