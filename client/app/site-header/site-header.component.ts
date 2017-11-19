@@ -43,6 +43,10 @@ export class SiteHeaderComponent implements OnInit {
     this.router.navigate(['/player/mis-reservas']);
   }
 
+  public goToDashboard() {
+    this.router.navigate(['/club/estadisticas']);
+  }
+
 
 
 }
