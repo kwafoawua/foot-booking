@@ -1,27 +1,34 @@
 
 <div class="container">
     <div class="row justify-content-md-center">
-        <div class="col-12">
-            <ngx-charts-pie-grid
+        <div class="col-12" align="center">
+
+           <!-- <ngx-charts-pie-grid
                     [view]="view"
                     [scheme]="colorScheme"
                     [results]="single"
                     (select)="onSelect($event)">
-            </ngx-charts-pie-grid>
+            </ngx-charts-pie-grid>-->
+            <ngx-charts-advanced-pie-chart
+
+                    [view]="view"
+                    [scheme]="colorScheme1"
+                    [results]="single"
+                    [label]="'Cantidad de reservas'"
+                    (select)="onSelect($event)">
+            </ngx-charts-advanced-pie-chart>
         </div>
         <div class="col-12">
             <ngx-charts-bar-vertical
-                    [view]="view"
+                    [view]="view1"
                     [scheme]="colorScheme"
-                    [results]="single"
+                    [results]="single2"
                     [gradient]="gradient"
                     [xAxis]="showXAxis"
                     [yAxis]="showYAxis"
-                    [legend]="showLegend"
                     [showXAxisLabel]="showXAxisLabel"
                     [showYAxisLabel]="showYAxisLabel"
-                    [xAxisLabel]="xAxisLabel"
-                    [yAxisLabel]="yAxisLabel"
+                    [yAxisLabel]="yAxisLabel1"
                     (select)="onSelect($event)">
             </ngx-charts-bar-vertical>
         </div>
