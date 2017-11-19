@@ -38,6 +38,7 @@ import { FieldsManagementComponent} from "./fields-management/index";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {bookingPlayerComponent} from "./booking-player/booking-player.component";
 import {EstadisticasClubComponent} from "./estadisticas-club/index";
+import {commentsComponent} from "./pipes/Comments/commentsComponent";
 
 
 
@@ -94,6 +95,7 @@ import {confirmationComponent} from "./booking-confirmation/confirmation.compone
         FieldsManagementComponent,
         EstadisticasClubComponent,
         bookingPlayerComponent,
+        commentsComponent,
     ],
     providers: [
         customHttpProvider,

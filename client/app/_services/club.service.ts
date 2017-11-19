@@ -83,4 +83,14 @@ export class ClubService {
 
     }
 
+    public obtenerComentarios(){
+        return this.comentarios;
+    }
+
+    public comentarios : [] =[{
+        userName:"Pablo",
+        _idClub:"hola",
+        textComment:"es una prueba"
+    }]
+
 }

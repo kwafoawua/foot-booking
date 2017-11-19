@@ -1,0 +1,16 @@
+<div id="addComent">
+    <div *ngIf="authenticated"   class="card" style="width: 20rem;">
+        <div class="card-body">
+           <p class="card-text">
+               <textarea [(ngModel)]="textComment"  lass="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>.</p>
+            <button type="button" class="btn btn-secondary" (click)="addComment()">Agregar comentario</button>
+        </div>
+    </div>
+
+    <div  class="card" style="width: 20rem;" *ngFor="let c of comentarios">
+        <p class="card-text">{{c.textComment}}</p>
+        <h6 class="card-subtitle mb-2 text-muted">{{c.userName}}</h6>
+
+    </div>
+
+</div>
