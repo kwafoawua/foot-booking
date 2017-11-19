@@ -147,6 +147,7 @@ export class EstadisticasClubComponent implements OnInit{
     showLegend = true;
     showXAxisLabel = true;
     showYAxisLabel = true;
+    animations=true;
     //yAxisLabel = 'Population';
    // yAxisLabel1 = 'Reservas';
 
