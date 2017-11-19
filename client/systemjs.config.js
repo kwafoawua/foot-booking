@@ -43,7 +43,28 @@
             'angular-resizable-element': 'npm:angular-resizable-element/dist/umd/angular-resizable-element.js',
             'angular-draggable-droppable': 'npm:angular-draggable-droppable/dist/umd/angular-draggable-droppable.js',
             'date-fns': 'npm:date-fns',
-            '@ng-bootstrap/ng-bootstrap': 'npm:@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.js'
+            '@ng-bootstrap/ng-bootstrap': 'npm:@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.js',
+            '@swimlane/ngx-charts':'npm:@swimlane/ngx-charts/release/index.js',
+            'd3-array': 'npm:d3-array/build/d3-array.js',
+            'd3-brush': 'npm:d3-brush/build/d3-brush.js',
+            'd3-shape': 'npm:d3-shape/build/d3-shape.js',
+            'd3-selection': 'npm:d3-selection/build/d3-selection.js',
+            'd3-color': 'npm:d3-color/build/d3-color.js',
+            'd3-drag': 'npm:d3-drag/build/d3-drag.js',
+            'd3-transition': 'npm:d3-transition/build/d3-transition.js',
+            'd3-format': 'npm:d3-format/build/d3-format.js',
+            'd3-force': 'npm:d3-force/build/d3-force.js',
+            'd3-dispatch': 'npm:d3-dispatch/build/d3-dispatch.js',
+            'd3-path': 'npm:d3-path/build/d3-path.js',
+            'd3-ease': 'npm:d3-ease/build/d3-ease.js',
+            'd3-timer': 'npm:d3-timer/build/d3-timer.js',
+            'd3-quadtree': 'npm:d3-quadtree/build/d3-quadtree.js',
+            'd3-interpolate': 'npm:d3-interpolate/build/d3-interpolate.js',
+            'd3-scale': 'npm:d3-scale/build/d3-scale.js',
+            'd3-time': 'npm:d3-time/build/d3-time.js',
+            'd3-collection': 'npm:d3-collection/build/d3-collection.js',
+            'd3-time-format': 'npm:d3-time-format/build/d3-time-format.js',
+            'd3-hierarchy': 'npm:d3-hierarchy/build/d3-hierarchy.js'
 
 
 
@@ -54,7 +75,7 @@
                 main: './main.js',
                 defaultExtension: 'js'
             },
-            'traceur':{
+            'traceur': {
                 main: 'traceur.js'
             },
             rxjs: {
@@ -67,17 +88,81 @@
             'ngx-chips': {
                 defaultExtension: 'js'
             },
-            'ng2-validation' : {
+            'ng2-validation': {
                 defaultExtension: 'js'
             },
-            'ng2-date-picker':{
+            'ng2-date-picker': {
                 defaultExtension: 'js',
                 main: './index.js'
             },
             'date-fns': {
                 main: './index.js',
                 defaultExtension: 'js'
+            },
+            '@swimlane/ngx-charts': {
+                defaultExtension: 'js'
+            },
+            'd3-array': {
+                defaultExtension: 'js'
+            },
+            'd3-brush': {
+                defaultExtension: 'js'
+            },
+            'd3-shape': {
+                defaultExtension: 'js'
+            },
+            'd3-selection': {
+                defaultExtension: 'js'
+            },
+            'd3-color': {
+                defaultExtension: 'js'
+            },
+            'd3-drag': {
+                defaultExtension: 'js'
+            },
+            'd3-transition': {
+                defaultExtension: 'js'
+            },
+            'd3-format': {
+                defaultExtension: 'js'
+            },
+            'd3-force': {
+                defaultExtension: 'js'
+            },
+            'd3-dispatch': {
+                defaultExtension: 'js'
+            },
+            'd3-path': {
+                defaultExtension: 'js'
+            },
+            'd3-ease': {
+                defaultExtension: 'js'
+            },
+            'd3-timer': {
+                defaultExtension: 'js'
+            },
+            'd3-quadtree': {
+                defaultExtension: 'js'
+            },
+            'd3-interpolate': {
+                defaultExtension: 'js'
+            },
+            'd3-scale': {
+                defaultExtension: 'js'
+            },
+            'd3-time': {
+                defaultExtension: 'js'
+            },
+            'd3-collection': {
+                defaultExtension: 'js'
+            },
+            'd3-time-format': {
+                defaultExtension: 'js'
+            },
+            'd3-hierarchy': {
+                defaultExtension: 'js'
             }
+
             // '@ng-bootstrap/ng-bootstrap': {
             //     main: './index.js',
             //     defaultExtension: 'js'
