@@ -22,11 +22,11 @@ import {AlertService} from "../_services/alert.service";
 
 const colors: any = {
     red: {
-        primary: '#ad2121',
+        primary: '#C11B17',
         secondary: '#FAE3E3'
     },
     blue: {
-        primary: '#1e90ff',
+        primary: '#2B65EC',
         secondary: '#D1E8FF'
     },
     yellow: {
@@ -38,8 +38,8 @@ const colors: any = {
         secondary: '#ccffcc'
     },
     lightgreen:{
-        primary: '#67996d',
-        secondary: '#dbffd2'
+        primary: '#F87217',
+        secondary: '#fffbe2'
 
     }
 };

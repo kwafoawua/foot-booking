@@ -9,20 +9,90 @@ import {Component, OnInit} from '@angular/core';
 
 export class EstadisticasClubComponent implements OnInit{
 
-    single: any[] = [
+   single: any[] = [
     {
-        "name": "Germany",
-        "value": 8940000
-    },
-    {
-        "name": "USA",
-        "value": 5000000
-    },
-    {
-        "name": "France",
-        "value": 7200000
-    }
+           "name": "Asistido",
+           "value": 10
+       },
+       {
+           "name": "Pendiente de Pago",
+           "value": 5
+       },
+       {
+           "name": "Cancelado",
+           "value": 5
+       },
+       {
+           "name": "Pago Parcial",
+           "value": 2
+       },
+       {
+           "name": "Pago Total",
+           "value": 10
+       },
+       {
+           "name": "Ausente",
+           "value": 5
+       },
+       {
+           "name": "Reembolso",
+           "value": 2
+       },
+       {
+           "name": "Anulado",
+           "value": 0
+       }
 ];
+    single2: any[] = [
+        {
+            "name": "Enero",
+            "value": 80
+        },
+        {
+            "name": "Febrero",
+            "value": 50
+        },
+        {
+            "name": "Marzo",
+            "value": 72
+        },
+        {
+            "name": "Abril",
+            "value": 89
+        },
+        {
+            "name": "Mayo",
+            "value": 100
+        },
+        {
+            "name": "Junio",
+            "value": 72
+        },
+        {
+            "name": "Julio",
+            "value": 89
+        },
+        {
+            "name": "Agosto",
+            "value": 150
+        },
+        {
+            "name": "Septiembre",
+            "value": 72
+        },
+        {
+            "name": "Octubre",
+            "value": 89
+        },
+        {
+            "name": "Noviembre",
+            "value": 50
+        },
+        {
+            "name": "Diciembre",
+            "value": 72
+        }
+    ];
     multi: any[] = [
         {
             "name": "Germany",
@@ -67,6 +137,8 @@ export class EstadisticasClubComponent implements OnInit{
         }
     ];
 
+    view: any[] = [1200, 400];
+    view1: any[] = [1200, 400];
 
     // options
     showXAxis = true;
@@ -74,12 +146,16 @@ export class EstadisticasClubComponent implements OnInit{
     gradient = false;
     showLegend = true;
     showXAxisLabel = true;
-    xAxisLabel = 'Country';
     showYAxisLabel = true;
-    yAxisLabel = 'Population';
+    animations=true;
+    //yAxisLabel = 'Population';
+   // yAxisLabel1 = 'Reservas';
 
     colorScheme = {
-        domain: ['#0B6121', '#04B431', '#01DF3A', '#AAAAAA']
+        domain: ['#0B6121', '#04B431', '#01DF3A', '#7ed957']
+    };
+    colorScheme1 = {
+        domain: ['#009900','#e3bc08', '#C11B17','#2B65EC','#F87217','#806517', '#7D0552', '#413839']
     };
 
     // line, area
