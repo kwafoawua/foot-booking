@@ -5,6 +5,8 @@ import { Club } from '../_models/club';
 import {Subject} from "rxjs/Subject";
 import {Observable} from "rxjs/Observable";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {Comment} from "../_models/comment";
+
 
 @Injectable()
 export class ClubService {
@@ -80,17 +82,18 @@ export class ClubService {
 
     guardarReserva(reservaFinal:any){
         return this.http.post('/bookings/register', reservaFinal);
-
     }
 
     public obtenerComentarios(){
-        return this.comentarios;
+        return this.ClubComentarios;
     }
 
-    public comentarios : [] =[{
-        userName:"Pablo",
-        _idClub:"hola",
-        textComment:"es una prueba"
+    guardarComentario(comentario:Comment){
+       this.ClubComentarios.push(comentario);
+    }
+
+    public ClubComentarios : any =[{
+
     }]
 
 }

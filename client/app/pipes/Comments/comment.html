@@ -1,16 +1,28 @@
 <div id="addComent">
-    <div *ngIf="authenticated"   class="card" style="width: 20rem;">
+
+    <div *ngIf="authenticated"   class="card" >
         <div class="card-body">
            <p class="card-text">
-               <textarea [(ngModel)]="textComment"  lass="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>.</p>
-            <button type="button" class="btn btn-secondary" (click)="addComment()">Agregar comentario</button>
+            <div class="form-group">
+                <textarea [(ngModel)]="textComment" class="form-control" rows="6" id="comment"></textarea>
+            </div>
+           <div><label> Nombre de usuario</label></div>
+            <div class="col align-self-end" align="right">
+            <button  type="button" class="btn btn-secondary" (click)="addComment()">Comentar</button>
+            </div>
         </div>
     </div>
-
-    <div  class="card" style="width: 20rem;" *ngFor="let c of comentarios">
-        <p class="card-text">{{c.textComment}}</p>
-        <h6 class="card-subtitle mb-2 text-muted">{{c.userName}}</h6>
-
+    <div>
+        <h4>Comentarios</h4>
+        <div *ngIf="ClubComentarios?.length > 0">
+            <div  class="card"  *ngFor="let c of ClubComentarios">
+                <div class="card-body">
+                <p class="card-text">{{c.textComment}}</p>
+                <h6 class="card-subtitle mb-2 text-muted">Por: {{c.userName}}</h6>
+                </div>
+             </div>
+        </div>
     </div>
-
 </div>
+
+
