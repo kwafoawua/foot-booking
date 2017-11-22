@@ -9,7 +9,7 @@ export class Comment{
 userName:String;
 textComment:String;
 _idClub:String;
-date:_date;
+
 
 
 }
