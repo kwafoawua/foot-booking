@@ -11,7 +11,7 @@ var ObjectId = Schema.Types.ObjectId;
  * @param {Date} dateModify - Date an hour of the comment modify.
  */
 
-var commentScheme = new Schema({
+var commentSchema = new Schema({
 		club: {
 			id: {type: String, required: true},
 			name: String
@@ -34,6 +34,4 @@ var commentScheme = new Schema({
 );
 
 
-module.exports = mongoose.model('Comment', CommentSchema);
-
-
+module.exports = mongoose.model('Comment', commentSchema);

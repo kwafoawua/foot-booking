@@ -57,7 +57,7 @@ function addComment (comment) {
 */
 module.exports.findAllCommentForAClub = function(req, res) {
     console.log("Id del club a buscar: " + req.params._id);
-    Comment.find({"club.id" = req.params._id}, function(err, comment) {
+    Comment.find({"club.id" : req.params._id}, function(err, comment) {
         if (err) {
             return res.status(500).send(err);
         }
@@ -70,7 +70,7 @@ module.exports.findAllCommentForAClub = function(req, res) {
 */
 module.exports.findAllAuthorComments = function(req, res) {
     console.log("Id del author a buscar: " + req.params.authorId);
-    Comment.find({"author.id" = req.params.authorId}, function(err,comment){
+    Comment.find({"author.id" : req.params.authorId}, function(err,comment){
         if (err) {
             return res.status(500).send(err);
         }
@@ -104,7 +104,7 @@ module.exports.updateComment = function(req, res) {
 function changeComment(newComment){
     var deferred = Q.defer();
 
-    return Comment.find({"_id":newComment.commentId, "autho.id"=newComment.authorId}, function (err, comment){
+    return Comment.find({"_id":newComment.commentId, "autho.id":newComment.authorId}, function (err, comment){
         if (err) {
             return deferred.reject("Nombre del error: " + err.name + " - Mensaje: " + err.message);            
         } else {

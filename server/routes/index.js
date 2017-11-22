@@ -10,6 +10,7 @@ var userController2 = require('../controllers/users.controller.js');
 var uploadsManager = require('../controllers/uploads');
 var playerController = require('../controllers/playerController');
 var bookingController = require('../controllers/BookingController');
+var commentController = require('../controllers/CommentController');
 
 //*User Controller*//
 router.post('/users/authenticate', userController.authenticate);
