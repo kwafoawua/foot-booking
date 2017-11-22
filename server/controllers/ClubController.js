@@ -186,27 +186,15 @@ module.exports.deleteClub = function(req, res) {
 */
 module.exports.findClubsByFilter = function (req,res) {
 
-    console.log("#");
-    console.log("#");
-    console.log("#");
-    console.log("#");
-    console.log("Entro al findClubsByFilter!!");
-    console.log("En este se busca solo por nombre");
-    console.log("#");
-    console.log("#");
-    console.log("#");
-    console.log("#");
-
     Club.find({name : new RegExp(JSON.parse(req.params.clubfilter).clubname, "i"),
                    //  services : new RegExp(JSON.parse(req.params.services).services, "i")
             }, function (err, club) {
                 if (err) {
                     return res.status(500).send(err + "al menos entro");
                 }
-
                 res.status(200).send(club);
-
             });
+
 };
 
 /*
@@ -216,17 +204,6 @@ module.exports.findClubsByFilter = function (req,res) {
 */
 module.exports.findClubsByMultipleFilter = function (req,res) {
 
-    console.log("#");
-    console.log("#");
-    console.log("#");
-    console.log("#");
-    console.log("Entro al findClubsByMultipleFilter!!");
-    console.log("En este se tienen en cuenta los filtras");
-    console.log("#");
-    console.log("#");
-    console.log("#");
-    console.log("#");
-    console.log(req.params.clubfilter);
     // Se arma solo el array de servicios para utilizar el $in y setean los valores por defecto
     var servicesNameArray = [];
     var cantPlayers = [];

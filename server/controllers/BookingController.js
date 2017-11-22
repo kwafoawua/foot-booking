@@ -43,13 +43,19 @@ function addBooking (booking) {
         },
         playingDate: new Date(booking.playingDate),
         playingTime: booking.playingTime,
-       // paidMethod: booking.paidMethod,
+        paidMethod: booking.paidMethod,
         player: {
             name: booking.playerName,
             lastName: booking.playerLastName,
             phoneNumber: booking.playerPhoneNumber,
-            id: booking.playerId || null
+            id: booking.playerId || null,
+            dni: booking.dni || null,
+        },
+        payment: {
+            date: null,
+            fee: null //cambiara cuando se seleccione el pago por mercadopago
         }
+
     });
 
     console.log( newBooking);
@@ -93,10 +99,16 @@ module.exports.findAllByReferenceId = function(req, res) {
 module.exports.updateBookingStatus = function(req, res) {
 
     console.log(req.body);
-    var bookingId = req.body.bookingId;
-    var status = req.body.status;
+    var newStatus = {};
+    newStatus.bookingId = req.body.bookingId;
+    if(req.body.status){
+        newStatus.status = req.body.status;
+    }
+    if(req.body.fee){
+        newStatus.fee = req.body.fee;
+    }
 
-    setBookingStatus(req.body.bookingId, req.body.status)
+    setBookingStatus(newStatus)
         .then(function (estado) {
             console.log(estado);
             res.status(200).send(estado);
@@ -107,14 +119,28 @@ module.exports.updateBookingStatus = function(req, res) {
         });
 };
 
-function setBookingStatus (bookingId,status) {
+function setBookingStatus (newStatus) {
     var deferred = Q.defer();
 
-    return Booking.findById(bookingId, function (err, booking) {
+    return Booking.findById(newStatus.bookingId, function (err, booking) {
         if (err) {
-            return deferred.reject(err.name + ' : ' + err.message);
+            return deferred.reject(err.name + ' : ' + err.message);//aprender a parsear errores
         } else {
-            booking.status = status;
+            if(newStatus.status){
+                booking.status = status;
+            }
+            if(newStatus.fee) {
+
+                if(newStatus.fee < booking.field.price) {
+                    booking.payment.fee = newStatus.fee;
+                    booking.payment.date = Date.now();
+                    booking.status = 'Pago Parcial';
+                }else {
+                    booking.status = 'Pago Total';
+                    booking.payment.fee = newStatus.fee;
+                    booking.payment.date = Date.now();
+                }
+            }
             booking.save(function (err) {
                 console.log(err);
                 if (err) {
@@ -153,24 +179,11 @@ module.exports.findAllHoursBookings = function(req, res){
 
 module.exports.findAllBookingsByFieldAndDay = function(req,res){
     console.log("#");
-    console.log("#");
-    console.log("#");
-    console.log("#");
     console.log("3- Entro al BookingController!!");
-    console.log("#");
-    console.log("#");
-    console.log("#");
-    console.log("#");
-    console.log("#");
-    console.log("#");
-    console.log("#");
-    console.log("#");
     console.log("3.A- El id: " + JSON.parse(req.params.bookingfilter).idField);
     console.log("3.A- EL playingDate: " + JSON.parse(req.params.bookingfilter).playingDate);
     console.log("#");
-    console.log("#");
-    console.log("#");
-    console.log("#");
+
     Booking.find({$and:
             [
                 {"field.id":JSON.parse(req.params.bookingfilter).idField},
@@ -184,7 +197,7 @@ module.exports.findAllBookingsByFieldAndDay = function(req,res){
         console.log(booking);
         res.status(200).send(booking);
     });
-}
+};
 
 
 /**
@@ -206,10 +219,17 @@ function deleteBooking (bookingId) {
     var deferred = Q.defer();
 
     Booking.deleteOne({"_id": bookingId }, function(err){
-        if (err) 
+        if (err) {
             return deferred.reject(err.name + ' : ' + err.message);
-        else
-            deferred.resolve;
+        }else{
+            deferred.resolve();
+        }
+
         return deferred.promise;
     }).exec();
 }
+
+/*
+* Se paga la cancha parcial o total
+*/
+

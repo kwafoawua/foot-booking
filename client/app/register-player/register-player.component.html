@@ -13,9 +13,14 @@
               <div *ngIf="f.submitted && !name.valid" class="help-block">El Nombre del complejo es requerido</div>
             </div>
             <div class="form-group row" [ngClass]="{ 'has-error': f.submitted && !lastName.valid }">
-              <label class="label-form" for="lastName">Apellido</label>
-              <input type="text" class="form-control" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" required />
-              <div *ngIf="f.submitted && !lastName.valid" class="help-block">El apellido es requerido</div>
+            <label class="label-form" for="lastName">Apellido</label>
+            <input type="text" class="form-control" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" required />
+            <div *ngIf="f.submitted && !lastName.valid" class="help-block">El apellido es requerido</div>
+          </div>
+            <div class="form-group row" [ngClass]="{ 'has-error': f.submitted && !dni.valid }">
+              <label class="label-form" for="dni">DNI</label>
+              <input type="number" class="form-control" name="dni" [(ngModel)]="model.dni" #dni="ngModel" required />
+              <div *ngIf="f.submitted && !dni.valid" class="help-block">El dni es requerido</div>
             </div>
             <div class="form-group row" [ngClass]="{ 'has-error': f.submitted && !phoneNumber.valid }">
               <label class="label-form" for="phoneNumber">Número de teléfono</label>

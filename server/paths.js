@@ -7,6 +7,11 @@ var findAllByReferenceId = pathToRegexp('/booking/:_id');
 var updateBookingStatus = pathToRegexp('/booking');
 var findAllHoursBookings = pathToRegexp('/bookings/getHoursToPlay');
 var findAllBookingsByFieldAndDay = pathToRegexp('/bookings/horarios/:_id');
+var createComment = pathToRegexp('/comments/create');
+var updateComment = pathToRegexp('/comments/changeComment/');
+var findAllCommentForAClub = pathToRegexp('/comments/:_id');
+var findAllAuthorComments = pathToRegexp('/comments/authorComment/:_id');
+var deleteComment = pathToRegexp('/comments/:_id');
 
 module.exports.path = {
     path: [
@@ -28,6 +33,11 @@ module.exports.path = {
         findAllByReferenceId,
         updateBookingStatus,
         findAllHoursBookings,
-        findAllBookingsByFieldAndDay
+        findAllBookingsByFieldAndDay,
+        createComment,
+        updateComment,
+        findAllCommentForAClub,
+        findAllAuthorComments,
+        deleteComment
     ]
 };

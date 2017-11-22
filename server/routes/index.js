@@ -49,4 +49,11 @@ router.get('/bookings/:_id', bookingController.findAllByReferenceId);
 router.get('/bookings/getHoursToPlay', bookingController.findAllHoursBookings);
 router.get('/bookings/horarios/:bookingfilter', bookingController.findAllBookingsByFieldAndDay);
 
+/* Comment Controller */
+router.post('/comments/create', commentController.createComment);
+router.put('/comments/changeComment/', commentController.updateComment);
+router.get('/comments/:_id', commentController.findAllCommentForAClub);
+router.get('/comments/authorComment/:_id', commentController.findAllAuthorComments);
+router.delete('/comments/:_id', commentController.deleteComment);
+
 module.exports = router;

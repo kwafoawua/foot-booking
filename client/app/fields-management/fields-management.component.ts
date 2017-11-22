@@ -22,11 +22,11 @@ import { AlertService } from "../_services/alert.service";
 
 const colors: any = {
     red: {
-        primary: '#ad2121',
+        primary: '#C11B17',
         secondary: '#FAE3E3'
     },
     blue: {
-        primary: '#1e90ff',
+        primary: '#2B65EC',
         secondary: '#D1E8FF'
     },
     yellow: {
@@ -36,6 +36,11 @@ const colors: any = {
     green: {
         primary: '#009900',
         secondary: '#ccffcc'
+    },
+    lightgreen:{
+        primary: '#F87217',
+        secondary: '#fffbe2'
+
     }
 };
 
@@ -52,6 +57,7 @@ const colors: any = {
         }
     ]
 })
+
 export class FieldsManagementComponent implements OnInit{
 
     @ViewChild('modalContent') modalContent: TemplateRef<any>;
@@ -68,7 +74,7 @@ export class FieldsManagementComponent implements OnInit{
     bookings : any[] = [];
     club : any = {};
      _id: string = JSON.parse(localStorage.getItem('currentUser')).playerOrClubId;
-
+    private montoPagado:Number;
 
     actions: CalendarEventAction[] = [
         {
@@ -127,13 +133,14 @@ export class FieldsManagementComponent implements OnInit{
 
     constructor(private modal: NgbModal,
     private bookingService: BookingService,
-    private clubService: ClubService,
-                private alertService: AlertService) {}
+    private clubService: ClubService, private alertService: AlertService) {}
+
 
     ngOnInit(){
         this.getBookings(this._id);
         //this.getBookingsByStatus(this._id, "Cancelado");
         this.getClub(this._id);
+
     }
 
     private getClub (_id: string) {
@@ -191,13 +198,12 @@ export class FieldsManagementComponent implements OnInit{
     private getBookings(_id: string){
         this.bookingService.findAllByReferenceId(_id).subscribe((bookings)=>{
             this.bookings = bookings;
-            console.log("esto",this.bookings);
             const eventArray :CalendarEvent[] = [];
             this.bookings.forEach((booking) => {
                 let colorStatus: any;
                 switch (booking.status){
 
-                    case 'Reservado':
+                    case 'Pago Parcial':
                         colorStatus= colors.blue;
                         break;
                     case 'Cancelado':
@@ -208,6 +214,9 @@ export class FieldsManagementComponent implements OnInit{
                         break;
                     case 'Pendiente de Pago':
                         colorStatus = colors.yellow;
+                        break;
+                    case 'Pago Total':
+                        colorStatus = colors.lightgreen;
                         break;
                     default:
                         colorStatus = colors.yellow;
@@ -220,7 +229,8 @@ export class FieldsManagementComponent implements OnInit{
                     title: booking.field.fieldName + ' Horario: '+booking.playingTime+' Cliente: '+booking.player.name+' '+booking.player.lastName,
                     color: colorStatus,
                     actions: this.actions,
-                    booking: booking
+                    booking: booking,
+
 
                 };
                 eventArray.push(event);
@@ -269,16 +279,28 @@ export class FieldsManagementComponent implements OnInit{
 
     handleEvent(action: string, event: CalendarEvent): void {
         this.modalData = { event, action };
+        console.log(event);
+        this.montoPagado = (event as any).booking.payment.fee;
         this.modal.open(this.modalContent, { size: 'lg' }).result.then((result) => {
             console.log(this.selectedStatus);
 
-            if (this.selectedStatus) {
+
+            if (this.selectedStatus || this.montoPagado) {
                 this.closeResult = result;
                 let newStatus: any = {};
                 newStatus.bookingId = result._id;
-                newStatus.status = this.selectedStatus;
+
+                if(this.selectedStatus){
+                    newStatus.status = this.selectedStatus;
+                }
+
+                if(this.montoPagado){
+                    newStatus.fee=this.montoPagado;
+                }
+
                 this.bookingService.updateBookingStatus(newStatus).subscribe((data) => {
                     this.selectedStatus = undefined;
+                    this.montoPagado = undefined;
 
                     this.alertService.success('Se actualizó correctamente el estado de la reserva', false);
                     this.getBookings(this._id);
