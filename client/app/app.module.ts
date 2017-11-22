@@ -42,6 +42,7 @@ import {commentsComponent} from "./pipes/Comments/commentsComponent";
 
 
 
+
 // Module for child routing
 import { ProfileInfoComponent } from './profile-player/options-component/profile-info.component';
 import { ProfileEditComponent } from './profile-player/options-component/profile-edit.component';
@@ -106,7 +107,8 @@ import {confirmationComponent} from "./booking-confirmation/confirmation.compone
         ClubService,
         PlayerService,
         SearchService,
-        BookingService
+        BookingService,
+        CommentService
     ],
     bootstrap: [AppComponent]
 })

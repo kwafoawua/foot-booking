@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import * as moment from "moment";
 import _date = moment.unitOfTime._date;
 /**
@@ -9,7 +10,5 @@ export class Comment{
 userName:String;
 textComment:String;
 _idClub:String;
-
-
 
 }

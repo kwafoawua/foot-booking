@@ -41,8 +41,6 @@ export class BookingService {
     }
 
     findAllBookingsByFieldAndDay(filter: BookingFilter){
-        //console.log("2- Entro al servicio con id: " + _id);
-        //console.log("2- Entro al servicio con playingDate: " + playingDate);
         console.log("2- Entro al servicio con filter: ");
         return this.http.get('/bookings/horarios/' + JSON.stringify(filter))
             .map((horarios: Response) => horarios.json());
