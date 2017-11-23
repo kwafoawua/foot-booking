@@ -4,6 +4,7 @@ import {Club} from "../../_models/club";
 import {UserService} from "../../_services/user.service";
 import {ActivatedRoute} from "@angular/router";
 import {Comment} from "../../_models/Comment";
+import {CommentService} from "../../_services/comment.service";
 
 
 
@@ -22,23 +23,28 @@ export class commentsComponent implements OnInit {
     private authenticated:boolean;
     private textComment:string="";
     public comment:Comment = new Comment();
-    public ClubComentarios:Comment[]=[];
+    public clubComentarios:Comment[]=[];
     private club: Club;
     private userName:"";
 
     constructor(private clubService: ClubService, private  userService:UserService,
-                private route: ActivatedRoute,){}
+                private route: ActivatedRoute, private commentService : CommentService){}
 
 ngOnInit(){
 
     this.isAuthenticated();
-    this.ClubComentarios=this.clubService.obtenerComentarios();
+    this.getComentarios()
     this.getClub(this.route.snapshot.params['id']);
    }
 
 
     private getClub (_id: string) {
     this.clubService.getResultById(_id).subscribe(club => {this.club = club;});
+    }
+
+    private getComentarios(){
+        this.commentService.findAllCommentForAClub(this.route.snapshot.params['id']).subscribe((comments)=>{
+            this.clubComentarios = comments});
     }
 
 
@@ -60,10 +66,9 @@ ngOnInit(){
       console.log(this.textComment);
 
       this.comment.userName = "pabloprueba";
-      this.comment._idClub = this.club._id;
+      this.comment._idClub = "5a0b541db59b0922a8bd092f";
       this.comment.textComment = this.textComment;
-
-      this.clubService.guardarComentario(this.comment);
+      this.commentService.create(this.comment);
     }
 
     // private getPlayer (_id: string) {

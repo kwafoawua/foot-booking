@@ -84,16 +84,6 @@ export class ClubService {
         return this.http.post('/bookings/register', reservaFinal);
     }
 
-    public obtenerComentarios(){
-        return this.ClubComentarios;
-    }
 
-    guardarComentario(comentario:Comment){
-       this.ClubComentarios.push(comentario);
-    }
-
-    public ClubComentarios : any =[{
-
-    }]
 
 }

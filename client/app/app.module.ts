@@ -39,6 +39,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {bookingPlayerComponent} from "./booking-player/booking-player.component";
 import {EstadisticasClubComponent} from "./estadisticas-club/index";
 import {commentsComponent} from "./pipes/Comments/commentsComponent";
+import {CommentService} from "./_services/comment.service";
 
 
 

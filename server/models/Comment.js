@@ -12,17 +12,12 @@ var ObjectId = Schema.Types.ObjectId;
  */
 
 var commentSchema = new Schema({
-		club: {
-			id: {type: String, required: true},
-			name: String
-		},
-		author: {
-			id: {type: String, required: true},
-			name: String
-		},
-		comment: {type: String, required: true},
-		dateCreation: {type: Date, default: Date.now},
-		dateModify: {type: Date}
+
+			_idClub : {type: String, required: true},
+			userName: {type: String, required: true},
+			comment: {type: String, required: true},
+		    dateCreation: {type: Date, default: Date.now},
+		    dateModify: {type: Date}
 	},{
         toObject: {
             virtuals: true

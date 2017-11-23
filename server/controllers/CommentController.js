@@ -12,8 +12,8 @@ var Q = require('q');
 /**
  * Create a Comment
  */
-//module.exports.registerBooking = function (req,res) {
 module.exports.createComment = function (req,res) {
+    console.log("este es el create");
     var comment = req.body;
     addComment(comment)
         .then(function () {
@@ -26,17 +26,15 @@ module.exports.createComment = function (req,res) {
 };
 
 function addComment (comment) {
+    console.log("este es el addComment");
+
     var deferred = Q.defer();
 
     var newComment = new Comment({
-        club: {
-            id: comment.clubId,
-            name: comment.clubName
-        },
-        author: {
-            id: comment.authorId,
-            name: comment.authorName
-        },
+
+        idClub: comment.clubId,
+        userName: comment.userName,
+        comment: comment.comment,
         dateModify: null
     });
 
@@ -99,7 +97,7 @@ module.exports.updateComment = function(req, res) {
             console.log(err);
             res.status(400).send(err);
         });
-}
+};
 
 function changeComment(newComment){
     var deferred = Q.defer();
