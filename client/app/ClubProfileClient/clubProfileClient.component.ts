@@ -68,8 +68,7 @@ export class ProfileClubClientComponent implements OnInit {
     }
 
         private getClub (_id: string) {
-        this.clubService.getResultById(_id).subscribe(club => {
-            this.club = club;
+        this.clubService.getResultById(_id).subscribe(club => {this.club = club;
          this.galery = club.galleryImg;
      });
 

@@ -1,3 +1,98 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 left">
+            <div class="card-body">
+                <div class="btn btn-secondary btn-sm" data-toggle="collapse" data-target="#collapseOptionsForSearch" 
+                        aria-expanded="false" aria-controls="collapseOptionsForSearch">
+                        <i class="fa fa-filter" aria-hidden="true"></i>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Cancha
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" (click)="statusChange('Todas')">Todas</a>
+                        <a class="dropdown-item" (click)="statusChange('Principal')">Lateral</a>
+                        <a class="dropdown-item" (click)="statusChange('Lateral')">Principal</a>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Estado
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" (click)="filterbyStatusChange('Todas')">Todas</a>
+                        <a class="dropdown-item" (click)="filterbyStatusChange('Pagada')">Pagada</a>
+                        <a class="dropdown-item" (click)="filterbyStatusChange('Reserva Pagada')">Reserva Pagada</a>
+                        <a class="dropdown-item" (click)="filterbyStatusChange('Reservada')">Reservada</a>
+                        <a class="dropdown-item" (click)="filterbyStatusChange('Cancelado')">Cancelado</a>
+                        <a class="dropdown-item" (click)="filterbyStatusChange('Finalizada')">Finalizada</a>
+                    </div>
+                </div>
+                <!--
+                <div class="form-group">
+                    <select class="form-control">
+                        <option>Estado</option>
+                        <option (click)="filterbyStatusChange('Todas')">Todas</option>>
+                        <option (click)="filterbyStatusChange('Pagada')">Pagada</option>
+                        <option (click)="filterbyStatusChange('Reserva Pagada')">Reserva Pagada</option>
+                        <option (change)="filterbyStatusChange('Reservada')">Reservada</option>
+                        <option (click)="filterbyStatusChange('Cancelado')">Cancelado</option>
+                        <option (click)="filterbyStatusChange('Finalizada')">Finalizada</option>
+                    </select>
+                </div>
+            -->
+            </div>
+        </div>
+    </div>
+</div> 
+<!--
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-left">
+            <div class="card-body">
+                <div class="btn btn-primary" data-toggle="collapse" data-target="#collapseOptionsForSearch" 
+                        aria-expanded="false" aria-controls="collapseOptionsForSearch">
+                        <i class="fa fa-filter" aria-hidden="true"></i>
+                </div>
+
+                <div class="collapse col-12" id="collapseOptionsForSearch">
+                    <div class="card-block">
+                        <div class="card-body">
+                            <div class="btn-group">
+                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Cancha
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="">Cancha 1</a>
+                                    <a class="dropdown-item" href="">Cancha 2</a>
+                                </div>
+                            </div>
+                            <div class="btn-group">
+                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Estado
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item">Todas</a>
+                                    <a class="dropdown-item">Pagada</a>
+                                    <a class="dropdown-item">Reserva Pagada</a>
+                                    <a class="dropdown-item">Reservada</a>
+                                    <a class="dropdown-item">Cancelada</a>
+                                    <a class="dropdown-item">Finalizada</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>   
+-->
 <ng-template #modalContent let-close="close">
     <div class="modal-header">
         <h2 class="modal-title"> Cancha  {{modalData?.event.booking.field.fieldName | uppercase}}</h2>
@@ -29,20 +124,17 @@
                 </div>
                 <div class="col-6">Fecha de Reserva: <label><b>{{modalData?.event.booking.playingDate |
                     date:"dd/MM/yy"}}</b></label></div>
-                <div class="col-6">Precio: <label><b>{{modalData?.event.booking.field.price}}</b></label>
-                </div>
                 <div class="col-6">Hora de Reserva:
                     <label><b>{{modalData?.event.booking.playingTime}}</b></label></div>
                 <div class="col-6">Estado: <label>{{modalData?.event.booking.status}}</label></div>
+                <div class="col-6" >Monto total $  <label><b>{{modalData?.event.booking.field.price}}</b></label>
+                </div>
                 <div class="col-6">Forma de Pago:
                     <label><b>{{modalData?.event.booking.paidMethod}}</b></label></div>
-                <div class="col-6" >Monto total <label><b>{{modalData?.event.booking.field.price}}</b></label>
+                <div class="col-6">Monto pagado $ <label><b>{{modalData?.event.booking.payment.fee}}</b></label>
                 </div>
-                <div class="col-6">Monto pagado<label><b>{{modalData?.event.booking.payment.fee}}</b></label>
-                </div>
-                <div class="col-6">Monto
+                <div class="col-6"> Actualización de Monto
                     <input [(ngModel)]="montoPagado" type="number" class="form-control" placeholder="Monto Pagado" max="{{modalData?.event.booking.field.price}}" value="{{montoPagado}}">
-
                 </div>
             </div>
 
@@ -56,7 +148,6 @@
                         <option *ngFor="let status of modalData?.event.booking.estados" [value]="status" [selected]="status == modalData?.event.booking.status">{{status}}</option>
                     </select>
                 </div>
-
             </div>
         </div>
 
@@ -69,7 +160,8 @@
 <mwl-demo-utils-calendar-header
         [(view)]="view"
         [(viewDate)]="viewDate"
-        [(locale)]="locale">
+        [(locale)]="locale"
+        (click)="statusChange($event.status)">
 </mwl-demo-utils-calendar-header>
 <br>
 

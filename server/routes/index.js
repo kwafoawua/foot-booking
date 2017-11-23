@@ -10,6 +10,7 @@ var userController2 = require('../controllers/users.controller.js');
 var uploadsManager = require('../controllers/uploads');
 var playerController = require('../controllers/playerController');
 var bookingController = require('../controllers/BookingController');
+var commentController = require('../controllers/CommentController');
 
 //*User Controller*//
 router.post('/users/authenticate', userController.authenticate);
@@ -48,5 +49,12 @@ router.put('/bookings/setStatus/', bookingController.updateBookingStatus);
 router.get('/bookings/:_id', bookingController.findAllByReferenceId);
 router.get('/bookings/getHoursToPlay', bookingController.findAllHoursBookings);
 router.get('/bookings/horarios/:bookingfilter', bookingController.findAllBookingsByFieldAndDay);
+
+/* Comment Controller */
+router.post('/comments/create', commentController.createComment);
+router.put('/comments/changeComment/', commentController.updateComment);
+router.get('/comments/:_id', commentController.findAllCommentForAClub);
+router.get('/comments/authorComment/:_id', commentController.findAllAuthorComments);
+router.delete('/comments/:_id', commentController.deleteComment);
 
 module.exports = router;
