@@ -129,7 +129,7 @@ function setBookingStatus (newStatus) {
             if(newStatus.status){
                 booking.status = status;
             }
-            if(newStatus.fee) {
+            if(newStatus.fee !== booking.payment.fee) {
 
                 if(newStatus.fee < booking.field.price) {
                     booking.payment.fee = newStatus.fee;
@@ -233,3 +233,12 @@ function deleteBooking (bookingId) {
 * Se paga la cancha parcial o total
 */
 
+module.exports.countBookingStatus = function (req, res) {
+    var club_id = req.params._id;
+    Booking.find({'club.id': club_id}, function(err, bookings) {
+        if(err) {
+            return console.log(err);
+        }
+        bookings.count()
+    });
+};
