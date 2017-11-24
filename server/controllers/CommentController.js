@@ -28,15 +28,15 @@ module.exports.createComment = function (req,res) {
 
 function addComment (comment) {
     console.log("este es el addComment");
+    console.log(comment);
 
     var deferred = Q.defer();
 
     var newComment = new Comment({
 
-        idClub: comment.clubId,
+        _idClub: comment._idClub,
         userName: comment.userName,
-        comment: comment.comment,
-        dateModify: null
+        comment: comment.comment
     });
 
     console.log( newComment);
@@ -56,10 +56,11 @@ function addComment (comment) {
 */
 module.exports.findAllCommentForAClub = function(req, res) {
     console.log("Id del club a buscar: " + req.params._id);
-    Comment.find({"club.id" : req.params._id}, function(err, comment) {
+    Comment.find({"_idClub" : req.params._id}, function(err, comment) {
         if (err) {
             return res.status(500).send(err);
         }
+        console.log(comment);
         res.status(200).send(comment);
     });
 };

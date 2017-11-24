@@ -34,7 +34,7 @@ module.exports.path = {
         updateBookingStatus,
         findAllHoursBookings,
         findAllBookingsByFieldAndDay,
-        updateComment,
+        "/comments/changeComment/",
         findAllCommentForAClub,
         findAllAuthorComments,
         deleteComment

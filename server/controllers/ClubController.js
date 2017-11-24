@@ -100,7 +100,7 @@ function addClub (club, profilePath, galleryPath) {
 
 module.exports.findById = function(req, res) {
     console.log('busca por id');
-    console.log(req);
+   // console.log(req);
 
     console.log(req.params._id);
     Club.findById(req.params._id, function(err, club) {
@@ -135,7 +135,7 @@ module.exports.findAllClubs = function(req, res) {
  * Update a Club
  */
 module.exports.updateClub = function(req, res) {
-    console.log(req.body);
+    //console.log(req.body);
     console.log(req.params.id);
    // Club.findByIdAndUpdate();
  /*   Club.findById(req.params.id, function(err, club) {

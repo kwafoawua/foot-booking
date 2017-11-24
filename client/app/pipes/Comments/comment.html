@@ -15,9 +15,9 @@
     <div>
         <h4>Comentarios</h4>
         <div *ngIf="clubComentarios?.length > 0">
-            <div  class="card"  *ngFor="let c of clubComentarios">
+            <div  class="card"  *ngFor="let c of clubComentarios.reverse()">
                 <div class="card-body">
-                <p class="card-text">{{c.textComment}}</p>
+                <p class="card-text">{{c.comment}}</p>
                 <h6 class="card-subtitle mb-2 text-muted">Por: {{c.userName}}</h6>
                 </div>
              </div>

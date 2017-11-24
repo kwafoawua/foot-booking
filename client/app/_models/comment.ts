@@ -6,7 +6,7 @@
 export class Comment{
 
 userName:String;
-textComment:String;
+comment:String;
 _idClub:String;
 
 }

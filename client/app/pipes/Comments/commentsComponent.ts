@@ -33,7 +33,7 @@ export class commentsComponent implements OnInit {
 ngOnInit(){
 
     this.isAuthenticated();
-    this.getComentarios()
+    this.getComentarios();
     this.getClub(this.route.snapshot.params['id']);
    }
 
@@ -43,8 +43,10 @@ ngOnInit(){
     }
 
     private getComentarios(){
+    console.log(this.route.snapshot.params['id']);
         this.commentService.findAllCommentForAClub(this.route.snapshot.params['id']).subscribe((comments)=>{
-            this.clubComentarios = comments});
+            this.clubComentarios = comments;
+        console.log(comments)});
     }
 
 
@@ -65,10 +67,15 @@ ngOnInit(){
     addComment(){
       console.log(this.textComment);
 
-      this.comment.userName = "pabloprueba";
-      this.comment._idClub = "5a0b541db59b0922a8bd092f";
-      this.comment.textComment = this.textComment;
-      this.commentService.create(this.comment);
+      this.comment.userName = JSON.parse(localStorage.getItem('currentUser')).username;
+      this.comment._idClub = this.route.snapshot.params['id'];
+      this.comment.comment = this.textComment;
+      this.commentService.create(this.comment).subscribe(data => {
+          console.log("entra al comment");
+          this.clubComentarios.push(this.comment);
+      }, error => {
+          console.log(error)
+      });
     }
 
     // private getPlayer (_id: string) {
