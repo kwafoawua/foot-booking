@@ -63,14 +63,14 @@
                 <div class="card-body">
                     <ngx-charts-bar-vertical
                             [view]="view1"
-                            [scheme]="colorScheme"
-                            [results]="single2"
-                            [gradient]="gradient"
-                            [xAxis]="showXAxis"
-                            [yAxis]="showYAxis"
-                            [showXAxisLabel]="showXAxisLabel"
-                            [showYAxisLabel]="showYAxisLabel"
-                            [yAxisLabel]="yAxisLabel1"
+                            [scheme]="options.colorScheme"
+                            [results]="bookingMonthChart"
+                            [gradient]="options.gradient"
+                            [xAxis]="options.showXAxis"
+                            [yAxis]="options.showYAxis"
+                            [showXAxisLabel]="options.showXAxisLabel"
+                            [showYAxisLabel]="options.showYAxisLabel"
+                            [yAxisLabel]="options.yAxisLabel1"
                             (select)="onSelect($event)">
                     </ngx-charts-bar-vertical>
                 </div>
@@ -85,9 +85,9 @@
                 <div class="card-body">
                     <ngx-charts-advanced-pie-chart
                             [view]="view"
-                            [scheme]="colorScheme1"
-                            [animations]="animations"
-                            [results]="single"
+                            [scheme]="options.colorScheme1"
+                            [animations]="options.animations"
+                            [results]="statusChart"
                             [label]="'Cantidad de reservas'"
                             (select)="onSelect($event)">
                     </ngx-charts-advanced-pie-chart>

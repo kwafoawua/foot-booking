@@ -15,6 +15,7 @@ var Q = require('q');
 module.exports.createComment = function (req,res) {
     console.log("este es el create");
     var comment = req.body;
+    console.log(comment);
     addComment(comment)
         .then(function () {
             console.log('Se creo el comentario');

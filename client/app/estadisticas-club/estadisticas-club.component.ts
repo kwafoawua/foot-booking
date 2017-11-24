@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {BookingService} from "../_services/booking.service";
+import moment = require("moment");
 
 
 @Component({
@@ -136,42 +138,141 @@ export class EstadisticasClubComponent implements OnInit{
             ]
         }
     ];
-
-    // view: any[] = [1200, 400];
-    // view1: any[] = [1200, 400];
-
+    view: any[] = [1200, 400];
+    view1: any[] = [1200, 400];
     // options
-    showXAxis = true;
-    showYAxis = true;
-    gradient = false;
-    showLegend = true;
-    showXAxisLabel = true;
-    showYAxisLabel = true;
-    animations=true;
-    //yAxisLabel = 'Population';
-   // yAxisLabel1 = 'Reservas';
-
-    colorScheme = {
-        domain: ['#0B6121', '#04B431', '#01DF3A', '#7ed957']
+    options : any = {
+        showXAxis: true,
+        showYAxis:  true,
+        gradient: false,
+        showLegend: true,
+        showXAxisLabel: true,
+        showYAxisLabel: true,
+        animations: true,
+        colorScheme : {
+            domain: ['#0B6121', '#04B431', '#01DF3A', '#7ed957']
+        },
+        colorScheme1: {
+            domain: ['#009900','#e3bc08', '#C11B17','#2B65EC','#F87217','#806517', '#7D0552', '#413839']
+        }
     };
-    colorScheme1 = {
-        domain: ['#009900','#e3bc08', '#C11B17','#2B65EC','#F87217','#806517', '#7D0552', '#413839']
-    };
-
-    // line, area
     autoScale = true;
+    _id: string = JSON.parse(localStorage.getItem('currentUser')).playerOrClubId;
 
-    constructor() {
+    statusChart : any[] = [];
+    bookingMonthChart: any[] = [
+        {
+            "name": "Enero",
+            "value": 0
+        },
+        {
+            "name": "Febrero",
+            "value": 0
+        },
+        {
+            "name": "Marzo",
+            "value": 0
+        },
+        {
+            "name": "Abril",
+            "value": 0
+        },
+        {
+            "name": "Mayo",
+            "value": 0
+        },
+        {
+            "name": "Junio",
+            "value": 0
+        },
+        {
+            "name": "Julio",
+            "value": 0
+        },
+        {
+            "name": "Agosto",
+            "value": 0
+        },
+        {
+            "name": "Septiembre",
+            "value": 0
+        },
+        {
+            "name": "Octubre",
+            "value": 0
+        },
+        {
+            "name": "Noviembre",
+            "value": 0
+        },
+        {
+            "name": "Diciembre",
+            "value": 0
+        }
+    ];
+    fieldChart : any[] = [];
+
+    constructor(private bookingService : BookingService) {
     }
 
-    onSelect(event) {
+    ngOnInit(){
+        this.getBookings(this._id);
+        setInterval(this.updateData.bind(this), 1000);
+
+    }
+    updateData() {
+        this.statusChart = [...this.statusChart];
+        this.fieldChart = [...this.fieldChart];
+        this.bookingMonthChart = [... this.bookingMonthChart];
+    }
+
+    private getBookings(_id: string){
+        this.bookingService.findAllByReferenceId(_id).subscribe((bookings)=>{
+            console.log(bookings);
+            bookings.forEach((booking) => {
+                //statusChart
+                let statusC = this.statusChart;
+                let statusChartIndex = statusC.findIndex(status => status.name === booking.status);
+                if( statusChartIndex> -1){
+                    statusC[statusChartIndex].value = statusC[statusChartIndex].value +1;
+                    this.statusChart = statusC;
+                }else {
+                    let newStatus = {
+                        name: booking.status,
+                        value: 1
+                    };
+                    statusC.push(newStatus);
+                    this.statusChart = statusC;
+                }
+
+                //fieldChart
+                let fieldChartIndex = this.fieldChart.findIndex(field => field.name === booking.field.fieldName);
+                if( fieldChartIndex> -1){
+                    this.fieldChart[fieldChartIndex].value = this.fieldChart[fieldChartIndex].value +1;
+                }else {
+                    let newField = {
+                        name: booking.field.fieldName,
+                        value: 1
+                    };
+                    this.fieldChart.push(newField);
+                }
+
+
+                let playingDate : string = booking.playinDate;
+                let dateb = moment(playingDate).toDate();
+                let month = dateb.getMonth();
+                this.bookingMonthChart[month].value = this.bookingMonthChart[month].value +1;
+                //bookingMonthChart
+
+                console.log(dateb.getMonth());
+                console.log(this.fieldChart);
+                console.log(this.statusChart);
+            });
+        });
+    }
+
+    static onSelect(event) {
         console.log(event);
     }
 
-
-
-
-ngOnInit(){
-
-    }
 }

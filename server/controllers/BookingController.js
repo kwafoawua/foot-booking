@@ -233,12 +233,12 @@ function deleteBooking (bookingId) {
 * Se paga la cancha parcial o total
 */
 
-module.exports.countBookingStatus = function (req, res) {
+/*module.exports.countBookingStatus = function (req, res) {
     var club_id = req.params._id;
     Booking.find({'club.id': club_id}, function(err, bookings) {
         if(err) {
             return console.log(err);
         }
-        bookings.count()
+        bookings.count();
     });
-};
+};*/
