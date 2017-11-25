@@ -80,17 +80,36 @@
     </div>
 
     <div class="row justify-content-md-center mt-lg-5">
-        <div class="col-12" align="center">
+        <div class="col-6" align="center">
+        <div class="card">
+            <div class="card-header">
+                Reservas realizadas por Estado
+            </div>
+            <div class="card-body">
+                <ngx-charts-advanced-pie-chart
+                        [view]="view"
+                        [scheme]="options.colorScheme1"
+                        [animations]="options.animations"
+                        [results]="statusChart"
+                        [label]="'Total'"
+                        (select)="onSelect($event)">
+                </ngx-charts-advanced-pie-chart>
+            </div>
+        </div>
+    </div>
+        <div class="col-6" align="center">
             <div class="card">
+                <div class="card-header">
+                    Reservas realizadas por Cancha
+                </div>
                 <div class="card-body">
-                    <ngx-charts-advanced-pie-chart
-                            [view]="view"
-                            [scheme]="options.colorScheme1"
-                            [animations]="options.animations"
-                            [results]="statusChart"
-                            [label]="'Cantidad de reservas'"
+                    <ngx-charts-pie-chart
+                            [view]="view2"
+                            [scheme]="options.colorScheme"
+                            [results]="single"
+                            [labels]="options.showLabels"
                             (select)="onSelect($event)">
-                    </ngx-charts-advanced-pie-chart>
+                    </ngx-charts-pie-chart>
                 </div>
             </div>
         </div>

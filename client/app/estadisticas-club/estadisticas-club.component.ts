@@ -14,36 +14,16 @@ export class EstadisticasClubComponent implements OnInit{
 
    single: any[] = [
     {
-           "name": "Asistido",
-           "value": 10
+           "name": "Cancha 1",
+           "value": 30
        },
        {
-           "name": "Pendiente de Pago",
-           "value": 5
+           "name": "Cancha 2",
+           "value": 1
        },
        {
-           "name": "Cancelado",
-           "value": 5
-       },
-       {
-           "name": "Pago Parcial",
-           "value": 2
-       },
-       {
-           "name": "Pago Total",
-           "value": 10
-       },
-       {
-           "name": "Ausente",
-           "value": 5
-       },
-       {
-           "name": "Reembolso",
-           "value": 2
-       },
-       {
-           "name": "Anulado",
-           "value": 0
+           "name": "Cancha 3",
+           "value": 20
        }
 ];
     single2: any[] = [
@@ -139,14 +119,18 @@ export class EstadisticasClubComponent implements OnInit{
             ]
         }
     ];
-    view: any[] = [1200, 400];
+    view: any[] = [600, 500];
     view1: any[] = [1200, 400];
+    view2: any[] = [600, 500];
     // options
     options : any = {
-        showXAxis: true,
+        showLabels : true,
+        explodeSlices : false,
+        doughnut : false,
+        showXAxis: false,
         showYAxis:  true,
         gradient: false,
-        showLegend: true,
+        showLegend: false,
         showXAxisLabel: true,
         showYAxisLabel: true,
         animations: true,
