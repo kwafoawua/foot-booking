@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {BookingService} from "../_services/booking.service";
 import moment = require("moment");
+import {CommentService} from "../_services/comment.service";
 
 
 @Component({
@@ -11,133 +12,133 @@ import moment = require("moment");
 
 export class EstadisticasClubComponent implements OnInit{
 
-//    single: any[] = [
-//     {
-//            "name": "Asistido",
-//            "value": 10
-//        },
-//        {
-//            "name": "Pendiente de Pago",
-//            "value": 5
-//        },
-//        {
-//            "name": "Cancelado",
-//            "value": 5
-//        },
-//        {
-//            "name": "Pago Parcial",
-//            "value": 2
-//        },
-//        {
-//            "name": "Pago Total",
-//            "value": 10
-//        },
-//        {
-//            "name": "Ausente",
-//            "value": 5
-//        },
-//        {
-//            "name": "Reembolso",
-//            "value": 2
-//        },
-//        {
-//            "name": "Anulado",
-//            "value": 0
-//        }
-// ];
-//     single2: any[] = [
-//         {
-//             "name": "Enero",
-//             "value": 80
-//         },
-//         {
-//             "name": "Febrero",
-//             "value": 50
-//         },
-//         {
-//             "name": "Marzo",
-//             "value": 72
-//         },
-//         {
-//             "name": "Abril",
-//             "value": 89
-//         },
-//         {
-//             "name": "Mayo",
-//             "value": 100
-//         },
-//         {
-//             "name": "Junio",
-//             "value": 72
-//         },
-//         {
-//             "name": "Julio",
-//             "value": 89
-//         },
-//         {
-//             "name": "Agosto",
-//             "value": 150
-//         },
-//         {
-//             "name": "Septiembre",
-//             "value": 72
-//         },
-//         {
-//             "name": "Octubre",
-//             "value": 89
-//         },
-//         {
-//             "name": "Noviembre",
-//             "value": 50
-//         },
-//         {
-//             "name": "Diciembre",
-//             "value": 72
-//         }
-//     ];
-//     multi: any[] = [
-//         {
-//             "name": "Germany",
-//             "series": [
-//                 {
-//                     "name": "2010",
-//                     "value": 7300000
-//                 },
-//                 {
-//                     "name": "2011",
-//                     "value": 8940000
-//                 }
-//             ]
-//         },
-//
-//         {
-//             "name": "USA",
-//             "series": [
-//                 {
-//                     "name": "2010",
-//                     "value": 7870000
-//                 },
-//                 {
-//                     "name": "2011",
-//                     "value": 8270000
-//                 }
-//             ]
-//         },
-//
-//         {
-//             "name": "France",
-//             "series": [
-//                 {
-//                     "name": "2010",
-//                     "value": 5000002
-//                 },
-//                 {
-//                     "name": "2011",
-//                     "value": 5800000
-//                 }
-//             ]
-//         }
-//     ];
+   single: any[] = [
+    {
+           "name": "Asistido",
+           "value": 10
+       },
+       {
+           "name": "Pendiente de Pago",
+           "value": 5
+       },
+       {
+           "name": "Cancelado",
+           "value": 5
+       },
+       {
+           "name": "Pago Parcial",
+           "value": 2
+       },
+       {
+           "name": "Pago Total",
+           "value": 10
+       },
+       {
+           "name": "Ausente",
+           "value": 5
+       },
+       {
+           "name": "Reembolso",
+           "value": 2
+       },
+       {
+           "name": "Anulado",
+           "value": 0
+       }
+];
+    single2: any[] = [
+        {
+            "name": "Enero",
+            "value": 80
+        },
+        {
+            "name": "Febrero",
+            "value": 50
+        },
+        {
+            "name": "Marzo",
+            "value": 72
+        },
+        {
+            "name": "Abril",
+            "value": 89
+        },
+        {
+            "name": "Mayo",
+            "value": 100
+        },
+        {
+            "name": "Junio",
+            "value": 72
+        },
+        {
+            "name": "Julio",
+            "value": 89
+        },
+        {
+            "name": "Agosto",
+            "value": 150
+        },
+        {
+            "name": "Septiembre",
+            "value": 72
+        },
+        {
+            "name": "Octubre",
+            "value": 89
+        },
+        {
+            "name": "Noviembre",
+            "value": 50
+        },
+        {
+            "name": "Diciembre",
+            "value": 72
+        }
+    ];
+    multi: any[] = [
+        {
+            "name": "Germany",
+            "series": [
+                {
+                    "name": "2010",
+                    "value": 7300000
+                },
+                {
+                    "name": "2011",
+                    "value": 8940000
+                }
+            ]
+        },
+
+        {
+            "name": "USA",
+            "series": [
+                {
+                    "name": "2010",
+                    "value": 7870000
+                },
+                {
+                    "name": "2011",
+                    "value": 8270000
+                }
+            ]
+        },
+
+        {
+            "name": "France",
+            "series": [
+                {
+                    "name": "2010",
+                    "value": 5000002
+                },
+                {
+                    "name": "2011",
+                    "value": 5800000
+                }
+            ]
+        }
+    ];
     view: any[] = [1200, 400];
     view1: any[] = [1200, 400];
     // options
@@ -158,7 +159,8 @@ export class EstadisticasClubComponent implements OnInit{
     };
     autoScale = true;
     _id: string = JSON.parse(localStorage.getItem('currentUser')).playerOrClubId;
-
+    loaded: Boolean;
+    cantComments : number;
     statusChart : any[] = [];
     bookingMonthChart: any[] = [
         {
@@ -212,21 +214,36 @@ export class EstadisticasClubComponent implements OnInit{
     ];
     fieldChart : any[] = [];
 
-    constructor(private bookingService : BookingService) {
+
+    constructor(private bookingService : BookingService, private commentService : CommentService) {
     }
 
     ngOnInit(){
         this.getBookings(this._id);
+        this.countComments(this._id);
         setInterval(this.updateData.bind(this), 1000);
+        setTimeout(this.updateBookingMonthChart.bind(this), 1000);
+
+    }
+
+    updateBookingMonthChart (){
 
     }
     updateData() {
         this.statusChart = [...this.statusChart];
         this.fieldChart = [...this.fieldChart];
         this.bookingMonthChart = [... this.bookingMonthChart];
+
+    }
+
+    private countComments(_id) {
+        this.commentService.findAllCommentForAClub(_id).subscribe( (comments) => {
+            this.cantComments = comments.length;
+        });
     }
 
     private getBookings(_id: string){
+        let finalizado = false;
         this.bookingService.findAllByReferenceId(_id).subscribe((bookings)=>{
             console.log(bookings);
             bookings.forEach((booking) => {
@@ -267,7 +284,10 @@ export class EstadisticasClubComponent implements OnInit{
                 console.log(dateb.getMonth());
                 console.log(this.fieldChart);
                 console.log(this.statusChart);
+                console.log(this.bookingMonthChart);
+                finalizado = true;
             });
+            this.loaded = finalizado;
         });
     }
 

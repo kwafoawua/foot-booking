@@ -21,8 +21,8 @@
                     <div class="bg-success text-white rounded-circle col-3"><i class="fa fa-comments align-middle"
                                                                                aria-hidden="true"></i></div>
                     <div class="col-8 align-middle text-center">
-                        <span class="col-8 score">24</span>
-                        <span class="col-8">Comentarios</span></div>
+                       <a [routerLink]="['/results/club/',_id]"> <span class="col-8 score">{{cantComments}}</span>
+                        <span class="col-8">Comentarios</span></a></div>
                 </div>
             </div>
         </div>
@@ -61,7 +61,7 @@
                     Reservas realizadas en el año
                 </div>
                 <div class="card-body">
-                    <ngx-charts-bar-vertical
+                    <ngx-charts-bar-vertical *ngIf="loaded"
                             [view]="view1"
                             [scheme]="options.colorScheme"
                             [results]="bookingMonthChart"
