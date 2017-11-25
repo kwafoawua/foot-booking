@@ -2,11 +2,12 @@
 
     <div *ngIf="authenticated"   class="card" >
         <div class="card-body">
+            <label>Dejanos tu comentario</label>
            <p class="card-text">
-            <div class="form-group">
+            <div class="form-group post-inner">
                 <textarea [(ngModel)]="textComment" class="form-control" rows="6" id="comment"></textarea>
             </div>
-           <div><label>{{currrentUser}}</label></div>
+           <div><label>Tu usuario: {{currrentUser}}</label></div>
             <div class="col align-self-end" align="right">
             <button  type="button" class="btn btn-secondary" (click)="agregarComment()">Comentar</button>
             </div>
@@ -17,7 +18,7 @@
             <div class="card-header">
                 <h4>Comentarios</h4>
              </div>
-            <div *ngFor="let c of clubComentarios">
+            <div *ngFor="let c of clubComentarios.reverse()">
                 <div class="card-body">
                 <p class="card-text">{{c.comment}}</p>
                 <h6 class="card-subtitle mb-2 text-muted">Por: {{c.userName}}</h6>

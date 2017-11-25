@@ -38,7 +38,7 @@ import { FieldsManagementComponent} from "./fields-management/index";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {bookingPlayerComponent} from "./booking-player/booking-player.component";
 import {EstadisticasClubComponent} from "./estadisticas-club/index";
-import {commentsComponent} from "./pipes/Comments/commentsComponent";
+import {commentsComponent} from "./_directives/Comments/commentsComponent";
 import {CommentService} from "./_services/comment.service";
 
 
