@@ -42,8 +42,10 @@ ngOnInit(){
     }
 
     private getComentarios(){
+    console.log(this.route.snapshot.params['id']);
         this.commentService.findAllCommentForAClub(this.route.snapshot.params['id']).subscribe((comments)=>{
-            this.clubComentarios = comments});
+            this.clubComentarios = comments;
+        console.log(comments)});
     }
 
 
@@ -57,11 +59,18 @@ ngOnInit(){
 
 
 
+
     agregarComment(){
       this.comment.userName = this.currrentUser;
       this.comment._idClub = this.club._id;
       this.comment.textComment = this.textComment;
-      this.commentService.create(this.comment);
+      this.commentService.create(this.comment).subscribe(data => {
+          console.log("entra al comment");
+          this.clubComentarios.push(this.comment);
+      }, error => {
+          console.log(error)
+      });
+
     }
 
     // private getPlayer (_id: string) {

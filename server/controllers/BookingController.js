@@ -58,7 +58,6 @@ function addBooking (booking) {
 
     });
 
-    console.log( newBooking);
     newBooking.save(function (err) {
         console.log(err);
                     if (err) {
@@ -98,7 +97,6 @@ module.exports.findAllByReferenceId = function(req, res) {
  */
 module.exports.updateBookingStatus = function(req, res) {
 
-    console.log(req.body);
     var newStatus = {};
     newStatus.bookingId = req.body.bookingId;
     if(req.body.status){
@@ -194,7 +192,6 @@ module.exports.findAllBookingsByFieldAndDay = function(req,res){
         if (err) {
             return res.status(500).send(err);
         }
-        console.log(booking);
         res.status(200).send(booking);
     });
 };
@@ -233,12 +230,12 @@ function deleteBooking (bookingId) {
 * Se paga la cancha parcial o total
 */
 
-module.exports.countBookingStatus = function (req, res) {
+/*module.exports.countBookingStatus = function (req, res) {
     var club_id = req.params._id;
     Booking.find({'club.id': club_id}, function(err, bookings) {
         if(err) {
             return console.log(err);
         }
-        bookings.count()
+        bookings.count();
     });
-};
+};*/

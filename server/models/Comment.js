@@ -13,19 +13,20 @@ var ObjectId = Schema.Types.ObjectId;
 
 var commentSchema = new Schema({
 
-			_idClub : {type: String, required: true},
-			userName: {type: String, required: true},
-			comment: {type: String, required: true},
-		    dateCreation: {type: Date, default: Date.now},
-		    dateModify: {type: Date}
-	},{
-        toObject: {
-            virtuals: true
-        },
-        toJSON: {
-            virtuals: true
-        }
+        _idClub: {type: String, required: true},
+        userName: {type: String, required: true},
+        comment: {type: String, required: true},
+        createdOn: {type: Date, default: Date.now},
+        dateModify: {type: Date}
     }
+    // },{
+    //     toObject: {
+    //         virtuals: true
+    //     },
+    //     toJSON: {
+    //         virtuals: true
+    //     }
+    // }
 );
 
 

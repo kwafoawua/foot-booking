@@ -40,7 +40,7 @@ typings
 client/app/**/*.js
 client/app/**/*.js.map
 client/package-lock.json
-server/package-log.json
+server/package-lock.json
 
 .idea
 uploads

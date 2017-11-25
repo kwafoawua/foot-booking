@@ -9,7 +9,9 @@ export class CommentService {
 
     constructor(private http: Http) {}
 
-    create(comment: Comment) {
+
+    create(comment: any) {
+        console.log(comment);
         return this.http.post('/comments/create', comment);
     }
 
