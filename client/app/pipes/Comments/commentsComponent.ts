@@ -63,7 +63,7 @@ ngOnInit(){
     agregarComment(){
       this.comment.userName = this.currrentUser;
       this.comment._idClub = this.club._id;
-      this.comment.textComment = this.textComment;
+      this.comment.comment = this.textComment;
       this.commentService.create(this.comment).subscribe(data => {
           console.log("entra al comment");
           this.clubComentarios.push(this.comment);
@@ -72,15 +72,6 @@ ngOnInit(){
       });
 
     }
-
-    // private getPlayer (_id: string) {
-    //
-    //     console.log(this.player);
-    //     this.playerService.getById(_id).subscribe(player => {
-    //     this.comment.userName = player.name;
-    //     });}
-
-
 
 
 }
