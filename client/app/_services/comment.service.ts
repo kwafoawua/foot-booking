@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import {Comment} from "../_models/Comment";
+import {Comment} from "../_models/comment";
 
 @Injectable()
 export class CommentService {
 
-    public static  comment: Comment;
+    //public static  comment: Comment;
 
     constructor(private http: Http) {}
 
-    create(comment: any) {
-
+    create(comment: Comment) {
         return this.http.post('/comments/create', comment);
     }
 

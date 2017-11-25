@@ -3,7 +3,7 @@ import {ClubService} from "../../_services/club.service";
 import {Club} from "../../_models/club";
 import {UserService} from "../../_services/user.service";
 import {ActivatedRoute} from "@angular/router";
-import {Comment} from "../../_models/Comment";
+import {Comment} from "../../_models/comment";
 import {CommentService} from "../../_services/comment.service";
 
 
@@ -25,15 +25,14 @@ export class commentsComponent implements OnInit {
     public comment:Comment = new Comment();
     public clubComentarios:Comment[]=[];
     private club: Club;
-    private userName:"";
+    public currrentUser:any;
 
     constructor(private clubService: ClubService, private  userService:UserService,
                 private route: ActivatedRoute, private commentService : CommentService){}
 
 ngOnInit(){
-
     this.isAuthenticated();
-    this.getComentarios()
+    this.getComentarios();
     this.getClub(this.route.snapshot.params['id']);
    }
 
@@ -51,22 +50,16 @@ ngOnInit(){
   isAuthenticated(){ //verifico si hay sesion abierta
       if(localStorage.currentUser){
           this.authenticated=true;
-         // const _id: string = JSON.parse(localStorage.getItem('currentUser')).playerOrClubId;
-         // this.getUser(_id);
+          this.currrentUser = JSON.parse(localStorage.getItem('currentUser')).username;
       }
       else this.authenticated=false;
   }
 
 
-    private getUser (_id: string) {
-        this.userService.getById(_id).subscribe(user => {this.userName = user.username;});
-    }
 
-    addComment(){
-      console.log(this.textComment);
-
-      this.comment.userName = "pabloprueba";
-      this.comment._idClub = "5a0b541db59b0922a8bd092f";
+    agregarComment(){
+      this.comment.userName = this.currrentUser;
+      this.comment._idClub = this.club._id;
       this.comment.textComment = this.textComment;
       this.commentService.create(this.comment);
     }

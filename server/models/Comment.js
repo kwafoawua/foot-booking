@@ -8,7 +8,7 @@ var ObjectId = Schema.Types.ObjectId;
  * @param {} author - Author that make the comment, can be a club or a player.
  * @param {String} comment - The comment that have been maked.
  * @param {Date} dateCreation - Date an hour of the comment creation.
- * @param {Date} dateModify - Date an hour of the comment modify.
+ * @param ex{Date} dateModify - Date an hour of the comment modify.
  */
 
 var commentSchema = new Schema({

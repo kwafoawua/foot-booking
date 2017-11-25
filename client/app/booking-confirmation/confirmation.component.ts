@@ -54,7 +54,6 @@ export class confirmationComponent implements OnInit{
 
             const mydate = new Date(parts[2],parts[1]-1,parts[0]);
             console.log('dateObject '+mydate);
-
             this.reservaFinal.clubId = this.booking.club._id;
             this.reservaFinal.clubName= this.booking.club.name;
             this.reservaFinal.clubAddress= this.booking.club.address.address;
