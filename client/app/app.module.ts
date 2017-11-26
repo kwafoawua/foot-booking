@@ -57,7 +57,7 @@ import {TournamentService} from "./_services/tournament.service";
 import {TournamentStageComponent} from "./tournament/tournament-stage/tournament-stage.component";
 import {StageComponent} from "./tournament/stage/stage.component";
 import {GameComponent} from "./tournament/game/game.component";
-import {TournamentModule} from "./tournament/tournament.module";
+import {TournamentModule} from "./tournament/tournament-routing.module";
 
 
 @NgModule({

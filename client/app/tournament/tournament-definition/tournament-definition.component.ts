@@ -19,6 +19,7 @@ import {AlertService} from "../../_services/alert.service";
 
 export class TournamentDefinitionComponent implements OnInit {
     tournamentForm : FormGroup;
+    idClub:any;
     configTime : ITimeSelectConfig = {
         minutesInterval: 60,
         minutesFormat: '00'
@@ -40,16 +41,23 @@ export class TournamentDefinitionComponent implements OnInit {
 
     }
 
-    ngOnInit(){}
+    ngOnInit(){
+        this.getClubId();
+    }
+
+    getClubId(){
+        this.idClub = JSON.parse(localStorage.getItem('currentUser')).playerOrClubId;
+    }
 
     createForm(){
         this.tournamentForm = this.fb.group({
+            _idClub: this.idClub,
             name: [null, Validators.required],
             description: [null, Validators.compose([Validators.required, Validators.maxLength(255)])],
             inicioInscripcion:[null, Validators.required],
             finInscripcion:[null, Validators.required],
             inicioCampeonato:[null, Validators.required],
-            finCampeonato:[null, Validators.required],
+            finCampeonato:[null],
             cantEquipos:[null,Validators.required],
             fee:[null,Validators.required]
         })
