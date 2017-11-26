@@ -11,6 +11,7 @@ var uploadsManager = require('../controllers/uploads');
 var playerController = require('../controllers/playerController');
 var bookingController = require('../controllers/BookingController');
 var commentController = require('../controllers/CommentController');
+var tournamentController = require('../controllers/TournamentController');
 
 //*User Controller*//
 router.post('/users/authenticate', userController.authenticate);
@@ -56,5 +57,8 @@ router.put('/comments/changeComment/', commentController.updateComment);
 router.get('/comments/:_id', commentController.findAllCommentForAClub);
 router.get('/comments/authorComment/:_id', commentController.findAllAuthorComments);
 router.delete('/comments/:_id', commentController.deleteComment);
+
+/* Tournament Controller */
+router.post('/tournament/register', tournamentController.createTournament);
 
 module.exports = router;

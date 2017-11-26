@@ -4,6 +4,7 @@ import {DpDatePickerModule, IDatePickerDirectiveConfig} from  'ng2-date-picker';
 import {Moment} from "moment";
 import {ITimeSelectConfig} from "ng2-date-picker/time-select/time-select-config.model";
 import {TournamentService} from "../../_services/tournament.service";
+import {UserService, ClubService} from "../../_services/index";
 import {AlertService} from "../../_services/alert.service";
 
 /**
@@ -33,14 +34,20 @@ export class TournamentDefinitionComponent implements OnInit {
                 ', ' + m.year();
         },
         appendTo: 'body'};
+    club: Club;
+    clubId : string = "";    
 
     constructor(private fb:FormBuilder, private tournamentService: TournamentService,
-                private alertService: AlertService){
+                private alertService: AlertService, private userService: UserService,
+                private clubService: ClubService){
         this.createForm();
 
     }
 
-    ngOnInit(){}
+    ngOnInit(){
+        this.username = JSON.parse(localStorage.getItem('currentUser')).username;
+
+    }
 
     createForm(){
         this.tournamentForm = this.fb.group({
@@ -51,7 +58,8 @@ export class TournamentDefinitionComponent implements OnInit {
             inicioCampeonato:[null, Validators.required],
             finCampeonato:[null, Validators.required],
             cantEquipos:[null,Validators.required],
-            fee:[null,Validators.required]
+            fee:[null,Validators.required],
+            clubId: this.clubId
         })
     }
 
@@ -67,6 +75,11 @@ export class TournamentDefinitionComponent implements OnInit {
         }
     }
 
-
+    getClubId(username){
+        this.userService.getByUsername(username).subscribe(userClub => {
+            this.club = userClub.creator;
+            this.clubId = this.club._id;
+        });
+    }
 
 }
