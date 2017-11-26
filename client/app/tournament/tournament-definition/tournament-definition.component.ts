@@ -4,7 +4,6 @@ import {DpDatePickerModule, IDatePickerDirectiveConfig} from  'ng2-date-picker';
 import {Moment} from "moment";
 import {ITimeSelectConfig} from "ng2-date-picker/time-select/time-select-config.model";
 import {TournamentService} from "../../_services/tournament.service";
-import {UserService, ClubService} from "../../_services/index";
 import {AlertService} from "../../_services/alert.service";
 
 /**
@@ -39,8 +38,7 @@ export class TournamentDefinitionComponent implements OnInit {
     clubId : string = "";    
 
     constructor(private fb:FormBuilder, private tournamentService: TournamentService,
-                private alertService: AlertService, private userService: UserService,
-                private clubService: ClubService){
+                private alertService: AlertService){
         this.createForm();
 
     }
