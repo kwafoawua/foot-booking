@@ -5,28 +5,17 @@
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { ProfileClubComponent, ProfileClubCanchasComponent, ProfileClubUserComponent, ProfileClubPasswordComponent, ProfileClubInfoComponent }     from './index';
+import {TournamentStageComponent} from "./tournament-stage/tournament-stage.component";
+import {StageComponent} from "./stage/stage.component";
 
 const profileClubRoutes: Routes = [
     {
-        path: 'club/profile',
-        component: ProfileClubComponent,
+        path: 'campeonato/administrar-fases',
+        component:TournamentStageComponent,
         children: [
             {
-                path: '',
-                component: ProfileClubUserComponent,
-            },
-            {
-                path: 'password',
-                component: ProfileClubPasswordComponent
-            },
-            {
-                path: 'info',
-                component: ProfileClubInfoComponent
-            },
-            {
-                path: 'canchas',
-                component: ProfileClubCanchasComponent
+                path: 'ronda',
+                component: StageComponent,
             }
         ]
     }
