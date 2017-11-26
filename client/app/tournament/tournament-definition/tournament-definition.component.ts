@@ -20,6 +20,7 @@ import {AlertService} from "../../_services/alert.service";
 
 export class TournamentDefinitionComponent implements OnInit {
     tournamentForm : FormGroup;
+    idClub:any;
     configTime : ITimeSelectConfig = {
         minutesInterval: 60,
         minutesFormat: '00'
@@ -45,21 +46,25 @@ export class TournamentDefinitionComponent implements OnInit {
     }
 
     ngOnInit(){
-        this.username = JSON.parse(localStorage.getItem('currentUser')).username;
+        this.getClubId();
+    }
+
+    getClubId(){
+        this.idClub = JSON.parse(localStorage.getItem('currentUser')).playerOrClubId;
 
     }
 
     createForm(){
         this.tournamentForm = this.fb.group({
+            _idClub: this.idClub,
             name: [null, Validators.required],
             description: [null, Validators.compose([Validators.required, Validators.maxLength(255)])],
             inicioInscripcion:[null, Validators.required],
             finInscripcion:[null, Validators.required],
             inicioCampeonato:[null, Validators.required],
-            finCampeonato:[null, Validators.required],
+            finCampeonato:[null],
             cantEquipos:[null,Validators.required],
-            fee:[null,Validators.required],
-            clubId: this.clubId
+            fee:[null,Validators.required]
         })
     }
 
@@ -73,13 +78,6 @@ export class TournamentDefinitionComponent implements OnInit {
                 error => {
                     this.alertService.error("ha ocurrido un error",false);})
         }
-    }
-
-    getClubId(username){
-        this.userService.getByUsername(username).subscribe(userClub => {
-            this.club = userClub.creator;
-            this.clubId = this.club._id;
-        });
     }
 
 }
