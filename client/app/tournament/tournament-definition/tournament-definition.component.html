@@ -1,0 +1,76 @@
+<div class="avt-post-wrapper section">
+    <div class="container">
+
+    <form [formGroup]="tournamentForm" class="form-group" >
+
+        <div class="form-group">
+            <label class="label-form row" name="name">Nombre del campeonato</label>
+            <input type="text" formControlName="name" class="form-control" id="name" aria-describedby="emailHelp" placeholder="ingrese un nombre">
+        </div>
+
+
+
+        <div class="card form-group">
+            <div class="card-header">Inscripciones</div>
+                <div class="card-body form-group">
+                <div class="col-4">
+                    <label class="label-form row" name="datePicker1"> Fecha de inicio</label>
+                    <input class="form-group category-dropdown" [dpDayPicker]="config" name="datePicker1"  placeholder="DD-MM-AAAA"
+                           inputElementConteiner="#inputConteiner" theme="dp-material" formControlName="inicioInscripcion">
+                    <label class="label-form row" for="costo">Costo de inscripción</label>
+                    <input class="form-group " name="costo" type="number" placeholder="$" formControlName="fee">
+                </div>
+
+                <div class="col-4">
+                        <label class="label-form row" for="datePicker2">Fecha de fin</label>
+                        <input class=" form-group dropdown category-dropdown" [dpDayPicker]="config" name="datePicker2"  placeholder="DD-MM-AAAA"
+                                   inputElementConteiner="#inputConteiner" theme="dp-material" formControlName="finInscripcion">
+                        <label class="label-form row" for="cant">Cantidad de equipos</label>
+                        <input  class="form-group " name="cant" type="number" formControlName="cantEquipos">
+
+                </div>
+                    <!--<div class="col-4">-->
+                        <!--<label class="label-form row">Competencia</label>-->
+
+                    <!--</div>-->
+                    <!--<div class="col-4">-->
+                        <!--<label class="label-form row">Sexo de los participantes</label>-->
+
+                    <!--</div>-->
+             </div>
+        </div>
+
+
+        <div class="form-group card">
+                <div class="card-header"> Campeonato</div>
+                <div class="card-body">
+                <div class="row">
+                    <div class="col-6 col-md-4"> Fecha de incio</div>
+                    <div class="col-6 col-md-4">
+                    <input class="form-group dropdown category-dropdown" [dpDayPicker]="config" name="datePicker"  placeholder="DD-MM-AAAA"
+                           inputElementConteiner="#inputConteiner" theme="dp-material" formControlName="inicioCampeonato">
+                    </div>
+                </div>
+                <div class="row"  >
+                    <div class="col-6 col-md-4">Fecha de fin</div>
+                    <div class="col-6 col-md-4">
+                        <input class="form-group  dropdown category-dropdown" [dpDayPicker]="config" name="datePicker"  placeholder="DD-MM-AAAA"
+                                             inputElementConteiner="#inputConteiner" theme="dp-material" formControlName="finCampeonato">
+                    </div>
+                </div>
+                </div>
+        </div>
+
+        <h4>Normas del campeonato/condiciones</h4>
+        <div class="form-group post-inner">
+            <textarea formControlName="description"  class="form-control" rows="6" id="comment">Descripción </textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" align="left" (click)="createTournament()">Guardar</button>
+
+    </form>
+
+    </div>
+
+</div>
+

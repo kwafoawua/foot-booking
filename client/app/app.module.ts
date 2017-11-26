@@ -52,6 +52,11 @@ import { ProfileEditComponent } from './profile-player/options-component/profile
 import { AgmCoreModule } from '@agm/core';
 import {DpDatePickerModule} from 'ng2-date-picker';
 import {confirmationComponent} from "./booking-confirmation/confirmation.component";
+import {TournamentDefinitionComponent} from "./tournament/tournament-definition/tournament-definition.component";
+import {TournamentService} from "./_services/tournament.service";
+import {TournamentStageComponent} from "./tournament/tournament-stage/tournament-stage.component";
+import {StageComponent} from "./tournament/stage/stage.component";
+import {GameComponent} from "./tournament/game/game.component";
 
 
 @NgModule({
@@ -98,6 +103,10 @@ import {confirmationComponent} from "./booking-confirmation/confirmation.compone
         EstadisticasClubComponent,
         bookingPlayerComponent,
         commentsComponent,
+        TournamentDefinitionComponent,
+        TournamentStageComponent,
+        StageComponent,
+        GameComponent,
     ],
     providers: [
         customHttpProvider,
@@ -109,7 +118,8 @@ import {confirmationComponent} from "./booking-confirmation/confirmation.compone
         PlayerService,
         SearchService,
         BookingService,
-        CommentService
+        CommentService,
+        TournamentService
     ],
     bootstrap: [AppComponent]
 })

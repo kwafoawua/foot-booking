@@ -20,8 +20,8 @@ export class HomeComponent implements OnInit {
 
     private form: FormGroup;
     private clubfilter: ClubFilter;
-   lat: number ;
-   lng: number;
+    lat: number ;
+    lng: number;
     zoom = 16.88;
     clubname="";
     selectedDate:any;
