@@ -119,9 +119,9 @@ export class EstadisticasClubComponent implements OnInit{
             ]
         }
     ];
-    view: any[] = [600, 500];
-    view1: any[] = [1200, 400];
-    view2: any[] = [600, 500];
+   // view: any[] = [600, 500];
+ //   view1: any[] = [1200, 400];
+  //  view2: any[] = [600, 500];
     // options
     options : any = {
         showLabels : true,
@@ -130,7 +130,7 @@ export class EstadisticasClubComponent implements OnInit{
         showXAxis: true,
         showYAxis:  true,
         gradient: false,
-        showLegend: false,
+        showLegend: true,
         showXAxisLabel: true,
         showYAxisLabel: true,
         animations: true,
@@ -208,14 +208,8 @@ export class EstadisticasClubComponent implements OnInit{
     ngOnInit(){
         this.getBookings(this._id);
         this.countComments(this._id);
-        setInterval(this.updateData.bind(this), 1000);
-        setTimeout(this.updateBookingMonthChart.bind(this), 1000);
-
     }
 
-    updateBookingMonthChart (){
-
-    }
     updateData() {
         this.statusChart = [...this.statusChart];
         this.fieldChart = [...this.fieldChart];
@@ -235,7 +229,7 @@ export class EstadisticasClubComponent implements OnInit{
             console.log(bookings);
             bookings.forEach((booking) => {
                 //statusChart asistido, cancelado, reservado
-                if(["Asistido", "Cancelado", "Pago Total"].indexOf(booking.status)) {
+                if(["Asistido", "Cancelado", "Pago Total"].indexOf(booking.status) > -1) {
                     let statusC = this.statusChart;
                     let statusChartIndex = statusC.findIndex(status => status.name === booking.status);
                     if( statusChartIndex> -1){
@@ -265,13 +259,14 @@ export class EstadisticasClubComponent implements OnInit{
                 }
 
             //hacer un filtro de que si es asistido cuente la fecha.
-                let playingDate : string = booking.playinDate;
-                let dateb = moment(playingDate).toDate();
+                let playingDate : string = booking.playingDate;
+                let dateb = moment(booking.playingDate, 'YYYY-MM-DD').toDate();
                 let month = dateb.getMonth();
                 this.bookingMonthChart[month].value = this.bookingMonthChart[month].value +1;
                 //bookingMonthChart
 
                 console.log(dateb.getMonth());
+                console.log(dateb);
                 console.log(this.fieldChart);
                 console.log(this.statusChart);
                 console.log(this.bookingMonthChart);

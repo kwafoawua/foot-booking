@@ -1,24 +1,45 @@
-// import {Component, OnInit} from "@angular/core";
-//
-// @Component({
-//     moduleId: module.id,
-//     templateUrl: 'fields-managment.component.html',
-// })
-// export class FieldsManagmentComponent implements OnInit{
-//     viewDate: Date = new Date();
-//     events = [];
-//     ngOnInit(){}
-// }
-
-import { Component, ChangeDetectionStrategy, ViewChild, TemplateRef, OnInit } from '@angular/core';
+import {Component, ChangeDetectionStrategy, ViewChild, TemplateRef, OnInit, Injectable} from '@angular/core';
 import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
 import { Subject } from 'rxjs/Subject';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {NgbDatepickerI18n, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent ,CalendarDateFormatter, DAYS_OF_WEEK } from 'angular-calendar';
 import { BookingService } from "../_services/booking.service";
 import { CustomDateFormatter } from './custom-date-formatter.provider';
 import { ClubService } from "../_services/club.service";
 import { AlertService } from "../_services/alert.service";
+
+const I18N_VALUES = {
+    'es': {
+        weekdays: ['Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa', 'Do'],
+        months: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+    }
+    // other languages you would support
+};
+// Define a service holding the language. You probably already have one if your app is i18ned. Or you could also
+// use the Angular LOCALE_ID value
+@Injectable()
+export class I18n {
+    language = 'es';
+}
+
+// Define custom service providing the months and weekdays translations
+@Injectable()
+export class CustomDatepickerI18n extends NgbDatepickerI18n {
+
+    constructor(private _i18n: I18n) {
+        super();
+    }
+
+    getWeekdayShortName(weekday: number): string {
+        return I18N_VALUES[this._i18n.language].weekdays[weekday - 1];
+    }
+    getMonthShortName(month: number): string {
+        return I18N_VALUES[this._i18n.language].months[month - 1];
+    }
+    getMonthFullName(month: number): string {
+        return this.getMonthShortName(month);
+    }
+}
 
 const colors: any = {
     red: {
@@ -54,7 +75,11 @@ const colors: any = {
         {
             provide: CalendarDateFormatter,
             useClass: CustomDateFormatter
-        }
+
+        },
+        I18n,
+        {provide: NgbDatepickerI18n,
+            useClass: CustomDatepickerI18n}
     ]
 })
 
@@ -93,41 +118,6 @@ export class FieldsManagementComponent implements OnInit{
     ];
 
     refresh: Subject<any> = new Subject();
-
-    // events: CalendarEvent[] = [
-    //     {
-    //         start: subDays(startOfDay(new Date()), 1),
-    //         end: addDays(new Date(), 1),
-    //         title: 'A 3 day event',
-    //         color: colors.red,
-    //         actions: this.actions
-    //     },
-    //     {
-    //         start: startOfDay(new Date()),
-    //         end: startOfDay(new Date()),
-    //         title: 'An one day event',
-    //         color: colors.yellow,
-    //         actions: this.actions
-    //     },
-    //     {
-    //         start: subDays(endOfMonth(new Date()), 3),
-    //         end: addDays(endOfMonth(new Date()), 3),
-    //         title: 'A long event that spans 2 months',
-    //         color: colors.blue
-    //     },
-    //     {
-    //         start: addHours(startOfDay(new Date()), 2),
-    //         end: new Date(),
-    //         title: 'A draggable and resizable event',
-    //         color: colors.yellow,
-    //         actions: this.actions,
-    //         resizable: {
-    //             beforeStart: true,
-    //             afterEnd: true
-    //         },
-    //         draggable: true
-    //     }
-    // ];
 
     activeDayIsOpen: boolean = false;
 

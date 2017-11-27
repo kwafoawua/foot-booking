@@ -2,18 +2,29 @@
 i {
     font-size: 40px;
 }
-    .card-body {
+    .card-body.upper {
         display: inline-flex !important;
+    }
+    .card-body.chart {
+        height: 300px !important;
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
     }
     .hide {
         display: none;
     }
+
+ngx-charts-bar-vertical > ngx-charts-chart > div.ngx-charts-outer > svg.ngx-charts {
+    position: relative !important;
+    right: 45px !important;
+}
 </style>
 <div class="container-fluid">
     <div class="row justify-content-md-center mt-lg-5">
         <div class="col-md-3">
             <div class="card">
-                <div class="card-body">
+                <div class="card-body upper">
                     <div class="col-md-3"><i class="fa fa-comments align-middle text-success"
                                                                                aria-hidden="true"></i></div>
                     <div class="col-8 align-middle text-center">
@@ -24,7 +35,7 @@ i {
         </div>
         <div class="col-md-3">
             <div class="card">
-                <div class="card-body heart">
+                <div class="card-body upper">
                     <div class="col-3"><i class="fa fa-heart align-middle text-danger"
                                                                               aria-hidden="true"></i></div>
                     <div class="col-8 align-middle text-center">
@@ -36,14 +47,14 @@ i {
         </div>
         <div class="col-md-3">
             <div class="card hide">
-                <div class="card-body">
+                <div class="card-body upper">
 
                 </div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="card hide">
-                <div class="card-body">
+                <div class="card-body upper">
 
                 </div>
             </div>
@@ -51,12 +62,12 @@ i {
     </div>
 
     <div class="row justify-content-md-center mt-lg-5">
-        <div class="col-12">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     Reservas realizadas en el año
                 </div>
-                <div class="card-body">
+                <div class="card-body chart">
                     <ngx-charts-bar-vertical *ngIf="loaded"
                             [view]="view1"
                             [scheme]="options.colorScheme"
@@ -76,13 +87,13 @@ i {
     </div>
 
     <div class="row justify-content-md-center mt-lg-5">
-        <div class="col-6" align="center">
+        <div class="col-md-6" align="center">
         <div class="card">
             <div class="card-header">
                 Reservas realizadas por Estado
             </div>
-            <div class="card-body">
-                <ngx-charts-advanced-pie-chart
+            <div class="card-body chart">
+                <ngx-charts-advanced-pie-chart *ngIf="loaded"
                         [view]="view"
                         [scheme]="options.colorScheme1"
                         [animations]="options.animations"
@@ -93,24 +104,19 @@ i {
             </div>
         </div>
     </div>
-        <div class="col-6" align="center">
+        <div class="col-md-6" align="center">
             <div class="card">
                 <div class="card-header">
                     Reservas realizadas por Cancha
                 </div>
-                <div class="card-body">
-                    <ngx-charts-pie-chart
+                <div class="card-body chart">
+                    <ngx-charts-pie-chart *ngIf="loaded"
                             [view]="view2"
                             [scheme]="options.colorScheme"
                             [results]="fieldChart"
                             [labels]="options.showLabels"
+                            [legendTitle] = "Leyenda"
                             (select)="onSelect($event)">
-                        <ng-template #tooltipTemplate let-model="fieldModel">
-                            <h1>
-                                {{getFlag(model.name)}}
-                            </h1>
-                            <h2>{{model.name}}: {{model.value}}</h2>
-                        </ng-template>
                     </ngx-charts-pie-chart>
                 </div>
             </div>
