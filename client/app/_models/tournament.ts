@@ -4,11 +4,13 @@
 
 export class Tournament{
     _idClub:string;
-    name:String;
-    conditions:String;
+    name:string;
+    description:string;
     startInscription:Date;
-    endInscription:Date;
-    firtDay:Date;
-    endDay:Date;
+    finishInscription:Date;
+    statingDay:Date;
+    finishDay:Date;
+    cantequipos:number;
+    inscriptionFee:number;
 
 }

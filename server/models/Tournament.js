@@ -12,7 +12,6 @@ var ObjectId = Schema.Types.ObjectId;
  */
 
 var tournamentSchema = new Schema({
-
     name: { type: String, required: true },
     description: { type: String, maxLength: 255, required: true },
     inicioInscripcion: { type: Date, required: true },

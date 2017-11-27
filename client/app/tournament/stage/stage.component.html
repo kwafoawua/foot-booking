@@ -3,21 +3,29 @@
     <div class="card-body">
         <div class="row">
             <div class="col">
-                1 of 2
+                <label class="label-form row" for="name">Nombre</label>
+                <input class=" form-group" type="text" formControlName="name">
+
+                <label class="label-form row" for="datePicker1">Fecha de incio</label>
+                <input class=" form-group dropdown category-dropdown" [dpDayPicker]="config" name="dateinicio"  placeholder="DD-MM-AAAA"
+                       inputElementConteiner="#inputConteiner" theme="dp-material" formControlName="startDay">
+
             </div>
             <div class="col">
-                2 of 2
-            </div>
+
+                <label class="label-form row" for="number">Numero</label>
+                <input class=" form-group" type="number" formControlName="number">
+                <label class="label-form row" for="datePicker2">Fecha de fin</label>
+                <input class=" form-group dropdown category-dropdown" [dpDayPicker]="config" name="datefin"  placeholder="DD-MM-AAAA"
+                       inputElementConteiner="#inputConteiner" theme="dp-material" formControlName="finishDay">            </div>
         </div>
     </div>
 </div>
 
 <div class="form-group">
-<game></game>
+
+<game-array> </game-array>
+
 </div>
 
-<div class="form-group" align="right">
-    <button type="button" class="btn btn-secondary">Cancelar</button>
-    <button type="button" class="btn btn-success">Guardar</button>
-</div>
 

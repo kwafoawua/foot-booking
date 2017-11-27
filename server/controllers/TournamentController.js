@@ -33,15 +33,15 @@ function addTournament (tournament) {
     var deferred = Q.defer();
 
     var newTournament = new Tournament({
+        clubId: tournament.clubId,
         name: tournament.name,
-        description: tournament.description
+        description: tournament.description,
         inicioInscripcion: tournament.inicioInscripcion,
         finInscripcion: tournament.finInscripcion,
         inicioCampeonato: tournament.inicioCampeonato, 
         finCampeonato: tournament.finCampeonato || null,
         cantEquipos: tournament.cantEquipos,
-        fee: tournament.fee,
-        clubId: tournament.clubId
+        fee: tournament.fee
     });
 
     console.log( newTournament);

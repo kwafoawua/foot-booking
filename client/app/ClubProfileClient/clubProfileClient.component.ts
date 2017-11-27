@@ -83,9 +83,6 @@ export class ProfileClubClientComponent implements OnInit {
             this.NotanUser =false ;
 
             if(e!=null){
-
-               // console.lo
-
                 this.booking1.field=e;
                 this.booking1.club=this.club;
                 this.booking1.dateBook=this.date[i];

@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {FormBuilder, FormGroup, Validator, Validators} from "@angular/forms";
 import {DpDatePickerModule, IDatePickerDirectiveConfig} from  'ng2-date-picker';
 import {Moment} from "moment";
+import {Tournament} from  "../../_models/tournament";
 import {ITimeSelectConfig} from "ng2-date-picker/time-select/time-select-config.model";
 import {TournamentService} from "../../_services/tournament.service";
 import {AlertService} from "../../_services/alert.service";
@@ -19,11 +20,13 @@ import {AlertService} from "../../_services/alert.service";
 
 export class TournamentDefinitionComponent implements OnInit {
     tournamentForm : FormGroup;
-    idClub:any;
+    tournament:Tournament;
+    idClub: string = JSON.parse(localStorage.getItem('currentUser')).playerOrClubId;
     configTime : ITimeSelectConfig = {
         minutesInterval: 60,
         minutesFormat: '00'
     };
+
     config: IDatePickerDirectiveConfig = {
         format: 'DD/MM/YYYY',
         enableMonthSelector: true,
@@ -34,27 +37,22 @@ export class TournamentDefinitionComponent implements OnInit {
                 ', ' + m.year();
         },
         appendTo: 'body'};
-    club: Club;
-    clubId : string = "";    
 
     constructor(private fb:FormBuilder, private tournamentService: TournamentService,
                 private alertService: AlertService){
         this.createForm();
 
+
     }
 
     ngOnInit(){
-        this.getClubId();
-    }
-
-    getClubId(){
-        this.idClub = JSON.parse(localStorage.getItem('currentUser')).playerOrClubId;
 
     }
 
-    createForm(){
+
+     createForm(){
         this.tournamentForm = this.fb.group({
-            _idClub: this.idClub,
+            _idClubId : [null],
             name: [null, Validators.required],
             description: [null, Validators.compose([Validators.required, Validators.maxLength(255)])],
             inicioInscripcion:[null, Validators.required],
@@ -62,15 +60,35 @@ export class TournamentDefinitionComponent implements OnInit {
             inicioCampeonato:[null, Validators.required],
             finCampeonato:[null],
             cantEquipos:[null,Validators.required],
-            fee:[null,Validators.required]
+            fee:[null,Validators.required],
+            tipo:[null,Validators.required],
+            categoria:[null,Validators.required]
         })
     }
 
     createTournament(){
+
+
         if(this.tournamentForm.valid){
+
+            // this.tournament = new Tournament();
+            // this.tournament._idClub = this.idClub;
+            // this.tournament.name = this.tournamentForm.name;
+            // this.tournament.description = this.tournamentForm.description;
+            // this.tournament.startInscription = this.tournamentForm.inicioInscripcion;
+            // this.tournament.finishInscription = this.tournamentForm.finInscripcion;
+            // this.tournament.statingDay = this.tournamentForm.inicioCampeonato;
+            // this.tournament.finishDay = this.tournament.finCampeonato;
+            // this.tournament.cantequipos = this.tournamentForm.cantEquipos;
+            // this.tournament.inscriptionFee = this.tournamentForm.fee;
+            // console.log("el form", this.tournament);
+
+         //   this.tournamentForm._idClubId = this.idClub;
+
             this.tournamentService.create(this.tournamentForm).subscribe(data=> {
                 this.alertService.success("se guardaron los cambios",true),
                     console.log("el form", this.tournamentForm);
+
 
                 },
                 error => {

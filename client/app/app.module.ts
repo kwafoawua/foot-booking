@@ -57,7 +57,7 @@ import {TournamentService} from "./_services/tournament.service";
 import {TournamentStageComponent} from "./tournament/tournament-stage/tournament-stage.component";
 import {StageComponent} from "./tournament/stage/stage.component";
 import {GameComponent} from "./tournament/game/game.component";
-import {TournamentModule} from "./tournament/tournament-routing.module";
+import {TournamentModule} from "./tournament/tournament.module";
 
 
 @NgModule({
@@ -104,11 +104,7 @@ import {TournamentModule} from "./tournament/tournament-routing.module";
         FieldsManagementComponent,
         EstadisticasClubComponent,
         bookingPlayerComponent,
-        commentsComponent,
-        TournamentDefinitionComponent,
-        TournamentStageComponent,
-        StageComponent,
-        GameComponent,
+        commentsComponent
     ],
     providers: [
         customHttpProvider,
