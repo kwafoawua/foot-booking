@@ -20,8 +20,9 @@ export class HomeComponent implements OnInit {
 
     private form: FormGroup;
     private clubfilter: ClubFilter;
-   lat: number ;
+   lat: number;
    lng: number;
+   icon: '../../images/icon/iconochico.png';
     zoom = 16.88;
     clubname="";
     selectedDate:any;
@@ -40,6 +41,8 @@ export class HomeComponent implements OnInit {
                 ', ' + m.year();
         },
         appendTo: 'body'};
+
+
 
     constructor(private searchService: SearchService, private router: Router) {
 
@@ -74,6 +77,7 @@ export class HomeComponent implements OnInit {
            this.clubname,
         )
     }
+
 
 
     private setCurrentPosition() {

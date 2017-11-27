@@ -2,15 +2,30 @@
     div.comments > .rounded-circle, div.heart > .rounded-circle {
         height: 4rem;
         font-size: 40px;
+
     }
 
     div.comments, div.heart {
         display: flex;
+
+
     }
 
 
     div.heart .score, div.comments .score {
         font-size: 29px;
+
+    }
+
+    div.card-header
+    {
+        font-family: 'RobotoDraft', 'Roboto', 'Helvetica Neue, Helvetica, Arial', sans-serif;
+        text-align: center;
+        font-style: inherit;
+        font-size: 1.8rem;
+        line-height: 2rem;
+        color: #212121;
+        background-color: #f5f5f5;
     }
 </style>
 <div class="container-fluid">
@@ -106,10 +121,11 @@
                     <ngx-charts-pie-chart
                             [view]="view2"
                             [scheme]="options.colorScheme"
-                            [results]="single"
+                            [results]="fieldChart"
                             [labels]="options.showLabels"
                             (select)="onSelect($event)">
                     </ngx-charts-pie-chart>
+
                 </div>
             </div>
         </div>
