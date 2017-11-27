@@ -5,6 +5,9 @@ i {
     .card-body {
         display: inline-flex !important;
     }
+    .hide {
+        display: none;
+    }
 </style>
 <div class="container-fluid">
     <div class="row justify-content-md-center mt-lg-5">
@@ -32,16 +35,16 @@ i {
 
         </div>
         <div class="col-md-3">
-            <div class="card">
+            <div class="card hide">
                 <div class="card-body">
-                    450 Comentarios
+
                 </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card">
+            <div class="card hide">
                 <div class="card-body">
-                    450 Comentarios
+
                 </div>
             </div>
         </div>
@@ -99,9 +102,15 @@ i {
                     <ngx-charts-pie-chart
                             [view]="view2"
                             [scheme]="options.colorScheme"
-                            [results]="single"
+                            [results]="fieldChart"
                             [labels]="options.showLabels"
                             (select)="onSelect($event)">
+                        <ng-template #tooltipTemplate let-model="fieldModel">
+                            <h1>
+                                {{getFlag(model.name)}}
+                            </h1>
+                            <h2>{{model.name}}: {{model.value}}</h2>
+                        </ng-template>
                     </ngx-charts-pie-chart>
                 </div>
             </div>

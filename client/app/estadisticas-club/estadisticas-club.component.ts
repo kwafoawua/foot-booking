@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {BookingService} from "../_services/booking.service";
 import moment = require("moment");
 import {CommentService} from "../_services/comment.service";
@@ -127,7 +127,7 @@ export class EstadisticasClubComponent implements OnInit{
         showLabels : true,
         explodeSlices : false,
         doughnut : false,
-        showXAxis: false,
+        showXAxis: true,
         showYAxis:  true,
         gradient: false,
         showLegend: false,
@@ -197,6 +197,9 @@ export class EstadisticasClubComponent implements OnInit{
         }
     ];
     fieldChart : any[] = [];
+    @ViewChild('tooltipTemplate') tooltilTemplate: TemplateRef<any>;
+    fieldModel: any;
+
 
 
     constructor(private bookingService : BookingService, private commentService : CommentService) {
@@ -232,19 +235,22 @@ export class EstadisticasClubComponent implements OnInit{
             console.log(bookings);
             bookings.forEach((booking) => {
                 //statusChart asistido, cancelado, reservado
-                let statusC = this.statusChart;
-                let statusChartIndex = statusC.findIndex(status => status.name === booking.status);
-                if( statusChartIndex> -1){
-                    statusC[statusChartIndex].value = statusC[statusChartIndex].value +1;
-                    this.statusChart = statusC;
-                }else {
-                    let newStatus = {
-                        name: booking.status,
-                        value: 1
-                    };
-                    statusC.push(newStatus);
-                    this.statusChart = statusC;
+                if(["Asistido", "Cancelado", "Pago Total"].indexOf(booking.status)) {
+                    let statusC = this.statusChart;
+                    let statusChartIndex = statusC.findIndex(status => status.name === booking.status);
+                    if( statusChartIndex> -1){
+                        statusC[statusChartIndex].value = statusC[statusChartIndex].value +1;
+                        this.statusChart = statusC;
+                    }else {
+                        let newStatus = {
+                            name: booking.status,
+                            value: 1
+                        };
+                        statusC.push(newStatus);
+                        this.statusChart = statusC;
+                    }
                 }
+
 
                 //fieldChart
                 let fieldChartIndex = this.fieldChart.findIndex(field => field.name === booking.field.fieldName);

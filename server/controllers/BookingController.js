@@ -102,10 +102,12 @@ module.exports.updateBookingStatus = function(req, res) {
     if(req.body.status){
         newStatus.status = req.body.status;
     }
+
     if(req.body.fee){
         newStatus.fee = req.body.fee;
     }
-
+    console.log('new status');
+    console.log(newStatus);
     setBookingStatus(newStatus)
         .then(function (estado) {
             console.log(estado);
@@ -124,20 +126,24 @@ function setBookingStatus (newStatus) {
         if (err) {
             return deferred.reject(err.name + ' : ' + err.message);//aprender a parsear errores
         } else {
-            if(newStatus.status){
-                booking.status = status;
-            }
+
             if(newStatus.fee !== booking.payment.fee) {
 
-                if(newStatus.fee < booking.field.price) {
+                if(newStatus.fee < booking.field.price && newStatus.fee > 0) {
                     booking.payment.fee = newStatus.fee;
                     booking.payment.date = Date.now();
                     booking.status = 'Pago Parcial';
-                }else {
+                }else if(newStatus.fee >= booking.field.price){
                     booking.status = 'Pago Total';
                     booking.payment.fee = newStatus.fee;
                     booking.payment.date = Date.now();
+                } else if(newStatus.fee === 0 || !newStatus.fee) {
+                    booking.status = ((newStatus.status) ? newStatus.status : 'Pendiente de Pago');
+                    booking.payment.fee = newStatus.fee;
+                    booking.payment.date = Date.now();
                 }
+            } else if(newStatus.status) {
+                booking.status = newStatus.status;
             }
             booking.save(function (err) {
                 console.log(err);

@@ -74,7 +74,7 @@ export class FieldsManagementComponent implements OnInit{
     bookings : any[] = [];
     club : any = {};
      _id: string = JSON.parse(localStorage.getItem('currentUser')).playerOrClubId;
-    private montoPagado:Number;
+    private montoPagado:number;
 
     actions: CalendarEventAction[] = [
         {
@@ -147,53 +147,53 @@ export class FieldsManagementComponent implements OnInit{
         this.clubService.getById(_id);
     }
 
-    private getBookingsByStatus(_id: string, bookingStatus: string){
-        this.bookingService.findAllByReferenceId(_id).subscribe((bookings)=>{
-            this.bookings = bookings;
-            const eventArray :CalendarEvent[] = [];
-            this.bookings.forEach((booking) => {
-                if (booking.status == bookingStatus) {
-
-                    let colorStatus: any;
-                    switch (booking.status){
-
-                        case 'Reservado':
-                            colorStatus= colors.blue;
-                            break;
-                        case 'Cancelado':
-                            colorStatus = colors.red;
-                            break;
-                        case 'Asistido':
-                            colorStatus = colors.green;
-                            break;
-                        case 'Pendiente de Pago':
-                            colorStatus = colors.yellow;
-                            break;
-                        default:
-                            colorStatus = colors.yellow;
-                            break;
-                    }
-                    //console.log(colorStatus);
-                    let event = {
-                        start: startOfDay(booking.playingDate),
-                        end: startOfDay(booking.playingDate),
-                        title: booking.field.fieldName + ' Horario: '+booking.playingTime+' Cliente: '+booking.player.name+' '+booking.player.lastName,
-                        color: colorStatus,
-                        actions: this.actions,
-                        booking: booking
-
-                    };
-                    eventArray.push(event);
-
-                }
-            });
-                this.events = eventArray;
-                if(this.events) {
-                    this.refresh.next();
-                }
-            console.log(this.events);
-        });
-    }
+    // private getBookingsByStatus(_id: string, bookingStatus: string){
+    //     this.bookingService.findAllByReferenceId(_id).subscribe((bookings)=>{
+    //         this.bookings = bookings;
+    //         const eventArray :CalendarEvent[] = [];
+    //         this.bookings.forEach((booking) => {
+    //             if (booking.status == bookingStatus) {
+    //
+    //                 let colorStatus: any;
+    //                 switch (booking.status){
+    //
+    //                     case 'Reservado':
+    //                         colorStatus= colors.blue;
+    //                         break;
+    //                     case 'Cancelado':
+    //                         colorStatus = colors.red;
+    //                         break;
+    //                     case 'Asistido':
+    //                         colorStatus = colors.green;
+    //                         break;
+    //                     case 'Pendiente de Pago':
+    //                         colorStatus = colors.yellow;
+    //                         break;
+    //                     default:
+    //                         colorStatus = colors.yellow;
+    //                         break;
+    //                 }
+    //                 //console.log(colorStatus);
+    //                 let event = {
+    //                     start: startOfDay(booking.playingDate),
+    //                     end: startOfDay(booking.playingDate),
+    //                     title: booking.field.fieldName + ' Horario: '+booking.playingTime+' Cliente: '+booking.player.name+' '+booking.player.lastName,
+    //                     color: colorStatus,
+    //                     actions: this.actions,
+    //                     booking: booking
+    //
+    //                 };
+    //                 eventArray.push(event);
+    //
+    //             }
+    //         });
+    //             this.events = eventArray;
+    //             if(this.events) {
+    //                 this.refresh.next();
+    //             }
+    //         console.log(this.events);
+    //     });
+    // }
 
     private getBookings(_id: string){
         this.bookingService.findAllByReferenceId(_id).subscribe((bookings)=>{
@@ -328,19 +328,19 @@ export class FieldsManagementComponent implements OnInit{
         this.refresh.next();
     }
 
-    filterbyStatusChange(status: string):void {
-        console.log("Entra al status change con status " + status);
-        if (status == "Todas" || status == "") {
-            this.getBookings(this._id);
-        } else {
-            this.getBookingsByStatus(this._id, status);
-        }
-    }
-
-    filterByFieldName(fieldName: string):void {
-        console.log("Entra al status change con fieldName " + fieldName);
-        if (fieldName == "Todas" || fieldName == "") {
-            this.getBookings(this._id);
-        }
-    }
-}
+//     filterbyStatusChange(status: string):void {
+//         console.log("Entra al status change con status " + status);
+//         if (status == "Todas" || status == "") {
+//             this.getBookings(this._id);
+//         } else {
+//             this.getBookingsByStatus(this._id, status);
+//         }
+//     }
+//
+//     filterByFieldName(fieldName: string):void {
+//         console.log("Entra al status change con fieldName " + fieldName);
+//         if (fieldName == "Todas" || fieldName == "") {
+//             this.getBookings(this._id);
+//         }
+//     }
+ }
