@@ -31,6 +31,7 @@ export class RegisterClubComponent implements OnInit{
     galleryToUpload: File[] = [];
     lat:number;
     lng:number;
+    icon: '../../images/icon/iconochico.png';
     zoom: number;
     draggable:boolean=true; //Necesario para el que el marcador del mapa se mueva
 

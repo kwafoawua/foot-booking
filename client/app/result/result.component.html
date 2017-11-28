@@ -32,9 +32,14 @@
                                     <div id="gmap">
                                        <agm-map [zoom]="15" [latitude]="lat" [longitude]="lng">
                                         <div *ngFor="let c of clubs">
+                                            <agm-marker [latitude]="lat"
+                                                        [longitude]="lng"
+                                                        >
 
+                                            </agm-marker>
                                             <agm-marker [latitude]="c?.address.lat"
-                                                        [longitude]="c?.address.lng">
+                                                        [longitude]="c?.address.lng"
+                                                        [iconUrl]="'../../images/icon/iconochico.png'">
                                                 <agm-info-window>{{c?.name}}</agm-info-window>
                                             </agm-marker>
 
