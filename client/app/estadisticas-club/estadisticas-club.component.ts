@@ -122,9 +122,10 @@ export class EstadisticasClubComponent implements OnInit{
             ]
         }
     ];
-   // view: any[] = [600, 500];
- //   view1: any[] = [1200, 400];
-  //  view2: any[] = [600, 500];
+    // view: any[] = [600, 500];
+    //view1: any[] = [1200, 400];
+    //  view2: any[] = [600, 500];
+
     // options
     options : any = {
         showLabels : true,
@@ -262,8 +263,8 @@ export class EstadisticasClubComponent implements OnInit{
                 }
 
             //hacer un filtro de que si es asistido cuente la fecha.
-                let playingDate : string = booking.playingDate;
                 let dateb = moment(booking.playingDate, 'YYYY-MM-DD').toDate();
+
                 let month = dateb.getMonth();
                 this.bookingMonthChart[month].value = this.bookingMonthChart[month].value +1;
                 //bookingMonthChart

@@ -37,9 +37,10 @@ import {Field} from "../_models/field";
 
 export class ResultComponent implements OnInit {
 
-    lat: number = -31.442217;
-    lng: number = -64.193182;
-
+    lat: number;//= -31.442217;
+    lng: number;// = -64.193182;
+    icon: '../../images/icon/iconochico.png';
+    zoom: number;
     public cantPlayerSelect: any[] = [{cant: 5, desc: '5 Jugadores'},{cant:7, desc: '7 Jugadores'},{cant:11, desc: '11 Jugadores'}];
     private clubfilter: ClubFilter;
     public clubs: Club[];
@@ -64,6 +65,7 @@ export class ResultComponent implements OnInit {
 
 
     ngOnInit(): void {
+        this.setCurrentPosition();
         this.clubs = SearchService.clubs;
         this.services = this.searchService.getClubServices();
 
@@ -118,5 +120,14 @@ export class ResultComponent implements OnInit {
             }
         }
 
+    private setCurrentPosition() {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.lat = position.coords.latitude;
+                this.lng = position.coords.longitude;
+                this.zoom = 16;
+            });
+        }
 
     }
+}
