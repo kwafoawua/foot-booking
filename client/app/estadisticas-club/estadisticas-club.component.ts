@@ -289,10 +289,13 @@ export class EstadisticasClubComponent implements OnInit{
         html2canvas(svg).then(function(canvas) {
             console.log(canvas);
             const img = canvas.toDataURL("image/png");
-            let doc = new jsPDF();
-            doc.text(50,100,'Reservas realizadas en el año');
+            let doc = new jsPDF('l', 'mm', 'a4');
+            const width = doc.internal.pageSize.width;
+            const height = doc.internal.pageSize.height;
+            doc.text(50,20,'Reservas realizadas en el año');
 
-            doc.addImage(img,'JPEG',5,20);
+            doc.addImage(img,'JPEG',20, 50);
+
             doc.save('reservas-realizadas-en-el-anio.pdf');
         });
     }
@@ -303,11 +306,10 @@ export class EstadisticasClubComponent implements OnInit{
             console.log(canvas);
             const img = canvas.toDataURL("image/png");
             let doc = new jsPDF();
-            doc.text(50,100,'Reservas realizadas por Estado');
+            doc.text(50,20,'Reservas realizadas por Estado');
            // doc.addHTML(document.getElementByClassName('advanced-pie-legend-wrapper'));
 
-
-            doc.addImage(img,'JPEG',5,20);
+            doc.addImage(img,'JPEG',20,50);
             doc.save('reservas-realizadas-por-estado.pdf');
         });
     }
@@ -318,9 +320,9 @@ export class EstadisticasClubComponent implements OnInit{
             console.log(canvas);
             const img = canvas.toDataURL("image/png");
             let doc = new jsPDF();
-            doc.text(50,100,'Reservas realizadas por Cancha');
+            doc.text(50,20,'Reservas realizadas por Cancha');
 
-            doc.addImage(img,'JPEG',5,20);
+            doc.addImage(img,'JPEG',20,50);
             doc.save('reservas-realizadas-por-cancha.pdf');
         });
     }

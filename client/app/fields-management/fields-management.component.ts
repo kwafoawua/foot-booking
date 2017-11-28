@@ -364,7 +364,8 @@ export class FieldsManagementComponent implements OnInit{
         if(this.nuevaReservaForm.valid) {
             this.clubService.guardarReserva(this.nuevaReservaForm.value)
                 .subscribe(
-                    data => {
+                    booking => {
+
                         this.nuevaReservaForm.get('fieldId').setValue(null);
                         this.nuevaReservaForm.get('fieldName').setValue(null);
                         this.nuevaReservaForm.get('fieldCantPlayers').setValue(null);
@@ -377,11 +378,8 @@ export class FieldsManagementComponent implements OnInit{
                         this.nuevaReservaForm.get('playerLastName').setValue(null);
                         this.nuevaReservaForm.get('playerPhoneNumber').setValue(null);
 
+                            this.getBookings(this._id);
 
-
-
-
-                        this.refresh.next();
 
                     },
                     error => {
