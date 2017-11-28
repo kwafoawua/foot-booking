@@ -7,6 +7,11 @@ import { BookingService } from "../_services/booking.service";
 import { CustomDateFormatter } from './custom-date-formatter.provider';
 import { ClubService } from "../_services/club.service";
 import { AlertService } from "../_services/alert.service";
+import {BookingFilter} from "../_models/bookingfilter";
+import {Moment} from "moment";
+import {IDatePickerDirectiveConfig} from "ng2-date-picker";
+import {Field} from "../_models/field";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 const I18N_VALUES = {
     'es': {
@@ -99,7 +104,29 @@ export class FieldsManagementComponent implements OnInit{
     bookings : any[] = [];
     club : any = {};
      _id: string = JSON.parse(localStorage.getItem('currentUser')).playerOrClubId;
-    private montoPagado:number;
+    private montoPagado : number;
+    //horas
+    hoursArray: string [] = ["10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00"];
+    horasOcupadas: string [] = [];
+    horasDisponibles: string [] = [];
+    config: IDatePickerDirectiveConfig = {
+        format: 'DD/MM/YYYY',
+        enableMonthSelector: true,
+        showNearMonthDays: false ,
+        monthFormatter: (m: Moment): string => {
+            return [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
+                    'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ][m.month()] +
+                ', ' + m.year();
+        },
+        appendTo: 'body'};
+    selectedField: Field = new Field();
+    bookingFilter : BookingFilter;
+    date: string;
+    fieldIndex: number;
+    fieldDropdown: any;
+    nuevaReservaForm: FormGroup;
+
+
 
     actions: CalendarEventAction[] = [
         {
@@ -123,18 +150,46 @@ export class FieldsManagementComponent implements OnInit{
 
     constructor(private modal: NgbModal,
     private bookingService: BookingService,
-    private clubService: ClubService, private alertService: AlertService) {}
-
-
+    private clubService: ClubService, private alertService: AlertService,
+    private fb: FormBuilder) {}
     ngOnInit(){
         this.getBookings(this._id);
         //this.getBookingsByStatus(this._id, "Cancelado");
         this.getClub(this._id);
+        this.createForm();
 
     }
 
     private getClub (_id: string) {
-        this.clubService.getById(_id);
+        this.clubService.getById(_id).subscribe((club) => {
+            this.club = club;
+            this.nuevaReservaForm.get('clubAddress').setValue(this.club.address.address);
+            this.nuevaReservaForm.get('clubName').setValue(this.club.name);
+            this.nuevaReservaForm.get('clubId').setValue(this.club._id);
+            this.nuevaReservaForm.get('clubPhoneNumber').setValue(this.club.phoneNumber);
+
+        });
+    }
+
+    createForm () {
+        this.nuevaReservaForm = this.fb.group({
+            playerName: [null, Validators.required],
+            playerLastName: [null, Validators.required],
+            playerPhoneNumber: [null, Validators.required],
+            clubId: [null, Validators.required],
+            clubName: [null, Validators.required] ,
+            clubAddress: [null, Validators.required],
+            clubPhoneNumber: [null, Validators.required],
+            fieldId: [null, Validators.required],
+            fieldName: [null, Validators.required],
+            fieldCantPlayers:[null, Validators.required],
+            fieldPrice: [null, Validators.required],
+            playingDate: [null, Validators.required],
+            playingTime: [null, Validators.required],
+            fee: null,
+            status: null
+
+        });
     }
 
     // private getBookingsByStatus(_id: string, bookingStatus: string){
@@ -273,6 +328,7 @@ export class FieldsManagementComponent implements OnInit{
         this.montoPagado = (event as any).booking.payment.fee;
         this.modal.open(this.modalContent, { size: 'lg' }).result.then((result) => {
             console.log(this.selectedStatus);
+            console.log(result);
 
 
             if (this.selectedStatus || this.montoPagado) {
@@ -304,18 +360,37 @@ export class FieldsManagementComponent implements OnInit{
     }
 
     addEvent(): void {
-        this.events.push({
-            title: 'New event',
-            start: startOfDay(new Date()),
-            end: endOfDay(new Date()),
-            color: colors.red,
-            draggable: true,
-            resizable: {
-                beforeStart: true,
-                afterEnd: true
-            }
-        });
-        this.refresh.next();
+        let registrado: Boolean;
+        if(this.nuevaReservaForm.valid) {
+            this.clubService.guardarReserva(this.nuevaReservaForm.value)
+                .subscribe(
+                    data => {
+                        this.nuevaReservaForm.get('fieldId').setValue(null);
+                        this.nuevaReservaForm.get('fieldName').setValue(null);
+                        this.nuevaReservaForm.get('fieldCantPlayers').setValue(null);
+                        this.nuevaReservaForm.get('fieldPrice').setValue(null);
+                        this.nuevaReservaForm.get('playingDate').setValue(null);
+                        this.nuevaReservaForm.get('fee').setValue(null);
+                        this.nuevaReservaForm.get('status').setValue(null);
+                        this.nuevaReservaForm.get('playingTime').setValue(null);
+                        this.nuevaReservaForm.get('playerName').setValue(null);
+                        this.nuevaReservaForm.get('playerLastName').setValue(null);
+                        this.nuevaReservaForm.get('playerPhoneNumber').setValue(null);
+
+
+
+
+
+                        this.refresh.next();
+
+                    },
+                    error => {
+                        this.alertService.error(error);
+
+                    });
+
+        }
+
     }
 
 //     filterbyStatusChange(status: string):void {
@@ -333,4 +408,43 @@ export class FieldsManagementComponent implements OnInit{
 //             this.getBookings(this._id);
 //         }
 //     }
+
+    loadHoursValues(date:any) {
+        console.log('la fecha: '+date);
+        const parts : any = date.split("/");
+
+        const fieldDate = new Date(parts[2],parts[1]-1,parts[0]);
+        console.log('dateObject '+fieldDate);
+        this.nuevaReservaForm.get('playingDate').setValue(fieldDate.toISOString());
+        this.bookingFilter = new BookingFilter(this.nuevaReservaForm.controls['fieldId'].value, fieldDate);
+
+        console.log("El selectedDate: " + this.bookingFilter);
+
+        this.bookingService.findAllBookingsByFieldAndDay(this.bookingFilter)
+            .subscribe(hoursBooking => {
+                if(hoursBooking.length >=1){
+                    hoursBooking.forEach((booking, index)=>{
+                        console.log(booking);
+                        console.log("Ultimo- Lo que retorna la consulta: " + booking.playingTime);
+                        this.horasOcupadas.push(booking.playingTime);
+                        this.horasDisponibles = this.hoursArray.filter(item => this.horasOcupadas.indexOf(item) < 0);
+                        console.log("Array nuevo: " + this.horasDisponibles);
+                    });
+                } else {
+                    this.horasDisponibles = this.hoursArray;
+                    console.log('No hay reservas en este día');
+                }
+            });
+
+    }
+
+    setFieldValues (field: any) {
+        //this.fieldIndex = i;
+        console.log(field);
+        this.nuevaReservaForm.get('fieldId').setValue(field._id);
+        this.nuevaReservaForm.get('fieldName').setValue(field.fieldName);
+        this.nuevaReservaForm.get('fieldCantPlayers').setValue(field.cantPlayers);
+        this.nuevaReservaForm.get('fieldPrice').setValue(field.price);
+
+    }
  }

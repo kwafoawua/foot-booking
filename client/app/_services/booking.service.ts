@@ -14,7 +14,7 @@ export class BookingService {
 
     create(booking: Booking) {
         console.log("El Booking ");
-        return this.http.post('/booking/register', booking);
+        return this.http.post('/bookings/register', booking);
     }
 
     getAll() {

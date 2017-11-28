@@ -2,9 +2,9 @@
     <div class="row">
         <div class="col-12 left">
             <div class="card-body">
-                <div class="btn btn-secondary btn-sm" data-toggle="collapse" data-target="#collapseOptionsForSearch" 
-                        aria-expanded="false" aria-controls="collapseOptionsForSearch">
-                        <i class="fa fa-filter" aria-hidden="true"></i>
+                <div class="btn btn-secondary btn-sm" data-toggle="collapse" data-target="#collapseOptionsForSearch"
+                     aria-expanded="false" aria-controls="collapseOptionsForSearch">
+                    <i class="fa fa-filter" aria-hidden="true"></i>
                 </div>
                 <div class="btn-group">
                     <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
@@ -47,7 +47,7 @@
             </div>
         </div>
     </div>
-</div> 
+</div>
 <!--
 <div class="container">
     <div class="row">
@@ -95,7 +95,7 @@
 -->
 <ng-template #modalContent let-close="close">
     <div class="modal-header">
-        <h2 class="modal-title"> Cancha  {{modalData?.event.booking.field.fieldName | uppercase}}</h2>
+        <h2 class="modal-title"> Cancha {{modalData?.event.booking.field.fieldName | uppercase}}</h2>
         <button type="button" class="close" (click)="close()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -127,14 +127,15 @@
                 <div class="col-6">Hora de Reserva:
                     <label><b>{{modalData?.event.booking.playingTime}}</b></label></div>
                 <div class="col-6">Estado: <label>{{modalData?.event.booking.status}}</label></div>
-                <div class="col-6" >Monto total $  <label><b>{{modalData?.event.booking.field.price}}</b></label>
+                <div class="col-6">Monto total $ <label><b>{{modalData?.event.booking.field.price}}</b></label>
                 </div>
                 <div class="col-6">Forma de Pago:
                     <label><b>{{modalData?.event.booking.paidMethod}}</b></label></div>
                 <div class="col-6">Monto pagado $ <label><b>{{modalData?.event.booking.payment.fee}}</b></label>
                 </div>
                 <div class="col-6"> Actualización de Monto
-                    <input [(ngModel)]="montoPagado" type="number" class="form-control" placeholder="Monto Pagado" max="{{modalData?.event.booking.field.price}}" value="{{montoPagado}}">
+                    <input [(ngModel)]="montoPagado" type="number" class="form-control" placeholder="Monto Pagado"
+                           max="{{modalData?.event.booking.field.price}}" value="{{montoPagado}}">
                 </div>
             </div>
 
@@ -145,7 +146,9 @@
                 <div class="form-group col-md-6">
                     <label for="bookingStatus">Seleccione estado de reserva</label>
                     <select class="form-control" id="bookingStatus" (change)="onStatusChange($event.target.value)">
-                        <option *ngFor="let status of modalData?.event.booking.estados" [value]="status" [selected]="status == modalData?.event.booking.status">{{status}}</option>
+                        <option *ngFor="let status of modalData?.event.booking.estados" [value]="status"
+                                [selected]="status == modalData?.event.booking.status">{{status}}
+                        </option>
                     </select>
                 </div>
             </div>
@@ -198,16 +201,7 @@
 
 <br><br><br>
 
-<h3>
-    Edit events
-    <button
-            class="btn btn-primary pull-right"
-            (click)="addEvent()">
-        Add new
-    </button>
-    <div class="clearfix"></div>
-</h3>
-
+<form [formGroup]="nuevaReservaForm" (ngSubmit)="addEvent()">
 <table class="table table-bordered">
 
     <thead>
@@ -223,18 +217,18 @@
     <tbody>
     <tr>
         <td>
-            <input type="text" class="form-control">
+            <input formControlName="playerName" type="text" class="form-control">
         </td>
         <td>
-            <input type="text" class="form-control">
+            <input type="text" class="form-control" formControlName="playerLastName">
         </td>
         <td>
-            <input type="text" class="form-control">
+            <input type="number" class="form-control" formControlName="playerPhoneNumber">
         </td>
         <td>
             <button
                     class="btn btn-primary pull-right"
-                    (click)="addEvent()">
+                    type="submit">
                 Nueva Reserva
             </button>
             <div class="clearfix"></div>
@@ -248,31 +242,31 @@
 
     </tr>
 
-
     <tbody>
-<tr>
-    <td>
-        <input type="text" class="form-control">
-    </td>
-    <td>
-        <form class="form-inline">
-            <div class="form-group">
-                <div class="input-group">
-                    <input class="form-control" placeholder="yyyy-mm-dd"
-                           name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
-                    <button class="input-group-addon" (click)="d.toggle()" type="button">
-                        <i class="fa fa-calendar"></i>
-                    </button>
-                </div>
+    <tr>
+        <td>
+            <div class="dropdown">
+            <select name="dropdown-time"  class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="fieldDropdown" (ngModelChange)="setFieldValues($event)">
+                <option value=" " selected class="dropdown-item">Canchas</option>
+                <option *ngFor="let field of club?.fields; let i = index" [ngValue]="field">{{field.fieldName}}</option>
+            </select>
             </div>
-        </form>
-    </td>
-    <td>
-        <input type="text" class="form-control">
-    </td>
-</tr>
+        </td>
+        <td>
+            <input (ngModelChange)="loadHoursValues($event)" [ngModelOptions]="{standalone: true}" class="btn dropdown-toggle" [dpDayPicker]="config" name="datePicker"  placeholder="DD-MM-AAAA"
+                   id="calendar" inputElementConteiner="#inputConteiner" theme="dp-material" [(ngModel)]="date">
+        </td>
+        <td>
+            <div class="dropdown">
+                <select name="dropdown-time" id="dropdown-time" class="form-control" formControlName="playingTime">
+                    <option value=" " selected class="dropdown-item">Horarios</option>
+                    <option *ngFor="let hora of horasDisponibles" [value]="hora">{{hora}}</option>
+                </select>
+            </div>
+        </td>
+    </tr>
 
-</tbody>
+    </tbody>
     <tr>
         <th>Monto Total</th>
         <th>Monto Pagado</th>
@@ -284,13 +278,16 @@
     <tbody>
     <tr>
         <td>
-            <input type="text" class="form-control">
+            <input type="text" class="form-control" formControlName="fieldPrice">
         </td>
         <td>
-            <input type="text" class="form-control">
+            <input type="text" class="form-control" formControlName="fee">
         </td>
         <td>
-            <input type="text" class="form-control">
+            <select class="form-control" formControlName="status">
+                <option *ngFor="let status of bookings[0]?.estados" [value]="status">{{status}}
+                </option>
+            </select>
         </td>
     </tr>
 
@@ -298,11 +295,7 @@
 
 
 </table>
+</form>
 
-<table class="table table-bordered">
-    <thead>
-    <tr>
+<div><pre><code>{{ nuevaReservaForm?.value | json }}</code></pre></div>
 
-    </tr>
-    </thead>
-</table>

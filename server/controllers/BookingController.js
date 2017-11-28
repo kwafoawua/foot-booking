@@ -49,12 +49,13 @@ function addBooking (booking) {
             lastName: booking.playerLastName,
             phoneNumber: booking.playerPhoneNumber,
             id: booking.playerId || null,
-            dni: booking.dni || null,
+            dni: booking.dni || null
         },
         payment: {
-            date: null,
-            fee: null //cambiara cuando se seleccione el pago por mercadopago
-        }
+            date: ((booking.fee) ? Date.now() : null),
+            fee: booking.fee || null //cambiara cuando se seleccione el pago por mercadopago
+        },
+        status: booking.status
 
     });
 
