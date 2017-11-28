@@ -211,7 +211,8 @@
                                     <agm-map [zoom]="zoom" [latitude]="lat" [longitude]="lng" (mapClick)="clickMapa($event)">
                                         <agm-marker [latitude]="lat"
                                                     [longitude]="lng"
-                                        [markerDraggable]="draggable" (dragEnd)="nuevaPosicionMarcador($event)">
+                                                    [iconUrl]="'../../images/icon/iconochico.png'"
+                                                    [markerDraggable]="draggable" (dragEnd)="nuevaPosicionMarcador($event)">
                                         </agm-marker>
                                     </agm-map>
 

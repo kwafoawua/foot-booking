@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {BookingService} from "../_services/booking.service";
 import moment = require("moment");
+import {CommentService} from "../_services/comment.service";
 
 
 @Component({
@@ -13,36 +14,16 @@ export class EstadisticasClubComponent implements OnInit{
 
    single: any[] = [
     {
-           "name": "Asistido",
-           "value": 10
+           "name": "Cancha 1",
+           "value": 30
        },
        {
-           "name": "Pendiente de Pago",
-           "value": 5
+           "name": "Cancha 2",
+           "value": 1
        },
        {
-           "name": "Cancelado",
-           "value": 5
-       },
-       {
-           "name": "Pago Parcial",
-           "value": 2
-       },
-       {
-           "name": "Pago Total",
-           "value": 10
-       },
-       {
-           "name": "Ausente",
-           "value": 5
-       },
-       {
-           "name": "Reembolso",
-           "value": 2
-       },
-       {
-           "name": "Anulado",
-           "value": 0
+           "name": "Cancha 3",
+           "value": 20
        }
 ];
     single2: any[] = [
@@ -138,14 +119,20 @@ export class EstadisticasClubComponent implements OnInit{
             ]
         }
     ];
-    view: any[] = [1200, 400];
+    view: any[] = [600, 400];
     view1: any[] = [1200, 400];
+    view2: any[] = [600, 400];
+
     // options
     options : any = {
+
+        showLabels : true,
+        explodeSlices : false,
+        doughnut : false,
         showXAxis: true,
         showYAxis:  true,
         gradient: false,
-        showLegend: true,
+        showLegend: false,
         showXAxisLabel: true,
         showYAxisLabel: true,
         animations: true,
@@ -158,7 +145,8 @@ export class EstadisticasClubComponent implements OnInit{
     };
     autoScale = true;
     _id: string = JSON.parse(localStorage.getItem('currentUser')).playerOrClubId;
-
+    loaded: Boolean;
+    cantComments : number;
     statusChart : any[] = [];
     bookingMonthChart: any[] = [
         {
@@ -212,25 +200,40 @@ export class EstadisticasClubComponent implements OnInit{
     ];
     fieldChart : any[] = [];
 
-    constructor(private bookingService : BookingService) {
+
+    constructor(private bookingService : BookingService, private commentService : CommentService) {
     }
 
     ngOnInit(){
         this.getBookings(this._id);
+        this.countComments(this._id);
         setInterval(this.updateData.bind(this), 1000);
+        setTimeout(this.updateBookingMonthChart.bind(this), 1000);
+
+    }
+
+    updateBookingMonthChart (){
 
     }
     updateData() {
         this.statusChart = [...this.statusChart];
         this.fieldChart = [...this.fieldChart];
         this.bookingMonthChart = [... this.bookingMonthChart];
+
+    }
+
+    private countComments(_id) {
+        this.commentService.findAllCommentForAClub(_id).subscribe( (comments) => {
+            this.cantComments = comments.length;
+        });
     }
 
     private getBookings(_id: string){
+        let finalizado = false;
         this.bookingService.findAllByReferenceId(_id).subscribe((bookings)=>{
             console.log(bookings);
             bookings.forEach((booking) => {
-                //statusChart
+                //statusChart asistido, cancelado, reservado
                 let statusC = this.statusChart;
                 let statusChartIndex = statusC.findIndex(status => status.name === booking.status);
                 if( statusChartIndex> -1){
@@ -257,17 +260,21 @@ export class EstadisticasClubComponent implements OnInit{
                     this.fieldChart.push(newField);
                 }
 
-
-                let playingDate : string = booking.playinDate;
+            //hacer un filtro de que si es asistido cuente la fecha.
+                let playingDate : string = booking.playingDate;
                 let dateb = moment(playingDate).toDate();
                 let month = dateb.getMonth();
                 this.bookingMonthChart[month].value = this.bookingMonthChart[month].value +1;
                 //bookingMonthChart
 
                 console.log(dateb.getMonth());
+                console.log(dateb);
                 console.log(this.fieldChart);
                 console.log(this.statusChart);
+                console.log(this.bookingMonthChart);
+                finalizado = true;
             });
+            this.loaded = finalizado;
         });
     }
 

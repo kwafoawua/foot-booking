@@ -20,11 +20,11 @@ export class CommentService {
     }
 
     findAllCommentForAClub(_id: string) {
-    	return this.http.get('/comments/' + _id).map((response: Response) => response.json());
+    	return this.http.get('/comments/clubComment/' + _id).map((response: Response) => response.json());
     }
 
     findAllAuthorComments(_id: string) {
-    	return this.http.get('/comments/' + _id).map((response: Response) => response.json());
+    	return this.http.get('/comments/authorComment/' + _id).map((response: Response) => response.json());
     }
 
     deleteComment(_id: string) {

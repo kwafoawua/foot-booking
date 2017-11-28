@@ -54,7 +54,7 @@ router.get('/bookings/horarios/:bookingfilter', bookingController.findAllBooking
 /* Comment Controller */
 router.post('/comments/create', commentController.createComment);
 router.put('/comments/changeComment/', commentController.updateComment);
-router.get('/comments/:_id', commentController.findAllCommentForAClub);
+router.get('/comments/clubComment/:_id', commentController.findAllCommentForAClub);
 router.get('/comments/authorComment/:_id', commentController.findAllAuthorComments);
 router.delete('/comments/:_id', commentController.deleteComment);
 
