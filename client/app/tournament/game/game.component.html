@@ -1,27 +1,27 @@
 <div class="card">
     <div class="card-body" >
         <div class="card-header">Partido</div>
-         <div class="card-body">
+         <div class="card-body" [formGroup]="game">
 
 
-            <div class="row">
-              <div class="col">
-                  <label class="label-form">Equipo 1</label>
-                  <select class="form-control" formControlName="equipo1">
-                      <option>Default select</option>
-                      <option>Equipo 1</option>
-                      <option>Equipo 2</option>
-                  </select>
+                <div class="row">
+                  <div class="col">
+                      <label class="label-form">Equipo 1</label>
+                      <select class="form-control" formControlName="equipo1">
+                          <option>Default select</option>
+                          <option>Equipo 1</option>
+                          <option>Equipo 2</option>
+                      </select>
+                  </div>
+                    <div class="col">
+                        <label class="label-form">Equipo 2</label>
+                        <select class="form-control" formControlName="equipo2">
+                            <option>Default select</option>
+                            <option>Equipo 1</option>
+                            <option>Equipo 2</option>
+                        </select>
+                   </div>
               </div>
-                <div class="col">
-                    <label class="label-form">Equipo 2</label>
-                    <select class="form-control" formControlName="equipo2">
-                        <option>Default select</option>
-                        <option>Equipo 1</option>
-                        <option>Equipo 2</option>
-                    </select>
-               </div>
-          </div>
 
 
                  <div class="row">
@@ -54,17 +54,15 @@
                      </div>
 
                      <div class="col">
-                         <label class="label-form">Equipo 1</label>
+                         <label class="label-form">Dia</label>
                          <input class="dropdown category-dropdown" [dpDayPicker]="config" name="datePicker"  placeholder="DD-MM-AAAA"
                                 id="calendar" inputElementConteiner="#inputConteiner" theme="dp-material" formControlName="day">
                      </div>
 
                  </div>
         </div>
+
     </div>
 
 </div>
 
-<div class="form-group" align="right">
-    <button type="button" class="btn btn-info" (click)="newGame()">Nuevo Partido</button>
-</div>

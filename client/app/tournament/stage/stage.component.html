@@ -1,6 +1,6 @@
 
 <div class="card">
-    <div class="card-body">
+    <div class="card-body" [formGroup]="registerStageForm">
         <div class="row">
             <div class="col">
                 <label class="label-form row" for="name">Nombre</label>
@@ -19,13 +19,18 @@
                 <input class=" form-group dropdown category-dropdown" [dpDayPicker]="config" name="datefin"  placeholder="DD-MM-AAAA"
                        inputElementConteiner="#inputConteiner" theme="dp-material" formControlName="finishDay">            </div>
         </div>
+
+
+
+        <div class="form-group">
+        <game-array
+            formArrayName="games"
+            [GameFormArray]="registerStageForm.get('games')">
+
+        </game-array>
+
+        </div>
     </div>
-</div>
-
-<div class="form-group">
-
-<game-array> </game-array>
-
 </div>
 
 

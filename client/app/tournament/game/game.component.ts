@@ -15,8 +15,7 @@ import {FormArray, FormControl, FormGroup} from "@angular/forms";
 
 })
 
-
-export class GameComponent implements OnInit{
+export class GameComponent{
     @Input()
     public index: number;
 
@@ -26,10 +25,7 @@ export class GameComponent implements OnInit{
     @Output()
     public removed: EventEmitter<number> = new EventEmitter<number>();
 
-    private form: FormGroup;
-    selectedDate:any;
-    selectedTime: any;
-    configTime : ITimeSelectConfig = {
+   configTime : ITimeSelectConfig = {
         minutesInterval: 60,
         minutesFormat: '00'
     };
@@ -44,33 +40,15 @@ export class GameComponent implements OnInit{
         },
         appendTo: 'body'};
 
-
-
-    ngOnInit(){    }
-
-
-
-
-    static buildField() {
+    static buildGame() {
         return new FormGroup({
             equipo1: new FormControl(''),
             equipo2: new FormControl(''),
             field: new FormControl(''),
-            time: new FormControl([]),
-            price: new FormControl('')
-
+            time: new FormControl(''),
+            day: new FormControl(''),
+            arbitro: new  FormControl('')
         });
     }
-
-
-    onSelectCant(cant: number) {}
-    onSelectType(type: string) {}
-
-
-
-
-
-
-
 
 }

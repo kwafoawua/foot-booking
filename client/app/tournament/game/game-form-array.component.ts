@@ -17,11 +17,11 @@ export class GameFormArrayComponent {
     public GameFormArray: FormArray;
 
     addGame() {
-        this.GameFormArray.push(GameComponent.buildField())
+        this.GameFormArray.push(GameComponent.buildGame())
     }
 
     static initGames() {
         return new FormArray([
-            GameComponent.buildField()])
+            GameComponent.buildGame()])
     }
 }
