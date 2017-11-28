@@ -66,9 +66,11 @@ ngx-charts-bar-vertical > ngx-charts-chart > div.ngx-charts-outer > svg.ngx-char
             <div class="card">
                 <div class="card-header">
                     Reservas realizadas en el año
+                    <button (click)="download()" class="btn btn-success btn-sm pull-right">Descargar Gráfico</button>
                 </div>
                 <div class="card-body chart">
                     <ngx-charts-bar-vertical *ngIf="loaded"
+                                             id="chart-bar-vertical"
                             [view]="view1"
                             [scheme]="options.colorScheme"
                             [results]="bookingMonthChart"
@@ -91,9 +93,12 @@ ngx-charts-bar-vertical > ngx-charts-chart > div.ngx-charts-outer > svg.ngx-char
         <div class="card">
             <div class="card-header">
                 Reservas realizadas por Estado
+                <button (click)="download1()" class="btn btn-success btn-sm pull-right">Descargar Gráfico</button>
+
             </div>
             <div class="card-body chart">
                 <ngx-charts-advanced-pie-chart *ngIf="loaded"
+                                               id="chart-advanced-pie"
                         [view]="view"
                         [scheme]="options.colorScheme1"
                         [animations]="options.animations"
@@ -108,9 +113,12 @@ ngx-charts-bar-vertical > ngx-charts-chart > div.ngx-charts-outer > svg.ngx-char
             <div class="card">
                 <div class="card-header">
                     Reservas realizadas por Cancha
+                    <button (click)="download2()" class="btn btn-success btn-sm pull-right">Descargar Gráfico</button>
+
                 </div>
                 <div class="card-body chart">
                     <ngx-charts-pie-chart *ngIf="loaded"
+                                          id="chart-pie-chart-canchas"
                             [view]="view2"
                             [scheme]="options.colorScheme"
                             [results]="fieldChart"

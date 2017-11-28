@@ -1,6 +1,9 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {BookingService} from "../_services/booking.service";
 import moment = require("moment");
+import * as jsPDF from 'jspdf';
+import * as html2canvas from 'html2canvas';
+
 import {CommentService} from "../_services/comment.service";
 
 
@@ -278,6 +281,47 @@ export class EstadisticasClubComponent implements OnInit{
 
     static onSelect(event) {
         console.log(event);
+    }
+
+    download(){
+        const svg: HTMLElement  = (<HTMLElement> <any>document.getElementById('chart-bar-vertical').getElementsByTagName('svg')[0]);
+        html2canvas(svg).then(function(canvas) {
+            console.log(canvas);
+            const img = canvas.toDataURL("image/png");
+            let doc = new jsPDF();
+            doc.text(50,100,'Reservas realizadas en el año');
+
+            doc.addImage(img,'JPEG',5,20);
+            doc.save('reservas-realizadas-en-el-anio.pdf');
+        });
+    }
+
+    download1(){
+        const svg: HTMLElement  = (<HTMLElement> <any>document.getElementById('chart-advanced-pie').getElementsByTagName('svg')[0]);
+        html2canvas(svg).then(function(canvas) {
+            console.log(canvas);
+            const img = canvas.toDataURL("image/png");
+            let doc = new jsPDF();
+            doc.text(50,100,'Reservas realizadas por Estado');
+           // doc.addHTML(document.getElementByClassName('advanced-pie-legend-wrapper'));
+
+
+            doc.addImage(img,'JPEG',5,20);
+            doc.save('reservas-realizadas-por-estado.pdf');
+        });
+    }
+
+    download2(){
+        const svg: HTMLElement  = (<HTMLElement> <any>document.getElementById('chart-pie-chart-canchas').getElementsByTagName('svg')[0]);
+        html2canvas(svg).then(function(canvas) {
+            console.log(canvas);
+            const img = canvas.toDataURL("image/png");
+            let doc = new jsPDF();
+            doc.text(50,100,'Reservas realizadas por Cancha');
+
+            doc.addImage(img,'JPEG',5,20);
+            doc.save('reservas-realizadas-por-cancha.pdf');
+        });
     }
 
 }

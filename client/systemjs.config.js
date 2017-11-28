@@ -64,7 +64,9 @@
             'd3-time': 'npm:d3-time/build/d3-time.js',
             'd3-collection': 'npm:d3-collection/build/d3-collection.js',
             'd3-time-format': 'npm:d3-time-format/build/d3-time-format.js',
-            'd3-hierarchy': 'npm:d3-hierarchy/build/d3-hierarchy.js'
+            'd3-hierarchy': 'npm:d3-hierarchy/build/d3-hierarchy.js',
+            'jspdf': 'npm:jspdf/dist/jspdf.min.js',
+            'html2canvas': 'npm:html2canvas/dist/html2canvas.js'
 
 
 
