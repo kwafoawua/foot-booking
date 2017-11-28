@@ -1,0 +1,7 @@
+<div class="col-12">
+    <game
+            *ngFor="let item of GameFormArray.controls; let i=index"
+            [index]="i" [game]="item" (removed)="GameFormArray.removeAt($event)">
+    </game>
+    <button type="button" id="game-array-add-btn" class="btn btn-success" (click)="addGame()">Nuevo Partido</button>
+</div>

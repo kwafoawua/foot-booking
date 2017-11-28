@@ -1,7 +1,7 @@
 ﻿<div class="avt-post-wrapper section">
     <div class="container">
         <div>
-            <form enctype="multipart/form-data" [formGroup]="registerClubForm" (ngSubmit)="registerClub()"
+            <form enctype="multipart/form-data" [formGroup]="registerClubForm" >
                   novalidate="novalidate">
 
 
@@ -346,8 +346,6 @@
                                 [fieldFormArray]="registerClubForm.get('fields')"
                         class="col-12">
                         </fields-array>
-
-
                     </div>
                 </div><!-- carga de canchas -section -->
 

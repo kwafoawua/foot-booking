@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
 
     private form: FormGroup;
     private clubfilter: ClubFilter;
+
    lat: number;
    lng: number;
    icon: '../../images/icon/iconochico.png';
