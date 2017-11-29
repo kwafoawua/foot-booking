@@ -11,6 +11,7 @@ var findAllBookingsByFieldAndDay = pathToRegexp('/bookings/horarios/:_id');
 var updateComment = pathToRegexp('/comments/changeComment/');
 var findAllCommentForAClub = pathToRegexp('/comments/:_id');
 var findAllAuthorComments = pathToRegexp('/comments/authorComment/:_id');
+var findAllClubComments = pathToRegexp('/comments/clubComment/:_id');
 var deleteComment = pathToRegexp('/comments/:_id');
 
 module.exports.path = {
@@ -34,9 +35,10 @@ module.exports.path = {
         updateBookingStatus,
         findAllHoursBookings,
         findAllBookingsByFieldAndDay,
-        "/comments/changeComment/",
+        // "/comments/changeComment/",
         findAllCommentForAClub,
         findAllAuthorComments,
-        deleteComment
+        findAllClubComments
+        // deleteComment
     ]
 };
