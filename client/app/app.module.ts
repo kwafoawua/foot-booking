@@ -73,8 +73,8 @@ import {TournamentModule} from "./tournament/tournament.module";
         ImageUploadModule.forRoot(),
         CustomFormsModule,
         DpDatePickerModule,
-        AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyAAwaI8YafySsHraMA_9G_n30_FECUhoVs',
+        AgmCoreModule.forRoot({//old: AIzaSyAAwaI8YafySsHraMA_9G_n30_FECUhoVs
+            apiKey: 'AIzaSyBuNW_HnnPaMrMq8KGEhiEzUnbVOO_OJzA',
             libraries: ["places"]
         }),
         ProfileClubModule,
