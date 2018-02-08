@@ -128,6 +128,7 @@ export class RegisterClubComponent implements OnInit{
                 username: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
                 email: [null, Validators.compose([Validators.required,CustomValidators.email ])],
                 password: [null,Validators.compose([Validators.required, Validators.minLength(8)])],//falta validar contraseña
+                repeatPassword: [null,Validators.compose([Validators.required, Validators.minLength(8)])]
             }),
             name: [null, Validators.required],
             description: [null, Validators.compose([Validators.required, Validators.maxLength(255)])],
@@ -277,7 +278,7 @@ export class RegisterClubComponent implements OnInit{
 
 
 
-   /* comparePassword = (control: FormControl): { [s:string]:boolean} => {
+   comparePassword = (control: FormControl): { [s:string]:boolean} => {
         let formulario: any = this;
         console.log(this.registerClubForm);
         if(control.value !== formulario.get('user.password').value){
@@ -285,7 +286,8 @@ export class RegisterClubComponent implements OnInit{
                 noiguales : false
             }
         }
-    };*/
+    };
+
 
 
 }

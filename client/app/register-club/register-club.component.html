@@ -2,7 +2,7 @@
     <div class="container">
         <div>
             <form enctype="multipart/form-data" [formGroup]="registerClubForm" 
-                  novalidate="novalidate">
+                  novalidate="novalidate" (ngSubmit)="registerClub()">
 
 
                 <div class="card" formGroupName="user">
@@ -95,7 +95,7 @@
 
                             <div class="post-inner">
                                 <div class="row form-group">
-                                    <label class="col-md-4">Conf Contraseña *</label>
+                                    <label class="col-md-4">Repetir Contraseña *</label>
                                     <div class="col-md-8">
                                         <input class="form-control" type="password">
 
