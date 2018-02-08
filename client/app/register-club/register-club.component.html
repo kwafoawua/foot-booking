@@ -4,7 +4,6 @@
             <form enctype="multipart/form-data" [formGroup]="registerClubForm" 
                   novalidate="novalidate" (ngSubmit)="registerClub()">
 
-
                 <div class="card" formGroupName="user">
                     <div class="row card-body">
                         <div class="col-12">
@@ -14,8 +13,6 @@
                         </div>
                     </div>
                 </div>
-
-
 
                 <div class="card" formGroupName="user">
                     <div class="row card-body">
@@ -32,11 +29,11 @@
                                                placeholder="Nombre de Usuario"/>
                                         <div name="validar-username" *ngIf="registerClubForm.get('user.username').invalid &&
                                         (registerClubForm.get('user.username').dirty || registerClubForm.get('user.username').touched)">
-                                             <div *ngIf="registerClubForm.get('user.username').errors?.required" class="help-block">
-                                                 El nombre de usuario es requerido.
+                                             <div *ngIf="registerClubForm.get('user.username').errors?.required" class="text-danger">
+                                                 <small class="form-text">El nombre de usuario es requerido.</small>
                                              </div>
-                                             <div *ngIf="registerClubForm.get('user.username').errors?.minlength" class="help-block">
-                                                 El nombre de usuario debe tener al menos 3 caracteres.
+                                             <div *ngIf="registerClubForm.get('user.username').errors?.minlength" class="text-danger">
+                                                 <small class="form-text">El nombre de usuario debe tener al menos 3 caracteres.</small>
                                                  <!--    </div>-->
                                                </div>
                                            </div>
@@ -55,11 +52,11 @@
                                                placeholder="Email">
                                         <div name="valida-email" *ngIf="registerClubForm.get('user.email').invalid &&
                         						(registerClubForm.get('user.email').dirty || registerClubForm.get('user.email').touched)">
-                                            <div *ngIf="registerClubForm.get('user.email').errors?.required" class="help-block">
-                                                El email es requerido.
+                                            <div *ngIf="registerClubForm.get('user.email').errors?.required" class="text-danger">
+                                                <small class="form-text">El email es requerido.</small>
                                             </div>
-                                            <div *ngIf="registerClubForm.get('user.email').errors?.email" class="help-block">
-                                                El email debe ser correcto.
+                                            <div *ngIf="registerClubForm.get('user.email').errors?.email" class="text-danger">
+                                                <small class="form-text">El email debe ser correcto.</small>
                                             </div>
 
                                         </div>
@@ -72,7 +69,7 @@
 
 
                         <div class="col-md-6">
-                            <div class="post-inner choose-options">
+                            <div class="post-inner">
                                 <div class="row form-group" [ngClass]="{ 'has-error': registerClubForm.get('user.password').invalid &&
                         								(registerClubForm.get('user.password').dirty || registerClubForm.get('user.password').touched)}">
                                     <label class="col-md-4">Contraseña *</label>
@@ -81,11 +78,11 @@
                                                placeholder="Contraseña">
                                         <div name="valida-contraseña" *ngIf="registerClubForm.get('user.password').invalid &&
                         								(registerClubForm.get('user.password').dirty || registerClubForm.get('user.password').touched)">
-                                            <div *ngIf="registerClubForm.get('user.password').errors?.required" class="help-block">
-                                                La contraseña es requerida.
+                                            <div *ngIf="registerClubForm.get('user.password').errors?.required" class="text-danger">
+                                                <small class="form-text">La contraseña es requerida.</small>
                                             </div>
-                                            <div *ngIf="registerClubForm.get('user.password').errors?.minlength" class="help-block">
-                                                La contraseña debe ser de mas de 8 caracteres.
+                                            <div *ngIf="registerClubForm.get('user.password').errors?.minlength" class="text-danger">
+                                                <small class="form-text">La contraseña debe ser de mas de 8 caracteres.</small>
                                             </div>
 
                                         </div>
@@ -93,15 +90,24 @@
                                 </div>
                             </div><!-- post-inner password-->
 
-                            <div class="post-inner">
-                                <div class="row form-group">
-                                    <label class="col-md-4">Repetir Contraseña *</label>
-                                    <div class="col-md-8">
-                                        <input class="form-control" type="password">
+                            <div class="row form-group" [ngClass]="{ 'has-error': registerClubForm.get('user.repeatPassword').invalid &&
+                        								(registerClubForm.get('user.repeatPassword').dirty || registerClubForm.get('user.repeatPassword').touched)}">
+                                <label class="col-md-4">Contraseña *</label>
+                                <div class="col-md-8">
+                                    <input formControlName="repeatPassword" class="form-control input-md" type="password"
+                                           placeholder="Contraseña">
+                                    <div name="valida-contraseña" *ngIf="registerClubForm.get('user.repeatPassword').invalid &&
+                        								(registerClubForm.get('user.repeatPassword').dirty || registerClubForm.get('user.repeatPassword').touched)">
+                                        <div *ngIf="registerClubForm.get('user.repeatPassword').errors?.required" class="text-danger">
+                                            <small class="form-text">La contraseña es requerida.</small>
+                                        </div>
+                                        <div *ngIf="registerClubForm.get('user.repeatPassword').errors?.minlength" class="text-danger">
+                                            <small class="form-text">La contraseña debe ser de mas de 8 caracteres.</small>
+                                        </div>
 
                                     </div>
                                 </div>
-                            </div><!-- post-inner repeat password-->
+                        </div><!-- post-inner repeat password-->
 
                 </div><!-- user-data-section -->
                 </div>
@@ -123,8 +129,8 @@
                                         <div name="valida-nombreclub" *ngIf="registerClubForm.get('name').invalid &&
                         (registerClubForm.get('name').dirty || registerClubForm.get('name').touched)">
 
-                                            <div *ngIf="registerClubForm.get('name').errors?.required" class="help-block">
-                                                El nombre del club es requerido.
+                                            <div *ngIf="registerClubForm.get('name').errors?.required" class="text-danger">
+                                                <small class="form-text">El nombre del club es requerido.</small>
                                             </div>
 
                                         </div>
@@ -158,8 +164,8 @@
                                         <div name="valida-servicio" *ngIf="registerClubForm.get('services').invalid &&
                         (registerClubForm.get('services').dirty || registerClubForm.get('services').touched)">
 
-                                            <div *ngIf="registerClubForm.get('services').errors?.required" class="help-block">
-                                                El campo Servicios es requerido.
+                                            <div *ngIf="registerClubForm.get('services').errors?.required" class="text-danger">
+                                                <small class="form-text">El campo Servicios es requerido.</small>
                                             </div>
                                         </div>
                                     </div>
@@ -175,11 +181,11 @@
                                         <div name="valida-descripcion" *ngIf="registerClubForm.get('description').invalid &&
                         (registerClubForm.get('description').dirty || registerClubForm.get('description').touched)">
 
-                                            <div *ngIf="registerClubForm.get('description').errors?.required" class="help-block">
-                                                El campo Descripción es requerido.
+                                            <div *ngIf="registerClubForm.get('description').errors?.required" class="text-danger">
+                                                <small class="form-text">El campo Descripción es requerido.</small>
                                             </div>
-                                            <div *ngIf="registerClubForm.get('description').errors?.maxlength" class="help-block">
-                                                La descripción no debe ser de mas de 255 caracteres.
+                                            <div *ngIf="registerClubForm.get('description').errors?.maxlength" class="text-danger">
+                                                <small class="form-text">La descripción no debe ser de mas de 255 caracteres.</small>
                                             </div>
 
                                         </div>
@@ -200,8 +206,8 @@
                                                spellcheck="off" type="text" class="form-control" #address>
                                         <div name="valida-direccion" *ngIf="registerClubForm.get('address.address').invalid &&
                         (registerClubForm.get('address.address').dirty || registerClubForm.get('address.address').touched)">
-                                            <div *ngIf="registerClubForm.get('address.address').errors?.required" class="help-block">
-                                                El campo Dirección es requerido.
+                                            <div *ngIf="registerClubForm.get('address.address').errors?.required" class="text-danger">
+                                                <small class="form-text">El campo Dirección es requerido.</small>
                                             </div>
                                         </div>
                                     </div>
@@ -297,8 +303,8 @@
                                         <div name="valida-imagen" *ngIf="registerClubForm.get('profileImg').invalid &&
                         (registerClubForm.get('profileImg').dirty || registerClubForm.get('profileImg').touched)">
 
-                                            <div *ngIf="registerClubForm.get('profileImg').errors?.required" class="help-block">
-                                                El campo Imagen de perfil es requerido.
+                                            <div *ngIf="registerClubForm.get('profileImg').errors?.required" class="text-danger">
+                                                <small class="form-text">El campo Imagen de perfil es requerido.</small>
                                             </div>
                                         </div>
                                     </div>

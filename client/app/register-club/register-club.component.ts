@@ -129,7 +129,7 @@ export class RegisterClubComponent implements OnInit{
                 email: [null, Validators.compose([Validators.required,CustomValidators.email ])],
                 password: [null,Validators.compose([Validators.required, Validators.minLength(8)])],//falta validar contraseña
                 repeatPassword: [null,Validators.compose([Validators.required, Validators.minLength(8)])]
-            }),
+            },passwordMatchValidator),
             name: [null, Validators.required],
             description: [null, Validators.compose([Validators.required, Validators.maxLength(255)])],
             phoneNumber: null,
@@ -288,6 +288,10 @@ export class RegisterClubComponent implements OnInit{
         }
     };
 
+    passwordMatchValidator = (fg: FormGroup)=> {
+        return fg.get('password').value === fg.get('repeatPassword').value
+            ? null : {'mismatch': true};
+    }
 
 
 }
