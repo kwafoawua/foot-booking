@@ -92,10 +92,10 @@
 
                             <div class="row form-group" [ngClass]="{ 'has-error': registerClubForm.get('user.repeatPassword').invalid &&
                         								(registerClubForm.get('user.repeatPassword').dirty || registerClubForm.get('user.repeatPassword').touched)}">
-                                <label class="col-md-4">Contraseña *</label>
+                                <label class="col-md-4">Rep Contraseña *</label>
                                 <div class="col-md-8">
                                     <input formControlName="repeatPassword" class="form-control input-md" type="password"
-                                           placeholder="Contraseña">
+                                           placeholder="Repetir Contraseña">
                                     <div name="valida-contraseña" *ngIf="registerClubForm.get('user.repeatPassword').invalid &&
                         								(registerClubForm.get('user.repeatPassword').dirty || registerClubForm.get('user.repeatPassword').touched)">
                                         <div *ngIf="registerClubForm.get('user.repeatPassword').errors?.required" class="text-danger">
@@ -103,6 +103,9 @@
                                         </div>
                                         <div *ngIf="registerClubForm.get('user.repeatPassword').errors?.minlength" class="text-danger">
                                             <small class="form-text">La contraseña debe ser de mas de 8 caracteres.</small>
+                                        </div>
+                                        <div *ngIf="registerClubForm.hasError('notSame', 'user')" class="text-danger">
+                                            <small class="form-text">Las contraseñas deben ser las mismas.</small>
                                         </div>
 
                                     </div>

@@ -50,6 +50,7 @@ export class RegisterClubComponent implements OnInit{
         this.createForm();
     }
     ngOnInit() {
+
         this.lat = -31.4;
         this.lng = -64.1833;
 
@@ -129,7 +130,7 @@ export class RegisterClubComponent implements OnInit{
                 email: [null, Validators.compose([Validators.required,CustomValidators.email ])],
                 password: [null,Validators.compose([Validators.required, Validators.minLength(8)])],//falta validar contraseña
                 repeatPassword: [null,Validators.compose([Validators.required, Validators.minLength(8)])]
-            },passwordMatchValidator),
+            }, {validator: this.validateAreEqual}),
             name: [null, Validators.required],
             description: [null, Validators.compose([Validators.required, Validators.maxLength(255)])],
             phoneNumber: null,
@@ -277,21 +278,11 @@ export class RegisterClubComponent implements OnInit{
     }
 
 
+    validateAreEqual(group: FormGroup) {
+        let pass = group.controls.password.value;
+        let confirmPass = group.controls.repeatPassword.value;
+        return pass === confirmPass ? null : { notSame: true }
 
-   comparePassword = (control: FormControl): { [s:string]:boolean} => {
-        let formulario: any = this;
-        console.log(this.registerClubForm);
-        if(control.value !== formulario.get('user.password').value){
-            return {
-                noiguales : false
-            }
-        }
-    };
-
-    passwordMatchValidator = (fg: FormGroup)=> {
-        return fg.get('password').value === fg.get('repeatPassword').value
-            ? null : {'mismatch': true};
     }
-
 
 }
