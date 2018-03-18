@@ -2,7 +2,7 @@
     <h3>Editar configuracion del usuario</h3>
 </div>
 
-<form [formGroup]="userForm">
+<form [formGroup]="userForm" (ngSubmit)="updateEmail()">
 <div class="row" >
     <div class="col-md-12">
         <div class="post-inner">
@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div style="text-align: right;">
-                <input type="submit" value="Actualizar" class="btn btn-primary">
+                <button class="btn btn-primary" type="submit">Actualizar</button>
             </div>
         </div>
 

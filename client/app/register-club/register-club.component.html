@@ -104,7 +104,7 @@
                                         <div *ngIf="registerClubForm.get('user.repeatPassword').errors?.minlength" class="text-danger">
                                             <small class="form-text">La contraseña debe ser de mas de 8 caracteres.</small>
                                         </div>
-                                        <div *ngIf="registerClubForm.hasError('notSame', 'user')" class="text-danger">
+                                        <div *ngIf="registerClubForm.get('user.repeatPassword').errors?.MatchPassword" class="text-danger">
                                             <small class="form-text">Las contraseñas deben ser las mismas.</small>
                                         </div>
 
