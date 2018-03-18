@@ -25,7 +25,7 @@
                             </div>
 
                             <div class="filter-list">
-                                <h4 class="list-title"><a href="categories.html">Categorías</a></h4>
+                                <h4 class="list-title">Categorías</h4>
 
                                 <div class="location-map">
                                     <h4>UBICACIÓN</h4>
@@ -82,7 +82,7 @@
                                                         <h6>Cantidad de Jugadores</h6>
 
                                                         <div class="form-group">
-                                                            <select class="form-control" [(ngModel)]="cantPlayers">
+                                                            <select class="form-control" [(ngModel)]="cantPlayers" >
                                                                 <option *ngFor="let cantPlayer of cantPlayerSelect" value={{cantPlayer.cant}}>
                                                                     {{cantPlayer.desc}}
                                                                 </option>
