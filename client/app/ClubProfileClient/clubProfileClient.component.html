@@ -61,9 +61,10 @@
                         </div><!-- item -->
 
                             <P></P>
+
                       <!--ITEM CANCHAS-->
 
-                        <div  class="filter-list" *ngFor="let field of club?.fields; let i = index">
+                        <div class="filter-list" *ngFor="let field of club?.fields; let i = index">
                               <div>
                                 <div class="filter-heading">
                                     <a data-toggle="collapse" data-parent="#advanced-filter" href="#{{i}}">
@@ -73,7 +74,6 @@
                                             <i class="fa fa-plus"></i></span>
                                         </h4>
                                     </a>
-
                                 </div><!-- filter-heading -->
 
 
@@ -120,33 +120,48 @@
                                             </div>
                                         </div>
 
+                                        <div class="row">
+                                            <div class="col-6 col-md-4">
+                                                <label class="label-form row" for="datePicker5">Fecha de juego(*)</label>
+                                                <input (ngModelChange)="loadHoursValues($event,field)" class="form-group  dropdown category-dropdown form-control" [dpDayPicker]="config" name="datePicker"  placeholder="DD-MM-AAAA"
+                                                       id="calendar" inputElementConteiner="#inputConteiner" theme="dp-material" [(ngModel)]="date[i]" >
+                                            </div>
 
 
-                                        <ul class="list-inline l">
+                                            <div class="col-6 col-md-4">
+                                               <label class="label-form row dropdown" for="datePicker6">Hora de juego(*)</label>
+                                               <select name="category-group" id="category-group" class="form-control" [(ngModel)]="selectedTime[i]" >
+                                                     <option value="Seleccione">Seleccione</option>
+                                                     <option *ngFor="let hora of horasDisponibles">{{hora}}</option>
+                                               </select>
+                                            </div>
+
+                                            <div class="col-6 col-md-4">
+                                                <button  (click)="reservar(field, i)"   align="right" type="button" class="btn btn-primary"  data-toggle="modal" data-target="#myModal">Reservar</button>
+                                            </div>
+                                        </div>
+                                        <!--<ul class="list-inline l">-->
+
+                                            <!--<li class="list-inline-item" >-->
+                                                <!--<input (ngModelChange)="loadHoursValues($event,field)" class="form-group dropdown category-dropdown form-control" [dpDayPicker]="config" name="datePicker"  placeholder="DD-MM-AAAA"-->
+                                                       <!--id="calendarX" inputElementConteiner="#inputConteiner" theme="dp-material" [(ngModel)]="date[i]">-->
+                                            <!--</li>-->
+
+                                            <!--<li class="list-inline-item" >-->
+                                                        <!--<div class="dropdown">-->
+                                                            <!--<select name="category-group" id="category-group" class="form-control"-->
+                                                                    <!--[(ngModel)]="selectedTime[i]" >-->
 
 
-                                            <li class="list-inline-item" >
-                                                <input (ngModelChange)="loadHoursValues($event,field)" class="btn dropdown-toggle" [dpDayPicker]="config" name="datePicker"  placeholder="DD-MM-AAAA"
-                                                       id="calendar" inputElementConteiner="#inputConteiner" theme="dp-material" [(ngModel)]="date[i]">
-                                            </li>
+                                                                <!--<option value=" " selected class="dropdown-item">Horarios</option>-->
+                                                                <!--<option *ngFor="let hora of horasDisponibles" [value]="hora">{{hora}}</option>-->
 
-                                            <li class="list-inline-item" >
-                                                        <div class="dropdown">
-                                                            <select name="category-group" id="category-group" class="form-control"
-                                                                    [(ngModel)]="selectedTime[i]" >
+                                                            <!--</select>-->
+                                                        <!--</div>-->
+
+                                                    <!--</li>-->
 
 
-                                                                <option value=" " selected class="dropdown-item">Horarios</option>
-                                                                <option *ngFor="let hora of horasDisponibles" [value]="hora">{{hora}}</option>
-
-                                                            </select>
-                                                        </div>
-
-                                                    </li>
-
-                                            <li class="list-inline-item" >
-                                            <button (click)="reservar(field, i)"   type="button" class="btn btn-primary"  data-toggle="modal" data-target="#myModal">Reservar</button>
-                                            </li>
                                             <!-- Modal -->
                                             <div *ngIf="NotanUser" id="myModal" class="modal fade" role="dialog" tabindex="-1">
                                                 <div class="modal-dialog" role="document">
@@ -192,9 +207,7 @@
 
                                             <!--FIN MODAL-->
 
-
-
-                                        </ul>
+                                        <!--</ul>-->
 
                                     </div><!-- panel-body -->
                                 </div>

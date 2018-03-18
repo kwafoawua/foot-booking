@@ -25,8 +25,8 @@
                             <div class="col-md-9">
                                 <div class="slider-content">
                                     <h1 data-animation="animated lightSpeedIn">Reservá tu cancha</h1>
-                                    <h2 data-animation="animated lightSpeedIn">Elegí donde será tu proximo partido</h2>
-                                    <p data-animation="animated lightSpeedIn">Con Footbooking podes reservar tu proximo partido de forma rapida y segura. Selecciona tu club favorito, eleg;i tu fecha y juga!</p>
+                                    <h2 data-animation="animated lightSpeedIn">Elegí donde será tu próximo partido</h2>
+                                    <p data-animation="animated lightSpeedIn">Con Footbooking podes reservar tu próximo partido de forma rápida y segura. Seleccioná tu club favorito, elegí tu fecha y jugá!</p>
                                 </div>
                             </div>
                         </div><!-- row -->
@@ -40,7 +40,7 @@
                                 <div class="slider-content">
                                     <h1 data-animation="animated lightSpeedIn">Campeonatos</h1>
                                     <h2 data-animation="animated lightSpeedIn">Participá de los mejores campeonatos de la ciudad</h2>
-                                    <p data-animation="animated lightSpeedIn">Con Footbooking podes participar de los mejores campeonatos locales, el registro es muy sencillo. Ingresa aquí para mas información. </p>
+                                    <p data-animation="animated lightSpeedIn">Con Footbooking podes participar de los mejores campeonatos locales, el registro es muy sencillo. Ingresá aquí para más información. </p>
                                 </div>
                             </div>
                         </div><!-- row -->
@@ -107,22 +107,12 @@
         <h4>UBICACIÓN</h4>
         <div id="gmap">
 
-
-
             <agm-map [zoom]="zoom" [latitude]="lat" [longitude]="lng">
                 <agm-marker [latitude]="lat"
-                            [longitude]="lng"
-                            [iconUrl]="'../../images/icon/iconochico.png'"
-
-                >
-
-
-
-
+                            [longitude]="lng" >
                 </agm-marker>
             </agm-map>
             <div><label>{{club?.address.address}}</label></div>
-
 
         </div>
     </div><!-- location-map -->
