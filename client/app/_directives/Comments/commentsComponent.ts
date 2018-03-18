@@ -6,6 +6,7 @@ import {ActivatedRoute} from "@angular/router";
 import {Comment} from "../../_models/comment";
 import {CommentService} from "../../_services/comment.service";
 import {AuthenticationService} from "../../_services/authentication.service";
+import {now} from "moment";
 
 
 
@@ -46,7 +47,7 @@ ngOnInit(){
             this.isClub = this.authenticatedService.isUserClub();
             if(this.isClub == true  )
             {this.authenticated=false}// this.currrentUser =  this.authenticatedService.getUserAuthenticated
-        };
+        }
    }
 
 
@@ -72,17 +73,17 @@ ngOnInit(){
   }
 
   agregarComment(){
-      //DEBERIA AGREGARSE LA FECHA Y LA HORA DEL COMENTARIO
+
       this.comment.userName = this.currrentUser;
       this.comment._idClub = this.club._id;
       this.comment.comment = this.textComment;
-      this.comment.createdOn=Date.now();
       this.commentService.create(this.comment).subscribe(data => {
           this.clubComentarios.push(this.comment);
       }, error => {
           console.log(error)
       });
     this.textComment = "";
+    this.getComentarios();
     }
 
     // agregarRespuesta(){
