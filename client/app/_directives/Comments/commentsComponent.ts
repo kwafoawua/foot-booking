@@ -73,7 +73,6 @@ ngOnInit(){
   }
 
   agregarComment(){
-
       this.comment.userName = this.currrentUser;
       this.comment._idClub = this.club._id;
       this.comment.comment = this.textComment;

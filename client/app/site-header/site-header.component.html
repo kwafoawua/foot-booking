@@ -1,24 +1,24 @@
 <header id="header" class="clearfix">
 	<nav class="navbar-dark bg-white">
+
 		<div class="topbar">
 
 		<div class="container">
-
 				<div class="row">
-					<div class="col-md-3">
+					<div class="col-sm-6">
 						<ul class="list-inline">
 							<li class="list-inline-item"><span><i class="fa fa-envelope-o"></i></span> <a routerLink="/home">FootBooking</a></li>
-							<li class="list-inline-item"><ul class="list-inline top-social">
+							<li class="list-inline-item">
+								<ul class="list-inline top-social">
 								<li class="list-inline-item"><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
 								<li class="list-inline-item"><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
 								<li class="list-inline-item"><a class="google" href="#"><i class="fa fa-google-plus"></i></a></li>
 								<li class="list-inline-item"><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></li>
-							</ul>
-
-						</li>
-					</ul>
-				</div>
-				<div class="col-md-9">
+								</ul>
+							</li>
+						</ul>
+					</div>
+					<div class="col-sm-6">
 					<div class="user-section">			
 						<ul class="list-line">
 							<div *ngIf="!auth.isAuthenticated()">
@@ -26,66 +26,18 @@
 								<li class="list-inline-item"><a [routerLink]="['/player/register']"><i class="fa fa-user" aria-hidden="true"></i> Registrarse</a></li>
 								<li class="list-inline-item"><a [routerLink]="['/club/register']" class="btn btn-primary">Complejo</a></li>
 							</div>
+
 							<div *ngIf="auth.isAuthenticated()">
 								<div *ngIf="auth.isUserClub()">
-									<!-- Dropdown-menu gestion de campeonato -->
-									<li class="list-inline-item"><a aria-haspopup="true" [routerLink]="['/club/estadisticas']">Dashboard</a></li>									<li>
-									<div class="dropdown show">
-  										<a class="dropdown-toggle" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gestión de campeonato
-    									</a>
-  										<div class="dropdown-menu" id="dropdown-top-alternative">
-    										<a class="dropdown-item" [routerLink]="['/campeonato/nuevo']">Nuevo campeonato</a>
-    										<a class="dropdown-item">Administrar campeonatos</a>
-										</div>
-									</div>
-									</li>
-									<!-- Dropdown-menu gestion de canchas -->
-									<li>
-									<div class="dropdown show">
-  										<a class="dropdown-toggle" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gestión de canchas
-    									</a>
-
-  										<div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="dropdown-top-alternative">
-    										<a class="dropdown-item" [routerLink]="['/club/gestion-canchas']">Ver reservas</a>
-    										<a class="dropdown-item">Administrar canchas</a>
-										</div>
-									</div>
-									</li>
-
 									<li class="list-inline-item"> <label>Hola {{auth.getUserAuthenticated()}}</label></li>
 									<li class="list-inline-item"><a (click)=goToProfile()>Mi perfil</a></li>
 									<li class="list-inline-item"><a (onclick)=logout() [routerLink]="['/login']"><i class="fa fa-log-out" aria-hidden="true"></i> Cerrar Sesión</a></li>
 								</div>
-
 								<div *ngIf="!auth.isUserClub()">
-									<!-- Dropdown-menu preferencias player -->
-									<li>
-									<div class="dropdown show">
-  										<a class="dropdown-toggle" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Preferencias
-    									</a>
-
-  										<div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="dropdown-top-alternative">
-    										<a class="dropdown-item" (click)="goToMisReservas()">Mis reservas</a>
-    										<a class="dropdown-item">Complejos preferidos</a>
-    										<a class="dropdown-item">Campeonatos</a>
-										</div>
-									</div>
-									</li>
-								<!--	
-									<li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">Preferencias<span class="caret"></span></a>
-										<ul class="dropdown-menu" id="dropdown-top-alternative">
-											<li class="dropdown-item"><a>Mis reservas</a></li>
-											<li class="dropdown-item"><a>Complejos preferidos</a></li>
-											<li class="dropdown-item"><a>Campeonatos</a></li>
-
-										</ul>
-									</li>
-								-->	
 									<li class="list-inline-item"><label>Hola {{auth.getUserAuthenticated()}}</label></li>
 									<li class="list-inline-item"><a (click)=goToProfile()>Mi perfil</a></li>
 									<li class="list-inline-item"><a (onclick)=logout() [routerLink]="['/login']"><i class="fa fa-log-out" aria-hidden="true"></i> Cerrar Sesión</a></li>
 								</div>
-
 							</div>
 						</ul>
 					</div><!-- user-section -->
@@ -93,15 +45,56 @@
 			</div>
 		</div>
 	</div><!-- topbar -->
-	<div class="container">
-		<ul class="nav justify-content-end navbar-light">
-			<li class="nav-item">
-				<a class="nav-link" routerLink="/home">INICIO</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="#">CONTACTANOS</a>
-			</li>
-		</ul>
+
+
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="index.html"><img class="img-responsive" src="images/logo.png" alt="Logo"></a>
+			</div><!-- /navbar-header -->
+
+		<div class="nav justify-content-end navbar-light">
+			<div class="collapse navbar-collapse" id="navbar-collapse">
+
+					<ul class="nav navbar-nav">
+
+					<li><a class="active" href="/home">INICIO</a></li>
+					<div *ngIf="auth.isAuthenticated()">
+					<div *ngIf="auth.isUserClub()">
+
+						<li><a [routerLink]="['/club/estadisticas']">DASHBOARD</a></li>
+						<li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">CAMPEONATOS <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a [routerLink]="['/campeonato/nuevo']">NUEVO</a></li>
+								<li><a href="#">ADMINISTRAR</a></li>
+								</ul>
+						</li>
+						<li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">CANCHAS <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" [routerLink]="['/club/gestion-canchas']">RESERVAS</a></li>
+								<li><a class="dropdown-item">ADMINISTRAR</a></li>
+							</ul>
+						</li>
+					</div>
+
+					<div *ngIf="!auth.isUserClub()">
+
+						<li><a (click)="goToMisReservas()">MIS RESERVAS</a></li>
+						<li><a href="#">FAVORITOS</a></li>
+						<li><a href="#">CAMPEONATOS</a></li>
+					</div>
+
+					</div>
+				</ul>
+
+			</div>
+		</div>
 	</div>
-</nav><!-- navbar -->
+
+	</nav><!-- navbar -->
 </header><!-- header -->
