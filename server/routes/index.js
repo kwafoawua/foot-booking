@@ -16,11 +16,11 @@ var tournamentController = require('../controllers/TournamentController');
 //*User Controller*//
 router.post('/users/authenticate', userController.authenticate);
 router.get('/users/', userController2.getAll);
-router.put('/users/:_id', userController2.update);
 router.delete('/users/:_id', userController2._delete);
 //router.get('/users/current', userController2.getCurrent);
 router.get('/users/:username', userController.getByUsername);
-
+router.put('/users/setemail', userController.setEmail);
+router.put('/users/setPassword', userController.setPassword);
 
 /*Player Controller*/
 router.post('/players/register', playerController.registerPlayer);

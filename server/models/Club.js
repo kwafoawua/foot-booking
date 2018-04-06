@@ -49,7 +49,13 @@ var clubSchema = new Schema({
     // }],
     profileImg: {type: String, required: true},
     galleryImg: [String],
-    description: String
+    description: String,
+    status: {
+        type: String,
+        default: 'Pendiente',
+        required: true,
+        enum: ['Pendiente', 'Activo', 'Eliminado']
+    }, //modificar con los estados verdaderos
 });
 
 clubSchema.pre('remove', function(next) {
