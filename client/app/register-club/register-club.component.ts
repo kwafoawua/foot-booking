@@ -142,7 +142,7 @@ export class RegisterClubComponent implements OnInit{
             }),
             services: [[], Validators.required],
             profileImg: [null, Validators.required],
-            galleryImg: null,
+            galleryImg: [null, Validators.required],// null,
             socialMedia: this.fb.group({
                 facebookId: null,
                 twitterId: null,
