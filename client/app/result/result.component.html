@@ -1,12 +1,12 @@
 <div class="page container" >
 
-    <div id="breadcrumb-section" class="section">
-        <div class="container">
-            <div class="page-title text-center">
-                <h1>Resultados</h1>
-            </div>
-        </div>
-    </div><!-- breadcrumb-section -->
+    <!--<div id="breadcrumb-section" class="section">-->
+        <!--<div class="container">-->
+            <!--<div class="page-title text-center">-->
+                <!--<h1>Resultados</h1>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>&lt;!&ndash; breadcrumb-section &ndash;&gt;-->
 
     <div class="all-categories section" >
 
@@ -24,8 +24,7 @@
 
                             </div>
 
-                            <div class="filter-list">
-
+                            <div class="filter-list d-none d-lg-block">
                                 <div class="location-map">
                                     <h5>UBICACIÓN</h5>
                                     <div id="gmap">
@@ -118,51 +117,41 @@
                             <div id="category-tab">
                                 <div class="category-tab">
 
-                                    <!-- Tab panes -->
-                                    <div class="tab-content small-view-tab">
-                                        <div role="tabpanel" class="tab-pane active" id="recent" >
-                                            <ul>
-                                                <li class="item-wrap owl-animated-in" *ngFor="let c of clubs">
-                                                    <div class="item"  [routerLink]="['/results/club/',c._id]">
 
-                                                        <div class="item-image">
-                                                            <img src="/uploads/{{c?.profileImg}}" alt=""
-                                                                 class="img-responsive">
+                                    <div class="row">
+                                       <div class="col-lg-4 col-md-6 mb-4" *ngFor="let c of clubs">
+                                           <div class="card h-100">
+                                               <a [routerLink]="['/results/club/',c._id]">
+                                                   <img width="300" height="100" class="card-img-top" src="/uploads/{{c?.profileImg}}" ></a>
+                                                    <div class="card-body">
+                                                        <h4 class="card-title"><a [routerLink]="['/results/club/',c._id]">{{c?.name}}</a></h4>
+                                                        <h5>MIN PRICE</h5>
+                                                       <p class="card-text">{{c?.description}}</p>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                                                        <small class="list-inline">
+                                                            <li  *ngIf="(c?.socialMedia.facebookId !== null && c?.socialMedia.facebookId.length >= 1)" class="list-inline-item"><a target="_blank" href="{{c?.socialMedia.facebookId}}"> <i class="fa fa-facebook-square" aria-hidden="true"></i></a></li>
+                                                            <li  *ngIf="(c?.socialMedia.twitterId !== null && c?.socialMedia.twitterId.length >= 1)" class="list-inline-item"><a target="_blank" href="{{c?.socialMedia.twitterId}}"> <i class="fa fa-twitter-square" aria-hidden="true"></i></a></li>
+                                                            <li  *ngIf="(c?.socialMedia.googleId !== null && c?.socialMedia.googleId.length >= 1)" class="list-inline-item"><a target="_blank" href="{{c?.socialMedia.googleId}}"> <i class="fa fa-google-plus-square" aria-hidden="true"></i></a></li>
+                                                            <li  *ngIf="(c?.socialMedia.instagramId !== null && c?.socialMedia.instagramId.length >= 1)" class="list-inline-item"><a target="_blank" href="{{c?.socialMedia.instagramId}}"> <i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                                        </small>
+                                                        <!--<ul class="list-inline product-social">-->
+                                                            <!--<li class="list-inline-item"><a href="#"><i class="fa fa-bookmark-o"-->
+                                                                                       <!--aria-hidden="true"></i></a></li>-->
+                                                            <!--<li class="list-inline-item"><a href="#"><i class="fa fa-heart-o"-->
+                                                                                       <!--aria-hidden="true"></i></a></li>-->
+                                                            <!--<li class="list-inline-item"><a href="#"><i class="fa fa-share-alt"-->
+                                                                                       <!--aria-hidden="true"></i></a></li>-->
+                                                        <!--</ul>-->
+                                                    </div>
+                                                          <!--<div class="item-info">-->
+                                                                <!--<p>Dirección {{c?.address.address}} TEL:{{c?.phoneNumber}} </p>-->
+                                                            <!--</div>-->
+                                           </div><!-- item-description -->
+                                       </div><!-- item -->
+                                    </div>
 
-                                                        </div>
-
-                                                        <div class="item-description" >
-                                                            <div class="item-meta">
-
-                                                                <ul class="list-inline product-social">
-                                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-bookmark-o"
-                                                                                       aria-hidden="true"></i></a></li>
-                                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-heart-o"
-                                                                                       aria-hidden="true"></i></a></li>
-                                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-share-alt"
-                                                                                       aria-hidden="true"></i></a></li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="item-title" >
-                                                                <h3>{{c?.name}}</h3>
-                                                            </div>
-                                                            <div class="item-info">
-                                                                <p>Dirección {{c?.address.address}} TEL:{{c?.phoneNumber}} </p>
-                                                            </div>
-                                                        </div><!-- item-description -->
-
-                                                    </div><!-- item -->
-
-
-
-                                                </li> <!-- item-wrap -->
-
-
-
-
-                                            </ul>
-                                        </div> <!--tab-pane-->
-                                    </div><!-- tab-pane-->
                                 </div>
                             </div><!-- category-tab-->
                         </div>
