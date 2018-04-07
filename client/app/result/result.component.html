@@ -11,7 +11,7 @@
     <div class="all-categories section" >
 
         <div novalidate>
-            <div class="container col-11">
+            <div class="container col-11 ">
                 <div class="row">
                     <div class="col-md-4 col-sm-4">
                         <div class="sidebar">
@@ -25,10 +25,9 @@
                             </div>
 
                             <div class="filter-list">
-                                <h4 class="list-title">Categorías</h4>
 
                                 <div class="location-map">
-                                    <h4>UBICACIÓN</h4>
+                                    <h5>UBICACIÓN</h5>
                                     <div id="gmap">
                                        <agm-map [zoom]="15" [latitude]="lat" [longitude]="lng">
                                         <div *ngFor="let c of clubs">
@@ -99,7 +98,7 @@
                                                     <input class="form-control" type="number" min="0" id="min" title="minimum price" placeholder="min" value="" [(ngModel)]="minPrice"></label>
                                                 <label for="max">
                                                     <input class="form-control"  type="number" min="0" id="max" title="maximum price" placeholder="max" value="" [(ngModel)]="maxPrice"></label>
-                                                <button class="btn btn-primary" (click)="buscarClubsPorFiltros()" >Actualizar busqueda</button>
+                                                <button class="btn btn-primary" (click)="buscarClubsPorFiltros()" >Actualizar búsqueda</button>
                                             </div>
                                         </div>
                                     </div>
@@ -117,12 +116,7 @@
                     <div class="col-md-8 col-sm-8">
                         <div class="category-adds">
                             <div id="category-tab">
-
-
-
-
                                 <div class="category-tab">
-
 
                                     <!-- Tab panes -->
                                     <div class="tab-content small-view-tab">

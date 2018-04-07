@@ -7,6 +7,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
 import {UserService} from "../../_services/user.service";
 import {Observable} from "rxjs/Observable";
+import {AlertService} from "../../_services/alert.service";
 
 @Component({
     moduleId: module.id,
@@ -21,35 +22,15 @@ export class ProfileClubUserComponent implements OnInit{
 
     constructor(private fb: FormBuilder,
                 private route:ActivatedRoute,
-    private userService: UserService){
+                private alertService: AlertService,
+                private userService: UserService){
         //this.createForm();
     }
     ngOnInit(){
         this.createForm();
         this.username = JSON.parse(localStorage.getItem('currentUser')).username;
         this.getUser(this.username);
-        //this.user = this.userService.user;
-        /*this.userService.user.map(user => {this.user = user});
-        console.log(this.user);
-        this.userService.getByUsername(this.username);*/
-        /*this.userService.getByUsername(this.username);
-        //this.createForm();
-        this.userService.usuario$.subscribe(
-            userClub => {
-                    console.log('profileclubuser: ' + userClub);
-                this.user.username = userClub.username;
-                this.user.email = userClub.email;
-                this.user._id = userClub._id;
-                //this.fillForm(userClub.username, userClub.email, userClub._id);
-            });*/
-
-        //this.userForm.setValue({username: this.user.username, email: this.user.email, _id: this.user._id});
-        //console.log(this.user);
 }
-
-/*public fillForm (username1, email1, id1) {
-    this.userForm.setValue({username: username1, email: email1, _id: id1});
-}*/
 
     private getUser (username: string) {
         this.userService.getByUsername(username).subscribe(userClub => {
@@ -69,12 +50,25 @@ export class ProfileClubUserComponent implements OnInit{
         });
     }
 
+    updateEmail() {
+        let user = this.userForm.value;
+        console.log(user);
+        this.userService.updateEmail(user)
+            .subscribe(
+                data => {
+                    this.alertService.success('El email se modificó con éxito', true);
+                },
+                error => {
+                    this.alertService.error(error);
+                });
+    }
+
     onSubmit(): void {
         // console.log('Sibling1Component-received from sibling2: ' + this._sharedService.subscribeData());
         console.log('Form submitted-sibling1Form');
         let form = this.userForm.value;
         //this.searchCaseNumber = caseNumber;
-        this.userService.publishData(form);
+
     }
 
 }

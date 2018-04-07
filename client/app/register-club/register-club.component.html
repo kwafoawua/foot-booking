@@ -104,7 +104,7 @@
                                         <div *ngIf="registerClubForm.get('user.repeatPassword').errors?.minlength" class="text-danger">
                                             <small class="form-text">La contraseña debe ser de mas de 8 caracteres.</small>
                                         </div>
-                                        <div *ngIf="registerClubForm.hasError('notSame', 'user')" class="text-danger">
+                                        <div *ngIf="registerClubForm.get('user.repeatPassword').errors?.MatchPassword" class="text-danger">
                                             <small class="form-text">Las contraseñas deben ser las mismas.</small>
                                         </div>
 
@@ -317,7 +317,8 @@
                         </div>
                         <div class="col-md-12">
                             <div class="post-inner">
-                                <div class="row form-group">
+                                <div class="row form-group" [ngClass]="{ 'has-error': registerClubForm.get('galleryImg').invalid &&
+                        (registerClubForm.get('galleryImg').dirty || registerClubForm.get('galleryImg').touched)}">
                                     <label class="col-md-4">Galería de Imágenes</label>
                                     <div class="col-md-12">
                                         <image-upload
@@ -329,14 +330,13 @@
                                                 dropBoxMessage="Subir Galería de imagenes"
                                                 clearButtonCaption="Eliminar Todos">
                                         </image-upload>
-                                       <!-- <div name="valida-imagen" *ngIf="registerClubForm.get('profileImg').invalid &&
-                        (registerClubForm.get('profileImg').dirty || registerClubForm.get('profileImg').touched)"
-                                             class="alert alert-danger">
+                                        <div name="valida-imagen" *ngIf="registerClubForm.get('galleryImg').invalid &&
+                        (registerClubForm.get('galleryImg').dirty || registerClubForm.get('galleryImg').touched)">
 
-                                            <div *ngIf="registerClubForm.get('profileImg').errors?.required">
-                                                El campo Imagen de perfil es requerido.
+                                            <div *ngIf="registerClubForm.get('galleryImg').errors?.required" class="text-danger">
+                                                <small class="form-text">Se debe cargar al menos una imagen en la galeria.</small>
                                             </div>
-                                        </div>-->
+                                        </div>
                                     </div>
                                 </div>
                             </div><!-- post-inner carga de galleria-->

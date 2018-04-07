@@ -17,6 +17,7 @@ import {Observable} from "rxjs/Observable";
 import {isUndefined} from "util";
 import {FileHolder} from "angular2-image-upload/lib/image-upload/image-upload.component";
 import {FieldFormArrayComponent} from "./field-form-array.component";
+import {PasswordValidation} from "../_helpers/validate-password";
 
 @Component({
     moduleId: module.id,
@@ -130,7 +131,8 @@ export class RegisterClubComponent implements OnInit{
                 email: [null, Validators.compose([Validators.required,CustomValidators.email ])],
                 password: [null,Validators.compose([Validators.required, Validators.minLength(8)])],//falta validar contraseña
                 repeatPassword: [null,Validators.compose([Validators.required, Validators.minLength(8)])]
-            }, {validator: this.validateAreEqual}),
+            }, {validator: PasswordValidation.MatchPassword // your validation method
+            }),
             name: [null, Validators.required],
             description: [null, Validators.compose([Validators.required, Validators.maxLength(255)])],
             phoneNumber: null,
@@ -142,7 +144,7 @@ export class RegisterClubComponent implements OnInit{
             }),
             services: [[], Validators.required],
             profileImg: [null, Validators.required],
-            galleryImg: null,
+            galleryImg: [null, Validators.required],// null,
             socialMedia: this.fb.group({
                 facebookId: null,
                 twitterId: null,
@@ -274,14 +276,6 @@ export class RegisterClubComponent implements OnInit{
         this.setAutocompleteInput();
         console.log("nueva lat " + this.lat, "nueva lng" + this.lng);
 
-
-    }
-
-
-    validateAreEqual(group: FormGroup) {
-        let pass = group.controls.password.value;
-        let confirmPass = group.controls.repeatPassword.value;
-        return pass === confirmPass ? null : { notSame: true }
 
     }
 

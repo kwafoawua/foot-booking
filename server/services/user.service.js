@@ -130,7 +130,7 @@ function update(_id, userParam) {
 
                     if (user) {
                         // username already exists
-                        deferred.reject('Username "' + req.body.username + '" is already taken')
+                        deferred.reject('Username "' + req.body.username + '" is already taken');
                     } else {
                         updateUser();
                     }
