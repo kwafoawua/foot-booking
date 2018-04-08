@@ -53,32 +53,22 @@
 
                             <div class="filter-list">
                                 <div id="advanced-filter">
-
                                     <div class="filter-heading">
                                         <a data-toggle="collapse" data-parent="#advanced-filter" href="#advanced">
                                             <h4 class="list-title">Más filtros<span class="pull-right"><i
                                                     class="fa fa-plus"></i></span></h4>
                                         </a>
                                     </div><!-- filter-heading -->
-
-
                                     <div id="advanced" class="panel-collapse collapse">
                                         <!-- panel-body -->
                                         <div class="panel-body">
-
-
                                             <h6>Servicios</h6>
-
                                             <ul class=".form-check" *ngFor="let service of services">
                                                 <li><label> <input type="checkbox" [(ngModel)]="service.state" (ngModelChange)="addService(service)"> {{service.name}} </label></li>
                                             </ul>
-
                                         </div>
-
                                         <div class="col-md-12">
-
                                                         <h6>Cantidad de Jugadores</h6>
-
                                                         <div class="form-group">
                                                             <select class="form-control" [(ngModel)]="cantPlayers" >
                                                                 <option *ngFor="let cantPlayer of cantPlayerSelect" value={{cantPlayer.cant}}>
@@ -86,8 +76,6 @@
                                                                 </option>
                                                             </select>
                                                         </div>
-
-
                                         </div>
                                         <p></p>
                                        <div class="col-md-12">
