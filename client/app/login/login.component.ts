@@ -48,4 +48,8 @@ export class LoginComponent implements OnInit {
                     this.loading = false;
                 });
     }
+
+    public goToRegister() {
+        this.router.navigate(['/player/register']);
+    }
 }
