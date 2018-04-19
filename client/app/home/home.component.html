@@ -1,6 +1,7 @@
 ﻿<div>
 
     <div class="home-page">
+
         <div id="home-section" class="parallax-section carousel slide" data-ride="carousel">
 
             <div class="carousel-inner">
@@ -66,14 +67,15 @@
             <div class="container">
 
                 <form (ngSubmit)="buscarClub()" novalidate="novalidate">
-
                     <div class="search-section">
                         <ul>
                             <li>
+
                                 <input class="dropdown category-dropdown" [dpDayPicker]="config" name="datePicker"  placeholder="DD-MM-AAAA"
                                        id="calendar" inputElementConteiner="#inputConteiner" theme="dp-material" [(ngModel)]="date">
 
                             </li>
+
                             <li>
                                 <div class="dropdown category-dropdown">
                                     <a data-toggle="dropdown" href="#"><span class="change-text">Qué vas a jugar?</span> <i class="fa fa-angle-down"></i></a>
@@ -93,9 +95,9 @@
                             <li>
                                 <button type="submit" class="form-control btn btn-primary" value="Search">Buscar</button>
                             </li>
+
                         </ul>
                     </div>
-
                 </form>
 
             </div>

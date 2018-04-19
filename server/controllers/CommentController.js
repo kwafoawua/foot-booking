@@ -36,7 +36,8 @@ function addComment (comment) {
 
         _idClub: comment._idClub,
         userName: comment.userName,
-        comment: comment.comment
+        comment: comment.comment,
+        createdOn : comment.createdOn
     });
 
     console.log( newComment);
