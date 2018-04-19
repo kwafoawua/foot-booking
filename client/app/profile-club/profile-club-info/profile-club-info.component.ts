@@ -187,22 +187,20 @@ export class ProfileClubInfoComponent implements OnInit{
     public updateClubData() {
         if(this.clubForm.valid){
             this.loading = true;
-            const formData: any = new FormData();
-
-           /* if(this.clubForm.get('profileImg') == true) {
+            let formData: any = new FormData();
+           if(this.clubForm.get('profileImg').value !== true) {
                 const file: File = this.filesToUpload;
                 formData.append("profile", file, file['name']);
 
             }
-            if(this.clubForm.get('galleryImg') == true) {
+            if(this.clubForm.get('galleryImg').value == true) {
                 const gallery: File[] = this.galleryToUpload;
                 for(let i = 0; i < gallery.length ; i++){
                     formData.append("gallery", gallery[i], gallery[i].name);
                 }
-            }*/
+            }
             formData.append("body",JSON.stringify(this.clubForm.value) );
-
-            console.log(formData);
+            console.log(formData.get('body'));
            /* this.clubService.update(formData)
                 .subscribe(
                     data => {
