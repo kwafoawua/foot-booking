@@ -37,10 +37,11 @@ router.post('/clubs/register',uploadsManager.upload.fields([
 router.get('/clubs/:_id', clubController.findById);
 router.get('/clubs/results/:_id', clubController.findById);
 
-
 router.get('/clubs/', clubController.findAllClubs);
-
-
+router.put('/clubs/:_id',uploadsManager.upload.fields([
+    { name: 'profile', maxCount: 1 },
+    { name: 'gallery', maxCount: 5 }
+]), clubController.updateClub);
 router.get('/findClub/:clubfilter', clubController.findClubsByFilter);
 router.get('/findClubsByFilters/:clubfilter', clubController.findClubsByMultipleFilter);
 

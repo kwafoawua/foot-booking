@@ -106,7 +106,7 @@ export class ProfileClubInfoComponent implements OnInit{
 
             }
             this.profileImage = [
-                '/uploads/'+this.club.profileImg
+                '/uploads/'+this.club.profileImg.replace(/ /g, '%20')
             ];
             console.log(this.club.galleryImg);
             const relativeGallery = [];
@@ -119,6 +119,7 @@ export class ProfileClubInfoComponent implements OnInit{
             });
             this.profileGallery = relativeGallery;
             console.log(this.profileGallery);
+            console.log(this.profileImage);
 
         });
     }
@@ -188,7 +189,7 @@ export class ProfileClubInfoComponent implements OnInit{
         if(this.clubForm.valid){
             this.loading = true;
             let formData: any = new FormData();
-           if(this.clubForm.get('profileImg').value !== true) {
+           if(this.clubForm.get('profileImg').value == true) {
                 const file: File = this.filesToUpload;
                 formData.append("profile", file, file['name']);
 
@@ -201,7 +202,7 @@ export class ProfileClubInfoComponent implements OnInit{
             }
             formData.append("body",JSON.stringify(this.clubForm.value) );
             console.log(formData.get('body'));
-           /* this.clubService.update(formData)
+           this.clubService.update(this.club._id, formData)
                 .subscribe(
                     data => {
                         this.alertService.success('Los datos se actualizaron correctamente', true);
@@ -212,10 +213,10 @@ export class ProfileClubInfoComponent implements OnInit{
                     });
         } else {
             this.validateAllFields(this.clubForm);
-        }*/
+        }
     }
 
-    /*validateAllFields(formGroup: FormGroup) {
+    validateAllFields(formGroup: FormGroup) {
         Object.keys(formGroup.controls).forEach(field => {
             const control = formGroup.get(field);
             if (control instanceof FormControl) {
@@ -223,7 +224,7 @@ export class ProfileClubInfoComponent implements OnInit{
             } else if (control instanceof FormGroup) {
                 this.validateAllFields(control);
             }
-        });*/
+        });
     }
 
 }

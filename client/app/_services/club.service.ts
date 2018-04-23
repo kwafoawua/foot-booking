@@ -55,8 +55,8 @@ export class ClubService {
         return this.http.get('/clubs/results/' + _id).map((response: Response) => response.json());
     }
 
-    update(club: any) {
-        return this.http.put('/clubs/' + club._id, club);
+    update(_id: string, formData: any) {
+        return this.http.put('/clubs/' + _id, formData);
     }
 
     delete(_id: string) {
