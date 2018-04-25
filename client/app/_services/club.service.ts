@@ -58,6 +58,9 @@ export class ClubService {
     update(_id: string, formData: any) {
         return this.http.put('/clubs/' + _id, formData);
     }
+    updateFields(_id: string, fields: any) {
+        return this.http.put('/clubs/fields/' +_id, fields);
+    }
 
     delete(_id: string) {
         return this.http.delete('/clubs/' + _id);

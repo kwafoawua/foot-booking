@@ -5,6 +5,9 @@ import {ClubService} from "../../_services/club.service";
 import {Router} from "@angular/router";
 import {UserService} from "../../_services/user.service";
 import {FieldFormArrayComponent} from "./field-form-array.component";
+import { ValidateAllFields } from '../../_helpers/index';
+import {forEach} from "@angular/router/src/utils/collection";
+
 /**
  * Created by pablo on 6/11/2017.
  */
@@ -19,6 +22,8 @@ export class ProfileClubCanchasComponent implements OnInit{
     user: any = {};
     club: any = {};
     username: string;
+    loading: false;
+    fields: any = [];
 
     constructor(
         private router: Router,
@@ -46,15 +51,40 @@ export class ProfileClubCanchasComponent implements OnInit{
             this.club = userClub.creator;
             this.fieldClubForm.setValue({
                 fields: this.club.fields
-
             });
-
 
         });
     }
 
-    actualizar(){}
+    updateFieldData () {
+        if(this.fieldClubForm.valid) {
+    for(let field of this.fieldClubForm.controls['fields'].value) {
+        console.log('perro');
+        console.log(field);
+        let cancha: any = {};
+        cancha.fieldName = field.fieldName;
+        cancha.cantPlayers = field.cantPlayers;
+        cancha.fieldType = field.fieldType;
+        cancha.services = field.services;
+        cancha.price = field.price;
+        if(field._id !== '') {
+            cancha._id = field._id;
+        }
+        this.fields.push(cancha);
 
+    }
+    console.log(this.fields);
+    this.clubService.updateFields(this.club._id, this.fields).subscribe(
+        data => {
+            this.alertService.success('Los datos se actualizaron correctamente', true);
+            },
+            error => {
+                     this.alertService.error(error);
+                     this.loading = false;
+        });
+
+        }
+    }
 
 
 }

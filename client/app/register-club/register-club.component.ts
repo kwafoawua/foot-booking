@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@ang
 import { CustomValidators } from 'ng2-validation';
 import { } from 'googlemaps';
 import { MapsAPILoader,AgmCoreModule } from '@agm/core';
+import { ValidateAllFields} from "../_helpers/validate-all-fields";
 
 /*ng-chhips*/
 import 'rxjs/add/operator/filter';
@@ -240,19 +241,8 @@ export class RegisterClubComponent implements OnInit{
                         this.loading = false;
                     });
         } else {
-            this.validateAllFields(this.registerClubForm);
+            ValidateAllFields.validateAllFields(this.registerClubForm);
         }
-    }
-
-    validateAllFields(formGroup: FormGroup) {
-        Object.keys(formGroup.controls).forEach(field => {
-            const control = formGroup.get(field);
-            if (control instanceof FormControl) {
-                control.markAsTouched({ onlySelf: true });
-            } else if (control instanceof FormGroup) {
-                this.validateAllFields(control);
-            }
-        });
     }
 
 

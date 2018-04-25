@@ -33,6 +33,7 @@ export class FieldFormControlComponent  {
 
     static buildField() {
         return new FormGroup({
+            _id : new FormControl(''),
             fieldName: new FormControl(''),
             cantPlayers: new FormControl(''),
             fieldType: new FormControl(''),

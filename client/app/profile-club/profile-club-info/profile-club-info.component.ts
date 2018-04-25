@@ -19,6 +19,7 @@ import {Observable} from "rxjs/Observable";
 import {isUndefined} from "util";
 import {FileHolder} from "angular2-image-upload/lib/image-upload/image-upload.component";
 import {FieldFormArrayComponent} from "../../register-club/field-form-array.component";
+import {ValidateAllFields} from "../../_helpers/validate-all-fields";
 
 @Component({
     moduleId: module.id,
@@ -212,19 +213,8 @@ export class ProfileClubInfoComponent implements OnInit{
                         this.loading = false;
                     });
         } else {
-            this.validateAllFields(this.clubForm);
+            ValidateAllFields.validateAllFields(this.clubForm);
         }
-    }
-
-    validateAllFields(formGroup: FormGroup) {
-        Object.keys(formGroup.controls).forEach(field => {
-            const control = formGroup.get(field);
-            if (control instanceof FormControl) {
-                control.markAsTouched({ onlySelf: true });
-            } else if (control instanceof FormGroup) {
-                this.validateAllFields(control);
-            }
-        });
     }
 
 }
