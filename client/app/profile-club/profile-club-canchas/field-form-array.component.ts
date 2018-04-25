@@ -19,8 +19,11 @@ export class FieldFormArrayComponent {
         this.fieldFormArray.push(FieldFormControlComponent.buildField())
     }
 
-    static initFields() {
-        return new FormArray([
-            FieldFormControlComponent.buildField()])
+    static initFields(cantFields: number) {
+        let fieldArray : any = [];
+        for(let i = 0; i < cantFields; i++){
+            fieldArray.push(FieldFormControlComponent.buildField());
+        }
+        return new FormArray(fieldArray);
     }
 }

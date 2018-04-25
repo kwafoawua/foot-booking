@@ -34,24 +34,28 @@ export class ProfileClubCanchasComponent implements OnInit{
 
 
     ngOnInit(){
-        this.createForm();
+        this.createForm(1);
         this.username = JSON.parse(localStorage.getItem('currentUser')).username;
         this.getClub(this.username);
     }
 
-    createForm() {
+    createForm(cantFields: number) {
         this.fieldClubForm = this.fb.group({
-            fields: FieldFormArrayComponent.initFields()
+            fields: FieldFormArrayComponent.initFields(cantFields)
         });
+        console.log(this.fieldClubForm);
     }
 
     private getClub (username: string) {
         this.userService.getByUsername(username).subscribe(userClub => {
 
             this.club = userClub.creator;
-            this.fieldClubForm.setValue({
+            console.log(this.club);
+            this.createForm(this.club.fields.length);
+            this.fieldClubForm.patchValue({
                 fields: this.club.fields
             });
+            console.log(this.fieldClubForm);
 
         });
     }
