@@ -24,6 +24,7 @@ export class ProfileClubCanchasComponent implements OnInit{
     username: string;
     loading: false;
     fields: any = [];
+    deletedFields: any = [];
 
     constructor(
         private router: Router,
@@ -77,8 +78,12 @@ export class ProfileClubCanchasComponent implements OnInit{
         this.fields.push(cancha);
 
     }
+    let canchas: any = {};
+    canchas.fields = this.fields;
+    canchas.deletedFields = this.deletedFields;
+
     console.log(this.fields);
-    this.clubService.updateFields(this.club._id, this.fields).subscribe(
+    this.clubService.updateFields(this.club._id, canchas).subscribe(
         data => {
             this.alertService.success('Los datos se actualizaron correctamente', true);
             },
@@ -88,6 +93,13 @@ export class ProfileClubCanchasComponent implements OnInit{
         });
 
         }
+
+        this.fields = [];
+    }
+
+    setDeletedFields($event) {
+        this.deletedFields = $event;
+        console.log(this.deletedFields);
     }
 
 

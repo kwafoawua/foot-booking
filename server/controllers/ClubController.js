@@ -185,38 +185,7 @@ module.exports.updateClub = function(req, res) {
 module.exports.updateFields = function(req, res) {
     console.log(req.params._id);
     console.log(req.body);
-    // Club.findById(req.params._id, function(err, club) {
-    //     // Handle any possible database errors
-    //     if (err) {
-    //         return res.status(500).send(err);
-    //     } else {
-    //         club.fields = req.body.fields || club.fields;
-    //
-    //         club.save(function(err, club) {
-    //             if (err) {
-    //                 return res.status(500).send(err);
-    //             }
-    //             console.log('Se guardaron los datos del fields correctamente');
-    //             console.log(club.fields);
-    //             res.status(200).json(club);
-    //         });
-    //     }
-    // });
 
-    Club.findOneAndUpdate(
-        req.params._id,
-        {$push: {fields: req.body.fields}},
-        {safe: true, upsert: true},
-        function(err, club) {
-            if (err) {
-                return res.status(500).send(err);
-            }
-            console.log('Se guardaron los datos del fields correctamente');
-            console.log(club.fields);
-            res.status(200).json(club);
-
-        }
-    );
 };
 
 

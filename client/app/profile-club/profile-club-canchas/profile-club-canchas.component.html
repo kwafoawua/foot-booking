@@ -9,7 +9,9 @@
         <div class="row">
             <fields-array
                     formArrayName="fields"
-                    [fieldFormArray]="fieldClubForm.get('fields')">
+                    [fieldFormArray]="fieldClubForm.get('fields')"
+                    (deletedFields)="setDeletedFields($event)"
+            >
             </fields-array>
         </div>
     </div><!-- carga de canchas -section -->
