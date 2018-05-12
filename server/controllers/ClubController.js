@@ -182,14 +182,6 @@ module.exports.updateClub = function(req, res) {
     });
 };
 
-module.exports.updateFields = function(req, res) {
-    console.log(req.params._id);
-    console.log(req.body);
-
-};
-
-
-
 /**
  * Delete an Club
  */

@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
 import {AlertService} from "../../_services/alert.service";
 import {ClubService} from "../../_services/club.service";
 import {Router} from "@angular/router";
@@ -24,7 +24,11 @@ export class ProfileClubCanchasComponent implements OnInit{
     username: string;
     loading: false;
     fields: any = [];
+
+    /*Fields for Update, Delete, Insert*/
     deletedFields: any = [];
+    modifiedFields: any = [];
+    newFields: any = [];
 
     constructor(
         private router: Router,
@@ -51,21 +55,17 @@ export class ProfileClubCanchasComponent implements OnInit{
         this.userService.getByUsername(username).subscribe(userClub => {
 
             this.club = userClub.creator;
-            console.log(this.club);
+            // console.log(this.club);
             this.createForm(this.club.fields.length);
             this.fieldClubForm.patchValue({
                 fields: this.club.fields
             });
-            console.log(this.fieldClubForm);
+            // console.log(this.fieldClubForm);
 
         });
     }
 
-    updateFieldData () {
-        if(this.fieldClubForm.valid) {
-    for(let field of this.fieldClubForm.controls['fields'].value) {
-        console.log('perro');
-        console.log(field);
+    createTemporalField(field) {
         let cancha: any = {};
         cancha.fieldName = field.fieldName;
         cancha.cantPlayers = field.cantPlayers;
@@ -75,14 +75,38 @@ export class ProfileClubCanchasComponent implements OnInit{
         if(field._id !== '') {
             cancha._id = field._id;
         }
-        this.fields.push(cancha);
+
+        return cancha;
+    }
+
+    updateFieldData () {
+        if(this.fieldClubForm.valid) {
+            let index = 0;
+    for(let field of this.fieldClubForm.controls['fields'].value) {
+        // console.log('------------------');
+        // console.log((<FormArray>this.fieldClubForm.controls['fields']).controls[index]);
+        // console.log('------------------');
+
+        let fieldFormDirty = (<FormArray>this.fieldClubForm.controls['fields']).controls[index].dirty;
+
+        if(fieldFormDirty && field._id !=''){
+            let cancha = this.createTemporalField(field);
+            this.modifiedFields.push(cancha);
+        }else if(field._id =='') {
+            let cancha = this.createTemporalField(field);
+            this.newFields.push(cancha);
+        }
+
+        index++;
+        // console.log(field);
 
     }
     let canchas: any = {};
-    canchas.fields = this.fields;
+    canchas.modifiedFields = this.modifiedFields;
     canchas.deletedFields = this.deletedFields;
+    canchas.newFields = this.newFields;
 
-    console.log(this.fields);
+    console.log(canchas);
     this.clubService.updateFields(this.club._id, canchas).subscribe(
         data => {
             this.alertService.success('Los datos se actualizaron correctamente', true);
@@ -95,10 +119,13 @@ export class ProfileClubCanchasComponent implements OnInit{
         }
 
         this.fields = [];
+        this.modifiedFields = [];
+        this.newFields = [];
     }
 
     setDeletedFields($event) {
-        this.deletedFields = $event;
+        this.deletedFields.push($event);
+
         console.log(this.deletedFields);
     }
 

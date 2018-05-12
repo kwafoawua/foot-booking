@@ -33,11 +33,9 @@ export class FieldFormArrayComponent {
     removeField(event) {
         console.log(this.fieldFormArray.value[event]);
         if(this.fieldFormArray.value[event]._id !== '') {
-            let delFields = [];
             console.log(this.fieldFormArray.value[event]._id);
-            delFields.push(this.fieldFormArray.value[event]._id);
-            this.deletedFields.emit(delFields);
-            this.fieldFormArray.removeAt(event);
+            this.deletedFields.emit(this.fieldFormArray.value[event]._id);
+           this.fieldFormArray.removeAt(event);
 
         }
        // this.fieldFormArray.removeAt(event);
