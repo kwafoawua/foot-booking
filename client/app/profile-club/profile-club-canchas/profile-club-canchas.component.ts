@@ -83,9 +83,6 @@ export class ProfileClubCanchasComponent implements OnInit{
         if(this.fieldClubForm.valid) {
             let index = 0;
     for(let field of this.fieldClubForm.controls['fields'].value) {
-        // console.log('------------------');
-        // console.log((<FormArray>this.fieldClubForm.controls['fields']).controls[index]);
-        // console.log('------------------');
 
         let fieldFormDirty = (<FormArray>this.fieldClubForm.controls['fields']).controls[index].dirty;
 

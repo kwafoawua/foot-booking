@@ -31,14 +31,15 @@ export class FieldFormArrayComponent {
     }
 
     removeField(event) {
-        console.log(this.fieldFormArray.value[event]);
         if(this.fieldFormArray.value[event]._id !== '') {
             console.log(this.fieldFormArray.value[event]._id);
             this.deletedFields.emit(this.fieldFormArray.value[event]._id);
            this.fieldFormArray.removeAt(event);
 
+        }else {
+            console.log(this.fieldFormArray.value[event]);
+            this.fieldFormArray.removeAt(event);
         }
-       // this.fieldFormArray.removeAt(event);
     }
 
 
