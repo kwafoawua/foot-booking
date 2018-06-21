@@ -93,13 +93,16 @@
 
 
                                     <div class="row">
-                                       <div class="col-lg-4 col-md-6 mb-4" *ngFor="let c of clubs">
-                                           <div class="card h-100">
-                                               <a [routerLink]="['/results/club/',c._id]">
-                                                   <img width="300" height="100" class="card-img-top" src="/uploads/{{c?.profileImg}}" ></a>
-                                                    <div class="card-body ">
-                                                        <h4 class="card-title font-weight-bold"><a [routerLink]="['/results/club/',c._id]">{{c?.name}}</a></h4>
-                                                        <h5>MIN PRICE</h5>
+                                       <div class="col-sm-4" *ngFor="let c of clubs">
+                                           <div class="blog-post">
+                                               <div class="entry-thubmnail">
+                                                   <a [routerLink]="['/results/club/',c._id]">
+                                                        <img width="300" height="100" class="img-responsive" src="/uploads/{{c?.profileImg}}" >
+                                                   </a>
+
+                                               </div>
+                                                    <div class="card-body">
+                                                        <h5 class="card-title font-weight-bold"><a [routerLink]="['/results/club/',c._id]">{{c?.name}}</a></h5>
                                                        <p class="font-weight-light">{{c?.description}}</p>
                                                     </div>
                                                     <div class="card-footer">
