@@ -12,6 +12,8 @@ var playerController = require('../controllers/playerController');
 var bookingController = require('../controllers/BookingController');
 var commentController = require('../controllers/CommentController');
 var tournamentController = require('../controllers/TournamentController');
+var fieldController = require('../controllers/FieldController');
+
 
 //*User Controller*//
 router.post('/users/authenticate', userController.authenticate);
@@ -37,10 +39,14 @@ router.post('/clubs/register',uploadsManager.upload.fields([
 router.get('/clubs/:_id', clubController.findById);
 router.get('/clubs/results/:_id', clubController.findById);
 
-
 router.get('/clubs/', clubController.findAllClubs);
+router.put('/clubs/:_id',uploadsManager.upload.fields([
+    { name: 'profile', maxCount: 1 },
+    { name: 'gallery', maxCount: 5 }
+]), clubController.updateClub);
+router.put('/clubs/fields/:_id', fieldController.updateFields);
 
-
+/*FILTERS*/
 router.get('/findClub/:clubfilter', clubController.findClubsByFilter);
 router.get('/findClubsByFilters/:clubfilter', clubController.findClubsByMultipleFilter);
 

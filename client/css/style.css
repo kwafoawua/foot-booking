@@ -1,3 +1,8 @@
+
+body {
+	font-size: 14px;
+}
+
 div.profile-picture {
 	max-width: 300px;
 	max-height: 300px;
@@ -192,7 +197,7 @@ button#field-array-add-btn {
 	background: transparent;
 }
 
-
+/*
 .card {
 	border-radius: 6px;
 	box-shadow: 0 2px 2px rgba(204, 197, 185, 0.5);
@@ -406,7 +411,7 @@ button#field-array-add-btn {
 }
 .card-plain .image {
 	border-radius: 4px;
-}
+}*/
 
 div#profileClubImage {
 	width: 100%;
@@ -427,7 +432,11 @@ div#profilePlayerContainer {
 }
 
 div#loginContainer {
-	margin-top: 50px;
+	/*margin-top: 50px;*/
+}
+#loginContainer > div.card-login {
+	padding-left: 0 !important;
+	padding-right: 0 !important;
 }
 
 .carousel-inner {
@@ -455,6 +464,45 @@ div#loginContainer {
     margin-top: 10px;
 }
 
-body {
-	font-size: 14px;
+
+
+/*MEDIA QUERIES!*/
+@media only screen and (max-width :768px) {
+	.search-section {
+		margin-top: 25px !important;
+	}
+
+	.search-section > ul > li {
+		line-height: 0 !important;
+		margin-bottom: 1% !important;
+	}
+
+	.search-section > ul > li:nth-child(1) {
+		margin-bottom: 0 !important;
+	}
+
+	#navbarResponsive > ul > div > li:nth-child(3) > a {
+		margin: 0 !important;
+	}
 }
+
+@media only screen and  (max-width: 991px) and (min-width: 768px){
+	#navbarResponsive > ul > div > li:nth-child(3) > a {
+		margin: 0 !important;
+	}
+	.search-section > ul > li {
+		width: 50%;
+		margin-bottom: 7px;
+		float: right !important;
+	}
+	.search-section > ul > li:nth-child(1) {
+		line-height: 0 !important;
+	}
+	.search-section > ul > li:nth-child(4) {
+		margin-top: -3px !important;
+	}
+	.search-section > ul > li:nth-child(3) {
+		float: left !important;
+	}
+}
+
