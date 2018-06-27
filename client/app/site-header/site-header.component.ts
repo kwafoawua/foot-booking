@@ -28,7 +28,6 @@ export class SiteHeaderComponent implements OnInit {
   }
 
   public goToProfile() {
-    console.log('hola');
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     console.log(currentUser.rol);
     if (currentUser.rol == 'Club') {

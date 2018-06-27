@@ -109,48 +109,34 @@ module.exports.findAllPlayers = function(req, res) {
  */
 module.exports.updatePlayer = function(req, res) {
 
-    console.log('entra al update player');
-    console.log(req.body);
-    console.log('');
-    console.log(req.body.name);
-    User.findById({_id : req.body.idUser}, function(err, user) {
+    console.log('entra al update player con: ');
+    console.log('_id : ' + req.body._id);
+    console.log('nombre: ' + req.body.name);
+    console.log('birthDate: ' + req.body.birthDate);
+
+    Player.findById({_id : req.body._id}, function(err, player){
         if(err){
-            console.log("No se encontro user");
+            console.log("No se encontro al player con _id: " + req.body._id);
             return res.status(500).send(err);
         } else {
-            console.log("Encontro usuario");
-            user.email = req.body.email || user.email;
-            user.save(function(err, user){
-                if (err) {
-                    return res.status(500).send(err);
-                }
-                res.status(200).json(user);
-            });
+            console.log("Se encontró al player");
+            player.name = req.body.name || player.name;
+            player.lastName = req.body.lastName || player.lastName;
+            player.phoneNumber = req.body.phoneNumber || player.phoneNumber;
+            player.dni = req.body.dni || player.dni;
+            player.birthDate = req.body.birthDate || player.birthDate;
+            //player.biography = req.body.biography || player.biography;
 
-            Player.findById({_id : user.creator}, function(err, player) {
+            // Save the updated document back to the database
+            player.save(function(err, player){
                 if(err){
-                    console.log("No se encontro jugador");
                     return res.status(500).send(err);
-                } else {
-                    console.log("Encontro al player");
-                    player.name = req.body.name || player.name;
-                    player.lastName = req.body.lastName || player.lastName;
-                    player.phoneNumber = req.body.phoneNumber || player.phoneNumber;
-                    player.birthDate = req.body.birthDate || player.birthDate;
-                    player.biography = req.body.biography || player.biography;
-                    player.dni = req.body.dni || player.dni;
-
-                    // Save the updated document back to the database
-                    player.save(function(err, player) {
-                        if (err) {
-                            return res.status(500).send(err);
-                        }
-                        //res.status(200).json(player);
-                    });
+                }else {
+                    res.status(200).send(player);
                 }
             });
         }
-    });
+    });  
 };
 
 /**
@@ -175,12 +161,10 @@ module.exports.deletePlayer = function(req, res) {
 *   Get by user id
 */
 module.exports.getPlayerByUserId = function(req, res) {
-    console.log("");
-    console.log("Entra al getPlayerByUserId");
-    console.log("Lo que entra en el req: " + req.body);
-    console.log("Id: " + req.body._id);
 
-    User.findById({_id:req.body._id}, function(err, user){
+    console.log("Id del user que entra: " + req.params._id);
+
+    User.findById({_id:req.params._id}, function(err, user){
          if(err){
             console.log("No se encontro user");
             return res.status(500).send(err);

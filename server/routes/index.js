@@ -25,7 +25,7 @@ router.put('/users/setPassword', userController.setPassword);
 /*Player Controller*/
 router.post('/players/register', playerController.registerPlayer);
 router.get('/players/:_id', playerController.findById);
-//router.get('/players/:_id', playerController.getPlayerByUserId);
+router.get('/players:_id', playerController.getPlayerByUserId);
 router.put('/players/:_id', playerController.updatePlayer);
 
 

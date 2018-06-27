@@ -25,37 +25,20 @@
                             <div class="profile-usermenu">                                  
                                 <ul class="list-group list-group-flush">
                                     <li>
-                                        <a data-toggle="tab" id="1_tab" class="list-group-item list-group-item-action" data-toggle="list" role="tab" aria-controls="home">
-                                            <i class="fa fa-home" aria-hidden="true"></i>
-                                        &nbsp;&nbsp;Mi Perfil</a>   
+                                        <a (click)="goToUser()" data-toggle="tab" id="1_tab" class="list-group-item list-group-item-action active" data-toggle="list" role="tab" aria-controls="home">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                        &nbsp;&nbsp;Usuario </a> 
                                     </li>
                                     <li>
-                                        <a data-toggle="tab" id="2_tab" class="list-group-item list-group-item-action active" data-toggle="list" role="tab" aria-controls="home">
-                                            <i class="fa fa-user" aria-hidden="true"></i>
+                                        <a (click)="goToEdit()" data-toggle="tab" id="2_tab" class="list-group-item list-group-item-action" data-toggle="list" role="tab" aria-controls="home">
+                                            <i class="fa fa-pencil" aria-hidden="true"></i>
                                         &nbsp;&nbsp;Editar Perfil</a>                                            
                                     </li>
                                     <li>
-                                        <a data-toggle="tab" id="3_tab" class="list-group-item list-group-item-action" data-toggle="list" role="tab" aria-controls="home">
+                                        <a (click)="goToConfig()" data-toggle="tab" id="3_tab" class="list-group-item list-group-item-action" data-toggle="list" role="tab" aria-controls="home">
                                             <i class="fa fa-cog" aria-hidden="true"></i>
-                                        &nbsp;&nbsp;Contraseña </a>                                            
+                                        &nbsp;&nbsp;Configuracion</a>                                            
                                     </li>
-                                    <!--
-                                        <li class="list-group-item">
-                                            <a>
-                                                <i class="fa fa-home" aria-hidden="true"></i>
-                                            Mi Perfil </a>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <a [routerLink]="['/player-profile',{outlets:{'profileSelection':'editPlayer'}}]">
-                                                <i class="fa fa-user" aria-hidden="true"></i>
-                                            Editar Perfil </a>
-                                        </li class="list-group-item">
-                                        <li>
-                                            <a>
-                                                <i class="fa fa-cog" aria-hidden="true"></i>
-                                            Contraseña </a>
-                                        </li>
-                                    -->
                                 </ul>
                             </div>
                             <!-- END MENU -->
@@ -63,46 +46,13 @@
                     </div>
                     <!-- Div del lateral derecho -->
                     <div class="col-xl-6">
-                        <div class="card player-profile-activity" ng-hide="true">
-<!--
+                        <div class="card">
                             <div class="card-body">
                                 <router-outlet></router-outlet>
-                            </div>
--->
-                            <div class="card-body form-group">
-                                <div class="col-xs-12">
-                                    <h3>Editar Perfil</h3>
-                                </div>
-
-                                <form name="editPlayer" (ngSubmit)="editPlayer()" #f="ngForm">
-                                    <label class="label-form" for="name">Nombre</label>
-                                    <input type="text" class="form-control" name="namePlayer" [(ngModel)]="model.name" #name="ngModel" required value={{player?.name}} placeholder={{player?.name}} />
-                                    <label class="label-form" for="lastName">Apellido</label>
-                                    <input type="text" class="form-control" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" required value={{player?.lastName}} placeholder={{player?.lastName}} />
-                                    <label class="label-form" for="dni">DNI</label>
-                                    <input type="number" class="form-control" name="dni" [(ngModel)]="model.dni" #dni="ngModel" required value={{player?.dni}} placeholder={{player?.dni}} />
-                                    <label class="label-form" for="birthDate">Fecha de nacimiento</label>
-                                    <input type="date" class="form-control" name="birthDate" [(ngModel)]="model.birthDate" #birthDate="ngModel" required value={{player?.birthDate}} placeholder={{player?.birthDate}} />
-                                    <label class="label-form" for="email">E-mail</label>
-                                    <input type="text" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" required value={{currentUser?.email}} placeholder={{currentUser?.email}} />
-                                    <label class="label-form" for="phoneNumber">Teléfono</label>
-                                    <input type="text" class="form-control" name="phoneNumber" [(ngModel)]="model.phoneNumber" #phoneNumber="ngModel" required value={{player?.phoneNumber}} placeholder={{player?.phoneNumber}} />
-                                    <div class="form-group">
-                                        <label class="label-form" for="biography">Sobre tí</label>
-                                        <textarea class="form-control" style="min-height: 120px" name="biography" [(ngModel)]="model.biography" #biography="ngModel" value={{player?.biography}} placeholder={{player?.biography}} ></textarea>
-                                    </div>
-                                    <h4></h4>
-                                    <div style="text-align: right;">
-                                        <button class="btn btn-primary">Guardar</button>
-                                        <button class="btn btn-primary" type="reset">Restablecer</button>
-                                    </div>
-                                </form>
-
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
