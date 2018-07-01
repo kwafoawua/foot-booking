@@ -96,7 +96,7 @@
             },
             'ng2-date-picker': {
                 defaultExtension: 'js',
-                main: './index.js'
+                main: './bundles/ng2-date-picker.umd.js'
             },
             'date-fns': {
                 main: './index.js',
