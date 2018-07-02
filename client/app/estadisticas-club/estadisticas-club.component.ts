@@ -292,9 +292,9 @@ export class EstadisticasClubComponent implements OnInit{
             let doc = new jsPDF('l', 'mm', 'a4');
             const width = doc.internal.pageSize.width;
             const height = doc.internal.pageSize.height;
-            doc.text(50,20,'Reservas realizadas en el año');
+            doc.text('Reservas realizadas en el año',20, 50);
 
-            doc.addImage(img,'JPEG',20, 50);
+            doc.addImage(img,'PNG',20, 50, 160, 80);
 
             doc.save('reservas-realizadas-en-el-anio.pdf');
         });
