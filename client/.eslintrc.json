@@ -1,0 +1,52 @@
+{
+  "parser": "typescript-eslint-parser",
+  "parserOptions": {
+    "ecmaVersion": 8,
+    "sourceType": "module",
+    "jsx": true,
+    "useJSXTextNode": true,
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "extends": [
+    "eslint:recommended"
+  ],
+  "plugins": [
+    "typescript"
+  ],
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "globals": {
+    "module": true
+  },
+  "rules": {
+    "semi": [ "error", "never" ],
+    "no-trailing-spaces": "error",
+    "space-before-function-paren": [ "error", "never" ],
+    "object-shorthand": "error",
+    "object-curly-spacing": [ "error", "always" ],
+    "array-bracket-spacing": [ "error", "always" ],
+    "curly": "error",
+    "comma-dangle": ["error", {
+      "arrays": "always-multiline",
+      "objects": "always-multiline",
+      "imports": "always-multiline",
+      "exports": "always-multiline",
+      "functions": "always-multiline"
+    }],
+    "max-len": ["error", 100],
+    "no-unused-vars": [ "error", { "ignoreRestSiblings": true } ],
+    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "space-infix-ops": "error",
+    "react/prop-types": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "typescript/no-unused-vars": "error",
+    "typescript/no-type-alias": ["error", {
+      "allowAliases": "always",
+      "allowLiterals": "in-unions-and-intersections"
+    }]
+  }
+}

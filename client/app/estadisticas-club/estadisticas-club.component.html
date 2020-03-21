@@ -1,148 +1,151 @@
 <style>
-i {
+  i {
     font-size: 40px;
-}
-    .card-body.upper {
+  }
 
-        display: inline-flex !important;
+  .card-body.upper {
 
-    }
-    div.card-header
-    {
-        font-family: 'RobotoDraft', 'Roboto', 'Helvetica Neue, Helvetica, Arial', sans-serif;
-        text-align: center;
-        font-style: inherit;
-        font-size: 0.8rem;
-        line-height: 2rem;
-        color: #212121;
-        background-color: #f5f5f5;
+    display: inline-flex !important;
 
-    }
-    .card-body.chart {
-        height: 300px !important;
-        width: 80%;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    .hide {
-        display: none;
-    }
+  }
 
-ngx-charts-bar-vertical > ngx-charts-chart > div.ngx-charts-outer > svg.ngx-charts {
+  div.card-header {
+    font-family: 'RobotoDraft', 'Roboto', 'Helvetica Neue, Helvetica, Arial', sans-serif;
+    text-align: center;
+    font-style: inherit;
+    font-size: 0.8rem;
+    line-height: 2rem;
+    color: #212121;
+    background-color: #f5f5f5;
+
+  }
+
+  .card-body.chart {
+    height: 300px !important;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hide {
+    display: none;
+  }
+
+  ngx-charts-bar-vertical > ngx-charts-chart > div.ngx-charts-outer > svg.ngx-charts {
     position: relative !important;
     right: 45px !important;
-}
+  }
 </style>
 <div class="container-fluid">
-    <div class="row justify-content-md-center mt-lg-5">
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-body upper">
-                    <div class="col-md-3"><i class="fa fa-comments align-middle text-success"
-                                                                               aria-hidden="true"></i></div>
-                    <div class="col-8 align-middle text-center">
-                       <a [routerLink]="['/results/club/',_id]"> <span class="col-8">{{cantComments}}</span>
-                        <span class="col-8">Comentarios</span></a></div>
-                </div>
-            </div>
+  <div class="row justify-content-md-center mt-lg-5">
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body upper">
+          <div class="col-md-3"><i class="fa fa-comments align-middle text-success"
+                                   aria-hidden="true"></i></div>
+          <div class="col-8 align-middle text-center">
+            <a [routerLink]="['/results/club/',_id]"> <span class="col-8">{{cantComments}}</span>
+              <span class="col-8">Comentarios</span></a></div>
         </div>
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-body upper">
-                    <div class="col-3"><i class="fa fa-heart align-middle text-danger"
-                                                                              aria-hidden="true"></i></div>
-                    <div class="col-8 align-middle text-center">
-                        <span class="col-8">4.0</span>
-                        <span class="col-8">Valoración</span></div>
-                </div>
-            </div>
-
-        </div>
-        <div class="col-md-3">
-            <div class="card hide">
-                <div class="card-body upper">
-
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card hide">
-                <div class="card-body upper">
-
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body upper">
+          <div class="col-3"><i class="fa fa-heart align-middle text-danger"
+                                aria-hidden="true"></i></div>
+          <div class="col-8 align-middle text-center">
+            <span class="col-8">4.0</span>
+            <span class="col-8">Valoración</span></div>
+        </div>
+      </div>
 
-    <div class="row justify-content-md-center mt-lg-5">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    Reservas realizadas en el año
-                    <button (click)="download()" class="btn btn-success btn-sm pull-right">Descargar Gráfico</button>
-                </div>
-                <div class="card-body chart">
-                    <ngx-charts-bar-vertical *ngIf="loaded"
-                                             id="chart-bar-vertical"
-                            [view]="view1"
-                            [scheme]="options.colorScheme"
-                            [results]="bookingMonthChart"
-                            [gradient]="options.gradient"
-                            [xAxis]="options.showXAxis"
-                            [yAxis]="options.showYAxis"
-                            [showXAxisLabel]="options.showXAxisLabel"
-                            [showYAxisLabel]="options.showYAxisLabel"
-                            [yAxisLabel]="options.yAxisLabel1"
-                            (select)="onSelect($event)">
-                    </ngx-charts-bar-vertical>
-                </div>
-            </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card hide">
+        <div class="card-body upper">
 
         </div>
+      </div>
     </div>
+    <div class="col-md-3">
+      <div class="card hide">
+        <div class="card-body upper">
 
-    <div class="row justify-content-md-center mt-lg-5">
-        <div class="col-md-6" align="center">
-        <div class="card">
-            <div class="card-header">
-                Reservas realizadas por Estado
-                <button (click)="download1()" class="btn btn-success btn-sm pull-right">Descargar Gráfico</button>
-
-            </div>
-            <div class="card-body chart">
-                <ngx-charts-advanced-pie-chart *ngIf="loaded"
-                                               id="chart-advanced-pie"
-                        [view]="view"
-                        [scheme]="options.colorScheme1"
-                        [animations]="options.animations"
-                        [results]="statusChart"
-                        [label]="'Total'"
-                        (select)="onSelect($event)">
-                </ngx-charts-advanced-pie-chart>
-            </div>
         </div>
+      </div>
     </div>
-        <div class="col-md-6" align="center">
-            <div class="card">
-                <div class="card-header">
-                    Reservas realizadas por Cancha
-                    <button (click)="download2()" class="btn btn-success btn-sm pull-right">Descargar Gráfico</button>
+  </div>
 
-                </div>
-                <div class="card-body chart">
-                    <ngx-charts-pie-chart *ngIf="loaded"
-                                          id="chart-pie-chart-canchas"
-                            [view]="view2"
-                            [scheme]="options.colorScheme"
-                            [results]="fieldChart"
-                            [labels]="options.showLabels"
-                            [legendTitle] = "Leyenda"
-                            (select)="onSelect($event)">
-                    </ngx-charts-pie-chart>
-
-                </div>
-            </div>
+  <div class="row justify-content-md-center mt-lg-5">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          Reservas realizadas en el año
+          <button (click)="download()" class="btn btn-success btn-sm pull-right">Descargar Gráfico</button>
         </div>
+        <div class="card-body chart">
+          <ngx-charts-bar-vertical *ngIf="loaded"
+                                   id="chart-bar-vertical"
+                                   [view]="view1"
+                                   [scheme]="options.colorScheme"
+                                   [results]="bookingMonthChart"
+                                   [gradient]="options.gradient"
+                                   [xAxis]="options.showXAxis"
+                                   [yAxis]="options.showYAxis"
+                                   [showXAxisLabel]="options.showXAxisLabel"
+                                   [showYAxisLabel]="options.showYAxisLabel"
+                                   [yAxisLabel]="options.yAxisLabel1"
+                                   (select)="onSelect($event)">
+          </ngx-charts-bar-vertical>
+        </div>
+      </div>
+
     </div>
+  </div>
+
+  <div class="row justify-content-md-center mt-lg-5">
+    <div class="col-md-6" align="center">
+      <div class="card">
+        <div class="card-header">
+          Reservas realizadas por Estado
+          <button (click)="download1()" class="btn btn-success btn-sm pull-right">Descargar Gráfico</button>
+
+        </div>
+        <div class="card-body chart">
+          <ngx-charts-advanced-pie-chart *ngIf="loaded"
+                                         id="chart-advanced-pie"
+                                         [view]="view"
+                                         [scheme]="options.colorScheme1"
+                                         [animations]="options.animations"
+                                         [results]="statusChart"
+                                         [label]="'Total'"
+                                         (select)="onSelect($event)">
+          </ngx-charts-advanced-pie-chart>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6" align="center">
+      <div class="card">
+        <div class="card-header">
+          Reservas realizadas por Cancha
+          <button (click)="download2()" class="btn btn-success btn-sm pull-right">Descargar Gráfico</button>
+
+        </div>
+        <div class="card-body chart">
+          <ngx-charts-pie-chart *ngIf="loaded"
+                                id="chart-pie-chart-canchas"
+                                [view]="view2"
+                                [scheme]="options.colorScheme"
+                                [results]="fieldChart"
+                                [labels]="options.showLabels"
+                                [legendTitle]="Leyenda"
+                                (select)="onSelect($event)">
+          </ngx-charts-pie-chart>
+
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>

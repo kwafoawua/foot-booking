@@ -1,77 +1,77 @@
-    <div class="ad-post-wrapper section">
-        <div class="container">
-            <div id="faq-filter">
-                <h3>Historial de reservas </h3>
+<div class="ad-post-wrapper section">
+  <div class="container">
+    <div id="faq-filter">
+      <h3>Historial de reservas </h3>
 
-                <div class="tab-content">
-                    <div id="all-faq" class="faq-post tab-pane active">
-                        <div class="faq">
+      <div class="tab-content">
+        <div id="all-faq" class="faq-post tab-pane active">
+          <div class="faq">
 
-                            <div class="card" *ngFor="let r of bookings">
-                                <div class="card-header">
-                                    <b>Club {{r.club.name | uppercase}}</b>
-                                </div>
-                                <div class="card-body">
+            <div class="card" *ngFor="let r of bookings">
+              <div class="card-header">
+                <b>Club {{r.club.name | uppercase}}</b>
+              </div>
+              <div class="card-body">
 
-                                    <div class="row">
-                                        <div class="col card-text">Fecha de reserva: {{r.createdOn | date:"dd/MM/yy"}} </div>
-                                        <div class="col card-text">{{r.status | uppercase}}</div>
-                                        <div class="w-100"></div>
-                                        <div class="col card-text">Fecha de juego: {{r.playingDate | date:"dd/MM/yy"}}</div>
-                                        <div class="col card-text">Hora de juego: {{r.playingTime}}</div>
-                                        <div class="w-100"></div>
-                                        <div class="col card-text">Dirección del complejo: {{r.club.address}}</div>
-                                        <div class="col card-text">Teléfono de contacto: {{r.club.phoneNumber}}</div>
-
-                                    </div>
-                                    <div>
-                                        <div align="right"   *ngIf="r.status == 'Pendiente de Pago'">
-                                            <button type="button" class="btn btn-success">Pago online</button>
-                                            <button type="button" class="btn btn-secondary">Cancelar</button>
-                                        </div>
-                                    </div>
-                                  </div>
-                            </div>
-                            <!--<div class="faq-ans" *ngFor="let r of bookings" >-->
-                                <!--<div class="post-inner">-->
-                                    <!--<div class="row form-group">-->
-                                        <!--<label class="col-md-4"> Estado de la reserva </label>-->
-                                        <!--<div class="col-md-8">-->
-                                            <!--<h3>{{r.status}}</h3>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                    <!--<div class="row form-group">-->
-                                        <!--<label class="col-md-4"> Fecha de reserva </label>-->
-                                        <!--<div class="col-md-8">-->
-                                            <!--{{r.createdOn}}-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                    <!--<div class="row form-group">-->
-                                        <!--<label class="col-md-4"> Club </label>-->
-                                        <!--<div class="col-md-8">-->
-                                            <!--{{r.club.name}}-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                    <!--<div class="row form-group">-->
-                                        <!--<label class="col-md-4"> Cancha </label>-->
-                                        <!--<div class="col-md-8">-->
-                                            <!--{{r.field.fieldName}}-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                    <!--<div class="row form-group">-->
-                                        <!--<label class="col-md-4"> Fecha y Hora de juego </label>-->
-                                        <!--<div class="col-md-8">-->
-                                            <!--{{r.playingDate}}{{r.playingTime}}-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                <!--</div>&lt;!&ndash; post-inner &ndash;&gt;-->
-                            <!--</div>-->
-
-                        </div>
-
-                    </div>
+                <div class="row">
+                  <div class="col card-text">Fecha de reserva: {{r.createdOn | date:"dd/MM/yy"}} </div>
+                  <div class="col card-text">{{r.status | uppercase}}</div>
+                  <div class="w-100"></div>
+                  <div class="col card-text">Fecha de juego: {{r.playingDate | date:"dd/MM/yy"}}</div>
+                  <div class="col card-text">Hora de juego: {{r.playingTime}}</div>
+                  <div class="w-100"></div>
+                  <div class="col card-text">Dirección del complejo: {{r.club.address}}</div>
+                  <div class="col card-text">Teléfono de contacto: {{r.club.phoneNumber}}</div>
 
                 </div>
-            </div><!-- #faq-filter -->
+                <div>
+                  <div align="right" *ngIf="r.status == 'Pendiente de Pago'">
+                    <button type="button" class="btn btn-success">Pago online</button>
+                    <button type="button" class="btn btn-secondary">Cancelar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--<div class="faq-ans" *ngFor="let r of bookings" >-->
+            <!--<div class="post-inner">-->
+            <!--<div class="row form-group">-->
+            <!--<label class="col-md-4"> Estado de la reserva </label>-->
+            <!--<div class="col-md-8">-->
+            <!--<h3>{{r.status}}</h3>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row form-group">-->
+            <!--<label class="col-md-4"> Fecha de reserva </label>-->
+            <!--<div class="col-md-8">-->
+            <!--{{r.createdOn}}-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row form-group">-->
+            <!--<label class="col-md-4"> Club </label>-->
+            <!--<div class="col-md-8">-->
+            <!--{{r.club.name}}-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row form-group">-->
+            <!--<label class="col-md-4"> Cancha </label>-->
+            <!--<div class="col-md-8">-->
+            <!--{{r.field.fieldName}}-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row form-group">-->
+            <!--<label class="col-md-4"> Fecha y Hora de juego </label>-->
+            <!--<div class="col-md-8">-->
+            <!--{{r.playingDate}}{{r.playingTime}}-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>&lt;!&ndash; post-inner &ndash;&gt;-->
+            <!--</div>-->
+
+          </div>
+
         </div>
-    </div> <!-- ad-post -->
+
+      </div>
+    </div><!-- #faq-filter -->
+  </div>
+</div> <!-- ad-post -->

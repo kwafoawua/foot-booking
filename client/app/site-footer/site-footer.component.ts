@@ -4,11 +4,11 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-site-footer',
   moduleId: module.id,
   templateUrl: 'site-footer.component.html',
-  styleUrls: ['site-footer.component.css']
+  styleUrls: [ 'site-footer.component.css' ]
 })
 export class SiteFooterComponent implements OnInit {
-
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

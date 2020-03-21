@@ -1,285 +1,300 @@
 <div class="page container">
 
-    <div class="all-categories section">
-        <div class="container">
-            <div class="ad-details">
-                <div class="row">
-                    <div class="col-md-8 col-sm-7">
+  <div class="all-categories section">
+    <div class="container">
+      <div class="ad-details">
+        <div class="row">
+          <div class="col-md-8 col-sm-7">
 
-                        <div class="item">
-
-
-                            <div class="detail-item-image item-image carousel slide" data-ride="carousel">
-
-                                <div class="carousel-inner">
-                                    <div *ngFor="let img of club?.galleryImg; let i = index"
-                                         [ngClass]="i === 0 ? 'carousel-item active': 'carousel-item'">
-                                        <img src="/uploads/{{img}}" class="img-fluid">
-                                    </div>
-                                </div>
-
-                                <a class="left-control" href=".detail-item-image" role="button" data-slide="prev">
-                                    <i class="fa fa-angle-left" aria-hidden="true"></i>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                                <a class="right-control" href=".detail-item-image" role="button" data-slide="next">
-                                    <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                    <span class="sr-only">Next</span>
-                                </a>
-
-                            </div>
+            <div class="item">
 
 
-                            <div class="details-description">
-                                <div class="item-info item-meta">
+              <div class="detail-item-image item-image carousel slide" data-ride="carousel">
 
-                                    <div class="ad-title">
-                                        <h3>{{club?.name | uppercase}}</h3>
-                                    </div>
+                <div class="carousel-inner">
+                  <div *ngFor="let img of club?.galleryImg; let i = index"
+                       [ngClass]="i === 0 ? 'carousel-item active': 'carousel-item'">
+                    <img src="/uploads/{{img}}" class="img-fluid">
+                  </div>
+                </div>
 
-                                    <ul class="list-inline product-social">
-                                        <li class="list-inline-item"><a href="#"><i class="fa fa-bookmark-o"
-                                                                                    aria-hidden="true"></i></a></li>
-                                        <li class="list-inline-item"><a href="#"><i class="fa fa-heart-o"
-                                                                                    aria-hidden="true"></i></a></li>
-                                        <li class="list-inline-item"><a href="#"><i class="fa fa-share-alt"
-                                                                                    aria-hidden="true"></i></a></li>
-                                    </ul>
-                                </div><!-- item-info -->
-                                <div class="item-info">
+                <a class="left-control" href=".detail-item-image" role="button" data-slide="prev">
+                  <i class="fa fa-angle-left" aria-hidden="true"></i>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="right-control" href=".detail-item-image" role="button" data-slide="next">
+                  <i class="fa fa-angle-right" aria-hidden="true"></i>
+                  <span class="sr-only">Next</span>
+                </a>
+
+              </div>
 
 
-                                    <h4>DESCRIPCIÓN</h4>
-                                    <p>
-                                        {{club?.description | uppercase}}
-                                    </p>
-                                </div><!-- item-info -->
+              <div class="details-description">
+                <div class="item-info item-meta">
 
-                            </div>
-                        </div><!-- item -->
+                  <div class="ad-title">
+                    <h3>{{club?.name | uppercase}}</h3>
+                  </div>
 
-                            <P></P>
+                  <ul class="list-inline product-social">
+                    <li class="list-inline-item"><a href="#"><i class="fa fa-bookmark-o"
+                                                                aria-hidden="true"></i></a></li>
+                    <li class="list-inline-item"><a href="#"><i class="fa fa-heart-o"
+                                                                aria-hidden="true"></i></a></li>
+                    <li class="list-inline-item"><a href="#"><i class="fa fa-share-alt"
+                                                                aria-hidden="true"></i></a></li>
+                  </ul>
+                </div><!-- item-info -->
+                <div class="item-info">
 
-                      <!--ITEM CANCHAS-->
 
-                        <div class="filter-list" *ngFor="let field of club?.fields; let i = index">
-                              <div>
-                                <div class="filter-heading">
-                                    <a data-toggle="collapse" data-parent="#advanced-filter" href="#{{i}}">
+                  <h4>DESCRIPCIÓN</h4>
+                  <p>
+                    {{club?.description | uppercase}}
+                  </p>
+                </div><!-- item-info -->
 
-                                        <h4 class="list-title">{{field?.fieldName | uppercase}}<span class="pull-right">
+              </div>
+            </div><!-- item -->
+
+            <P></P>
+
+            <!--ITEM CANCHAS-->
+
+            <div class="filter-list" *ngFor="let field of club?.fields; let i = index">
+              <div>
+                <div class="filter-heading">
+                  <a data-toggle="collapse" data-parent="#advanced-filter" href="#{{i}}">
+
+                    <h4 class="list-title">{{field?.fieldName | uppercase}}<span class="pull-right">
 
                                             <i class="fa fa-plus"></i></span>
-                                        </h4>
-                                    </a>
-                                </div><!-- filter-heading -->
+                    </h4>
+                  </a>
+                </div><!-- filter-heading -->
 
 
-                                <div id="{{i}}" class="panel-collapse collapse">
-                                    <!-- panel-body -->
-                                    <div class="card-body">
+                <div id="{{i}}" class="panel-collapse collapse">
+                  <!-- panel-body -->
+                  <div class="card-body">
 
 
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                Cantidad de jugadores
-                                            </div>
-                                            <div class="col" [attr.id]="'cantPlayers'+i">
-                                                <b>{{field?.cantPlayers}}</b>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                Tipo de suelo
-                                            </div>
-                                            <div class="col">
-                                             <b>{{field.fieldType}}</b>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                Costo total
-                                            </div>
-                                            <div class="col">
-                                                <b>$ {{field?.price}}</b>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                Servicios que incluye:
-                                            </div>
-                                            <div class="col">
-                                                <ul  class="list-inline ">
-                                                    <li class="list-inline-item" *ngFor="let serv of field?.services"><b>{{serv?.display}}</b></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-6 col-md-4">
-                                                <label class="label-form row" for="datePicker5">Fecha de juego(*)</label>
-                                                <input (ngModelChange)="loadHoursValues($event,field)" class="form-group  dropdown category-dropdown form-control" [dpDayPicker]="config" name="datePicker"  placeholder="DD-MM-AAAA"
-                                                       id="calendar" inputElementConteiner="#inputConteiner" theme="dp-material" [(ngModel)]="date[i]" >
-                                            </div>
-
-
-                                            <div class="col-6 col-md-4">
-                                               <label class="label-form row dropdown" for="datePicker6">Hora de juego(*)</label>
-                                               <select name="category-group" id="category-group" class="form-control" [(ngModel)]="selectedTime[i]" >
-                                                     <option value="Seleccione">Seleccione</option>
-                                                     <option *ngFor="let hora of horasDisponibles">{{hora}}</option>
-                                               </select>
-                                            </div>
-
-                                            <div class="col-6 col-md-4">
-                                                <button  (click)="reservar(field, i)"   align="right" type="button" class="btn btn-primary"  data-toggle="modal" data-target="#myModal">Reservar</button>
-                                            </div>
-                                        </div>
-                                        <!--<ul class="list-inline l">-->
-
-                                            <!--<li class="list-inline-item" >-->
-                                                <!--<input (ngModelChange)="loadHoursValues($event,field)" class="form-group dropdown category-dropdown form-control" [dpDayPicker]="config" name="datePicker"  placeholder="DD-MM-AAAA"-->
-                                                       <!--id="calendarX" inputElementConteiner="#inputConteiner" theme="dp-material" [(ngModel)]="date[i]">-->
-                                            <!--</li>-->
-
-                                            <!--<li class="list-inline-item" >-->
-                                                        <!--<div class="dropdown">-->
-                                                            <!--<select name="category-group" id="category-group" class="form-control"-->
-                                                                    <!--[(ngModel)]="selectedTime[i]" >-->
-
-
-                                                                <!--<option value=" " selected class="dropdown-item">Horarios</option>-->
-                                                                <!--<option *ngFor="let hora of horasDisponibles" [value]="hora">{{hora}}</option>-->
-
-                                                            <!--</select>-->
-                                                        <!--</div>-->
-
-                                                    <!--</li>-->
-
-
-                                            <!-- Modal -->
-                                            <!--<div *ngIf="NotanUser" id="myModal" class="modal fade" role="dialog" tabindex="-1">-->
-                                                <!--<div class="modal-dialog" role="document">-->
-
-                                                    <!--&lt;!&ndash; Modal content&ndash;&gt;-->
-                                                    <!--<div class="modal-content">-->
-
-                                                        <!--<div class="modal-header">-->
-                                                        <!--<h5 class="modal-title" id="exampleModalLabel">Inciar sesión</h5>-->
-                                                        <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-                                                            <!--<span aria-hidden="true">&times;</span>-->
-                                                        <!--</button>-->
-                                                        <!--</div>-->
-
-                                                        <!--&lt;!&ndash;INICIAR SESION&ndash;&gt;-->
-                                                        <!--<form name="form" (ngSubmit)="f.form.valid && login(field, i)" #f="ngForm" novalidate>-->
-                                                            <!--<div class="modal-body">-->
-                                                            <!--<div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">-->
-                                                                <!--<label for="username">Nombre de usuario</label>-->
-                                                                <!--<input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" required />-->
-                                                                <!--<div *ngIf="f.submitted && !username.valid" class="help-block">El nombre de usuario es requerido</div>-->
-                                                            <!--</div>-->
-
-                                                            <!--<div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">-->
-                                                                <!--<label for="password">Constraseña</label>-->
-
-                                                                <!--<input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />-->
-                                                                <!--<div *ngIf="f.submitted && !password.valid" class="help-block">La contraseña es requerida</div>-->
-                                                            <!--</div>-->
-                                                            <!--</div>-->
-                                                            <!--<div class="modal-footer">-->
-                                                                <!--<div class="form-group">-->
-                                                                    <!--<button (click)="login(field, i)" class="btn btn-primary" data-dismiss="modal">Iniciar</button>-->
-                                                                    <!--<img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />-->
-                                                                    <!--<a [routerLink]="['/player/register']" class="btn btn-link" data-dismiss="modal">Registrarse</a>-->
-                                                                <!--</div>-->
-                                                            <!--</div>-->
-                                                        <!--</form>-->
-                                                        <!--&lt;!&ndash;FIN INICIAR SESION&ndash;&gt;-->
-                                                    <!--</div>-->
-                                                <!--</div>-->
-                                            <!--</div>-->
-
-                                            <!--FIN MODAL-->
-
-                                        <!--</ul>-->
-
-                                    </div><!-- panel-body -->
-                                </div>
-
-                              </div><!-- advanced-filter -->
-
-                        </div><!-- filter-list -->
-                        <!--fin item cancha-->
-
-                        <!--Comentarios-->
-
-
-
+                    <div class="row">
+                      <div class="col-sm-3">
+                        Cantidad de jugadores
+                      </div>
+                      <div class="col" [attr.id]="'cantPlayers'+i">
+                        <b>{{field?.cantPlayers}}</b>
+                      </div>
                     </div>
 
-
-                    <div class="col-sm-5 col-md-4">
-                        <div class="side-bar">
-
-                            <div class="contact-seller widget">
-                                <h4>DATOS DE CONTACTO</h4>
-
-                                <div class="seller-info">
-                                    <p> NOMBRE  <span>{{club?.name | uppercase}}</span></p>
-                                    <p> TEL <span>  {{club?.phoneNumber}} </span> </p>
-
-                                    <ul class="list-inline">
-
-                                        <li  *ngIf="(club?.socialMedia.facebookId !== null && club?.socialMedia.facebookId.length >= 1)" class="list-inline-item"><a target="_blank" href="{{club?.socialMedia.facebookId}}"> <i class="fa fa-facebook-square" aria-hidden="true"></i></a></li>
-                                        <li  *ngIf="(club?.socialMedia.twitterId !== null && club?.socialMedia.twitterId.length >= 1)" class="list-inline-item"><a target="_blank" href="{{club?.socialMedia.twitterId}}"> <i class="fa fa-twitter-square" aria-hidden="true"></i></a></li>
-                                        <li  *ngIf="(club?.socialMedia.googleId !== null && club?.socialMedia.googleId.length >= 1)" class="list-inline-item"><a target="_blank" href="{{club?.socialMedia.googleId}}"> <i class="fa fa-google-plus-square" aria-hidden="true"></i></a></li>
-                                        <li  *ngIf="(club?.socialMedia.instagramId !== null && club?.socialMedia.instagramId.length >= 1)" class="list-inline-item"><a target="_blank" href="{{club?.socialMedia.instagramId}}"> <i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                                    </ul>
-
-                                </div>
-
-
-                            </div>
-
-                            <div class="widget item-tag">
-                                <h4>SERVICIOS DEL CLUB</h4>
-                                <ul class="list-inline">
-                                    <li class="list-inline-item" *ngFor="let serv of club?.services"><a>{{serv.display | uppercase}}</a></li>
-                                </ul>
-                            </div>
-
-
-                            <div class="location-map">
-                                <h4>UBICACIÓN</h4>
-                                <div id="gmap">
-
-                                    <agm-map [zoom]="16" [latitude]="club?.address.lat" [longitude]="club?.address.lng">
-                                        <agm-marker [latitude]="club?.address.lat"
-                                                    [longitude]="club?.address.lng"
-                                                    [iconUrl]="'../../images/icon/iconochico.png'">
-                                            <agm-info-window>{{club?.name}}</agm-info-window>
-                                        </agm-marker>
-                                    </agm-map>
-                                    <div><label>{{club?.address.address}}</label></div>
-
-
-                                </div>
-                            </div><!-- location-map -->
-
-                            <div class="form-group text-center">
-
-                            </div>
-
-                        </div><!-- side-bar -->
+                    <div class="row">
+                      <div class="col-sm-3">
+                        Tipo de suelo
+                      </div>
+                      <div class="col">
+                        <b>{{field.fieldType}}</b>
+                      </div>
                     </div>
+
+                    <div class="row">
+                      <div class="col-sm-3">
+                        Costo total
+                      </div>
+                      <div class="col">
+                        <b>$ {{field?.price}}</b>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-sm-3">
+                        Servicios que incluye:
+                      </div>
+                      <div class="col">
+                        <ul class="list-inline ">
+                          <li class="list-inline-item" *ngFor="let serv of field?.services"><b>{{serv?.display}}</b>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-6 col-md-4">
+                        <label class="label-form row" for="datePicker5">Fecha de juego(*)</label>
+                        <input (ngModelChange)="loadHoursValues($event,field)"
+                               class="form-group  dropdown category-dropdown form-control" [dpDayPicker]="config"
+                               name="datePicker" placeholder="DD-MM-AAAA"
+                               id="calendar" inputElementConteiner="#inputConteiner" theme="dp-material"
+                               [(ngModel)]="date[i]">
+                      </div>
+
+
+                      <div class="col-6 col-md-4">
+                        <label class="label-form row dropdown" for="datePicker6">Hora de juego(*)</label>
+                        <select name="category-group" id="category-group" class="form-control"
+                                [(ngModel)]="selectedTime[i]">
+                          <option value="Seleccione">Seleccione</option>
+                          <option *ngFor="let hora of horasDisponibles">{{hora}}</option>
+                        </select>
+                      </div>
+
+                      <div class="col-6 col-md-4">
+                        <button (click)="reservar(field, i)" align="right" type="button" class="btn btn-primary"
+                                data-toggle="modal" data-target="#myModal">Reservar
+                        </button>
+                      </div>
+                    </div>
+                    <!--<ul class="list-inline l">-->
+
+                    <!--<li class="list-inline-item" >-->
+                    <!--<input (ngModelChange)="loadHoursValues($event,field)" class="form-group dropdown category-dropdown form-control" [dpDayPicker]="config" name="datePicker"  placeholder="DD-MM-AAAA"-->
+                    <!--id="calendarX" inputElementConteiner="#inputConteiner" theme="dp-material" [(ngModel)]="date[i]">-->
+                    <!--</li>-->
+
+                    <!--<li class="list-inline-item" >-->
+                    <!--<div class="dropdown">-->
+                    <!--<select name="category-group" id="category-group" class="form-control"-->
+                    <!--[(ngModel)]="selectedTime[i]" >-->
+
+
+                    <!--<option value=" " selected class="dropdown-item">Horarios</option>-->
+                    <!--<option *ngFor="let hora of horasDisponibles" [value]="hora">{{hora}}</option>-->
+
+                    <!--</select>-->
+                    <!--</div>-->
+
+                    <!--</li>-->
+
+
+                    <!-- Modal -->
+                    <!--<div *ngIf="NotanUser" id="myModal" class="modal fade" role="dialog" tabindex="-1">-->
+                    <!--<div class="modal-dialog" role="document">-->
+
+                    <!--&lt;!&ndash; Modal content&ndash;&gt;-->
+                    <!--<div class="modal-content">-->
+
+                    <!--<div class="modal-header">-->
+                    <!--<h5 class="modal-title" id="exampleModalLabel">Inciar sesión</h5>-->
+                    <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+                    <!--<span aria-hidden="true">&times;</span>-->
+                    <!--</button>-->
+                    <!--</div>-->
+
+                    <!--&lt;!&ndash;INICIAR SESION&ndash;&gt;-->
+                    <!--<form name="form" (ngSubmit)="f.form.valid && login(field, i)" #f="ngForm" novalidate>-->
+                    <!--<div class="modal-body">-->
+                    <!--<div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">-->
+                    <!--<label for="username">Nombre de usuario</label>-->
+                    <!--<input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" required />-->
+                    <!--<div *ngIf="f.submitted && !username.valid" class="help-block">El nombre de usuario es requerido</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">-->
+                    <!--<label for="password">Constraseña</label>-->
+
+                    <!--<input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />-->
+                    <!--<div *ngIf="f.submitted && !password.valid" class="help-block">La contraseña es requerida</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="modal-footer">-->
+                    <!--<div class="form-group">-->
+                    <!--<button (click)="login(field, i)" class="btn btn-primary" data-dismiss="modal">Iniciar</button>-->
+                    <!--<img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />-->
+                    <!--<a [routerLink]="['/player/register']" class="btn btn-link" data-dismiss="modal">Registrarse</a>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</form>-->
+                    <!--&lt;!&ndash;FIN INICIAR SESION&ndash;&gt;-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+
+                    <!--FIN MODAL-->
+
+                    <!--</ul>-->
+
+                  </div><!-- panel-body -->
                 </div>
-            </div>
-        </div>
 
-    </div> <!-- all-categories -->
-    <comments></comments>
+              </div><!-- advanced-filter -->
+
+            </div><!-- filter-list -->
+            <!--fin item cancha-->
+
+            <!--Comentarios-->
+
+
+          </div>
+
+
+          <div class="col-sm-5 col-md-4">
+            <div class="side-bar">
+
+              <div class="contact-seller widget">
+                <h4>DATOS DE CONTACTO</h4>
+
+                <div class="seller-info">
+                  <p> NOMBRE <span>{{club?.name | uppercase}}</span></p>
+                  <p> TEL <span>  {{club?.phoneNumber}} </span></p>
+
+                  <ul class="list-inline">
+
+                    <li *ngIf="(club?.socialMedia.facebookId !== null && club?.socialMedia.facebookId.length >= 1)"
+                        class="list-inline-item"><a target="_blank" href="{{club?.socialMedia.facebookId}}"> <i
+                        class="fa fa-facebook-square" aria-hidden="true"></i></a></li>
+                    <li *ngIf="(club?.socialMedia.twitterId !== null && club?.socialMedia.twitterId.length >= 1)"
+                        class="list-inline-item"><a target="_blank" href="{{club?.socialMedia.twitterId}}"> <i
+                        class="fa fa-twitter-square" aria-hidden="true"></i></a></li>
+                    <li *ngIf="(club?.socialMedia.googleId !== null && club?.socialMedia.googleId.length >= 1)"
+                        class="list-inline-item"><a target="_blank" href="{{club?.socialMedia.googleId}}"> <i
+                        class="fa fa-google-plus-square" aria-hidden="true"></i></a></li>
+                    <li *ngIf="(club?.socialMedia.instagramId !== null && club?.socialMedia.instagramId.length >= 1)"
+                        class="list-inline-item"><a target="_blank" href="{{club?.socialMedia.instagramId}}"> <i
+                        class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                  </ul>
+
+                </div>
+
+
+              </div>
+
+              <div class="widget item-tag">
+                <h4>SERVICIOS DEL CLUB</h4>
+                <ul class="list-inline">
+                  <li class="list-inline-item" *ngFor="let serv of club?.services"><a>{{serv.display | uppercase}}</a>
+                  </li>
+                </ul>
+              </div>
+
+
+              <div class="location-map">
+                <h4>UBICACIÓN</h4>
+                <div id="gmap">
+
+                  <agm-map [zoom]="16" [latitude]="club?.address.lat" [longitude]="club?.address.lng">
+                    <agm-marker [latitude]="club?.address.lat"
+                                [longitude]="club?.address.lng"
+                                [iconUrl]="'../../images/icon/iconochico.png'">
+                      <agm-info-window>{{club?.name}}</agm-info-window>
+                    </agm-marker>
+                  </agm-map>
+                  <div><label>{{club?.address.address}}</label></div>
+
+
+                </div>
+              </div><!-- location-map -->
+
+              <div class="form-group text-center">
+
+              </div>
+
+            </div><!-- side-bar -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div> <!-- all-categories -->
+  <comments></comments>
 </div>    <!-- page -->
