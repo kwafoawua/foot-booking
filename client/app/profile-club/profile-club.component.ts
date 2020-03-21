@@ -15,6 +15,7 @@ user: any = {};
   //  user: Observable<any>;
     club: any = {};
     username: string;
+
     //user: any = {};
 
     constructor(

@@ -39,7 +39,7 @@ var bookingSchema = new Schema({
             type: String,
             default: 'Reservado',
             required: true,
-            enum: ['Asistido', 'Pendiente de Pago', 'Cancelado', 'Reservado']
+            enum: ['Asistido', 'Cancelado', 'Ausente','Anulado', 'Reservado']//, 'Anulado'
         }, //modificar con los estados verdaderos
         paidMethod: {type: String,
             default: 'En sitio',
@@ -48,9 +48,19 @@ var bookingSchema = new Schema({
             name: {type: String, required: true},
             lastName: {type: String, required: true},
             phoneNumber: Number,
-            id: {type: String}
-
-        }
+            id: {type: String},
+            dni: {type: Number}
+        },
+        payment: {
+            date: Date,
+            fee: Number //es lo que pago ya sea total o parcial
+        },
+        paymentStatus : {
+            type: String,
+            default: 'Pendiente de Pago',
+            required: true,
+            enum: ['Pendiente de Pago', 'Pago Parcial', 'Pago Total','Reembolso']//, 'Anulado'
+        }, //modificar con los estados verdaderos
         //es que reservan la cancha todos los martes
         //regularBooking: { type: Boolean, required: true, default: true },
         //endingDateRegularBooking: Date

@@ -1,108 +1,85 @@
-<div class="page">
-
-    <div id="breadcrumb-section" class="section">
-        <div class="container">
-            <div class="page-title text-center">
-                <h1>Resultados</h1>
-            </div>
-        </div>
-    </div><!-- breadcrumb-section -->
-
+<div class="page container" >
     <div class="all-categories section" >
-
         <div novalidate>
-            <div class="container col-11">
+            <div class="container col-11 ">
                 <div class="row">
                     <div class="col-md-4 col-sm-4">
                         <div class="sidebar">
-
-                            <div class="filter-list">
-
+                            <div class="form-group">
                                 <input (keyup.enter)="buscarClubsPorNombre()" [(ngModel)]="clubname" name="clubname"
-                                       placeholder="Buscar por nombre de club" type="text" class="form-control"
-                                      />
-
+                                       placeholder="Buscar por nombre de club" type="text" class="form-control"/>
                             </div>
-
-                            <div class="filter-list">
-                                <h4 class="list-title"><a href="categories.html">Categorías</a></h4>
-
-                                <div class="location-map">
-                                    <h4>UBICACIÓN</h4>
+                            <div class="filter-list d-none d-lg-block">
+                                <div class="map-wrapper">
+                                    <h4 class="list-title">Ubicación</h4>
                                     <div id="gmap">
-                                       <agm-map [zoom]="15" [latitude]="lat" [longitude]="lng">
-                                        <div *ngFor="let c of clubs">
-
-                                            <agm-marker [latitude]="c?.address.lat"
-                                                        [longitude]="c?.address.lng">
-                                                <agm-info-window>{{c?.name}}</agm-info-window>
-                                            </agm-marker>
-
-                                        </div>
-                                       </agm-map>
-
+                                        <agm-map [zoom]="15" [latitude]="lat" [longitude]="lng">
+                                            <div *ngFor="let c of clubs">
+                                                <agm-marker [latitude]="lat"
+                                                            [longitude]="lng">
+                                                </agm-marker>
+                                                <agm-marker [latitude]="c?.address.lat"
+                                                            [longitude]="c?.address.lng"
+                                                            [iconUrl]="'../../images/icon/iconochico.png'">
+                                                    <agm-info-window>{{c?.name}} , TEL: {{c?.phoneNumber}}</agm-info-window>
+                                                </agm-marker>
+                                            </div>
+                                        </agm-map>
                                     </div>
-
-
-
                                 </div><!-- location-map -->
                             </div><!-- filter-list -->
 
                             <div class="filter-list">
                                 <div id="advanced-filter">
-
                                     <div class="filter-heading">
                                         <a data-toggle="collapse" data-parent="#advanced-filter" href="#advanced">
                                             <h4 class="list-title">Más filtros<span class="pull-right"><i
                                                     class="fa fa-plus"></i></span></h4>
                                         </a>
                                     </div><!-- filter-heading -->
-
-
                                     <div id="advanced" class="panel-collapse collapse">
                                         <!-- panel-body -->
                                         <div class="panel-body">
-
-
-                                            <h6>Servicios</h6>
-
-                                            <ul class=".form-check" *ngFor="let service of services">
-                                                <li><label> <input type="checkbox" [(ngModel)]="service.state" (ngModelChange)="addService(service)"> {{service.name}} </label></li>
-                                            </ul>
-
-                                        </div>
-
-                                        <div class="col-md-12">
-
-                                                        <h6>Cantidad de Jugadores</h6>
-
-                                                        <div class="form-group">
-                                                            <select class="form-control" [(ngModel)]="cantPlayers">
-                                                                <option *ngFor="let cantPlayer of cantPlayerSelect" value={{cantPlayer.cant}}>
-                                                                    {{cantPlayer.desc}}
-                                                                </option>
-                                                            </select>
-                                                        </div>
-
-
-                                        </div>
-                                        <p></p>
-                                       <div class="col-md-12">
-                                        <h6>Precios</h6>
-                                            <div class="price-range ">
-                                                <label for="min">
-                                                    <input class="form-control" type="number" min="0" id="min" title="minimum price" placeholder="min" value="" [(ngModel)]="minPrice"></label>
-                                                <label for="max">
-                                                    <input class="form-control"  type="number" min="0" id="max" title="maximum price" placeholder="max" value="" [(ngModel)]="maxPrice"></label>
-                                                <button class="btn btn-primary" (click)="buscarClubsPorFiltros()" >Actualizar busqueda</button>
+                                            <div class="col-md-12">
+                                                <h6>Servicios</h6>
+                                                <ul class=".form-check" *ngFor="let service of services">
+                                                    <li><label> <input type="checkbox" [(ngModel)]="service.state"
+                                                                       (ngModelChange)="addService(service)">
+                                                        {{service.name}} </label></li>
+                                                </ul>
                                             </div>
+                                            <div class="col-md-12">
+                                                <h6>Cantidad de Jugadores</h6>
+                                                <div class="form-group">
+                                                    <select class="form-control" [(ngModel)]="cantPlayers">
+                                                        <option *ngFor="let cantPlayer of cantPlayerSelect"
+                                                                value={{cantPlayer.cant}}>
+                                                            {{cantPlayer.desc}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <h6>Precios</h6>
+                                                <div class="price-range ">
+                                                    <label for="min">
+                                                        <input class="form-control" type="number" min="0" id="min"
+                                                               title="minimum price" placeholder="min" value=""
+                                                               [(ngModel)]="minPrice"></label>
+                                                    <label for="max">
+                                                        <input class="form-control" type="number" min="0" id="max"
+                                                               title="maximum price" placeholder="max" value=""
+                                                               [(ngModel)]="maxPrice"></label>
+                                                    <button class="btn btn-primary btn-block"
+                                                            (click)="buscarClubsPorFiltros()">Actualizar búsqueda
+                                                    </button>
+                                                </div>
+                                            </div>
+
                                         </div>
-                                    </div>
-                                    <div>
-
 
                                     </div>
-                                </div><!-- advanced-filter -->
+                               </div><!-- advanced-filter -->
                             </div><!-- filter-list -->
                         </div><!-- sidebar -->
                     </div><!-- col-sm-4 -->
@@ -112,59 +89,46 @@
                     <div class="col-md-8 col-sm-8">
                         <div class="category-adds">
                             <div id="category-tab">
-
-
-
-
                                 <div class="category-tab">
 
 
+                                    <div class="row">
+                                       <div class="col-sm-4" *ngFor="let c of clubs">
+                                           <div class="blog-post">
+                                               <div class="entry-thubmnail">
+                                                   <a [routerLink]="['/results/club/',c._id]">
+                                                        <img width="300" height="100" class="img-responsive" src="/uploads/{{c?.profileImg}}" >
+                                                   </a>
 
-                                    <!-- Tab panes -->
-                                    <div class="tab-content small-view-tab">
-                                        <div role="tabpanel" class="tab-pane active" id="recent" >
-                                            <ul>
-                                                <li class="item-wrap owl-animated-in" *ngFor="let c of clubs">
-                                                    <div class="item"  [routerLink]="['/results/club/',c._id]">
+                                               </div>
+                                                    <div class="card-body">
+                                                        <h5 class="card-title font-weight-bold"><a [routerLink]="['/results/club/',c._id]">{{c?.name}}</a></h5>
+                                                       <p class="font-weight-light">{{c?.description}}</p>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                                                        <small class="list-inline">
+                                                            <li  *ngIf="(c?.socialMedia.facebookId !== null && c?.socialMedia.facebookId.length >= 1)" class="list-inline-item"><a target="_blank" href="{{c?.socialMedia.facebookId}}"> <i class="fa fa-facebook-square" aria-hidden="true"></i></a></li>
+                                                            <li  *ngIf="(c?.socialMedia.twitterId !== null && c?.socialMedia.twitterId.length >= 1)" class="list-inline-item"><a target="_blank" href="{{c?.socialMedia.twitterId}}"> <i class="fa fa-twitter-square" aria-hidden="true"></i></a></li>
+                                                            <li  *ngIf="(c?.socialMedia.googleId !== null && c?.socialMedia.googleId.length >= 1)" class="list-inline-item"><a target="_blank" href="{{c?.socialMedia.googleId}}"> <i class="fa fa-google-plus-square" aria-hidden="true"></i></a></li>
+                                                            <li  *ngIf="(c?.socialMedia.instagramId !== null && c?.socialMedia.instagramId.length >= 1)" class="list-inline-item"><a target="_blank" href="{{c?.socialMedia.instagramId}}"> <i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                                        </small>
+                                                        <!--<ul class="list-inline product-social">-->
+                                                            <!--<li class="list-inline-item"><a href="#"><i class="fa fa-bookmark-o"-->
+                                                                                       <!--aria-hidden="true"></i></a></li>-->
+                                                            <!--<li class="list-inline-item"><a href="#"><i class="fa fa-heart-o"-->
+                                                                                       <!--aria-hidden="true"></i></a></li>-->
+                                                            <!--<li class="list-inline-item"><a href="#"><i class="fa fa-share-alt"-->
+                                                                                       <!--aria-hidden="true"></i></a></li>-->
+                                                        <!--</ul>-->
+                                                    </div>
+                                                          <!--<div class="item-info">-->
+                                                                <!--<p>Dirección {{c?.address.address}} TEL:{{c?.phoneNumber}} </p>-->
+                                                            <!--</div>-->
+                                           </div><!-- item-description -->
+                                       </div><!-- item -->
+                                    </div>
 
-                                                        <div class="item-image">
-                                                            <img src="/uploads/{{c?.profileImg}}" alt=""
-                                                                 class="img-responsive">
-
-                                                        </div>
-
-                                                        <div class="item-description" >
-                                                            <div class="item-meta">
-
-                                                                <ul class="list-inline product-social">
-                                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-bookmark-o"
-                                                                                       aria-hidden="true"></i></a></li>
-                                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-heart-o"
-                                                                                       aria-hidden="true"></i></a></li>
-                                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-share-alt"
-                                                                                       aria-hidden="true"></i></a></li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="item-title" >
-                                                                <h3>{{c?.name}}</h3>
-                                                            </div>
-                                                            <div class="item-info">
-                                                                <p>Dirección {{c?.address.address}} TEL:{{c?.phoneNumber}} </p>
-                                                            </div>
-                                                        </div><!-- item-description -->
-
-                                                    </div><!-- item -->
-
-
-
-                                                </li> <!-- item-wrap -->
-
-
-
-
-                                            </ul>
-                                        </div> <!--tab-pane-->
-                                    </div><!-- tab-pane-->
                                 </div>
                             </div><!-- category-tab-->
                         </div>

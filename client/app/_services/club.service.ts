@@ -5,6 +5,8 @@ import { Club } from '../_models/club';
 import {Subject} from "rxjs/Subject";
 import {Observable} from "rxjs/Observable";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {Comment} from "../_models/comment";
+
 
 @Injectable()
 export class ClubService {
@@ -53,8 +55,11 @@ export class ClubService {
         return this.http.get('/clubs/results/' + _id).map((response: Response) => response.json());
     }
 
-    update(club: any) {
-        return this.http.put('/clubs/' + club._id, club);
+    update(_id: string, formData: any) {
+        return this.http.put('/clubs/' + _id, formData);
+    }
+    updateFields(_id: string, fields: any) {
+        return this.http.put('/clubs/fields/' +_id, fields);
     }
 
     delete(_id: string) {
@@ -80,7 +85,8 @@ export class ClubService {
 
     guardarReserva(reservaFinal:any){
         return this.http.post('/bookings/register', reservaFinal);
-
     }
+
+
 
 }

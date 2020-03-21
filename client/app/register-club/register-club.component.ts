@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
 import { } from 'googlemaps';
-import { MapsAPILoader } from '@agm/core';
+import { MapsAPILoader,AgmCoreModule } from '@agm/core';
+import { ValidateAllFields} from "../_helpers/validate-all-fields";
 
 /*ng-chhips*/
 import 'rxjs/add/operator/filter';
@@ -17,6 +18,7 @@ import {Observable} from "rxjs/Observable";
 import {isUndefined} from "util";
 import {FileHolder} from "angular2-image-upload/lib/image-upload/image-upload.component";
 import {FieldFormArrayComponent} from "./field-form-array.component";
+import {PasswordValidation} from "../_helpers/validate-password";
 
 @Component({
     moduleId: module.id,
@@ -31,6 +33,8 @@ export class RegisterClubComponent implements OnInit{
     galleryToUpload: File[] = [];
     lat:number;
     lng:number;
+    icon: '../../images/icon/iconochico.png';
+    zoom: number;
     draggable:boolean=true; //Necesario para el que el marcador del mapa se mueva
 
 
@@ -47,8 +51,13 @@ export class RegisterClubComponent implements OnInit{
         private ngZone: NgZone) {
         this.createForm();
     }
-
     ngOnInit() {
+
+        this.lat = -31.4;
+        this.lng = -64.1833;
+
+        this.setCurrentPosition();
+
         //load Places Autocomplete
         this.mapsAPILoader.load().then(() => {
             let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
@@ -65,6 +74,11 @@ export class RegisterClubComponent implements OnInit{
                     }
 
                     //set latitude, longitude and zoom
+
+                    this.lat = place.geometry.location.lat();
+                    this.lng = place.geometry.location.lng();
+                    this.zoom = 16;
+
                     this.registerClubForm.get('address.lat').setValue(place.geometry.location.lat());
                     this.registerClubForm.get('address.lng').setValue(place.geometry.location.lng());
                     this.registerClubForm.get('address.address').setValue(place.formatted_address);
@@ -75,6 +89,41 @@ export class RegisterClubComponent implements OnInit{
         });
     }
 
+    setAutocompleteInput() {
+        let geocoder = new google.maps.Geocoder();
+        let latlng = new google.maps.LatLng(this.lat, this.lng);
+        let request = {
+            location: latlng
+        };
+        geocoder.geocode(request, (results, status) => {
+            if (status == google.maps.GeocoderStatus.OK) {
+                console.log('Results: ');
+                console.log(results);
+                if (results[0] != null) {
+                    this.searchElementRef.nativeElement.value = results[0].formatted_address;
+                    this.registerClubForm.get('address.lat').setValue(results[0].geometry.location.lat());
+                    this.registerClubForm.get('address.lng').setValue(results[0].geometry.location.lng());
+                    this.registerClubForm.get('address.address').setValue(results[0].formatted_address);
+                    console.log(this.registerClubForm.get('address').value);
+
+                } else {
+                    alert("No address available");
+                }
+            }
+        });
+    }
+
+    private setCurrentPosition() {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.lat = position.coords.latitude;
+                this.lng = position.coords.longitude;
+                this.zoom = 16;
+                this.setAutocompleteInput();
+            });
+        }
+    }
+
 
     createForm() {
         this.registerClubForm = this.fb.group({
@@ -82,6 +131,8 @@ export class RegisterClubComponent implements OnInit{
                 username: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
                 email: [null, Validators.compose([Validators.required,CustomValidators.email ])],
                 password: [null,Validators.compose([Validators.required, Validators.minLength(8)])],//falta validar contraseña
+                repeatPassword: [null,Validators.compose([Validators.required, Validators.minLength(8)])]
+            }, {validator: PasswordValidation.MatchPassword // your validation method
             }),
             name: [null, Validators.required],
             description: [null, Validators.compose([Validators.required, Validators.maxLength(255)])],
@@ -94,7 +145,7 @@ export class RegisterClubComponent implements OnInit{
             }),
             services: [[], Validators.required],
             profileImg: [null, Validators.required],
-            galleryImg: null,
+            galleryImg: [null, Validators.required],// null,
             socialMedia: this.fb.group({
                 facebookId: null,
                 twitterId: null,
@@ -190,19 +241,8 @@ export class RegisterClubComponent implements OnInit{
                         this.loading = false;
                     });
         } else {
-            this.validateAllFields(this.registerClubForm);
+            ValidateAllFields.validateAllFields(this.registerClubForm);
         }
-    }
-
-    validateAllFields(formGroup: FormGroup) {
-        Object.keys(formGroup.controls).forEach(field => {
-            const control = formGroup.get(field);
-            if (control instanceof FormControl) {
-                control.markAsTouched({ onlySelf: true });
-            } else if (control instanceof FormGroup) {
-                this.validateAllFields(control);
-            }
-        });
     }
 
 
@@ -212,6 +252,7 @@ export class RegisterClubComponent implements OnInit{
     console.log(e)
         this.lng=e.coords.lng;
         this.lat=e.coords.lat;
+        this.setAutocompleteInput();
 
         console.log("lat" + this.lat, "long" + this.lng);
     //     this.registerClubForm.address.lat = e.coords.lat;
@@ -222,22 +263,10 @@ export class RegisterClubComponent implements OnInit{
     nuevaPosicionMarcador(e){
         this.lat= e.coords.lat;
         this.lng = e.coords.lng;
+        this.setAutocompleteInput();
         console.log("nueva lat " + this.lat, "nueva lng" + this.lng);
 
 
     }
-
-
-
-   /* comparePassword = (control: FormControl): { [s:string]:boolean} => {
-        let formulario: any = this;
-        console.log(this.registerClubForm);
-        if(control.value !== formulario.get('user.password').value){
-            return {
-                noiguales : false
-            }
-        }
-    };*/
-
 
 }

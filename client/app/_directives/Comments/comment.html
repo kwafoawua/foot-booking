@@ -1,0 +1,38 @@
+<div id="addComent">
+
+    <div *ngIf="authenticated "  class="card" >
+        <div class="card-body">
+            <label>Dejanos tu comentario</label>
+           <p class="card-text">
+            <div class="form-group post-inner">
+                <textarea [(ngModel)]="textComment" class="form-control" rows="6" id="comment" placeholder="Escribe aqui..."></textarea>
+            </div>
+           <div><label>Tu usuario: {{currrentUser}}</label></div>
+            <div class="col align-self-end" align="right">
+            <button  type="button" class="btn btn-secondary" (click)="agregarComment()">Comentar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+            <div class="card-header">
+                <h4>Comentarios</h4>
+             </div>
+            <div *ngFor="let c of clubComentarios.reverse()">
+                <div class="card-body">
+                <p class="card-text">{{c.comment}}</p>
+                <h6 class="card-subtitle mb-2 text-muted">Por: {{c.userName}}</h6>
+                <h6 class="card-subtitle mb-2 text-muted">{{[(c.createdOn | date:'M/d/yy, h:mm a')]}}</h6>
+
+                    <!--<div *ngIf="isClub" class="form-group post-inner">-->
+                        <!--&lt;!&ndash;<textarea [(ngModel)]="textComment" class="form-control" rows="6" id="resp" placeholder="Responder..."></textarea>&ndash;&gt;-->
+                        <!--<input (keyup.enter)="agregarRespuesta()" [(ngModel)]="textComment" type="text" class="form-control" placeholder="Responder...">-->
+                    <!--</div>-->
+
+                </div>
+            </div>
+
+    </div>
+</div>
+
+

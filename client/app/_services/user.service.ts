@@ -55,7 +55,12 @@ export class UserService {
     create(user: User) {
         return this.http.post('/users/register', user);
     }
-
+    updateEmail(form: any) {
+        return this.http.put('/users/setemail', form);
+    }
+    updatePassword(user: any) {
+        return this.http.put('/users/setPassword', user);
+    }
     update(user: User) {
         return this.http.put('/users/' + user._id, user);
     }
@@ -63,6 +68,7 @@ export class UserService {
     delete(_id: string) {
         return this.http.delete('/users/' + _id);
     }
+
 
     getUserByCreatorId(_id: string){
         return this.http.get('/users/' + _id)

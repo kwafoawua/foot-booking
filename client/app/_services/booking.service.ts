@@ -14,7 +14,7 @@ export class BookingService {
 
     create(booking: Booking) {
         console.log("El Booking ");
-        return this.http.post('/booking/register', booking);
+        return this.http.post('/bookings/register', booking);
     }
 
     getAll() {
@@ -41,8 +41,6 @@ export class BookingService {
     }
 
     findAllBookingsByFieldAndDay(filter: BookingFilter){
-        //console.log("2- Entro al servicio con id: " + _id);
-        //console.log("2- Entro al servicio con playingDate: " + playingDate);
         console.log("2- Entro al servicio con filter: ");
         return this.http.get('/bookings/horarios/' + JSON.stringify(filter))
             .map((horarios: Response) => horarios.json());

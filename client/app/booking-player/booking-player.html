@@ -24,7 +24,12 @@
                                         <div class="col card-text">Teléfono de contacto: {{r.club.phoneNumber}}</div>
 
                                     </div>
-
+                                    <div>
+                                        <div align="right"   *ngIf="r.status == 'Pendiente de Pago'">
+                                            <button type="button" class="btn btn-success">Pago online</button>
+                                            <button type="button" class="btn btn-secondary">Cancelar</button>
+                                        </div>
+                                    </div>
                                   </div>
                             </div>
                             <!--<div class="faq-ans" *ngFor="let r of bookings" >-->

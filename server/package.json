@@ -1,10 +1,13 @@
 {
-  "name": "FootBooking-server",
+  "name": "footooking-server",
   "version": "1.0.0",
   "description": "Server para FootBooking Project. Proyecto Final 2017 - UTN FRC - Footbooking: Gestión de reservas de canchas y torneos.",
   "repository": {
     "type": "git",
     "url": "https://github.com/kwafoawua/foot-booking.git"
+  },
+  "scripts": {
+    "start": "node server.js"
   },
   "keywords": [
     "football",
@@ -29,9 +32,10 @@
     "jsonwebtoken": "^5.0.2",
     "lodash": "^4.17.15",
     "mongodb": "^2.1.16",
-    "mongoose": "^5.7.7",
+    "mongoose": "^5.9.5",
     "mongoskin": "^2.1.0",
     "multer": "^1.3.0",
+    "nodemailer": "^4.6.4",
     "path-to-regexp": "^2.0.0",
     "q": "^1.4.1",
     "request": "^2.58.0",

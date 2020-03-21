@@ -1,6 +1,7 @@
 ﻿<div>
 
     <div class="home-page">
+
         <div id="home-section" class="parallax-section carousel slide" data-ride="carousel">
 
             <div class="carousel-inner">
@@ -13,9 +14,6 @@
                                 <div class="slider-content">
                                     <h1 data-animation="animated lightSpeedIn">Bienvenido</h1>
                                     <h2 data-animation="animated lightSpeedIn">Footbooking</h2>
-                                    <div class="ad-btn">
-                                        <a href="#" class="btn btn-primary" data-animation="animated lightSpeedIn">View Ads</a>
-                                    </div>
                                 </div>
                             </div>
                         </div><!-- row -->
@@ -28,11 +26,8 @@
                             <div class="col-md-9">
                                 <div class="slider-content">
                                     <h1 data-animation="animated lightSpeedIn">Reservá tu cancha</h1>
-                                    <h2 data-animation="animated lightSpeedIn">Elegí donde será tu proximo partido</h2>
-                                    <p data-animation="animated lightSpeedIn">Con Footbooking podes reservar tu proximo partido de forma rapida y segura. Selecciona tu club favorito, eleg;i tu fecha y juga!</p>
-                                    <div class="ad-btn">
-                                        <a href="#" class="btn btn-primary" data-animation="animated lightSpeedIn">View Ads</a>
-                                    </div>
+                                    <h2 data-animation="animated lightSpeedIn">Elegí donde será tu próximo partido</h2>
+                                    <p data-animation="animated lightSpeedIn">Con Footbooking podes reservar tu próximo partido de forma rápida y segura. Seleccioná tu club favorito, elegí tu fecha y jugá!</p>
                                 </div>
                             </div>
                         </div><!-- row -->
@@ -46,10 +41,7 @@
                                 <div class="slider-content">
                                     <h1 data-animation="animated lightSpeedIn">Campeonatos</h1>
                                     <h2 data-animation="animated lightSpeedIn">Participá de los mejores campeonatos de la ciudad</h2>
-                                    <p data-animation="animated lightSpeedIn">Con Footbooking podes participar de los mejores campeonatos locales, el registro es muy sencillo. Ingresa aquí para mas información. </p>
-                                    <div class="ad-btn" >
-                                        <a href="#" class="btn btn-primary" data-animation="animated lightSpeedIn">View Ads</a>
-                                    </div>
+                                    <p data-animation="animated lightSpeedIn">Con Footbooking podes participar de los mejores campeonatos locales, el registro es muy sencillo. Ingresá aquí para más información. </p>
                                 </div>
                             </div>
                         </div><!-- row -->
@@ -75,21 +67,19 @@
             <div class="container">
 
                 <form (ngSubmit)="buscarClub()" novalidate="novalidate">
-
                     <div class="search-section">
                         <ul>
                             <li>
-                                <input class="dropdown category-dropdown" [dpDayPicker]="config" name="datePicker"  placeholder="DD-MM-AAAA"
+                                <input class="form-control" [dpDayPicker]="config" name="datePicker"  placeholder="DD-MM-AAAA"
                                        id="calendar" inputElementConteiner="#inputConteiner" theme="dp-material" [(ngModel)]="date">
-
                             </li>
+
                             <li>
                                 <div class="dropdown category-dropdown">
                                     <a data-toggle="dropdown" href="#"><span class="change-text">Qué vas a jugar?</span> <i class="fa fa-angle-down"></i></a>
                                     <ul class="dropdown-menu category-change">
                                         <li class="dropdown-item"><a href="#">Privado</a></li>
                                         <li class="dropdown-item"><a href="#">Campeonato</a></li>
-
                                     </ul>
                                 </div><!-- category-change -->
                             </li>
@@ -102,9 +92,9 @@
                             <li>
                                 <button type="submit" class="form-control btn btn-primary" value="Search">Buscar</button>
                             </li>
+
                         </ul>
                     </div>
-
                 </form>
 
             </div>
@@ -116,20 +106,17 @@
         <h4>UBICACIÓN</h4>
         <div id="gmap">
 
-            <agm-map [zoom]="16" [latitude]="lat" [longitude]="lng">
+            <agm-map [zoom]="zoom" [latitude]="lat" [longitude]="lng">
                 <agm-marker [latitude]="lat"
-                            [longitude]="lng">
-
-
-
-
+                            [longitude]="lng" >
                 </agm-marker>
             </agm-map>
             <div><label>{{club?.address.address}}</label></div>
 
-
         </div>
     </div><!-- location-map -->
+
+
 
 
 

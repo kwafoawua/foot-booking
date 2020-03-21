@@ -10,20 +10,24 @@ var userController2 = require('../controllers/users.controller.js');
 var uploadsManager = require('../controllers/uploads');
 var playerController = require('../controllers/playerController');
 var bookingController = require('../controllers/BookingController');
+var commentController = require('../controllers/CommentController');
+var tournamentController = require('../controllers/TournamentController');
+var fieldController = require('../controllers/FieldController');
+
 
 //*User Controller*//
 router.post('/users/authenticate', userController.authenticate);
 router.get('/users/', userController2.getAll);
-router.put('/users/:_id', userController2.update);
 router.delete('/users/:_id', userController2._delete);
 //router.get('/users/current', userController2.getCurrent);
 router.get('/users/:username', userController.getByUsername);
-
+router.put('/users/setemail', userController.setEmail);
+router.put('/users/setPassword', userController.setPassword);
 
 /*Player Controller*/
 router.post('/players/register', playerController.registerPlayer);
 router.get('/players/:_id', playerController.findById);
-//router.get('/players/:_id', playerController.getPlayerByUserId);
+router.get('/players:_id', playerController.getPlayerByUserId);
 router.put('/players/:_id', playerController.updatePlayer);
 
 
@@ -35,10 +39,14 @@ router.post('/clubs/register',uploadsManager.upload.fields([
 router.get('/clubs/:_id', clubController.findById);
 router.get('/clubs/results/:_id', clubController.findById);
 
-
 router.get('/clubs/', clubController.findAllClubs);
+router.put('/clubs/:_id',uploadsManager.upload.fields([
+    { name: 'profile', maxCount: 1 },
+    { name: 'gallery', maxCount: 5 }
+]), clubController.updateClub);
+router.put('/clubs/fields/:_id', fieldController.updateFields);
 
-
+/*FILTERS*/
 router.get('/findClub/:clubfilter', clubController.findClubsByFilter);
 router.get('/findClubsByFilters/:clubfilter', clubController.findClubsByMultipleFilter);
 
@@ -48,5 +56,15 @@ router.put('/bookings/setStatus/', bookingController.updateBookingStatus);
 router.get('/bookings/:_id', bookingController.findAllByReferenceId);
 router.get('/bookings/getHoursToPlay', bookingController.findAllHoursBookings);
 router.get('/bookings/horarios/:bookingfilter', bookingController.findAllBookingsByFieldAndDay);
+
+/* Comment Controller */
+router.post('/comments/create', commentController.createComment);
+router.put('/comments/changeComment/', commentController.updateComment);
+router.get('/comments/clubComment/:_id', commentController.findAllCommentForAClub);
+router.get('/comments/authorComment/:_id', commentController.findAllAuthorComments);
+router.delete('/comments/:_id', commentController.deleteComment);
+
+/* Tournament Controller */
+router.post('/tournament/register', tournamentController.createTournament);
 
 module.exports = router;

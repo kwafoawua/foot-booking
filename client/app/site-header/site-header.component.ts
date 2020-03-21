@@ -28,7 +28,6 @@ export class SiteHeaderComponent implements OnInit {
   }
 
   public goToProfile() {
-    console.log('hola');
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     console.log(currentUser.rol);
     if (currentUser.rol == 'Club') {
@@ -43,6 +42,9 @@ export class SiteHeaderComponent implements OnInit {
     this.router.navigate(['/player/mis-reservas']);
   }
 
+  public goToDashboard() {
+    this.router.navigate(['/club/estadisticas']);
+  }
 
 
 }

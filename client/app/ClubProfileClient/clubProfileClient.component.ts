@@ -13,7 +13,6 @@ import { BookingFilter } from "../_models/bookingfilter";
 import * as moment from 'moment';
 
 
-
 @Component({
     moduleId: module.id,
     templateUrl: 'clubProfileClient.component.html'
@@ -22,24 +21,31 @@ import * as moment from 'moment';
 export class ProfileClubClientComponent implements OnInit {
 
     bookingFilter : BookingFilter;
+    icon: '../../images/icon/iconochico.png';
     hoursArray: string [] = ["10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","24:00"];
     horasOcupadas: string [] = [];
     horasDisponibles: string [] = [];
     club : Club ;
     galery: String [];
-    selectedDate:any;
-    selectedTime: any[] = [];
+
+
+
     NotanUser: Boolean;
     model: any = {};
     username:any    ;
     password : any;
+
     booking1: Booking = new Booking();
     selectedField: Field = new Field();
     date: string[] = [];
+    selectedTime: any[] = [];
+   //selectedButton: any[] = [];
+
     configTime : ITimeSelectConfig = {
         minutesInterval: 60,
         minutesFormat: '00'
     };
+
     config: IDatePickerDirectiveConfig = {
         format: 'DD/MM/YYYY',
         enableMonthSelector: true,
@@ -68,49 +74,41 @@ export class ProfileClubClientComponent implements OnInit {
     }
 
         private getClub (_id: string) {
-        this.clubService.getResultById(_id).subscribe(club => {
-            this.club = club;
+        this.clubService.getResultById(_id).subscribe(club => {this.club = club;
          this.galery = club.galleryImg;
      });
 
     }
 
 
-    reservar(e:any, i: any){
+    reservar(field:any, i:any){
 
-        //if (this.autentication.isAuthenticated()){
-        if(localStorage.currentUser){
+        console.log("los datos" + this.date[i] + this.selectedTime[i]);
 
-            this.NotanUser =false ;
+        // if(localStorage.currentUser){
+        //     this.NotanUser =false ;
+            if(field!=null){
+                if(this.date[i] != '' || this.selectedTime[i] != '' ){
 
-            if(e!=null){
+                        this.booking1.field=field;
+                        this.booking1.club=this.club;
+                        this.booking1.dateBook=this.date[i];
+                        this.booking1.timeBook=this.selectedTime[i];
+                        console.log("todos los datos");
+                        if(ClubService.guardarBooking(this.booking1)){
+                            this.router.navigate(['confirmation'])}
+                        }
 
-               // console.lo
-
-                this.booking1.field=e;
-                this.booking1.club=this.club;
-                this.booking1.dateBook=this.date[i];
-                this.booking1.timeBook=this.selectedTime[i];
-
-                if(ClubService.guardarBooking(this.booking1)){
-                    console.log(this.booking1);
-                    this.router.navigate(['confirmation'])
+                    else {console.log("faltan los datos") }
                 }
 
-            }
-
-        }
-
-    else {
-            this.NotanUser = true;
-           console.log("No esa autenticado")
-        }
-
+        //     else {this.NotanUser = true;}
+        // }
     }
 
     login(field:any, index: any) {
     console.log('ENTRA AL MODAL DE MODAL');
-        console.log(field, index);
+
 
         this.autentication.login(this.model.username, this.model.password)
             .subscribe(
@@ -152,13 +150,10 @@ export class ProfileClubClientComponent implements OnInit {
 
         const fieldDate = new Date(parts[2],parts[1]-1,parts[0]);
             console.log('dateObject '+fieldDate);
-        //console.log("El selectedDate: " + this.date);   
-        //console.log("El selectedDate: " + this.selectedField._id);   
+
 
         this.selectedField = field;
         this.bookingFilter = new BookingFilter(this.selectedField._id, fieldDate);
-
-        console.log("El selectedDate: " + this.bookingFilter);   
 
         this.bookingService.findAllBookingsByFieldAndDay(this.bookingFilter)
             .subscribe(hoursBooking => {
@@ -169,14 +164,9 @@ export class ProfileClubClientComponent implements OnInit {
                         this.horasOcupadas.push(booking.playingTime);
                         
                         this.horasDisponibles = this.hoursArray.filter(item => this.horasOcupadas.indexOf(item) < 0);
-                        console.log("Array nuevo: " + this.horasDisponibles);
-
-
-                    });  
+                       });
                 } else {
-                        this.horasDisponibles = this.hoursArray;
-                            console.log('No hay reservas en este día');
-                        }                          
+                        this.horasDisponibles = this.hoursArray;}
             });
             
     }

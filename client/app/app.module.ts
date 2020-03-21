@@ -4,15 +4,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
+import {NgxChartsModule} from '@swimlane/ngx-charts';
 import { ImageUploadModule } from 'angular2-image-upload';
 import { CustomFormsModule } from 'ng2-validation';
 import { DemoUtilsModule } from './_helpers/demo-utils/module';
 
-
-
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
-
 
 import { customHttpProvider } from './_helpers/index';
 import { AlertComponent } from './_directives/index';
@@ -28,24 +26,28 @@ import {ResultComponent} from './result/index';
 import {SearchService} from "./_services/search.service";
 import { BookingService } from './_services/booking.service';
 import { RegisterPlayerComponent } from './register-player/index';
-import { ProfilePlayerComponent } from './profile-player/index';
 import { AdminClubComponent } from "./admin-club/index";
 import { ProfileClubModule } from './profile-club/profile-club.module';
+import { ProfilePlayerModule } from './profile-player/profile-player.module';
 import { CalendarModule } from 'angular-calendar';
 import { FieldsManagementComponent} from "./fields-management/index";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {bookingPlayerComponent} from "./booking-player/booking-player.component";
+import {EstadisticasClubComponent} from "./estadisticas-club/index";
+import {commentsComponent} from "./_directives/Comments/commentsComponent";
+import {CommentService} from "./_services/comment.service";
 
-
-
-// Module for child routing
-import { ProfileInfoComponent } from './profile-player/options-component/profile-info.component';
-import { ProfileEditComponent } from './profile-player/options-component/profile-edit.component';
 
 //API MAPS
 import { AgmCoreModule } from '@agm/core';
 import {DpDatePickerModule} from 'ng2-date-picker';
 import {confirmationComponent} from "./booking-confirmation/confirmation.component";
+import {TournamentDefinitionComponent} from "./tournament/tournament-definition/tournament-definition.component";
+import {TournamentService} from "./_services/tournament.service";
+import {TournamentStageComponent} from "./tournament/tournament-stage/tournament-stage.component";
+import {StageComponent} from "./tournament/stage/stage.component";
+import {GameComponent} from "./tournament/game/game.component";
+import {TournamentModule} from "./tournament/tournament.module";
 
 
 @NgModule({
@@ -56,18 +58,21 @@ import {confirmationComponent} from "./booking-confirmation/confirmation.compone
         routing,
         ReactiveFormsModule,
         TagInputModule,
+        NgxChartsModule,
         BrowserAnimationsModule,
         ImageUploadModule.forRoot(),
         CustomFormsModule,
         DpDatePickerModule,
-        AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyAAwaI8YafySsHraMA_9G_n30_FECUhoVs',
+        AgmCoreModule.forRoot({//old: AIzaSyAAwaI8YafySsHraMA_9G_n30_FECUhoVs
+            apiKey: 'AIzaSyBuNW_HnnPaMrMq8KGEhiEzUnbVOO_OJzA',
             libraries: ["places"]
         }),
         ProfileClubModule,
+        ProfilePlayerModule,
         CalendarModule.forRoot(),
         NgbModule.forRoot(),
-        DemoUtilsModule
+        DemoUtilsModule,
+        TournamentModule
         ],
     declarations: [
         AppComponent,
@@ -82,13 +87,12 @@ import {confirmationComponent} from "./booking-confirmation/confirmation.compone
         ResultComponent,
         FieldFormArrayComponent,
         FieldFormControlComponent,
-        ProfilePlayerComponent,
         AdminClubComponent,
-        ProfileEditComponent,
-        ProfileInfoComponent,
         confirmationComponent,
         FieldsManagementComponent,
+        EstadisticasClubComponent,
         bookingPlayerComponent,
+        commentsComponent
     ],
     providers: [
         customHttpProvider,
@@ -99,7 +103,9 @@ import {confirmationComponent} from "./booking-confirmation/confirmation.compone
         ClubService,
         PlayerService,
         SearchService,
-        BookingService
+        BookingService,
+        CommentService,
+        TournamentService
     ],
     bootstrap: [AppComponent]
 })

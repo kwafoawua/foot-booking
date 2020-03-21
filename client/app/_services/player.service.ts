@@ -27,4 +27,8 @@ export class PlayerService {
     delete(_id: string) {
         return this.http.delete('/players/' + _id);
     }
+
+    getPlayerByUserId(_id: string) {
+        return this.http.get('/players' + _id).map((response: Response) => response.json());
+    }
 }

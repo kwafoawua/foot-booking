@@ -11,6 +11,8 @@ var Q = require('q');
 var multer = require('./uploads');
 var async = require('async');
 
+var mailingController = require('./mailing');
+
 /**
  * Create a Club
  */
@@ -84,6 +86,7 @@ function addClub (club, profilePath, galleryPath) {
                     newClub.save(function (err) {
                         if(err) return deferred.reject(err.name + ' : ' + err.message);
                         console.log('nuevo club'+newUser);
+                        mailingController.sendRegistrationMail(newUser.username,newUser.email);
                         return deferred.resolve();
                     });
                  });
@@ -100,7 +103,7 @@ function addClub (club, profilePath, galleryPath) {
 
 module.exports.findById = function(req, res) {
     console.log('busca por id');
-    console.log(req);
+   // console.log(req);
 
     console.log(req.params._id);
     Club.findById(req.params._id, function(err, club) {
@@ -135,32 +138,48 @@ module.exports.findAllClubs = function(req, res) {
  * Update a Club
  */
 module.exports.updateClub = function(req, res) {
-    console.log(req.body);
-    console.log(req.params.id);
+    //console.log(req.body);
+    var body = JSON.parse(req.body.body);
+    var galleryPath = [];
+    var profilePath = '';
+    if(Object.keys(req.files).length !== 0) {
+        if(req.files.profile[0].filename) {
+            profilePath = req.files.profile[0].filename;
+        }
+        if(req.files.gallery){
+            for(var i = 0; i < req.files.gallery.length; i++) {
+                galleryPath.push(req.files.gallery[i].filename);
+            }
+        }
+    }
    // Club.findByIdAndUpdate();
- /*   Club.findById(req.params.id, function(err, club) {
+    Club.findById(body._id, function(err, club) {
         // Handle any possible database errors
         if (err) {
             return res.status(500).send(err);
         } else {
             // Update each attribute with any possible attribute that may have been submitted in the body of the request
             // If that attribute isn't in the request body, default back to whatever it was before.
-            club.name = req.body.name || club.name,
-                club.address = req.body.address || club.address,
-                club.phoneNumber = req.body.phoneNumber || club.phoneNumber,
-                club.fields = req.body.fields || club.fields,
-                club.services = req.body.services || club.services,
-                club.socialMedia = req.body.socialMedia || club.socialMedia
+            club.name = body.name || club.name;
+            club.description = body.description || club.description;
+            club.address = body.address || club.address;
+            club.phoneNumber = body.phoneNumber || club.phoneNumber;
+            //club.fields = req.body.fields || club.fields;
+            club.services = body.services || club.services;
+            club.socialMedia = body.socialMedia || club.socialMedia;
+            club.profileImg = (profilePath !== '') ? profilePath : club.profileImg;
+            club.galleryImg = (galleryPath.length > 0) ? galleryPath : club.galleryImg;
 
             // Save the updated document back to the database
             club.save(function(err, club) {
                 if (err) {
                     return res.status(500).send(err);
                 }
+                console.log('Se guardaron los datos del club correctamente');
                 res.status(200).json(club);
             });
         }
-    });*/
+    });
 };
 
 /**
@@ -186,27 +205,15 @@ module.exports.deleteClub = function(req, res) {
 */
 module.exports.findClubsByFilter = function (req,res) {
 
-    console.log("#");
-    console.log("#");
-    console.log("#");
-    console.log("#");
-    console.log("Entro al findClubsByFilter!!");
-    console.log("En este se busca solo por nombre");
-    console.log("#");
-    console.log("#");
-    console.log("#");
-    console.log("#");
-
     Club.find({name : new RegExp(JSON.parse(req.params.clubfilter).clubname, "i"),
                    //  services : new RegExp(JSON.parse(req.params.services).services, "i")
             }, function (err, club) {
                 if (err) {
                     return res.status(500).send(err + "al menos entro");
                 }
-
                 res.status(200).send(club);
-
             });
+
 };
 
 /*
@@ -216,17 +223,6 @@ module.exports.findClubsByFilter = function (req,res) {
 */
 module.exports.findClubsByMultipleFilter = function (req,res) {
 
-    console.log("#");
-    console.log("#");
-    console.log("#");
-    console.log("#");
-    console.log("Entro al findClubsByMultipleFilter!!");
-    console.log("En este se tienen en cuenta los filtras");
-    console.log("#");
-    console.log("#");
-    console.log("#");
-    console.log("#");
-    console.log(req.params.clubfilter);
     // Se arma solo el array de servicios para utilizar el $in y setean los valores por defecto
     var servicesNameArray = [];
     var cantPlayers = [];
