@@ -1,212 +1,206 @@
 <div>
 
-    <div class="page">
+  <div class="page">
 
-        <div id="breadcrumb-section" class="section">
-            <div class="container">
-                <div class="page-title text-center">
-                    <h1>Confirma tu reserva</h1>
+    <div id="breadcrumb-section" class="section">
+      <div class="container">
+        <div class="page-title text-center">
+          <h1>Confirma tu reserva</h1>
+        </div>
+      </div>
+    </div><!-- breadcrumb-section -->
+
+
+    <div class="avt-post-wrapper section">
+      <div class="container">
+        <div class="avt-post">
+          <form action="#">
+
+            <!-- client information -->
+
+            <div class="seller-option avtpost-fields">
+              <div class="col-xs-12">
+                <h4>Tus datos</h4>
+              </div>
+
+              <div class="row">
+                <div class="col-md-1">
+                  <label class="col-md-1"> Nombre </label>
                 </div>
-            </div>
-        </div><!-- breadcrumb-section -->
-
-
-
-        <div class="avt-post-wrapper section">
-            <div class="container">
-                <div class="avt-post">
-                    <form action="#">
-
-                    <!-- client information -->
-
-                        <div class="seller-option avtpost-fields">
-                            <div class="col-xs-12">
-                                <h4>Tus datos</h4>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-1">
-                                    <label class="col-md-1"> Nombre </label>
-                                </div>
-                                <div class="col">
-                                    <label class="col-md-10"> <b>{{player?.name | uppercase}}</b></label>
-                                </div>
-                                <div class="col-md-1">
-                                    <label class="col-md-1"> Apellido </label>
-                                </div>
-                                <div class="col">
-                                    <label class="col-md-10"> <b>{{player?.lastName | uppercase}} </b></label>
-                                </div>
-                                <div class="col-md-1">
-                                    <label class="col-md-1">Teléfono </label>
-                                </div>
-                                <div class="col">
-                                    <label class="col-md-10"> <b>{{player?.phoneNumber | uppercase}}</b></label>
-                                </div>
-                            </div>
-
-                        </div><!-- seller-section -->
-
-
-                        <div class="seller-option avtpost-fields">
-
-                                <div class="col-xs-12">
-                                    <h4>Datos de la reserva</h4>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-2">
-                                        Fecha
-                                    </div>
-                                    <div class="col-sm">
-                                        <b>  {{booking.dateBook}}</b>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        Hora
-                                    </div>
-                                    <div class="col-sm">
-                                        <b>{{booking.timeBook}}</b>
-                                    </div>
-                                </div>
-
-                            <div class="row">
-                                <div class="col-sm-2">
-                                   Cancha de juego
-                                </div>
-                                <div class="col-sm-4">
-                                    <b>{{booking.field.fieldName| uppercase}}</b>
-                                </div>
-                                <div class="col-sm-2">
-                                    Cantidad de jugadores
-                                </div>
-                                <div class="col">
-                                    <b>{{booking.field.cantPlayers}}</b>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="seller-option avtpost-fields">
-
-                            <div class="col-xs-12">
-                                <h4>Datos del Club</h4>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-2">
-                                    Nombre del club
-                                </div>
-                                <div class="col">
-                                    <b> {{booking.club.name| uppercase}}</b>
-                                </div>
-                                <div class="col-sm-2">
-                                   Teléfono
-                                </div>
-                                <div class="col">
-                                    <b>  {{booking.club.phoneNumber}}</b>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-1">Dirección</div>
-                                <div class="col-8"><b>{{booking.club.address.address| uppercase}}</b></div>
-                            </div>
-                        </div>
-
-                        <div class="seller-option avtpost-fields">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="post-inner">
-                                            <div class="row form-group">
-                                                <label class="col-md-4"> Total a pagar </label>
-                                                <div class="col-md-4">
-                                                   <h4><b>$ {{booking.field?.price}}</b></h4>
-                                                </div>
-                                            </div>
-                                        </div><!-- post-inner -->
-                                    </div>
-
-                                     <div class="col-md-6">
-                                        <div class="post-inner">
-                                            <div class="form-group">
-                                                <span>Por favor, selecciona una forma de pago </span>
-                                                <div class="payment-options">
-                                                    <ul>
-                                                        <li class="payment-option">
-                                                            <input type="radio" name="payment-option" value="payment-one">
-                                                            <label for="payment-one">En sitio</label>
-                                                        </li>
-                                                        <li class="payment-option">
-                                                            <input type="radio" name="payment-option" value="payment-two">
-                                                            <label for="payment-two">Mercado Pago</label>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div><!-- post-inner -->
-                                    </div>
-                                </div>
-                            </div><!-- seller-option -->
-                            <div class="submit-section">
-                                <div class="ad-condition checkbox">
-                                    <label for="submit-post">
-                                        <input type="checkbox" name="submit-post" id="submit-post">
-                                         <a href="#">Aceptar término y condiciones</a>
-                                    </label>
-                                </div>
-
-
-
-                                    <div class="col align-self-end" align="right">
-
-                                    <li class="list-inline-item"  >
-                                        <button type="button" class="btn btn-outline-danger" (click)="goToBusqueda()">Cancelar</button>
-                                        <button (click)="confirm()"   type="button" class="btn btn-outline-success"  data-toggle="modal" data-target="#myModal">Reservar</button>
-                                    </li>
-
-                                    </div>
-
-                                <!-- Modal -->
-
-
-
-
-                                <div *ngIf="confirmado" id="myModal" class="modal fade" role="dialog">
-                                    <div class="modal-dialog" role="document">
-
-                                        <!-- Modal content-->
-                                        <div class="modal-content">
-                                            <!-- Modal Header -->
-                                            <div class="modal-header">
-                                                <h4 class="modal-title">Información</h4>
-
-                                            </div>
-
-                                            <!-- Modal body -->
-                                            <div class="modal-body">
-                                                Su reserva se ha generado con éxito.
-                                            </div>
-
-                                            <!-- Modal footer -->
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal"  (click)="goToMisReservas()">Cerrar</button>
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!--FIN MODAL-->
-
-
-
-
-
-                            </div>
-
-                    </form>
+                <div class="col">
+                  <label class="col-md-10"> <b>{{player?.name | uppercase}}</b></label>
                 </div>
+                <div class="col-md-1">
+                  <label class="col-md-1"> Apellido </label>
+                </div>
+                <div class="col">
+                  <label class="col-md-10"> <b>{{player?.lastName | uppercase}} </b></label>
+                </div>
+                <div class="col-md-1">
+                  <label class="col-md-1">Teléfono </label>
+                </div>
+                <div class="col">
+                  <label class="col-md-10"> <b>{{player?.phoneNumber | uppercase}}</b></label>
+                </div>
+              </div>
+
+            </div><!-- seller-section -->
+
+
+            <div class="seller-option avtpost-fields">
+
+              <div class="col-xs-12">
+                <h4>Datos de la reserva</h4>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-2">
+                  Fecha
+                </div>
+                <div class="col-sm">
+                  <b>  {{booking.dateBook}}</b>
+                </div>
+                <div class="col-sm-2">
+                  Hora
+                </div>
+                <div class="col-sm">
+                  <b>{{booking.timeBook}}</b>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-2">
+                  Cancha de juego
+                </div>
+                <div class="col-sm-4">
+                  <b>{{booking.field.fieldName| uppercase}}</b>
+                </div>
+                <div class="col-sm-2">
+                  Cantidad de jugadores
+                </div>
+                <div class="col">
+                  <b>{{booking.field.cantPlayers}}</b>
+                </div>
+              </div>
+
             </div>
-        </div> <!-- avt-post -->
-    </div>	<!-- page -->
+
+            <div class="seller-option avtpost-fields">
+
+              <div class="col-xs-12">
+                <h4>Datos del Club</h4>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-2">
+                  Nombre del club
+                </div>
+                <div class="col">
+                  <b> {{booking.club.name| uppercase}}</b>
+                </div>
+                <div class="col-sm-2">
+                  Teléfono
+                </div>
+                <div class="col">
+                  <b>  {{booking.club.phoneNumber}}</b>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-1">Dirección</div>
+                <div class="col-8"><b>{{booking.club.address.address| uppercase}}</b></div>
+              </div>
+            </div>
+
+            <div class="seller-option avtpost-fields">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="post-inner">
+                    <div class="row form-group">
+                      <label class="col-md-4"> Total a pagar </label>
+                      <div class="col-md-4">
+                        <h4><b>$ {{booking.field?.price}}</b></h4>
+                      </div>
+                    </div>
+                  </div><!-- post-inner -->
+                </div>
+
+                <div class="col-md-6">
+                  <div class="post-inner">
+                    <div class="form-group">
+                      <span>Por favor, selecciona una forma de pago </span>
+                      <div class="payment-options">
+                        <ul>
+                          <li class="payment-option">
+                            <input type="radio" name="payment-option" value="payment-one">
+                            <label for="payment-one">En sitio</label>
+                          </li>
+                          <li class="payment-option">
+                            <input type="radio" name="payment-option" value="payment-two">
+                            <label for="payment-two">Mercado Pago</label>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div><!-- post-inner -->
+                </div>
+              </div>
+            </div><!-- seller-option -->
+            <div class="submit-section">
+              <div class="ad-condition checkbox">
+                <label for="submit-post">
+                  <input type="checkbox" name="submit-post" id="submit-post">
+                  <a href="#">Aceptar término y condiciones</a>
+                </label>
+              </div>
+
+
+              <div class="col align-self-end" align="right">
+
+                <li class="list-inline-item">
+                  <button type="button" class="btn btn-outline-danger" (click)="goToBusqueda()">Cancelar</button>
+                  <button (click)="confirm()" type="button" class="btn btn-outline-success" data-toggle="modal"
+                          data-target="#myModal">Reservar
+                  </button>
+                </li>
+
+              </div>
+
+              <!-- Modal -->
+
+
+              <div *ngIf="confirmado" id="myModal" class="modal fade" role="dialog">
+                <div class="modal-dialog" role="document">
+
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                      <h4 class="modal-title">Información</h4>
+
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                      Su reserva se ha generado con éxito.
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="goToMisReservas()">
+                        Cerrar
+                      </button>
+                    </div>
+
+
+                  </div>
+                </div>
+              </div>
+              <!--FIN MODAL-->
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div> <!-- avt-post -->
+  </div>  <!-- page -->
 </div>
