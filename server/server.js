@@ -36,7 +36,9 @@ var port = process.env.NODE_ENV === 'production' ? 80 : 4000;
     console.log('Server listening on port ' + port);
 });*/
 
-mongoose.connect(config.connectionString, function(error) {
+mongoose.connect(config.connectionString,
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  function(error) {
     // Check error in initial connection. There is no 2nd param to the callback.
     if (error) {
         return console.log(error);
