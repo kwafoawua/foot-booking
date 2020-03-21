@@ -1,20 +1,16 @@
-import * as moment from "moment";
+import * as moment from 'moment';
 import _date = moment.unitOfTime._date;
-import {Field} from "./field";
-import {Player} from "./player";
-import {Club} from "./club";
-/**
- * Created by pablo on 10/10/2017.
- */
+import { Field } from './field';
+import { Player } from './player';
+import { Club } from './club';
 
-export class Booking{
-
-    date: any;
-    field : Field;
-    club : Club;
-    dateBook: string;
-    timeBook: string;
+export class Booking {
+  date: any;
+  field: Field;
+  club: Club;
+  dateBook: string;
+  timeBook: string;
   //state: any;
-    player: Player;
-   // fee: number;
+  player: Player;
+  // fee: number;
 }
