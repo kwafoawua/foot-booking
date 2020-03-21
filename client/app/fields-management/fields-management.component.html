@@ -1,300 +1,207 @@
-<!--<div class="container">-->
-    <!--<div class="row">-->
-        <!--<div class="col-12 left">-->
-            <!--<div class="card-body">-->
-                <!--<div class="btn btn-secondary btn-sm" data-toggle="collapse" data-target="#collapseOptionsForSearch"-->
-                     <!--aria-expanded="false" aria-controls="collapseOptionsForSearch">-->
-                    <!--<i class="fa fa-filter" aria-hidden="true"></i>-->
-                <!--</div>-->
-                <!--<div class="btn-group">-->
-                    <!--<button class="btn btn-secondary btn-sm dropdown-toggle" type="button"-->
-                            <!--data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-                        <!--Cancha-->
-                    <!--</button>-->
-                    <!--<div class="dropdown-menu dropdown-menu-right">-->
-                        <!--<a class="dropdown-item" (click)="statusChange('Todas')">Todas</a>-->
-                        <!--<a class="dropdown-item" (click)="statusChange('Principal')">Lateral</a>-->
-                        <!--<a class="dropdown-item" (click)="statusChange('Lateral')">Principal</a>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="btn-group">-->
-                    <!--<button class="btn btn-secondary btn-sm dropdown-toggle" type="button"-->
-                            <!--data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-                        <!--Estado-->
-                    <!--</button>-->
-                    <!--<div class="dropdown-menu dropdown-menu-right">-->
-                        <!--<a class="dropdown-item" (click)="filterbyStatusChange('Todas')">Todas</a>-->
-                        <!--<a class="dropdown-item" (click)="filterbyStatusChange('Pagada')">Pagada</a>-->
-                        <!--<a class="dropdown-item" (click)="filterbyStatusChange('Reserva Pagada')">Reserva Pagada</a>-->
-                        <!--<a class="dropdown-item" (click)="filterbyStatusChange('Reservada')">Reservada</a>-->
-                        <!--<a class="dropdown-item" (click)="filterbyStatusChange('Cancelado')">Cancelado</a>-->
-                        <!--<a class="dropdown-item" (click)="filterbyStatusChange('Finalizada')">Finalizada</a>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--
-                <div class="form-group">
-                    <select class="form-control">
-                        <option>Estado</option>
-                        <option (click)="filterbyStatusChange('Todas')">Todas</option>>
-                        <option (click)="filterbyStatusChange('Pagada')">Pagada</option>
-                        <option (click)="filterbyStatusChange('Reserva Pagada')">Reserva Pagada</option>
-                        <option (change)="filterbyStatusChange('Reservada')">Reservada</option>
-                        <option (click)="filterbyStatusChange('Cancelado')">Cancelado</option>
-                        <option (click)="filterbyStatusChange('Finalizada')">Finalizada</option>
-                    </select>
-                </div>
-            -->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
-<!--
-<div class="container">
-    <div class="row">
-        <div class="col-12 text-left">
-            <div class="card-body">
-                <div class="btn btn-primary" data-toggle="collapse" data-target="#collapseOptionsForSearch" 
-                        aria-expanded="false" aria-controls="collapseOptionsForSearch">
-                        <i class="fa fa-filter" aria-hidden="true"></i>
-                </div>
-
-                <div class="collapse col-12" id="collapseOptionsForSearch">
-                    <div class="card-block">
-                        <div class="card-body">
-                            <div class="btn-group">
-                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Cancha
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="">Cancha 1</a>
-                                    <a class="dropdown-item" href="">Cancha 2</a>
-                                </div>
-                            </div>
-                            <div class="btn-group">
-                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Estado
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item">Todas</a>
-                                    <a class="dropdown-item">Pagada</a>
-                                    <a class="dropdown-item">Reserva Pagada</a>
-                                    <a class="dropdown-item">Reservada</a>
-                                    <a class="dropdown-item">Cancelada</a>
-                                    <a class="dropdown-item">Finalizada</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>   
--->
 <ng-template #modalContent let-close="close">
-    <div class="modal-header">
-        <h2 class="modal-title"> Cancha {{modalData?.event.booking.field.fieldName | uppercase}}</h2>
-        <button type="button" class="close" (click)="close()">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <div class="container">
+  <div class="modal-header">
+    <h2 class="modal-title"> Cancha {{modalData?.event.booking.field.fieldName | uppercase}}</h2>
+    <button type="button" class="close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container">
 
 
-            <div class="row">
-                <div class="col-12"><h4>Datos del Cliente</h4></div>
-                <div class="col-6">Nombre:
-                    <label><b>{{modalData?.event.booking.player.name}}</b></label>
-                </div>
-                <div class="col-6">
-                    Apellido:
-                    <label><b>{{modalData?.event.booking.player.lastName}}</b></label></div>
-                <div class="col-6">
-                    Teléfono: <label><b>{{modalData?.event.booking.player.phoneNumber}}</b></label></div>
-
-            </div>
-            <hr>
-
-            <div class="row">
-                <div class="col-12"><h4>Reserva</h4></div>
-                <div class="col-6">Cancha: <label><b>{{modalData?.event.booking.field.fieldName}}</b></label>
-                </div>
-                <div class="col-6">Fecha de Reserva: <label><b>{{modalData?.event.booking.playingDate |
-                    date:"dd/MM/yy"}}</b></label></div>
-                <div class="col-6">Hora de Reserva:
-                    <label><b>{{modalData?.event.booking.playingTime}}</b></label></div>
-                <div class="col-6">Estado: <label>{{modalData?.event.booking.status}}</label></div>
-                <div class="col-6">Monto total $ <label><b>{{modalData?.event.booking.field.price}}</b></label>
-                </div>
-                <div class="col-6">Forma de Pago:
-                    <label><b>{{modalData?.event.booking.paidMethod}}</b></label></div>
-                <div class="col-6">Monto pagado $ <label><b>{{modalData?.event.booking.payment.fee}}</b></label>
-                </div>
-                <div class="col-6"> Actualización de Monto
-                    <input [(ngModel)]="montoPagado" type="number" class="form-control" placeholder="Monto Pagado"
-                           max="{{modalData?.event.booking.field.price}}" value="{{montoPagado}}">
-                </div>
-            </div>
-
-            <hr>
-
-            <div class="row">
-                <div class="col-12"><h4>Estado de la reserva</h4></div>
-                <div class="form-group col-md-6">
-                    <label for="bookingStatus">Seleccione estado de reserva</label>
-                    <select class="form-control" id="bookingStatus" (change)="onStatusChange($event.target.value)">
-                        <option *ngFor="let status of modalData?.event.booking.estados" [value]="status"
-                                [selected]="status == modalData?.event.booking.status">{{status}}
-                        </option>
-                    </select>
-                </div>
-            </div>
+      <div class="row">
+        <div class="col-12"><h4>Datos del Cliente</h4></div>
+        <div class="col-6">Nombre:
+          <label><b>{{modalData?.event.booking.player.name}}</b></label>
         </div>
+        <div class="col-6">
+          Apellido:
+          <label><b>{{modalData?.event.booking.player.lastName}}</b></label></div>
+        <div class="col-6">
+          Teléfono: <label><b>{{modalData?.event.booking.player.phoneNumber}}</b></label></div>
 
-        <!--<pre>{{ modalData?.event.booking | json }}</pre>-->
+      </div>
+      <hr>
+
+      <div class="row">
+        <div class="col-12"><h4>Reserva</h4></div>
+        <div class="col-6">Cancha: <label><b>{{modalData?.event.booking.field.fieldName}}</b></label>
+        </div>
+        <div class="col-6">Fecha de Reserva: <label><b>{{modalData?.event.booking.playingDate |
+          date:"dd/MM/yy"}}</b></label></div>
+        <div class="col-6">Hora de Reserva:
+          <label><b>{{modalData?.event.booking.playingTime}}</b></label></div>
+        <div class="col-6">Estado: <label>{{modalData?.event.booking.status}}</label></div>
+        <div class="col-6">Monto total $ <label><b>{{modalData?.event.booking.field.price}}</b></label>
+        </div>
+        <div class="col-6">Forma de Pago:
+          <label><b>{{modalData?.event.booking.paidMethod}}</b></label></div>
+        <div class="col-6">Monto pagado $ <label><b>{{modalData?.event.booking.payment.fee}}</b></label>
+        </div>
+        <div class="col-6"> Actualización de Monto
+          <input [(ngModel)]="montoPagado" type="number" class="form-control" placeholder="Monto Pagado"
+                 max="{{modalData?.event.booking.field.price}}" value="{{montoPagado}}">
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="row">
+        <div class="col-12"><h4>Estado de la reserva</h4></div>
+        <div class="form-group col-md-6">
+          <label for="bookingStatus">Seleccione estado de reserva</label>
+          <select class="form-control" id="bookingStatus" (change)="onStatusChange($event.target.value)">
+            <option *ngFor="let status of modalData?.event.booking.estados" [value]="status"
+                    [selected]="status == modalData?.event.booking.status">{{status}}
+            </option>
+          </select>
+        </div>
+      </div>
     </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-success" (click)="close(modalData?.event.booking)">Aceptar</button>
-    </div>
+
+    <!--<pre>{{ modalData?.event.booking | json }}</pre>-->
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="close(modalData?.event.booking)">Aceptar</button>
+  </div>
 </ng-template>
 <mwl-demo-utils-calendar-header
-        [(view)]="view"
-        [(viewDate)]="viewDate"
-        [(locale)]="locale">
+    [(view)]="view"
+    [(viewDate)]="viewDate"
+    [(locale)]="locale">
 </mwl-demo-utils-calendar-header>
 <br>
 
 <div [ngSwitch]="view">
-    <mwl-calendar-month-view
-            *ngSwitchCase="'month'"
-            [viewDate]="viewDate"
-            [events]="events"
-            [refresh]="refresh"
-            [locale]="locale"
-            [activeDayIsOpen]="activeDayIsOpen"
-            (dayClicked)="dayClicked($event.day)"
-            (eventClicked)="handleEvent('Clicked', $event.event)"
-            (eventTimesChanged)="eventTimesChanged($event)">
-    </mwl-calendar-month-view>
-    <mwl-calendar-week-view
-            *ngSwitchCase="'week'"
-            [viewDate]="viewDate"
-            [events]="events"
-            [refresh]="refresh"
-            [locale]="locale"
-            (eventClicked)="handleEvent('Clicked', $event.event)"
-            (eventTimesChanged)="eventTimesChanged($event)">
-    </mwl-calendar-week-view>
-    <mwl-calendar-day-view
-            *ngSwitchCase="'day'"
-            [viewDate]="viewDate"
-            [events]="events"
-            [refresh]="refresh"
-            [locale]="locale"
-            (eventClicked)="handleEvent('Clicked', $event.event)"
-            (eventTimesChanged)="eventTimesChanged($event)">
-    </mwl-calendar-day-view>
+  <mwl-calendar-month-view
+      *ngSwitchCase="'month'"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+      [locale]="locale"
+      [activeDayIsOpen]="activeDayIsOpen"
+      (dayClicked)="dayClicked($event.day)"
+      (eventClicked)="handleEvent('Clicked', $event.event)"
+      (eventTimesChanged)="eventTimesChanged($event)">
+  </mwl-calendar-month-view>
+  <mwl-calendar-week-view
+      *ngSwitchCase="'week'"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+      [locale]="locale"
+      (eventClicked)="handleEvent('Clicked', $event.event)"
+      (eventTimesChanged)="eventTimesChanged($event)">
+  </mwl-calendar-week-view>
+  <mwl-calendar-day-view
+      *ngSwitchCase="'day'"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+      [locale]="locale"
+      (eventClicked)="handleEvent('Clicked', $event.event)"
+      (eventTimesChanged)="eventTimesChanged($event)">
+  </mwl-calendar-day-view>
 </div>
 
 <br><br><br>
 
 <form [formGroup]="nuevaReservaForm" (ngSubmit)="addEvent()">
-<table class="table table-bordered">
+  <table class="table table-bordered">
 
     <thead>
     <tr>
-        <th>Nombre</th>
-        <th>Apellido</th>
-        <th>Telefono</th>
-        <th></th>
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Telefono</th>
+      <th></th>
 
     </tr>
     </thead>
 
     <tbody>
     <tr>
-        <td>
-            <input formControlName="playerName" type="text" class="form-control">
-        </td>
-        <td>
-            <input type="text" class="form-control" formControlName="playerLastName">
-        </td>
-        <td>
-            <input type="number" class="form-control" formControlName="playerPhoneNumber">
-        </td>
-        <td rowspan=3>
-            <button
-                    class="btn btn-primary pull-right"
-                    type="submit">
-                Nueva Reserva
-            </button>
-            <div class="clearfix"></div>
-        </td>
+      <td>
+        <input formControlName="playerName" type="text" class="form-control">
+      </td>
+      <td>
+        <input type="text" class="form-control" formControlName="playerLastName">
+      </td>
+      <td>
+        <input type="number" class="form-control" formControlName="playerPhoneNumber">
+      </td>
+      <td rowspan=3>
+        <button
+            class="btn btn-primary pull-right"
+            type="submit">
+          Nueva Reserva
+        </button>
+        <div class="clearfix"></div>
+      </td>
     </tr>
     </tbody>
     <tr>
-        <th>Cancha</th>
-        <th>Fecha de Reserva</th>
-        <th>Hora de Reserva</th>
+      <th>Cancha</th>
+      <th>Fecha de Reserva</th>
+      <th>Hora de Reserva</th>
 
     </tr>
 
     <tbody>
     <tr>
-        <td>
-            <div class="dropdown">
-            <select name="dropdown-time"  class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="fieldDropdown" (ngModelChange)="setFieldValues($event)">
-                <option value=" " selected class="dropdown-item">Canchas</option>
-                <option *ngFor="let field of club?.fields; let i = index" [ngValue]="field">{{field.fieldName}}</option>
-            </select>
-            </div>
-        </td>
-        <td>
-            <input (ngModelChange)="loadHoursValues($event)" [ngModelOptions]="{standalone: true}" class="btn dropdown-toggle" [dpDayPicker]="config" name="datePicker"  placeholder="DD-MM-AAAA"
-                   id="calendar" inputElementConteiner="#inputConteiner" theme="dp-material" [(ngModel)]="date">
-        </td>
-        <td>
-            <div class="dropdown">
-                <select name="dropdown-time" id="dropdown-time" class="form-control" formControlName="playingTime">
-                    <option value=" " selected class="dropdown-item">Horarios</option>
-                    <option *ngFor="let hora of horasDisponibles" [value]="hora">{{hora}}</option>
-                </select>
-            </div>
-        </td>
+      <td>
+        <div class="dropdown">
+          <select name="dropdown-time" class="form-control" [ngModelOptions]="{standalone: true}"
+                  [(ngModel)]="fieldDropdown" (ngModelChange)="setFieldValues($event)">
+            <option value=" " selected class="dropdown-item">Canchas</option>
+            <option *ngFor="let field of club?.fields; let i = index" [ngValue]="field">{{field.fieldName}}</option>
+          </select>
+        </div>
+      </td>
+      <td>
+        <input (ngModelChange)="loadHoursValues($event)" [ngModelOptions]="{standalone: true}"
+               class="btn dropdown-toggle" [dpDayPicker]="config" name="datePicker" placeholder="DD-MM-AAAA"
+               id="calendar" inputElementConteiner="#inputConteiner" theme="dp-material" [(ngModel)]="date">
+      </td>
+      <td>
+        <div class="dropdown">
+          <select name="dropdown-time" id="dropdown-time" class="form-control" formControlName="playingTime">
+            <option value=" " selected class="dropdown-item">Horarios</option>
+            <option *ngFor="let hora of horasDisponibles" [value]="hora">{{hora}}</option>
+          </select>
+        </div>
+      </td>
     </tr>
 
     </tbody>
     <tr>
-        <th>Monto Total</th>
-        <th>Monto Pagado</th>
-        <th>Estado</th>
+      <th>Monto Total</th>
+      <th>Monto Pagado</th>
+      <th>Estado</th>
 
     </tr>
 
 
     <tbody>
     <tr>
-        <td>
-            <input type="text" class="form-control" formControlName="fieldPrice">
-        </td>
-        <td>
-            <input type="text" class="form-control" formControlName="fee">
-        </td>
-        <td>
-            <select class="form-control" formControlName="status">
-                <option *ngFor="let status of bookings[0]?.estados" [value]="status">{{status}}
-                </option>
-            </select>
-        </td>
+      <td>
+        <input type="text" class="form-control" formControlName="fieldPrice">
+      </td>
+      <td>
+        <input type="text" class="form-control" formControlName="fee">
+      </td>
+      <td>
+        <select class="form-control" formControlName="status">
+          <option *ngFor="let status of bookings[0]?.estados" [value]="status">{{status}}
+          </option>
+        </select>
+      </td>
     </tr>
 
     </tbody>
 
 
-</table>
+  </table>
 </form>
 
 <!--<div><pre><code>{{ nuevaReservaForm?.value | json }}</code></pre></div>-->
