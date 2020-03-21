@@ -39,8 +39,6 @@ typings
 # Generated files
 client/app/**/*.js
 client/app/**/*.js.map
-client/package-lock.json
-server/package-log.json
 
 .idea
 uploads
