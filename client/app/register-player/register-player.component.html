@@ -5,76 +5,77 @@
   </div>
   <div class="card card-register mx-auto mt-5">
     <div class="card-body">
-          <form name="formPlayer" (ngSubmit)="f.form.valid && registerPlayer()" #f="ngForm" novalidate>
-            <div class="form-row">
-              <div class="form-group col-md-6" [ngClass]="{ 'has-error': f.submitted && !name.valid }">
-                <label class="label-form" for="name">Nombre</label>
-                <input type="text" class="form-control" name="namePlayer" [(ngModel)]="model.name" #name="ngModel"
-                       required/>
-                <div *ngIf="f.submitted && !name.valid" class="text-secondary">El nombre es requerido</div>
-              </div>
-              <div class="form-group col-md-6" [ngClass]="{ 'has-error': f.submitted && !lastName.valid }">
-                <label class="label-form" for="lastName">Apellido</label>
-                <input type="text" class="form-control" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel"
-                       required/>
-                <div *ngIf="f.submitted && !lastName.valid" class="text-secondary">El apellido es requerido</div>
-              </div>
-            </div>
+      <form name="formPlayer" (ngSubmit)="f.form.valid && registerPlayer()" #f="ngForm" novalidate>
+        <div class="form-row">
+          <div class="form-group col-md-6" [ngClass]="{ 'has-error': f.submitted && !name.valid }">
+            <label class="label-form" for="name">Nombre</label>
+            <input type="text" class="form-control" name="namePlayer" [(ngModel)]="model.name" #name="ngModel"
+                   required/>
+            <div *ngIf="f.submitted && !name.valid" class="text-secondary">El nombre es requerido</div>
+          </div>
+          <div class="form-group col-md-6" [ngClass]="{ 'has-error': f.submitted && !lastName.valid }">
+            <label class="label-form" for="lastName">Apellido</label>
+            <input type="text" class="form-control" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel"
+                   required/>
+            <div *ngIf="f.submitted && !lastName.valid" class="text-secondary">El apellido es requerido</div>
+          </div>
+        </div>
 
-            <div class="form-row">
-              <div class="form-group col-md-6" [ngClass]="{ 'has-error': f.submitted && !birthDate.valid }">
-                <label class="label-form" for="birthDate">Fecha de nacimiento</label>
-                <input type="date" class="form-control" name="birthDate" [(ngModel)]="model.birthDate"
-                       #birthDate="ngModel" required/>
-                <div *ngIf="f.submitted && !birthDate.valid" class="text-secondary">La fecha de nacimiento es requerida
-                </div>
-              </div>
-              <div class="form-group col-md-6" [ngClass]="{ 'has-error': f.submitted && !dni.valid }">
-                <label class="label-form" for="dni">DNI</label>
-                <input type="number" class="form-control" name="dni" [(ngModel)]="model.dni" #dni="ngModel" required/>
-                <div *ngIf="f.submitted && !dni.valid" class="text-secondary">El dni es requerido</div>
-              </div>
+        <div class="form-row">
+          <div class="form-group col-md-6" [ngClass]="{ 'has-error': f.submitted && !birthDate.valid }">
+            <label class="label-form" for="birthDate">Fecha de nacimiento</label>
+            <input type="date" class="form-control" name="birthDate" [(ngModel)]="model.birthDate"
+                   #birthDate="ngModel" required/>
+            <div *ngIf="f.submitted && !birthDate.valid" class="text-secondary">La fecha de nacimiento es requerida
             </div>
-            <div class="form-row">
-              <div class="form-group col-md-6" [ngClass]="{ 'has-error': f.submitted && !phoneNumber.valid }">
-                <label class="label-form" for="phoneNumber">Número de teléfono</label>
-                <input type="text" class="form-control" name="phoneNumber" [(ngModel)]="model.phoneNumber"
-                       #phoneNumber="ngModel"/>
-              </div>
-              <div class="form-group col-md-6" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
-                <label class="label-form" for="email">E-mail</label>
-                <input type="text" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel"
-                       required/>
-                <div *ngIf="f.submitted && !email.valid" class="text-secondary">El E-mail es requerido</div>
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-md-4" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-                <label class="label-form" for="username">Nombre de usuario</label>
-                <input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel"
-                       required/>
-                <div *ngIf="f.submitted && !username.valid" class="text-secondary">Nombre de usuario requerido</div>
-              </div>
+          </div>
+          <div class="form-group col-md-6" [ngClass]="{ 'has-error': f.submitted && !dni.valid }">
+            <label class="label-form" for="dni">DNI</label>
+            <input type="number" class="form-control" name="dni" [(ngModel)]="model.dni" #dni="ngModel" required/>
+            <div *ngIf="f.submitted && !dni.valid" class="text-secondary">El dni es requerido</div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6" [ngClass]="{ 'has-error': f.submitted && !phoneNumber.valid }">
+            <label class="label-form" for="phoneNumber">Número de teléfono</label>
+            <input type="text" class="form-control" name="phoneNumber" [(ngModel)]="model.phoneNumber"
+                   #phoneNumber="ngModel"/>
+          </div>
+          <div class="form-group col-md-6" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+            <label class="label-form" for="email">E-mail</label>
+            <input type="text" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel"
+                   required/>
+            <div *ngIf="f.submitted && !email.valid" class="text-secondary">El E-mail es requerido</div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-4" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+            <label class="label-form" for="username">Nombre de usuario</label>
+            <input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel"
+                   required/>
+            <div *ngIf="f.submitted && !username.valid" class="text-secondary">Nombre de usuario requerido</div>
+          </div>
 
-              <div class="form-group col-md-4" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-                <label class="label-form" for="password">Contraseña</label>
-                <input type="password" class="form-control" name="passwordPlayer" [(ngModel)]="model.password"
-                       #password="ngModel" required/>
-                <div *ngIf="f.submitted && !password.valid" class="text-secondary">Contraseña requerida</div>
-              </div>
-              <div class="form-group col-md-4">
-                <label class="label-form" for="password2">Confirmar contraseña</label>
-                <input type="password" class="form-control" name="passwordPlayer" [(ngModel)]="model.password"
-                       #password="ngModel" required/>
-                <div *ngIf="f.submitted && !password.valid" class="text-secondary">Reingresar cotraseña</div>
-              </div>
-            </div>
-            <div class="text-center">
-              <button [disabled]="loading" class="btn btn-primary">Registrate</button>
-              <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-            </div>
-          </form>
+          <div class="form-group col-md-4" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+            <label class="label-form" for="password">Contraseña</label>
+            <input type="password" class="form-control" name="passwordPlayer" [(ngModel)]="model.password"
+                   #password="ngModel" required/>
+            <div *ngIf="f.submitted && !password.valid" class="text-secondary">Contraseña requerida</div>
+          </div>
+          <div class="form-group col-md-4">
+            <label class="label-form" for="password2">Confirmar contraseña</label>
+            <input type="password" class="form-control" name="passwordPlayer" [(ngModel)]="model.password"
+                   #password="ngModel" required/>
+            <div *ngIf="f.submitted && !password.valid" class="text-secondary">Reingresar cotraseña</div>
+          </div>
+        </div>
+        <div class="text-center">
+          <button [disabled]="loading" class="btn btn-primary">Registrate</button>
+          <img *ngIf="loading"
+               src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+        </div>
+      </form>
     </div>
   </div>
-  </div>
+</div>
 
