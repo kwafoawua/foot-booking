@@ -52,8 +52,8 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    this.setCurrentPosition();
+ ngOnInit() {
+    
   }
 
   buscarClub() {
@@ -73,16 +73,6 @@ export class HomeComponent implements OnInit {
   //LE PASO LOS DATOS PARA CREAR LOS FILTROS
   private crearFiltros(): ClubFilter {
     return new ClubFilter( this.homeForm.get('clubName').value );
-  }
-
-  private setCurrentPosition() {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.lat = position.coords.latitude;
-        this.lng = position.coords.longitude;
-        this.zoom = 16;
-      });
-    }
   }
 
 }
