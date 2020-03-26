@@ -130,7 +130,7 @@ export class ProfileClubClientComponent implements OnInit {
     console.log('1- Entró al mostrame las reservas. ');
     this.bookingService.findAllBookingsByFieldAndDay(this.bookingFilter)
       .subscribe(hoursBooking => {
-        console.log('Ultimo- Lo que retorna la consulta: ' + hoursBooking.playingTime);
+        console.log('Ultimo- Lo que retorna la consulta: ' + (hoursBooking as any).playingTime);
       });
   }
 
@@ -150,7 +150,7 @@ export class ProfileClubClientComponent implements OnInit {
 
 
     this.selectedField = field;
-    this.bookingFilter = new BookingFilter(this.selectedField._id, fieldDate);
+    this.bookingFilter = new BookingFilter(this.selectedField.id, fieldDate);
 
     this.bookingService.findAllBookingsByFieldAndDay(this.bookingFilter)
       .subscribe(hoursBooking => {

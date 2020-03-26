@@ -1,6 +1,6 @@
 
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -8,6 +8,7 @@ import { Club } from '../_models/club';
 import { formArrayNameProvider } from '@angular/forms/src/directives/reactive_directives/form_group_name';
 import { ClubFilter } from '../_models/clubfilter';
 import { Service } from '../_models/service';
+import { map } from 'rxjs/operators/map';
 
 @Injectable()
 export class SearchService {
@@ -26,20 +27,17 @@ export class SearchService {
   public static clubs: Club [] = [];
 
 
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
   }
 
   findClubsByFilters(filter: ClubFilter) {
     console.log('en esl servico', filter)
-    return this.http.get('/findClub/' + JSON.stringify(filter))
-      .map((response: Response) => {
-        SearchService.clubs = response.json();
-        // return  response.json()
-      });
+    return this.http.get<Club[]>('/findClub/' + JSON.stringify(filter))
+      .pipe(map(response => SearchService.clubs = response));
   }
 
   getAll() {
-    return this.http.get('/clubs/').map((response: Response) => response.json());
+    return this.http.get<Club[]>('/clubs/');
   }
 
   getClubServices() {
@@ -48,12 +46,8 @@ export class SearchService {
 
   findClubsByMultipleFilter(filter: ClubFilter) {
     console.log('en esl servico', filter)
-    return this.http.get('/findClubsByFilters/' + JSON.stringify(filter))
-      .map((response: Response) => {
-        console.log(response);
-        SearchService.clubs = response.json();
-        // return  response.json()
-      });
+    return this.http.get<Club[]>('/findClubsByFilters/' + JSON.stringify(filter))
+      .pipe(map(response => SearchService.clubs = response));
   }
 
 }

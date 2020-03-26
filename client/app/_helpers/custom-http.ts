@@ -1,14 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import {
-  ConnectionBackend,
-  XHRBackend,
-  RequestOptions,
-  Request,
-  RequestOptionsArgs,
-  Response,
-  Http,
-  Headers
-} from '@angular/http';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 import { appConfig } from '../app.config';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
@@ -16,32 +7,32 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 
 @Injectable()
-export class CustomHttp extends Http {
-  constructor(backend: ConnectionBackend, defaultOptions: RequestOptions) {
-    super(backend, defaultOptions);
+export class CustomHttp extends HttpClient {
+  constructor(handler: HttpHandler) {
+    super(handler);
   }
 
-  get(url: string, options?: RequestOptionsArgs): Observable<Response> {
+  get(url: string, options?: Object): Observable<any> {
     return super.get(appConfig.apiUrl + url, this.addJwt(options)).catch(this.handleError);
   }
 
-  post(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {
+  post(url: string, body: string, options?: Object): Observable<any> {
     return super.post(appConfig.apiUrl + url, body, this.addJwt(options)).catch(this.handleError);
   }
 
-  put(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {
+  put(url: string, body: string, options?: Object): Observable<any> {
     return super.put(appConfig.apiUrl + url, body, this.addJwt(options)).catch(this.handleError);
   }
 
-  delete(url: string, options?: RequestOptionsArgs): Observable<Response> {
+  delete(url: string, options?: Object): Observable<any> {
     return super.delete(appConfig.apiUrl + url, this.addJwt(options)).catch(this.handleError);
   }
 
   // private helper methods
 
-  private addJwt(options?: RequestOptionsArgs): RequestOptionsArgs {
+  private addJwt(options?: any): any {
     // ensure request options and headers are not null
-    options = options || new RequestOptions();
+    options = options || {};
     options.headers = options.headers || new Headers();
 
     // add authorization header with jwt token
@@ -63,12 +54,12 @@ export class CustomHttp extends Http {
   }
 }
 
-export function customHttpFactory(xhrBackend: XHRBackend, requestOptions: RequestOptions): Http {
-  return new CustomHttp(xhrBackend, requestOptions);
+export function customHttpFactory(handler: HttpHandler): HttpClient {
+  return new CustomHttp(handler);
 }
 
 export let customHttpProvider = {
-  provide: Http,
+  provide: HttpClient,
   useFactory: customHttpFactory,
-  deps: [ XHRBackend, RequestOptions ]
+  deps: [HttpHandler ]
 };

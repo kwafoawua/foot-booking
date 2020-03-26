@@ -50,7 +50,7 @@ export class confirmationComponent implements OnInit {
       this.reservaFinal.clubName = this.booking.club.name;
       this.reservaFinal.clubAddress = this.booking.club.address.address;
       this.reservaFinal.clubPhoneNumber = this.booking.club.phoneNumber;
-      this.reservaFinal.fieldId = this.booking.field._id;
+      this.reservaFinal.fieldId = this.booking.field.id;
       this.reservaFinal.fieldName = this.booking.field.fieldName;
       this.reservaFinal.fieldCantPlayers = this.booking.field.cantPlayers;
       this.reservaFinal.fieldFieldType = this.booking.field.fieldType;

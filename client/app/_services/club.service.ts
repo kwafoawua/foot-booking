@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Booking } from '../_models/booking';
 import { Club } from '../_models/club';
 import { Subject } from 'rxjs/Subject';
@@ -13,7 +13,7 @@ export class ClubService {
 
   public static booking: Booking;
 
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
     /* this.dataStore = { clubs: [] };
      this._clubs = <BehaviorSubject<Club[]>>new BehaviorSubject([]);
      this.clubs = this._clubs.asObservable();*/
@@ -29,12 +29,12 @@ export class ClubService {
          this._clubs.next(Object.assign({}, this.dataStore).clubs);
      } , error => console.log('No se pueden cargar los Clubes'));*/
 
-    return this.http.get('/clubs').map((response: Response) => response.json());
+    return this.http.get('/clubs');
   }
 
 
   getById(_id: number | string) {
-    return this.http.get('/clubs/' + _id).map((response: Response) => response.json());
+    return this.http.get('/clubs/' + _id);
     /* return this.http.get('/clubs/' + _id).map((response: Response) => response.json()).subscribe(data =>{
           let notFound = true;
           this.dataStore.clubs.forEach((club, index) => {
@@ -52,7 +52,7 @@ export class ClubService {
   }
 
   getResultById(_id: string) {
-    return this.http.get('/clubs/results/' + _id).map((response: Response) => response.json());
+    return this.http.get<Club>('/clubs/results/' + _id);
   }
 
   update(_id: string, formData: any) {

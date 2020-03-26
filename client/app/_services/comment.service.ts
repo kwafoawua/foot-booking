@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Comment } from '../_models/comment';
 
 @Injectable()
@@ -7,7 +7,7 @@ export class CommentService {
 
   //public static  comment: Comment;
 
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
   }
 
   create(comment: any) {
@@ -16,16 +16,16 @@ export class CommentService {
   }
 
   update(comment: Comment, _id: string, authorId: string) {
-    return this.http.put('/comments/changeComment/' + _id, comment, authorId).map((response: Response) => response.json());
+    return this.http.put('/comments/changeComment/' + _id, { comment, authorId });
     ;
   }
 
   findAllCommentForAClub(_id: string) {
-    return this.http.get('/comments/clubComment/' + _id).map((response: Response) => response.json());
+    return this.http.get<Comment[]>('/comments/clubComment/' + _id);
   }
 
   findAllAuthorComments(_id: string) {
-    return this.http.get('/comments/authorComment/' + _id).map((response: Response) => response.json());
+    return this.http.get('/comments/authorComment/' + _id);
   }
 
   deleteComment(_id: string) {

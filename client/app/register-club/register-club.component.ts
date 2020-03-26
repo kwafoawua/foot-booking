@@ -15,7 +15,7 @@ import 'rxjs/add/operator/first';
 import { AlertService, ClubService } from '../_services/index';
 import { Observable } from 'rxjs/Observable';
 import { isUndefined } from 'util';
-import { FileHolder } from 'angular2-image-upload/lib/image-upload/image-upload.component';
+import { FileHolder } from 'angular2-image-upload';
 import { FieldFormArrayComponent } from './field-form-array.component';
 import { PasswordValidation } from '../_helpers/validate-password';
 

@@ -10,6 +10,9 @@ export class Booking {
   club: Club;
   dateBook: string;
   timeBook: string;
+  playingTime: string;
+  status: string;
+  playingDate: string;
   //state: any;
   player: Player;
   // fee: number;

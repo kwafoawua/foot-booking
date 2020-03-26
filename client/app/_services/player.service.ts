@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { HttpClient} from '@angular/common/http';
 
 import { Player } from '../_models/player';
 
 @Injectable()
 export class PlayerService {
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
   }
 
   create(player: Player) {
@@ -14,11 +14,11 @@ export class PlayerService {
   }
 
   getAll() {
-    return this.http.get('/players').map((response: Response) => response.json());
+    return this.http.get<Player[]>('/players');
   }
 
   getById(_id: string) {
-    return this.http.get('/players/' + _id).map((response: Response) => response.json());
+    return this.http.get<Player>('/players/' + _id);
   }
 
   update(player: Player) {
@@ -30,6 +30,6 @@ export class PlayerService {
   }
 
   getPlayerByUserId(_id: string) {
-    return this.http.get('/players' + _id).map((response: Response) => response.json());
+    return this.http.get<Player>('/players' + _id);
   }
 }

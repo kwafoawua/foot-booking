@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 
@@ -20,7 +20,7 @@ export class UserService {
   // Observable string streams
   // usuario$ = this.usuario.asObservable();
 
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
     this.usuario = new BehaviorSubject<any>({});
     this.usuario$ = this.usuario.asObservable();
     /* this.dataStore = { user: {} };
@@ -29,17 +29,15 @@ export class UserService {
   }
 
   getAll() {
-    return this.http.get('/users', this.jwt())
-      .map((response: Response) => response.json());
+    return this.http.get('/users', this.jwt());
   }
 
   getById(_id: string) {
-    return this.http.get('/users/' + _id)
-      .map((response: Response) => response.json());
+    return this.http.get('/users/' + _id);
   }
 
   getByUsername(username: string) {
-    return this.http.get('/users/' + username).map((response: Response) => response.json())
+    return this.http.get<User>('/users/' + username);
     /* .subscribe(user => {
          this.usuario.next(user);
      });*/
@@ -74,8 +72,7 @@ export class UserService {
 
 
   getUserByCreatorId(_id: string) {
-    return this.http.get('/users/' + _id)
-      .map((response: Response) => response.json());
+    return this.http.get('/users/' + _id);
   }
 
   // private helper methods
@@ -83,8 +80,7 @@ export class UserService {
     // create authorization header with jwt token
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (currentUser && currentUser.token) {
-      let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
-      return new RequestOptions({ headers: headers });
+      return { headers: new HttpHeaders().set("Authorization", 'Bearer' + currentUser.token) };
     }
   }
 
