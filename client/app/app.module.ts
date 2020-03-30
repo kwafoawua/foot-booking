@@ -12,10 +12,10 @@ import { DemoUtilsModule } from './_helpers/demo-utils/module';
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
 
-import { customHttpProvider } from './_helpers/index';
+import { AuthInterceptor, authInterceptorProviders } from './_helpers/index';
 import { AlertComponent } from './_directives/index';
 import { AuthGuard } from './_guards/index';
-import { AlertService, AuthenticationService, UserService, ClubService, PlayerService } from './_services/index';
+import { AlertService, AuthenticationService, UserService, ClubService, PlayerService, CommentService } from './_services/index';
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import { RegisterClubComponent, FieldFormArrayComponent, FieldFormControlComponent } from './register-club/index';
@@ -35,7 +35,6 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {bookingPlayerComponent} from "./booking-player/booking-player.component";
 import {EstadisticasClubComponent} from "./estadisticas-club/index";
 import {commentsComponent} from "./_directives/Comments/commentsComponent";
-import {CommentService} from "./_services/comment.service";
 
 
 //API MAPS
@@ -95,7 +94,7 @@ import {TournamentModule} from "./tournament/tournament.module";
         commentsComponent
     ],
     providers: [
-        customHttpProvider,
+        authInterceptorProviders,
         AuthGuard,
         AlertService,
         AuthenticationService,
