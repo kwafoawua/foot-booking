@@ -195,11 +195,11 @@ module.exports.findAllBookingsByFieldAndDay = function(req,res){
                 {"playingDate":JSON.parse(req.params.bookingfilter).playingDate},
                 {"status": {"$ne":"Cancelado"} }
             ]
-        }, function (err, booking) {
+        }, function (err, bookings) {
         if (err) {
             return res.status(500).send(err);
         }
-        res.status(200).send(booking);
+        res.status(200).send(bookings);
     });
 };
 
