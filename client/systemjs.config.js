@@ -20,8 +20,8 @@
             '@angular/compiler': 'npm:@angular/compiler/bundles/compiler.umd.js',
             '@angular/platform-browser': 'npm:@angular/platform-browser/bundles/platform-browser.umd.js',
             '@angular/platform-browser-dynamic': 'npm:@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
-            '@angular/http': 'npm:@angular/http/bundles/http.umd.js',
-            '@angular/http/testing': 'npm:@angular/http/bundles/http-testing.umd.js',
+            '@angular/common/http': 'npm:@angular/common/bundles/common-http.umd.js',
+            'tslib': 'npm:tslib/tslib.js',
             '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
             '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
             '@angular/animations': 'npm:@angular/animations/bundles/animations.umd.js',
@@ -85,7 +85,7 @@
                 defaultExtension: 'js'
             },
             'angular2-image-upload': {
-                main: './index.js',
+                main: './bundles/angular2-image-upload.umd.js',
                 defaultExtension: 'js'
             },
             'ngx-chips': {
