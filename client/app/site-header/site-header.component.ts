@@ -29,8 +29,8 @@ export class SiteHeaderComponent implements OnInit {
   public goToProfile() {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     console.log(currentUser.rol);
-    if (currentUser.rol == 'Club') {
-      this.router.navigate([ '/club/profile' ]);
+    if (currentUser.rol === 'Club') {
+      this.router.navigate([ '/profile-club', currentUser.playerOrClubId ]);
     } else {
       this.router.navigate([ '/profile-player', currentUser.playerOrClubId ]);
     }

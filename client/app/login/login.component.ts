@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         data => {
           if (data.rol == 'Club')
-            this.router.navigate([ '/club/profile', data.playerOrClubId ]);
+            this.router.navigate([ '/profile-club', data.playerOrClubId ]);
           else
             this.router.navigate([ '', data.playerOrClubId ]);
           /*
