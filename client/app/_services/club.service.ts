@@ -2,11 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Booking } from '../_models/booking';
 import { Club } from '../_models/club';
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Comment } from '../_models/comment';
-
 
 @Injectable()
 export class ClubService {

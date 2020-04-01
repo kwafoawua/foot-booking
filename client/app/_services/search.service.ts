@@ -2,13 +2,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs';
+
 import { Club } from '../_models/club';
 import { formArrayNameProvider } from '@angular/forms/src/directives/reactive_directives/form_group_name';
 import { ClubFilter } from '../_models/clubfilter';
 import { Service } from '../_models/service';
-import { map } from 'rxjs/operators/map';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class SearchService {

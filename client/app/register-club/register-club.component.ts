@@ -3,17 +3,10 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
 import {} from 'googlemaps';
-import { MapsAPILoader, AgmCoreModule } from '@agm/core';
+import { MapsAPILoader } from '@agm/core';
 import { ValidateAllFields } from '../_helpers/validate-all-fields';
-/*ng-chhips*/
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/first';
-
 import { AlertService, ClubService } from '../_services/index';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
 import { isUndefined } from 'util';
 import { FileHolder } from 'angular2-image-upload';
 import { FieldFormArrayComponent } from './field-form-array.component';
@@ -158,7 +151,7 @@ export class RegisterClubComponent implements OnInit {
   }
 
   public requestAutocompleteItemsFake = (text: string): Observable<string[]> => {
-    return Observable.of([
+    return of([
       'Asador', 'Buffet', 'Parking', 'Techado', 'Bar', 'Nocturno'
     ]);
   };
@@ -249,8 +242,6 @@ export class RegisterClubComponent implements OnInit {
 
   //El primer click sobre el mapa
   clickMapa(e) {
-
-    console.log(e)
     this.lng = e.coords.lng;
     this.lat = e.coords.lat;
     this.setAutocompleteInput();

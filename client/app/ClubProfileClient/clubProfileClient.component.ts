@@ -1,6 +1,6 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import 'rxjs/add/operator/switchMap';
+
 import { AlertService, UserService, AuthenticationService } from '../_services/index';
 import { Club } from '../_models/index';
 import { ClubService, BookingService } from '../_services/index';

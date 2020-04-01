@@ -2,7 +2,7 @@ import { Component, OnInit, DoCheck } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../_services/user.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { AlertService } from '../../_services/alert.service';
 
 @Component({

@@ -4,15 +4,14 @@ import { Router } from '@angular/router'
 import { SearchService } from '../_services/index'
 import { Club } from '../_models/club';
 import { ClubService } from '../_services/index';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { Observable ,  Subject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 // Observable class extensions
-import 'rxjs/add/observable/of';
+
 // Observable operators
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
+
+
+
 import { ClubFilter } from '../_models/clubfilter';
 import { Service } from '../_models/service';
 import { Field } from '../_models/field';

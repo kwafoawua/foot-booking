@@ -1,11 +1,8 @@
-﻿import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import {throwError as observableThrowError } from 'rxjs';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
 import { appConfig } from '../app.config';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/throw';
 
 const TOKEN_HEADER_KEY = 'Authorization';
 
@@ -26,7 +23,7 @@ export class AuthInterceptor implements HttpInterceptor {
       // 401 unauthorized response so log user out of client
       window.location.href = '/login';
     }
-    return Observable.throw(error._body);
+    return observableThrowError(error._body);
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {

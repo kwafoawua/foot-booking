@@ -1,7 +1,8 @@
 import { Component, ChangeDetectionStrategy, ViewChild, TemplateRef, OnInit, Injectable } from '@angular/core';
+import localeEs from '@angular/common/locales/es';
 import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
-import { Subject } from 'rxjs/Subject';
-import { NgbDatepickerI18n, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subject } from 'rxjs';
+import { NgbDatepickerI18n, NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   CalendarEvent,
   CalendarEventAction,
@@ -51,6 +52,9 @@ export class CustomDatepickerI18n extends NgbDatepickerI18n {
 
   getMonthFullName(month: number): string {
     return this.getMonthShortName(month);
+  }
+  getDayAriaLabel(date: NgbDateStruct): string {
+    return this.getDayAriaLabel(date);
   }
 }
 

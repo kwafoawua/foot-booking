@@ -1,10 +1,9 @@
-﻿import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import 'rxjs/add/operator/map';
+import { Observable ,  BehaviorSubject } from 'rxjs';
+
 
 import { User } from '../_models/user';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
 export class UserService {

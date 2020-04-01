@@ -1,8 +1,9 @@
-﻿import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs';
+
 import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class AuthenticationService {
@@ -14,7 +15,7 @@ export class AuthenticationService {
   login(username: string, password: string) {
     console.log(username, password);
     return this.http.post('/users/authenticate', { username: username, password: password })
-      .map((response: any) => {
+      .pipe(map((response: any) => {
         // login successful if there's a jwt token in the response
         let user = response;
         if (user && user.token) {
@@ -22,7 +23,7 @@ export class AuthenticationService {
           localStorage.setItem('currentUser', JSON.stringify(user));
         }
         return user;
-      });
+      }));
   }
 
   logout() {
