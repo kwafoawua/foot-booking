@@ -19,7 +19,7 @@ module.exports.createComment = function (req,res) {
     addComment(comment)
         .then(function () {
             console.log('Se creo el comentario');
-            res.send(200).send('Se creo el comentario');
+            res.sendStatus(200).send('Se creo el comentario');
         })
         .catch(function (err) {
             res.status(400).send(err);

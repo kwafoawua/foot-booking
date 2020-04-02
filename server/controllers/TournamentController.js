@@ -19,7 +19,7 @@ module.exports.createTournament = function (req,res) {
     addTournament(tournament)
         .then(function () {
             console.log('Se creo el torneo');
-            res.send(200).send('Se creo el torneo');
+            res.sendStatus(200).send('Se creo el torneo');
         })
         .catch(function (err) {
             res.status(400).send(err);

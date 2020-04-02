@@ -17,7 +17,7 @@ module.exports.registerBooking = function (req,res) {
     addBooking(booking)
         .then(function () {
             console.log('Se creo la reserva');
-            res.send(200).send('Se creo la reserva');
+            res.sendStatus(200).send('Se creo la reserva');
         })
         .catch(function (err) {
             res.status(400).send(err);
