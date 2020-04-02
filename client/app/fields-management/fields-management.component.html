@@ -68,7 +68,7 @@
 <mwl-demo-utils-calendar-header
     [(view)]="view"
     [(viewDate)]="viewDate"
-    [(locale)]="locale">
+    [locale]="locale">
 </mwl-demo-utils-calendar-header>
 <br>
 
@@ -191,8 +191,15 @@
         <input type="text" class="form-control" formControlName="fee">
       </td>
       <td>
-        <select class="form-control" formControlName="status">
-          <option *ngFor="let status of bookings[0]?.estados" [value]="status">{{status}}
+        <select
+            class="form-control"
+            formControlName="status"
+            [(ngModel)]="statusDropdown"
+            (ngModelChange)="setStatusCreateBooking($event)">
+          <option *ngFor="let status of bookingStatus; index as i"
+                  [value]="status"
+                  [attr.selected]="i === 0">
+            {{status}}
           </option>
         </select>
       </td>
