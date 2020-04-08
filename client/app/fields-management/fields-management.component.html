@@ -191,14 +191,8 @@
         <input type="text" class="form-control" formControlName="fee">
       </td>
       <td>
-        <select
-            class="form-control"
-            formControlName="status"
-            [(ngModel)]="statusDropdown"
-            (ngModelChange)="setStatusCreateBooking($event)">
-          <option *ngFor="let status of bookingStatus; index as i"
-                  [value]="status"
-                  [attr.selected]="i === 0">
+        <select class="form-control" formControlName="status" (change)="setStatusCreateBooking($event)">
+          <option *ngFor="let status of bookingStatus" [ngValue]="status">
             {{status}}
           </option>
         </select>

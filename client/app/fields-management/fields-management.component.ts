@@ -114,7 +114,6 @@ export class FieldsManagementComponent implements OnInit {
   date: string;
   fieldIndex: number;
   fieldDropdown: any;
-  statusDropdown: any;
   nuevaReservaForm: FormGroup;
 
   actions: CalendarEventAction[] = [
@@ -430,8 +429,9 @@ export class FieldsManagementComponent implements OnInit {
 
   }
 
-  setStatusCreateBooking(status: any) {
-    console.log(status);
-    this.nuevaReservaForm.get('status').setValue(status);
+  setStatusCreateBooking($event: any) {
+    this.nuevaReservaForm.get('status').setValue($event.target.value, {
+      onlySelf: true
+    });
   }
 }
