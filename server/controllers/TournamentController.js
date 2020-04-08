@@ -19,7 +19,7 @@ module.exports.createTournament = function (req,res) {
     addTournament(tournament)
         .then(function () {
             console.log('Se creo el torneo');
-            res.sendStatus(200).send('Se creo el torneo');
+            res.status(200).send({ message: 'Se creo el torneo' });
         })
         .catch(function (err) {
             res.status(400).send(err);
@@ -38,7 +38,7 @@ function addTournament (tournament) {
         description: tournament.description,
         inicioInscripcion: tournament.inicioInscripcion,
         finInscripcion: tournament.finInscripcion,
-        inicioCampeonato: tournament.inicioCampeonato, 
+        inicioCampeonato: tournament.inicioCampeonato,
         finCampeonato: tournament.finCampeonato || null,
         cantEquipos: tournament.cantEquipos,
         fee: tournament.fee

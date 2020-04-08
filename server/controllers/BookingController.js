@@ -17,7 +17,7 @@ module.exports.registerBooking = function (req,res) {
     addBooking(booking)
         .then(function () {
             console.log('Se creo la reserva');
-            res.sendStatus(200).send('Se creo la reserva');
+            res.status(200).send({ message: 'Se creo la reserva' });
         })
         .catch(function (err) {
             res.status(400).send(err);
@@ -25,7 +25,6 @@ module.exports.registerBooking = function (req,res) {
 };
 function addBooking (booking) {
     var deferred = Q.defer();
-    console.log('El booking '+booking.field);
 
     var newBooking = new Booking({
         club: {

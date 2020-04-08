@@ -19,7 +19,7 @@ module.exports.createComment = function (req,res) {
     addComment(comment)
         .then(function () {
             console.log('Se creo el comentario');
-            res.sendStatus(200).send('Se creo el comentario');
+            res.status(200).send({ message: 'Se creo el comentario' });
         })
         .catch(function (err) {
             res.status(400).send(err);
@@ -107,7 +107,7 @@ function changeComment(newComment){
 
     return Comment.find({"_id":newComment.commentId, "autho.id":newComment.authorId}, function (err, comment){
         if (err) {
-            return deferred.reject("Nombre del error: " + err.name + " - Mensaje: " + err.message);            
+            return deferred.reject("Nombre del error: " + err.name + " - Mensaje: " + err.message);
         } else {
             comment.comment = newComment.commentMsg;
             comment.dateModify = Date.now();
