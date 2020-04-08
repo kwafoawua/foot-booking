@@ -21,7 +21,7 @@ module.exports.authenticate = function(req, res) {
                     res.send(user);
                 } else {
                     // authentication failed
-                    res.status(400).send('Usuario o contraseña incorrecto');
+                    res.status(400).send({ errorMessage: 'Usuario o contraseña incorrecto' });
                 }
             })
        .catch(function(err) {
@@ -100,7 +100,7 @@ module.exports.getByUsername = function (req, res) {
                 res.send(user);
             } else {
                 // not found
-                res.status(400).send('Username or password is incorrect');
+                res.status(400).send({ errorMessage: 'Username or password is incorrect' });
             }
         })
         .catch(function(err) {
@@ -161,7 +161,7 @@ module.exports.setEmail = function(req, res) {
             res.sendStatus(200);
         })
         .catch(function(error){
-            res.status(400).send('El email ya está en uso');
+            res.status(400).send({ errorMessage: 'El email ya está en uso' });
         });
 };
 
@@ -195,7 +195,7 @@ module.exports.setPassword = function(req, res) {
             res.sendStatus(200);
         })
         .catch(function(error){
-            res.status(400).send('No se pudo actualizar la contraseña');
+            res.status(400).send({ errorMessage: 'No se pudo actualizar la contraseña' });
         });
 };
 

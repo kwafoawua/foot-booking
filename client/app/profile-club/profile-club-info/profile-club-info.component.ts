@@ -4,19 +4,11 @@ import { Club } from '../../_models/club';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {} from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
-
-/*ng-chhips*/
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/first';
-
-import { Observable } from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
 import { isUndefined } from 'util';
-import { FileHolder } from 'angular2-image-upload/lib/image-upload/image-upload.component';
 import { FieldFormArrayComponent } from '../../register-club/field-form-array.component';
 import { ValidateAllFields } from '../../_helpers/validate-all-fields';
+import { FileHolder } from 'angular2-image-upload';
 
 @Component({
   moduleId: module.id,
@@ -178,7 +170,7 @@ export class ProfileClubInfoComponent implements OnInit {
   }
 
   public requestAutocompleteItemsFake = (text: string): Observable<string[]> => {
-    return Observable.of([
+    return of([
       'Asador', 'Buffet', 'Parking', 'Techado', 'Bar', 'Nocturno'
     ]);
   };

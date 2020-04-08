@@ -1,6 +1,5 @@
 export class Field {
-  _id: string;
-  description: string;
+  id: string;
   cantPlayers: number;
   fieldType: string;
   services: [ {

@@ -1,13 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs/Observable';
-/*ng-chhips*/
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/first';
-
+import { Observable, of } from 'rxjs';
 @Component({
   moduleId: module.id,
   selector: 'field-control',
@@ -42,7 +35,7 @@ export class FieldFormControlComponent {
   }
 
   public requestAutocompleteItemsFake = (text: string): Observable<string[]> => {
-    return Observable.of([
+    return of([
       'Techado', 'Marcador', 'Iluminación'
     ]);
   };

@@ -17,7 +17,7 @@ module.exports.registerBooking = function (req,res) {
     addBooking(booking)
         .then(function () {
             console.log('Se creo la reserva');
-            res.send(200).send('Se creo la reserva');
+            res.status(200).send({ message: 'Se creo la reserva' });
         })
         .catch(function (err) {
             res.status(400).send(err);
@@ -25,7 +25,6 @@ module.exports.registerBooking = function (req,res) {
 };
 function addBooking (booking) {
     var deferred = Q.defer();
-    console.log('El booking '+booking.field);
 
     var newBooking = new Booking({
         club: {
@@ -195,11 +194,11 @@ module.exports.findAllBookingsByFieldAndDay = function(req,res){
                 {"playingDate":JSON.parse(req.params.bookingfilter).playingDate},
                 {"status": {"$ne":"Cancelado"} }
             ]
-        }, function (err, booking) {
+        }, function (err, bookings) {
         if (err) {
             return res.status(500).send(err);
         }
-        res.status(200).send(booking);
+        res.status(200).send(bookings);
     });
 };
 

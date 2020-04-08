@@ -17,11 +17,12 @@
             // angular bundles
             '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
             '@angular/common': 'npm:@angular/common/bundles/common.umd.js',
+            '@angular/common/locales': 'npm:@angular/common/locales',
             '@angular/compiler': 'npm:@angular/compiler/bundles/compiler.umd.js',
             '@angular/platform-browser': 'npm:@angular/platform-browser/bundles/platform-browser.umd.js',
             '@angular/platform-browser-dynamic': 'npm:@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
-            '@angular/http': 'npm:@angular/http/bundles/http.umd.js',
-            '@angular/http/testing': 'npm:@angular/http/bundles/http-testing.umd.js',
+            '@angular/common/http': 'npm:@angular/common/bundles/common-http.umd.js',
+            'tslib': 'npm:tslib/tslib.js',
             '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
             '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
             '@angular/animations': 'npm:@angular/animations/bundles/animations.umd.js',
@@ -35,15 +36,18 @@
             'angular2-image-upload': 'node_modules/angular2-image-upload',
             'ng2-validation': 'npm:ng2-validation/bundles/ng2-validation.umd.js',
             'libphonenumber-js' : 'npm:libphonenumber-js/bundle/libphonenumber-js.min.js',
-            '@agm/core': 'node_modules/@agm/core/core.umd.js',
+            '@agm/core': 'node_modules/@agm/core/bundles/agm-core.umd.js',
             'ng2-date-picker':'npm:ng2-date-picker',
             'moment' : 'npm:moment/moment.js',
             'traceur' : 'npm:traceur/bin',
-            'angular-calendar' : 'npm:angular-calendar/dist/umd/angular-calendar.js',
-            'calendar-utils': 'npm:calendar-utils/dist/umd/calendar-utils.js',
-            'angular-resizable-element': 'npm:angular-resizable-element/dist/umd/angular-resizable-element.js',
-            'angular-draggable-droppable': 'npm:angular-draggable-droppable/dist/umd/angular-draggable-droppable.js',
+            'angular-calendar' : 'npm:angular-calendar/bundles/angular-calendar.umd.js',
+            'angular-calendar/date-adapters/date-fns': 'npm:angular-calendar/date-adapters/date-fns/index.js',
+            'calendar-utils': 'npm:calendar-utils/bundles/calendar-utils.umd.js',
+            'calendar-utils/date-adapters/date-fns': 'npm:calendar-utils/date-adapters/date-fns/index.js',
+            'angular-resizable-element': 'npm:angular-resizable-element/bundles/angular-resizable-element.umd.js',
+            'angular-draggable-droppable': 'npm:angular-draggable-droppable/bundles/angular-draggable-droppable.umd.js',
             'date-fns': 'npm:date-fns',
+            'positioning': 'npm:positioning/dist/umd/positioning.js',
             '@ng-bootstrap/ng-bootstrap': 'npm:@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.js',
             '@swimlane/ngx-charts':'npm:@swimlane/ngx-charts/release/index.js',
             'd3-array': 'npm:d3-array/build/d3-array.js',
@@ -82,10 +86,18 @@
                 main: 'traceur.js'
             },
             rxjs: {
+                main: 'index.js',
+                defaultExtension: 'js'
+            },
+            'rxjs/operators': {
+                main: 'index.js',
+                defaultExtension: 'js'
+            },
+            '@angular/common/locales': {
                 defaultExtension: 'js'
             },
             'angular2-image-upload': {
-                main: './index.js',
+                main: './bundles/angular2-image-upload.umd.js',
                 defaultExtension: 'js'
             },
             'ngx-chips': {

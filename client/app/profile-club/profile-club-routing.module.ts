@@ -10,7 +10,7 @@ import {
 
 const profileClubRoutes: Routes = [
   {
-    path: 'club/profile',
+    path: 'profile-club/:id',
     component: ProfileClubComponent,
     children: [
       {
@@ -41,5 +41,4 @@ const profileClubRoutes: Routes = [
     RouterModule
   ]
 })
-export class ProfileClubRoutingModule {
-}
+export class ProfileClubRoutingModule {}

@@ -1,6 +1,6 @@
-﻿import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { AlertService, AuthenticationService } from '../_services/index';
 
 @Component({
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         data => {
           if (data.rol == 'Club')
-            this.router.navigate([ '/club/profile', data.playerOrClubId ]);
+            this.router.navigate([ '/profile-club', data.playerOrClubId ]);
           else
             this.router.navigate([ '', data.playerOrClubId ]);
           /*
@@ -45,7 +45,8 @@ export class LoginComponent implements OnInit {
           */
         },
         error => {
-          this.alertService.error(error);
+          console.log(error);
+          this.alertService.error(error.error);
           this.loading = false;
         });
   }
