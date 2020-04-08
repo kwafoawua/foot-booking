@@ -138,10 +138,8 @@ export class FieldsManagementComponent implements OnInit {
 
   ngOnInit() {
     this.getBookings(this._id);
-    //this.getBookingsByStatus(this._id, "Cancelado");
     this.getClub(this._id);
     this.createForm();
-
   }
 
   private getClub(_id: string) {
@@ -171,57 +169,9 @@ export class FieldsManagementComponent implements OnInit {
       playingDate: [ null, Validators.required ],
       playingTime: [ null, Validators.required ],
       fee: null,
-      status: [ this.bookingStatus[0], Validators.required ],
+      status: [ 'Reservado', Validators.required ],
     });
   }
-
-  // private getBookingsByStatus(_id: string, bookingStatus: string){
-  //     this.bookingService.findAllByReferenceId(_id).subscribe((bookings)=>{
-  //         this.bookings = bookings;
-  //         const eventArray :CalendarEvent[] = [];
-  //         this.bookings.forEach((booking) => {
-  //             if (booking.status == bookingStatus) {
-  //
-  //                 let colorStatus: any;
-  //                 switch (booking.status){
-  //
-  //                     case 'Reservado':
-  //                         colorStatus= colors.blue;
-  //                         break;
-  //                     case 'Cancelado':
-  //                         colorStatus = colors.red;
-  //                         break;
-  //                     case 'Asistido':
-  //                         colorStatus = colors.green;
-  //                         break;
-  //                     case 'Pendiente de Pago':
-  //                         colorStatus = colors.yellow;
-  //                         break;
-  //                     default:
-  //                         colorStatus = colors.yellow;
-  //                         break;
-  //                 }
-  //                 //console.log(colorStatus);
-  //                 let event = {
-  //                     start: startOfDay(booking.playingDate),
-  //                     end: startOfDay(booking.playingDate),
-  //                     title: booking.field.fieldName + ' Horario: '+booking.playingTime+' Cliente: '+booking.player.name+' '+booking.player.lastName,
-  //                     color: colorStatus,
-  //                     actions: this.actions,
-  //                     booking: booking
-  //
-  //                 };
-  //                 eventArray.push(event);
-  //
-  //             }
-  //         });
-  //             this.events = eventArray;
-  //             if(this.events) {
-  //                 this.refresh.next();
-  //             }
-  //         console.log(this.events);
-  //     });
-  // }
 
   private getBookings(_id: string) {
     this.bookingService.findAllByReferenceId(_id).subscribe((bookings) => {
@@ -348,47 +298,27 @@ export class FieldsManagementComponent implements OnInit {
       this.clubService.guardarReserva(this.nuevaReservaForm.value)
         .subscribe(
           booking => {
-
             this.nuevaReservaForm.get('fieldId').setValue(null);
             this.nuevaReservaForm.get('fieldName').setValue(null);
             this.nuevaReservaForm.get('fieldCantPlayers').setValue(null);
             this.nuevaReservaForm.get('fieldPrice').setValue(null);
             this.nuevaReservaForm.get('playingDate').setValue(null);
             this.nuevaReservaForm.get('fee').setValue(null);
-            this.nuevaReservaForm.get('status').setValue(this.bookingStatus[0]);
+            this.nuevaReservaForm.get('status').setValue('Reservado');
             this.nuevaReservaForm.get('playingTime').setValue(null);
             this.nuevaReservaForm.get('playerName').setValue(null);
             this.nuevaReservaForm.get('playerLastName').setValue(null);
             this.nuevaReservaForm.get('playerPhoneNumber').setValue(null);
 
             this.getBookings(this._id);
-
-
           },
           error => {
             this.alertService.error(error);
-
           });
 
     }
 
   }
-
-//     filterbyStatusChange(status: string):void {
-//         console.log("Entra al status change con status " + status);
-//         if (status == "Todas" || status == "") {
-//             this.getBookings(this._id);
-//         } else {
-//             this.getBookingsByStatus(this._id, status);
-//         }
-//     }
-//
-//     filterByFieldName(fieldName: string):void {
-//         console.log("Entra al status change con fieldName " + fieldName);
-//         if (fieldName == "Todas" || fieldName == "") {
-//             this.getBookings(this._id);
-//         }
-//     }
 
   loadHoursValues(date: any) {
     console.log('la fecha: ' + date);
