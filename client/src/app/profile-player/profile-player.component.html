@@ -1,0 +1,65 @@
+<div class="container-fluid h100">
+  <div class="row h-100 justify-content-center align-items-center" id="profilePlayerContainer">
+    <!-- Div del lateral izquiedo, donde estan las opciones y la imagen del perfil -->
+    <div class="col-8">
+      <div class="container">
+        <div class="row profile">
+          <div class="col-xl-5">
+            <div class="card">
+              <!-- SIDEBAR USERPIC -->
+              <div class="profile-userpic">
+                <img src="../../assets/default-avatar/default-avatar.png"
+                     class="card-img-top img-fluid rounded mx-auto d-block rounded" alt="">
+              </div>
+              <!-- END SIDEBAR USERPIC -->
+              <!-- SIDEBAR USER TITLE -->
+              <div class="card-body profile-usertitle" style="text-align: center;">
+                <div class="profile-usertitle-name">
+                  <h3>{{player?.name}} {{player?.lastName}}</h3>
+                </div>
+                <div class="profile-usertitle-job" style="text-align: center;">
+                  <h4 style="color: #00a651">{{currentUser?.username}}</h4>
+                </div>
+              </div>
+              <!-- END SIDEBAR USER TITLE -->
+              <!-- SIDEBAR MENU -->
+              <div class="profile-usermenu">
+                <ul class="list-group list-group-flush">
+                  <li>
+                    <a (click)="goToUser()" data-toggle="tab" id="1_tab"
+                       class="list-group-item list-group-item-action active" data-toggle="list" role="tab"
+                       aria-controls="home">
+                      <i class="fa fa-user" aria-hidden="true"></i>
+                      &nbsp;&nbsp;Usuario </a>
+                  </li>
+                  <li>
+                    <a (click)="goToEdit()" data-toggle="tab" id="2_tab" class="list-group-item list-group-item-action"
+                       data-toggle="list" role="tab" aria-controls="home">
+                      <i class="fa fa-pencil" aria-hidden="true"></i>
+                      &nbsp;&nbsp;Editar Perfil</a>
+                  </li>
+                  <li>
+                    <a (click)="goToConfig()" data-toggle="tab" id="3_tab"
+                       class="list-group-item list-group-item-action" data-toggle="list" role="tab"
+                       aria-controls="home">
+                      <i class="fa fa-cog" aria-hidden="true"></i>
+                      &nbsp;&nbsp;Configuracion</a>
+                  </li>
+                </ul>
+              </div>
+              <!-- END MENU -->
+            </div>
+          </div>
+          <!-- Div del lateral derecho -->
+          <div class="col-xl-6">
+            <div class="card">
+              <div class="card-body">
+                <router-outlet></router-outlet>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
