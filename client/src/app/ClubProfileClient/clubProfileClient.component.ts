@@ -11,6 +11,7 @@ import { Field } from '../_models/field';
 import { Booking } from '../_models/booking';
 import { BookingFilter } from '../_models/bookingfilter';
 import * as moment from 'moment';
+import { environment } from '../../environments/environment';
 
 
 @Component({
@@ -26,7 +27,7 @@ export class ProfileClubClientComponent implements OnInit {
   horasDisponibles: string [] = [];
   club: Club;
   galery: String [];
-
+  uploadsBaseURL = environment.uploadsBaseURL;
   NotanUser: Boolean;
   model: any = {};
   username: any;

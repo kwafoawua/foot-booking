@@ -9,6 +9,7 @@ import { isUndefined } from 'util';
 import { FieldFormArrayComponent } from '../../register-club/field-form-array.component';
 import { ValidateAllFields } from '../../_helpers/validate-all-fields';
 import { FileHolder } from 'angular2-image-upload';
+import { environment } from '../../../environments/environment';
 
 @Component({
   templateUrl: 'profile-club-info.component.html'
@@ -22,6 +23,8 @@ export class ProfileClubInfoComponent implements OnInit {
   profileGallery = [];
   galleryToUpload: File[] = [];
   loading = false;
+  uploadsBaseURL = environment.uploadsBaseURL;
+
 
   constructor(private userService: UserService,
               private clubService: ClubService,
@@ -95,7 +98,7 @@ export class ProfileClubInfoComponent implements OnInit {
 
       }
       this.profileImage = [
-        '/uploads/' + this.club.profileImg.replace(/ /g, '%20')
+        this.uploadsBaseURL + this.club.profileImg.replace(/ /g, '%20')
       ];
       console.log(this.club.galleryImg);
       const relativeGallery = [];
@@ -103,7 +106,7 @@ export class ProfileClubInfoComponent implements OnInit {
         let newItem = item.replace(/ /g, '%20');
         console.log(newItem);
 
-        let relativePath = '/uploads/' + newItem;
+        let relativePath =   this.uploadsBaseURL + newItem;
         relativeGallery.push(relativePath);
       });
       this.profileGallery = relativeGallery;

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService, AlertService } from '../_services/index';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Component({
   templateUrl: 'profile-club.component.html',
@@ -11,6 +12,7 @@ export class ProfileClubComponent implements OnInit {
   //  user: Observable<any>;
   club: any = {};
   username: string;
+  uploadsBaseURL = environment.uploadsBaseURL;
 
   //user: any = {};
 

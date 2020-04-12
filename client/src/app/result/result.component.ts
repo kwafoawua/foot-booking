@@ -15,6 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ClubFilter } from '../_models/clubfilter';
 import { Service } from '../_models/service';
 import { Field } from '../_models/field';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'results',
@@ -39,6 +40,7 @@ export class ResultComponent implements OnInit {
   cantPlayers: any;
   minPrice: any;
   maxPrice: any;
+  uploadsBaseURL = environment.uploadsBaseURL;
 
   constructor(
     private activatedRoute: ActivatedRoute,

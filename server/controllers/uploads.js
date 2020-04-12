@@ -6,7 +6,7 @@ var multer = require('multer');
 var storage = multer.diskStorage({
     // destino del fichero
     destination: function (req, file, cb) {
-        cb(null, '../client/uploads/');
+        cb(null, './uploads/');
     },
     // renombrar fichero
     filename: function (req, file, cb) {

@@ -42,4 +42,4 @@ client/src/app/**/*.js.map
 
 .idea
 uploads
-client/uploads/*
+server/uploads/*
