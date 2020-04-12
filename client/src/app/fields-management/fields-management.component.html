@@ -160,8 +160,8 @@
       </td>
       <td>
         <input (ngModelChange)="loadHoursValues($event)" [ngModelOptions]="{standalone: true}"
-               class="btn dropdown-toggle" [dpDayPicker]="config" name="datePicker" placeholder="DD-MM-AAAA"
-               id="calendar" inputElementConteiner="#inputConteiner" theme="dp-material" [(ngModel)]="date">
+               class="form-control" [dpDayPicker]="config" name="datePicker" placeholder="DD-MM-AAAA"
+               id="calendar" autocomplete="off" inputElementConteiner="#inputConteiner" theme="dp-material" [(ngModel)]="date">
       </td>
       <td>
         <div class="dropdown">

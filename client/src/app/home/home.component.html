@@ -19,7 +19,7 @@
           </div><!-- contaioner -->
         </div><!-- item -->
 
-        <div class="carousel-item" id="carousel-image" style="background-image:url(images/bg/5.jpg);">
+        <div class="carousel-item" id="carousel-image" style="background-image:url(../../assets/bg/5.jpg);">
           <div class="container">
             <div class="row">
               <div class="col-md-9">
@@ -34,7 +34,7 @@
           </div><!-- contaioner -->
         </div><!-- item -->
 
-        <div class="carousel-item" style="background-image:url(images/bg/3.jpg);">
+        <div class="carousel-item" style="background-image:url(../../assets/bg/3.jpg);">
           <div class="container">
             <div class="row">
               <div class="col-md-9">
@@ -72,18 +72,17 @@
             <ul>
               <li>
                 <input class="form-control" [dpDayPicker]="config" name="datePicker" placeholder="DD-MM-AAAA"
-                       id="calendar" theme="dp-material" formControlName="date">
+                       id="calendar" theme="dp-material" formControlName="date" autocomplete="off">
               </li>
 
               <li>
-                <div class="dropdown category-dropdown">
-                  <a data-toggle="dropdown" href="#"><span class="change-text">Qué vas a jugar?</span> <i
-                      class="fa fa-angle-down"></i></a>
-                  <ul class="dropdown-menu category-change">
-                    <li class="dropdown-item"><a href="#">Privado</a></li>
-                    <li class="dropdown-item"><a href="#">Campeonato</a></li>
+                <div ngbDropdown class="dropdown category-dropdown">
+                  <span id="dropdownBasic1" ngbDropdownToggle class="change-text">Qué vas a jugar?</span>
+                  <ul ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <li class="dropdown-item" ngbDropdownItem>Privado</li>
+                    <li class="dropdown-item" ngbDropdownItem>Campeonato</li>
                   </ul>
-                </div><!-- category-change -->
+                </div>
               </li>
 
               <li>
