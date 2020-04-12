@@ -8,67 +8,47 @@ var _ = require('lodash');
 var Player = require('../models/Player');
 var User = require('../models/User');
 var Q = require('q');
+const utils = require('../utils');
 
 /**
  * Create a Player
  */
-module.exports.registerPlayer = function (req,res) {
-    console.log(req);
-    addPlayer(req.body)
-    .then(function () {
-            res.sendStatus(200);
-        })
-        .catch(function (err) {
-            res.status(400).send(err);
-        });
+module.exports.registerPlayer = async function (req,res) {
+    try {
+        await addPlayer(req.body);
+        res.status(200).send({success: 'Usuario creado con éxito'});
+    } catch (error) {
+        console.log('error',error);
+        res.status(400).send(error.message);
+    }
 };
-    
-function addPlayer (player) {
+
+async function addPlayer (player) {
     console.log('entra al player');
-    console.log(player);
-    var deferred = Q.defer();
-    User.findOne({$or : [{ 'username': player.username }, {'email': player.email}]},
-        function(err, user) {
-            if(err) return deferred.reject(err.name + ' : ' + err.message);
+    const user = await User.findOne({$or : [{ 'username': player.username }, {'email': player.email}]}).exec();
+    if(user) {
+        return utils.throwError('El nombre '+player.username+' o email '+player.email+' está en uso.')
+    }
+    const newPlayer = new Player({
+        name: player.name,
+        lastName: player.lastName,
+        birthDate: player.birthDate,
+        phoneNumber: player.phoneNumber,
+        dni : player.dni
+    });
 
-            if (user) {
-                console.log(err);
-                return deferred.reject('El nombre'+player.username+' o email '+player.email+' está en uso.');
-
-            } else {
-
-                var newPlayer = new Player({
-                    name: player.name,
-                    lastName: player.lastName, 
-                    birthDate: player.birthDate,
-                    phoneNumber: player.phoneNumber,
-                    dni : player.dni
-                });
-
-                var newUser = new User({
-                    username: player.username.toLowerCase(),
-                    email: player.email,
-                    creator: newPlayer,
-                    rol: 'Player'
-                });
-
-                newUser.password = newUser.setPassword(player.password);
-
-                 newUser.save(function (err) {
-                    if(err) {
-                        return deferred.reject(err.name + ' : ' + err.message);
-                    }
-                    console.log('nuevo jugador '+ newPlayer);
-                    newPlayer.save(function (err) {
-                        if(err) return deferred.reject(err.name + ' : ' + err.message);
-                        console.log('nuevo user'+newUser);
-                        return deferred.resolve();
-                    });
-                 });
-            }
-
-        });
-        return deferred.promise;
+    const newUser = new User({
+        username: player.username.toLowerCase(),
+        email: player.email,
+        creator: newPlayer,
+        rol: 'Player'
+    });
+    newUser.password = newUser.setPassword(player.password);
+    const savedUser = await newUser.save();
+    const savedPlayer = await newPlayer.save();
+    if(!savedUser || !savedPlayer) {
+        return utils.throwError('No se pudo crear el usuario');
+    }
 };
 
 
@@ -136,7 +116,7 @@ module.exports.updatePlayer = function(req, res) {
                 }
             });
         }
-    });  
+    });
 };
 
 /**
@@ -147,7 +127,7 @@ module.exports.deletePlayer = function(req, res) {
         if (err) {
            return res.status(500).send(err);
         }
-        
+
         player.remove(function(err) {
             if (err) {return res.status(500).send(err);}
 
@@ -180,5 +160,5 @@ module.exports.getPlayerByUserId = function(req, res) {
                 }
             });
         }
-    }); 
+    });
 };
