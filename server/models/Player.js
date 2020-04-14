@@ -14,8 +14,8 @@ var playerSchema = new Schema({
 	lastName: {type: String, required: true},
 	birthDate: Date,
 	phoneNumber: String,
-	biography: {type: String, required: false},
-	dni: {type: Number, required: true}
+	biography: String,
+	dni: Number,
 });
 
 module.exports = mongoose.model('Player', playerSchema);
