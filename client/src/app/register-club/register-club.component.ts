@@ -12,6 +12,8 @@ import { FileHolder } from 'angular2-image-upload';
 import { FieldFormArrayComponent } from './field-form-array.component';
 import { PasswordValidation } from '../_helpers/validate-password';
 
+declare var google: any;
+
 @Component({
   templateUrl: 'register-club.component.html'
 })
@@ -47,10 +49,9 @@ export class RegisterClubComponent implements OnInit {
     this.lat = -31.4;
     this.lng = -64.1833;
 
-    this.setCurrentPosition();
-
     //load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
+      this.setCurrentPosition();
       let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
         types: [ 'address' ]
       });

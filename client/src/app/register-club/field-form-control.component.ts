@@ -24,11 +24,11 @@ export class FieldFormControlComponent {
 
   static buildField() {
     return new FormGroup({
-      fieldName: new FormControl(''),
-      cantPlayers: new FormControl(''),
-      fieldType: new FormControl(''),
-      services: new FormControl([]),
-      price: new FormControl('')
+      fieldName: new FormControl('', Validators.required),
+      cantPlayers: new FormControl('', Validators.required),
+      fieldType: new FormControl('', Validators.required),
+      services: new FormControl([], Validators.required),
+      price: new FormControl('', Validators.required)
 
     });
   }

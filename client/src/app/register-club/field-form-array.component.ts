@@ -2,7 +2,7 @@
  * Created by USUARIO on 26/09/2017.
  */
 import { Component, Input } from '@angular/core';
-import { FormArray } from '@angular/forms';
+import { FormArray, Validators } from '@angular/forms';
 import { FieldFormControlComponent } from './field-form-control.component';
 
 @Component({
@@ -20,6 +20,6 @@ export class FieldFormArrayComponent {
 
   static initFields() {
     return new FormArray([
-      FieldFormControlComponent.buildField() ])
+      FieldFormControlComponent.buildField() ], [Validators.required])
   }
 }
