@@ -19,7 +19,7 @@ module.exports.registerPlayer = async function (req,res) {
         res.status(200).send({success: 'Usuario creado con éxito'});
     } catch (error) {
         console.log('error',error);
-        res.status(400).send(error.message);
+        res.status(400).send({ errorMessage: error.message });
     }
 };
 
