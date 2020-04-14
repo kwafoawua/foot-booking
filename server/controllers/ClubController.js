@@ -10,90 +10,59 @@ var User = require('../models/User');
 var Q = require('q');
 var multer = require('./uploads');
 var async = require('async');
+const utils = require('../utils');
 
 var mailingController = require('./mailing');
 
 /**
  * Create a Club
  */
-module.exports.registerClub = function (req,res) {
-    //console.log(req);
-    //console.log(req.file);
-    var galleryPath = [];
-    var profilePath = req.files.profile[0].filename;
-    for(var i = 0; i < req.files.gallery.length; i++) {
-        galleryPath.push(req.files.gallery[i].filename);
+module.exports.registerClub = async function (req,res) {
+    try {
+        var galleryPath = [];
+        var profilePath = req.files.profile[0].filename;
+        for(var i = 0; i < req.files.gallery.length; i++) {
+            galleryPath.push(req.files.gallery[i].filename);
+        }
+        var club = JSON.parse(req.body.body);
+        await addClub(club,profilePath, galleryPath);
+        res.status(200).send({ success: 'El club se creó exitosamente.'});
+    } catch(error) {
+        res.status(400).send({ errorMessage: error.message });
     }
-    //console.log(req.files['gallery[]']);
-    var club = JSON.parse(req.body.body);
-     addClub(club,profilePath, galleryPath)
-    .then(function () {
-            res.sendStatus(200);
-        })
-        .catch(function (err) {
-            res.status(400).send(err);
-        });
-
 };
-function addClub (club, profilePath, galleryPath) {
+async function addClub (club, profilePath, galleryPath) {
     console.log('entra al club');
-    //var clubcoso = JSON.parse(fullClub.body);
-    //console.log(clubcoso);
+    const user = await User.findOne({$or : [{ 'username': club.username }, {'email': club.email}]}).exec();
+    if(user) {
+        return utils.throwError('El nombre '+club.username+' o email '+club.email+' está en uso.');
+    }
+    const newClub = new Club({
+        name: club.name,
+        address: {
+            lat: club.address.lat,
+            lng: club.address.lng,
+            address: club.address.address
+        },
+        phoneNumber: club.phoneNumber,
+        fields: club.fields || null,
+        services: club.services,
+        socialMedia: club.socialMedia || null,
+        profileImg: profilePath,
+        galleryImg: galleryPath,
+        description: club.description
+    });
 
-    var deferred = Q.defer();
-    User.findOne({$or : [{ 'username': club.username }, {'email': club.email}]},
-        function(err, user) {
-            if(err) return deferred.reject(err.name + ' : ' + err.message);
+    var newUser = new User({
+        username: club.user.username.toLowerCase(),
+        email: club.user.email,
+        creator: newClub,
+        rol: 'Club'
+    });
+    newUser.password = newUser.setPassword(club.user.password);
 
-            if (user) {
-                console.log(err);
-                return deferred.reject('El nombre'+club.username+' o email '+club.email+' está en uso.');
-
-            } else {
-
-                var newClub = new Club({
-                    name: club.name,
-                    address: {
-                        lat: club.address.lat,
-                        lng: club.address.lng,
-                        address: club.address.address
-                    },
-                    phoneNumber: club.phoneNumber,
-                    fields: club.fields || null,
-                    services: club.services,
-                    socialMedia: club.socialMedia || null,
-                    profileImg: profilePath,
-                    galleryImg: galleryPath,
-                    description: club.description
-                });
-
-                var newUser = new User({
-                    username: club.user.username.toLowerCase(),
-                    email: club.user.email,
-                    creator: newClub,
-                    rol: 'Club'
-                });
-
-               // async.each()
-
-                newUser.password = newUser.setPassword(club.user.password);
-
-                newUser.save(function (err) {
-                    if(err) {
-                        return deferred.reject(err.name + ' : ' + err.message);
-                    }
-                    console.log('nuevo usuario'+newClub);
-                    newClub.save(function (err) {
-                        if(err) return deferred.reject(err.name + ' : ' + err.message);
-                        console.log('nuevo club'+newUser);
-                        mailingController.sendRegistrationMail(newUser.username,newUser.email);
-                        return deferred.resolve();
-                    });
-                 });
-            }
-
-        });
-        return deferred.promise;
+    await newClub.save();
+    await newUser.save();
 
 }
 
@@ -190,7 +159,7 @@ module.exports.deleteClub = function(req, res) {
         if (err) {
            return res.status(500).send(err);
         }
-        
+
         club.remove(function(err) {
             if (err) {return res.status(500).send(err);}
 
@@ -228,17 +197,17 @@ module.exports.findClubsByMultipleFilter = function (req,res) {
     var cantPlayers = [];
     // @priceMax tiene que ser un número muy grande para que por defecto traiga clubes con precio menor al precio maximo
     // es decir, si no se ingresa esta campo deberia traer todos
-    var priceMax = 99999; 
+    var priceMax = 99999;
     var priceMin = 0;
 
     /*
-    *   Se realizan validaciones para ver si toman un valor por defecto o el propio de la consulta en el 
+    *   Se realizan validaciones para ver si toman un valor por defecto o el propio de la consulta en el
     *   caso de que venga un valor
     */
     if (JSON.parse(req.params.clubfilter).cantPlayers == undefined) {
         cantPlayers.push(5,7,11);
     } else {
-        cantPlayers.push(JSON.parse(req.params.clubfilter).cantPlayers);        
+        cantPlayers.push(JSON.parse(req.params.clubfilter).cantPlayers);
     }
     if (JSON.parse(req.params.clubfilter).maxPrice != null) {
         priceMax = JSON.parse(req.params.clubfilter).maxPrice;
@@ -246,8 +215,8 @@ module.exports.findClubsByMultipleFilter = function (req,res) {
     if (JSON.parse(req.params.clubfilter).minPrice != null) {
         priceMin = JSON.parse(req.params.clubfilter).minPrice;
     }
-    
-    
+
+
     // dentro de este if estan las 2 posibles consultas
     if (JSON.parse(req.params.clubfilter).services.length==0) {
         // como no se selecciono un tipo de servicio traigo por todos los servicios

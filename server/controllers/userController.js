@@ -4,10 +4,7 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const config = require('config.json');
 const bcrypt = require('bcryptjs');
-
-function throwError(message) {
-  throw new Error(message);
-}
+const utlis = require('../utils');
 
 module.exports.authenticate = async function(req, res) {
   try {
@@ -22,7 +19,7 @@ module.exports.authenticate = async function(req, res) {
 async function getRol(username){
     console.log(username);
     const user = await User.findOne({username: username});
-    return user ? user.rol : throwError(Errors.NO_USER);
+    return user ? user.rol : utils.throwError(Errors.NO_USER);
 }
 
 async function findUser(username, password, rol) {
@@ -31,7 +28,7 @@ async function findUser(username, password, rol) {
 
 	const user = await User.findOne({ username: username }).populate('creator', null, rol);
 	if(!user) {
-	  return throwError(Errors.NO_USER);
+	  return utils.throwError(Errors.NO_USER);
   }
   if (user && bcrypt.compareSync(password, user.password)) {
     console.log('existe');
@@ -44,7 +41,7 @@ async function findUser(username, password, rol) {
       token: jwt.sign({ sub: user._id }, config.secret)
     };
   } else {
-    return throwError(Errors.INVALID_USER);
+    return utils.throwError(Errors.INVALID_USER);
   }
 }
 
@@ -63,7 +60,7 @@ module.exports.getByUsername = async function (req, res) {
 async function findByUsername(username, rol) {
   const userByUsername = await User.findOne({ username: username }).select("-password").populate('creator', null, rol).exec();
   if(!userByUsername) {
-    return throwError(Errors.NO_USER);
+    return utils.throwError(Errors.NO_USER);
   }
   return userByUsername;
 }

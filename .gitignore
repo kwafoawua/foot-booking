@@ -37,9 +37,9 @@ typings
 .node_repl_history
 
 # Generated files
-client/app/**/*.js
-client/app/**/*.js.map
+client/src/app/**/*.js
+client/src/app/**/*.js.map
 
 .idea
 uploads
-client/uploads/*
+server/uploads/*
