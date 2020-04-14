@@ -1,14 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
+
+import { auth } from 'firebase/app';
+import { AngularFireAuth } from "@angular/fire/auth";
 
 @Injectable()
 export class AuthenticationService {
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private afAuth: AngularFireAuth
+) {
     this.getUserAuthenticated();
   }
 
@@ -29,6 +35,7 @@ export class AuthenticationService {
   logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
+    this.SignOut();
   }
 
   public isAuthenticated(): boolean {
@@ -40,7 +47,7 @@ export class AuthenticationService {
     }
   }
 
-  public getUserAuthenticated(): Observable<string> {
+  public getUserAuthenticated(): String {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (currentUser != undefined) {
       return currentUser.username;
@@ -63,6 +70,31 @@ export class AuthenticationService {
     if (currentUser != undefined) {
       return this.http.get('/player', currentUser._id);
     }
+  }
+
+  // Sign in with Google
+  GoogleAuth() {
+    return this.AuthLogin(new auth.GoogleAuthProvider());
+  }
+
+  // Sign in with Google
+  FacebookAuth() {
+    return this.AuthLogin(new auth.FacebookAuthProvider());
+  }
+
+  // Auth logic to run auth providers
+  AuthLogin(provider) {
+    return this.afAuth.auth.signInWithPopup(provider)
+      .then((result) => {
+        console.log('logeo con google: ', result);
+      }).catch((error) => {
+        window.alert(error)
+      })
+  }
+
+  SignOut() {
+    return this.afAuth.auth.signOut().then(() => {
+    });
   }
 
 }

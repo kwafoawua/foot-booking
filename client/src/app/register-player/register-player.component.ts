@@ -16,9 +16,6 @@ export class RegisterPlayerComponent {
     private alertService: AlertService) {
   }
 
-//    submitted = false;
-//    onSubmit() { this.submitted = true; }
-
   registerPlayer() {
     this.loading = true;
     this.playerService.create(this.model)
@@ -28,7 +25,8 @@ export class RegisterPlayerComponent {
           this.router.navigate([ '/login' ]);
         },
         error => {
-          this.alertService.error(error);
+          console.log(error);
+          this.alertService.error(error.error.errorMessage);
           this.loading = false;
         });
   }

@@ -5,6 +5,8 @@
 export const environment = {
   production: false,
   uploadsBaseURL: 'http://localhost:4000/uploads/',
+  firebase: {
+  },
 };
 
 /*

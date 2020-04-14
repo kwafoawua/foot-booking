@@ -35,6 +35,9 @@ export class SiteHeaderComponent implements OnInit {
     }
   }
 
+  showUserName () {
+    return this.auth.getUserAuthenticated();
+  }
   public goToMisReservas() {
     this.router.navigate([ '/player/mis-reservas' ]);
   }
