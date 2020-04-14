@@ -17,8 +17,7 @@ var userSchema = new Schema({
     email: { type: String, required: true, lowercase: true, unique: true },
     createdOn: { type: Date, default: Date.now},
     creator: {type: Schema.ObjectId, required: true},
-    rol: String
-
+    rol: { type: String, default: 'Player' },
 });
 
 
