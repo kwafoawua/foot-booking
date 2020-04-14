@@ -28,7 +28,7 @@ module.exports.registerClub = async function (req,res) {
         await addClub(club,profilePath, galleryPath);
         res.status(200).send({ success: 'El club se creó exitosamente.'});
     } catch(error) {
-        res.status(400).send(error.message);
+        res.status(400).send({ errorMessage: error.message });
     }
 };
 async function addClub (club, profilePath, galleryPath) {
@@ -61,8 +61,9 @@ async function addClub (club, profilePath, galleryPath) {
     });
     newUser.password = newUser.setPassword(club.user.password);
 
-    await newUser.save();
     await newClub.save();
+    await newUser.save();
+
 }
 
 /**
