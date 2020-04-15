@@ -1,21 +1,30 @@
 ﻿<div class="row" id="loginContainer">
-  <div class="card card-login col-md-4 mx-auto mt-5">
+  <div class="card card-login col-12 col-md-6 mx-auto mt-5">
     <div class="card-header">Inicio de sesión</div>
     <div class="card-body">
       <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
         <!-- Calling GoogleAuth Api from AuthService -->
-        <div class="form-group">
-          <button type="button" class="btn googleBtn" (click)="authenticationService.GoogleAuth()">
-            <i class="fa fa-google"></i>
-            Log in with Google
+        <div class="form-group col-12 social-login-container">
+          <button type="button" class="google-btn" (click)="authenticationService.GoogleAuth()">
+            <div class="social-icon-wrapper">
+              <img class="icon" src="../../assets/icons/Google__G__Logo.svg"/>
+            </div>
+            <p class="social-btn-text"><b>Continuar con Google</b></p>
           </button>
         </div>
-        <!-- Calling GoogleAuth Api from AuthService -->
-        <div class="form-group">
-          <button type="button" class="btn facebookBtn" (click)="authenticationService.FacebookAuth()">
-            <i class="fa fa-facebook-official"></i>
-            Log in with Facebook
+        <!-- Calling Facebook Api from AuthService -->
+        <div class="form-group col-12 social-login-container">
+          <button type="button" class="facebook-btn" (click)="authenticationService.FacebookAuth()">
+            <div class="social-icon-wrapper">
+              <i class="icon fa fa-facebook-official x3"></i>
+            </div>
+            <p class="social-btn-text"><b>Continuar con Facebook</b></p>
           </button>
+        </div>
+        <div class="row">
+          <div class="social-or-content col-12">
+            <p class="social-or-text">ó</p>
+          </div>
         </div>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
           <label class="label-form" for="username">Nombre de usuario</label>
