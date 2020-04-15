@@ -6,7 +6,7 @@ import { UserService } from '../_services/index';
 import { ClubService } from '../_services/index';
 import { Booking } from '../_models/booking';
 import { Player } from '../_models/index';
-import { PlayerService, AlertService, AuthenticationService } from '../_services/index';
+import { PlayerService, AlertService, AuthService } from '../_services/index';
 import { preserveWhitespacesDefault } from '@angular/compiler';
 import { reservaFinal } from '../_models/reservaFinal';
 import { forEach } from '@angular/router/src/utils/collection';

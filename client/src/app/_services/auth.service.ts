@@ -8,7 +8,7 @@ import { auth } from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
 
 @Injectable()
-export class AuthenticationService {
+export class AuthService {
 
   constructor(
     private http: HttpClient,

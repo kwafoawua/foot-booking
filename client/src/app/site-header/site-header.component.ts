@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../_services/authentication.service';
+import { AuthService } from '../_services/auth.service';
 import { Router } from '@angular/router';
 
 
@@ -13,7 +13,7 @@ export class SiteHeaderComponent implements OnInit {
   currentUser: any;
   username: string;
 
-  constructor(public auth: AuthenticationService, private router: Router) {
+  constructor(public auth: AuthService, private router: Router) {
     auth.isAuthenticated();
     auth.isUserClub();
   }

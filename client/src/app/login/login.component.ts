@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AlertService, AuthenticationService } from '../_services/index';
+import { AlertService, AuthService } from '../_services/index';
 
 @Component({
-  templateUrl: 'login.component.html'
+  templateUrl: 'login.component.html',
 })
 
 export class LoginComponent implements OnInit {
@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    public authenticationService: AuthenticationService,
+    public authenticationService: AuthService,
     private alertService: AlertService
   ) {
   }

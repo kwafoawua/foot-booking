@@ -9,7 +9,7 @@ import { UserService } from '../../_services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { Comment } from '../../_models/comment';
 import { CommentService } from '../../_services/comment.service';
-import { AuthenticationService } from '../../_services/authentication.service';
+import { AuthService } from '../../_services/auth.service';
 import { now } from 'moment';
 
 @Component({
@@ -29,7 +29,7 @@ export class commentsComponent implements OnInit {
   constructor(
     private clubService: ClubService, private  userService: UserService,
     private route: ActivatedRoute, private commentService: CommentService,
-    private authenticatedService: AuthenticationService
+    private authenticatedService: AuthService
   ) {
   }
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
-import { AlertService, UserService, AuthenticationService } from '../_services/index';
+import { AlertService, UserService, AuthService } from '../_services/index';
 import { Club } from '../_models/index';
 import { ClubService, BookingService } from '../_services/index';
 import { DpDatePickerModule, IDatePickerDirectiveConfig } from 'ng2-date-picker';
@@ -57,7 +57,7 @@ export class ProfileClubClientComponent implements OnInit {
   };
 
   constructor(
-    private autentication: AuthenticationService,
+    private autentication: AuthService,
     private clubService: ClubService,
     private route: ActivatedRoute,
     private router: Router,

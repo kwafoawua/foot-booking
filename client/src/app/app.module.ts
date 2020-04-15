@@ -21,7 +21,7 @@ import { AlertComponent } from './_directives/index';
 import { AuthGuard } from './_guards/index';
 import {
   AlertService,
-  AuthenticationService,
+  AuthService,
   UserService,
   ClubService,
   PlayerService,
@@ -114,7 +114,7 @@ import { TournamentModule } from './tournament/tournament.module';
     authInterceptorProviders,
     AuthGuard,
     AlertService,
-    AuthenticationService,
+    AuthService,
     UserService,
     ClubService,
     PlayerService,
