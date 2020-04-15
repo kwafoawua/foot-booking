@@ -5,7 +5,7 @@
       <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
         <!-- Calling GoogleAuth Api from AuthService -->
         <div class="form-group col-12 social-login-container">
-          <button type="button" class="google-btn" (click)="authenticationService.GoogleAuth()">
+          <button type="button" class="google-btn" (click)="authService.GoogleAuth()">
             <div class="social-icon-wrapper">
               <img class="icon" src="../../assets/icons/Google__G__Logo.svg"/>
             </div>
@@ -14,7 +14,7 @@
         </div>
         <!-- Calling Facebook Api from AuthService -->
         <div class="form-group col-12 social-login-container">
-          <button type="button" class="facebook-btn" (click)="authenticationService.FacebookAuth()">
+          <button type="button" class="facebook-btn" (click)="authService.FacebookAuth()">
             <div class="social-icon-wrapper">
               <i class="icon fa fa-facebook-official x3"></i>
             </div>
