@@ -30,7 +30,9 @@
               "src/css/main.css",
               "src/css/responsive.css",
               "src/css/style.css",
-              "src/css/bootstrap.min.css",
+              "node_modules/bootstrap/dist/css/bootstrap.css",
+              "node_modules/bootstrap/dist/css/bootstrap-grid.css",
+              "node_modules/bootstrap/dist/css/bootstrap-reboot.css",
               "node_modules/angular-calendar/css/angular-calendar.css",
               "src/app.css"
             ],
