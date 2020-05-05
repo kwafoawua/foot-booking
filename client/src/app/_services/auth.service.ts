@@ -92,6 +92,10 @@ export class AuthService {
       })
   }
 
+  mailLogin(form) {
+    return this.afAuth.auth.signInWithEmailAndPassword(form.email, form.password);
+  }
+
   SignOut() {
     return this.afAuth.auth.signOut().then(() => {
     });

@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AlertService, AuthService } from '../_services/index';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidateAllFields } from '../_helpers';
+import { FirebaseErrorHandler } from '../_helpers/firebaseErrorHandler';
 
 @Component({
   templateUrl: 'login.component.html',
@@ -19,8 +20,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     public authService: AuthService,
     private alertService: AlertService,
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     // this.subscribe();
@@ -34,26 +34,23 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams[ 'returnUrl' ] || '/';
   }
 
-  login() {
+  async login() {
     if(this.loginForm.valid) {
       this.loading = true;
-      this.authService.login(this.loginForm.value)
-        .subscribe(
-          data => {
-            if (data.rol === 'Club')
-              this.router.navigate([ '/profile-club', data.playerOrClubId ]);
-            else
-              this.router.navigate([ '', data.playerOrClubId ]);
-            /*
-            else
-                this.router.navigate(['/home']);
-            */
-          },
-          error => {
-            console.log(error);
-            this.alertService.error(error.error);
-            this.loading = false;
-          });
+      try{
+        const user = await this.authService.mailLogin(this.loginForm.value);
+
+        console.log(user);
+        //if (data.rol === 'Club')
+          //this.router.navigate([ '/profile-club', data.playerOrClubId ]);
+        //else
+          //this.router.navigate([ '', data.playerOrClubId ]);
+        await this.router.navigate([ '/home' ]);
+      } catch (err){
+        const error = FirebaseErrorHandler.signInErrorHandler(err.code);
+        this.alertService.error(error);
+        this.loading = false;
+      }
     } else {
       ValidateAllFields.validateAllFields(this.loginForm);
     }
