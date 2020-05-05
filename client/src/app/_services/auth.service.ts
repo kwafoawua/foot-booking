@@ -18,9 +18,9 @@ export class AuthService {
     this.getUserAuthenticated();
   }
 
-  login(username: string, password: string) {
-    console.log(username, password);
-    return this.http.post('/users/authenticate', { username: username, password: password })
+  login(loginInfo) {
+    console.log(loginInfo);
+    return this.http.post('/users/authenticate', loginInfo)
       .pipe(map((response: any) => {
         // login successful if there's a jwt token in the response
         let user = response;
