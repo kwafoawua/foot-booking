@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
-import { AlertService, UserService, AuthService } from '../_services/index';
+import { AlertService, AuthService } from '../_services/index';
 import { Club } from '../_models/index';
 import { ClubService, BookingService } from '../_services/index';
-import { DpDatePickerModule, IDatePickerDirectiveConfig } from 'ng2-date-picker';
+import { IDatePickerDirectiveConfig } from 'ng2-date-picker';
 import { Moment } from 'moment';
 import { ITimeSelectConfig } from 'ng2-date-picker/time-select/time-select-config.model';
 import { Field } from '../_models/field';
@@ -29,9 +29,6 @@ export class ProfileClubClientComponent implements OnInit {
   galery: String [];
   uploadsBaseURL = environment.uploadsBaseURL;
   NotanUser: Boolean;
-  model: any = {};
-  username: any;
-  password: any;
 
   booking1: Booking = new Booking();
   selectedField: Field = new Field();
@@ -101,21 +98,6 @@ export class ProfileClubClientComponent implements OnInit {
 
     //     else {this.NotanUser = true;}
     // }
-  }
-
-  login(field: any, index: any) {
-    console.log('ENTRA AL MODAL DE MODAL');
-
-
-    this.autentication.login(this.model.username, this.model.password)
-      .subscribe(
-        data => {
-          this.reservar(field, index);
-        },
-        error => {
-          this.alertService.error(error);
-
-        });
   }
 
   public makeHoursArray() {
