@@ -19,12 +19,12 @@ var mailingController = require('./mailing');
  */
 module.exports.registerClub = async function (req,res) {
     try {
-        var galleryPath = [];
-        var profilePath = req.files.profile[0].filename;
-        for(var i = 0; i < req.files.gallery.length; i++) {
+        let galleryPath = [];
+        let profilePath = req.files.profile[0].filename;
+        for(let i = 0; i < req.files.gallery.length; i++) {
             galleryPath.push(req.files.gallery[i].filename);
         }
-        var club = JSON.parse(req.body.body);
+        const club = JSON.parse(req.body.body);
         await addClub(club,profilePath, galleryPath);
         res.status(200).send({ success: 'El club se creó exitosamente.'});
     } catch(error) {

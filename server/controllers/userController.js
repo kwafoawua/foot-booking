@@ -4,7 +4,7 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const config = require('config.json');
 const bcrypt = require('bcryptjs');
-const utlis = require('../utils');
+const utils = require('../utils');
 
 module.exports.authenticate = async function(req, res) {
   try {
