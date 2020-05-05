@@ -47,8 +47,7 @@
                         						(registerClubForm.get('user.email').dirty || registerClubForm.get('user.email').touched)}">
                   <label class="col-md-4">Email * </label>
                   <div class="col-md-8">
-                    <input formControlName="email" class="form-control" type="email"
-                           placeholder="Email">
+                    <input formControlName="email" class="form-control" type="email" placeholder="Email">
                     <div name="valida-email" *ngIf="registerClubForm.get('user.email').invalid &&
                         						(registerClubForm.get('user.email').dirty || registerClubForm.get('user.email').touched)">
                       <div *ngIf="registerClubForm.get('user.email').errors?.required" class="text-danger">
