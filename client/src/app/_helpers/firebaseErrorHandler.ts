@@ -13,4 +13,15 @@ export class FirebaseErrorHandler {
         return 'La contraseña no es válida o el usuario no tiene una contraseña.';
     }
   }
+
+  static signUpErrorHandler (code) {
+    switch (code) {
+      case 'auth/email-already-in-use':
+        return 'El email ya está en uso por otro usuario.';
+      case 'auth/invalid-email':
+        return 'El email no es válido.';
+      case 'auth/weak-password':
+        return 'La contraseña no es lo suficientemente fuerte.';
+    }
+  }
 }
