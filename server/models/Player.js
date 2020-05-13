@@ -10,8 +10,11 @@ var ObjectId = Schema.Types.ObjectId;
  * @param {string} phoneNumber - Player's phone number.
  */
 var playerSchema = new Schema({
-	name: {type: String, required: true},
-	lastName: {type: String, required: true},
+	uid: {type: String, required: true, unique: true },
+	email: { type: String, required: true, unique: true },
+	rol: { type: String, default: 'Player' },
+	name: { type: String, required: true },
+	lastName: { type: String, required: true },
 	birthDate: Date,
 	phoneNumber: String,
 	biography: String,
