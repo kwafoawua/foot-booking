@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../_services/user.service';
 import { AlertService } from '../../_services/alert.service';
+import { AuthService } from '../../_services';
 
 @Component({
   templateUrl: 'profile-player-info.component.html'
@@ -11,54 +12,48 @@ import { AlertService } from '../../_services/alert.service';
 export class ProfilePlayerInfoComponent implements OnInit {
 
   userForm: FormGroup;
-  username: string;
+  currentUser: any;
+  name: string;
   user: any = {};
 
   constructor(
     private rout: ActivatedRoute,
     private fb: FormBuilder,
-    private userService: UserService,
+    private authService: AuthService,
     private alertService: AlertService) {
   }
 
   ngOnInit() {
+    this.currentUser = this.authService.getCurrentUser();
+    console.log(this.currentUser);
     this.createForm();
-    this.username = JSON.parse(localStorage.getItem('currentUser')).username;
-    this.getUser(this.username);
   }
 
   private createForm() {
     this.userForm = this.fb.group({
-      username: null,
+      name: null,
       email: null,
       _id: null
     });
+
+    this.userForm.setValue({
+      name: this.currentUser.name,
+      email: this.currentUser.email,
+      _id: this.currentUser._id,
+    })
   }
 
-  private getUser(username: string) {
-    this.userService.getByUsername(username).subscribe(player => {
-      this.user.username = player.username;
-      this.user.email = player.email;
-      this.user._id = player._id;
-
-      this.userForm.setValue({
-        username: this.user.username,
-        email: this.user.email,
-        _id: this.user._id
-      })
-    });
-  }
-
+  // TODO: cambiar a firebase
   updateEmail() {
     let user = this.userForm.value;
-    this.userService.updateEmail(user)
+    /* this.userService.updateEmail(user)
       .subscribe(
         data => {
           this.alertService.success('El email se modificó con éxito', true);
         },
         error => {
           this.alertService.error(error);
-        });
+        }); */
   }
 
   onSubmit() {

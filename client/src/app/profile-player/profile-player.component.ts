@@ -16,7 +16,6 @@ export class ProfilePlayerComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private alertService: AlertService,
               private router: Router) {
-
   }
 
   ngOnInit() {
