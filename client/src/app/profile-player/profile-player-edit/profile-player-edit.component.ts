@@ -5,10 +5,10 @@ import { IDatePickerDirectiveConfig } from 'ng2-date-picker';
 import { Moment } from 'moment';
 import * as moment from 'moment';
 
-import { PlayerService, AlertService } from '../../_services/index';
+import { PlayerService, AlertService } from '../../_services';
 import { NumberValidationService } from '../../_helpers/numberInRange.validator';
 import { DateInRangeValidation } from '../../_services/dateInRange.validatorService';
-import { Player } from '../../_models/index';
+import { Player } from '../../_models';
 
 
 @Component({
@@ -56,14 +56,9 @@ export class ProfilePlayerEditComponent implements OnInit {
       _id: null,
       name: [ null, Validators.required ],
       lastName: [ null, Validators.required ],
-      birthDate: [ null, Validators.compose([
-        Validators.required
-      ]) ],
-      phoneNumber: [ null, Validators.required ],
-      dni: [ null, Validators.compose([
-        Validators.required,
-        NumberValidationService.validRange(10000000, 99999999)
-      ]) ]
+      birthDate: [ null ],
+      phoneNumber: [ null ],
+      dni: [ null, NumberValidationService.validRange(1000000, 99999999) ]
     });
   }
 
@@ -75,9 +70,9 @@ export class ProfilePlayerEditComponent implements OnInit {
         _id: this.player._id,
         name: this.player.name,
         lastName: this.player.lastName,
-        birthDate: this.formatDate(this.player.birthDate),
-        phoneNumber: this.player.phoneNumber,
-        dni: this.player.dni
+        birthDate: this.player.birthDate ? this.formatDate(this.player.birthDate) : null,
+        phoneNumber: this.player.phoneNumber || null,
+        dni: this.player.dni || null,
       });
     });
   }
