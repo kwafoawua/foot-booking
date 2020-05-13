@@ -14,40 +14,20 @@ const utils = require('../utils');
  * Create a Player
  */
 module.exports.registerPlayer = async function (req,res) {
+    const player = req.body;
     try {
-        await addPlayer(req.body);
+        const newPlayer = new Player({
+            name: player.name,
+            lastName: player.lastName,
+            uid: player.uid,
+            email: player.email,
+        });
+
+        const savedPlayer = await newPlayer.save();
         res.status(200).send({success: 'Usuario creado con éxito'});
     } catch (error) {
         console.log('error',error);
-        res.status(400).send({ errorMessage: error.message });
-    }
-};
-
-async function addPlayer (player) {
-    console.log('entra al player');
-    const user = await User.findOne({$or : [{ 'username': player.username }, {'email': player.email}]}).exec();
-    if(user) {
-        return utils.throwError('El nombre '+player.username+' o email '+player.email+' está en uso.')
-    }
-    const newPlayer = new Player({
-        name: player.name,
-        lastName: player.lastName,
-        birthDate: player.birthDate,
-        phoneNumber: player.phoneNumber,
-        dni : player.dni
-    });
-
-    const newUser = new User({
-        username: player.username.toLowerCase(),
-        email: player.email,
-        creator: newPlayer,
-        rol: 'Player'
-    });
-    newUser.password = newUser.setPassword(player.password);
-    const savedUser = await newUser.save();
-    const savedPlayer = await newPlayer.save();
-    if(!savedUser || !savedPlayer) {
-        return utils.throwError('No se pudo crear el usuario');
+        res.status(error.status).send({ errorMessage: error.message });
     }
 };
 
