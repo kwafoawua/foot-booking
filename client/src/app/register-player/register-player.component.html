@@ -7,19 +7,19 @@
     <div class="card-body">
       <form name="formPlayer" [formGroup]="registerForm" (ngSubmit)="registerPlayer()" novalidate>
         <div class="form-row">
-          <div class="form-group col-12" [ngClass]="{ 'has-error': registerForm.get('username').invalid &&
-                                        (registerForm.get('username').dirty || registerForm.get('username').touched)}">
-            <label class="label-form">Nombre de usuario</label>
-            <input type="text" class="form-control" name="username" formControlName="username" required/>
-            <div name="validar-username" *ngIf="registerForm.get('username').invalid &&
-                                        (registerForm.get('username').dirty || registerForm.get('username').touched)">
-              <div *ngIf="registerForm.get('username').errors?.required" class="text-danger">
-                <small class="form-text">El nombre de usuario es requerido.</small>
+          <div class="form-group col-12" [ngClass]="{ 'has-error': registerForm.get('email').invalid &&
+                                        (registerForm.get('email').dirty || registerForm.get('email').touched)}">
+            <label class="label-form">E-mail</label>
+            <input type="text" class="form-control" name="email" formControlName="email" required/>
+            <div name="valida-email" *ngIf="registerForm.get('email').invalid &&
+                        						(registerForm.get('email').dirty || registerForm.get('email').touched)">
+              <div *ngIf="registerForm.get('email').errors?.required" class="text-danger">
+                <small class="form-text">El email es requerido.</small>
               </div>
-              <div *ngIf="registerForm.get('username').errors?.minlength" class="text-danger">
-                <small class="form-text">El nombre de usuario debe tener al menos 3 caracteres.</small>
-                <!--    </div>-->
+              <div *ngIf="registerForm.get('email').errors?.email" class="text-danger">
+                <small class="form-text">El email debe ser correcto.</small>
               </div>
+
             </div>
           </div>
           <div class="form-group col-12" [ngClass]="{ 'has-error': registerForm.get('password').invalid &&
@@ -79,23 +79,6 @@
 
               <div *ngIf="registerForm.get('lastName').errors?.required" class="text-danger">
                 <small class="form-text">El apellido es requerido.</small>
-              </div>
-
-            </div>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-12" [ngClass]="{ 'has-error': registerForm.get('email').invalid &&
-                                        (registerForm.get('email').dirty || registerForm.get('email').touched)}">
-            <label class="label-form">E-mail</label>
-            <input type="text" class="form-control" name="email" formControlName="email" required/>
-            <div name="valida-email" *ngIf="registerForm.get('email').invalid &&
-                        						(registerForm.get('email').dirty || registerForm.get('email').touched)">
-              <div *ngIf="registerForm.get('email').errors?.required" class="text-danger">
-                <small class="form-text">El email es requerido.</small>
-              </div>
-              <div *ngIf="registerForm.get('email').errors?.email" class="text-danger">
-                <small class="form-text">El email debe ser correcto.</small>
               </div>
 
             </div>

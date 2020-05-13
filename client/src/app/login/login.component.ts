@@ -38,7 +38,9 @@ export class LoginComponent implements OnInit {
     if(this.loginForm.valid) {
       this.loading = true;
       try{
-        const user = await this.authService.mailLogin(this.loginForm.value);
+        const email = this.loginForm.get('email').value;
+        const password = this.loginForm.get('password').value;
+        const user = await this.authService.mailLogin(email, password);
 
         console.log(user);
         //if (data.rol === 'Club')

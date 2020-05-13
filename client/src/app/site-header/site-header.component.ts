@@ -11,33 +11,30 @@ import { Router } from '@angular/router';
 
 export class SiteHeaderComponent implements OnInit {
   currentUser: any;
-  username: string;
+  name: string;
 
-  constructor(public auth: AuthService, private router: Router) {
-    auth.isAuthenticated();
-    auth.isUserClub();
-  }
+  constructor(public auth: AuthService, private router: Router) {}
 
   ngOnInit() {
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (this.currentUser != undefined) {
-      this.username = this.currentUser.username;
+    this.currentUser = this.auth.getCurrentUser();
+    if (this.currentUser !== undefined) {
+      this.name = this.currentUser.name;
     }
   }
 
   public goToProfile() {
-    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    console.log(currentUser.rol);
-    if (currentUser.rol === 'Club') {
-      this.router.navigate([ '/profile-club', currentUser.playerOrClubId ]);
+    console.log(this.currentUser.rol);
+    if (this.currentUser.rol === 'Club') {
+      this.router.navigate([ '/profile-club', this.currentUser._id ]);
     } else {
-      this.router.navigate([ '/profile-player', currentUser.playerOrClubId ]);
+      this.router.navigate([ '/profile-player', this.currentUser._id ]);
     }
   }
 
   showUserName () {
-    return this.auth.getUserAuthenticated();
+    return this.currentUser.name;
   }
+
   public goToMisReservas() {
     this.router.navigate([ '/player/mis-reservas' ]);
   }

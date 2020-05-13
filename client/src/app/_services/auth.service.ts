@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 
@@ -10,15 +9,20 @@ import { AngularFireAuth } from "@angular/fire/auth";
 @Injectable()
 export class AuthService {
 
-  constructor(
-    private http: HttpClient,
-    private router: Router,
-    private afAuth: AngularFireAuth
-) {
-    this.getUserAuthenticated();
+  constructor(private http: HttpClient, private router: Router, private afAuth: AngularFireAuth) {}
+
+  setCurrentUser (user): void {
+    localStorage.setItem('currentUser', JSON.stringify(user));
+  }
+  getCurrentUser (): any {
+    return JSON.parse(localStorage.getItem('currentUser'));
   }
 
-  login(loginInfo) {
+  deleteCurrentUser(): void {
+    localStorage.removeItem('currentUser');
+  }
+
+  login(loginInfo) { // deprecated
     console.log(loginInfo);
     return this.http.post('/users/authenticate', loginInfo)
       .pipe(map((response: any) => {
@@ -34,10 +38,11 @@ export class AuthService {
 
   logout() {
     // remove user from local storage to log user out
-    localStorage.removeItem('currentUser');
-    this.SignOut();
+    this.deleteCurrentUser();
+    this.afAuth.auth.signOut().then().catch();
   }
 
+  // TODO: eliminar metodo
   public isAuthenticated(): boolean {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (currentUser != undefined) {
@@ -46,14 +51,6 @@ export class AuthService {
       return false;
     }
   }
-
-  public getUserAuthenticated(): String {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (currentUser != undefined) {
-      return currentUser.username;
-    }
-  }
-
 
   public isUserClub(): boolean {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -92,13 +89,13 @@ export class AuthService {
       })
   }
 
-  mailLogin(form) {
-    return this.afAuth.auth.signInWithEmailAndPassword(form.email, form.password);
+  // Sign in with email and password
+  mailLogin(email: string, password: string): Promise <any> {
+    return this.afAuth.auth.signInWithEmailAndPassword(email, password);
   }
 
-  SignOut() {
-    return this.afAuth.auth.signOut().then(() => {
-    });
+  firebaseRegister(email: string, password: string): Promise<any> {
+    return this.afAuth.auth.createUserWithEmailAndPassword(email, password);
   }
 
 }
