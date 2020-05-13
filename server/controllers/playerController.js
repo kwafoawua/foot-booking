@@ -3,11 +3,12 @@
 /**
  * Module dependencies.
  */
-var mongoose = require('mongoose');
 var _ = require('lodash');
 var Player = require('../models/Player');
 var User = require('../models/User');
 var Q = require('q');
+const jwt = require('jsonwebtoken');
+const config = require('../config.json');
 const utils = require('../utils');
 
 /**
@@ -24,7 +25,9 @@ module.exports.registerPlayer = async function (req,res) {
         });
 
         const savedPlayer = await newPlayer.save();
-        res.status(200).send({success: 'Usuario creado con éxito'});
+        const token = jwt.sign({ sub: savedPlayer._id }, config.secret);
+
+        res.status(200).send({ user: {...savedPlayer._doc, token }, success: 'Usuario creado con éxito' });
     } catch (error) {
         console.log('error',error);
         res.status(error.status).send({ errorMessage: error.message });
