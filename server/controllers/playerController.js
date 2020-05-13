@@ -123,25 +123,13 @@ module.exports.deletePlayer = function(req, res) {
 /**
 *   Get by user id
 */
-module.exports.getPlayerByUserId = function(req, res) {
-
+module.exports.getPlayerByUserId = async function(req, res) {
     console.log("Id del user que entra: " + req.params._id);
-
-    User.findById({_id:req.params._id}, function(err, user){
-         if(err){
-            console.log("No se encontro user");
-            return res.status(500).send(err);
-        } else {
-            console.log("Encontro usuario");
-            Player.findById({_id : user.creator}, function(err, player) {
-                if(err){
-                    console.log("No se encontro jugador");
-                    return res.status(500).send(err);
-                } else {
-                    console.log("Encontro al player");
-                    res.status(200).send(player);
-                }
-            });
-        }
-    });
+    try {
+        const player = await Player.findById({_id:req.params._id}).exec();
+        res.status(200).send(player);
+    } catch (error) {
+        console.log("No se encontro jugador");
+        return res.status(404).send(error);
+    }
 };
