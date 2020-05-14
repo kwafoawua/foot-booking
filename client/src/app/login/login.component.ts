@@ -23,9 +23,7 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // this.subscribe();
     // reset login status
-    this.authService.logout();
     this.loginForm = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required]
@@ -40,14 +38,8 @@ export class LoginComponent implements OnInit {
       try{
         const email = this.loginForm.get('email').value;
         const password = this.loginForm.get('password').value;
-        const user = await this.authService.mailLogin(email, password);
-
-        console.log(user);
-        //if (data.rol === 'Club')
-          //this.router.navigate([ '/profile-club', data.playerOrClubId ]);
-        //else
-          //this.router.navigate([ '', data.playerOrClubId ]);
-        await this.router.navigate([ '/home' ]);
+        await this.authService.mailLogin(email, password);
+        await this.router.navigate([ '/' ]);
       } catch (err){
         const error = FirebaseErrorHandler.signInErrorHandler(err.code);
         this.alertService.error(error);

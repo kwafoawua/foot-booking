@@ -58,6 +58,7 @@ import { TournamentStageComponent } from './tournament/tournament-stage/tourname
 import { StageComponent } from './tournament/stage/stage.component';
 import { GameComponent } from './tournament/game/game.component';
 import { TournamentModule } from './tournament/tournament.module';
+import { LoginGuard } from './_guards/login.guard';
 
 
 @NgModule({
@@ -113,6 +114,7 @@ import { TournamentModule } from './tournament/tournament.module';
   providers: [
     authInterceptorProviders,
     AuthGuard,
+    LoginGuard,
     AlertService,
     AuthService,
     UserService,

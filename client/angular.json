@@ -38,7 +38,7 @@
             ],
             "scripts": [
               "src/js/jquery-3.2.1.slim.min.js",
-              "src/js/bootstrap.min.js",
+              "src/js/bootstrap.min.js"
             ]
           },
           "configurations": {

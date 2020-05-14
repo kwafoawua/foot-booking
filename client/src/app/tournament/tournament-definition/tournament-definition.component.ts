@@ -14,7 +14,7 @@ import { AlertService } from '../../_services/alert.service';
 export class TournamentDefinitionComponent implements OnInit {
   tournamentForm: FormGroup;
   tournament: Tournament;
-  idClub: string = JSON.parse(localStorage.getItem('currentUser')).playerOrClubId;
+  idClub: string = JSON.parse(localStorage.getItem('currentUser'))._id;
   configTime: ITimeSelectConfig = {
     minutesInterval: 60,
     minutesFormat: '00'
