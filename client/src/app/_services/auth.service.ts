@@ -4,6 +4,10 @@ import { Router } from '@angular/router';
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { PlayerService } from './player.service';
+import { LocalStorage } from '@ngx-pwa/local-storage';
+import { Observable } from 'rxjs';
+
+const CURRENT_USER = 'currentUser';
 
 @Injectable()
 export class AuthService {
@@ -12,27 +16,28 @@ export class AuthService {
     private http: HttpClient,
     private router: Router,
     private afAuth: AngularFireAuth,
-    private playerService: PlayerService) {}
+    private playerService: PlayerService,
+    private storage: LocalStorage) {}
 
     //TODO: mover manejo de localstorage a utils
-  async setCurrentUser (user): Promise<any> {
-    await null;
-    return localStorage.setItem('currentUser', JSON.stringify(user));
+  setCurrentUser (user): Observable<any> {
+    return this.storage.setItem(CURRENT_USER, user);
   }
-  async getCurrentUser() {
-    await null;
-    return JSON.parse(localStorage.getItem('currentUser'));
+  getCurrentUser(): Observable<any> {
+    return this.storage.getItem(CURRENT_USER);
   }
 
-  deleteCurrentUser(): void {
-    localStorage.removeItem('currentUser');
+  removeCurrentUser(): Observable<any> {
+    return this.storage.removeItem(CURRENT_USER);
   }
 
   private authenticate(uid) {
-    return this.http.post('/users/authenticate', { uid: uid })
+    this.http.post('/users/authenticate', { uid: uid })
       .subscribe(async (user: any) => {
-        await this.setCurrentUser(user);
-        await this.router.navigate(['/']);
+        //TODO: ver si esta manipulacion se tiene que hacer en el service o le corresponde al componente
+        this.setCurrentUser(user).subscribe(() => {
+          this.router.navigate(['/'])
+        })
       },
       error => {
         // TODO: mostrar mensaje de error
@@ -42,17 +47,8 @@ export class AuthService {
 
   logout() {
     // remove user from local storage to log user out
-    this.deleteCurrentUser();
+    this.removeCurrentUser();
     this.afAuth.auth.signOut().then().catch();
-  }
-
-  public isAuthenticated(): boolean {
-    return !!this.getCurrentUser();
-  }
-
-  public async isUserClub() {
-    const currentUser = await this.getCurrentUser();
-    return currentUser && currentUser.rol === 'Club';
   }
 
   // Sign in with Google
@@ -85,8 +81,9 @@ export class AuthService {
 
         this.playerService.create(player).subscribe(async (data: any) => {
           console.log('CREATED PLAYER', data);
-          await this.setCurrentUser(data.user);
-          await this.router.navigate(['/']);
+          this.setCurrentUser(data.user).subscribe(() => {
+            this.router.navigate(['/']);
+          })
         });
       } else {
         this.authenticate(pUser.user.uid);
