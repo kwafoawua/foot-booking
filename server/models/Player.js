@@ -11,7 +11,9 @@ var ObjectId = Schema.Types.ObjectId;
  */
 var playerSchema = new Schema({
 	uid: {type: String, required: true, unique: true },
-	email: { type: String, required: true, unique: true },
+	providerId: String,
+	email: { type: String, required: true },
+	photoURL: String,
 	rol: { type: String, default: 'Player' },
 	name: { type: String, required: true },
 	lastName: { type: String, required: true },
