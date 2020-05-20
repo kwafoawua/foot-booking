@@ -1,20 +1,26 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { map } from 'rxjs/operators';
-
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
+import { PlayerService } from './player.service';
 
 @Injectable()
 export class AuthService {
 
-  constructor(private http: HttpClient, private router: Router, private afAuth: AngularFireAuth) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private afAuth: AngularFireAuth,
+    private playerService: PlayerService) {}
 
-  setCurrentUser (user): void {
-    localStorage.setItem('currentUser', JSON.stringify(user));
+    //TODO: mover manejo de localstorage a utils
+  async setCurrentUser (user): Promise<any> {
+    await null;
+    return localStorage.setItem('currentUser', JSON.stringify(user));
   }
-  getCurrentUser (): any {
+  async getCurrentUser() {
+    await null;
     return JSON.parse(localStorage.getItem('currentUser'));
   }
 
@@ -22,18 +28,16 @@ export class AuthService {
     localStorage.removeItem('currentUser');
   }
 
-  login(loginInfo) { // deprecated
-    console.log(loginInfo);
-    return this.http.post('/users/authenticate', loginInfo)
-      .pipe(map((response: any) => {
-        // login successful if there's a jwt token in the response
-        let user = response;
-        if (user && user.token) {
-          // store user details and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem('currentUser', JSON.stringify(user));
-        }
-        return user;
-      }));
+  private authenticate(uid) {
+    return this.http.post('/users/authenticate', { uid: uid })
+      .subscribe(async (user: any) => {
+        await this.setCurrentUser(user);
+        await this.router.navigate(['/']);
+      },
+      error => {
+        // TODO: mostrar mensaje de error
+        console.log(error);
+      });
   }
 
   logout() {
@@ -42,31 +46,13 @@ export class AuthService {
     this.afAuth.auth.signOut().then().catch();
   }
 
-  // TODO: eliminar metodo
   public isAuthenticated(): boolean {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (currentUser != undefined) {
-      return true;
-    } else {
-      return false;
-    }
+    return !!this.getCurrentUser();
   }
 
-  public isUserClub(): boolean {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (currentUser != undefined) {
-      if (currentUser.rol == 'Club')
-        return true;
-      else
-        return false;
-    }
-  }
-
-  public getPlayerByUserId() {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (currentUser != undefined) {
-      return this.http.get('/player', currentUser._id);
-    }
+  public async isUserClub() {
+    const currentUser = await this.getCurrentUser();
+    return currentUser && currentUser.rol === 'Club';
   }
 
   // Sign in with Google
@@ -112,8 +98,9 @@ export class AuthService {
   }
 
   // Sign in with email and password
-  mailLogin(email: string, password: string): Promise <any> {
-    return this.afAuth.auth.signInWithEmailAndPassword(email, password);
+  async mailLogin(email: string, password: string): Promise <any> {
+    const user = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
+    this.authenticate(user.user.uid);
   }
 
   firebaseRegister(email: string, password: string): Promise<any> {
