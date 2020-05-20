@@ -80,13 +80,35 @@ export class AuthService {
   }
 
   // Auth logic to run auth providers
-  AuthLogin(provider) {
-    return this.afAuth.auth.signInWithPopup(provider)
-      .then((result) => {
-        console.log('logeo con google: ', result);
-      }).catch((error) => {
-        window.alert(error)
-      })
+  async AuthLogin(provider) {
+    try {
+      const pUser = await this.afAuth.auth.signInWithPopup(provider);
+      // TODO: separar creación de player en otro método
+      if(pUser.additionalUserInfo.isNewUser) {
+        const baseUser = {
+          email: pUser.user.email,
+          photoURL: pUser.user.photoURL,
+          providerId: pUser.additionalUserInfo.providerId,
+          uid: pUser.user.uid
+        };
+        const player = pUser.additionalUserInfo.providerId.includes('facebook')
+          ? {...baseUser, ...AuthService.createFacebookUser(pUser)}
+          : {...baseUser, ...AuthService.createGmailUser(pUser)};
+
+        console.log('created player',player);
+
+        this.playerService.create(player).subscribe(async (data: any) => {
+          console.log('CREATED PLAYER', data);
+          await this.setCurrentUser(data.user);
+          await this.router.navigate(['/']);
+        });
+      } else {
+        this.authenticate(pUser.user.uid);
+      }
+
+    } catch(error) {
+      console.log(error);
+    }
   }
 
   // Sign in with email and password
@@ -96,6 +118,21 @@ export class AuthService {
 
   firebaseRegister(email: string, password: string): Promise<any> {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password);
+  }
+
+  private static createGmailUser (user) {
+    return  {
+      name: <string>user.additionalUserInfo.profile.given_name,
+      lastName: <string>user.additionalUserInfo.profile.family_name,
+
+    };
+  }
+
+  private static createFacebookUser (user) {
+    return  {
+      name: <string>user.additionalUserInfo.profile.first_name,
+      lastName: <string>user.additionalUserInfo.profile.last_name,
+    };
   }
 
 }
