@@ -21,7 +21,7 @@ export class RegisterPlayerComponent implements OnInit {
     ) {}
 
   registerForm : FormGroup;
-  loading = false;
+  loading: boolean = false;
 
   ngOnInit(): void {
     this.registerForm =this.fb.group({
@@ -31,9 +31,15 @@ export class RegisterPlayerComponent implements OnInit {
       password: [ null, Validators.compose([ Validators.required, Validators.minLength(8) ]) ],
       repeatPassword: [ null, Validators.compose([ Validators.required, Validators.minLength(8) ]) ],
       uid: [null],
+      providerId: [null],
     },{
       validator: PasswordValidation.MatchPassword // your validation method
     })
+  }
+
+  showErrorAlert (error: string) {
+    this.alertService.error(error);
+    this.loading = false;
   }
 
   async registerPlayer() {
@@ -45,23 +51,24 @@ export class RegisterPlayerComponent implements OnInit {
         const newUser = await this.authService.firebaseRegister(email, password);
         console.log(newUser);
         this.registerForm.controls['uid'].setValue(newUser.user.uid);
+        this.registerForm.controls['providerId'].setValue(newUser.additionalUserInfo.providerId);
+
         this.playerService.create(this.registerForm.value)
-          .subscribe(data => {
+          .subscribe(async data => {
             let { user, success } = <any>data;
-            this.authService.setCurrentUser(user);
             this.alertService.success(success, true);
-            this.router.navigate([ '/' ]);
+            //TODO: centralizar el setCurrent y navigate en el service de auth
+            await this.authService.setCurrentUser(user);
+            await this.router.navigate([ '/' ]);
           },
           error => {
             console.log(error);
-            this.alertService.error(error.error.errorMessage);
-            this.loading = false;
+            this.showErrorAlert(error.error.errorMessage);
           });
       } catch(err){
         console.log(err);
         const error = FirebaseErrorHandler.signUpErrorHandler(err.code);
-        this.alertService.error(error);
-        this.loading = false;
+        this.showErrorAlert(error);
       }
     } else {
       ValidateAllFields.validateAllFields(this.registerForm);
