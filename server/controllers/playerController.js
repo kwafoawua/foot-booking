@@ -3,12 +3,8 @@
 /**
  * Module dependencies.
  */
-var _ = require('lodash');
-var Player = require('../models/Player');
-var User = require('../models/User');
-var Q = require('q');
-const jwt = require('jsonwebtoken');
-const config = require('../config.json');
+const _ = require('lodash');
+const Player = require('../models/Player');
 const utils = require('../utils');
 
 /**
@@ -22,10 +18,12 @@ module.exports.registerPlayer = async function (req,res) {
             lastName: player.lastName,
             uid: player.uid,
             email: player.email,
+            poviderId: player.providerId,
+            photoURL: player.photoURL,
         });
 
         const savedPlayer = await newPlayer.save();
-        const token = jwt.sign({ sub: savedPlayer._id }, config.secret);
+        const token = utils.generateToken(savedPlayer._id);
 
         res.status(200).send({ user: {...savedPlayer._doc, token }, success: 'Usuario creado con éxito' });
     } catch (error) {

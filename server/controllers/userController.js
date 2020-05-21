@@ -2,15 +2,18 @@
 const { Errors, SuccessMessage } = require('../constants');
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
-const config = require('config.json');
+const config = require('../config');
 const bcrypt = require('bcryptjs');
 const utils = require('../utils');
+const Player = require('../models/Player');
 
 module.exports.authenticate = async function(req, res) {
   try {
-    const userRol = await getRol(req.body.username);
-    const foundUser = await findUser(req.body.username, req.body.password, userRol);
-    res.send(foundUser);
+    console.log(req.body);
+    // TODO: generalizar para club y player
+      const player = await Player.findOne({ uid: req.body.uid }).exec();
+      const token = utils.generateToken(player._id);
+      res.status(200).send({...player._doc, token});
   } catch (error) {
     res.status(400).send(error.message);
   }
