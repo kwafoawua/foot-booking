@@ -5,7 +5,7 @@ import { IDatePickerDirectiveConfig } from 'ng2-date-picker';
 import { Moment } from 'moment';
 import * as moment from 'moment';
 
-import { PlayerService, AlertService } from '../../_services';
+import { PlayerService, AlertService, AuthService } from '../../_services';
 import { NumberValidationService } from '../../_helpers/numberInRange.validator';
 import { DateInRangeValidation } from '../../_services/dateInRange.validatorService';
 import { Player } from '../../_models';
@@ -16,7 +16,6 @@ import { Player } from '../../_models';
 })
 
 export class ProfilePlayerEditComponent implements OnInit {
-  userId: string;
   player: Player;
   playerForm: FormGroup;
   date: any;
@@ -42,13 +41,15 @@ export class ProfilePlayerEditComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private playerService: PlayerService,
-              private alertService: AlertService) {
+              private alertService: AlertService,
+              private authService: AuthService) {
   }
 
   ngOnInit() {
     this.createForm();
-    this.userId = JSON.parse(localStorage.getItem('currentUser'))._id;
-    this.getPlayer(this.userId);
+    this.authService.getCurrentUser().then(user => {
+      this.getPlayer(user._id);
+    })
   }
 
   private createForm() {

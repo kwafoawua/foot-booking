@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
         const email = this.loginForm.get('email').value;
         const password = this.loginForm.get('password').value;
         await this.authService.mailLogin(email, password);
-        await this.router.navigate([ '/' ]);
+        // await this.router.navigate([ '/' ]);
       } catch (err){
         const error = FirebaseErrorHandler.signInErrorHandler(err.code);
         this.alertService.error(error);

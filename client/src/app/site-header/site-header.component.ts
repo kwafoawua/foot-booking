@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../_services/auth.service';
+import { AuthService } from '../_services';
 import { Router } from '@angular/router';
 
 
@@ -11,15 +11,21 @@ import { Router } from '@angular/router';
 
 export class SiteHeaderComponent implements OnInit {
   currentUser: any;
-  name: string;
+  name: string = '';
+  isAuthenticated: boolean = false;
+  isClubUser: boolean = false;
 
   constructor(public auth: AuthService, private router: Router) {}
 
   ngOnInit() {
-    this.currentUser = this.auth.getCurrentUser();
-    if (this.currentUser !== undefined) {
-      this.name = this.currentUser.name;
-    }
+    this.auth.getCurrentUser().then((user) =>{
+      if (user) {
+        this.currentUser = user;
+        this.name = user.name;
+        this.isClubUser = user.rol === 'Club';
+        this.isAuthenticated = true;
+      }
+    })
   }
 
   public goToProfile() {
@@ -29,10 +35,6 @@ export class SiteHeaderComponent implements OnInit {
     } else {
       this.router.navigate([ '/profile-player', this.currentUser._id ]);
     }
-  }
-
-  showUserName () {
-    return this.currentUser.name;
   }
 
   public goToMisReservas() {

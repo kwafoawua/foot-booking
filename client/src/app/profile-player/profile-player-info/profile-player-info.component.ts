@@ -24,9 +24,16 @@ export class ProfilePlayerInfoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.currentUser = this.authService.getCurrentUser();
-    console.log(this.currentUser);
     this.createForm();
+    //TODO: modificar a llamada a la API de getPlayer, ya que localStorage no mantiene datos actualizados
+    this.authService.getCurrentUser().then(user => {
+      this.currentUser = user;
+      this.userForm.setValue({
+        name: this.currentUser.name,
+        email: this.currentUser.email,
+        _id: this.currentUser._id,
+      })
+    });
   }
 
   private createForm() {
@@ -35,15 +42,9 @@ export class ProfilePlayerInfoComponent implements OnInit {
       email: null,
       _id: null
     });
-
-    this.userForm.setValue({
-      name: this.currentUser.name,
-      email: this.currentUser.email,
-      _id: this.currentUser._id,
-    })
   }
 
-  // TODO: cambiar a firebase
+  // TODO: cambiar a firebase + mongodb
   updateEmail() {
     let user = this.userForm.value;
     /* this.userService.updateEmail(user)

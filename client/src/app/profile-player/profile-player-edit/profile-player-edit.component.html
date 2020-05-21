@@ -19,7 +19,7 @@
     </div>
 
     <div class="form-group row">
-      <label class="label-form" for="lastName">Apellido</label>
+      <label class="label-form">Apellido</label>
       <input formControlName="lastName" type="text" class="form-control" [pattern]="letersPatter"/>
       <div *ngIf="playerForm.get('lastName').invalid &&
                             (playerForm.get('lastName').dirty || playerForm.get('lastName').touched)">
@@ -33,7 +33,7 @@
     </div>
 
     <div class="form-group row">
-      <label class="label-form" for="phoneNumber">Teléfono</label>
+      <label class="label-form">Teléfono</label>
       <input formControlName="phoneNumber" type="text" class="form-control" [pattern]="numbersPatter"/>
       <div *ngIf="playerForm.get('phoneNumber').invalid &&
                             (playerForm.get('phoneNumber').dirty || playerForm.get('phoneNumber').touched)">
@@ -47,7 +47,7 @@
     </div>
 
     <div class="form-group row">
-      <label class="label-form" for="dni">DNI</label>
+      <label class="label-form">DNI</label>
       <input formControlName="dni" type="number" class="form-control" [pattern]="numbersPatter"/>
       <div *ngIf="playerForm.get('dni').invalid &&
                             (playerForm.get('dni').dirty || playerForm.get('dni').touched)">
@@ -64,7 +64,7 @@
     </div>
 
     <div class="form-group row">
-      <label class="label-form" for="birthDate">Fecha de nacimiento</label>
+      <label class="label-form">Fecha de nacimiento</label>
       <input formControlName="birthDate" class="dropdown category-dropdown" [dpDayPicker]="config" name="datePicker"
              theme="dp-material" style="display: block" inputElementConteiner="#inputConteiner" [(ngModel)]="date"/>
       <div *ngIf="playerForm.get('birthDate').invalid &&
