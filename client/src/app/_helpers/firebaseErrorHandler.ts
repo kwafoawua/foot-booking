@@ -11,6 +11,8 @@ export class FirebaseErrorHandler {
         return 'No hay ningún usuario registrado con este email.';
       case 'auth/wrong-password':
         return 'La contraseña no es válida o el usuario no tiene una contraseña.';
+      default:
+        return 'Ocurrió un error al tratar de iniciar sesión';
     }
   }
 
@@ -22,6 +24,8 @@ export class FirebaseErrorHandler {
         return 'El email no es válido.';
       case 'auth/weak-password':
         return 'La contraseña no es lo suficientemente fuerte.';
+      default:
+        return 'Ocurrió un error al tratar de registrarte'
     }
   }
 }
