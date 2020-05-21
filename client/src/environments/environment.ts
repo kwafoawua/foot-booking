@@ -6,6 +6,14 @@ export const environment = {
   production: false,
   uploadsBaseURL: 'http://localhost:4000/uploads/',
   firebase: {
+    apiKey: "AIzaSyCrCw2WgF9K3Utxp5f49DORmetqnR3gmZw",
+    authDomain: "footbookingtesis.firebaseapp.com",
+    databaseURL: "https://footbookingtesis.firebaseio.com",
+    projectId: "footbookingtesis",
+    storageBucket: "footbookingtesis.appspot.com",
+    messagingSenderId: "354372654294",
+    appId: "1:354372654294:web:03aef8d71742ba648da577",
+    measurementId: "G-EQ0YKYLY9W"
   },
 };
 
