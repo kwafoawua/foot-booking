@@ -5,12 +5,12 @@ import { CustomValidators } from 'ng2-validation';
 import {} from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
 import { ValidateAllFields } from '../_helpers/validate-all-fields';
-import { AlertService, ClubService } from '../_services/index';
+import { AlertService, AuthService, ClubService } from '../_services/index';
 import { Observable, of } from 'rxjs';
-import { isUndefined } from 'util';
 import { FileHolder } from 'angular2-image-upload';
 import { FieldFormArrayComponent } from './field-form-array.component';
 import { PasswordValidation } from '../_helpers/validate-password';
+import { FirebaseErrorHandler } from '../_helpers/firebaseErrorHandler';
 
 declare var google: any;
 
@@ -40,7 +40,8 @@ export class RegisterClubComponent implements OnInit {
     private alertService: AlertService,
     private fb: FormBuilder,
     private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone) {
+    private ngZone: NgZone,
+    private authService: AuthService) {
     this.createForm();
   }
 
@@ -120,13 +121,13 @@ export class RegisterClubComponent implements OnInit {
   createForm() {
     this.registerClubForm = this.fb.group({
       user: this.fb.group({
-        username: [ '', Validators.compose([ Validators.required, Validators.minLength(3) ]) ],
         email: [ null, Validators.compose([ Validators.required, CustomValidators.email ]) ],
         password: [ null, Validators.compose([ Validators.required, Validators.minLength(8) ]) ],//falta validar contraseña
         repeatPassword: [ null, Validators.compose([ Validators.required, Validators.minLength(8) ]) ]
       }, {
         validator: PasswordValidation.MatchPassword // your validation method
       }),
+      uid: [null],
       name: [ null, Validators.required ],
       description: [ null, Validators.compose([ Validators.required, Validators.maxLength(255) ]) ],
       phoneNumber: null,
@@ -209,31 +210,42 @@ export class RegisterClubComponent implements OnInit {
     control.removeAt(i);
   }
 
-  registerClub() {
+  async registerClub() {
     if (this.registerClubForm.valid) {
-      this.loading = true;
+      try {
+        this.loading = true;
 
-      const formData: any = new FormData();
-      const file: File = this.filesToUpload;
-      const gallery: File[] = this.galleryToUpload;
+        const formData: any = new FormData();
+        const file: File = this.filesToUpload;
+        const gallery: File[] = this.galleryToUpload;
 
-      formData.append('profile', file, file[ 'name' ]);
-      for (let i = 0; i < gallery.length; i++) {
-        formData.append('gallery', gallery[ i ], gallery[ i ].name);
-      }
-      formData.append('body', JSON.stringify(this.registerClubForm.value));
+        formData.append('profile', file, file[ 'name' ]);
+        for (let i = 0; i < gallery.length; i++) {
+          formData.append('gallery', gallery[ i ], gallery[ i ].name);
+        }
+        const email = this.registerClubForm.get('user.email').value;
+        const password = this.registerClubForm.get('user.password').value;
+        const newUser = await this.authService.firebaseRegister(email, password);
+        this.registerClubForm.controls['uid'].setValue(newUser.user.uid);
+        formData.append('body', JSON.stringify(this.registerClubForm.value));
 
+        this.clubService.create(formData)
+          .subscribe(
+            async (data) => {
+              const {user, success} = <any>data;
+              this.alertService.success(success, true);
+              await this.authService.setCurrentUser(user);
+              await this.router.navigate([ '/' ]);
+            },
+            error => {
+              this.alertService.error(error);
+              this.loading = false;
+            });
+      } catch (err) {
+        const error = FirebaseErrorHandler.signUpErrorHandler(err.code);
+        this.alertService.error(error);
+        this.loading = false;      }
 
-      this.clubService.create(formData)
-        .subscribe(
-          data => {
-            this.alertService.success('Registración Exitosa', true);
-            this.router.navigate([ '/login' ]);
-          },
-          error => {
-            this.alertService.error(error);
-            this.loading = false;
-          });
     } else {
       ValidateAllFields.validateAllFields(this.registerClubForm);
     }

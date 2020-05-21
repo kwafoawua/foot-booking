@@ -15,6 +15,9 @@ var ObjectId = Schema.Types.ObjectId;
 
 var clubSchema = new Schema({
     name: { type: String, required: true, index: true },
+    email: { type: String, required: true },
+    uid: { type: String, required: true, unique: true },
+    rol: { type: String, default: 'Club' },
     address: {
         lat: {type: Number, required: true},
         lng: {type: Number, required: true},

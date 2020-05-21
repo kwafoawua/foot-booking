@@ -6,14 +6,17 @@ const config = require('../config');
 const bcrypt = require('bcryptjs');
 const utils = require('../utils');
 const Player = require('../models/Player');
+const Club = require('../models/Club');
 
 module.exports.authenticate = async function(req, res) {
   try {
     console.log(req.body);
     // TODO: generalizar para club y player
       const player = await Player.findOne({ uid: req.body.uid }).exec();
-      const token = utils.generateToken(player._id);
-      res.status(200).send({...player._doc, token});
+      const club = await Club.findOne({ uid: req.body.uid }).exec();
+      const user = player || club;
+      const token = utils.generateToken(user._id);
+      res.status(200).send({...user._doc, token});
   } catch (error) {
     res.status(400).send(error.message);
   }
