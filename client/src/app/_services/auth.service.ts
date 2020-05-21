@@ -50,6 +50,7 @@ export class AuthService {
     return !!this.getCurrentUser();
   }
 
+  // TODO: estos metodos causan problemas de  performance, reemplazarlos
   public async isUserClub() {
     const currentUser = await this.getCurrentUser();
     return currentUser && currentUser.rol === 'Club';

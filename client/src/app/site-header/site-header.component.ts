@@ -12,20 +12,29 @@ import { Router } from '@angular/router';
 export class SiteHeaderComponent implements OnInit {
   currentUser: any;
   name: string = '';
-  isAuthenticated: boolean = false;
-  isClubUser: boolean = false;
 
   constructor(public auth: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.auth.getCurrentUser().then((user) =>{
+      console.log(user);
       if (user) {
         this.currentUser = user;
         this.name = user.name;
-        this.isClubUser = user.rol === 'Club';
-        this.isAuthenticated = true;
       }
     })
+  }
+
+  isClubUser(): boolean {
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    if(user) {
+      return user.rol === 'Club'
+    }
+  }
+
+  isAuthenticated (): boolean {
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    return !!user;
   }
 
   public goToProfile() {
