@@ -54,6 +54,7 @@ import { TournamentStageComponent } from './tournament/tournament-stage/tourname
 import { StageComponent } from './tournament/stage/stage.component';
 import { GameComponent } from './tournament/game/game.component';
 import { TournamentModule } from './tournament/tournament.module';
+import {ResultadoBusquedaComponent} from './result/resultadoBusqueda.component';
 
 
 @NgModule({
@@ -101,7 +102,8 @@ import { TournamentModule } from './tournament/tournament.module';
     FieldsManagementComponent,
     EstadisticasClubComponent,
     bookingPlayerComponent,
-    commentsComponent
+    commentsComponent,
+    ResultadoBusquedaComponent,
   ],
   providers: [
     authInterceptorProviders,

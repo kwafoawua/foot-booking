@@ -1,0 +1,52 @@
+<div class="tab-content small-view-tab">
+  <div role="tabpanel" class="tab-pane active" id="recent">
+    <ul>
+
+     <li class="item-wrap" *ngFor="let club of _clubsEncontrados">
+      <div class="item">
+        <div class="item-image">
+          <a [routerLink]="['/results/club/',club._id]">
+            <img src="{{uploadsBaseURL}}{{club?.profileImg}}"  class="img-responsive">
+          </a>
+        </div>
+        <div class="item-description">
+          <div class="item-meta">
+            <ul class="list-inline product-social">
+              <small class="list-inline">
+                <li *ngIf="(club?.socialMedia.facebookId !== null && club?.socialMedia.facebookId.length >= 1)"
+                    class="list-inline-item"><a target="_blank" href="{{club?.socialMedia.facebookId}}"> <i
+                  class="fa fa-facebook-square" aria-hidden="true"></i></a></li>
+                <li *ngIf="(club?.socialMedia.twitterId !== null && club?.socialMedia.twitterId.length >= 1)"
+                    class="list-inline-item"><a target="_blank" href="{{club?.socialMedia.twitterId}}"> <i
+                  class="fa fa-twitter-square" aria-hidden="true"></i></a></li>
+                <li *ngIf="(club?.socialMedia.googleId !== null && club?.socialMedia.googleId.length >= 1)"
+                    class="list-inline-item"><a target="_blank" href="{{club?.socialMedia.googleId}}"> <i
+                  class="fa fa-google-plus-square" aria-hidden="true"></i></a></li>
+                <li *ngIf="(club?.socialMedia.instagramId !== null && club?.socialMedia.instagramId.length >= 1)"
+                    class="list-inline-item"><a target="_blank" href="{{club?.socialMedia.instagramId}}"> <i
+                  class="fa fa-instagram" aria-hidden="true"></i></a></li>
+              </small>
+            </ul>
+          </div>
+          <div class="item-title">
+            <h3><a href="#">{{club?.name}}</a></h3>
+          </div>
+          <div class="item-info">
+            <p>{{club?.description}}</p>
+          </div>
+        </div><!-- item-description -->
+      </div><!-- item -->
+    </li> <!-- item-wrap -->
+
+    </ul>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
