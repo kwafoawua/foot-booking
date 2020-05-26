@@ -11,16 +11,10 @@ import {environment} from '../../environments/environment';
 
 export class ResultadoBusquedaComponent  {
 
- public _clubsEncontrados: Club[];
+
   uploadsBaseURL = environment.uploadsBaseURL;
-  get clubsFound(): Club[]{
-   return this._clubsEncontrados;
-  }
-  @Input()
-  set clubsFound(value: Club[]){
-    this._clubsEncontrados = value;
-    console.log(this.clubsFound);
-  }
+
+  @Input() clubsFound: Club[];
 
   constructor() {
   }

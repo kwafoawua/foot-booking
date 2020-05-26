@@ -2,7 +2,7 @@
   <div role="tabpanel" class="tab-pane active" id="recent">
     <ul>
 
-     <li class="item-wrap" *ngFor="let club of _clubsEncontrados">
+     <li class="item-wrap" *ngFor="let club of clubsFound">
       <div class="item">
         <div class="item-image">
           <a [routerLink]="['/results/club/',club._id]">
