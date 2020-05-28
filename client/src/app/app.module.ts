@@ -59,6 +59,7 @@ import { StageComponent } from './tournament/stage/stage.component';
 import { GameComponent } from './tournament/game/game.component';
 import { TournamentModule } from './tournament/tournament.module';
 import { LoginGuard } from './_guards/login.guard';
+import {ResultadoBusquedaComponent} from './result/resultadoBusqueda.component';
 
 
 @NgModule({
@@ -109,7 +110,8 @@ import { LoginGuard } from './_guards/login.guard';
     FieldsManagementComponent,
     EstadisticasClubComponent,
     bookingPlayerComponent,
-    commentsComponent
+    commentsComponent,
+    ResultadoBusquedaComponent,
   ],
   providers: [
     authInterceptorProviders,

@@ -31,7 +31,7 @@ export class SearchService {
   }
 
   findClubsByFilters(filter: ClubFilter) {
-    console.log('en esl servico', filter)
+    console.log('en esl servico', filter);
     return this.http.get<Club[]>('/findClub/' + JSON.stringify(filter))
       .pipe(map(response => SearchService.clubs = response));
   }
