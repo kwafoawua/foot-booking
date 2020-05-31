@@ -8,15 +8,15 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ImageUploadModule } from 'angular2-image-upload';
 import { CustomFormsModule } from 'ng2-validation';
 import { DemoUtilsModule } from './_helpers/demo-utils/module';
-import { AngularFireModule } from "@angular/fire";
-import { AngularFireAuthModule } from "@angular/fire/auth";
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
 
-import { AuthInterceptor, authInterceptorProviders } from './_helpers/index';
+import { authInterceptorProviders } from './_helpers/index';
 import { AlertComponent } from './_directives/index';
 import { AuthGuard } from './_guards/index';
 import {
@@ -48,10 +48,10 @@ import { bookingPlayerComponent } from './booking-player/booking-player.componen
 import { EstadisticasClubComponent } from './estadisticas-club/index';
 import { commentsComponent } from './_directives/Comments/commentsComponent';
 
-//API MAPS
+// API MAPS
 import { AgmCoreModule } from '@agm/core';
 import { DpDatePickerModule } from 'ng2-date-picker';
-import { confirmationComponent } from './booking-confirmation/confirmation.component';
+import { ConfirmationComponent } from './booking-confirmation/confirmation.component';
 import { TournamentDefinitionComponent } from './tournament/tournament-definition/tournament-definition.component';
 import { TournamentService } from './_services/tournament.service';
 import { TournamentStageComponent } from './tournament/tournament-stage/tournament-stage.component';
@@ -75,7 +75,7 @@ import {ResultadoBusquedaComponent} from './result/resultadoBusqueda.component';
     ImageUploadModule.forRoot(),
     CustomFormsModule,
     DpDatePickerModule,
-    AgmCoreModule.forRoot({//old: AIzaSyAAwaI8YafySsHraMA_9G_n30_FECUhoVs
+    AgmCoreModule.forRoot({// old: AIzaSyAAwaI8YafySsHraMA_9G_n30_FECUhoVs
       apiKey: 'AIzaSyBuNW_HnnPaMrMq8KGEhiEzUnbVOO_OJzA',
       libraries: [ 'places' ]
     }),
@@ -106,7 +106,7 @@ import {ResultadoBusquedaComponent} from './result/resultadoBusqueda.component';
     FieldFormArrayComponent,
     FieldFormControlComponent,
     AdminClubComponent,
-    confirmationComponent,
+    ConfirmationComponent,
     FieldsManagementComponent,
     EstadisticasClubComponent,
     bookingPlayerComponent,

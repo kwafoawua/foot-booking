@@ -26,15 +26,15 @@ export class ProfileClubClientComponent implements OnInit {
   horasOcupadas: string [] = [];
   horasDisponibles: string [] = [];
   club: Club;
-  galery: String [];
+  galery: string[];
   uploadsBaseURL = environment.uploadsBaseURL;
-  NotanUser: Boolean;
+  NotanUser: boolean;
 
   booking1: Booking = new Booking();
   selectedField: Field = new Field();
   date: string[] = [];
   selectedTime: any[] = [];
-  //selectedButton: any[] = [];
+  // selectedButton: any[] = [];
 
   configTime: ITimeSelectConfig = {
     minutesInterval: 60,
@@ -81,7 +81,7 @@ export class ProfileClubClientComponent implements OnInit {
     // if(localStorage.currentUser){
     //     this.NotanUser =false ;
     if (field != null) {
-      if (this.date[ i ] != '' || this.selectedTime[ i ] != '') {
+      if (this.date[ i ] !== '' || this.selectedTime[ i ] !== '') {
 
         this.booking1.field = field;
         this.booking1.club = this.club;
@@ -89,10 +89,10 @@ export class ProfileClubClientComponent implements OnInit {
         this.booking1.timeBook = this.selectedTime[ i ];
         console.log('todos los datos');
         if (ClubService.guardarBooking(this.booking1)) {
-          this.router.navigate([ 'confirmation' ])
+          this.router.navigate([ 'confirmation' ]);
         }
       } else {
-        console.log('faltan los datos')
+        console.log('faltan los datos');
       }
     }
 

@@ -17,16 +17,16 @@ import { forEach } from '@angular/router/src/utils/collection';
 
 })
 
-export class confirmationComponent implements OnInit {
+export class ConfirmationComponent implements OnInit {
 
   booking: Booking;
   player: Player;
   reservaFinal: any = {};
   loading = true;
-  confirmado: Boolean = false;
+  confirmado = false;
 
 
-  //subscription: Subscription;
+  // subscription: Subscription;
 
 
   constructor(
@@ -62,7 +62,7 @@ export class confirmationComponent implements OnInit {
     console.log(this.booking);
     console.log('el confirmado', this.confirmado);
     console.log('Reserva Final ' + this.reservaFinal);
-    const _id: string = JSON.parse(localStorage.getItem('currentUser')).playerOrClubId;
+    const _id: string = JSON.parse(localStorage.getItem('currentUser'))._id;
     this.getPlayer(_id);
     console.log('kakak', +this.player);
 

@@ -16,23 +16,21 @@ export class SiteHeaderComponent implements OnInit {
   constructor(public auth: AuthService, private router: Router) {}
 
   ngOnInit() {
-    this.auth.getCurrentUser().then((user) =>{
-      console.log(user);
-      if (user) {
-        this.currentUser = user;
-        this.name = user.name;
-      }
-    })
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (currentUser) {
+      this.currentUser = currentUser;
+      this.name = currentUser.name;
+    }
   }
 
   isClubUser(): boolean {
     const user = JSON.parse(localStorage.getItem('currentUser'));
-    if(user) {
-      return user.rol === 'Club'
+    if (user) {
+      return user.rol === 'Club';
     }
   }
 
-  isAuthenticated (): boolean {
+  isAuthenticated(): boolean {
     const user = JSON.parse(localStorage.getItem('currentUser'));
     return !!user;
   }
