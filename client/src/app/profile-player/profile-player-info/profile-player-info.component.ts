@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { UserService } from '../../_services/user.service';
 import { AlertService } from '../../_services/alert.service';
 import { AuthService } from '../../_services';
 
@@ -25,7 +24,7 @@ export class ProfilePlayerInfoComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
-    //TODO: modificar a llamada a la API de getPlayer, ya que localStorage no mantiene datos actualizados
+    // TODO: modificar a llamada a la API de getPlayer, ya que localStorage no mantiene datos actualizados
     this.authService.getCurrentUser().then(user => {
       this.currentUser = user;
       this.userForm.setValue({

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Field } from '../_models/field';
 import { Club } from '../_models/club';
-import { UserService } from '../_services/index';
 import { ClubService } from '../_services/index';
 import { Booking } from '../_models/booking';
 import { Player } from '../_models/index';
@@ -31,7 +30,6 @@ export class ConfirmationComponent implements OnInit {
 
   constructor(
     private playerService: PlayerService,
-    private userService: UserService,
     private route: ActivatedRoute,
     private clubService: ClubService,
     private alertService: AlertService,

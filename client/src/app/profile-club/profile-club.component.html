@@ -1,5 +1,5 @@
 <div class="container-fluid h100">
-  <div class="row" id="profileClubContainer" h-100 justify-content-center align-items-center>
+  <div class="row" id="profileClubContainer h-100 justify-content-center align-items-center">
 
     <div class="container h-100">
       <div class="row h-100 justify-content-center">
@@ -13,7 +13,6 @@
             <div>
               <div class="author">
                 <h4 class="title">{{club?.name}}<br/>
-                  <a href="#"><small>@{{user?.username}}</small></a>
                 </h4>
               </div>
               <p class="description text-center">
@@ -25,30 +24,22 @@
             <div class="profile-usermenu">
               <ul class="list-group list-group-flush">
                 <li>
-                  <a (click)="goToUser()" data-toggle="tab" id="1_tab"
-                     class="list-group-item list-group-item-action active" data-toggle="list" role="tab"
-                     aria-controls="home">
-                    <i class="fa fa-user" aria-hidden="true"></i>
-                    &nbsp;&nbsp;Usuario </a>
-                </li>
-
-                <li>
                   <a a (click)="goToInfo()" data-toggle="tab" id="2_tab" class="list-group-item list-group-item-action"
                      data-toggle="list" role="tab" aria-controls="home">
                     <i class="fa fa-home" aria-hidden="true"></i>
                     &nbsp;&nbsp;Info del Club</a>
                 </li>
                 <li>
-                  <a (click)="goToPassword()" data-toggle="tab" id="3_tab"
-                     class="list-group-item list-group-item-action" data-toggle="list" role="tab" aria-controls="home">
-                    <i class="fa fa-cog" aria-hidden="true"></i>
-                    &nbsp;&nbsp;Contraseña </a>
-                </li>
-                <li>
                   <a (click)="goToFields()" data-toggle="tab" id="4_tab" class="list-group-item list-group-item-action"
                      data-toggle="list" role="tab" aria-controls="home">
                     <i class="fa fa-pencil" aria-hidden="true"></i>
                     &nbsp;&nbsp;Modificar Canchas </a>
+                </li>
+                <li>
+                  <a (click)="goToPassword()" data-toggle="tab" id="3_tab"
+                     class="list-group-item list-group-item-action" data-toggle="list" role="tab" aria-controls="home">
+                    <i class="fa fa-cog" aria-hidden="true"></i>
+                    &nbsp;&nbsp;Contraseña </a>
                 </li>
               </ul>
             </div>

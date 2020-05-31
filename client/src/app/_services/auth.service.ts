@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { auth } from 'firebase/app';
-import { AngularFireAuth } from "@angular/fire/auth";
+import { AngularFireAuth } from '@angular/fire/auth';
 import { PlayerService } from './player.service';
 
 @Injectable()
@@ -14,8 +14,23 @@ export class AuthService {
     private afAuth: AngularFireAuth,
     private playerService: PlayerService) {}
 
-    //TODO: mover manejo de localstorage a utils
-  async setCurrentUser (user): Promise<any> {
+  private static createGmailUser(user) {
+    return  {
+      name: user.additionalUserInfo.profile.given_name as string,
+      lastName: user.additionalUserInfo.profile.family_name as string,
+
+    };
+  }
+
+  private static createFacebookUser(user) {
+    return  {
+      name: user.additionalUserInfo.profile.first_name as string,
+      lastName: user.additionalUserInfo.profile.last_name as string,
+    };
+  }
+
+    // TODO: mover manejo de localstorage a utils
+  async setCurrentUser(user): Promise<any> {
     await null;
     return localStorage.setItem('currentUser', JSON.stringify(user));
   }
@@ -29,7 +44,7 @@ export class AuthService {
   }
 
   private authenticate(uid) {
-    return this.http.post('/users/authenticate', { uid: uid })
+    return this.http.post('/users/authenticate', { uid })
       .subscribe(async (user: any) => {
         await this.setCurrentUser(user);
         await this.router.navigate(['/']);
@@ -71,7 +86,7 @@ export class AuthService {
     try {
       const pUser = await this.afAuth.auth.signInWithPopup(provider);
       // TODO: separar creación de player en otro método
-      if(pUser.additionalUserInfo.isNewUser) {
+      if (pUser.additionalUserInfo.isNewUser) {
         const baseUser = {
           email: pUser.user.email,
           photoURL: pUser.user.photoURL,
@@ -82,7 +97,7 @@ export class AuthService {
           ? {...baseUser, ...AuthService.createFacebookUser(pUser)}
           : {...baseUser, ...AuthService.createGmailUser(pUser)};
 
-        console.log('created player',player);
+        console.log('created player', player);
 
         this.playerService.create(player).subscribe(async (data: any) => {
           console.log('CREATED PLAYER', data);
@@ -93,7 +108,7 @@ export class AuthService {
         this.authenticate(pUser.user.uid);
       }
 
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     }
   }
@@ -106,21 +121,6 @@ export class AuthService {
 
   firebaseRegister(email: string, password: string): Promise<any> {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password);
-  }
-
-  private static createGmailUser (user) {
-    return  {
-      name: <string>user.additionalUserInfo.profile.given_name,
-      lastName: <string>user.additionalUserInfo.profile.family_name,
-
-    };
-  }
-
-  private static createFacebookUser (user) {
-    return  {
-      name: <string>user.additionalUserInfo.profile.first_name,
-      lastName: <string>user.additionalUserInfo.profile.last_name,
-    };
   }
 
 }

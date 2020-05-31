@@ -17,10 +17,8 @@ export class SiteHeaderComponent implements OnInit {
 
   ngOnInit() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (currentUser) {
-      this.currentUser = currentUser;
-      this.name = currentUser.name;
-    }
+    this.currentUser = currentUser || null;
+    this.name = currentUser.name || '';
   }
 
   isClubUser(): boolean {

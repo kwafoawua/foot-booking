@@ -1,11 +1,10 @@
 import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
-import { AlertService, UserService, ClubService } from '../../_services/index';
+import { AlertService, ClubService } from '../../_services/index';
 import { Club } from '../../_models/club';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {} from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
 import { Observable, of } from 'rxjs';
-import { isUndefined } from 'util';
 import { FieldFormArrayComponent } from '../../register-club/field-form-array.component';
 import { ValidateAllFields } from '../../_helpers/validate-all-fields';
 import { FileHolder } from 'angular2-image-upload';
@@ -15,7 +14,7 @@ import { environment } from '../../../environments/environment';
   templateUrl: 'profile-club-info.component.html'
 })
 export class ProfileClubInfoComponent implements OnInit {
-  username: string;
+  id: string;
   club: Club;
   clubForm: FormGroup;
   filesToUpload: File;
@@ -26,8 +25,7 @@ export class ProfileClubInfoComponent implements OnInit {
   uploadsBaseURL = environment.uploadsBaseURL;
 
 
-  constructor(private userService: UserService,
-              private clubService: ClubService,
+  constructor(private clubService: ClubService,
               private fb: FormBuilder,
               private mapsAPILoader: MapsAPILoader,
               private alertService: AlertService,
@@ -40,32 +38,32 @@ export class ProfileClubInfoComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
-    this.username = JSON.parse(localStorage.getItem('currentUser')).username;
-    this.getClub(this.username);
+    this.id = JSON.parse(localStorage.getItem('currentUser'))._id;
+    this.getClub(this.id);
 
     this.mapsAPILoader.load().then(() => {
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
         types: [ 'address' ]
       });
 
       autocomplete.addListener('place_changed', () => {
 
         this.ngZone.run(() => {
-          //get the place result
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          // get the place result
+          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
 
-          //verify result
+          // verify result
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
 
 
-          //set latitude, longitude and zoom
+          // set latitude, longitude and zoom
           this.clubForm.get('address.lat').setValue(place.geometry.location.lat());
           this.clubForm.get('address.lng').setValue(place.geometry.location.lng());
           this.clubForm.get('address.address').setValue(place.formatted_address);
           console.log(this.clubForm.get('address').value);
-          //this.registerClubForm.get('address.address').setValue(place.
+          // this.registerClubForm.get('address.address').setValue(place.
         });
       });
     });
@@ -76,10 +74,10 @@ export class ProfileClubInfoComponent implements OnInit {
 
   }
 
-  private getClub(username: string) {
-    this.userService.getByUsername(username).subscribe(userClub => {
+  private getClub(id: string) {
+    this.clubService.getById(id).subscribe(userClub => {
 
-      this.club = userClub.creator;
+      this.club = userClub;
       this.clubForm.setValue({
         _id: this.club._id,
         name: this.club.name,
@@ -103,10 +101,10 @@ export class ProfileClubInfoComponent implements OnInit {
       console.log(this.club.galleryImg);
       const relativeGallery = [];
       this.club.galleryImg.forEach((item, index) => {
-        let newItem = item.replace(/ /g, '%20');
+        const newItem = item.replace(/ /g, '%20');
         console.log(newItem);
 
-        let relativePath =   this.uploadsBaseURL + newItem;
+        const relativePath =   this.uploadsBaseURL + newItem;
         relativeGallery.push(relativePath);
       });
       this.profileGallery = relativeGallery;
