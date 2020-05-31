@@ -36,9 +36,7 @@ app.use('/', require('./routes/index'));
 const port = process.env.NODE_ENV === 'production' ? 80 : 4000;
 
 const createUploadFolder = () => {
-    if (!fs.exists('./uploads')){
-        fs.mkdir('./uploads');
-    }
+
 }
 
 mongoose.connect(config.connectionString,
@@ -48,8 +46,12 @@ mongoose.connect(config.connectionString,
     if (error) {
         return console.log(error);
     }
-      createUploadFolder();
     app.listen(port, function() {
+
+        fs.exists('./uploads', (exists) => {
+            if(exists) fs.mkdir('./uploads' , (err) => {
+            });
+        });
         console.log('Server listening on port: ' + port);
     });
 
