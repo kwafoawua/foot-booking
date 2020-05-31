@@ -130,8 +130,7 @@ export class RegisterClubComponent implements OnInit {
       uid: [null],
       name: [ null, Validators.required ],
       description: [ null, Validators.compose([ Validators.required, Validators.maxLength(255) ]) ],
-      phoneNumber: null,
-      //address: [null, Validators.required],
+      phoneNumber: [ null, Validators.required ],
       address: this.fb.group({
         lat: '',
         lng: '',
@@ -139,7 +138,7 @@ export class RegisterClubComponent implements OnInit {
       }),
       services: [ [], Validators.required ],
       profileImg: [ null, Validators.required ],
-      galleryImg: [ null, Validators.required ],// null,
+      galleryImg: [ null, Validators.required ],
       socialMedia: this.fb.group({
         facebookId: null,
         twitterId: null,
