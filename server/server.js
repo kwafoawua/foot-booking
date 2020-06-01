@@ -1,12 +1,12 @@
 require('rootpath')();
-var express = require('express');
-var app = express();
-var cors = require('cors');
-var bodyParser = require('body-parser');
-var expressJwt = require('express-jwt');
-var config = require('config.json');
-var mongoose = require('mongoose');
-var pathList = require('./paths');
+const express = require('express');
+const app = express();
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const expressJwt = require('express-jwt');
+const config = require('config.json');
+const mongoose = require('mongoose');
+const pathList = require('./paths');
 
 app.use(cors());
 app.use(bodyParser.json({limit: "50mb"}));
