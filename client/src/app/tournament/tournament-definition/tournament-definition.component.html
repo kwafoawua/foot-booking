@@ -1,63 +1,67 @@
 <div class="avt-post-wrapper section">
   <div class="container">
 
-    <form [formGroup]="tournamentForm" class="form-group">
+    <form #form="ngForm"  (ngSubmit)="createTournament(form)">
       <h3>Nuevo Campeonato</h3>
 
-      <div class="card">
+      <div class="card form-group">
         <div class="card-header">Datos principales</div>
         <div class="card-body form-group">
-
           <div class="row">
             <div class="col-6 col-md-4">
-              <label class="label-form row" name="name">Nombre del campeonato (*)</label>
-              <input type="text" formControlName="name" class="form-control" id="name" aria-describedby="emailHelp">
+              <label class="label-form row">Nombre del campeonato (*)</label>
+              <input type="text" class="form-control" id="name" name="nameT"
+                     [(ngModel)]="tournament.nameT" required #nameField="ngModel">
+             <div [hidden]="!form.submitted || nameField.valid" class="alert alert-danger">
+                Ingrese nombre
+              </div>
+            </div>
+
+            <div class="col-6 col-md-4">
+            <label class="label-form row">Fecha de Inicio (*)</label>
+            <input class="form-control" type="date"
+                   name="datePickerInicio" placeholder="DD-MM-AAAA"
+                   [(ngModel)]="tournament.statingDay" required #fechaInicioCam="ngModel">
+              <div [hidden]="!form.submitted || fechaInicioCam.valid" class="alert alert-danger">
+                Ingrese fecha de inicio de campeonato
+              </div>
+          </div>
+            <div class="col-6 col-md-4">
+              <label class="label-form row">Fecha de Fin</label>
+              <input class="form-control"  type="date"
+                     name="datePickerFin" placeholder="DD-MM-AAAA"
+                     inputElementConteiner="#inputConteiner" theme="dp-material"
+                     [(ngModel)]="tournament.finishDay">
             </div>
           </div>
 
           <div class="row">
             <div class="col-6 col-md-4">
-              <label class="label-form row" for="datePicker5">Fecha de Inicio (*)</label>
-              <input class="form-group dropdown category-dropdown form-control" [dpDayPicker]="config" name="datePicker"
-                     placeholder="DD-MM-AAAA"
-                     inputElementConteiner="#inputConteiner" theme="dp-material" formControlName="inicioCampeonato">
+              <label class="label-form row">Tipo de competencia (*)</label>
+              <select class=" form-control" name="type"
+                      [(ngModel)]="tournament.tournamentType" required #tipoCompetencia="ngModel">
+                <option *ngFor="let tipo of tipoTorneo">{{tipo}}</option>
+              </select>
+              <div [hidden]="!form.submitted || tipoCompetencia.valid" class="alert alert-danger">
+                Seleccione un tipo de competencia
+              </div>
             </div>
 
             <div class="col-6 col-md-4">
-              <label class="label-form row" for="datePicker6">Fecha de Fin</label>
-              <input class="form-group  dropdown category-dropdown form-control" [dpDayPicker]="config"
-                     name="datePicker" placeholder="DD-MM-AAAA"
-                     inputElementConteiner="#inputConteiner" theme="dp-material" formControlName="finCampeonato">
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-6 col-md-4">
-              <label class="label-form row" for="tipo">Tipo de competencia (*)</label>
-              <select class="form-group dropdown category-dropdown form-control" formControlName="tipo">
-                <option>5 Jugadores</option>
-                <option>6 Jugadores</option>
-                <option>7 Jugadores</option>
-                <option>9 Jugadores</option>
-                <option>11 Jugadores</option>
+              <label class="label-form row" >Categoría (*)</label>
+              <select class="form-control" name="category"
+                      [(ngModel)]="tournament.category" required #categoriaT="ngModel">
+                <option *ngFor="let cate of categorias">{{cate}}</option>
               </select>
-            </div>
-            <div class="col-6 col-md-4">
-              <label class="label-form row" for="categoria">Categoría (*)</label>
-              <select class="form-group dropdown category-dropdown form-control" formControlName="categoria">
-                <option>Femenino</option>
-                <option>Masculino</option>
-                <option>Mixto</option>
-                <option>Junior</option>
-                <option>Amateur</option>
-                <option>Veteranos</option>
-                <option>Comercial</option>
-              </select>
+              <div [hidden]="!form.submitted || categoriaT.valid" class="alert alert-danger">
+                Ingrese fecha de inicio de campeonato
+              </div>
             </div>
           </div>
 
         </div>
       </div>
+
 
 
       <div class="card form-group">
@@ -65,59 +69,104 @@
         <div class="card-body form-group">
           <div class="row">
 
-            <div class="col-6 col-md-4">
+            <div class="col-6 col-md-3">
               <label class="label-form row" name="datePicker1"> Fecha de inicio (*)</label>
-              <input class="form-group category-dropdown form-control" [dpDayPicker]="config" name="datePicker1"
-                     placeholder="DD-MM-AAAA"
-                     inputElementConteiner="#inputConteiner" theme="dp-material" formControlName="inicioInscripcion">
+              <input class="form-control" type="date" name="fechaIniIns"placeholder="DD-MM-AAAA"
+                     inputElementConteiner="#inputConteiner" theme="dp-material"
+                     [(ngModel)]="tournament.startInscription" required #fechaIniIns="ngModel">
+              <div [hidden]="!form.submitted || fechaIniIns.valid" class="alert alert-danger">
+                Ingrese fecha de inicio de inscripción
+              </div>
             </div>
 
-            <div class="col-6 col-md-4">
+            <div class="col-6 col-md-3">
               <label class="label-form row" for="datePicker2">Fecha de fin (*)</label>
-              <input class=" form-group dropdown category-dropdown form-control" [dpDayPicker]="config"
+              <input class=" form-control" type="date"name="fechaFinIns"
                      name="datePicker2" placeholder="DD-MM-AAAA"
-                     inputElementConteiner="#inputConteiner" theme="dp-material" formControlName="finInscripcion">
+                     inputElementConteiner="#inputConteiner" theme="dp-material"
+                     [(ngModel)]="tournament.finishInscription" required #fechaFinIns="ngModel">
+              <div [hidden]="!form.submitted || fechaFinIns.valid" class="alert alert-danger">
+                Ingrese fecha de fin de inscripción
+              </div>
+            </div>
 
 
+            <div class="col-6 col-md-3">
+              <label class="label-form row " for="cant">Cantidad de equipos</label>
+              <input class="form-control " name="cant" type="number" [(ngModel)]="tournament.cantequipos">
+            </div>
+            <div class="col-6 col-md-3">
+              <label class="label-form row" for="costo">Costo de inscripción (*)</label>
+              <input class="form-control" type="number" placeholder="$" name="costo"
+                     [(ngModel)]="tournament.inscriptionFee" required #fee="ngModel">
+              <div [hidden]="!form.submitted || fee.valid" class="alert alert-danger">
+                Ingrese costo de inscripción
+              </div>
             </div>
           </div>
+        </div>
+      </div>
 
+
+
+      <div class="card form-group">
+        <div class="card-header">Premios</div>
+        <div class="card-body form-group">
           <div class="row">
             <div class="col-6 col-md-4">
-              <label class="label-form row " for="cant">Cantidad de equipos</label>
-              <input class="form-group form-control " name="cant" type="number" formControlName="cantEquipos">
+              <label class="label-form row " >Primer premio (*)</label>
+              <input class="form-control " type="text" name="primero"
+                     [(ngModel)]="tournament.prize_1" required #primero="ngModel">
+              <div [hidden]="!form.submitted || primero.valid" class="alert alert-danger">
+                Ingrese premio del ganador
+              </div>
             </div>
             <div class="col-6 col-md-4">
-              <label class="label-form row" for="costo">Costo de inscripción (*)</label>
-              <input class="form-group form-control" name="costo" type="number" placeholder="$" formControlName="fee">
-
+              <label class="label-form row">Segundo premio</label>
+              <input class="form-control" type="text"  name="segundo"
+                     [(ngModel)]="tournament.prize_2">
+            </div>
+            <div class="col-6 col-md-4">
+              <label class="label-form row" >Tercer premio</label>
+              <input class="form-control" type="text" name="tercero"
+                     [(ngModel)]="tournament.prize_3">
             </div>
           </div>
-          <!--<div class="col-4">-->
-          <!--<label class="label-form row">Competencia</label>-->
-
-          <!--</div>-->
-          <!--<div class="col-4">-->
-          <!--<label class="label-form row">Sexo de los participantes</label>-->
-
-          <!--</div>-->
         </div>
       </div>
 
-      <div class="card">
-        <div class="card-header">Normas / descripción / información (*)</div>
+
+
+      <div class="card form-group">
+        <div class="card-header">Descripcion publicitaria(*)</div>
         <div class="card-body">
-          <div class="form-group post-inner">
-            <textarea formControlName="description" class="form-control" rows="6" id="comment">Descripción </textarea>
+          <div class="form-control post-inner">
+            <textarea class="form-control" type="text" rows="6" name="descpubli"
+                      [(ngModel)]="tournament.publicationDescrip" required #publidesc="ngModel">Descripción </textarea>
+            <div [hidden]="!form.submitted || publidesc.valid" class="alert alert-danger">
+              Ingrese una descripción
+            </div>
           </div>
         </div>
       </div>
+
+      <div class="card form-group">
+        <div class="card-header">Terminos y condiciones (*)</div>
+        <div class="card-body">
+          <div class="form-control post-inner">
+            <textarea class="form-control" type="text" rows="6" name="terminos"
+                      [(ngModel)]="tournament.description" required #descripcion="ngModel"> Terminos y condiciones </textarea>
+            <div [hidden]="!form.submitted || descripcion.valid" class="alert alert-danger">
+              Ingrese una descripción
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div align="right">
-        <button type="submit" class="btn btn-primary" (click)="createTournament()">Guardar</button>
+        <button type="submit" class="btn btn-primary">Crear campeonato</button>
       </div>
     </form>
-
   </div>
-
 </div>
 

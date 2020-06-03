@@ -8,7 +8,6 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ImageUploadModule } from 'angular2-image-upload';
 import { CustomFormsModule } from 'ng2-validation';
 import { DemoUtilsModule } from './_helpers/demo-utils/module';
-
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
 

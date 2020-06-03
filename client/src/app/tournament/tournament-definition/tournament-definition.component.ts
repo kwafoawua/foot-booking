@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validator, Validators } from '@angular/forms';
+import {Form, FormBuilder, FormGroup, Validator, Validators, NgForm} from '@angular/forms';
 import { DpDatePickerModule, IDatePickerDirectiveConfig } from 'ng2-date-picker';
 import { Moment } from 'moment';
 import { Tournament } from '../../_models/tournament';
@@ -12,6 +12,10 @@ import { AlertService } from '../../_services/alert.service';
 })
 
 export class TournamentDefinitionComponent implements OnInit {
+
+  categorias: string[];
+  tipoTorneo: string[];
+  prizes: string[];
   tournamentForm: FormGroup;
   tournament: Tournament;
   idClub: string = JSON.parse(localStorage.getItem('currentUser')).playerOrClubId;
@@ -21,6 +25,7 @@ export class TournamentDefinitionComponent implements OnInit {
   };
 
   config: IDatePickerDirectiveConfig = {
+
     format: 'DD/MM/YYYY',
     enableMonthSelector: true,
     showNearMonthDays: false,
@@ -34,13 +39,12 @@ export class TournamentDefinitionComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private tournamentService: TournamentService,
               private alertService: AlertService) {
-    this.createForm();
-
-
   }
 
   ngOnInit() {
-
+    this.tournament = new Tournament();
+    this.tipoTorneo = this.tournamentService.getTournamentType();
+    this.categorias = this.tournamentService.getTournamentCategories();
   }
 
 
@@ -56,39 +60,46 @@ export class TournamentDefinitionComponent implements OnInit {
       cantEquipos: [ null, Validators.required ],
       fee: [ null, Validators.required ],
       tipo: [ null, Validators.required ],
-      categoria: [ null, Validators.required ]
-    })
+      categoria: [ null, Validators.required ],
+      condiciones : [ null, Validators.compose([ Validators.required, Validators.maxLength(255) ]) ],
+      primero: [null, Validators.required],
+      segundo: [null],
+      tercero: [null]
+    });
   }
 
-  createTournament() {
-
-
-    if (this.tournamentForm.valid) {
-
-      // this.tournament = new Tournament();
-      // this.tournament._idClub = this.idClub;
-      // this.tournament.name = this.tournamentForm.name;
-      // this.tournament.description = this.tournamentForm.description;
-      // this.tournament.startInscription = this.tournamentForm.inicioInscripcion;
-      // this.tournament.finishInscription = this.tournamentForm.finInscripcion;
-      // this.tournament.statingDay = this.tournamentForm.inicioCampeonato;
-      // this.tournament.finishDay = this.tournament.finCampeonato;
-      // this.tournament.cantequipos = this.tournamentForm.cantEquipos;
-      // this.tournament.inscriptionFee = this.tournamentForm.fee;
-      // console.log("el form", this.tournament);
-
-      //   this.tournamentForm._idClubId = this.idClub;
-
-      this.tournamentService.create(this.tournamentForm).subscribe(data => {
-          this.alertService.success('se guardaron los cambios', true),
-            console.log('el form', this.tournamentForm);
-
-
-        },
-        error => {
-          this.alertService.error('ha ocurrido un error', false);
-        })
-    }
+  createTournament(form: NgForm) {
+    console.log('el formulario', form.value);
+    this.tournamentService.create(form).subscribe(data => {
+        this.alertService.success('El campeonato e registro con exito', true),
+          console.log('el form', form);
+      },
+      error => {
+        this.alertService.error('Ha ocurrido un error al registrar el torneo', false);
+      }
+    );
   }
+    // if (this.tournamentForm.valid) {
+    //   // this.tournament = new Tournament();
+    //   // this.tournament._idClub = this.idClub;
+    //   // this.tournament.name = this.tournamentForm.name;
+    //   // this.tournament.description = this.tournamentForm.description;
+    //   // this.tournament.startInscription = this.tournamentForm.inicioInscripcion;
+    //   // this.tournament.finishInscription = this.tournamentForm.finInscripcion;
+    //   // this.tournament.statingDay = this.tournamentForm.inicioCampeonato;
+    //   // this.tournament.finishDay = this.tournament.finCampeonato;
+    //   // this.tournament.cantequipos = this.tournamentForm.cantEquipos;
+    //   // this.tournament.inscriptionFee = this.tournamentForm.fee;
+    //   // console.log("el form", this.tournament);
+    //
+    //   //   this.tournamentForm._idClubId = this.idClub;
+    //   this.tournamentService.create(this.tournamentForm).subscribe(data => {
+    //       this.alertService.success('se guardaron los cambios', true),
+    //         console.log('el form', this.tournamentForm);
+    //     },
+    //     error => {
+    //       this.alertService.error('ha ocurrido un error', false);
+    //     });
+    // }
 
 }

@@ -13,6 +13,7 @@ var findAllCommentForAClub = pathToRegexp('/comments/:_id');
 var findAllAuthorComments = pathToRegexp('/comments/authorComment/:_id');
 var findAllClubComments = pathToRegexp('/comments/clubComment/:_id');
 var deleteComment = pathToRegexp('/comments/:_id');
+//var newTournament = pathToRegexp(path: '/tournament/register')
 
 module.exports.path = {
     path: [
