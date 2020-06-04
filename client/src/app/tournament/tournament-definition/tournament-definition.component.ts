@@ -70,6 +70,7 @@ export class TournamentDefinitionComponent implements OnInit {
 
   createTournament(form: NgForm) {
     console.log('el formulario', form.value);
+    if(form.valid){
     this.tournamentService.create(form).subscribe(data => {
         this.alertService.success('El campeonato e registro con exito', true),
           console.log('el form', form);
@@ -78,6 +79,7 @@ export class TournamentDefinitionComponent implements OnInit {
         this.alertService.error('Ha ocurrido un error al registrar el torneo', false);
       }
     );
+    }
   }
     // if (this.tournamentForm.valid) {
     //   // this.tournament = new Tournament();
