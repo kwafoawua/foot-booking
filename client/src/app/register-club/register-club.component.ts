@@ -150,11 +150,15 @@ export class RegisterClubComponent implements OnInit {
     });
   }
 
-  public requestAutocompleteItemsFake = (text: string): Observable<string[]> => {
+  /*public requestAutocompleteItemsFake = (text: string): Observable<string[]> => {
     return of([
       'Asador', 'Buffet', 'Parking', 'Techado', 'Bar', 'Nocturno'
     ]);
-  };
+  };*/
+
+  public requestAutocompleteItemsFake = (text: string) => {
+    return [ 'Asador', 'Buffet', 'Parking', 'Techado', 'Bar', 'Nocturno' ];
+  }
 
   public profileUploaded(file: FileHolder) {
     this.filesToUpload = file.file;

@@ -77,7 +77,7 @@ export class ProfileClubInfoComponent implements OnInit {
   private getClub(id: string) {
     this.clubService.getById(id).subscribe(userClub => {
 
-      this.club = userClub;
+      this.club = userClub as any;
       this.clubForm.setValue({
         _id: this.club._id,
         name: this.club.name,
