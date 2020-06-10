@@ -9,6 +9,7 @@ import { PlayerService, AlertService, AuthService } from '../../_services';
 import { NumberValidationService } from '../../_helpers/numberInRange.validator';
 import { DateInRangeValidation } from '../../_services/dateInRange.validatorService';
 import { Player } from '../../_models';
+import { StorageService } from '../../_services/storage.service';
 
 
 @Component({
@@ -42,14 +43,13 @@ export class ProfilePlayerEditComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private playerService: PlayerService,
               private alertService: AlertService,
-              private authService: AuthService) {
+              private storageService: StorageService) {
   }
 
   ngOnInit() {
     this.createForm();
-    this.authService.getCurrentUser().then(user => {
-      this.getPlayer(user._id);
-    })
+    const id = JSON.parse(localStorage.getItem('currentUser'))._id;
+    this.getPlayer(id);
   }
 
   private createForm() {
@@ -63,8 +63,8 @@ export class ProfilePlayerEditComponent implements OnInit {
     });
   }
 
-  private getPlayer(_id: string) {
-    this.playerService.getPlayerByUserId(_id).subscribe(player => {
+  private getPlayer(id: string) {
+    this.playerService.getPlayerByUserId(id).subscribe(player => {
       this.player = player;
 
       this.playerForm.setValue({

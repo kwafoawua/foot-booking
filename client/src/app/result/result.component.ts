@@ -28,10 +28,11 @@ export class ResultComponent implements OnInit {
   lng: number; // = -64.193182;
   icon: '../../assets/icon/iconochico.png';
   zoom: number;
-  public cantPlayerSelect: any[] = [ { cant: 5, desc: '5 Jugadores' }, { cant: 7, desc: '7 Jugadores' }, {
-    cant: 11,
-    desc: '11 Jugadores'
-  } ];
+  public cantPlayerSelect: any[] = [
+    { cant: 5, desc: '5 Jugadores' },
+    { cant: 7, desc: '7 Jugadores' },
+    { cant: 11, desc: '11 Jugadores' },
+   ];
   private clubfilter: ClubFilter;
   public clubs: Club[];
   public services: Service[];
@@ -53,7 +54,6 @@ export class ResultComponent implements OnInit {
     this.setCurrentPosition();
     this.clubs = SearchService.clubs;
     this.services = this.searchService.getClubServices();
-
   }
 
 

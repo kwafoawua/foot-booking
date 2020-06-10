@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
 import { PasswordValidation, ValidateAllFields } from '../_helpers';
 import { FirebaseErrorHandler } from '../_helpers/firebaseErrorHandler';
+import { StorageService } from '../_services/storage.service';
 
 @Component({
   templateUrl: 'register-player.component.html'
@@ -13,18 +14,19 @@ import { FirebaseErrorHandler } from '../_helpers/firebaseErrorHandler';
 export class RegisterPlayerComponent implements OnInit {
 
   constructor(
-    private fb : FormBuilder,
+    private fb: FormBuilder,
     private router: Router,
     private playerService: PlayerService,
     private alertService: AlertService,
     private authService: AuthService,
+    private storageService: StorageService,
     ) {}
 
-  registerForm : FormGroup;
-  loading: boolean = false;
+  registerForm: FormGroup;
+  loading = false;
 
   ngOnInit(): void {
-    this.registerForm =this.fb.group({
+    this.registerForm = this.fb.group({
       name: [ '', Validators.required ],
       lastName: [ '', Validators.required ],
       email: [null, Validators.compose([ Validators.required, CustomValidators.email ])],
@@ -58,8 +60,8 @@ export class RegisterPlayerComponent implements OnInit {
             let { user, success } = <any>data;
             this.alertService.success(success, true);
             //TODO: centralizar el setCurrent y navigate en el service de auth
-            await this.authService.setCurrentUser(user);
-            await this.router.navigate([ '/' ]);
+            this.storageService.store('currentUser', user);
+            this.router.navigate([ '/' ]);
           },
           error => {
             console.log(error);

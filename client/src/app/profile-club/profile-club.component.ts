@@ -27,10 +27,6 @@ export class ProfileClubComponent implements OnInit {
   }
 
   public goToInfo() {
-    this.router.navigate([ './info' ], { relativeTo: this.route });
-  }
-
-  public goToUser() {
     this.router.navigate([ './' ], { relativeTo: this.route });
   }
 

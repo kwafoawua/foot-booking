@@ -11,6 +11,7 @@ import { FileHolder } from 'angular2-image-upload';
 import { FieldFormArrayComponent } from './field-form-array.component';
 import { PasswordValidation } from '../_helpers/validate-password';
 import { FirebaseErrorHandler } from '../_helpers/firebaseErrorHandler';
+import { StorageService } from '../_services/storage.service';
 
 declare var google: any;
 
@@ -28,7 +29,7 @@ export class RegisterClubComponent implements OnInit {
   lng: number;
   icon: '../../assets/icon/iconochico.png';
   zoom: number;
-  draggable: boolean = true; //Necesario para el que el marcador del mapa se mueva
+  draggable = true; //Necesario para el que el marcador del mapa se mueva
 
 
   @ViewChild('address')
@@ -41,7 +42,9 @@ export class RegisterClubComponent implements OnInit {
     private fb: FormBuilder,
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private storageService: StorageService,
+    ) {
     this.createForm();
   }
 
@@ -232,12 +235,11 @@ export class RegisterClubComponent implements OnInit {
         formData.append('body', JSON.stringify(this.registerClubForm.value));
 
         this.clubService.create(formData)
-          .subscribe(
-            async (data) => {
-              const {user, success} = <any>data;
+          .subscribe((data) => {
+              const {user, success} = data as any;
               this.alertService.success(success, true);
-              await this.authService.setCurrentUser(user);
-              await this.router.navigate([ '/' ]);
+              this.storageService.store('currentUser', user);
+              this.router.navigate([ '/' ]);
             },
             error => {
               this.alertService.error(error);

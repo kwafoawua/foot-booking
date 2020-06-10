@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AlertService } from '../../_services/alert.service';
 import { AuthService } from '../../_services';
+import { StorageService } from '../../_services/storage.service';
 
 @Component({
   templateUrl: 'profile-player-info.component.html'
@@ -19,20 +20,23 @@ export class ProfilePlayerInfoComponent implements OnInit {
     private rout: ActivatedRoute,
     private fb: FormBuilder,
     private authService: AuthService,
-    private alertService: AlertService) {
+    private alertService: AlertService,
+    private storageService: StorageService,
+    ) {
   }
 
   ngOnInit() {
     this.createForm();
     // TODO: modificar a llamada a la API de getPlayer, ya que localStorage no mantiene datos actualizados
-    this.authService.getCurrentUser().then(user => {
-      this.currentUser = user;
-      this.userForm.setValue({
-        name: this.currentUser.name,
-        email: this.currentUser.email,
-        _id: this.currentUser._id,
-      })
-    });
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+      if (user) {
+        this.currentUser = user;
+        this.userForm.setValue({
+          name: this.currentUser.name,
+          email: this.currentUser.email,
+          _id: this.currentUser._id,
+        });
+      }
   }
 
   private createForm() {

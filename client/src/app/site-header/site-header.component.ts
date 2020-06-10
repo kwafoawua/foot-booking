@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services';
 import { Router } from '@angular/router';
-
+import { StorageService } from '../_services/storage.service';
+import * as firebase from 'firebase/app';
 
 @Component({
   selector: 'app-site-header',
@@ -11,16 +12,19 @@ import { Router } from '@angular/router';
 
 export class SiteHeaderComponent implements OnInit {
   currentUser: any;
-  name: string = '';
+  name = '';
 
-  constructor(public auth: AuthService, private router: Router) {}
+  constructor(public auth: AuthService, private router: Router, private storageService: StorageService) {
+  }
 
   ngOnInit() {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (currentUser) {
-      this.currentUser = currentUser || null;
-      this.name = currentUser.name || '';
-    }
+    this.storageService.getStorage('currentUser').subscribe(user => {
+      console.log('site header', user);
+      if (user.value) {
+        this.currentUser = user.value;
+        this.name = user.value.name;
+      }
+    });
   }
 
   isClubUser(): boolean {

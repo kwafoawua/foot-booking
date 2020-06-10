@@ -60,6 +60,7 @@ import { GameComponent } from './tournament/game/game.component';
 import { TournamentModule } from './tournament/tournament.module';
 import { LoginGuard } from './_guards/login.guard';
 import {ResultadoBusquedaComponent} from './result/resultadoBusqueda.component';
+import { StorageService } from './_services/storage.service';
 
 
 @NgModule({
@@ -116,6 +117,7 @@ import {ResultadoBusquedaComponent} from './result/resultadoBusqueda.component';
   providers: [
     authInterceptorProviders,
     AuthGuard,
+    StorageService,
     LoginGuard,
     AlertService,
     AuthService,

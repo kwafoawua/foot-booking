@@ -52,8 +52,8 @@
                         <h6>Cantidad de Jugadores</h6>
                         <div class="form-group">
                           <select class="form-control" [(ngModel)]="cantPlayers">
-                            <option *ngFor="let cantPlayer of cantPlayerSelect"
-                                    value={{cantPlayer.cant}}>
+                            <option value="">Ninguno</option>
+                            <option *ngFor="let cantPlayer of cantPlayerSelect" value={{cantPlayer.cant}}>
                               {{cantPlayer.desc}}
                             </option>
                           </select>

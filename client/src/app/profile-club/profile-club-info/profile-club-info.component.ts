@@ -9,6 +9,7 @@ import { FieldFormArrayComponent } from '../../register-club/field-form-array.co
 import { ValidateAllFields } from '../../_helpers/validate-all-fields';
 import { FileHolder } from 'angular2-image-upload';
 import { environment } from '../../../environments/environment';
+import { StorageService } from '../../_services/storage.service';
 
 @Component({
   templateUrl: 'profile-club-info.component.html'
@@ -29,7 +30,9 @@ export class ProfileClubInfoComponent implements OnInit {
               private fb: FormBuilder,
               private mapsAPILoader: MapsAPILoader,
               private alertService: AlertService,
-              private ngZone: NgZone) {
+              private ngZone: NgZone,
+              private storageService: StorageService,
+              ) {
 
   }
 
@@ -195,6 +198,8 @@ export class ProfileClubInfoComponent implements OnInit {
       this.clubService.update(this.club._id, formData)
         .subscribe(
           data => {
+            console.log(data);
+            this.storageService.store('currentUser', data);
             this.alertService.success('Los datos se actualizaron correctamente', true);
           },
           error => {

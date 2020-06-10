@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { PlayerService } from './player.service';
+import { StorageService } from './storage.service';
 
 @Injectable()
 export class AuthService {
@@ -12,7 +13,9 @@ export class AuthService {
     private http: HttpClient,
     private router: Router,
     private afAuth: AngularFireAuth,
-    private playerService: PlayerService) {}
+    private playerService: PlayerService,
+    private storageService: StorageService,
+    ) {}
 
   private static createGmailUser(user) {
     return  {
@@ -29,24 +32,10 @@ export class AuthService {
     };
   }
 
-    // TODO: mover manejo de localstorage a utils
-  async setCurrentUser(user): Promise<any> {
-    await null;
-    return localStorage.setItem('currentUser', JSON.stringify(user));
-  }
-  async getCurrentUser() {
-    await null;
-    return JSON.parse(localStorage.getItem('currentUser'));
-  }
-
-  deleteCurrentUser(): void {
-    localStorage.removeItem('currentUser');
-  }
-
   private authenticate(uid) {
     return this.http.post('/users/authenticate', { uid })
       .subscribe(async (user: any) => {
-        await this.setCurrentUser(user);
+        this.storageService.store('currentUser', user);
         await this.router.navigate(['/']);
       },
       error => {
@@ -57,17 +46,17 @@ export class AuthService {
 
   logout() {
     // remove user from local storage to log user out
-    this.deleteCurrentUser();
+    this.storageService.clear('currentUser');
     this.afAuth.auth.signOut().then().catch();
   }
 
   public isAuthenticated(): boolean {
-    return !!this.getCurrentUser();
+    return !!this.storageService.getStorage('currentUser');
   }
 
   // TODO: estos metodos causan problemas de  performance, reemplazarlos
-  public async isUserClub() {
-    const currentUser = await this.getCurrentUser();
+  public isUserClub() {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     return currentUser && currentUser.rol === 'Club';
   }
 
@@ -101,8 +90,8 @@ export class AuthService {
 
         this.playerService.create(player).subscribe(async (data: any) => {
           console.log('CREATED PLAYER', data);
-          await this.setCurrentUser(data.user);
-          await this.router.navigate(['/']);
+          this.storageService.store('currentUser', data.user);
+          this.router.navigate(['/']);
         });
       } else {
         this.authenticate(pUser.user.uid);
