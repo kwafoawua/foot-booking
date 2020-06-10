@@ -20,7 +20,7 @@
             </a>
           </li>
 
-          <div class="navbar-nav" *ngIf="!auth.isAuthenticated()">
+          <div class="navbar-nav" *ngIf="!isAuthenticated()">
             <li class="nav-item">
               <a class="nav-link" [routerLink]="['/login']">INICIAR SESION</a>
             </li>
@@ -32,29 +32,29 @@
             </li>
           </div>
 
-          <div class="navbar-nav" *ngIf="auth.isAuthenticated()">
-            <div class="navbar-nav" *ngIf="auth.isUserClub()">
+          <div class="navbar-nav" *ngIf="isAuthenticated()">
+            <div class="navbar-nav" *ngIf="isClubUser()">
               <li class="nav-item">
                 <a [routerLink]="['/club/estadisticas']" class="nav-link" href="#">DASHBOARD</a>
               </li>
 
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
                   CAMPEONATOS
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
                   <a class="dropdown-item" [routerLink]="['/campeonato/nuevo']">NUEVO</a>
                   <a class="dropdown-item" href="#">ADMINISTRAR</a>
                 </div>
               </li>
 
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
                   RESERVAS
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
                   <a class="dropdown-item" [routerLink]="['/club/gestion-canchas']">ADMINISTRAR</a>
                   <a class="dropdown-item" href="#">NUEVA</a>
                 </div>
@@ -62,7 +62,7 @@
 
             </div>
 
-            <div class="navbar-nav" *ngIf="!auth.isUserClub()">
+            <div class="navbar-nav" *ngIf="!isClubUser()">
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -77,10 +77,10 @@
             </div>
 
             <li class="nav-item">
-              <a class="nav-link" (click)=goToProfile()> {{auth.getUserAuthenticated() | uppercase}}</a>
+              <a class="nav-link" (click)=goToProfile()> {{name | uppercase}}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" (onclick)=logout() [routerLink]="['/login']">CERRAR SESION</a>
+              <a class="nav-link" (click)=auth.logout() [routerLink]="['/']">CERRAR SESION</a>
             </li>
 
           </div>

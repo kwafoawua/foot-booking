@@ -4,6 +4,7 @@ import { Field } from './field';
 export class Club {
   _id: string;
   name: string;
+  email: string;
   address: Address;
   services: [ {
     display: string,

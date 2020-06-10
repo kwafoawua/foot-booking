@@ -1,9 +1,8 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { UserService } from '../../_services/user.service';
-import { Observable } from 'rxjs';
 import { AlertService } from '../../_services/alert.service';
+import { ClubService } from '../../_services';
 
 @Component({
   templateUrl: 'profile-club-user.component.html'
@@ -11,55 +10,41 @@ import { AlertService } from '../../_services/alert.service';
 export class ProfileClubUserComponent implements OnInit {
 
   userForm: FormGroup;
-  username: string;
-  user: any = {};
-
-  //user: Observable<any>;
+  id: string;
+  club: any = {};
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private alertService: AlertService,
-    private userService: UserService) {
-    //this.createForm();
+    private clubService: ClubService) {
   }
 
   ngOnInit() {
     this.createForm();
-    this.username = JSON.parse(localStorage.getItem('currentUser')).username;
-    this.getUser(this.username);
+    this.id = JSON.parse(localStorage.getItem('currentUser'))._id;
+    this.getUser(this.id);
   }
 
-  private getUser(username: string) {
-    this.userService.getByUsername(username).subscribe(userClub => {
+  private getUser(id: string) {
+    this.clubService.getById(id).subscribe((userClub: any) => {
 
-      this.user.username = userClub.username;
-      this.user.email = userClub.email;
-      this.user._id = userClub._id;
-      this.userForm.setValue({ username: this.user.username, email: this.user.email, _id: this.user._id })
+      this.club.name = userClub.name;
+      this.club.email = userClub.email;
+      this.club._id = userClub._id;
+      this.userForm.setValue({ username: this.club.name, email: this.club.email, _id: this.club._id });
     });
   }
 
   private createForm() {
-    //console.log(this.user.username);
     this.userForm = this.fb.group({
-      username: null,
+      name: null,
       email: null,
       _id: null
     });
   }
 
   updateEmail() {
-    let user = this.userForm.value;
-    console.log(user);
-    this.userService.updateEmail(user)
-      .subscribe(
-        data => {
-          this.alertService.success('El email se modificó con éxito', true);
-        },
-        error => {
-          this.alertService.error(error);
-        });
   }
 
   onSubmit(): void {

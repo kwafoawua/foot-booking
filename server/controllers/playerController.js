@@ -3,51 +3,32 @@
 /**
  * Module dependencies.
  */
-var mongoose = require('mongoose');
-var _ = require('lodash');
-var Player = require('../models/Player');
-var User = require('../models/User');
-var Q = require('q');
+const _ = require('lodash');
+const Player = require('../models/Player');
 const utils = require('../utils');
 
 /**
  * Create a Player
  */
 module.exports.registerPlayer = async function (req,res) {
+    const player = req.body;
     try {
-        await addPlayer(req.body);
-        res.status(200).send({success: 'Usuario creado con éxito'});
+        const newPlayer = new Player({
+            name: player.name,
+            lastName: player.lastName,
+            uid: player.uid,
+            email: player.email,
+            poviderId: player.providerId,
+            photoURL: player.photoURL,
+        });
+
+        const savedPlayer = await newPlayer.save();
+        const token = utils.generateToken(savedPlayer._id);
+
+        res.status(200).send({ user: {...savedPlayer._doc, token }, success: 'Usuario creado con éxito' });
     } catch (error) {
         console.log('error',error);
-        res.status(400).send(error.message);
-    }
-};
-
-async function addPlayer (player) {
-    console.log('entra al player');
-    const user = await User.findOne({$or : [{ 'username': player.username }, {'email': player.email}]}).exec();
-    if(user) {
-        return utils.throwError('El nombre '+player.username+' o email '+player.email+' está en uso.')
-    }
-    const newPlayer = new Player({
-        name: player.name,
-        lastName: player.lastName,
-        birthDate: player.birthDate,
-        phoneNumber: player.phoneNumber,
-        dni : player.dni
-    });
-
-    const newUser = new User({
-        username: player.username.toLowerCase(),
-        email: player.email,
-        creator: newPlayer,
-        rol: 'Player'
-    });
-    newUser.password = newUser.setPassword(player.password);
-    const savedUser = await newUser.save();
-    const savedPlayer = await newPlayer.save();
-    if(!savedUser || !savedPlayer) {
-        return utils.throwError('No se pudo crear el usuario');
+        res.status(error.status).send({ errorMessage: error.message });
     }
 };
 
@@ -140,25 +121,13 @@ module.exports.deletePlayer = function(req, res) {
 /**
 *   Get by user id
 */
-module.exports.getPlayerByUserId = function(req, res) {
-
+module.exports.getPlayerByUserId = async function(req, res) {
     console.log("Id del user que entra: " + req.params._id);
-
-    User.findById({_id:req.params._id}, function(err, user){
-         if(err){
-            console.log("No se encontro user");
-            return res.status(500).send(err);
-        } else {
-            console.log("Encontro usuario");
-            Player.findById({_id : user.creator}, function(err, player) {
-                if(err){
-                    console.log("No se encontro jugador");
-                    return res.status(500).send(err);
-                } else {
-                    console.log("Encontro al player");
-                    res.status(200).send(player);
-                }
-            });
-        }
-    });
+    try {
+        const player = await Player.findById({_id:req.params._id}).exec();
+        res.status(200).send(player);
+    } catch (error) {
+        console.log("No se encontro jugador");
+        return res.status(404).send(error);
+    }
 };

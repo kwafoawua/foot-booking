@@ -13,7 +13,7 @@ export class ProfileClubPasswordComponent implements OnInit {
   repeatPassword: string;
   username: string;
 
-  constructor (
+  constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private alertService: AlertService,
@@ -34,9 +34,9 @@ export class ProfileClubPasswordComponent implements OnInit {
   }
 
   updatePassword() {
-    let password = this.passwordForm.value.password;
-    let user = {
-      password: password,
+    const password = this.passwordForm.value.password;
+    const user = {
+      password,
       username: this.username
     };
     console.log(password);

@@ -3,13 +3,8 @@
 /**
  * Module dependencies.
  */
-var mongoose = require('mongoose');
-var _ = require('lodash');
-var Club = require('../models/Club');
-var User = require('../models/User');
-var Q = require('q');
-var multer = require('./uploads');
-var async = require('async');
+const _ = require('lodash');
+const Club = require('../models/Club');
 const utils = require('../utils');
 
 var mailingController = require('./mailing');
@@ -19,26 +14,25 @@ var mailingController = require('./mailing');
  */
 module.exports.registerClub = async function (req,res) {
     try {
-        var galleryPath = [];
-        var profilePath = req.files.profile[0].filename;
-        for(var i = 0; i < req.files.gallery.length; i++) {
+        let galleryPath = [];
+        let profilePath = req.files.profile[0].filename;
+        for(let i = 0; i < req.files.gallery.length; i++) {
             galleryPath.push(req.files.gallery[i].filename);
         }
-        var club = JSON.parse(req.body.body);
-        await addClub(club,profilePath, galleryPath);
-        res.status(200).send({ success: 'El club se creó exitosamente.'});
+        const club = JSON.parse(req.body.body);
+        const savedClub = await addClub(club,profilePath, galleryPath);
+        const token = utils.generateToken(savedClub._id);
+        res.status(200).send({ user: {...savedClub._doc, token }, success: 'El club se creó exitosamente.'});
     } catch(error) {
         res.status(400).send({ errorMessage: error.message });
     }
 };
 async function addClub (club, profilePath, galleryPath) {
     console.log('entra al club');
-    const user = await User.findOne({$or : [{ 'username': club.username }, {'email': club.email}]}).exec();
-    if(user) {
-        return utils.throwError('El nombre '+club.username+' o email '+club.email+' está en uso.');
-    }
     const newClub = new Club({
         name: club.name,
+        email: club.user.email,
+        uid: club.uid,
         address: {
             lat: club.address.lat,
             lng: club.address.lng,
@@ -52,38 +46,20 @@ async function addClub (club, profilePath, galleryPath) {
         galleryImg: galleryPath,
         description: club.description
     });
-
-    var newUser = new User({
-        username: club.user.username.toLowerCase(),
-        email: club.user.email,
-        creator: newClub,
-        rol: 'Club'
-    });
-    newUser.password = newUser.setPassword(club.user.password);
-
-    await newClub.save();
-    await newUser.save();
-
+    return await newClub.save();
 }
 
 /**
  * Show the current Club
  */
 
-module.exports.findById = function(req, res) {
-    console.log('busca por id');
-   // console.log(req);
-
-    console.log(req.params._id);
-    Club.findById(req.params._id, function(err, club) {
-        if (err) {
-
-            return res.status(500).send(err);
-        }
-        console.log('GET /Club/' + req.params._id);
-
-        res.send(club);
-    });
+module.exports.findById = async function(req, res) {
+    try {
+        const club = await Club.findById(req.params._id).exec();
+        res.status(200).send(club);
+    } catch(error) {
+        res.status(400).send({error: error.message})
+    }
 };
 
 
