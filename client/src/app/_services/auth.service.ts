@@ -34,9 +34,10 @@ export class AuthService {
 
   private authenticate(uid) {
     return this.http.post('/users/authenticate', { uid })
-      .subscribe(async (user: any) => {
+      .subscribe( (user: any) => {
+        console.log(user);
         this.storageService.store('currentUser', user);
-        await this.router.navigate(['/']);
+        this.router.navigate(['/']);
       },
       error => {
         // TODO: mostrar mensaje de error

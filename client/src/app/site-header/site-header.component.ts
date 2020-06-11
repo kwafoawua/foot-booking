@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../_services';
+import { AuthService } from '../_services/auth.service';
 import { Router } from '@angular/router';
 import { StorageService } from '../_services/storage.service';
-import * as firebase from 'firebase/app';
 
 @Component({
   selector: 'app-site-header',
@@ -15,12 +14,17 @@ export class SiteHeaderComponent implements OnInit {
   name = '';
 
   constructor(public auth: AuthService, private router: Router, private storageService: StorageService) {
+    const user = JSON.parse(localStorage.getItem(('currentUser')));
+    if (user) {
+      this.currentUser = user;
+      this.name = user.name;
+    }
   }
 
   ngOnInit() {
     this.storageService.getStorage('currentUser').subscribe(user => {
       console.log('site header', user);
-      if (user.value) {
+      if (Object.keys(user.value).length !== 0) {
         this.currentUser = user.value;
         this.name = user.value.name;
       }

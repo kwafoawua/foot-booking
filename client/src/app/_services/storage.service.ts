@@ -4,8 +4,8 @@ import { share } from 'rxjs/operators';
 
 @Injectable()
 export class StorageService implements OnDestroy {
-
-  private onSubject = new BehaviorSubject<{ key: string, value: any }>({key: '', value: {}});
+  private storage = JSON.parse(localStorage.getItem('currentUser'));
+  private onSubject = new BehaviorSubject<{ key: string, value: any }>({key: 'currentUser', value: this.storage});
   public changes = this.onSubject.asObservable().pipe(share());
 
   constructor() {
@@ -22,6 +22,7 @@ export class StorageService implements OnDestroy {
 
   public store(key: string, data: any): void {
     localStorage.setItem(key, JSON.stringify(data));
+    console.log('store data', data);
     // the local application doesn't seem to catch changes to localStorage...
     this.onSubject.next({ key, value: data});
   }
@@ -33,15 +34,12 @@ export class StorageService implements OnDestroy {
   public clear(key) {
     localStorage.removeItem(key);
     // the local application doesn't seem to catch changes to localStorage...
-    this.onSubject.next({ key, value: null });
+    this.onSubject.next({ key, value: {} });
   }
 
 
   private start(): void {
     window.addEventListener('storage', this.storageEventListener.bind(this));
-    if (localStorage.getItem('currentUser')) {
-      this.onSubject.next({ key: 'currentUser', value: JSON.parse(localStorage.getItem('currentUser')) });
-    }
   }
 
   private storageEventListener(event: StorageEvent) {
