@@ -8,7 +8,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class TournamentStageComponent implements OnInit{
     constructor(
         private router: Router,
-        private route:ActivatedRoute,){
+        private route: ActivatedRoute,){
     }
 
 ngOnInit(){}

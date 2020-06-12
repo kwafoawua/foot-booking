@@ -1,5 +1,7 @@
+import {TState} from './TState';
+
 export class Tournament {
-  _idClub: string;
+  //_idClub: string;
   nameT: string;
   description: string;
   startInscription: Date;
@@ -14,4 +16,7 @@ export class Tournament {
   prize_3: string;
   tournamentType: string;
   category: string;
+  state: TState;
+ // tState: string;
+  //image:File;
 }

@@ -150,12 +150,14 @@
         </div>
       </div>
 
+
+
       <div class="card form-group">
-        <div class="card-header">Terminos y condiciones (*)</div>
+        <div class="card-header">Términos y condiciones (*)</div>
         <div class="card-body">
 
             <textarea class="form-control" type="text" rows="6" name="terminos"
-                      [(ngModel)]="tournament.description" required #descripcion="ngModel"> Terminos y condiciones </textarea>
+                      [(ngModel)]="tournament.description" required #descripcion="ngModel"> Términos y condiciones </textarea>
             <div [hidden]="!form.submitted || descripcion.valid" class="alert alert-danger">
               Ingrese una descripción
             </div>

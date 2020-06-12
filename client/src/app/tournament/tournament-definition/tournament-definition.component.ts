@@ -81,6 +81,10 @@ export class TournamentDefinitionComponent implements OnInit {
     );
     }
   }
+  //**** LA BASE DEBE ASGINAR EL ESTADO DEL PROGRAMA COMO NUEVO ID=1****
+
+
+
     // if (this.tournamentForm.valid) {
     //   // this.tournament = new Tournament();
     //   // this.tournament._idClub = this.idClub;

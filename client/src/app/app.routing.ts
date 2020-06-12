@@ -11,12 +11,8 @@ import { confirmationComponent } from './booking-confirmation/confirmation.compo
 import { ResultComponent } from './result/index';
 import { AdminClubComponent } from './admin-club/index';
 import { bookingPlayerComponent } from './booking-player/booking-player.component';
-
-// Routes for child routing
-import { FieldsManagementComponent } from './fields-management/index';
 import { EstadisticasClubComponent } from './estadisticas-club/index';
-import { TournamentDefinitionComponent } from './tournament/tournament-definition/tournament-definition.component';
-import { TournamentStageComponent } from './tournament/tournament-stage/tournament-stage.component';
+import {MainManagementComponent} from './tournament-management/mainManagement.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -30,12 +26,9 @@ const appRoutes: Routes = [
   { path: 'club/register', component: RegisterClubComponent },
   { path: 'club/admin', component: AdminClubComponent, canActivate: [ AuthGuard ] },
   { path: 'club/estadisticas', component: EstadisticasClubComponent },
-  { path: 'club/gestion-canchas', component: FieldsManagementComponent },
+  // { path: 'club/gestion-canchas', component: FieldsManagementComponent },
   { path: 'player/mis-reservas', component: bookingPlayerComponent },
-  { path: 'nuevo-campeonato', component: TournamentDefinitionComponent },
-  { path: 'campeonato/administrar-fases', component: TournamentStageComponent },
-
-  // otherwise redirect to home
+  { path: 'campeonatos/administrar', component: MainManagementComponent},
   { path: '**', redirectTo: '' }
 ];
 

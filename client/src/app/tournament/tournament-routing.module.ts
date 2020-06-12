@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
+import {MainManagementComponent} from '../tournament-management/mainManagement.component';
 import { TournamentStageComponent } from './tournament-stage/tournament-stage.component';
 import { StageComponent } from './stage/stage.component';
 import { TournamentDefinitionComponent } from './tournament-definition/tournament-definition.component';
@@ -16,6 +16,8 @@ const profileClubRoutes: Routes = [
         path: 'ronda',
         component: StageComponent,
       },
+      { path: 'nuevo-campeonato', component: TournamentDefinitionComponent },
+      { path: 'campeonato/administrar-fases', component: TournamentStageComponent },
     ],
   },
   {

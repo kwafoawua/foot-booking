@@ -6,6 +6,7 @@
           <div class="col-md-4 col-sm-4">
             <div class="sidebar">
               <div class="form-group">
+
                 <input (keyup.enter)="buscarClubsPorNombre()" [(ngModel)]="clubname" name="clubname"
                        placeholder="Buscar por nombre de club" type="text" class="form-control"/>
               </div>
@@ -29,6 +30,15 @@
                   </div>
                 </div><!-- location-map -->
               </div><!-- filter-list -->
+
+              <div class="form-group">
+                <label class="radio-inline">
+                  <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> Clubs
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> Campeonatos
+                </label>
+              </div>
 
               <div class="filter-list">
                 <div id="advanced-filter">

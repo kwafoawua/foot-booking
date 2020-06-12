@@ -36,11 +36,13 @@ export class ResultComponent implements OnInit {
   public clubs: Club[];
   public services: Service[];
   private servicesChecked: Service [] = [];
+  public radio: boolean; //true es club
   clubname: string = '';
   cantPlayers: any;
   minPrice: any;
   maxPrice: any;
   uploadsBaseURL = environment.uploadsBaseURL;
+
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -65,7 +67,7 @@ export class ResultComponent implements OnInit {
       this.clubname,
       this.servicesChecked,
       this.cantPlayers, this.maxPrice, this.minPrice
-    )
+    );
   }
 
   //BUSCO POR NOMBRE
@@ -76,7 +78,7 @@ export class ResultComponent implements OnInit {
     this.searchService.findClubsByFilters(this.clubfilter).subscribe(() => {
       this.clubs = SearchService.clubs;
     });
-    console.log(this.clubfilter)
+    console.log(this.clubfilter);
   }
 
   //BUSCO POR LOS FILTROS

@@ -43,7 +43,8 @@ import { bookingPlayerComponent } from './booking-player/booking-player.componen
 import { EstadisticasClubComponent } from './estadisticas-club/index';
 import { commentsComponent } from './_directives/Comments/commentsComponent';
 
-//API MAPS
+
+// API MAPS
 import { AgmCoreModule } from '@agm/core';
 import { DpDatePickerModule } from 'ng2-date-picker';
 import { confirmationComponent } from './booking-confirmation/confirmation.component';
@@ -54,6 +55,7 @@ import { StageComponent } from './tournament/stage/stage.component';
 import { GameComponent } from './tournament/game/game.component';
 import { TournamentModule } from './tournament/tournament.module';
 import {ResultadoBusquedaComponent} from './result/resultadoBusqueda.component';
+import {MainManagementComponent} from './tournament-management/mainManagement.component';
 
 
 @NgModule({
@@ -69,7 +71,7 @@ import {ResultadoBusquedaComponent} from './result/resultadoBusqueda.component';
     ImageUploadModule.forRoot(),
     CustomFormsModule,
     DpDatePickerModule,
-    AgmCoreModule.forRoot({//old: AIzaSyAAwaI8YafySsHraMA_9G_n30_FECUhoVs
+    AgmCoreModule.forRoot({// old: AIzaSyAAwaI8YafySsHraMA_9G_n30_FECUhoVs
       apiKey: 'AIzaSyBuNW_HnnPaMrMq8KGEhiEzUnbVOO_OJzA',
       libraries: [ 'places' ]
     }),
@@ -103,6 +105,7 @@ import {ResultadoBusquedaComponent} from './result/resultadoBusqueda.component';
     bookingPlayerComponent,
     commentsComponent,
     ResultadoBusquedaComponent,
+    MainManagementComponent,
   ],
   providers: [
     authInterceptorProviders,
