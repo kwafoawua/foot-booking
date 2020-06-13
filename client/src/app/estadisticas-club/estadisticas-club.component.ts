@@ -142,7 +142,7 @@ export class EstadisticasClubComponent implements OnInit {
     }
   };
   autoScale = true;
-  _id: string = JSON.parse(localStorage.getItem('currentUser')).playerOrClubId;
+  _id: string = JSON.parse(localStorage.getItem('currentUser'))._id;
   loaded: Boolean;
   cantComments: number;
   statusChart: any[] = [];

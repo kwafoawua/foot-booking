@@ -6,8 +6,8 @@ import { RegisterClubComponent } from './register-club/index';
 import { ProfileClubClientComponent } from './ClubProfileClient/clubProfileClient.component';
 import { RegisterPlayerComponent } from './register-player/index';
 import { ProfilePlayerComponent } from './profile-player/index';
-import { AuthGuard } from './_guards/index';
-import { confirmationComponent } from './booking-confirmation/confirmation.component';
+import { AuthGuard, LoginGuard } from './_guards/index';
+import { ConfirmationComponent } from './booking-confirmation/confirmation.component';
 import { ResultComponent } from './result/index';
 import { AdminClubComponent } from './admin-club/index';
 import { bookingPlayerComponent } from './booking-player/booking-player.component';
@@ -17,9 +17,9 @@ import {MainManagementComponent} from './tournament-management/mainManagement.co
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
 
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent, canActivate: [ LoginGuard ] },
   { path: 'results/club/:id', component: ProfileClubClientComponent },
-  { path: 'confirmation', component: confirmationComponent },
+  { path: 'confirmation', component: ConfirmationComponent },
   { path: 'player/register', component: RegisterPlayerComponent },
   { path: 'profile-player/:id', component: ProfilePlayerComponent, canActivate: [ AuthGuard ] },
   { path: 'results', component: ResultComponent },

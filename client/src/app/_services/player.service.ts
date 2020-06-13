@@ -30,6 +30,6 @@ export class PlayerService {
   }
 
   getPlayerByUserId(_id: string) {
-    return this.http.get<Player>('/players' + _id);
+    return this.http.get<Player>('/players/' + _id);
   }
 }

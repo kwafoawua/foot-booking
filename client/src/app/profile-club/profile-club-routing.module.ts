@@ -15,16 +15,13 @@ const profileClubRoutes: Routes = [
     children: [
       {
         path: '',
-        component: ProfileClubUserComponent,
+        component: ProfileClubInfoComponent
       },
       {
         path: 'password',
         component: ProfileClubPasswordComponent
       },
-      {
-        path: 'info',
-        component: ProfileClubInfoComponent
-      },
+
       {
         path: 'canchas',
         component: ProfileClubCanchasComponent

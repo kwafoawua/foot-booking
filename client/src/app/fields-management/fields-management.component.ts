@@ -35,7 +35,7 @@ export class CustomDatepickerI18n extends NgbDatepickerI18n {
   constructor() {
     super();
   }
-  locale: string = 'es';
+  locale = 'es';
   getWeekdayShortName(weekday: number): string {
     return I18N_VALUES[ this.locale ].weekdays[ weekday - 1 ];
   }
@@ -90,9 +90,9 @@ export class FieldsManagementComponent implements OnInit {
   events: CalendarEvent[] = [];
   bookings: any[] = [];
   club: any = {};
-  _id: string = JSON.parse(localStorage.getItem('currentUser')).playerOrClubId;
+  _id: string = JSON.parse(localStorage.getItem('currentUser'))._id;
   private montoPagado: number;
-  bookingStatus: string[] = ['Reservado','Asistido', 'Cancelado', 'Ausente','Anulado'];
+  bookingStatus: string[] = ['Reservado', 'Asistido', 'Cancelado', 'Ausente', 'Anulado'];
   //horas
   hoursArray: string [] = [ '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00', '24:00' ];
   horasOcupadas: string [] = [];
@@ -133,7 +133,7 @@ export class FieldsManagementComponent implements OnInit {
 
   refresh: Subject<any> = new Subject();
 
-  activeDayIsOpen: boolean = false;
+  activeDayIsOpen = false;
 
   ngOnInit() {
     this.getBookings(this._id);
@@ -199,7 +199,6 @@ export class FieldsManagementComponent implements OnInit {
             colorStatus = colors.yellow;
             break;
         }
-        //console.log(colorStatus);
         let event = {
           start: startOfDay(parseISO(booking.playingDate)),
           end: startOfDay(parseISO(booking.playingDate)),

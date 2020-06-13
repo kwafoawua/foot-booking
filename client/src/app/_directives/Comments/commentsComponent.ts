@@ -5,11 +5,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ClubService } from '../../_services/club.service';
 import { Club } from '../../_models/club';
-import { UserService } from '../../_services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { Comment } from '../../_models/comment';
 import { CommentService } from '../../_services/comment.service';
-import { AuthenticationService } from '../../_services/authentication.service';
+import { AuthService } from '../../_services/auth.service';
 import { now } from 'moment';
 
 @Component({
@@ -23,13 +22,14 @@ export class commentsComponent implements OnInit {
   public currrentUser: any;
   public isClub: any;
   public authenticated: boolean;
-  private textComment: string = '';
+  private textComment = '';
   private club: Club;
 
   constructor(
-    private clubService: ClubService, private  userService: UserService,
-    private route: ActivatedRoute, private commentService: CommentService,
-    private authenticatedService: AuthenticationService
+    private clubService: ClubService,
+    private route: ActivatedRoute,
+    private commentService: CommentService,
+    private authenticatedService: AuthService
   ) {
   }
 
@@ -41,8 +41,8 @@ export class commentsComponent implements OnInit {
       this.authenticated = true;
       this.currrentUser = JSON.parse(localStorage.getItem('currentUser')).username;
       this.isClub = this.authenticatedService.isUserClub();
-      if (this.isClub == true) {
-        this.authenticated = false
+      if (this.isClub === true) {
+        this.authenticated = false;
       }// this.currrentUser =  this.authenticatedService.getUserAuthenticated
     }
   }

@@ -3,20 +3,25 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { TagInputModule } from 'ngx-chips';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed!
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ImageUploadModule } from 'angular2-image-upload';
 import { CustomFormsModule } from 'ng2-validation';
 import { DemoUtilsModule } from './_helpers/demo-utils/module';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { environment } from '../environments/environment';
+
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
 
-import { AuthInterceptor, authInterceptorProviders } from './_helpers/index';
+import { authInterceptorProviders } from './_helpers/index';
 import { AlertComponent } from './_directives/index';
 import { AuthGuard } from './_guards/index';
 import {
   AlertService,
-  AuthenticationService,
+  AuthService,
   UserService,
   ClubService,
   PlayerService,
@@ -43,19 +48,20 @@ import { bookingPlayerComponent } from './booking-player/booking-player.componen
 import { EstadisticasClubComponent } from './estadisticas-club/index';
 import { commentsComponent } from './_directives/Comments/commentsComponent';
 
-
 // API MAPS
 import { AgmCoreModule } from '@agm/core';
 import { DpDatePickerModule } from 'ng2-date-picker';
-import { confirmationComponent } from './booking-confirmation/confirmation.component';
+import { ConfirmationComponent } from './booking-confirmation/confirmation.component';
 import { TournamentDefinitionComponent } from './tournament/tournament-definition/tournament-definition.component';
 import { TournamentService } from './_services/tournament.service';
 import { TournamentStageComponent } from './tournament/tournament-stage/tournament-stage.component';
 import { StageComponent } from './tournament/stage/stage.component';
 import { GameComponent } from './tournament/game/game.component';
 import { TournamentModule } from './tournament/tournament.module';
+import { LoginGuard } from './_guards/login.guard';
 import {ResultadoBusquedaComponent} from './result/resultadoBusqueda.component';
 import {MainManagementComponent} from './tournament-management/mainManagement.component';
+import { StorageService } from './_services/storage.service';
 
 
 @NgModule({
@@ -83,7 +89,10 @@ import {MainManagementComponent} from './tournament-management/mainManagement.co
     }),
     NgbModule.forRoot(),
     DemoUtilsModule,
-    TournamentModule
+    TournamentModule,
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    AngularFireModule.initializeApp(environment.firebase),
   ],
   declarations: [
     AppComponent,
@@ -99,7 +108,7 @@ import {MainManagementComponent} from './tournament-management/mainManagement.co
     FieldFormArrayComponent,
     FieldFormControlComponent,
     AdminClubComponent,
-    confirmationComponent,
+    ConfirmationComponent,
     FieldsManagementComponent,
     EstadisticasClubComponent,
     bookingPlayerComponent,
@@ -110,8 +119,10 @@ import {MainManagementComponent} from './tournament-management/mainManagement.co
   providers: [
     authInterceptorProviders,
     AuthGuard,
+    StorageService,
+    LoginGuard,
     AlertService,
-    AuthenticationService,
+    AuthService,
     UserService,
     ClubService,
     PlayerService,
