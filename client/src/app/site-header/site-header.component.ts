@@ -24,7 +24,7 @@ export class SiteHeaderComponent implements OnInit {
   ngOnInit() {
     this.storageService.getStorage('currentUser').subscribe(user => {
       console.log('site header', user);
-      if (Object.keys(user.value).length !== 0) {
+      if (user.value && Object.keys(user.value).length !== 0) {
         this.currentUser = user.value;
         this.name = user.value.name;
       }
