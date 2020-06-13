@@ -20,7 +20,7 @@
                   <div name="valida-nombreclub" *ngIf="clubForm.get('name').invalid &&
                         (clubForm.get('name').dirty || clubForm.get('name').touched)">
 
-                    <div *ngIf="clubForm.get('name').errors?.required" class="help-block">
+                    <div *ngIf="clubForm.get('name').errors?.required" class="help-block text-danger">
                       El nombre del club es requerido.
                     </div>
 
@@ -38,7 +38,7 @@
                   <div name="valida-direccion" *ngIf="clubForm.get('address.address').invalid &&
                         (clubForm.get('address.address').dirty || clubForm.get('address.address').touched)">
                     <div *ngIf="clubForm.get('address.address').errors?.required"
-                         class="help-block">
+                         class="help-block text-danger">
                       El campo Dirección es requerido.
                     </div>
                   </div>
@@ -73,7 +73,7 @@
                         (clubForm.get('services').dirty || clubForm.get('services').touched)">
 
                     <div *ngIf="clubForm.get('services').errors?.required"
-                         class="help-block">
+                         class="help-block text-danger">
                       El campo Servicios es requerido.
                     </div>
                   </div>
@@ -91,11 +91,11 @@
                         (clubForm.get('description').dirty || clubForm.get('description').touched)">
 
                     <div *ngIf="clubForm.get('description').errors?.required"
-                         class="help-block">
+                         class="help-block text-danger">
                       El campo Descripción es requerido.
                     </div>
                     <div *ngIf="clubForm.get('description').errors?.maxlength"
-                         class="help-block">
+                         class="help-block text-danger">
                       La descripción no debe ser de mas de 255 caracteres.
                     </div>
 
@@ -182,7 +182,7 @@
                         (clubForm.get('profileImg').dirty || clubForm.get('profileImg').touched)">
 
                     <div *ngIf="clubForm.get('profileImg').errors?.required"
-                         class="help-block">
+                         class="help-block text-danger">
                       El campo Imagen de perfil es requerido.
                     </div>
                   </div>
