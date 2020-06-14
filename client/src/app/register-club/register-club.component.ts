@@ -8,7 +8,7 @@ import { ValidateAllFields } from '../_helpers/validate-all-fields';
 import { AlertService, AuthService, ClubService } from '../_services/index';
 import { Observable, of } from 'rxjs';
 import { FileHolder } from 'angular2-image-upload';
-import { FieldFormArrayComponent } from './field-form-array.component';
+import { FieldFormArrayComponent } from '../fields-array';
 import { PasswordValidation } from '../_helpers/validate-password';
 import { FirebaseErrorHandler } from '../_helpers/firebaseErrorHandler';
 import { StorageService } from '../_services/storage.service';

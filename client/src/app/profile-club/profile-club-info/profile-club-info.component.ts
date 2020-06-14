@@ -5,7 +5,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import {} from 'googlemaps';
 import { MapsAPILoader } from '@agm/core';
 import { Observable, of } from 'rxjs';
-import { FieldFormArrayComponent } from '../../register-club/field-form-array.component';
+import { FieldFormArrayComponent } from '../../fields-array';
 import { ValidateAllFields } from '../../_helpers/validate-all-fields';
 import { FileHolder } from 'angular2-image-upload';
 import { environment } from '../../../environments/environment';
