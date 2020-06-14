@@ -11,31 +11,49 @@
   </div>
   <div class="field-control-container">
     <div class="row">
-      <div class="col-md-12">
+      <div [ngClass]="{
+        'col-md-12': field.get('_id').value,
+        'col-md-6': !field.get('_id').value
+      }">
         <div class="post-inner">
           <div class="row form-group">
             <label class="col-md-4" [attr.for]="'fieldName'+index">Nombre de la Cancha</label>
-            <div class="col-md-8">
-              <input formControlName="fieldName" [attr.id]="'fieldName'+index" class="form-control" type="text">
+            <div class=" col-md-8">
+              <input formControlName="fieldName" [attr.id]="'fieldName'+index" class="form-control" type="text" required>
+              <div name="valida-fieldName" *ngIf="field.get('fieldName').invalid &&
+                        (field.get('fieldName').dirty || field.get('fieldName').touched)">
+                <div *ngIf="field.get('fieldName').errors?.required" class="text-danger">
+                  <small class="form-text">El campo Nombre de la Cancha es requerido.</small>
+                </div>
+              </div>
             </div>
           </div>
         </div><!-- post-inner nombre de la cancha descriptivo-->
         <div class="post-inner">
           <div class="row form-group">
-            <label class="col-md-4">Servicios </label>
+            <label class="col-md-4">Servicios</label>
             <div class="col-md-8">
               <tag-input [formControlName]="'services'" name="items"
-                         [onlyFromAutocomplete]="true">
+                         [onlyFromAutocomplete]="true" required="true">
                 <tag-input-dropdown [showDropdownIfEmpty]="true"
                                     [autocompleteObservable]="requestAutocompleteItemsFake">
                 </tag-input-dropdown>
               </tag-input>
+              <div name="valida-servicios" *ngIf="field.get('services').invalid &&
+                        (field.get('services').dirty || field.get('services').touched)">
+                <div *ngIf="field.get('services').errors?.required" class="text-danger">
+                  <small class="form-text">El campo servicios es requerido.</small>
+                </div>
+              </div>
             </div>
           </div>
         </div><!-- post-inner servicios-->
       </div>
 
-      <div class="col-md-12">
+      <div [ngClass]="{
+        'col-md-12': field.get('_id').value,
+        'col-md-6': !field.get('_id').value
+      }">
         <div class="post-inner">
           <div class="row form-group">
             <label class="col-md-4" [attr.for]="'cantPlayers'+index">Cantidad de Jugadores</label>
@@ -47,6 +65,12 @@
                   {{cantPlayer.desc}}
                 </option>
               </select>
+              <div name="valida-cantJugadores" *ngIf="field.get('cantPlayers').invalid &&
+                        (field.get('cantPlayers').dirty || field.get('cantPlayers').touched)">
+                <div *ngIf="field.get('cantPlayers').errors?.required" class="text-danger">
+                  <small class="form-text">El campo cantidad de jugadores es requerido.</small>
+                </div>
+              </div>
             </div>
           </div>
         </div><!-- post-inner cantidad de jugadores-->
@@ -60,6 +84,12 @@
                 <option value="" disabled selected hidden>Seleccione...</option>
                 <option *ngFor="let type of fieldTypeSelect" value={{type}}>{{type}}</option>
               </select>
+              <div name="valida-tipoCancha" *ngIf="field.get('fieldType').invalid &&
+                        (field.get('fieldType').dirty || field.get('fieldType').touched)">
+                <div *ngIf="field.get('fieldType').errors?.required" class="text-danger">
+                  <small class="form-text">El campo tipo es requerido.</small>
+                </div>
+              </div>
             </div>
           </div>
         </div><!-- post-inner cantidad de jugadores-->
@@ -68,10 +98,16 @@
           <div class="row form-group">
             <label class="col-md-4" [attr.for]="'price'+index">Precio de cancha</label>
             <div class="col-md-8">
-              <input formControlName="price" [attr.id]="'price'+index" class="form-control" type="number" min="0">
+              <input formControlName="price" [attr.id]="'price'+index" class="form-control" type="number" min="0" required>
+              <div name="valida-precio" *ngIf="field.get('price').invalid &&
+                        (field.get('price').dirty || field.get('price').touched)">
+                <div *ngIf="field.get('price').errors?.required" class="text-danger">
+                  <small class="form-text">El campo precio es requerido.</small>
+                </div>
+              </div>
             </div>
           </div>
-        </div><!-- post-inner cantidad de jugadores-->
+        </div><!-- post-inner precio-->
       </div>
 
     </div>

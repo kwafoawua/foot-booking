@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { AlertService } from '../../_services/alert.service';
 import { ClubService } from '../../_services/club.service';
 import { Router } from '@angular/router';
-import { FieldFormArrayComponent } from './field-form-array.component';
+import { FieldFormArrayComponent } from '../../fields-array';
 import { ValidateAllFields } from '../../_helpers/index';
 import { forEach } from '@angular/router/src/utils/collection';
 

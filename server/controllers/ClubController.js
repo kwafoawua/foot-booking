@@ -20,7 +20,11 @@ module.exports.registerClub = async function (req,res) {
             galleryPath.push(req.files.gallery[i].filename);
         }
         const club = JSON.parse(req.body.body);
-        const savedClub = await addClub(club,profilePath, galleryPath);
+        for(let i= 0; i < club.fields.length; i++) {
+            if(!club.fields[i]._id) {
+                delete club.fields[i]._id;
+            }
+        }        const savedClub = await addClub(club,profilePath, galleryPath);
         const token = utils.generateToken(savedClub._id);
         res.status(200).send({ user: {...savedClub._doc, token }, success: 'El club se creó exitosamente.'});
     } catch(error) {

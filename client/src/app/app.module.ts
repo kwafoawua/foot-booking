@@ -29,7 +29,7 @@ import {
 } from './_services/index';
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
-import { RegisterClubComponent, FieldFormArrayComponent, FieldFormControlComponent } from './register-club/index';
+import { RegisterClubComponent } from './register-club/index';
 import { SiteHeaderComponent } from './site-header/site-header.component';
 import { SiteFooterComponent } from './site-footer/site-footer.component';
 import { ProfileClubClientComponent } from './ClubProfileClient/clubProfileClient.component';
@@ -62,6 +62,7 @@ import { LoginGuard } from './_guards/login.guard';
 import {ResultadoBusquedaComponent} from './result/resultadoBusqueda.component';
 import {MainManagementComponent} from './tournament-management/mainManagement.component';
 import { StorageService } from './_services/storage.service';
+import { FieldsArrayModule } from './fields-array/fields-array.module';
 
 
 @NgModule({
@@ -83,6 +84,7 @@ import { StorageService } from './_services/storage.service';
     }),
     ProfileClubModule,
     ProfilePlayerModule,
+    FieldsArrayModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
@@ -105,8 +107,6 @@ import { StorageService } from './_services/storage.service';
     SiteFooterComponent,
     ProfileClubClientComponent,
     ResultComponent,
-    FieldFormArrayComponent,
-    FieldFormControlComponent,
     AdminClubComponent,
     ConfirmationComponent,
     FieldsManagementComponent,

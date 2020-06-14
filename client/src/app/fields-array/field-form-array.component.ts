@@ -2,7 +2,7 @@
  * Created by USUARIO on 26/09/2017.
  */
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormArray } from '@angular/forms';
+import { FormArray, Validators } from '@angular/forms';
 import { FieldFormControlComponent } from './field-form-control.component';
 
 @Component({
@@ -11,22 +11,25 @@ import { FieldFormControlComponent } from './field-form-control.component';
 })
 export class FieldFormArrayComponent {
 
-  @Input()
-  public fieldFormArray: FormArray;
+  @Input() fieldFormArray: FormArray;
+  @Input() cantFields: number;
+  @Output() deletedFields: EventEmitter<any> = new EventEmitter<any>();
 
-  @Output()
-  public deletedFields: EventEmitter<any> = new EventEmitter<any>();
-
-  addFields() {
-    this.fieldFormArray.push(FieldFormControlComponent.buildField())
+  static initFields(cantFields?: number) {
+    if (cantFields) {
+      let fieldArray: any = [];
+      for (let i = 0; i < cantFields; i++) {
+        fieldArray.push(FieldFormControlComponent.buildField());
+        console.log('fieldArray', fieldArray);
+      }
+      return new FormArray(fieldArray);
+    }
+    return new FormArray([
+      FieldFormControlComponent.buildField() ], [Validators.required]);
   }
 
-  static initFields(cantFields: number) {
-    let fieldArray: any = [];
-    for (let i = 0; i < cantFields; i++) {
-      fieldArray.push(FieldFormControlComponent.buildField());
-    }
-    return new FormArray(fieldArray);
+  addFields() {
+    this.fieldFormArray.push(FieldFormControlComponent.buildField());
   }
 
   removeField(event) {
@@ -40,8 +43,4 @@ export class FieldFormArrayComponent {
       this.fieldFormArray.removeAt(event);
     }
   }
-
-
 }
-
-
