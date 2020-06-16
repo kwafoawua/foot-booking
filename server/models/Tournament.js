@@ -33,12 +33,12 @@ const tournamentSchema = new Schema({
     equipos:[{
         name: String,
         responsableEquipo: {
-            nombre: { type: String, required: true },
-            apellido: { type: String, required: true },
-            email: { type: String, required: true },
-            telefono: { type: Number, required: true }
+            nombre: { type: String},
+            apellido: { type: String },
+            email: { type: String },
+            telefono: { type: Number }
         },
-        cantPlayers: { type: Number, required: true },
+        cantPlayers: { type: Number },
         fechaInscripcion : { type: Date, default: Date.now },
     }],
 });
