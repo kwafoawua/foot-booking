@@ -1,6 +1,7 @@
 import {TState} from './TState';
 
 export class Tournament {
+  idTournament: string;
   //_idClub: string;
   nameT: string;
   description: string;

@@ -33,7 +33,7 @@ export class StageComponent {
 
   constructor(
     private router: Router,
-    private fb: FormBuilder,) {
+    private fb: FormBuilder) {
     this.createForm();
   }
 
