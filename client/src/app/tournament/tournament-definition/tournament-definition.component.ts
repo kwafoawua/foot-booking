@@ -18,7 +18,7 @@ export class TournamentDefinitionComponent implements OnInit {
   prizes: string[];
   tournamentForm: FormGroup;
   tournament: Tournament;
-  idClub: string = JSON.parse(localStorage.getItem('currentUser')).playerOrClubId;
+  idClub: string = JSON.parse(localStorage.getItem('currentUser'))._id;
   configTime: ITimeSelectConfig = {
     minutesInterval: 60,
     minutesFormat: '00'

@@ -7,24 +7,12 @@ import { User } from '../_models/user';
 
 @Injectable()
 export class UserService {
-  /* user: Observable<any>;
-   private _user: BehaviorSubject<any>;
-   private dataStore: {
-       user: {}
-   };*/
-  // Observable string sources
   private usuario: BehaviorSubject<any>;
   public usuario$: Observable<any>;
-
-  // Observable string streams
-  // usuario$ = this.usuario.asObservable();
 
   constructor(private http: HttpClient) {
     this.usuario = new BehaviorSubject<any>({});
     this.usuario$ = this.usuario.asObservable();
-    /* this.dataStore = { user: {} };
-     this._user = <BehaviorSubject<any>>new BehaviorSubject({});
-     this.user = this._user.asObservable();*/
   }
 
   getAll() {
@@ -33,24 +21,6 @@ export class UserService {
 
   getById(_id: string) {
     return this.http.get('/users/' + _id);
-  }
-
-  getByUsername(username: string) {
-    return this.http.get<User>('/users/' + username);
-    /* .subscribe(user => {
-         this.usuario.next(user);
-     });*/
-    /* this.http.get('/users/' + username)
-         .map((response: Response) => response.json()).subscribe(data =>{
-          //   console.log(data);
-                     this.dataStore.user = data;
-             this._user.next(Object.assign({}, this.dataStore).user);
-           //  console.log(this.dataStore);
-         }, error => console.log('No se pudo cargar el usuario'));*/
-  };
-
-  create(user: User) {
-    return this.http.post('/users/register', user);
   }
 
   updateEmail(form: any) {
@@ -67,11 +37,6 @@ export class UserService {
 
   delete(_id: string) {
     return this.http.delete('/users/' + _id);
-  }
-
-
-  getUserByCreatorId(_id: string) {
-    return this.http.get('/users/' + _id);
   }
 
   // private helper methods

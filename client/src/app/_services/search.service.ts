@@ -1,17 +1,19 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FormControl, FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
 
 import { Club } from '../_models/club';
-import { formArrayNameProvider } from '@angular/forms/src/directives/reactive_directives/form_group_name';
 import { ClubFilter } from '../_models/clubfilter';
 import { Service } from '../_models/service';
 import { map } from 'rxjs/operators';
 
 @Injectable()
 export class SearchService {
+
+
+  constructor(private http: HttpClient) {
+  }
+  public static clubs: Club [] = [];
 
   private service: Service[] = [
     { id: 1, name: 'Asador' },
@@ -22,13 +24,6 @@ export class SearchService {
     { id: 6, name: 'Nocturno' }
   ];
 
-
-  private form: FormGroup;
-  public static clubs: Club [] = [];
-
-
-  constructor(private http: HttpClient) {
-  }
 
   findClubsByFilters(filter: ClubFilter) {
     console.log('en esl servico', filter);

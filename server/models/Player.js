@@ -10,12 +10,17 @@ var ObjectId = Schema.Types.ObjectId;
  * @param {string} phoneNumber - Player's phone number.
  */
 var playerSchema = new Schema({
-	name: {type: String, required: true},
-	lastName: {type: String, required: true},
+	uid: {type: String, required: true, unique: true },
+	providerId: String,
+	email: { type: String, required: true },
+	photoURL: String,
+	rol: { type: String, default: 'Player' },
+	name: { type: String, required: true },
+	lastName: { type: String, required: true },
 	birthDate: Date,
 	phoneNumber: String,
-	biography: {type: String, required: false},
-	dni: {type: Number, required: true}
+	biography: String,
+	dni: Number,
 });
 
 module.exports = mongoose.model('Player', playerSchema);

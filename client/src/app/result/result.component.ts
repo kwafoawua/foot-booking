@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router'
-import { SearchService } from '../_services/index'
+import { Router } from '@angular/router';
+import { SearchService } from '../_services/index';
 import { Club } from '../_models/club';
 import { ClubService } from '../_services/index';
 import { Observable ,  Subject } from 'rxjs';
@@ -18,20 +18,21 @@ import { Field } from '../_models/field';
 import { environment } from '../../environments/environment';
 
 @Component({
-  selector: 'results',
+  selector: 'app-results',
   templateUrl: './result.component.html',
   providers: [ SearchService ],
 })
 
 export class ResultComponent implements OnInit {
-  lat: number;//= -31.442217;
-  lng: number;// = -64.193182;
+  lat: number; // = -31.442217;
+  lng: number; // = -64.193182;
   icon: '../../assets/icon/iconochico.png';
   zoom: number;
-  public cantPlayerSelect: any[] = [ { cant: 5, desc: '5 Jugadores' }, { cant: 7, desc: '7 Jugadores' }, {
-    cant: 11,
-    desc: '11 Jugadores'
-  } ];
+  public cantPlayerSelect: any[] = [
+    { cant: 5, desc: '5 Jugadores' },
+    { cant: 7, desc: '7 Jugadores' },
+    { cant: 11, desc: '11 Jugadores' },
+   ];
   private clubfilter: ClubFilter;
   public clubs: Club[];
   public services: Service[];
@@ -48,7 +49,6 @@ export class ResultComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private searchService: SearchService,
     private router: Router) {
-    // this.form = new FormGroup({'clubname': new FormControl('clubname')});
   }
 
 
@@ -56,11 +56,10 @@ export class ResultComponent implements OnInit {
     this.setCurrentPosition();
     this.clubs = SearchService.clubs;
     this.services = this.searchService.getClubServices();
-
   }
 
 
-//LE PASO LOS DATOS PARA CREAR LOS FILTROS
+// LE PASO LOS DATOS PARA CREAR LOS FILTROS
   private crearFiltros(): ClubFilter {
     // let modelform = this.form.value;
     return new ClubFilter(
@@ -70,7 +69,7 @@ export class ResultComponent implements OnInit {
     );
   }
 
-  //BUSCO POR NOMBRE
+  // BUSCO POR NOMBRE
 
   buscarClubsPorNombre() {
     this.clubfilter = this.crearFiltros();
@@ -81,7 +80,7 @@ export class ResultComponent implements OnInit {
     console.log(this.clubfilter);
   }
 
-  //BUSCO POR LOS FILTROS
+  // BUSCO POR LOS FILTROS
 
   buscarClubsPorFiltros() {
     this.clubfilter = this.crearFiltros();
@@ -96,15 +95,16 @@ export class ResultComponent implements OnInit {
 
     if (e.state) {
       console.log('agrego el servicio ', e.name)
-      this.servicesChecked.push({ 'id': e.id, 'name': e.name });
+      this.servicesChecked.push({ id: e.id, name: e.name });
       // console.log("array", this.servicesChecked)
     } else {
       console.log('saco el servicio', e.name);
-      for (var i = 0; i < this.servicesChecked.length; i++)
+      for (let i = 0; i < this.servicesChecked.length; i++) {
         if (this.servicesChecked[ i ].name === e.name) {
           this.servicesChecked.splice(i, 1);
           break;
         }
+      }
     }
   }
 

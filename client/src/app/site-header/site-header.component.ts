@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../_services/authentication.service';
+import { AuthService } from '../_services/auth.service';
 import { Router } from '@angular/router';
-
+import { StorageService } from '../_services/storage.service';
 
 @Component({
   selector: 'app-site-header',
@@ -11,27 +11,44 @@ import { Router } from '@angular/router';
 
 export class SiteHeaderComponent implements OnInit {
   currentUser: any;
-  username: string;
+  name = '';
 
-  constructor(public auth: AuthenticationService, private router: Router) {
-    auth.isAuthenticated();
-    auth.isUserClub();
-  }
-
-  ngOnInit() {
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (this.currentUser != undefined) {
-      this.username = this.currentUser.username;
+  constructor(public auth: AuthService, private router: Router, private storageService: StorageService) {
+    const user = JSON.parse(localStorage.getItem(('currentUser')));
+    if (user) {
+      this.currentUser = user;
+      this.name = user.name;
     }
   }
 
+  ngOnInit() {
+    this.storageService.getStorage('currentUser').subscribe(user => {
+      console.log('site header', user);
+      if (user.value && Object.keys(user.value).length !== 0) {
+        this.currentUser = user.value;
+        this.name = user.value.name;
+      }
+    });
+  }
+
+  isClubUser(): boolean {
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    if (user) {
+      return user.rol === 'Club';
+    }
+  }
+
+  isAuthenticated(): boolean {
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    return !!user;
+  }
+
   public goToProfile() {
-    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    console.log(currentUser.rol);
-    if (currentUser.rol === 'Club') {
-      this.router.navigate([ '/profile-club', currentUser.playerOrClubId ]);
+    console.log(this.currentUser.rol);
+    if (this.currentUser.rol === 'Club') {
+      this.router.navigate([ '/profile-club', this.currentUser._id ]);
     } else {
-      this.router.navigate([ '/profile-player', currentUser.playerOrClubId ]);
+      this.router.navigate([ '/profile-player', this.currentUser._id ]);
     }
   }
 

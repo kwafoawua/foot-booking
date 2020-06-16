@@ -3,8 +3,7 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { AlertService } from '../../_services/alert.service';
 import { ClubService } from '../../_services/club.service';
 import { Router } from '@angular/router';
-import { UserService } from '../../_services/user.service';
-import { FieldFormArrayComponent } from './field-form-array.component';
+import { FieldFormArrayComponent } from '../../fields-array';
 import { ValidateAllFields } from '../../_helpers/index';
 import { forEach } from '@angular/router/src/utils/collection';
 
@@ -20,7 +19,7 @@ export class ProfileClubCanchasComponent implements OnInit {
   fieldClubForm: FormGroup;
   user: any = {};
   club: any = {};
-  username: string;
+  id: string;
   loading: false;
   fields: any = [];
 
@@ -33,15 +32,14 @@ export class ProfileClubCanchasComponent implements OnInit {
     private router: Router,
     private clubService: ClubService,
     private alertService: AlertService,
-    private fb: FormBuilder,
-    private userService: UserService) {
+    private fb: FormBuilder) {
   }
 
 
   ngOnInit() {
     this.createForm(1);
-    this.username = JSON.parse(localStorage.getItem('currentUser')).username;
-    this.getClub(this.username);
+    this.id = JSON.parse(localStorage.getItem('currentUser'))._id;
+    this.getClub(this.id);
   }
 
   createForm(cantFields: number) {
@@ -51,10 +49,10 @@ export class ProfileClubCanchasComponent implements OnInit {
     console.log(this.fieldClubForm);
   }
 
-  private getClub(username: string) {
-    this.userService.getByUsername(username).subscribe(userClub => {
+  private getClub(id: string) {
+    this.clubService.getById(id).subscribe(userClub => {
 
-      this.club = userClub.creator;
+      this.club = userClub;
       // console.log(this.club);
       this.createForm(this.club.fields.length);
       this.fieldClubForm.patchValue({
@@ -66,7 +64,7 @@ export class ProfileClubCanchasComponent implements OnInit {
   }
 
   createTemporalField(field) {
-    let cancha: any = {};
+    const cancha: any = {};
     cancha.fieldName = field.fieldName;
     cancha.cantPlayers = field.cantPlayers;
     cancha.fieldType = field.fieldType;

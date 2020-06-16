@@ -1,9 +1,12 @@
 export class Player {
-  _id: string;
+  _id?: string;
   name: string;
   lastName: string;
-  dni: number;
-  phoneNumber: string;
-  birthDate: Date;
-  biography: string;
+  uid: string;
+  email: string;
+  photoURL?: string;
+  dni?: number;
+  phoneNumber?: string;
+  birthDate?: Date;
+  biography?: string;
 }
