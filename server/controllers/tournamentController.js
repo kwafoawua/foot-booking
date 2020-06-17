@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Tournament = require('../models/Tournament');
 const {validationResult} = require("express-validator");
 
@@ -50,7 +51,7 @@ exports.getTournament = async (req, res) => {
  */
 exports.getClubTournaments = async (req, res) => {
     try {
-        const tournament = await Tournament.find({creatorClubId: req.params.clubId});
+        const tournament = await Tournament.find({creatorClubId: mongoose.Types.ObjectId(req.params.clubId)});
         await res.json({tournament});
     } catch (error) {
         console.log(error)
@@ -74,7 +75,18 @@ exports.getAllTournaments = async (req, res) => {
 /**
  * Edit a Tournament
  */
-
+exports.updateTournament = async (req, res) => {
+    try {
+        await Tournament.findOneAndUpdate(
+            {_id: mongoose.Types.ObjectId(req.params._id)},
+            {$set: req.body},
+            {new: true});
+        await res.json({msg: "Torneo modificado exitosamente"});
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Ocurrio un error imprevisto :/");
+    }
+};
 
 /**
  * Delete a Tournament

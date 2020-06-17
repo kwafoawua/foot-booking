@@ -22,11 +22,25 @@ const TournamentSchema = new mongoose.Schema({
     startDate: {type: Date, requiered: true, trim: true},
     endDate: {type: Date, requiered: true, trim: true},
     numbersOfTeams: {type: Number, requiered: true, trim: true},
-    prizeAmount: {type: Number, requiered: true, trim: true},
     // inscripciones pueden ser un doc aparte
     inscriptionStartDate: {type: Date, requiered: true, trim: true},
     inscriptionEndDate: {type: Date, requiered: true, trim: true},
-    inscriptionCost: {type: Number, requiered: true, trim: true}
+    inscriptionCost: {type: Number, requiered: true, trim: true},
+
+    publicationDescription: {type: String, maxLength: 1500, trim: true},
+    prizes: [{type: String, requiered: true}],
+    numberOfPlayers: {type: String, requiered: true, trim: true},
+    state: {type: String, default:'Nuevo', requiered: true, trim: true,
+        enum:['Nuevo', 'Publicado', 'Iniciado', 'Finalizado', 'Cancelado']},
+    category: {type: String, requiered: true, trim: true},
+    termsAndConditions: {type:String, requiered:true},
+
+    // soft delete
+    // softDeleted: {
+    //     isDeleted: {type: Boolean, default: false},
+    //     deletedByUserId: {type: mongoose.Schema.Types.ObjectId, ref: 'Club', requiered: true},
+    //     deleteDate: {type: Date, default: Date.now}
+    // }
 });
 
 module.exports = mongoose.model('Tournament', TournamentSchema);

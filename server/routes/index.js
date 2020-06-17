@@ -71,7 +71,8 @@ router.post('/tournament/register', [
     check('tournamentName', 'Llego el campo del torneo vacio y es obligatorio').not().isEmpty()
 ], tournamentController.createTournament);
 router.get('/tournament/:_id', tournamentController.getTournament);
-router.get('/tournament/club/:clubid', tournamentController.getClubTournaments);
+router.get('/tournament/club/:clubId', tournamentController.getClubTournaments);
 router.get('/tournaments', tournamentController.getAllTournaments);
+router.put('/tournament/:_id', tournamentController.updateTournament);
 
 module.exports = router;
