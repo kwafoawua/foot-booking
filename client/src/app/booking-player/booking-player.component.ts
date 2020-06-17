@@ -20,7 +20,7 @@ export class bookingPlayerComponent implements OnInit {
   }
 
   ngOnInit() {
-    const _id: string = JSON.parse(localStorage.getItem('currentUser')).playerOrClubId;
+    const _id: string = JSON.parse(localStorage.getItem('currentUser'))._id;
     this.getBookings(_id);
   }
 

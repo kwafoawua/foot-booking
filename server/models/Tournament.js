@@ -30,11 +30,23 @@ const TournamentSchema = new mongoose.Schema({
     publicationDescription: {type: String, maxLength: 1500, trim: true},
     prizes: [{type: String, requiered: true}],
     numberOfPlayers: {type: String, requiered: true, trim: true},
-    state: {type: String, default:'Nuevo', requiered: true, trim: true,
-        enum:['Nuevo', 'Publicado', 'Iniciado', 'Finalizado', 'Cancelado']},
+    state: {
+        type: String, default: 'Nuevo', requiered: true, trim: true,
+        enum: ['Nuevo', 'Publicado', 'Iniciado', 'Finalizado', 'Cancelado']
+    },
     category: {type: String, requiered: true, trim: true},
-    termsAndConditions: {type:String, requiered:true},
-
+    termsAndConditions: {type: String, requiered: true},
+    equipos: [{
+        name: String,
+        responsableEquipo: {
+            nombre: {type: String},
+            apellido: {type: String},
+            email: {type: String},
+            telefono: {type: Number}
+        },
+        cantPlayers: {type: Number},
+        fechaInscripcion: {type: Date, default: Date.now},
+    }],
     // soft delete
     // softDeleted: {
     //     isDeleted: {type: Boolean, default: false},

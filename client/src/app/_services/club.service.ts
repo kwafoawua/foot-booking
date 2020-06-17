@@ -28,38 +28,24 @@ export class ClubService {
   }
 
 
-  getById(_id: number | string) {
-    return this.http.get('/clubs/' + _id);
-    /* return this.http.get('/clubs/' + _id).map((response: Response) => response.json()).subscribe(data =>{
-          let notFound = true;
-          this.dataStore.clubs.forEach((club, index) => {
-              if(club._id === data._id) {
-                  this.dataStore.clubs[index] = data;
-                  notFound = false;
-              }
-              });
-          if(notFound) {
-              this.dataStore.clubs.push(data);
-          }
-          this._clubs.next(Object.assign({}, this.dataStore).clubs);
-          }, error => console.log('No se pudo cargar el club'));*/
-
+  getById(id: string) {
+    return this.http.get('/clubs/' + id);
   }
 
-  getResultById(_id: string) {
-    return this.http.get<Club>('/clubs/results/' + _id);
+  getResultById(id: string) {
+    return this.http.get<Club>('/clubs/results/' + id);
   }
 
-  update(_id: string, formData: any) {
-    return this.http.put('/clubs/' + _id, formData);
+  update(id: string, formData: any) {
+    return this.http.put('/clubs/' + id, formData);
   }
 
-  updateFields(_id: string, fields: any) {
-    return this.http.put('/clubs/fields/' + _id, fields);
+  updateFields(id: string, fields: any) {
+    return this.http.put('/clubs/fields/' + id, fields);
   }
 
-  delete(_id: string) {
-    return this.http.delete('/clubs/' + _id);
+  delete(id: string) {
+    return this.http.delete('/clubs/' + id);
   }
 
   upload(image: any) {

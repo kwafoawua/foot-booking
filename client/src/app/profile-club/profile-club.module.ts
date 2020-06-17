@@ -17,8 +17,7 @@ import {
   ProfileClubUserComponent
 } from './index';
 import { ProfileClubRoutingModule } from './profile-club-routing.module';
-import { FieldFormControlComponent } from './profile-club-canchas/field-form-control.component';
-import { FieldFormArrayComponent } from './profile-club-canchas/field-form-array.component';
+import { FieldsArrayModule } from '../fields-array/fields-array.module';
 
 
 @NgModule({
@@ -35,7 +34,8 @@ import { FieldFormArrayComponent } from './profile-club-canchas/field-form-array
       apiKey: 'AIzaSyAAwaI8YafySsHraMA_9G_n30_FECUhoVs',
       libraries: [ 'places' ]
     }),
-    DpDatePickerModule
+    DpDatePickerModule,
+    FieldsArrayModule
   ],
   declarations: [
     ProfileClubUserComponent,
@@ -43,8 +43,6 @@ import { FieldFormArrayComponent } from './profile-club-canchas/field-form-array
     ProfileClubInfoComponent,
     ProfileClubComponent,
     ProfileClubCanchasComponent,
-    FieldFormArrayComponent,
-    FieldFormControlComponent,
   ],
   providers: []
 })

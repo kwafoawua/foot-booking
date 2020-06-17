@@ -13,23 +13,18 @@ export class FieldFormControlComponent {
   } ];
   public fieldTypeSelect: string[] = [ 'Cesped', 'Sintético', 'Tierra' ];
 
-  @Input()
-  public index: number;
-
-  @Input()
-  public field: FormGroup;
-
-  @Output()
-  public removed: EventEmitter<number> = new EventEmitter<number>();
+  @Input() public index: number;
+  @Input() public field: FormGroup;
+  @Output() public removed: EventEmitter<number> = new EventEmitter<number>();
 
   static buildField() {
     return new FormGroup({
+      _id: new FormControl(''),
       fieldName: new FormControl('', Validators.required),
       cantPlayers: new FormControl('', Validators.required),
       fieldType: new FormControl('', Validators.required),
       services: new FormControl([], Validators.required),
       price: new FormControl('', Validators.required)
-
     });
   }
 

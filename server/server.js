@@ -7,6 +7,7 @@ const expressJwt = require('express-jwt');
 const config = require('config.json');
 const mongoose = require('mongoose');
 const pathList = require('./paths');
+const fs = require('fs');
 
 app.use(cors());
 app.use(bodyParser.json({limit: "50mb"}));
@@ -31,11 +32,12 @@ app.use(expressJwt({
 // routes
 app.use('/', require('./routes/index'));
 
-// start server
-var port = process.env.NODE_ENV === 'production' ? 80 : 4000;
-/*var server = app.listen(port, function () {
-    console.log('Server listening on port ' + port);
-});*/
+// set port
+const port = process.env.NODE_ENV === 'production' ? 80 : 4000;
+
+const createUploadFolder = () => {
+
+}
 
 mongoose.connect(config.connectionString,
   { useNewUrlParser: true, useUnifiedTopology: true },
@@ -45,6 +47,11 @@ mongoose.connect(config.connectionString,
         return console.log(error);
     }
     app.listen(port, function() {
+
+        fs.exists('./uploads', (exists) => {
+            if(exists) fs.mkdir('./uploads' , (err) => {
+            });
+        });
         console.log('Server listening on port: ' + port);
     });
 
