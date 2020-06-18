@@ -29,7 +29,7 @@ export class TournamentStageComponent implements OnInit{
   // }
 
     public  goToNewStage(){
-        this.router.navigate(['ronda'], {relativeTo: this.route});
+        this.router.navigate(['stage'], {relativeTo: this.route});
     }
 
 }

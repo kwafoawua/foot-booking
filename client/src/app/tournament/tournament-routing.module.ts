@@ -13,7 +13,7 @@ const profileClubRoutes: Routes = [
     component: TournamentStageComponent,
     children: [
       {
-        path: 'ronda',
+        path: 'stage',
         component: StageComponent,
       },
       { path: 'nuevo-campeonato', component: TournamentDefinitionComponent },
