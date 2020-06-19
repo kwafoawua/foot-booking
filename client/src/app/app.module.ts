@@ -62,6 +62,7 @@ import { LoginGuard } from './_guards/login.guard';
 import {ResultadoBusquedaComponent} from './result/resultadoBusqueda.component';
 import { StorageService } from './_services/storage.service';
 import { FieldsArrayModule } from './fields-array/fields-array.module';
+import { CardComponent } from './common/card/card.component';
 
 
 @NgModule({
@@ -113,6 +114,7 @@ import { FieldsArrayModule } from './fields-array/fields-array.module';
     bookingPlayerComponent,
     commentsComponent,
     ResultadoBusquedaComponent,
+    CardComponent
   ],
   providers: [
     authInterceptorProviders,

@@ -32,9 +32,8 @@
               "src/css/style.css",
               "node_modules/bootstrap/dist/css/bootstrap.css",
               "node_modules/bootstrap/dist/css/bootstrap-grid.css",
-              "node_modules/bootstrap/dist/css/bootstrap-reboot.css",
               "node_modules/angular-calendar/css/angular-calendar.css",
-              "src/app.css"
+              "src/app.scss"
             ],
             "scripts": [
               "src/js/jquery-3.2.1.slim.min.js",

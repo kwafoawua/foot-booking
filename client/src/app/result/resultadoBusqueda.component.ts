@@ -10,14 +10,7 @@ import {environment} from '../../environments/environment';
 })
 
 export class ResultadoBusquedaComponent  {
-
-
   uploadsBaseURL = environment.uploadsBaseURL;
-
   @Input() clubsFound: Club[];
-
-  constructor() {
-  }
-
-
+  constructor() {}
 }
