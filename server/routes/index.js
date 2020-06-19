@@ -1,18 +1,19 @@
 /**
-file where the routes are defined
-*/
-var express = require('express');
-var router = express.Router();
+ file where the routes are defined
+ */
+const express = require('express');
+const router = express.Router();
+const {check} = require("express-validator");
 
-var clubController = require('../controllers/ClubController.js');
-var userController = require('../controllers/userController.js');
-var userController2 = require('../controllers/users.controller.js');
-var uploadsManager = require('../controllers/uploads');
-var playerController = require('../controllers/playerController');
-var bookingController = require('../controllers/BookingController');
-var commentController = require('../controllers/CommentController');
-var tournamentController = require('../controllers/TournamentController');
-var fieldController = require('../controllers/FieldController');
+let clubController = require('../controllers/ClubController.js');
+let userController = require('../controllers/userController.js');
+let userController2 = require('../controllers/users.controller.js');
+let uploadsManager = require('../controllers/uploads');
+let playerController = require('../controllers/playerController');
+let bookingController = require('../controllers/BookingController');
+let commentController = require('../controllers/CommentController');
+let tournamentController = require('../controllers/tournamentController');
+let fieldController = require('../controllers/FieldController');
 
 
 //*User Controller*//
@@ -32,17 +33,17 @@ router.put('/players/:_id', playerController.updatePlayer);
 
 
 /*Club Controller*/
-router.post('/clubs/register',uploadsManager.upload.fields([
-    { name: 'profile', maxCount: 1 },
-    { name: 'gallery', maxCount: 5 }
+router.post('/clubs/register', uploadsManager.upload.fields([
+    {name: 'profile', maxCount: 1},
+    {name: 'gallery', maxCount: 5}
 ]), clubController.registerClub);
 router.get('/clubs/:_id', clubController.findById);
 router.get('/clubs/results/:_id', clubController.findById);
 
 router.get('/clubs/', clubController.findAllClubs);
-router.put('/clubs/:_id',uploadsManager.upload.fields([
-    { name: 'profile', maxCount: 1 },
-    { name: 'gallery', maxCount: 5 }
+router.put('/clubs/:_id', uploadsManager.upload.fields([
+    {name: 'profile', maxCount: 1},
+    {name: 'gallery', maxCount: 5}
 ]), clubController.updateClub);
 router.put('/clubs/fields/:_id', fieldController.updateFields);
 
@@ -65,6 +66,13 @@ router.get('/comments/authorComment/:_id', commentController.findAllAuthorCommen
 router.delete('/comments/:_id', commentController.deleteComment);
 
 /* Tournament Controller */
-router.post('/tournament/register', tournamentController.createTournament);
+router.post('/tournament/register', [
+    check('creatorClubId', 'Llego el campo del id del club organizador vacio es obligatorio').not().isEmpty(),
+    check('tournamentName', 'Llego el campo del torneo vacio y es obligatorio').not().isEmpty()
+], tournamentController.createTournament);
+router.get('/tournament/:_id', tournamentController.getTournament);
+router.get('/tournament/club/:clubId', tournamentController.getClubTournaments);
+router.get('/tournaments', tournamentController.getAllTournaments);
+router.put('/tournament/:_id', tournamentController.updateTournament);
 
 module.exports = router;
