@@ -1,0 +1,7 @@
+.home-page {
+  min-height: 30rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-top: 100px;
+}

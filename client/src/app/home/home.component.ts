@@ -10,6 +10,7 @@ import { ITimeSelectConfig } from 'ng2-date-picker/time-select/time-select-confi
 
 @Component({
   templateUrl: 'home.component.html',
+  styleUrls: ['./home.component.css']
 })
 
 export class HomeComponent implements OnInit {
