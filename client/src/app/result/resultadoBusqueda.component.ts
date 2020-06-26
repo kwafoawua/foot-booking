@@ -9,14 +9,15 @@ import {environment} from '../../environments/environment';
   selector: 'rs-list',
 })
 
+
 export class ResultadoBusquedaComponent implements OnInit{
 
   public collectionSize: number;
   pageSize = 10;
   page = 1;
   uploadsBaseURL = environment.uploadsBaseURL;
-
   @Input() clubsFound: Club[];
+
 
 
   constructor() {
@@ -24,6 +25,5 @@ export class ResultadoBusquedaComponent implements OnInit{
   ngOnInit(): void {
     this.collectionSize = this.clubsFound.length;
   }
-
 
 }

@@ -42,7 +42,6 @@ export class ResultComponent implements OnInit {
   cantPlayers: any;
   minPrice: any;
   maxPrice: any;
-  uploadsBaseURL = environment.uploadsBaseURL;
 
 
   constructor(

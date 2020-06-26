@@ -1,7 +1,7 @@
 <header id="header" class="clearfix">
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light custom-nav">
 
-    <div class="container">
+    <div class="container nav-custom-container">
       <a class="navbar-brand" [routerLink]="['']">
         <img src="../../assets/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
         FOOT-BOOKING
@@ -14,18 +14,28 @@
 
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" [routerLink]="['']">INICIO
-              <span class="sr-only">(current)</span>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/']"
+               routerLinkActive="active-link"
+               [routerLinkActiveOptions]="{exact:true}">
+              Inicio
             </a>
           </li>
 
           <div class="navbar-nav" *ngIf="!isAuthenticated()">
             <li class="nav-item">
-              <a class="nav-link" [routerLink]="['/login']">INICIAR SESION</a>
+              <a class="nav-link"
+                 [routerLink]="['/login']"
+                 routerLinkActive="active-link">
+                Iniciar Sesión
+              </a>
             </li>
             <li class=" nav-item">
-              <a class="nav-link" [routerLink]="['/player/register']">REGISTRARSE</a>
+              <a class="nav-link"
+                 [routerLink]="['/player/register']"
+                 routerLinkActive="active-link">
+                Registrarse
+              </a>
             </li>
             <li class="nav-item">
               <a class="btn btn-success d-lg-block" [routerLink]="['/club/register']">NUEVO CLUB</a>
@@ -35,13 +45,17 @@
           <div class="navbar-nav" *ngIf="isAuthenticated()">
             <div class="navbar-nav" *ngIf="isClubUser()">
               <li class="nav-item">
-                <a [routerLink]="['/club/estadisticas']" class="nav-link" href="#">DASHBOARD</a>
+                <a [routerLink]="['/club/estadisticas']"
+                   class="nav-link"
+                   routerLinkActive="active-link">
+                  Dashboard
+                </a>
               </li>
 
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
-                  CAMPEONATOS
+                  Campeonatos
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
                   <a class="dropdown-item" [routerLink]="['/campeonato/nuevo']">NUEVO</a>
@@ -52,11 +66,11 @@
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
-                  RESERVAS
+                  Reservas
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
-                  <a class="dropdown-item" [routerLink]="['/club/gestion-canchas']">ADMINISTRAR</a>
-                  <a class="dropdown-item" href="#">NUEVA</a>
+                  <a class="dropdown-item" [routerLink]="['/club/gestion-canchas']">Administrar</a>
+                  <a class="dropdown-item" href="#">Nueva</a>
                 </div>
               </li>
 
@@ -66,12 +80,12 @@
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
-                  PREFERENCIAS
+                  Preferencias
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" (click)="goToMisReservas()">RESERVAS</a>
-                  <a class="dropdown-item">FAVORITOS</a>
-                  <a class="dropdown-item">CAMPEONATOS</a>
+                  <a class="dropdown-item" (click)="goToMisReservas()">Reservas</a>
+                  <a class="dropdown-item">Favoritos</a>
+                  <a class="dropdown-item">Campeonatos</a>
                 </div>
               </li>
             </div>
@@ -80,7 +94,7 @@
               <a class="nav-link" (click)=goToProfile()> {{name | uppercase}}</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" (click)=auth.logout() [routerLink]="['/']">CERRAR SESION</a>
+              <a class="nav-link" (click)=auth.logout() [routerLink]="['/']">Cerrar Sesión</a>
             </li>
 
           </div>
