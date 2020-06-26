@@ -2,16 +2,16 @@ import {TState} from './TState';
 
 export class Tournament {
   idTournament: string;
-  //_idClub: string;
-  nameT: string;
-  description: string;
-  startInscription: Date;
-  finishInscription: Date;
-  statingDay: Date;
-  finishDay: Date;
-  cantequipos: number;
-  inscriptionFee: number;
-  publicationDescrip: string;
+  creatorClubId: string;
+  tournamentName: string;
+  termsAndConditions: string;
+  inscriptionStartDate: Date;
+  inscriptionEndDate: Date;
+  startDate: Date;
+  endDate: Date;
+  numbersOfTeams: number;
+  inscriptionCost: number;
+  publicationDescription: string;
   prize_1: string;
   prize_2: string;
   prize_3: string;

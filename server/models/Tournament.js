@@ -18,7 +18,7 @@ const TournamentSchema = new mongoose.Schema({
     creatorClubId: {type: mongoose.Schema.Types.ObjectId, ref: 'Club', requiered: true},
     tournamentName: {type: String, requiered: true, trim: true},
     description: {type: String, maxLength: 255, trim: true},
-    image: {type: String},
+    //image: {type: String},
     startDate: {type: Date, requiered: true, trim: true},
     endDate: {type: Date, requiered: true, trim: true},
     numbersOfTeams: {type: Number, requiered: true, trim: true},

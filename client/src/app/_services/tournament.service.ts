@@ -11,7 +11,7 @@ import {TState} from '../_models/TState';
 @Injectable()
 
 export class TournamentService {
-
+/*
 private myTournament: Tournament[] = [
   {
     idTournament: '1',
@@ -136,7 +136,7 @@ private theOnlyTournmanet: Tournament = {
   category: 'Mixto'
 };
 
-
+*/
 
 private tState: TState[] = [
   {
@@ -165,7 +165,7 @@ private tState: TState[] = [
   constructor(private http: HttpClient) {
   }
 
-  create(tournament: NgForm){
+  create(tournament: Tournament){
     console.log('El service ', tournament);
     return this.http.post('/tournament/register', tournament);
   }
@@ -178,13 +178,9 @@ private tState: TState[] = [
     return this.categorias;
   }
 
-  getMyTournaments(){
-    return this.myTournament;
-  }
-
-  getTournamentById(_id: string) {
-    return this.theOnlyTournmanet;
-  }
+  // getMyTournaments(){
+  //   return this.myTournament;
+  // }
 
 
 }

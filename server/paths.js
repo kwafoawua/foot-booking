@@ -13,7 +13,7 @@ var findAllCommentForAClub = pathToRegexp('/comments/:_id');
 var findAllAuthorComments = pathToRegexp('/comments/authorComment/:_id');
 var findAllClubComments = pathToRegexp('/comments/clubComment/:_id');
 var deleteComment = pathToRegexp('/comments/:_id');
-//var newTournament = pathToRegexp(path: '/tournament/register')
+var newTournament = pathToRegexp('/tournament/register');
 
 module.exports.path = {
     path: [
@@ -29,6 +29,7 @@ module.exports.path = {
         '/uploads',
         '/players/register',
         '/book',
+        '/tournament/register',
         findClub,
         getResultById,
         findClubsByFilters,
@@ -39,7 +40,7 @@ module.exports.path = {
         // "/comments/changeComment/",
         findAllCommentForAClub,
         findAllAuthorComments,
-        findAllClubComments
+        findAllClubComments,
         // deleteComment
     ]
 };
