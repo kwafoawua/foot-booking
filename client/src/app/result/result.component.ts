@@ -38,7 +38,7 @@ export class ResultComponent implements OnInit {
   public services: Service[];
   private servicesChecked: Service [] = [];
   public radio: boolean; //true es club
-  clubname: string = '';
+  clubname = '';
   cantPlayers: any;
   minPrice: any;
   maxPrice: any;
