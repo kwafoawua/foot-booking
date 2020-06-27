@@ -17,8 +17,8 @@ public myListTournament: Tournament[];
   }
 
   ngOnInit(){
-   this.myListTournament = this.tournamentService.getMyTournaments();
-   this.collectionSize = this.myListTournament.length;
+ //  this.myListTournament = this.tournamentService.getMyTournaments();
+//   this.collectionSize = this.myListTournament.length;
 }
 
   goToStage(){

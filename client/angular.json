@@ -30,14 +30,12 @@
               "src/css/main.css",
               "src/css/responsive.css",
               "src/css/style.css",
-              "node_modules/bootstrap/dist/css/bootstrap.css",
-              "node_modules/bootstrap/dist/css/bootstrap-grid.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/angular-calendar/css/angular-calendar.css",
               "src/app.scss"
             ],
             "scripts": [
-              "src/js/jquery-3.2.1.slim.min.js",
-              "src/js/bootstrap.min.js"
+              "src/js/jquery-3.2.1.slim.min.js"
             ]
           },
           "configurations": {

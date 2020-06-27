@@ -1,4 +1,4 @@
-﻿import { NgModule } from '@angular/core';
+﻿﻿import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -66,7 +66,7 @@ import {MainManagementComponent} from './tournament-management/mainManagement.co
 import { StorageService } from './_services/storage.service';
 import { FieldsArrayModule } from './fields-array/fields-array.module';
 import { CardComponent } from './common/card/card.component';
-
+import { DestacadosComponent } from './home/destacados/destacados.component';
 
 
 @NgModule({
@@ -120,6 +120,7 @@ import { CardComponent } from './common/card/card.component';
     ResultadoBusquedaComponent,
     MainManagementComponent,
     CardComponent,
+    DestacadosComponent,
   ],
   providers: [
     authInterceptorProviders,

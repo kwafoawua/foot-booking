@@ -1,46 +1,42 @@
-﻿<div>
+﻿<div class="container">
 
-  <div class="home-page">
-    <div id="search-section">
-      <div class="container">
-
+  <div class="header-section">
+    <div class="search-form">
         <form (ngSubmit)="buscarClub()" [formGroup]="homeForm" novalidate="novalidate">
-          <div class="search-section">
-            <ul>
-              <li>
-                <input class="form-control" [dpDayPicker]="config" name="datePicker" placeholder="DD-MM-AAAA"
+            <div class="row">
+              <div class="col-sm-12 col-md-6">
+                <input class="form-control" [dpDayPicker]="config" name="datePicker" placeholder="Fecha"
                        id="calendar" theme="dp-material" formControlName="date" autocomplete="off">
-              </li>
+              </div>
+              <div class="col-sm-12 col-md-6">
 
-              <li>
-                <div ngbDropdown class="dropdown category-dropdown">
+                <div ngbDropdown class="d-inline-block">
                   <span id="dropdownBasic1" ngbDropdownToggle class="change-text">Qué vas a jugar?</span>
-                  <ul ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                  <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownBasic1">
                     <li class="dropdown-item" ngbDropdownItem>Privado</li>
                     <li class="dropdown-item" ngbDropdownItem>Campeonato</li>
                   </ul>
                 </div>
-              </li>
-
-              <li>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 col-md-8">
                 <input formControlName="clubName" name="clubname" (keyup.enter)="buscarClub()"
                        type="text" class="form-control" placeholder="Nombre de club">
-              </li>
-
-              <li>
+              </div>
+              <div class="col-sm-12 col-md-4">
                 <button type="submit" class="form-control btn btn-primary" value="Search">Buscar</button>
-              </li>
-
-            </ul>
-          </div>
+              </div>
+            </div>
         </form>
-
+        </div>
       </div>
+      <div class="row">
+        <app-destacados></app-destacados>
+      </div>
+
     </div>
     <!-- search-section -->
-  </div>
-
-</div>
 
 
 

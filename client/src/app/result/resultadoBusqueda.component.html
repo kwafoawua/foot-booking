@@ -1,16 +1,13 @@
-<div class="tab-content small-view-tab">
-  <div role="tabpanel" class="tab-pane active" id="recent">
-    <ul>
-      <app-card
-        *ngFor="let club of clubsFound"
-        [description]="club.description"
-        [id]="club._id"
-        [name]="club.name"
-        [socialMedia]="club.socialMedia"
-        [destacado]="false"
-        [image]="club.profileImg"
-      ></app-card>
-    </ul>
+<div class="row">
+  <div class="col-sm-12 col-md-6 col-lg-4 mb-3" *ngFor="let club of clubsFound">
+    <app-card
+      [description]="club.description"
+      [id]="club._id"
+      [name]="club.name"
+      [socialMedia]="club.socialMedia"
+      [destacado]="false"
+      [image]="club.profileImg"
+    ></app-card>
   </div>
 </div>
 

@@ -17,7 +17,7 @@ interface SocialMedia {
 export class CardComponent implements OnInit {
   uploadsBaseURL = environment.uploadsBaseURL;
 
-  @Input() id: number;
+  @Input() id: string;
   @Input() image: string;
   @Input() socialMedia: SocialMedia;
   @Input() destacado: boolean;
