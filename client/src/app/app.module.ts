@@ -93,7 +93,7 @@ import { DestacadosComponent } from './home/destacados/destacados.component';
       provide: DateAdapter,
       useFactory: adapterFactory
     }),
-    NgbModule.forRoot(),
+    NgbModule,
     DemoUtilsModule,
     TournamentModule,
     AngularFireAuthModule,

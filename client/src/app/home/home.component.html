@@ -1,7 +1,6 @@
-﻿<div class="container">
-
+﻿
   <div class="header-section">
-    <div class="search-form">
+    <div class="search-form full-shadow">
         <form (ngSubmit)="buscarClub()" [formGroup]="homeForm" novalidate="novalidate">
             <div class="row">
               <div class="col-sm-12 col-md-6">
@@ -11,7 +10,7 @@
               <div class="col-sm-12 col-md-6">
 
                 <div ngbDropdown class="d-inline-block">
-                  <span id="dropdownBasic1" ngbDropdownToggle class="change-text">Qué vas a jugar?</span>
+                  <a id="dropdownBasic1" ngbDropdownToggle>Qué vas a jugar?</a>
                   <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownBasic1">
                     <li class="dropdown-item" ngbDropdownItem>Privado</li>
                     <li class="dropdown-item" ngbDropdownItem>Campeonato</li>
@@ -31,11 +30,11 @@
         </form>
         </div>
       </div>
-      <div class="row">
-        <app-destacados></app-destacados>
-      </div>
-
+  <div class="container-fluid">
+    <div class="row">
+      <app-destacados></app-destacados>
     </div>
+  </div>
     <!-- search-section -->
 
 

@@ -78,7 +78,6 @@ module.exports.findAllClubs = function(req, res) {
             if (err) {
                return res.status(500).send(err);
             }
-        console.log('GET /holo');
         res.status(200).send(clubs);
     });
 };

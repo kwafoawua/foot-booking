@@ -1,10 +1,15 @@
 .header-section {
-  min-height: 30rem;
+  min-height: 40rem;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   padding: 60px 20px;
-
+  background: #ffffff;
+  background-image: url("../../assets/home-image.svg");
+  background-image: url("../../assets/home-image.svg"), linear-gradient(36deg, rgba(3,156,138,1) 0%, rgba(95,230,189,1) 18%, rgba(255,255,255,1) 49%);
+  background-repeat: no-repeat;
+  background-size: 50rem;
+  background-position-y: bottom;
 }
 
 .search-form {

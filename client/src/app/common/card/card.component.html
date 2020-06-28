@@ -2,34 +2,34 @@
   <div class="row no-gutters">
 
     <div class="col-5 col-md-12">
-      <a [routerLink]="['/results/club/',id]">
+      <a [routerLink]="['/results/club/',club?.id]">
         <div
           class="card-img-top cover-image"
-          [ngStyle]="{'background-image': 'url('+uploadsBaseURL+image+')'}">
+          [ngStyle]="{'background-image': 'url('+uploadsBaseURL+club?.profileImg+')'}">
         </div>
       </a>
     </div>
 
     <div class="col col-md-12">
       <div class="card-body">
-        <h5 class="card-title"><a [routerLink]="['/results/club/',id]">{{name}}</a></h5>
+        <h5 class="card-title"><a [routerLink]="['/results/club/',club.id]">{{club.name}}</a></h5>
         <p class="card-text">
-          {{description}}
+          {{club.description}}
         </p>
         <div class="social-media">
           <ul class="icon-list">
-            <li *ngIf="(socialMedia?.facebookId)" class="icon">
-              <a target="_blank" href="{{socialMedia?.facebookId}}">
+            <li *ngIf="(club.socialMedia?.facebookId)" class="icon">
+              <a target="_blank" href="{{club.socialMedia?.facebookId}}">
                 <img src="../../assets/icons/icon-facebook.svg" />
               </a>
             </li>
-            <li *ngIf="(socialMedia?.instagramId)" class="icon">
-              <a target="_blank" href="{{socialMedia?.instagramId}}">
+            <li *ngIf="(club.socialMedia?.instagramId)" class="icon">
+              <a target="_blank" href="{{club.socialMedia?.instagramId}}">
                 <img src="../../assets/icons/icon-instagram.svg" />
               </a>
             </li>
-            <li *ngIf="(socialMedia?.twitterId)" class="icon">
-              <a target="_blank" href="{{socialMedia?.twitterId}}">
+            <li *ngIf="(club.socialMedia?.twitterId)" class="icon">
+              <a target="_blank" href="{{club.socialMedia?.twitterId}}">
                 <img src="../../assets/icons/icon-twitter.svg" />
               </a>
             </li>

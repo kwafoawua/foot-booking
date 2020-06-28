@@ -42,7 +42,7 @@
 
 html,
 body {
-  font-family: 'Ubuntu', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight:400;
   color:#6f6f6f;
   overflow-x:hidden;
@@ -51,7 +51,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Ubuntu', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight:normal;
 }
 
@@ -62,7 +62,7 @@ ul {
 }
 
 a {
-  font-family: 'Ubuntu', sans-serif;
+  font-family: 'Poppins', sans-serif;
   color: #00a651;
 }
 
@@ -101,7 +101,7 @@ input:focus, textarea:focus, select:focus, .form-control:focus {
 .title {
   line-height: 34px;
   color: #ffffff;
-  font-family: 'Ubuntu', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: 700;
 }
 
