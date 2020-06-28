@@ -199,18 +199,31 @@ textarea {
   color: #777;
 }
 
-.navbar-default .navbar-toggle {
+/*.navbar-dark .navbar-toggle {*/
+/*border-color:#00a651;*/
+/*}*/
+
+/*.navbar-dark .navbar-toggle .icon-bar{*/
+/*background-color: #00a651;*/
+/*}*/
+
+/*.navbar-dark .navbar-toggle:focus, */
+/*.navbar-dark .navbar-toggle:hover {*/
+/*background-color: transparent;*/
+/*}*/
+.navbar-dark .navbar-toggle {
   border-color:#00a651;
 }
 
-.navbar-default .navbar-toggle .icon-bar{
+.navbar-dark .navbar-toggle .icon-bar{
   background-color: #00a651;
 }
 
-.navbar-default .navbar-toggle:focus,
-.navbar-default .navbar-toggle:hover {
+.navbar-dark .navbar-toggle:focus,
+.navbar-dark .navbar-toggle:hover {
   background-color: transparent;
 }
+
 
 .page {
   padding-bottom:0;
@@ -311,7 +324,7 @@ a, .topbar a,
  	Header
  ========================================================================== */
 
-#header .navbar-default {
+#header .navbar-dark {
   border-top: none;
   border-bottom: 1px solid #ddd;
   border-left: 0;
@@ -327,7 +340,7 @@ a, .topbar a,
 }
 
 .nav li a,
-.navbar-default .navbar-nav>li>a {
+.navbar-dark .navbar-nav>li>a {
   background-color: transparent;
   font-weight: 500;
   font-size: 14px;
@@ -337,48 +350,49 @@ a, .topbar a,
 }
 
 .nav li a:hover,
-.navbar-default .navbar-nav>li>a:focus,
-.navbar-default .navbar-nav>li>a:hover,
-.navbar-default .navbar-nav>.active>a:focus,
-.navbar-default .navbar-nav>.active>a:hover,
-.navbar-default .navbar-nav>.active>a,
-.navbar-default .navbar-nav>.open>a,
-.navbar-default .navbar-nav>.open>a:focus,
-.navbar-default .navbar-nav>.open>a:hover,
+.navbar-dark .navbar-nav>li>a:focus,
+.navbar-dark .navbar-nav>li>a:hover,
+.navbar-dark .navbar-nav>.active>a:focus,
+.navbar-dark .navbar-nav>.active>a:hover,
+.navbar-dark .navbar-nav>.active>a,
+.navbar-dark .navbar-nav>.open>a,
+.navbar-dark .navbar-nav>.open>a:focus,
+.navbar-dark .navbar-nav>.open>a:hover,
 .dropdown-menu>.active>a,
 .dropdown-menu>.active>a:focus,
 .dropdown-menu>.active>a:hover {
   background-color: transparent;
   color: #00a651;
 }
-
+/* ESTO ES LO QUE GENERA EL PROBLEMA CON EL DROPDOWNMENU EN BOOTSTRAP 4
 .dropdown-menu{
-  border-radius: 0;
-  padding:10px 0;
-  background-color: #f8f8f8;
-  opacity:0;
-  display: block;
+	border-radius: 0;
+	padding:10px 0;
+	background-color: #f8f8f8;
+	opacity:0;
+	display: block;
 
-  -webkit-transform-origin: top;
-  transform-origin: top;
+	-webkit-transform-origin: top;
+	transform-origin: top;
 
-  -moz-animation-fill-mode: forwards;
-  -webkit-animation-fill-mode: forwards;
-  -o-animation-fill-mode: forwards;
-  -ms-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
+	-moz-animation-fill-mode: forwards;
+	-webkit-animation-fill-mode: forwards;
+	-o-animation-fill-mode: forwards;
+	-ms-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
 
-  -moz-transform: scale(1,0);
-  -webkit-transform: scale(1,0);
-  -o-transform: scale(1,0);
-  -ms-transform: scale(1,0);
-  transform: scale(1,0);
-  -webkit-transition: all 0.2s linear;
-  -moz-transition: all 0.2s linear;
-  -ms-transition: all 0.2s linear;
-  -o-transition: all 0.2s linear;
-  transition: all 0.2s linear;
+	-moz-transform: scale(1,0);
+	-webkit-transform: scale(1,0);
+	-o-transform: scale(1,0);
+	-ms-transform: scale(1,0);
+	transform: scale(1,0);
+	-webkit-transition: all 0.2s linear;
+	-moz-transition: all 0.2s linear;
+	-ms-transition: all 0.2s linear;
+	-o-transition: all 0.2s linear;
+	transition: all 0.2s linear;
 }
+*/
 
 .open .dropdown-menu {
   -moz-transform: scale(1,1);
@@ -395,15 +409,11 @@ a, .topbar a,
   line-height: 22px;
 }
 
-.dropdown-menu>li>a,
-.dropdown-menu>li>a:hover {
-  background-color:transparent;
-}
+/*.dropdown-menu>li>a, */
+/*.dropdown-menu>li>a:hover {*/
+/*background-color:transparent;*/
+/*}*/
 
-.nav-right {
-  margin-top: 4px;
-  text-align: right;
-}
 
 .language-dropdown {
   display:inline;
@@ -904,6 +914,7 @@ a, .topbar a,
   background-color: #23ae79;
   color:#fff;
   padding:85px 0;
+  background-image: url(../assets/bg/cta-bg.jpg);
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -952,7 +963,7 @@ a, .topbar a,
 
 .item .item-image {
   float: left;
-  width:40%;
+  width:400%;
   position: relative;
   height:175px;
   overflow:hidden;
@@ -1488,6 +1499,7 @@ a, .topbar a,
   background-color:#25262a;
   color: #fff;
   margin-bottom: 0;
+  background-image: url(../assets/bg/breadcrumb-bg.jpg);
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -1561,7 +1573,7 @@ a, .topbar a,
 
 .filter-list .list-group li a:hover,
 .filter-list .list-group li span {
-	color:#00A659;
+  color:#00A659;
 }
 
 .filter-list .list-group li span {
@@ -1926,7 +1938,7 @@ input[type=file]{
 }
 
 .post-inner textarea {
-  min-height: 230px;
+  min-height: 155px;
   padding: 15px 20px;
 }
 
@@ -2244,6 +2256,12 @@ p.quote-text {
   height: 338px;
 }
 
+
+
+agm-map {
+  height: 300px;
+}
+
 .contact-form-wrapper {
   margin-top: 30px;
 }
@@ -2256,5 +2274,35 @@ p.quote-text {
   margin-top: 25px;
 }
 
+/* ==========================================================================
+ 	ProfilePlayer section
+ ========================================================================== */
 
+#profile-section input.form-control{
+  background-color: #fff;
+}
 
+.profile-section .category-dropdown {
+  background-color: #fff;
+  border:1px solid #e3e3e3;
+  border-radius:4px;
+  min-width: 200px;
+  line-height: 45px;
+  text-align: left;
+  padding: 0 20px;
+  height: 48px;
+}
+
+.profile-section .category-dropdown a i{
+  margin-left: 10px;
+}
+
+.profile-section .category-dropdown a {
+  font-size: 16px;
+  margin: 0;
+  color: #777;
+  border: none;
+  border-radius: 5px 0 0 5px;
+  text-transform: capitalize;
+  font-family: 'MyriadPro-Regular', sans-serif;
+}
