@@ -1,16 +1,27 @@
 ﻿
   <div class="header-section">
+    <div class="welcome-text">
+      <h1 class="welcome-title">FOOTBOOKING</h1>
+      <p class="welcome-subtitle">Reserva tu cancha</p>
+      <p class="welcome-subtitle">Participá de campeonatos con amigues</p>
+      <p class="welcome-description">Con Footbooking podes reservar tu próximo partido de forma rápida y segura. Seleccioná tu club favorito, elegí tu fecha y jugá!</p>
+    </div>
     <div class="search-form full-shadow">
         <form (ngSubmit)="buscarClub()" [formGroup]="homeForm" novalidate="novalidate">
             <div class="row">
               <div class="col-sm-12 col-md-6">
-                <input class="form-control" [dpDayPicker]="config" name="datePicker" placeholder="Fecha"
-                       id="calendar" theme="dp-material" formControlName="date" autocomplete="off">
+                  <div class="input-group mb-3">
+                    <input class="form-control" [dpDayPicker]="config" name="datePicker" placeholder="Fecha"
+                           id="calendar" theme="dp-material" formControlName="date" autocomplete="off">
+                    <div class="input-group-append">
+                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+                  </div>
               </div>
               <div class="col-sm-12 col-md-6">
 
-                <div ngbDropdown class="d-inline-block">
-                  <a id="dropdownBasic1" ngbDropdownToggle>Qué vas a jugar?</a>
+                <div ngbDropdown class="dropdown form-control">
+                  <a [ngStyle]="{'vertical-align': 'sub'}" id="dropdownBasic1" ngbDropdownToggle>Qué vas a jugar?</a>
                   <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownBasic1">
                     <li class="dropdown-item" ngbDropdownItem>Privado</li>
                     <li class="dropdown-item" ngbDropdownItem>Campeonato</li>

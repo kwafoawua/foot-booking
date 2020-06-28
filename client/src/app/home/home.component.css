@@ -1,8 +1,9 @@
 .header-section {
   min-height: 40rem;
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  justify-content: center;
+  align-items: flex-end;
+  flex-direction: column;
   padding: 60px 20px;
   background: #ffffff;
   background-image: url("../../assets/home-image.svg");
@@ -18,5 +19,24 @@
   border-radius: 8px;
   width: 700px;
   max-width: 700px;
+}
 
+.welcome-text {
+  width: 700px;
+}
+
+.welcome-title {
+  font-weight: 700;
+  color: #039c8a;
+}
+.welcome-subtitle {
+  color: #ff7222;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  margin: 0;
+  font-weight: 300;
+}
+.welcome-description {
+  margin-top: 1rem;
+  font-weight: 500;
 }
