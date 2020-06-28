@@ -15,15 +15,16 @@ export class ResultadoBusquedaComponent implements OnInit{
   public collectionSize: number;
   pageSize = 10;
   page = 1;
-  uploadsBaseURL = environment.uploadsBaseURL;
   @Input() clubsFound: Club[];
-
+@Input() pepe: string;
 
 
   constructor() {
   }
   ngOnInit(): void {
-    this.collectionSize = this.clubsFound.length;
+    if (this.clubsFound) {
+      this.collectionSize = this.clubsFound.length;
+    }
   }
 
 }

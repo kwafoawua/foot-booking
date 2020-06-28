@@ -1,13 +1,6 @@
 <div class="row">
   <div class="col-sm-12 col-md-6 col-lg-4 mb-3" *ngFor="let club of clubsFound">
-    <app-card
-      [description]="club.description"
-      [id]="club._id"
-      [name]="club.name"
-      [socialMedia]="club.socialMedia"
-      [destacado]="false"
-      [image]="club.profileImg"
-    ></app-card>
+    <app-card [club]="club"></app-card>
   </div>
 </div>
 

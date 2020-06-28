@@ -47,13 +47,20 @@ export class ResultComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private searchService: SearchService,
+    private clubService: ClubService,
     private router: Router) {
   }
 
 
   ngOnInit(): void {
     this.setCurrentPosition();
-    this.clubs = SearchService.clubs;
+    // TODO: poder obtener los clubs dependiendo de la url y los filtros que se aplican arriba
+   // this.clubs = SearchService.clubs;
+    this.clubService.getAll().subscribe((clubs: Club[]) => {
+      if (clubs) {
+        this.clubs = clubs;
+      }
+    });
     this.services = this.searchService.getClubServices();
   }
 

@@ -1,17 +1,5 @@
-
-<div class="tab-content small-view-tab">
-  <div role="tabpanel" class="tab-pane active" id="recent">
-    <ul>
-      <app-card
-        *ngFor="let club of clubs"
-        [description]="club.description"
-        [id]="club._id"
-        [name]="club.name"
-        [socialMedia]="club.socialMedia"
-        [destacado]="false"
-        [image]="club.profileImg"
-      ></app-card>
-    </ul>
-
-</div>
+<div class="container-fluid">
+  <div class="row">
+     <app-card *ngFor="let club of clubs" [club]="club"></app-card>
+  </div>
 </div>
