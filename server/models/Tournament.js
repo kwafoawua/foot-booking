@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoose_delete = require('mongoose-delete');
 
 /**
  * Tournament Schema
@@ -46,13 +47,9 @@ const TournamentSchema = new mongoose.Schema({
         },
         cantPlayers: {type: Number},
         fechaInscripcion: {type: Date, default: Date.now},
-    }],
-    // soft delete
-    // softDeleted: {
-    //     isDeleted: {type: Boolean, default: false},
-    //     deletedByUserId: {type: mongoose.Schema.Types.ObjectId, ref: 'Club', requiered: true},
-    //     deleteDate: {type: Date, default: Date.now}
-    // }
+    }]
 });
+
+TournamentSchema.plugin(mongoose_delete, {overrideMethods: 'all'});
 
 module.exports = mongoose.model('Tournament', TournamentSchema);

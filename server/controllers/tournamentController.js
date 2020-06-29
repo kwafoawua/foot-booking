@@ -91,3 +91,13 @@ exports.updateTournament = async (req, res) => {
 /**
  * Delete a Tournament
  */
+exports.deleteTournamente = async (req, res) => {
+    try {
+        let tournament = await Tournament.findOne({_id: mongoose.Types.ObjectId(req.params._id)});
+        await Tournament.delete(tournament);
+        await res.json({msg: "Torneo eliminado exitosamente"});
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Ocurrio un error imprevisto :/");
+    }
+}
