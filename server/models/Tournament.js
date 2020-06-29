@@ -28,7 +28,9 @@ const TournamentSchema = new mongoose.Schema({
     inscriptionCost: {type: Number, requiered: true, trim: true},
 
     publicationDescription: {type: String, maxLength: 1500, trim: true},
-    prizes: [{type: String, requiered: true}],
+    prize1: {type: String, requiered: true},
+    prize2: String,
+    prize3: String,
     numberOfPlayers: {type: String, requiered: true, trim: true},
     state: {
         type: String, default: 'Nuevo', requiered: true, trim: true,

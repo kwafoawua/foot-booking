@@ -2,7 +2,6 @@
   <div class="container">
 
     <form #form="ngForm"  (ngSubmit)="createTournament()">
-
       <h3>Nuevo Campeonato</h3>
 
       <div class="card form-group">
@@ -117,7 +116,7 @@
             <div class="col-6 col-md-4">
               <label class="label-form row " >Primer premio (*)</label>
               <input class="form-control " type="text" name="primero"
-                     [(ngModel)]="tournament.prize_1" required #primero="ngModel">
+                     [(ngModel)]="tournament.prize1" required #primero="ngModel">
               <div [hidden]="!form.submitted || primero.valid" class="alert alert-danger">
                 Ingrese premio del ganador
               </div>
@@ -125,12 +124,12 @@
             <div class="col-6 col-md-4">
               <label class="label-form row">Segundo premio</label>
               <input class="form-control" type="text"  name="segundo"
-                     [(ngModel)]="tournament.prize_2">
+                     [(ngModel)]="tournament.prize2">
             </div>
             <div class="col-6 col-md-4">
               <label class="label-form row" >Tercer premio</label>
               <input class="form-control" type="text" name="tercero"
-                     [(ngModel)]="tournament.prize_3">
+                     [(ngModel)]="tournament.prize3">
             </div>
           </div>
         </div>

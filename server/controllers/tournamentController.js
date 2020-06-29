@@ -8,7 +8,7 @@ const {validationResult} = require("express-validator");
  */
 exports.createTournament = async (req, res) => {
     // revisar errores de request
-    console.error(tournament);
+    console.log(req.body);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({errors: errors.array()});
@@ -23,7 +23,7 @@ exports.createTournament = async (req, res) => {
             ]
         });
         if (tournament) {
-            return res.status(400).json({msg: "Ya existe ese torneo :/"});
+            return res.status(400).json({msg: "Ya existe un campeonato con ese nombre"});
         }
         tournament = new Tournament(req.body);
         await tournament.save();
