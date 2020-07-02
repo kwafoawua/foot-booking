@@ -12,9 +12,9 @@
 
     <div class="col col-md-12">
       <div class="card-body">
-        <h5 class="card-title"><a [routerLink]="['/results/club/',club._id]">{{club.name}}</a></h5>
+        <h5 class="card-title"><a [routerLink]="['/results/club/',club?._id]">{{club?.name}}</a></h5>
         <p class="card-text">
-          {{club.description}}
+          {{club.address.shortAddress || ''}}
         </p>
         <div class="social-media">
           <ul class="icon-list">

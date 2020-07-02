@@ -21,7 +21,8 @@ var clubSchema = new Schema({
     address: {
         lat: {type: Number, required: true},
         lng: {type: Number, required: true},
-        address: {type: String, required: true}
+        address: {type: String, required: true},
+        shortAddress: {type: String, required: true},
     },
     phoneNumber: String,
    // fields: [{ type: ObjectId, ref: 'Cancha' }],

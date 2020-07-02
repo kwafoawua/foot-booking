@@ -86,21 +86,35 @@ export class RegisterClubComponent implements OnInit {
   }
 
   setAutocompleteInput() {
-    let geocoder = new google.maps.Geocoder();
-    let latlng = new google.maps.LatLng(this.lat, this.lng);
-    let request = {
+    const geocoder = new google.maps.Geocoder();
+    const latlng = new google.maps.LatLng(this.lat, this.lng);
+    const request = {
       location: latlng
     };
     geocoder.geocode(request, (results, status) => {
-      if (status == google.maps.GeocoderStatus.OK) {
-        console.log('Results: ');
-        console.log(results);
-        if (results[ 0 ] != null) {
+      if (status === google.maps.GeocoderStatus.OK) {
+
+        if (results[0] != null) {
+          let city = '';
+          let country = '';
+          let provincia = '';
           this.searchElementRef.nativeElement.value = results[ 0 ].formatted_address;
           this.registerClubForm.get('address.lat').setValue(results[ 0 ].geometry.location.lat());
           this.registerClubForm.get('address.lng').setValue(results[ 0 ].geometry.location.lng());
           this.registerClubForm.get('address.address').setValue(results[ 0 ].formatted_address);
-          console.log(this.registerClubForm.get('address').value);
+          results[0].address_components.forEach(addr => {
+            switch (addr.types[0]) {
+              case 'administrative_area_level_2':
+                city = addr.short_name;
+                break;
+              case 'administrative_area_level_1':
+                provincia = addr.short_name;
+                break;
+              case 'country':
+                country = addr.long_name;
+            }
+          });
+          this.registerClubForm.get('address.shortName').setValue(`${city}, ${provincia}, ${country}`);
 
         } else {
           alert('No address available');
@@ -137,7 +151,8 @@ export class RegisterClubComponent implements OnInit {
       address: this.fb.group({
         lat: '',
         lng: '',
-        address: ''
+        address: '',
+        shortAddress: '',
       }),
       services: [ [], Validators.required ],
       profileImg: [ null, Validators.required ],
