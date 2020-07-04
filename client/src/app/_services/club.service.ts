@@ -9,9 +9,6 @@ export class ClubService {
   public static booking: Booking;
 
   constructor(private http: HttpClient) {
-    /* this.dataStore = { clubs: [] };
-     this._clubs = <BehaviorSubject<Club[]>>new BehaviorSubject([]);
-     this.clubs = this._clubs.asObservable();*/
   }
 
   create(club: any) {
@@ -19,11 +16,6 @@ export class ClubService {
   }
 
   getAll() {
-    /* return this.http.get('/clubs').map((response: Response) => response.json()).subscribe(data => {
-         this.dataStore.clubs = data;
-         this._clubs.next(Object.assign({}, this.dataStore).clubs);
-     } , error => console.log('No se pueden cargar los Clubes'));*/
-
     return this.http.get('/clubs');
   }
 
@@ -50,6 +42,10 @@ export class ClubService {
 
   upload(image: any) {
     return this.http.post('/uploads/', image);
+  }
+
+  getDestacados() {
+    return this.http.get<Club[]>('/destacados/');
   }
 
 

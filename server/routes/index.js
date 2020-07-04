@@ -46,6 +46,8 @@ router.put('/clubs/:_id', uploadsManager.upload.fields([
     {name: 'gallery', maxCount: 5}
 ]), clubController.updateClub);
 router.put('/clubs/fields/:_id', fieldController.updateFields);
+router.get('/destacados/', clubController.getDestacados);
+
 
 /*FILTERS*/
 router.get('/findClub/:clubfilter', clubController.findClubsByFilter);

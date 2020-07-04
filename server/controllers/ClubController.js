@@ -150,7 +150,20 @@ module.exports.deleteClub = function(req, res) {
     });
 };
 
-/*
+/**
+ * Obtener los primeros 10 clubs destacados
+ */
+module.exports.getDestacados = async (req, res) => {
+    try {
+        const clubsDestacados = await Club.find({}, null, {limit: 10}).exec();
+        return res.status(200).send(clubsDestacados);
+    } catch (error) {
+        return res.status(400).send({errorMessage: 'Hubo un problema al obtener los datos'});
+    }
+};
+
+
+/**
 *   Método que busca solo por nombre, se llama desde el home o cuando la busqueda viene sin filtros
 */
 module.exports.findClubsByFilter = function (req,res) {

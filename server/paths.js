@@ -1,3 +1,8 @@
+/**
+ * Paths que estan fuera del authentication
+ * @type {pathToRegexp | ((path: pathToRegexp.Path, keys?: pathToRegexp.Key[], options?: (pathToRegexp.RegExpOptions & pathToRegexp.ParseOptions)) => RegExp)}
+ */
+
 var pathToRegexp = require('path-to-regexp');
 
 var findClub = pathToRegexp('/findClub/:clubfilter');
@@ -21,7 +26,7 @@ module.exports.path = {
         '/users/register',
         '/users',
         '/clubs/register',
-        '/clubs', 
+        '/clubs',
         '/results',
         '/findClub',
         '/findClubsByFilters',
@@ -41,6 +46,7 @@ module.exports.path = {
         findAllCommentForAClub,
         findAllAuthorComments,
         findAllClubComments,
+        '/destacados'
         // deleteComment
     ]
 };
