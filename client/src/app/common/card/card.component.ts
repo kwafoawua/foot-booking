@@ -10,10 +10,20 @@ export class CardComponent implements OnInit {
   uploadsBaseURL = environment.uploadsBaseURL;
 
   @Input() club: any;
+  fieldTypes: string[];
 
   constructor() { }
 
   ngOnInit() {
+    this.getFields();
+  }
+  getFields() {
+    const countMap = {};
+    this.club.fields.forEach((cancha) => {
+      countMap[cancha.fieldType] = countMap[cancha.fieldType] ? countMap[cancha.fieldType] + 1 : 1;
+    });
+    this.fieldTypes = Object.keys(countMap);
+    console.log(this.fieldTypes);
   }
 
 }

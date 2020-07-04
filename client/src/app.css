@@ -1,14 +1,29 @@
+﻿
 body {
   font-family: Poppins, sans-serif;
   background-color: #f7f7f7;
 }
 
+.fb-primary-text {
+  color: #039c8a;
+}
+.fb-primary-bg {
+  background-color: #039c8a;
+}
+.fb-secondary-text {
+  color:  #ff7222;
+}
+.fb-secondary-bg {
+  background-color:  #ff7222;
+}
+
+
 a {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .help-block {
-  font-size: 12px;
+    font-size: 12px;
 }
 
 .social-login-container > button {
@@ -21,13 +36,12 @@ a {
   justify-content: center;
   background-color: white;
   border-radius: 2px;
-  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .25);
 }
 
 .google-btn :active {
   background: #1669F2;
 }
-
 .social-icon-wrapper {
   margin-top: 2px;
   margin-left: 2px;
@@ -36,7 +50,6 @@ a {
   height: 38px;
   border-radius: 2px;
 }
-
 .social-icon-wrapper > .icon {
   color: white;
   font-size: 20px;
@@ -46,7 +59,6 @@ a {
   width: 18px;
   height: 18px;
 }
-
 .google-btn > .social-btn-text {
   margin: 11px 11px 0 0;
   color: #333333;
@@ -59,7 +71,7 @@ a {
   justify-content: center;
   background-color: #3b5998;
   border-radius: 2px;
-  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .25);
 }
 
 .facebook-btn > .social-btn-text {
@@ -77,14 +89,12 @@ a {
 .social-or-text {
   text-align: center;
   font-size: 20px;
-  background-image: linear-gradient(#C0C0C0, #C0C0C0), linear-gradient(#C0C0C0, #C0C0C0);
-  background-size: 40% 1px;
-  background-position: center left, center right;
-  background-repeat: no-repeat;
+  background-image:linear-gradient(#C0C0C0,#C0C0C0),linear-gradient(#C0C0C0,#C0C0C0);
+  background-size:40% 1px;
+  background-position:center left,center right;
+  background-repeat:no-repeat;
 }
 
 .full-shadow {
   box-shadow: 0px 0px 20px 0px #e5e5e5;
 }
-
-/*# sourceMappingURL=app.css.map */

@@ -32,7 +32,7 @@
               "src/css/style.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/angular-calendar/css/angular-calendar.css",
-              "src/app.scss"
+              "src/app.css"
             ],
             "scripts": [
               "src/js/jquery-3.2.1.slim.min.js",

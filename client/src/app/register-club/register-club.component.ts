@@ -114,7 +114,7 @@ export class RegisterClubComponent implements OnInit {
                 country = addr.long_name;
             }
           });
-          this.registerClubForm.get('address.shortName').setValue(`${city}, ${provincia}, ${country}`);
+          this.registerClubForm.get('address.shortAddress').setValue(`${city}, ${provincia}, ${country}`);
 
         } else {
           alert('No address available');
@@ -167,12 +167,6 @@ export class RegisterClubComponent implements OnInit {
       fields: FieldFormArrayComponent.initFields()
     });
   }
-
-  /*public requestAutocompleteItemsFake = (text: string): Observable<string[]> => {
-    return of([
-      'Asador', 'Buffet', 'Parking', 'Techado', 'Bar', 'Nocturno'
-    ]);
-  };*/
 
   public requestAutocompleteItemsFake = () =>
     [ 'Asador', 'Buffet', 'Parking', 'Techado', 'Bar', 'Nocturno' ];

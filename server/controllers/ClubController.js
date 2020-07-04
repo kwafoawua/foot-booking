@@ -24,7 +24,8 @@ module.exports.registerClub = async function (req,res) {
             if(!club.fields[i]._id) {
                 delete club.fields[i]._id;
             }
-        }        const savedClub = await addClub(club,profilePath, galleryPath);
+        }
+        const savedClub = await addClub(club,profilePath, galleryPath);
         const token = utils.generateToken(savedClub._id);
         res.status(200).send({ user: {...savedClub._doc, token }, success: 'El club se creó exitosamente.'});
     } catch(error) {
@@ -40,7 +41,8 @@ async function addClub (club, profilePath, galleryPath) {
         address: {
             lat: club.address.lat,
             lng: club.address.lng,
-            address: club.address.address
+            address: club.address.address,
+            shortAddress: club.address.shortAddress,
         },
         phoneNumber: club.phoneNumber,
         fields: club.fields || null,

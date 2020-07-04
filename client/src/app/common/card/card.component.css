@@ -36,6 +36,18 @@
   margin: 0 0.5rem;
 }
 
+.field-types, .service-list {
+  display: flex;
+  font-size: 14px;
+  margin: 0;
+}
+
+.field-types > li {
+  margin-right: 10px;
+  padding: 5px;
+  color: white;
+}
+
 @media screen and (min-width: 768px) {
   .cover-image {
     height: 10rem;

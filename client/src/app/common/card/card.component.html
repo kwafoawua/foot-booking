@@ -14,8 +14,21 @@
       <div class="card-body">
         <h5 class="card-title"><a [routerLink]="['/results/club/',club?._id]">{{club?.name}}</a></h5>
         <p class="card-text">
-          {{club.address.shortAddress || ''}}
+          <i class="fa fa-2x fa-map-marker"></i>{{club.address.shortAddress || ''}}
         </p>
+        <div id="fieldTypes">
+          <ul class="field-types">
+            <li class="badge fb-secondary-bg" *ngFor="let fieldType of fieldTypes" >
+              {{fieldType}}
+            </li>
+          </ul>
+        </div>
+        <div id="services">
+          <ul class="service-list">
+            <li class="badge" *ngFor="let service of club?.services">{{service.display}}</li>
+          </ul>
+        </div>
+        <ul></ul>
         <div class="social-media">
           <ul class="icon-list">
             <li *ngIf="(club.socialMedia?.facebookId)" class="icon">
