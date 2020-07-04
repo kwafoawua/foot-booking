@@ -1,5 +1,10 @@
 <div class="container-fluid">
   <div class="row">
-     <app-card *ngFor="let club of clubs" [club]="club"></app-card>
+    <div class="col">
+      <h1>Clubs Destacados</h1>
+    </div>
+  </div>
+  <div class="row">
+     <app-card class="col" *ngFor="let club of clubs" [club]="club"></app-card>
   </div>
 </div>

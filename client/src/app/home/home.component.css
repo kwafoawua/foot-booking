@@ -25,7 +25,7 @@
   width: 700px;
 }
 
-.welcome-title {
+.welcome-title, .service-title {
   font-weight: 700;
   color: #039c8a;
 }
@@ -39,4 +39,21 @@
 .welcome-description {
   margin-top: 1rem;
   font-weight: 500;
+}
+
+.home-services {
+  margin-top: 5rem;
+  background-color: white;
+}
+
+.home-services .info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+}
+
+.home-services .image > img {
+  border-radius: 30% 0;
 }
