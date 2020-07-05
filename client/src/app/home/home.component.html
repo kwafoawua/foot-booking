@@ -1,73 +1,68 @@
-﻿
-  <div class="header-section">
-    <div class="welcome-text">
-      <h1 class="welcome-title">FOOTBOOKING</h1>
-      <p class="welcome-subtitle">Reserva tu cancha</p>
-      <p class="welcome-subtitle">Participá de campeonatos con amigues</p>
-      <p class="welcome-description">Con Footbooking podes reservar tu próximo partido de forma rápida y segura. Seleccioná tu club favorito, elegí tu fecha y jugá!</p>
-    </div>
-    <div class="search-form full-shadow">
-        <form (ngSubmit)="buscarClub()" [formGroup]="homeForm" novalidate="novalidate">
-            <div class="row">
-              <div class="col-sm-12 col-md-6">
-                  <div class="input-group mb-3">
-                    <input class="form-control" [dpDayPicker]="config" name="datePicker" placeholder="Fecha"
-                           id="calendar" theme="dp-material" formControlName="date" autocomplete="off">
-                    <div class="input-group-append">
-                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                    </div>
-                  </div>
-              </div>
-              <div class="col-sm-12 col-md-6">
-
-                <div ngbDropdown class="dropdown form-control">
-                  <a [ngStyle]="{'vertical-align': 'sub'}" id="dropdownBasic1" ngbDropdownToggle>Qué vas a jugar?</a>
-                  <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownBasic1">
-                    <li class="dropdown-item" ngbDropdownItem>Privado</li>
-                    <li class="dropdown-item" ngbDropdownItem>Campeonato</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12 col-md-8">
-                <input formControlName="clubName" name="clubname" (keyup.enter)="buscarClub()"
-                       type="text" class="form-control" placeholder="Nombre de club">
-              </div>
-              <div class="col-sm-12 col-md-4">
-                <button type="submit" class="form-control btn btn-primary" value="Search">Buscar</button>
-              </div>
-            </div>
-        </form>
-        </div>
-      </div>
-  <div class="container-fluid">
-    <div class="row">
-      <app-destacados></app-destacados>
-    </div>
-    <div class="container home-services">
+﻿<div class="header-section">
+  <div class="welcome-text">
+    <h1 class="welcome-title">FOOTBOOKING</h1>
+    <p class="welcome-subtitle">Reserva tu cancha</p>
+    <p class="welcome-subtitle">Participá de campeonatos con amigues</p>
+    <p class="welcome-description">Con Footbooking podes reservar tu próximo partido de forma rápida y segura.
+      Seleccioná tu club favorito, elegí tu fecha y jugá!</p>
+  </div>
+  <div class="search-form full-shadow">
+    <form (ngSubmit)="buscarClub()" [formGroup]="homeForm" novalidate="novalidate">
       <div class="row">
-        <div class="col-sm-12 col-md-6 no-gutters info">
-          <h1 class="service-title">CAMPEONATOS</h1>
-          <p>Descripcion</p>
+        <div class="col-sm-12 col-md-6">
+          <div class="input-group mb-3">
+            <input class="form-control" [dpDayPicker]="config" name="datePicker" placeholder="Fecha"
+                   id="calendar" theme="dp-material" formControlName="date" autocomplete="off">
+            <div class="input-group-append">
+              <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+            </div>
+          </div>
         </div>
-        <div class="col-sm-12 col-md-6 no-gutters image">
-          <img src="../../assets/torneo.png">
+        <div class="col-sm-12 col-md-6">
+
+          <div ngbDropdown class="dropdown form-control">
+            <a [ngStyle]="{'vertical-align': 'sub'}" id="dropdownBasic1" ngbDropdownToggle>Qué vas a jugar?</a>
+            <ul ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownBasic1">
+              <li class="dropdown-item" ngbDropdownItem>Privado</li>
+              <li class="dropdown-item" ngbDropdownItem>Campeonato</li>
+            </ul>
+          </div>
         </div>
       </div>
       <div class="row">
-        <div class="col-sm-12 col-md-6 no-gutters image">
-          <img src="../../assets/cancha.jpg">
+        <div class="col-sm-12 col-md-8">
+          <input formControlName="clubName" name="clubname" (keyup.enter)="buscarClub()"
+                 type="text" class="form-control" placeholder="Nombre de club">
         </div>
-        <div class="col-sm-12 col-md-6 no-gutters info">
-          <h1 class="service-title">RESERVA DE CANCHAS</h1>
-          <p>Descripcion</p>
+        <div class="col-sm-12 col-md-4">
+          <button type="submit" class="form-control btn btn-primary" value="Search">Buscar</button>
         </div>
       </div>
-
+    </form>
+  </div>
+</div>
+<!-- search-section -->
+  <app-destacados></app-destacados>
+<div class="container home-services">
+  <div class="row">
+    <div class="col-sm-12 col-md-6 p-0 info">
+      <h1 class="service-title">CAMPEONATOS</h1>
+      <p>Descripcion</p>
+    </div>
+    <div class="col-sm-12 col-md-6 p-0 image">
+      <img src="../../assets/torneo.png">
     </div>
   </div>
-    <!-- search-section -->
+  <div class="row">
+    <div class="col-sm-12 col-md-6 p-0 image">
+      <img src="../../assets/cancha.jpg">
+    </div>
+    <div class="col-sm-12 col-md-6 p-0 info">
+      <h1 class="service-title">RESERVA DE CANCHAS</h1>
+      <p>Descripcion</p>
+    </div>
+  </div>
+</div>
 
 
 

@@ -1,10 +1,29 @@
-<div class="container-fluid">
+<div class="container-fluid destacados">
   <div class="row">
     <div class="col">
       <h1>Clubs Destacados</h1>
     </div>
   </div>
-  <div class="row">
-     <app-card class="col" *ngFor="let club of clubs" [club]="club"></app-card>
+  <div class="container-fluid">
+    <ngb-carousel
+      [interval]="-1"
+      *ngIf="clubs"
+      class="destacados-carousel carousel-fade"
+      [showNavigationArrows]="true"
+      [showNavigationIndicators]="false"
+    >
+      <div class="row">
+          <ng-template ngbSlide>
+            <div class="fb-md-2" *ngFor="let club of clubs.slice(0, clubs.length / 2)">
+              <app-card class="col" [club]="club"></app-card>
+            </div>
+          </ng-template>
+        <ng-template ngbSlide class="item-flex">
+          <div class="fb-md-2" *ngFor="let club of clubs.slice(clubs.length / 2, clubs.length)">
+            <app-card class="col" [club]="club"></app-card>
+          </div>
+        </ng-template>
+      </div>
+    </ngb-carousel>
   </div>
 </div>

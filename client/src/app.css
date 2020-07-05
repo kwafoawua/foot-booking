@@ -1,20 +1,24 @@
-﻿
+﻿:root {
+  --fb-primary:  #039c8a;
+  --fb-secondary: #ff7222;
+  --fullwidth: 100%;
+}
 body {
   font-family: Poppins, sans-serif;
   background-color: #f7f7f7;
 }
 
 .fb-primary-text {
-  color: #039c8a;
+  color: var(--fb-primary);
 }
 .fb-primary-bg {
-  background-color: #039c8a;
+  background-color: var(--fb-primary);
 }
 .fb-secondary-text {
-  color:  #ff7222;
+  color:  var(--fb-secondary);
 }
 .fb-secondary-bg {
-  background-color:  #ff7222;
+  background-color:  var(--fb-secondary);
 }
 
 
@@ -97,4 +101,22 @@ a {
 
 .full-shadow {
   box-shadow: 0px 0px 20px 0px #e5e5e5;
+}
+
+.carousel-control-next {
+  right: -120px !important;
+}
+.carousel-control-next-icon:after {
+  content: '>';
+  font-size: 55px;
+  color: var(--fb-primary);
+}
+
+.carousel-control-prev-icon:after {
+  content: '<';
+  font-size: 55px;
+  color: var(--fb-primary);
+}
+.carousel-control-prev {
+  left: -120px !important;
 }

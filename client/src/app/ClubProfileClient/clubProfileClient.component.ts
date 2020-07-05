@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { AlertService, AuthService } from '../_services/index';
@@ -15,7 +15,10 @@ import { environment } from '../../environments/environment';
 
 
 @Component({
-  templateUrl: 'clubProfileClient.component.html'
+  templateUrl: 'clubProfileClient.component.html',
+  styleUrls: ['clubProfileClient.component.css'],
+  encapsulation: ViewEncapsulation.None
+
 })
 
 export class ProfileClubClientComponent implements OnInit {

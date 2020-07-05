@@ -1,0 +1,8 @@
+.carousel-inner {
+  height:22rem !important;
+}
+.carousel-item.active{
+  height:22rem !important;
+  background-repeat: no-repeat;
+  -moz-background-size: cover;
+}
