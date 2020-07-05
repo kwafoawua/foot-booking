@@ -75,5 +75,6 @@ router.get('/tournament/club/:clubId', tournamentController.getClubTournaments);
 router.get('/tournaments', tournamentController.getAllTournaments);
 router.put('/tournament/:_id', tournamentController.updateTournament);
 router.delete('/tournament/:_id', tournamentController.deleteTournamente);
+router.get('/filterTournaments', tournamentController.filterTournament);
 
 module.exports = router;
