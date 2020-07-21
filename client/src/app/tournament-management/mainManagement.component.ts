@@ -30,8 +30,9 @@ public models;
 
   getMyTournament(){
     this.id = JSON.parse(localStorage.getItem('currentUser'))._id;
-  //  this.tournamentService.getMyTournaments(this.id).subscribe( (x) => { console.log(this.id);});
-    this.tournamentService.getMyTournaments(this.id).subscribe((tournament: any) => this.myTournament = tournament, error => console.log(error));
+    this.tournamentService.getMyTournaments(this.id).subscribe((data: any) => {
+      this.myTournament = data.tournament;
+    }, error => console.log(error));
 // //  this.collectionSize = this.myListTournament.length;
 //     console.log('this.tournament' + this.myTournament);
   }

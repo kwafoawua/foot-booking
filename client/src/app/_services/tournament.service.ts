@@ -180,7 +180,7 @@ private tState: TState[] = [
   }
 
   getMyTournaments(_id: string){
-  return this.http.get<Tournament[]>('/tournament/club/:' + _id);
+  return this.http.get<Tournament[]>('/tournament/club/' + _id);
   console.log('este es el servicio');
    // return this.myTournament;
   }

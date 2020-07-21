@@ -72,12 +72,11 @@ export class TournamentDefinitionComponent implements OnInit {
     this.tournament.creatorClubId = this.idClub;
     console.log('el formulario', this.tournament);
     this.tournamentService.create(this.tournament).subscribe(data => {
-        this.alertService.success('El campeonato e registro con exito', true),
+        this.alertService.success('El campeonato se registró con éxito', true),
           console.log('el form', this.tournament);
       },
       error => {
-      console.error(error),
-        this.alertService.error('Ha ocurrido un error al registrar el torneo', false);
+        this.alertService.error(error.error.msg, false);
       }
     );
   }
