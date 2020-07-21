@@ -6,6 +6,7 @@ import {Club, Service} from '../_models';
 import {NgForm} from '@angular/forms';
 import * as moment from 'moment';
 import {TState} from '../_models/TState';
+import {Booking} from "../_models/booking";
 
 
 @Injectable()
@@ -117,26 +118,26 @@ private myTournament: Tournament[] = [
     category: 'Mixto'
   }];
 
-private theOnlyTournmanet: Tournament = {
-  idTournament: '1',
-  nameT: 'Mi capeonato 1',
-  description: 'string',
-  startInscription: new Date('07/19/2020'),
-  finishInscription: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-  statingDay: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-  finishDay: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-  cantequipos: 5,
-  inscriptionFee: 100,
-  publicationDescrip: 'descripcion',
-  prize_1: 'premio1',
-  prize_2: 'premio 2',
-  prize_3: 'prmio 3',
-  tournamentType:  '6 Jugadores',
-  state: {id: 2, name: 'Publicado'},
-  category: 'Mixto'
-};
-
+// private theOnlyTournmanet: Tournament = {
+//   idTournament: '1',
+//   nameT: 'Mi capeonato 1',
+//   description: 'string',
+//   startInscription: new Date('07/19/2020'),
+//   finishInscription: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
+//   statingDay: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
+//   finishDay: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
+//   cantequipos: 5,
+//   inscriptionFee: 100,
+//   publicationDescrip: 'descripcion',
+//   prize_1: 'premio1',
+//   prize_2: 'premio 2',
+//   prize_3: 'prmio 3',
+//   tournamentType:  '6 Jugadores',
+//   state: {id: 2, name: 'Publicado'},
+//   category: 'Mixto'
+// };
 */
+
 
 private tState: TState[] = [
   {
@@ -178,9 +179,11 @@ private tState: TState[] = [
     return this.categorias;
   }
 
-  // getMyTournaments(){
-  //   return this.myTournament;
-  // }
+  getMyTournaments(_id: string){
+  return this.http.get<Tournament[]>('/tournament/club/:' + _id);
+  console.log('este es el servicio');
+   // return this.myTournament;
+  }
 
 
 }

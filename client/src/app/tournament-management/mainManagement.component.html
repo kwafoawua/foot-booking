@@ -14,29 +14,29 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let tourn of myListTournament | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+            <tr *ngFor="let t of myTournament">
 
               <td>
-                {{ tourn.nameT }}
+                {{ t.tournamentName}}
               </td>
               <td>
                 11/12
               </td>
-              <td>{{ tourn.state.name}}</td>
+              <td>{{ t.state.name}}</td>
               <td class="row">
                 <div ngbDropdown class="dropdown category-dropdown">
                    <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>+</button>
                      <ul ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                          <div *ngIf="tourn.state.id ==1">
+                          <div *ngIf="t.state.id ==1">
                               <li class="dropdown-item" >Publicar</li>
                           </div>
                               <li class="dropdown-item" >Definicion</li>
                               <li class="dropdown-item" [routerLink]="['/campeonato/administrar-fases']" >Rondas</li>
-                         <div *ngIf="tourn.state.id ==2">
+                         <div *ngIf="t.state.id ==2">
                              <li class="dropdown-item" >Inscribir</li>
                          </div>
                             <li class="dropdown-item" >Ver Equipos</li>
-                         <div *ngIf="tourn.state.id ==1">
+                         <div *ngIf="t.state.id ==1">
                             <li class="dropdown-item" >Cancelar</li>
                         </div>
                   </ul>
