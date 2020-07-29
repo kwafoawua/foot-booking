@@ -35,6 +35,7 @@ public models;
     }, error => console.log(error));
 // //  this.collectionSize = this.myListTournament.length;
 //     console.log('this.tournament' + this.myTournament);
+    console.log('los datos ' + this.myTournament.valueOf());
   }
 }
 

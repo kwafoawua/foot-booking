@@ -13,12 +13,13 @@ import { AdminClubComponent } from './admin-club/index';
 import { bookingPlayerComponent } from './booking-player/booking-player.component';
 import { EstadisticasClubComponent } from './estadisticas-club/index';
 import {MainManagementComponent} from './tournament-management/mainManagement.component';
+import {ClubInfoComponent} from './ClubProfileClient/clubInfo.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
 
   { path: 'login', component: LoginComponent, canActivate: [ LoginGuard ] },
-  { path: 'results/club/:id', component: ProfileClubClientComponent },
+  { path: 'results/club/:id', component: ClubInfoComponent },
   { path: 'confirmation', component: ConfirmationComponent },
   { path: 'player/register', component: RegisterPlayerComponent },
   { path: 'profile-player/:id', component: ProfilePlayerComponent, canActivate: [ AuthGuard ] },

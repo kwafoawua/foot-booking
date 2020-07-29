@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { AlertService, AuthService } from '../_services/index';
@@ -17,18 +17,19 @@ import { environment } from '../../environments/environment';
 @Component({
   templateUrl: 'clubProfileClient.component.html',
   styleUrls: ['clubProfileClient.component.css'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  selector: 'item-cancha',
 
 })
 
-export class ProfileClubClientComponent implements OnInit {
-
+export class ProfileClubClientComponent{
+  @Input() club: Club;
   bookingFilter: BookingFilter;
   icon: '../../assets/icon/iconochico.png';
   hoursArray: string [] = [ '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00', '24:00' ];
   horasOcupadas: string [] = [];
   horasDisponibles: string [] = [];
-  club: Club;
+  //club: Club;
   galery: string[];
   uploadsBaseURL = environment.uploadsBaseURL;
   NotanUser: boolean;
@@ -66,17 +67,17 @@ export class ProfileClubClientComponent implements OnInit {
   ) {
   }
 
-  ngOnInit(): void {
-    console.log(moment().format());
-    this.getClub(this.route.snapshot.params[ 'id' ]);
-  }
+  // ngOnInit(): void {
+  //   console.log(moment().format());
+  //   this.getClub(this.route.snapshot.params[ 'id' ]);
+  // }
 
-  private getClub(_id: string) {
-    this.clubService.getResultById(_id).subscribe(club => {
-      this.club = club;
-      this.galery = club.galleryImg;
-    });
-  }
+  // private getClub(_id: string) {
+  //   this.clubService.getResultById(_id).subscribe(club => {
+  //     this.club = club;
+  //     this.galery = club.galleryImg;
+  //   });
+  // }
 
 
   reservar(field: any, i: any) {
@@ -122,7 +123,7 @@ export class ProfileClubClientComponent implements OnInit {
   public crearFiltros(idField: string, playingDate: string): BookingFilter {
     console.log('1.A- Entra al crear filtros');
     return new BookingFilter(
-    )
+    );
   }
 
   loadHoursValues(date: any, field) {
