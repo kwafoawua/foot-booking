@@ -20,14 +20,14 @@
                 {{ t.tournamentName}}
               </td>
               <td>
-                11/12
+               {{t._id}}
               </td>
-              <td>{{ t.state.name}}</td>
+              <td>{{ t.state}}</td>
               <td class="row">
                 <div ngbDropdown class="dropdown category-dropdown">
                    <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>+</button>
                      <ul ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                          <div *ngIf="t.state.id ==1">
+                          <div *ngIf="t.state =='Nuevo'">
                               <li class="dropdown-item" >Publicar</li>
                           </div>
                               <li class="dropdown-item" >Definicion</li>
