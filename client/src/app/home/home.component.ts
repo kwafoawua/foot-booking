@@ -23,6 +23,10 @@ export class HomeComponent implements OnInit {
   icon: '../../assets/icon/iconochico.png';
   zoom = 16.88;
   clubname = '';
+  selectedCampOrPlay = '¿Qué vas a jugar?';
+  selectedCantJugadores = {option: 'Jugadores', value: null };
+  selectedTipoCancha = 'Tipo de cancha';
+
   selectedDate: any;
   selectedTime: any;
   configTime: ITimeSelectConfig = {
@@ -60,7 +64,7 @@ export class HomeComponent implements OnInit {
     this.buscarClubsPorFiltros();
   }
 
-  //BUSCO POR LOS FILTROS
+  // BUSCO POR LOS FILTROS
   private buscarClubsPorFiltros() {
     this.clubfilter = this.crearFiltros();
     this.searchService.findClubsByFilters(this.clubfilter)
@@ -70,9 +74,20 @@ export class HomeComponent implements OnInit {
       });
   }
 
-  //LE PASO LOS DATOS PARA CREAR LOS FILTROS
+  // LE PASO LOS DATOS PARA CREAR LOS FILTROS
   private crearFiltros(): ClubFilter {
     return new ClubFilter( this.homeForm.get('clubName').value );
   }
 
+  handleCampOrPlay(value: string) {
+    this.selectedCampOrPlay = value;
+  }
+  handleCantJugadores(option: string, value: number) {
+    this.selectedCantJugadores.option = option;
+    this.selectedCantJugadores.value = value;
+  }
+
+  handleTipoCancha(value: string) {
+    this.selectedTipoCancha = value;
+  }
 }

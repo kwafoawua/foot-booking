@@ -56,3 +56,9 @@
 .home-services .image > img {
   border-radius: 30% 0;
 }
+
+.ddm-home {
+  top: 42px !important;
+  left: 0 !important;
+  width: 100%;
+}
