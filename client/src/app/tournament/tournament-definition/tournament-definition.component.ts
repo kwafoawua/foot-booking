@@ -112,7 +112,7 @@ export class TournamentDefinitionComponent implements OnInit {
 
   updateTournament(){
     this.tournamentService.updateTournament(this.tournament).subscribe(data => {
-      this.alertService.success('Se actualizaron los datos exitosamente', true)
+      this.alertService.success('Se actualizaron los datos exitosamente', true);
         }, error => {
       this.alertService.error(error.error.msg, false);
     });

@@ -28,7 +28,7 @@
                    <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>+</button>
                      <ul ngbDropdownMenu aria-labelledby="dropdownBasic1">
                           <div *ngIf="t.state =='Nuevo'">
-                              <li class="dropdown-item" >Publicar</li>
+                              <li class="dropdown-item" (click)="publicarTorneo(t)">Publicar</li>
                           </div>
                               <li class="dropdown-item" [routerLink]="['/campeonato/definicion',t._id]">Definicion</li>
                               <li class="dropdown-item" [routerLink]="['/campeonato/administrar-fases']" >Rondas</li>
@@ -36,8 +36,8 @@
                              <li class="dropdown-item" >Inscribir</li>
                          </div>
                             <li class="dropdown-item" >Ver Equipos</li>
-                         <div *ngIf="t.state.id ==1">
-                            <li class="dropdown-item" >Cancelar</li>
+                         <div *ngIf="t.state =='Nuevo'">
+                            <li class="dropdown-item" (click)="cancelarTorneo(t)">Cancelar</li>
                         </div>
                   </ul>
                 </div>

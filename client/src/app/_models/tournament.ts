@@ -17,6 +17,6 @@ export class Tournament {
   prize3: string;
   tournamentType: string;
   category: string;
-  state: TState;
+  state: string;
   //image:File;
 }

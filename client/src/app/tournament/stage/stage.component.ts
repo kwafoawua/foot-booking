@@ -40,11 +40,8 @@ export class StageComponent {
 
   createForm() {
     this.registerStageForm = this.fb.group({
-
-      name: [ '', Validators.compose([ Validators.required, Validators.minLength(3) ]) ],
       startDay: [ null, Validators.required ],
       finishDay: [ null, Validators.required ],
-      number: [ null, Validators.required ],
       games: GameFormArrayComponent.initGames()
     });
   }

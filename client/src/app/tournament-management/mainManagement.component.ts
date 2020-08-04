@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {TournamentService} from '../_services/tournament.service';
 import {Tournament} from '../_models/tournament';
 import {ActivatedRoute, Router} from '@angular/router';
+import {AlertService} from "../_services";
 
 
 @Component({
@@ -17,7 +18,10 @@ public models;
   id: string;
   public myTournament: any;
 
-  constructor( private tournamentService: TournamentService, private router: Router) {
+  constructor(
+    private tournamentService: TournamentService,
+    private router: Router,
+    private alertService: AlertService) {
   }
 
   ngOnInit(){
@@ -39,9 +43,27 @@ public models;
   }
 
 
-  publicarTorneo(torneo: Tournament){
-    // this.torneo.
-    // this.tournamentService.updateTournament(torneo)
+  publicarTorneo(t: Tournament){
+    t.state = 'Publicado';
+    this.tournamentService.updateTournament(t).subscribe(data => {
+      this.alertService.success('El torneo ha sido publicado con exito!', true);
+    },
+      error => {
+        this.alertService.error(error.error.msg, false);
+    }
+    );
   }
+
+  cancelarTorneo(t: Tournament){
+    t.state = 'Cancelado';
+    this.tournamentService.updateTournament(t).subscribe(data => {
+        this.alertService.success('El torneo se cancelo con exito!', true);
+      },
+      error => {
+        this.alertService.error(error.error.msg, false);
+      }
+    );
+  }
+
 }
 
