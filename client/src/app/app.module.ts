@@ -47,7 +47,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { bookingPlayerComponent } from './booking-player/booking-player.component';
 import { EstadisticasClubComponent } from './estadisticas-club/index';
 import { commentsComponent } from './_directives/Comments/commentsComponent';
-import { ClubInfoComponent} from "./ClubProfileClient/clubInfo.component";
+import { ClubInfoComponent} from './ClubProfileClient/clubInfo.component';
 
 // API MAPS
 import { AgmCoreModule } from '@agm/core';

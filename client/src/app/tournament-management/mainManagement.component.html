@@ -30,7 +30,7 @@
                           <div *ngIf="t.state =='Nuevo'">
                               <li class="dropdown-item" >Publicar</li>
                           </div>
-                              <li class="dropdown-item" >Definicion</li>
+                              <li class="dropdown-item" [routerLink]="['/campeonato/definicion',t._id]">Definicion</li>
                               <li class="dropdown-item" [routerLink]="['/campeonato/administrar-fases']" >Rondas</li>
                          <div *ngIf="t.state.id ==2">
                              <li class="dropdown-item" >Inscribir</li>
