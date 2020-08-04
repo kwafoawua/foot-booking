@@ -18,12 +18,14 @@ const profileClubRoutes: Routes = [
       },
       { path: 'nuevo-campeonato', component: TournamentDefinitionComponent },
       { path: 'campeonato/administrar-fases', component: TournamentStageComponent },
+
     ],
   },
   {
     path: 'campeonato/nuevo',
     component: TournamentDefinitionComponent
   },
+  {path: 'campeonato/definicion/:id', component: TournamentDefinitionComponent },
 
 ];
 

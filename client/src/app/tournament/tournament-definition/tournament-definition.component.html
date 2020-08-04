@@ -1,7 +1,7 @@
 <div class="avt-post-wrapper section">
   <div class="container">
 
-    <form #form="ngForm"  (ngSubmit)="createTournament()">
+    <form #form="ngForm"  (ngSubmit)="guardarCambios()">
       <h3>Nuevo Campeonato</h3>
 
       <div class="card form-group">
@@ -166,7 +166,8 @@
       </div>
 
       <div align="right">
-        <button type="submit" class="btn btn-primary">Crear campeonato</button>
+        <button *ngIf="esEdicion == false" type="submit" class="btn btn-primary">Crear campeonato</button>
+        <button *ngIf="esEdicion" type="submit" class="btn btn-primary">Guardar </button>
       </div>
     </form>
   </div>

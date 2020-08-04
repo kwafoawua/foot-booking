@@ -2,7 +2,7 @@ import { Tournament } from '../_models/tournament';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
-import {Club, Service} from '../_models';
+import {Club, Service, User} from '../_models';
 import {NgForm} from '@angular/forms';
 import * as moment from 'moment';
 import {TState} from '../_models/TState';
@@ -183,6 +183,14 @@ private tState: TState[] = [
   return this.http.get<Tournament[]>('/tournament/club/' + _id);
   console.log('este es el servicio');
    // return this.myTournament;
+  }
+
+  getTournamentInfo(_id: string){
+    return this.http.get<Tournament>('/tournament/' + _id);
+  }
+
+  updateTournament(torneo: any) {
+    return this.http.put('/tournament/' + torneo._id, torneo);
   }
 
 

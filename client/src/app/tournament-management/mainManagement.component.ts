@@ -37,5 +37,11 @@ public models;
 //     console.log('this.tournament' + this.myTournament);
     console.log('los datos ' + this.myTournament.valueOf());
   }
+
+
+  publicarTorneo(torneo: Tournament){
+    // this.torneo.
+    // this.tournamentService.updateTournament(torneo)
+  }
 }
 

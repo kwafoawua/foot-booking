@@ -6,6 +6,7 @@ import { Tournament } from '../../_models/tournament';
 import { ITimeSelectConfig } from 'ng2-date-picker/time-select/time-select-config.model';
 import { TournamentService } from '../../_services/tournament.service';
 import { AlertService } from '../../_services/alert.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   templateUrl: 'tournament-definition.component.html',
@@ -23,6 +24,8 @@ export class TournamentDefinitionComponent implements OnInit {
     minutesInterval: 60,
     minutesFormat: '00'
   };
+  idTournament: string;
+  esEdicion = false;
 
   config: IDatePickerDirectiveConfig = {
 
@@ -37,14 +40,23 @@ export class TournamentDefinitionComponent implements OnInit {
     appendTo: 'body'
   };
 
-  constructor(private fb: FormBuilder, private tournamentService: TournamentService,
-              private alertService: AlertService) {
+  constructor(private fb: FormBuilder,
+              private tournamentService: TournamentService,
+              private alertService: AlertService,
+              private route: ActivatedRoute,
+              private router: Router, ) {
   }
 
   ngOnInit() {
-    this.tournament = new Tournament();
-    this.tipoTorneo = this.tournamentService.getTournamentType();
-    this.categorias = this.tournamentService.getTournamentCategories();
+   this.idTournament = this.route.snapshot.params.id;
+   this.tipoTorneo = this.tournamentService.getTournamentType();
+   this.categorias = this.tournamentService.getTournamentCategories();
+   if (this.idTournament != null){
+      this.getTournament();
+    }
+    else{
+      this.tournament = new Tournament();
+    }
   }
 
   createForm() {
@@ -67,6 +79,13 @@ export class TournamentDefinitionComponent implements OnInit {
     });
   }
 
+  guardarCambios(){
+    if (this.esEdicion){
+      this.updateTournament();
+    }
+    else { this.createTournament(); }
+  }
+
   createTournament() {
     // agrego otros datos del capeonato
     this.tournament.creatorClubId = this.idClub;
@@ -80,5 +99,23 @@ export class TournamentDefinitionComponent implements OnInit {
       }
     );
   }
-  // **** LA BASE DEBE ASGINAR EL ESTADO DEL PROGRAMA COMO NUEVO ID=1****
+
+  getTournament(){
+    this.esEdicion = true;
+    this.tournamentService.getTournamentInfo(this.idTournament).subscribe((data: any) => {
+      this.tournament = data.tournament;
+    }, error => console.log(error));
+// //  this.collectionSize = this.myListTournament.length;
+//     console.log('this.tournament' + this.myTournament);
+    console.log('los datos ' + this.tournament);
+  }
+
+  updateTournament(){
+    this.tournamentService.updateTournament(this.tournament).subscribe(data => {
+      this.alertService.success('Se actualizaron los datos exitosamente', true)
+        }, error => {
+      this.alertService.error(error.error.msg, false);
+    });
+  }
+
 }
