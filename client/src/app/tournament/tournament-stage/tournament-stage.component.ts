@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import * as moment from 'moment';
 import {TournamentService} from '../../_services/tournament.service';
 import {Tournament} from '../../_models/tournament';
+import {Fase} from '../../_models/fase';
 
 @Component({
     templateUrl: 'tournament-stage.component.html',
@@ -10,15 +11,19 @@ import {Tournament} from '../../_models/tournament';
 
 export class TournamentStageComponent implements OnInit{
   public tournament: Tournament;
+  public fases: Fase[];
 
     constructor(
         private router: Router,
-        private route: ActivatedRoute, private tournamentService: TournamentService){
+        private route: ActivatedRoute,
+        private tournamentService: TournamentService){
     }
 
   ngOnInit(): void {
-    console.log(moment().format());
-   // this.getTournamentById(this.route.snapshot.params[ 'id' ]);
+
+    this.fases = this.tournamentService.getFases();
+    console.log(this.fases);
+    // this.getTournamentById(this.route.snapshot.params[ 'id' ]);
   }
 
 
@@ -31,5 +36,7 @@ export class TournamentStageComponent implements OnInit{
     public  goToNewStage(){
         this.router.navigate(['stage'], {relativeTo: this.route});
     }
+
+
 
 }

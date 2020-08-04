@@ -1,4 +1,5 @@
 import {TState} from './TState';
+import {Fase} from './fase';
 
 export class Tournament {
   idTournament: string;

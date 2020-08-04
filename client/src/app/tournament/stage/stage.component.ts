@@ -19,6 +19,8 @@ export class StageComponent {
     minutesFormat: '00'
   };
 
+  // Agregar metodo que devuelva el estado del torneo, e informar por HTML que el mismo esta en estado PUBLICADO!
+
   config: IDatePickerDirectiveConfig = {
     format: 'DD/MM/YYYY',
     enableMonthSelector: true,

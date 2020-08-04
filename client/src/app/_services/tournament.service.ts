@@ -7,6 +7,7 @@ import {NgForm} from '@angular/forms';
 import * as moment from 'moment';
 import {TState} from '../_models/TState';
 import {Booking} from "../_models/booking";
+import {Fase} from '../_models/fase';
 
 
 @Injectable()
@@ -138,6 +139,23 @@ private myTournament: Tournament[] = [
 // };
 */
 
+  private fasesTorneo: Fase[] = [
+      {
+        idTorneo: 'idtorneo',
+       idfase: '1',
+       nro_fase: 1,
+       fecha_inicio: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
+       fecha_fin: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
+    equiposFase: [
+          {
+          nombreEquipo: 'Equipo de primera',
+          idEquipo: '1'},
+          {
+            nombreEquipo: 'Equipo de segunda',
+            idEquipo: '2'}
+        ]
+      },
+    ];
 
 
 private tState: TState[] = [
@@ -193,6 +211,9 @@ private tState: TState[] = [
   updateTournament(torneo: any) {
     return this.http.put('/tournament/' + torneo._id, torneo);
   }
+
+  getFases() {
+    return this.fasesTorneo; }
 
 
 }

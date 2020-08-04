@@ -7,17 +7,9 @@
               <div class="filter-list">
                 <h4 class="list-title"><a href="categories.html">Fases</a></h4>
                 <ul class="list-group">
-
-                  <li><a href="#">Fase 1 <span></span></a></li>
-                  <li><a href="#">Fase 2 <span></span></a></li>
-                  <li><a href="#">Fase 3 <span></span></a></li>
-                  <li><a href="#">Fase 4 <span></span></a></li>
-
+                    <li *ngFor="let fase of fases" [routerLink]="['campeonato/administrar-fases/stage',fase.idfase]">Fase {{fase.nro_fase}} <span></span></li>
                 </ul>
               </div><!-- filter-list -->
-              <div class="form-group" align="center">
-              <button (click)="goToNewStage()"  type="button" class="btn btn-success">Agrega fase</button>
-              </div>
             </div>
           </div>
         </div>
