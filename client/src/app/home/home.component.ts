@@ -32,7 +32,6 @@ export class HomeComponent implements OnInit {
   }
 
   buscarClub() {
-    console.log(this.name);
     if (this.name) {
       this.filters['name'] = this.name;
     }
