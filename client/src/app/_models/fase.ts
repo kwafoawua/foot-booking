@@ -1,4 +1,5 @@
-import {Equipo} from "./equipo";
+import {Equipo} from './equipo';
+import {Game} from './game';
 
 export class Fase {
   idTorneo: string;
@@ -6,6 +7,6 @@ export class Fase {
   nro_fase: number;
   fecha_inicio: Date;
   fecha_fin: Date;
- // partido: any[];
   equiposFase: Equipo[];
+  games: Game[];
 }

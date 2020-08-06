@@ -3,6 +3,7 @@ import { Moment } from 'moment';
 import { IDatePickerDirectiveConfig } from 'ng2-date-picker';
 import { ITimeSelectConfig } from 'ng2-date-picker/time-select/time-select-config.model';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import {Game} from '../../_models/game';
 
 @Component({
   selector: 'game',
@@ -14,7 +15,7 @@ export class GameComponent {
   public index: number;
 
   @Input()
-  public game: FormGroup;
+  public games: Game[];
 
   @Output()
   public removed: EventEmitter<number> = new EventEmitter<number>();

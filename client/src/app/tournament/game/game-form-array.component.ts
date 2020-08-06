@@ -15,8 +15,8 @@ export class GameFormArrayComponent {
     this.GameFormArray.push(GameComponent.buildGame())
   }
 
-  static initGames() {
-    return new FormArray([
-      GameComponent.buildGame() ])
-  }
+  // static initGames() {
+  //   return new FormArray([
+  //     GameComponent.buildGame() ])
+  // }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Form, FormBuilder, FormGroup, Validator, Validators, NgForm} from '@angular/forms';
 import { DpDatePickerModule, IDatePickerDirectiveConfig } from 'ng2-date-picker';
 import { Moment } from 'moment';
@@ -7,6 +7,7 @@ import { ITimeSelectConfig } from 'ng2-date-picker/time-select/time-select-confi
 import { TournamentService } from '../../_services/tournament.service';
 import { AlertService } from '../../_services/alert.service';
 import {ActivatedRoute, Router} from '@angular/router';
+
 
 @Component({
   templateUrl: 'tournament-definition.component.html',

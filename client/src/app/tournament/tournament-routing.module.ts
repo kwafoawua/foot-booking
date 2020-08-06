@@ -13,8 +13,7 @@ const profileClubRoutes: Routes = [
     component: TournamentStageComponent,
     children: [
       {path: 'campeonato/administrar-fases/stage/:id', component: StageComponent},
-      { path: 'nuevo-campeonato', component: TournamentDefinitionComponent },
-      { path: 'campeonato/administrar-fases', component: TournamentStageComponent },
+      //{ path: 'campeonato/administrar-fases', component: TournamentStageComponent },
     ],
   },
   {
