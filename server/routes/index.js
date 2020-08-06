@@ -14,7 +14,7 @@ let bookingController = require('../controllers/BookingController');
 let commentController = require('../controllers/CommentController');
 let tournamentController = require('../controllers/tournamentController');
 let fieldController = require('../controllers/FieldController');
-
+let inscriptionController = require('../controllers/inscriptionController');
 
 //*User Controller*//
 router.post('/users/authenticate', userController.authenticate);
@@ -76,5 +76,10 @@ router.get('/tournament/:_id', tournamentController.getTournament);
 router.get('/tournament/club/:clubId', tournamentController.getClubTournaments);
 router.get('/tournaments', tournamentController.getAllTournaments);
 router.put('/tournament/:_id', tournamentController.updateTournament);
+
+/* Inscription to Tournament Controller*/
+router.post('/inscription/enroll', inscriptionController.newTournamentInscription);
+router.get('/inscription/:_id', inscriptionController.getInscription);
+router.get('/inscription/tournament/:tournamentId', inscriptionController.getTournamentInscriptions);
 
 module.exports = router;
