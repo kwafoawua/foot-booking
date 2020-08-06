@@ -4,10 +4,11 @@ import { IDatePickerDirectiveConfig } from 'ng2-date-picker';
 import { Moment } from 'moment';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import { GameFormArrayComponent } from '../game/game-form-array.component';
 import {Tournament} from '../../_models/tournament';
+import { GameComponent } from '../game/game.component';
 import {Fase} from '../../_models/fase';
 import {TournamentService} from '../../_services/tournament.service';
+import { Game } from '../../_models/game';
 
 @Component({
   selector: 'stage',
@@ -50,6 +51,7 @@ export class StageComponent implements OnInit{
     this.id_stage = this.route.snapshot.params.id;
     if (this.id_stage != null){
       console.log('la info de la get info fase' + this.tournamentService.getInfoFase());
+      this.getInfoFase();
     }
     else{
       this.fase = new Fase();
@@ -61,13 +63,12 @@ export class StageComponent implements OnInit{
     this.registerStageForm = this.fb.group({
       startDay: [ null, Validators.required ],
       finishDay: [ null, Validators.required ],
-     // games: GameFormArrayComponent.initGames()
     });
   }
 
   getInfoFase(){
     this.esEdicion = true;
-    this.fase = this.tournamentService.getInfoFase;
+    this.fase = this.tournamentService.getInfoFase();
     console.log(this.fase);
   }
 
