@@ -40,4 +40,20 @@ exports.getTournamentInscriptions = async (req, res) => {
     }
 }
 
+/**
+ * Utility - checks:
+ *      - with quota for inscription?
+ *      - inscriptions are close?
+ * @return true if can effectuate the inscription
+ */
+canEffectuateInscription = async (tournamentId) => {
+    try {
+        //verify quota
+        let actualInscriptions = await TournamentInscription.countDocuments({tournamentId: tournamentId})
+        // let quota =
+    } catch (error) {
+        return false;
+    }
+}
+
 // TODO: validations for endpoints
