@@ -1,23 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { ITimeSelectConfig } from 'ng2-date-picker/time-select/time-select-config.model';
 import { IDatePickerDirectiveConfig } from 'ng2-date-picker';
 import { Moment } from 'moment';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { GameFormArrayComponent } from '../game/game-form-array.component';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Tournament} from '../../_models/tournament';
+import { GameComponent } from '../game/game.component';
+import {Fase} from '../../_models/fase';
+import {TournamentService} from '../../_services/tournament.service';
+import { Game } from '../../_models/game';
 
 @Component({
   selector: 'stage',
   templateUrl: 'stage.component.html'
 })
 
-export class StageComponent {
+export class StageComponent implements OnInit{
+  fase: any;
   registerStageForm: FormGroup;
-
-  configTime: ITimeSelectConfig = {
+  id_stage: string;
+  esEdicion = false;
+    configTime: ITimeSelectConfig = {
     minutesInterval: 60,
     minutesFormat: '00'
   };
+
+  // Agregar metodo que devuelva el estado del torneo, e informar por HTML que el mismo esta en estado PUBLICADO!
 
   config: IDatePickerDirectiveConfig = {
     format: 'DD/MM/YYYY',
@@ -33,21 +41,37 @@ export class StageComponent {
 
   constructor(
     private router: Router,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private tournamentService: TournamentService) {
     this.createForm();
+  }
+
+  ngOnInit(): void {
+    this.id_stage = this.route.snapshot.params.id;
+    if (this.id_stage != null){
+      console.log('la info de la get info fase' + this.tournamentService.getInfoFase());
+      this.getInfoFase();
+    }
+    else{
+      this.fase = new Fase();
+    }
   }
 
 
   createForm() {
     this.registerStageForm = this.fb.group({
-
-      name: [ '', Validators.compose([ Validators.required, Validators.minLength(3) ]) ],
       startDay: [ null, Validators.required ],
       finishDay: [ null, Validators.required ],
-      number: [ null, Validators.required ],
-      games: GameFormArrayComponent.initGames()
     });
   }
+
+  getInfoFase(){
+    this.esEdicion = true;
+    this.fase = this.tournamentService.getInfoFase();
+    console.log(this.fase);
+  }
+
 
 
 }

@@ -1,22 +1,18 @@
 <div class="card">
   <div class="card-body">
     <div class="card-header">Partido</div>
-    <div class="card-body" [formGroup]="game">
+    <div class="card-body" [formGroup]="game" *ngFor="let game of games">
       <div class="row">
         <div class="col">
           <label class="label-form">Equipo 1</label>
           <select class="form-control" formControlName="equipo1">
-            <option>Default select</option>
-            <option>Equipo 1</option>
-            <option>Equipo 2</option>
+            <option>{{game.equipo1}}</option>
           </select>
         </div>
         <div class="col">
           <label class="label-form">Equipo 2</label>
           <select class="form-control" formControlName="equipo2">
-            <option>Default select</option>
-            <option>Equipo 1</option>
-            <option>Equipo 2</option>
+            <option>{{game.equipo2}}</option>
           </select>
         </div>
       </div>
@@ -33,9 +29,7 @@
         <div class="col">
           <label class="label-form">Hora de juego</label>
           <select class="form-control" formControlName="time">
-            <option>Default select</option>
-            <option>Equipo 1</option>
-            <option>Equipo 2</option>
+            <option>{{game.hora}}</option>
           </select>
         </div>
       </div>

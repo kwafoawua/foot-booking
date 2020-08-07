@@ -1,10 +1,7 @@
-<div class="card">
-  <div class="card-body" [formGroup]="registerStageForm">
+<div class="form-group">
+  <div [formGroup]="registerStageForm">
     <div class="row">
       <div class="col">
-        <label class="label-form row" for="name">Nombre</label>
-        <input class=" form-group" type="text" formControlName="name">
-
         <label class="label-form row" for="datePicker1">Fecha de incio</label>
         <input class=" form-group dropdown category-dropdown" [dpDayPicker]="config" name="dateinicio"
                placeholder="DD-MM-AAAA"
@@ -12,25 +9,18 @@
 
       </div>
       <div class="col">
-
-        <label class="label-form row" for="number">Número</label>
-        <input class=" form-group" type="number" formControlName="number">
         <label class="label-form row" for="datePicker2">Fecha de fin</label>
         <input class=" form-group dropdown category-dropdown" [dpDayPicker]="config" name="datefin"
                placeholder="DD-MM-AAAA"
                inputElementConteiner="#inputConteiner" theme="dp-material" formControlName="finishDay"></div>
     </div>
 
-
-    <div class="form-group">
-      <game-array
-          formArrayName="games"
-          [GameFormArray]="registerStageForm.get('games')">
-
-      </game-array>
-
+    <div>
+     <game [games]="fase.games"></game>
     </div>
   </div>
 </div>
+
+
 
 

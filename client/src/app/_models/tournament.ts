@@ -1,4 +1,5 @@
 import {TState} from './TState';
+import {Fase} from './fase';
 
 export class Tournament {
   idTournament: string;
@@ -17,6 +18,6 @@ export class Tournament {
   prize3: string;
   tournamentType: string;
   category: string;
-  state: TState;
+  state: string;
   //image:File;
 }
