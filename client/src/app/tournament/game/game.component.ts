@@ -17,6 +17,7 @@ export class GameComponent {
   @Input()
   public games: Game[];
 
+
   @Output()
   public removed: EventEmitter<number> = new EventEmitter<number>();
 
