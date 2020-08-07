@@ -91,3 +91,34 @@ exports.updateTournament = async (req, res) => {
 /**
  * Delete a Tournament
  */
+exports.deleteTournamente = async (req, res) => {
+    try {
+        let tournament = await Tournament.findOne({_id: mongoose.Types.ObjectId(req.params._id)});
+        await Tournament.delete(tournament);
+        await res.json({msg: "Torneo eliminado exitosamente"});
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Ocurrio un error imprevisto :/");
+    }
+}
+
+/**
+ * Find by multiple and variable filters
+ */
+exports.filterTournament = async (req, res) => {
+    try {
+        let {numbersofteams, inscriptioncost, numberofplayers, state, category} = req.headers;
+        let queryCondition = {
+            ...(numbersofteams && {numbersOfTeams: numbersofteams}),
+            ...(inscriptioncost && {inscriptionCost: inscriptioncost}),
+            ...(numberofplayers && {numberOfPlayers: numberofplayers}),
+            ...(state && {state}),
+            ...(category && {category})
+        };
+        const tournament = await Tournament.find(queryCondition);
+        await res.json({tournament});
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Ocurrio un error imprevisto :/");
+    }
+}
