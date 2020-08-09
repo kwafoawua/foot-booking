@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Tournament = require('../models/Tournament');
 const {validationResult} = require("express-validator");
+const tournamentUtils = require('../utils/TournamentUtils');
+const tournamentAdapter = require('../adapters/TournamentResponseAdapter');
 
 /**
  * Create a Tournament
@@ -38,8 +40,10 @@ exports.createTournament = async (req, res) => {
  */
 exports.getTournament = async (req, res) => {
     try {
-        const tournament = await Tournament.findById(req.params._id);
-        await res.json({tournament});
+        const {_id} = req.params;
+        const tournament = await Tournament.findById(_id);
+        const inscriptionNumber = await tournamentUtils.getNumberOfInscriptions(_id);
+        await res.json({tournament, inscriptionNumber});
     } catch (error) {
         console.log(error);
         res.status(500).send("Ocurrio un error imprevisto :/");
@@ -64,8 +68,9 @@ exports.getClubTournaments = async (req, res) => {
  */
 exports.getAllTournaments = async (req, res) => {
     try {
-        const tournament = await Tournament.find();
-        await res.json({tournament});
+        const rawTournament = await Tournament.find();
+        const tournaments = await tournamentAdapter.apply(rawTournament)
+        await res.json({tournaments});
     } catch (error) {
         console.log(error);
         res.status(500).send("Ocurrio un error imprevisto :/");
