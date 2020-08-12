@@ -1,26 +1,9 @@
 <div class="form-group">
   <div [formGroup]="registerStageForm">
-    <div class="row">
-      <div class="col">
-        <label class="label-form row" for="datePicker1">Fecha de incio</label>
-        <input class=" form-group dropdown category-dropdown" [dpDayPicker]="config" name="dateinicio"
-               placeholder="DD-MM-AAAA"
-               inputElementConteiner="#inputConteiner" theme="dp-material" formControlName="startDay">
-
-      </div>
-      <div class="col">
-        <label class="label-form row" for="datePicker2">Fecha de fin</label>
-        <input class=" form-group dropdown category-dropdown" [dpDayPicker]="config" name="datefin"
-               placeholder="DD-MM-AAAA"
-               inputElementConteiner="#inputConteiner" theme="dp-material" formControlName="finishDay"></div>
-    </div>
-
     <div>
      <game [games]="fase.games"></game>
     </div>
-    <div align="right">
-      <button type="submit" class="btn btn-primary">Guardar </button>
-    </div>
+
   </div>
 </div>
 

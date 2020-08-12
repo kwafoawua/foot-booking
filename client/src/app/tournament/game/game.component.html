@@ -1,39 +1,36 @@
-<div class="card"[formGroup]="game" *ngFor="let game of games">
-  <div class="card-body">
-    <div class="card-header">Partido</div>
-    <div class="card-body">
-      <div class="row">
-        <div class="col">
-          <label class="label-form">Equipo 1</label>
-          <select class="form-control" formControlName="equipo1">
-            <option>{{game.equipo1}}</option>
-          </select>
+<div class="form-group">
+  <form novalidate [formGroup]="faseForm">
+    <div formArrayName="gamesForm">
+      <div *ngFor="let game of faseForm.get('gamesForm'); let i=index">
+    <label>
+      <span>Full name</span>
+      <input
+        type="text"
+        placeholder="Your full name"
+        formControlName="name">
+    </label>
+    <label>
+      <span>Email address</span>
+      <input
+        type="password"
+        placeholder="Your passwornd"
+        formControlName="password">
+    </label>
+    <label>
+      <span>Confirm address</span>
+      <input
+        type="password"
+        placeholder="Confirm your password"
+        formControlName="passwordRepeat">
+    </label>
+        <div align="right">
+          <button type="submit" class="btn btn-primary">Guardar </button>
         </div>
-        <div class="col">
-          <label class="label-form">Equipo 2</label>
-          <select class="form-control" formControlName="equipo2">
-            <option>{{game.equipo2}}</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col">
-          <label class="label-form">Hora del partido</label>
-          <select class="form-control" formControlName="hora">
-            <option>{{game.hora}}</option>
-          </select>
-        </div>
-
-        <div class="col">
-          <label class="label-form">Dia</label>
-          <input class="dropdown category-dropdown" [dpDayPicker]="config" name="datePicker" placeholder="DD-MM-AAAA"
-                 id="calendar" inputElementConteiner="#inputConteiner" theme="dp-material" formControlName="day">
-        </div>
-      </div>
     </div>
-
-  </div>
+    </div>
+  </form>
 
 </div>
+
+
 

@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Moment } from 'moment';
 import { IDatePickerDirectiveConfig } from 'ng2-date-picker';
 import { ITimeSelectConfig } from 'ng2-date-picker/time-select/time-select-config.model';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {Game} from '../../_models/game';
 
 @Component({
@@ -10,21 +10,24 @@ import {Game} from '../../_models/game';
   templateUrl: 'game.component.html',
 })
 
-export class GameComponent {
+export class GameComponent implements OnInit{
   @Input()
   public index: number;
 
   @Input()
-  public games: Game[];
-
+  public gamesForm: FormArray;
 
   @Output()
   public removed: EventEmitter<number> = new EventEmitter<number>();
+
+  faseForm: FormGroup;
+  //gamesForm: FormArray;
 
   configTime: ITimeSelectConfig = {
     minutesInterval: 60,
     minutesFormat: '00'
   };
+
   config: IDatePickerDirectiveConfig = {
     format: 'DD/MM/YYYY',
     enableMonthSelector: true,
@@ -37,15 +40,18 @@ export class GameComponent {
     appendTo: 'body'
   };
 
-  static buildGame() {
-    return new FormGroup({
-      equipo1: new FormControl(''),
-      equipo2: new FormControl(''),
-      field: new FormControl(''),
-      time: new FormControl(''),
-      day: new FormControl(''),
-      arbitro: new FormControl('')
+  constructor(private formBuilder: FormBuilder){}
+
+  ngOnInit(){
+    this.faseForm = this.formBuilder.group({
+     gamesForm: this.formBuilder.array([this.createGame()])
     });
   }
 
+  createGame(): FormGroup{
+  return this.formBuilder.group({
+    equipo1: new FormControl(''),
+    equipo2: new FormControl(''),
+});
+  }
 }
