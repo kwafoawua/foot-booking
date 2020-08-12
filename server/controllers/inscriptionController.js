@@ -20,7 +20,7 @@ exports.newTournamentInscription = async (req, res) => {
 exports.getInscription = async (req, res) => {
     try {
         let inscription = await TournamentInscription.findById(req.params._id);
-        await res.json({inscription})
+        await res.json({inscription});
     } catch (e) {
         res.status(500).send("Ocurrio un error imprevisto :(");
     }
