@@ -180,7 +180,7 @@ private myTournament: Tournament[] = [
       hora:  moment('19-07-2020', 'DD-MM-YYYY').toDate(),
       estado: 'Finalizado'
     }]
-  }
+  };
 
 private tState: TState[] = [
   {
@@ -236,11 +236,11 @@ private tState: TState[] = [
     return this.http.put('/tournament/' + torneo._id, torneo);
   }
 
-//obtego la cantidad de fases del torneo
+// obtego la cantidad de fases del torneo
   getFases() {
     return this.fasesTorneo; }
 
-    //obtengo info de una fase
+    // obtengo info de una fase
   getInfoFase() {
     return this.faseOne; }
 

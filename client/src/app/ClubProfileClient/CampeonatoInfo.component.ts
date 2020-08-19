@@ -46,18 +46,18 @@ export class CampeonatoInfoComponent implements OnInit {
 
   Inscribir() {
     if (this.inscripcionForm.valid) {
-      {
-
-        console.log('el formulario', this.inscripcionForm);
-        this.tournamentService.create(this.inscripcionForm).subscribe(data => {
-            this.alertService.success('El campeonato se registró con éxito', true),
-              console.log('el form', this.inscripcionForm);
-          },
-          error => {
-            this.alertService.error(error.error.msg, false);
-          }
-        );
-      }
+      // {
+      //
+      //   console.log('el formulario', this.inscripcionForm);
+      //   this.tournamentService.create(this.inscripcionForm).subscribe(data => {
+      //       this.alertService.success('El campeonato se registró con éxito', true),
+      //         console.log('el form', this.inscripcionForm);
+      //     },
+      //     error => {
+      //       this.alertService.error(error.error.msg, false);
+      //     }
+      //   );
+      // }
     }
   }
 
