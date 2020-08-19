@@ -87,6 +87,16 @@
               </div>
 
 
+              <div class="widget item-tag">
+                <h4>CAMPEONATOS</h4>
+                <ul class="list-inline" *ngFor="let i of myTournament">
+                  <li class="list-inline-item"  [routerLink]="['/campeonato',i._id]">
+                 {{i.tournamentName | uppercase}}
+                  </li>
+                </ul>
+              </div>
+
+
               <div class="location-map">
                 <h4>UBICACIÓN</h4>
                 <div id="gmap">

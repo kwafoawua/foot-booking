@@ -14,6 +14,7 @@ import { bookingPlayerComponent } from './booking-player/booking-player.componen
 import { EstadisticasClubComponent } from './estadisticas-club/index';
 import {MainManagementComponent} from './tournament-management/mainManagement.component';
 import {ClubInfoComponent} from './ClubProfileClient/clubInfo.component';
+import {CampeonatoInfoComponent} from './ClubProfileClient/CampeonatoInfo.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -27,10 +28,10 @@ const appRoutes: Routes = [
   { path: 'club/register', component: RegisterClubComponent },
   { path: 'club/admin', component: AdminClubComponent, canActivate: [ AuthGuard ] },
   { path: 'club/estadisticas', component: EstadisticasClubComponent },
-  // { path: 'club/gestion-canchas', component: FieldsManagementComponent },
   { path: 'player/mis-reservas', component: bookingPlayerComponent },
   { path: 'campeonatos/administrar', component: MainManagementComponent},
-  { path: '**', redirectTo: '' }
+  {path : 'campeonato/:id', component: CampeonatoInfoComponent},
+  { path: '**', redirectTo: '' },
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

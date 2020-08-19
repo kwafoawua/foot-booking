@@ -12,7 +12,7 @@ export class GameFormArrayComponent {
   public GameFormArray: FormArray;
 
   addGame() {
-    this.GameFormArray.push(GameComponent.buildGame())
+    //this.GameFormArray.push(GameComponent.buildGame())
   }
 
   // static initGames() {

@@ -60,10 +60,7 @@ export class StageComponent implements OnInit{
 
 
   createForm() {
-    this.registerStageForm = this.fb.group({
-      startDay: [ null, Validators.required ],
-      finishDay: [ null, Validators.required ],
-    });
+
   }
 
   getInfoFase(){

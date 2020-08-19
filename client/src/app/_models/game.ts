@@ -4,6 +4,6 @@ export class Game {
   fecha: Date;
   hora: Date;
   estado: string;
- // resultadoEquipo1: string;
- // resultadoEquipo2: string;
+  //resultadoEquipo1: string;
+  //resultadoEquipo2: string;
 }

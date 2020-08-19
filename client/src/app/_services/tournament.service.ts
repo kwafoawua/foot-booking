@@ -8,6 +8,7 @@ import * as moment from 'moment';
 import {TState} from '../_models/TState';
 import {Booking} from "../_models/booking";
 import {Fase} from '../_models/fase';
+import {Equipo} from '../_models/equipo';
 
 
 @Injectable()
@@ -144,16 +145,6 @@ private myTournament: Tournament[] = [
        idTorneo: 'idtorneo',
        idfase: '1',
        nro_fase: 1,
-       fecha_inicio: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-       fecha_fin: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-       equiposFase: [
-          {
-          nombreEquipo: 'Equipo de primera',
-          idEquipo: '1'},
-          {
-            nombreEquipo: 'Equipo de segunda',
-            idEquipo: '2'}
-        ],
         games: [{
           equipo1: 'Equipo 3',
           equipo2: 'Equipo 4',
@@ -175,16 +166,6 @@ private myTournament: Tournament[] = [
     idTorneo: 'idtorneo',
     idfase: '1',
     nro_fase: 1,
-    fecha_inicio: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-    fecha_fin: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-    equiposFase: [
-      {
-        nombreEquipo: 'Equipo de primera',
-        idEquipo: '1'},
-      {
-        nombreEquipo: 'Equipo de segunda',
-        idEquipo: '2'}
-    ],
     games: [{
       equipo1: 'Equipo 3',
       equipo2: 'Equipo 4',
@@ -262,5 +243,11 @@ private tState: TState[] = [
     //obtengo info de una fase
   getInfoFase() {
     return this.faseOne; }
+
+  createInscription(equipo: any){
+    console.log('El service ', equipo);
+    return this.http.post('/inscription/enroll', equipo);
+  }
+
 
 }

@@ -1,0 +1,60 @@
+<div class="page container">
+
+  <div class="all-categories section">
+    <div class="container">
+      <div class="ad-details">
+        <div class="row">
+          <div class="col-md-8 col-sm-7">
+           <h4>{{torneo.tournamentName}}</h4>
+
+            <div class="details-description full-shadow">
+              <div class="item-info">
+                <small>
+                  {{torneo?.publicationDescription | uppercase}}
+                </small>
+              </div><!-- item-info -->
+              <div>
+                <img src="../../assets/icon/trophy-64.png" class="img-circle">
+              </div>
+            </div>
+
+            <form #form="ngForm" [formGroup]="inscripcionForm"  (ngSubmit)="Inscribir()">
+              <div class="card form-group">
+                <div class="card-header">Responsable</div>
+                <div class="card-body form-group">
+                  <div class="row">
+                    <input formControlName="nombreEquipo">
+                  </div>
+                  <div class="row">
+                    <input formControlName="nombreResponsable" class="form-control" type="text">
+                    <input formControlName="apellidoResponsabe" class="form-control" type="text">
+                  </div>
+                  <div class="row">
+                    <input formControlName="email" class="form-control" type="text">
+                    <input formControlName="telefono" class="form-control" type="text">
+                  </div>
+                </div>
+              </div>
+            </form>
+            <button type="button" class="btn btn-success">Aceptar</button>
+          </div>
+
+          <div class="col-sm-5 col-md-4">
+            <div class="side-bar">
+
+              <div class="contact-seller widget">
+                 <div class="seller-info">
+                  <div class="row">
+                   <div class="col-md-4">Tenes tiempo de inscribirte hasta el {{torneo.inscriptionEndDate}}</div>
+                    <p> Mordalidad de camponato {{torneo.category}}</p>
+                  </div>
+                 </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

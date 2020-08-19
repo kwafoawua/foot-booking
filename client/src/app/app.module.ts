@@ -48,6 +48,7 @@ import { bookingPlayerComponent } from './booking-player/booking-player.componen
 import { EstadisticasClubComponent } from './estadisticas-club/index';
 import { commentsComponent } from './_directives/Comments/commentsComponent';
 import { ClubInfoComponent} from './ClubProfileClient/clubInfo.component';
+import { CampeonatoInfoComponent } from './ClubProfileClient/CampeonatoInfo.component';
 
 // API MAPS
 import { AgmCoreModule } from '@agm/core';
@@ -126,6 +127,7 @@ import { InputTextComponent } from './common/input-text/input-text.component';
     DestacadosComponent,
     InputTextComponent,
     ClubInfoComponent,
+    CampeonatoInfoComponent,
   ],
   providers: [
     authInterceptorProviders,
