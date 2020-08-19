@@ -68,7 +68,9 @@ import { StorageService } from './_services/storage.service';
 import { FieldsArrayModule } from './fields-array/fields-array.module';
 import { CardComponent } from './common/card/card.component';
 import { DestacadosComponent } from './home/destacados/destacados.component';
-import { InputTextComponent } from './common/input-text/input-text.component';
+import { InputTextComponent } from './common/input-text/input-text.component';;
+import { SiteLayoutComponent } from './_layout/site-layout/site-layout.component';
+import { AdminLayoutComponent } from './_layout/admin-layout/admin-layout.component';
 
 
 
@@ -126,6 +128,8 @@ import { InputTextComponent } from './common/input-text/input-text.component';
     DestacadosComponent,
     InputTextComponent,
     ClubInfoComponent,
+    SiteLayoutComponent,
+    AdminLayoutComponent
   ],
   providers: [
     authInterceptorProviders,

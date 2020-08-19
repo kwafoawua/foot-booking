@@ -143,17 +143,7 @@ private myTournament: Tournament[] = [
       {
        idTorneo: 'idtorneo',
        idfase: '1',
-       nro_fase: 1,
-       fecha_inicio: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-       fecha_fin: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-       equiposFase: [
-          {
-          nombreEquipo: 'Equipo de primera',
-          idEquipo: '1'},
-          {
-            nombreEquipo: 'Equipo de segunda',
-            idEquipo: '2'}
-        ],
+       nroFase: 1,
         games: [{
           equipo1: 'Equipo 3',
           equipo2: 'Equipo 4',
@@ -174,17 +164,7 @@ private myTournament: Tournament[] = [
   private faseOne: Fase = {
     idTorneo: 'idtorneo',
     idfase: '1',
-    nro_fase: 1,
-    fecha_inicio: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-    fecha_fin: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-    equiposFase: [
-      {
-        nombreEquipo: 'Equipo de primera',
-        idEquipo: '1'},
-      {
-        nombreEquipo: 'Equipo de segunda',
-        idEquipo: '2'}
-    ],
+    nroFase: 1,
     games: [{
       equipo1: 'Equipo 3',
       equipo2: 'Equipo 4',
@@ -199,7 +179,7 @@ private myTournament: Tournament[] = [
       hora:  moment('19-07-2020', 'DD-MM-YYYY').toDate(),
       estado: 'Finalizado'
     }]
-  }
+  };
 
 private tState: TState[] = [
   {
@@ -255,11 +235,11 @@ private tState: TState[] = [
     return this.http.put('/tournament/' + torneo._id, torneo);
   }
 
-//obtego la cantidad de fases del torneo
+// obtego la cantidad de fases del torneo
   getFases() {
     return this.fasesTorneo; }
 
-    //obtengo info de una fase
+    // obtengo info de una fase
   getInfoFase() {
     return this.faseOne; }
 
