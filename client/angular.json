@@ -32,7 +32,8 @@
               "src/css/style.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/angular-calendar/css/angular-calendar.css",
-              "src/app.css"
+              "src/app.css",
+              "src/css/material-custom-theme.css"
             ],
             "scripts": [
               "src/js/jquery-3.2.1.slim.min.js",
@@ -134,6 +135,7 @@
   },
   "defaultProject": "client",
   "cli": {
+    "packageManager": "yarn",
     "analytics": false
   }
 }

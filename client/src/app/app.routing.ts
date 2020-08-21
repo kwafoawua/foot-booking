@@ -16,6 +16,7 @@ import { bookingPlayerComponent } from './booking-player/booking-player.componen
 import { EstadisticasClubComponent } from './estadisticas-club/index';
 import {MainManagementComponent} from './tournament-management/mainManagement.component';
 import {ClubInfoComponent} from './ClubProfileClient/clubInfo.component';
+import { FieldsManagementComponent } from './fields-management';
 
 const appRoutes: Routes = [
   {
@@ -23,7 +24,6 @@ const appRoutes: Routes = [
     component: SiteLayoutComponent,
     children: [
       { path: '', component: HomeComponent },
-
       { path: 'login', component: LoginComponent, canActivate: [ LoginGuard ] },
       { path: 'results/club/:id', component: ClubInfoComponent },
       { path: 'confirmation', component: ConfirmationComponent },
@@ -32,14 +32,20 @@ const appRoutes: Routes = [
       { path: 'results', component: ResultComponent },
       { path: 'club/register', component: RegisterClubComponent },
       { path: 'club/admin', component: AdminClubComponent, canActivate: [ AuthGuard ] },
-      { path: 'club/estadisticas', component: EstadisticasClubComponent },
-      // { path: 'club/gestion-canchas', component: FieldsManagementComponent },
+      { path: 'club/gestion-canchas', component: FieldsManagementComponent },
       { path: 'player/mis-reservas', component: bookingPlayerComponent },
       { path: 'campeonatos/administrar', component: MainManagementComponent},
-      { path: '**', redirectTo: '' }
     ]
   },
-
+  {
+    path: '',
+    component: AdminLayoutComponent,
+    children: [
+      { path: 'admin', component: EstadisticasClubComponent },
+      { path: 'admin/dashboard', component: EstadisticasClubComponent },
+    ],
+  },
+  { path: '**', redirectTo: '' }
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);
