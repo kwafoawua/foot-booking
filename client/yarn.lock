@@ -153,7 +153,7 @@
   dependencies:
     tslib "^1.9.0"
 
-"@angular/cdk@^6.0.2":
+"@angular/cdk@^6.1.10":
   version "6.4.7"
   resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-6.4.7.tgz#1549b304dd412e82bd854cc55a7d5c6772ee0411"
   integrity sha512-18x0U66fLD5kGQWZ9n3nb75xQouXlWs7kUDaTd8HTrHpT1s2QIAqlLd1KxfrYiVhsEC2jPQaoiae7VnBlcvkBg==
