@@ -1,4 +1,6 @@
-﻿﻿import { NgModule } from '@angular/core';
+﻿import {MatStepperModule} from "@angular/material/stepper";
+
+﻿import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -90,7 +92,7 @@ import { AdminLayoutComponent } from './_layout/admin-layout/admin-layout.compon
     DpDatePickerModule,
     AgmCoreModule.forRoot({// old: AIzaSyAAwaI8YafySsHraMA_9G_n30_FECUhoVs
       apiKey: 'AIzaSyBuNW_HnnPaMrMq8KGEhiEzUnbVOO_OJzA',
-      libraries: [ 'places' ]
+      libraries: ['places']
     }),
     ProfileClubModule,
     ProfilePlayerModule,

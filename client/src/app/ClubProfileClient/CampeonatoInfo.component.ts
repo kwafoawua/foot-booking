@@ -4,6 +4,7 @@ import {TournamentService} from '../_services/tournament.service';
 import {Tournament} from '../_models/tournament';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AlertService} from '../_services';
+import {MatStepperModule} from '@angular/material/stepper';
 
 
 @Component({
@@ -13,6 +14,7 @@ import {AlertService} from '../_services';
 export class CampeonatoInfoComponent implements OnInit {
   torneo: Tournament;
   inscripcionForm: FormGroup;
+
 
   ngOnInit(): void {
     this.getTorneo(this.route.snapshot.params.id);
@@ -35,7 +37,7 @@ export class CampeonatoInfoComponent implements OnInit {
 
   createForm() {
     this.inscripcionForm = this.fb.group({
-    //  idTournament: [this.torneo.idTournament],
+     idTournament: [this.torneo.idTournament],
       nombreEquipo: [null, Validators.required],
       nombreResponsable: [null, Validators.required],
       apellidoResponsable: [null, Validators.required],
@@ -45,6 +47,7 @@ export class CampeonatoInfoComponent implements OnInit {
   }
 
   Inscribir() {
+    //this.inscripcionForm.idTournament = this.route.snapshot.params.id;
     if (this.inscripcionForm.valid) {
       // {
       //
