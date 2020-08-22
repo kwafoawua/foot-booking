@@ -14,24 +14,41 @@ import { bookingPlayerComponent } from './booking-player/booking-player.componen
 import { EstadisticasClubComponent } from './estadisticas-club/index';
 import {MainManagementComponent} from './tournament-management/mainManagement.component';
 import {ClubInfoComponent} from './ClubProfileClient/clubInfo.component';
+
 import {CampeonatoInfoComponent} from './ClubProfileClient/CampeonatoInfo.component';
 
-const appRoutes: Routes = [
-  { path: '', component: HomeComponent },
 
-  { path: 'login', component: LoginComponent, canActivate: [ LoginGuard ] },
-  { path: 'results/club/:id', component: ClubInfoComponent },
-  { path: 'confirmation', component: ConfirmationComponent },
-  { path: 'player/register', component: RegisterPlayerComponent },
-  { path: 'profile-player/:id', component: ProfilePlayerComponent, canActivate: [ AuthGuard ] },
-  { path: 'results', component: ResultComponent },
-  { path: 'club/register', component: RegisterClubComponent },
-  { path: 'club/admin', component: AdminClubComponent, canActivate: [ AuthGuard ] },
-  { path: 'club/estadisticas', component: EstadisticasClubComponent },
-  { path: 'player/mis-reservas', component: bookingPlayerComponent },
-  { path: 'campeonatos/administrar', component: MainManagementComponent},
-  {path : 'campeonato/:id', component: CampeonatoInfoComponent},
-  { path: '**', redirectTo: '' },
+import { FieldsManagementComponent } from './fields-management';
+
+const appRoutes: Routes = [
+  {
+    path: '',
+    component: SiteLayoutComponent,
+    children: [
+      { path: '', component: HomeComponent },
+      { path: 'login', component: LoginComponent, canActivate: [ LoginGuard ] },
+      { path: 'results/club/:id', component: ClubInfoComponent },
+      { path: 'confirmation', component: ConfirmationComponent },
+      { path: 'player/register', component: RegisterPlayerComponent },
+      { path: 'profile-player/:id', component: ProfilePlayerComponent, canActivate: [ AuthGuard ] },
+      { path: 'results', component: ResultComponent },
+      { path: 'club/register', component: RegisterClubComponent },
+      { path: 'club/admin', component: AdminClubComponent, canActivate: [ AuthGuard ] },
+      { path: 'club/gestion-canchas', component: FieldsManagementComponent },
+      { path: 'player/mis-reservas', component: bookingPlayerComponent },
+      { path: 'campeonatos/administrar', component: MainManagementComponent},
+    ]
+  },
+  {
+    path: '',
+    component: AdminLayoutComponent,
+    children: [
+      { path: 'admin', component: EstadisticasClubComponent },
+      { path: 'admin/dashboard', component: EstadisticasClubComponent },
+    ],
+  },
+  { path: '**', redirectTo: '' }
+
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

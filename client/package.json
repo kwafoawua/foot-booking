@@ -18,7 +18,7 @@
   "dependencies": {
     "@agm/core": "1.0.0",
     "@angular/animations": "^6.1.10",
-    "@angular/cdk": "^6.0.2",
+    "@angular/cdk": "^6.1.10",
     "@angular/common": "^6.1.10",
     "@angular/compiler": "^6.1.10",
     "@angular/core": "^6.1.10",

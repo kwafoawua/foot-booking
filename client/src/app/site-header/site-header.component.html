@@ -45,6 +45,13 @@
           <div class="navbar-nav" *ngIf="isAuthenticated()">
             <div class="navbar-nav" *ngIf="isClubUser()">
               <li class="nav-item">
+                <a [routerLink]="['/admin']"
+                   class="nav-link"
+                   routerLinkActive="active-link">
+                  Administrador
+                </a>
+              </li>
+              <li class="nav-item">
                 <a [routerLink]="['/club/estadisticas']"
                    class="nav-link"
                    routerLinkActive="active-link">
