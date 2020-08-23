@@ -5,6 +5,7 @@ import {Tournament} from '../_models/tournament';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AlertService} from '../_services';
 import {MatStepperModule} from '@angular/material/stepper';
+import {Equipo} from '../_models/equipo';
 
 
 @Component({
@@ -14,7 +15,8 @@ import {MatStepperModule} from '@angular/material/stepper';
 export class CampeonatoInfoComponent implements OnInit {
   torneo: Tournament;
   inscripcionForm: FormGroup;
-
+  isLinear: false;
+  inscripcion: Equipo;
 
   ngOnInit(): void {
     this.getTorneo(this.route.snapshot.params.id);
@@ -37,31 +39,31 @@ export class CampeonatoInfoComponent implements OnInit {
 
   createForm() {
     this.inscripcionForm = this.fb.group({
-     idTournament: [this.torneo.idTournament],
+      idTournament: [''],
       nombreEquipo: [null, Validators.required],
       nombreResponsable: [null, Validators.required],
-      apellidoResponsable: [null, Validators.required],
-      emai: [null, Validators.required],
+      //apellidoResponsable: [null, Validators.required],
+      //email: [null, Validators.required],
       telefono: [null, Validators.required],
     });
   }
 
   Inscribir() {
-    //this.inscripcionForm.idTournament = this.route.snapshot.params.id;
+    this.inscripcionForm.controls['idTournament'].setValue(this.route.snapshot.params.id) ;
     if (this.inscripcionForm.valid) {
-      // {
-      //
-      //   console.log('el formulario', this.inscripcionForm);
-      //   this.tournamentService.create(this.inscripcionForm).subscribe(data => {
-      //       this.alertService.success('El campeonato se registró con éxito', true),
-      //         console.log('el form', this.inscripcionForm);
-      //     },
-      //     error => {
-      //       this.alertService.error(error.error.msg, false);
-      //     }
-      //   );
-      // }
+      console.log('ël form validado', this.inscripcionForm);
+      {
+           this.tournamentService.createInscription(this.inscripcionForm.value).subscribe(data => {
+           this.alertService.success('La inscripcion se registro con exito', true),
+              console.log('el form', this.inscripcionForm);
+          },
+          error => {
+          this.alertService.error(error, false);
+          }
+        );
+      }
     }
+    this.createForm();
   }
 
 

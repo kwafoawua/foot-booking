@@ -19,6 +19,8 @@ import {CampeonatoInfoComponent} from './ClubProfileClient/CampeonatoInfo.compon
 
 
 import { FieldsManagementComponent } from './fields-management';
+import {SiteLayoutComponent} from './_layout/site-layout/site-layout.component';
+import {AdminLayoutComponent} from './_layout/admin-layout/admin-layout.component';
 
 const appRoutes: Routes = [
   {
@@ -37,6 +39,7 @@ const appRoutes: Routes = [
       { path: 'club/gestion-canchas', component: FieldsManagementComponent },
       { path: 'player/mis-reservas', component: bookingPlayerComponent },
       { path: 'campeonatos/administrar', component: MainManagementComponent},
+      {path: 'campeonato/:id', component: CampeonatoInfoComponent}
     ]
   },
   {
