@@ -91,7 +91,7 @@
                 <h4>CAMPEONATOS</h4>
                 <ul class="list-inline" *ngFor="let i of myTournament">
                   <li class="list-inline-item"  [routerLink]="['/campeonato',i._id]">
-                 {{i.tournamentName | uppercase}}
+                    <a>{{i.tournamentName | uppercase}}</a>
                   </li>
                 </ul>
               </div>

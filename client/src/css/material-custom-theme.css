@@ -4,6 +4,16 @@
 */
 @import 'https://fonts.googleapis.com/css?family=Material+Icons';
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500");
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.example-container > * {
+  width: 100%;
+}
+
 .mat-badge-content {
   font-weight: 600;
   font-size: 12px; }

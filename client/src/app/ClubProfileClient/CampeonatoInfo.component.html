@@ -4,37 +4,61 @@
     <div class="container">
       <div class="ad-details">
         <div class="row">
-          <div class="col-md-8 col-sm-7">
+
+          <div class="col-sm-5 col-md-4">
+            <div class="side-bar">
+              <div class="contact-seller widget">
+                <div class="seller-info">
+                  <div class="row">
+                    {{torneo.prize1}}
+                  </div>
+                  <div class="row">
+                    Tenes tiempo de inscribirte hasta el
+                    <strong> {{torneo.inscriptionEndDate}} </strong>
+                    <p> Mordalidad de camponato
+                      <strong>{{torneo.category}}</strong>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="side-bar col-md-8 col-sm-7" >
            <h4>{{torneo.tournamentName}}</h4>
 
              <mat-horizontal-stepper [linear]="isLinear" #stepper>
 <!--              PASO 1-->
               <mat-step >
-
-                <ng-template matStepLabel>Descripcion</ng-template>
+                <ng-template matStepLabel>Descripción</ng-template>
+                <div class="row">
                 {{torneo.publicationDescription}}
+                </div>
                   <div>
                     <button mat-button matStepperNext>Siguiente</button>
                   </div>
-
               </mat-step>
 <!--PASO 2-->
               <mat-step [stepControl]="inscripcionForm" completed>
 
-                <form class="example-form" [formGroup]="inscripcionForm">
+                <form class="example-container" [formGroup]="inscripcionForm">
                   <ng-template matStepLabel>Responsabe de equipo</ng-template>
+
                     <mat-form-field class="example-full-width">
                       <input matInput placeholder="Nombre de equipo" formControlName="nombreEquipo" class="form-control" type="text">
                     </mat-form-field>
+
                     <mat-form-field class="example-full-width">
                       <input matInput placeholder="Nombre de responsable" formControlName="nombreResponsable" class="form-control" type="text">
                     </mat-form-field>
+
 <!--                    <mat-form-field class="example-full-width">-->
 <!--                      <input matInput placeholder="Apellido de responsable" formControlName="apellidoResponsable" class="form-control" type="text">-->
 <!--                    </mat-form-field>-->
 <!--                    <mat-form-field class="example-full-width">-->
 <!--                      <input matInput placeholder="Email" formControlName="email" class="form-control" type="text">-->
 <!--                    </mat-form-field>-->
+
                     <mat-form-field class="example-full-width">
                       <input matInput placeholder="Telefono" formControlName="telefono" class="form-control" type="text">
                     </mat-form-field>
@@ -47,9 +71,14 @@
 
               </mat-step>
 <!--              PASO 3 -->
-              <mat-step>
+              <mat-step >
                 <ng-template matStepLabel>Pago</ng-template>
                 Casi esta listo!
+                <p>
+                  <mat-checkbox>
+                    <a>Acepto términos y condiciones</a>
+                  </mat-checkbox>
+                </p>
                 <div>
                   <button mat-button matStepperPrevious>Anterior</button>
                   <button mat-button (click)="Inscribir()">Finalizar</button>
@@ -58,20 +87,6 @@
             </mat-horizontal-stepper>
 
 
-          </div>
-
-          <div class="col-sm-5 col-md-4">
-            <div class="side-bar">
-
-              <div class="contact-seller widget">
-                 <div class="seller-info">
-                  <div class="row">
-                   <div class="col-md-4">Tenes tiempo de inscribirte hasta el {{torneo.inscriptionEndDate}}</div>
-                    <p> Mordalidad de camponato {{torneo.category}}</p>
-                  </div>
-                 </div>
-              </div>
-            </div>
           </div>
 
         </div>

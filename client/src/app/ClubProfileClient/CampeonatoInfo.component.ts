@@ -54,7 +54,7 @@ export class CampeonatoInfoComponent implements OnInit {
       console.log('ël form validado', this.inscripcionForm);
       {
            this.tournamentService.createInscription(this.inscripcionForm.value).subscribe(data => {
-           this.alertService.success('La inscripcion se registro con exito', true),
+           this.alertService.success('La inscripción se registro con éxito', true),
               console.log('el form', this.inscripcionForm);
           },
           error => {
