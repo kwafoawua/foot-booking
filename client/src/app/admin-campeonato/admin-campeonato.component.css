@@ -1,0 +1,8 @@
+.header {
+  display:flex;
+  justify-content: flex-end;
+}
+
+.tabla-campeonato{
+  margin-top: 20px;
+}
