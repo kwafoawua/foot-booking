@@ -38,7 +38,6 @@ import { ResultComponent } from './result/index';
 import { SearchService } from './_services/search.service';
 import { BookingService } from './_services/booking.service';
 import { RegisterPlayerComponent } from './register-player/index';
-import { AdminClubComponent } from './admin-club/index';
 import { ProfileClubModule } from './profile-club/profile-club.module';
 import { ProfilePlayerModule } from './profile-player/profile-player.module';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
@@ -72,6 +71,7 @@ import { DestacadosComponent } from './home/destacados/destacados.component';
 import { InputTextComponent } from './common/input-text/input-text.component';
 import { SiteLayoutComponent } from './_layout/site-layout/site-layout.component';
 import { AdminLayoutComponent } from './_layout/admin-layout/admin-layout.component';
+import { AdminCampeonatoComponent } from './admin-campeonato/admin-campeonato.component';
 
 
 
@@ -118,7 +118,6 @@ import { AdminLayoutComponent } from './_layout/admin-layout/admin-layout.compon
     SiteFooterComponent,
     ProfileClubClientComponent,
     ResultComponent,
-    AdminClubComponent,
     ConfirmationComponent,
     FieldsManagementComponent,
     EstadisticasClubComponent,
@@ -131,7 +130,8 @@ import { AdminLayoutComponent } from './_layout/admin-layout/admin-layout.compon
     InputTextComponent,
     ClubInfoComponent,
     SiteLayoutComponent,
-    AdminLayoutComponent
+    AdminLayoutComponent,
+    AdminCampeonatoComponent
   ],
   providers: [
     authInterceptorProviders,

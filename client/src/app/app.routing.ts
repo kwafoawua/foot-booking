@@ -11,12 +11,12 @@ import { ProfilePlayerComponent } from './profile-player/index';
 import { AuthGuard, LoginGuard } from './_guards/index';
 import { ConfirmationComponent } from './booking-confirmation/confirmation.component';
 import { ResultComponent } from './result/index';
-import { AdminClubComponent } from './admin-club/index';
 import { bookingPlayerComponent } from './booking-player/booking-player.component';
 import { EstadisticasClubComponent } from './estadisticas-club/index';
 import {MainManagementComponent} from './tournament-management/mainManagement.component';
 import {ClubInfoComponent} from './ClubProfileClient/clubInfo.component';
 import { FieldsManagementComponent } from './fields-management';
+import { AdminCampeonatoComponent } from './admin-campeonato/admin-campeonato.component';
 
 const appRoutes: Routes = [
   {
@@ -31,8 +31,6 @@ const appRoutes: Routes = [
       { path: 'profile-player/:id', component: ProfilePlayerComponent, canActivate: [ AuthGuard ] },
       { path: 'results', component: ResultComponent },
       { path: 'club/register', component: RegisterClubComponent },
-      { path: 'club/admin', component: AdminClubComponent, canActivate: [ AuthGuard ] },
-      { path: 'club/gestion-canchas', component: FieldsManagementComponent },
       { path: 'player/mis-reservas', component: bookingPlayerComponent },
       { path: 'campeonatos/administrar', component: MainManagementComponent},
     ]
@@ -43,6 +41,8 @@ const appRoutes: Routes = [
     children: [
       { path: 'admin', component: EstadisticasClubComponent },
       { path: 'admin/dashboard', component: EstadisticasClubComponent },
+      { path: 'admin/reservas', component: FieldsManagementComponent },
+      { path: 'admin/campeonato', component: AdminCampeonatoComponent },
     ],
   },
   { path: '**', redirectTo: '' }
