@@ -1,0 +1,67 @@
+<form [formGroup]="tournamentForm" novalidate (ngSubmit)="registerTournament()">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title>Datos principales</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="content">
+        <mat-form-field appearance="standard" class="form-field">
+          <mat-label>Nombre del campeonato</mat-label>
+          <input matInput formControlName="tournamentName" required>
+          <mat-error
+            *ngIf="tournamentForm.get('tournamentName').invalid &&
+            (tournamentForm.get('tournamentName').dirty ||
+            tournamentForm.get('tournamentName').touched)"
+          >
+            El campo es requerido.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="standard" class="form-field">
+          <mat-label>Fecha de inicio</mat-label>
+          <input matInput formControlName="startDate" [matDatepicker]="startDate" required>
+          <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+          <mat-datepicker #startDate disabled="false"></mat-datepicker>
+          <mat-error
+            *ngIf="tournamentForm.get('startDate').invalid &&
+            (tournamentForm.get('startDate').dirty ||
+            tournamentForm.get('startDate').touched)"
+          >
+            El campo es requerido.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="standard" class="form-field">
+          <mat-label>Fecha de fin</mat-label>
+          <input matInput formControlName="endDate" [matDatepicker]="endDate" required>
+          <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+          <mat-datepicker #endDate disabled="false"></mat-datepicker>
+          <mat-error
+            *ngIf="tournamentForm.get('endDate').invalid &&
+            (tournamentForm.get('endDate').dirty ||
+            tournamentForm.get('endDate').touched)"
+          >
+            El campo es requerido.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="standard" class="form-field">
+          <mat-label>Categoría</mat-label>
+          <mat-select formControlName="category" required>
+            <mat-option>--</mat-option>
+            <mat-option *ngFor="let category of tournamentService.getTournamentCategories()" [value]="category">
+              {{category}}
+            </mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="tournamentForm.get('category').invalid &&
+            (tournamentForm.get('category').dirty ||
+            tournamentForm.get('category').touched)"
+          >
+            El campo es requerido.
+          </mat-error>        </mat-form-field>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+</form>

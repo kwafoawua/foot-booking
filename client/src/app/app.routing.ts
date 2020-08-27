@@ -17,6 +17,7 @@ import {MainManagementComponent} from './tournament-management/mainManagement.co
 import {ClubInfoComponent} from './ClubProfileClient/clubInfo.component';
 import { FieldsManagementComponent } from './fields-management';
 import { AdminCampeonatoComponent } from './admin-campeonato/admin-campeonato.component';
+import { DefinicionComponent } from './admin-campeonato/definicion/definicion.component';
 
 const appRoutes: Routes = [
   {
@@ -43,6 +44,7 @@ const appRoutes: Routes = [
       { path: 'admin/dashboard', component: EstadisticasClubComponent },
       { path: 'admin/reservas', component: FieldsManagementComponent },
       { path: 'admin/campeonato', component: AdminCampeonatoComponent },
+      { path: 'admin/campeonato/nuevo', component: DefinicionComponent }
     ],
   },
   { path: '**', redirectTo: '' }

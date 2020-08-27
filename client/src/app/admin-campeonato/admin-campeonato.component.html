@@ -1,7 +1,7 @@
 <div class="container-fluid" [ngStyle]="{height: '100vh'}">
   <div class="header">
     <div>
-      <button mat-flat-button color="primary">Nuevo Campeonato</button>
+      <button mat-flat-button color="primary" [routerLink]="['/admin/campeonato/nuevo']">Nuevo Campeonato</button>
     </div>
     <span>{{total}} resultados en total</span>
   </div>

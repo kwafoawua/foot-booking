@@ -71,9 +71,7 @@ import { DestacadosComponent } from './home/destacados/destacados.component';
 import { InputTextComponent } from './common/input-text/input-text.component';
 import { SiteLayoutComponent } from './_layout/site-layout/site-layout.component';
 import { AdminLayoutComponent } from './_layout/admin-layout/admin-layout.component';
-import { AdminCampeonatoComponent } from './admin-campeonato/admin-campeonato.component';
-
-
+import { AdminCampeonatoModule } from './admin-campeonato/admin-campeonato.module';
 
 @NgModule({
   imports: [
@@ -106,6 +104,7 @@ import { AdminCampeonatoComponent } from './admin-campeonato/admin-campeonato.co
     AngularFirestoreModule,
     AngularFireModule.initializeApp(environment.firebase),
     MaterialModule,
+    AdminCampeonatoModule,
   ],
   declarations: [
     AppComponent,
@@ -131,7 +130,6 @@ import { AdminCampeonatoComponent } from './admin-campeonato/admin-campeonato.co
     ClubInfoComponent,
     SiteLayoutComponent,
     AdminLayoutComponent,
-    AdminCampeonatoComponent
   ],
   providers: [
     authInterceptorProviders,
