@@ -40,11 +40,11 @@ export class CampeonatoInfoComponent implements OnInit {
   createForm() {
     this.inscripcionForm = this.fb.group({
       idTournament: [''],
-      nombreEquipo: [null, Validators.required],
-      nombreResponsable: [null, Validators.required],
+      nombreEquipo: [null, Validators.required, Validators.maxLength(50), Validators.minLength(5)],
+      nombreResponsable: [null, Validators.required, Validators.maxLength(50), Validators.minLength(5)],
       //apellidoResponsable: [null, Validators.required],
       //email: [null, Validators.required],
-      telefono: [null, Validators.required],
+      telefono: [null, Validators.required, Validators.maxLength(12), Validators.minLength(1)],
     });
   }
 
@@ -62,8 +62,8 @@ export class CampeonatoInfoComponent implements OnInit {
           }
         );
       }
+      this.createForm();
     }
-    this.createForm();
   }
 
 

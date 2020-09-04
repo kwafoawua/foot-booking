@@ -27,7 +27,7 @@
   </a>
 
 </div>
-
+<div class="shadow p-3 mb-5 bg-white rounded">
             <!-- DESCRIPCION Y NOMBRE-->
 
             <div class="details-description">
@@ -39,8 +39,17 @@
               </div><!-- item-info -->
             </div>
 
+            <div class="side-bar">
+
 <!--            CANCHAS -->
             <item-cancha [club]="club"></item-cancha>
+            </div>
+</div>
+              <div class="side-bar">
+            <comments></comments>
+
+
+          </div>
 
           </div>
 
@@ -87,7 +96,7 @@
               </div>
 
 
-              <div class="widget item-tag">
+              <div class="widget item-tag" *ngIf="myTournament.length > 0">
                 <h4>CAMPEONATOS</h4>
                 <ul class="list-inline" *ngFor="let i of myTournament">
                   <li class="list-inline-item"  [routerLink]="['/campeonato',i._id]">

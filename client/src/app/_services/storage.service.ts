@@ -26,6 +26,7 @@ export class StorageService implements OnDestroy {
     // the local application doesn't seem to catch changes to localStorage...
     this.onSubject.next({ key, value: data});
   }
+
   public reload(key: string, data: any): void {
     console.log(data);
     this.onSubject.next({ key, value: data });

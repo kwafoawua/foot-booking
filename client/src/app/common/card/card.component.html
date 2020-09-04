@@ -24,8 +24,8 @@
           </ul>
         </div>
         <div id="services">
-          <ul class="service-list">
-            <li class="badge" *ngFor="let service of club?.services">{{service.display}}</li>
+          <ul class="service-list" *ngFor="let service of club?.services">
+            <li class="badge">{{service.display}}</li>
           </ul>
         </div>
         <div id="capeonatos" *ngIf="torneo == true">

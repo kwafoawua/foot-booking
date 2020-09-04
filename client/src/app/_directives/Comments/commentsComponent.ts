@@ -10,6 +10,7 @@ import { Comment } from '../../_models/comment';
 import { CommentService } from '../../_services/comment.service';
 import { AuthService } from '../../_services/auth.service';
 import { now } from 'moment';
+import {StorageService} from "../../_services/storage.service";
 
 @Component({
   selector: 'comments',
@@ -24,39 +25,50 @@ export class commentsComponent implements OnInit {
   public authenticated: boolean;
   private textComment = '';
   private club: Club;
+  currentUser: any;
+  name = '';
 
   constructor(
     private clubService: ClubService,
     private route: ActivatedRoute,
     private commentService: CommentService,
-    private authenticatedService: AuthService
+    private authenticatedService: AuthService,
+    private storageService: StorageService
   ) {
+    const user = JSON.parse(localStorage.getItem(('currentUser')));
+    if (user) {
+      this.currentUser = user;
+      this.name = user.name;
+      this.authenticated = true;
+      console.log('el user', this.name)
+    }
   }
 
   ngOnInit() {
     // this.isAuthenticated();
     this.getComentarios();
     this.getClub(this.route.snapshot.params[ 'id' ]);
-    if (this.authenticatedService.isAuthenticated()) {
-      this.authenticated = true;
-      this.currrentUser = JSON.parse(localStorage.getItem('currentUser')).username;
-      this.isClub = this.authenticatedService.isUserClub();
-      if (this.isClub === true) {
-        this.authenticated = false;
-      }// this.currrentUser =  this.authenticatedService.getUserAuthenticated
-    }
+    this.storageService.getStorage('currentUser').subscribe(user => {
+      console.log('site header', user);
+      if (user.value && Object.keys(user.value).length !== 0) {
+        this.currentUser = user.value;
+        this.name = user.value.name;
+      }
+    });
+    // if (this.authenticatedService.isAuthenticated()) {
+    //   this.authenticated = true;
+    //   this.currrentUser = JSON.parse(localStorage.getItem('currentUser')).username;
+    //   this.isClub = this.authenticatedService.isUserClub();
+    //   if (this.isClub === true) {
+    //     this.authenticated = false;
+    //   }// this.currrentUser =  this.authenticatedService.getUserAuthenticated
+    // }
   }
 
-  isAuthenticated() { //verifico si hay sesion abierta
-    if (localStorage.currentUser) {
-      this.authenticated = true;
-      this.currrentUser = JSON.parse(localStorage.getItem('currentUser')).username;
 
-    } else this.authenticated = false;
-  }
 
   agregarComment() {
-    this.comment.userName = this.currrentUser;
+    this.comment.userName = this.name;
     this.comment._idClub = this.club._id;
     this.comment.comment = this.textComment;
     this.commentService.create(this.comment).subscribe(data => {
@@ -82,7 +94,5 @@ export class commentsComponent implements OnInit {
     });
   }
 
-  // agregarRespuesta(){
-  //
-  // }
+
 }

@@ -63,7 +63,6 @@ export class ConfirmationComponent implements OnInit {
     const _id: string = JSON.parse(localStorage.getItem('currentUser'))._id;
     this.getPlayer(_id);
     console.log('kakak', +this.player);
-
   }
 
 

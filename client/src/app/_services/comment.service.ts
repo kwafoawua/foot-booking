@@ -17,7 +17,6 @@ export class CommentService {
 
   update(comment: Comment, _id: string, authorId: string) {
     return this.http.put('/comments/changeComment/' + _id, { comment, authorId });
-    ;
   }
 
   findAllCommentForAClub(_id: string) {
