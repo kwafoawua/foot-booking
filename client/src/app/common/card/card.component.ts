@@ -11,7 +11,7 @@ export class CardComponent implements OnInit {
 
   @Input() club: any;
   fieldTypes: string[];
-
+ torneo = true;
   constructor() { }
 
   ngOnInit() {

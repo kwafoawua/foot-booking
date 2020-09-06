@@ -4,100 +4,102 @@
 
        <div class="row">
           <div class="col-md-4 col-sm-4">
-            <div class="sidebar">
-              <div class="form-group">
+            <div class="side-bar">
+              <div class="contact-seller widget">
+                <div class="seller-info example-container">
 
-                <input (keyup.enter)="buscarClubsPorNombre()" [(ngModel)]="clubname" name="clubname"
-                       placeholder="Buscar por nombre de club" type="text" class="form-control"/>
-              </div>
+<!--                  nombre-->
+                  <mat-form-field>
+                    <input matInput class="example-full-width" (keyup.enter)="buscarClubsPorNombre()"
+                           [(ngModel)]="clubname" name="clubname" placeholder="Buscar por nombre de club">
+                  </mat-form-field>
 
-              <div class="filter-list d-none d-lg-block">
-                <div class="map-wrapper">
-                  <h4 class="list-title">Ubicación</h4>
-                  <div id="gmap">
-                    <agm-map [ngStyle]="{'height': '338px'}" [zoom]="15" [latitude]="lat" [longitude]="lng">
-                      <div *ngFor="let c of clubs">
-                        <agm-marker [latitude]="lat"
-                                    [longitude]="lng">
-                        </agm-marker>
-                        <agm-marker [latitude]="c?.address.lat"
-                                    [longitude]="c?.address.lng"
-                                    [iconUrl]="'../../assets/icon/iconochico.png'">
-                          <agm-info-window>{{c?.name}} , TEL: {{c?.phoneNumber}}</agm-info-window>
-                        </agm-marker>
-                      </div>
-                    </agm-map>
-                  </div>
-                </div><!-- location-map -->
-              </div><!-- filter-list -->
+<!--                  cantidad de jugadores -->
+                  <mat-form-field class="example-full-width">
+                    <input type="text" placeholder="Cantidad de jugadores" aria-label="Number" [(ngModel)]="cantPlayers" matInput  [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete">
+                      <mat-option *ngFor="let cantPlayer of cantPlayerSelect" value={{cantPlayer.cant}}>
+                        {{cantPlayer.desc}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+<!--precio minimo y maximo-->
 
-              <div class="form-group">
-                <label class="radio-inline">
-                  <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> Clubs
-                </label>
-                <label class="radio-inline">
-                  <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> Campeonatos
-                </label>
-              </div>
-
-              <div class="filter-list">
-                <div id="advanced-filter">
-                  <div class="filter-heading">
-                    <a data-toggle="collapse" data-parent="#advanced-filter">
-                      <h4 class="list-title">Más filtros<span class="pull-right"><i class="fa fa-plus"></i></span></h4>
-                    </a>
-                  </div><!-- filter-heading -->
-                  <div id="advanced" class="panel-collapse collapse">
-                    <!-- panel-body -->
-                    <div class="panel-body">
-                      <div class="col-md-12">
-                        <h6>Servicios</h6>
-                        <ul class=".form-check" *ngFor="let service of services">
-                          <li><label> <input type="checkbox" [(ngModel)]="service.state"
-                                             (ngModelChange)="addService(service)">
-                            {{service.name}} </label></li>
-                        </ul>
-                      </div>
-                      <div class="col-md-12">
-                        <h6>Cantidad de Jugadores</h6>
-                        <div class="form-group">
-                          <select class="form-control" [(ngModel)]="cantPlayers">
-                            <option value="">Ninguno</option>
-                            <option *ngFor="let cantPlayer of cantPlayerSelect" value={{cantPlayer.cant}}>
-                              {{cantPlayer.desc}}
-                            </option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-md-12">
-                        <h6>Precios</h6>
-                        <div class="price-range ">
-                          <label for="min">
-                            <input class="form-control" type="number" min="0" id="min"
-                                   title="minimum price" placeholder="min" value=""
-                                   [(ngModel)]="minPrice"></label>
-                          <label for="max">
-                            <input class="form-control" type="number" min="0" id="max"
-                                   title="maximum price" placeholder="max" value=""
-                                   [(ngModel)]="maxPrice"></label>
-                          <button class="btn btn-primary btn-block"
-                                  (click)="buscarClubsPorFiltros()">Actualizar búsqueda
+                  <table class="example-full-width" cellspacing="0">
+                    <tr>
+                      <td>
+                        <mat-form-field class="example-form-field">
+                          <input matInput type="number" class="form-control" min="0"
+                                 title="precio mínimo" placeholder="min" value=""
+                                 [(ngModel)]="minPrice">
+                          <button mat-button *ngIf="minPrice" matSuffix mat-icon-button aria-label="Clear" (click)="minPrice=''">
+                            <mat-icon>close</mat-icon>
                           </button>
-                        </div>
+                        </mat-form-field>
+                      </td>
+                      <td>
+                        <mat-form-field class="example-form-field">
+                          <input matInput type="number" class="form-control" min="0"
+                                 title="precio máximo" placeholder="max" value=""
+                                 [(ngModel)]="maxPrice">
+                          <button mat-button *ngIf="maxPrice" matSuffix mat-icon-button aria-label="Clear" (click)="maxPrice=''">
+                            <mat-icon>close</mat-icon>
+                          </button>
+                        </mat-form-field>
+                      </td>
+                    </tr>
+                  </table>
+
+<!--SERVICIOS-->
+                  <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        Servicios
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <ul class=".form-check" *ngFor="let service of services">
+                      <li><label> <mat-checkbox [(ngModel)]="service.state"
+                                                (ngModelChange)="addService(service)">
+                        {{service.name}} </mat-checkbox></label></li>
+                    </ul>
+                  </mat-expansion-panel>
+
+
+                  <mat-divider></mat-divider>
+
+                  <button mat-raised-button
+                          (click)="buscarClubsPorFiltros()">Actualizar búsqueda
+                  </button	>
+
+<!-- mapa-->
+                  <div class="example-full-width">
+                    <h4>Ubicación</h4>
+                    <div id="gmap">
+                        <agm-map [ngStyle]="{'height': '338px'}" [zoom]="15" [latitude]="lat" [longitude]="lng">
+                          <div *ngFor="let c of clubs">
+                            <agm-marker [latitude]="lat"
+                                        [longitude]="lng">
+                            </agm-marker>
+                            <agm-marker [latitude]="c?.address.lat"
+                                        [longitude]="c?.address.lng"
+                                        [iconUrl]="'../../assets/icon/iconochico.png'">
+                              <agm-info-window>{{c?.name}} , TEL: {{c?.phoneNumber}}</agm-info-window>
+                            </agm-marker>
+                          </div>
+                        </agm-map>
                       </div>
-
-                    </div>
-
                   </div>
-                </div><!-- advanced-filter -->
-              </div><!-- filter-list -->
-            </div><!-- sidebar -->
-          </div><!-- col-sm-4 -->
 
+               </div>
+            </div>
+          </div><!-- col-sm-4 -->
+          </div>
          <!-- EL RESULTADO DE LA BUSQUEDA -->
           <div class="col-md-8 col-sm-8" >
          <rs-list [clubsFound]="clubs"></rs-list>
           </div>
+
        </div>
 
     </div>

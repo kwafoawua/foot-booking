@@ -37,6 +37,4 @@ export class TournamentStageComponent implements OnInit{
         this.router.navigate(['stage'], {relativeTo: this.route});
     }
 
-
-
 }

@@ -4,6 +4,6 @@ import {Game} from './game';
 export class Fase {
   idTorneo: string;
   idfase: string;
-  nroFase: number;
+  nro_fase: number;
   games: Game[];
 }

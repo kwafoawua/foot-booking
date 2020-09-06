@@ -8,6 +8,7 @@ import * as moment from 'moment';
 import {TState} from '../_models/TState';
 import {Booking} from "../_models/booking";
 import {Fase} from '../_models/fase';
+import {Equipo} from '../_models/equipo';
 
 
 @Injectable()
@@ -143,7 +144,7 @@ private myTournament: Tournament[] = [
       {
        idTorneo: 'idtorneo',
        idfase: '1',
-       nroFase: 1,
+       nro_fase: 1,
         games: [{
           equipo1: 'Equipo 3',
           equipo2: 'Equipo 4',
@@ -164,7 +165,7 @@ private myTournament: Tournament[] = [
   private faseOne: Fase = {
     idTorneo: 'idtorneo',
     idfase: '1',
-    nroFase: 1,
+    nro_fase: 1,
     games: [{
       equipo1: 'Equipo 3',
       equipo2: 'Equipo 4',
@@ -242,5 +243,11 @@ private tState: TState[] = [
     // obtengo info de una fase
   getInfoFase() {
     return this.faseOne; }
+
+  createInscription(equipo: any){
+    console.log('El service ', equipo);
+    return this.http.post('/inscription/enroll', equipo);
+  }
+
 
 }

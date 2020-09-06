@@ -1,4 +1,6 @@
-﻿﻿import { NgModule } from '@angular/core';
+﻿import {MatStepperModule} from "@angular/material/stepper";
+
+﻿import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -48,6 +50,7 @@ import { bookingPlayerComponent } from './booking-player/booking-player.componen
 import { EstadisticasClubComponent } from './estadisticas-club/index';
 import { commentsComponent } from './_directives/Comments/commentsComponent';
 import { ClubInfoComponent} from './ClubProfileClient/clubInfo.component';
+import { CampeonatoInfoComponent } from './ClubProfileClient/CampeonatoInfo.component';
 
 // API MAPS
 import { AgmCoreModule } from '@agm/core';
@@ -88,7 +91,7 @@ import { AdminCampeonatoModule } from './admin-campeonato/admin-campeonato.modul
     DpDatePickerModule,
     AgmCoreModule.forRoot({// old: AIzaSyAAwaI8YafySsHraMA_9G_n30_FECUhoVs
       apiKey: 'AIzaSyBuNW_HnnPaMrMq8KGEhiEzUnbVOO_OJzA',
-      libraries: [ 'places' ]
+      libraries: ['places']
     }),
     ProfileClubModule,
     ProfilePlayerModule,
@@ -128,6 +131,7 @@ import { AdminCampeonatoModule } from './admin-campeonato/admin-campeonato.modul
     DestacadosComponent,
     InputTextComponent,
     ClubInfoComponent,
+    CampeonatoInfoComponent,
     SiteLayoutComponent,
     AdminLayoutComponent,
   ],
