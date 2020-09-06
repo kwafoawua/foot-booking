@@ -49,7 +49,7 @@
           <mat-label>Categoría</mat-label>
           <mat-select formControlName="category" required>
             <mat-option>--</mat-option>
-            <mat-option *ngFor="let category of tournamentService.getTournamentCategories()" [value]="category">
+            <mat-option *ngFor="let category of categorias" [value]="category">
               {{category}}
             </mat-option>
           </mat-select>
@@ -66,7 +66,7 @@
           <mat-label>Tipo de equipo</mat-label>
           <mat-select formControlName="tournamentType" required>
             <mat-option>--</mat-option>
-            <mat-option *ngFor="let tType of tournamentService.getTournamentType()" [value]="tType">
+            <mat-option *ngFor="let tType of tipoTorneo" [value]="tType">
               {{tType}}
             </mat-option>
           </mat-select>
@@ -89,8 +89,8 @@
       <mat-card-title>Inscripciones</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <div class="content">
-        <mat-form-field appearance="standard" class="form-field">
+      <div class="row">
+        <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
           <mat-label>Fecha de inicio</mat-label>
           <input matInput formControlName="inscriptionStartDate" [matDatepicker]="inscriptionStartDate" required>
           <mat-datepicker-toggle matSuffix [for]="inscriptionStartDate"></mat-datepicker-toggle>
@@ -104,7 +104,7 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="standard" class="form-field">
+        <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
           <mat-label>Fecha de fin</mat-label>
           <input matInput formControlName="inscriptionEndDate" [matDatepicker]="inscriptionEndDate" required>
           <mat-datepicker-toggle matSuffix [for]="inscriptionEndDate"></mat-datepicker-toggle>
@@ -118,12 +118,12 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="standard" class="form-field">
+        <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
           <mat-label>Cantidad de equipos</mat-label>
           <input matInput formControlName="numbersOfTeams">
         </mat-form-field>
 
-        <mat-form-field appearance="standard" class="form-field">
+        <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
           <mat-label>Precio inscripción</mat-label>
           <input matInput placeholder="0" type="number" class="example-right-align" formControlName="inscriptionCost" required>
           <span matPrefix>$&nbsp;</span>
@@ -146,8 +146,8 @@
       <mat-card-title>Premios</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <div class="content">
-        <mat-form-field appearance="standard" class="form-field">
+      <div class="row">
+        <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
           <mat-label>Primer premio</mat-label>
           <input matInput formControlName="prize1" required>
           <mat-error
@@ -158,12 +158,12 @@
             El campo es requerido.
           </mat-error>
         </mat-form-field>
-        <mat-form-field appearance="standard" class="form-field">
+        <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
           <mat-label>Segundo premio</mat-label>
           <input matInput formControlName="prize2">
         </mat-form-field>
 
-        <mat-form-field appearance="standard" class="form-field">
+        <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
           <mat-label>Tercer premio</mat-label>
           <input matInput formControlName="prize3">
         </mat-form-field>
@@ -178,8 +178,8 @@
       <mat-card-title>Descripción publicitaria</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <div class="content">
-        <mat-form-field appearance="standard" class="form-field">
+      <div class="row">
+        <mat-form-field appearance="standard" class="col-12">
           <input matInput formControlName="publicationDescription" required placeholder="Ingrese breve descripción del torneo...">
           <mat-error
             *ngIf="tournamentForm.get('publicationDescription').invalid &&
@@ -199,8 +199,8 @@
       <mat-card-title>Términos y condiciones</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <div class="content">
-        <mat-form-field appearance="standard" class="form-field">
+      <div class="row">
+        <mat-form-field appearance="standard" class="col-12">
           <input matInput formControlName="termsAndConditions" required placeholder="Ingrese términos y condiciones...">
           <mat-error
             *ngIf="tournamentForm.get('termsAndConditions').invalid &&
@@ -214,5 +214,7 @@
 
     </mat-card-content>
   </mat-card>
+  <button mat-flat-button color="primary" type="submit">Crear Campeonato</button>
+
 </form>
 <pre><code>{{ tournamentForm?.value | json }}</code></pre>

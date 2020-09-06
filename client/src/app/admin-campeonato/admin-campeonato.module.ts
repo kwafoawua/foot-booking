@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CustomFormsModule } from 'ng2-validation';
 import { DefinicionComponent } from './definicion/definicion.component';
 import { RouterModule } from '@angular/router';
+import { DetalleCampeonatoComponent } from './detalle-campeonato/detalle-campeonato.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { RouterModule } from '@angular/router';
   exports: [],
   declarations: [
     AdminCampeonatoComponent,
-    DefinicionComponent
+    DefinicionComponent,
+    DetalleCampeonatoComponent
   ]
 })
 export class AdminCampeonatoModule { }

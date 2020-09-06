@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { TournamentService } from '../_services/tournament.service';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-campeonato',
@@ -17,6 +18,7 @@ export class AdminCampeonatoComponent implements OnInit {
 
   constructor(
     private tournamentService: TournamentService,
+    private router: Router
   ) { }
 
   @ViewChild(MatSort) sort: MatSort;
@@ -36,8 +38,8 @@ export class AdminCampeonatoComponent implements OnInit {
         error => console.log(error));
   }
 
-  goToTournamentManagment(id) {
-    console.log(id);
+  goToDetail(id) {
+    this.router.navigate(['admin/campeonato', id]);
   }
 
 }

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TournamentService } from '../../_services/tournament.service';
 import { AlertService } from '../../_services';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ValidateAllFields } from '../../_helpers';
 
 @Component({
   selector: 'app-definicion',
@@ -11,17 +12,27 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class DefinicionComponent implements OnInit {
   tournamentForm: FormGroup;
+  tipoTorneo: any;
+  categorias: any;
+  tournamentId: string;
 
   constructor(
   private fb: FormBuilder,
-  public tournamentService: TournamentService,
+  private tournamentService: TournamentService,
   private alertService: AlertService,
   private route: ActivatedRoute,
   private router: Router
   ) { }
 
   ngOnInit() {
+    this.tipoTorneo = this.tournamentService.getTournamentType();
+    this.categorias = this.tournamentService.getTournamentCategories();
     this.createForm();
+
+    this.tournamentId = this.route.snapshot.params[ 'id' ];
+    if (this.tournamentId) {
+      this.getTournament();
+    }
   }
 
   createForm() {
@@ -44,5 +55,54 @@ export class DefinicionComponent implements OnInit {
     });
   }
 
-  registerTournament() { console.log();}
+  getTournament(){
+    // this.esEdicion = true;
+    this.tournamentService.getTournamentInfo(this.tournamentId).subscribe((data: any) => {
+      console.log(data.tournament);
+      const t = data.tournament;
+      this.tournamentForm.setValue({
+        creatorClubId: t.creatorClubId,
+        tournamentName: t.tournamentName,
+        publicationDescription: t.publicationDescription,
+        inscriptionStartDate: t.inscriptionStartDate,
+        inscriptionEndDate: t.inscriptionEndDate,
+        startDate: t.startDate,
+        endDate: t.endDate,
+        numbersOfTeams: 16,
+        inscriptionCost: t.inscriptionCost,
+        tournamentType: t.tournamentType,
+        category: t.category,
+        termsAndConditions : t.termsAndConditions,
+        prize1: t.prize1,
+        prize2: t.prize2,
+        prize3: t.prize3
+      });
+    }, error => console.log(error));
+  }
+
+  updateTournament(){
+    this.tournamentService.updateTournament(this.tournamentForm.value).subscribe(data => {
+      this.alertService.success('Se actualizaron los datos exitosamente', true);
+    }, error => {
+      this.alertService.error(error.error.msg, false);
+    });
+  }
+
+  registerTournament() {
+    if (this.tournamentForm.valid) {
+      const idClub: string = JSON.parse(localStorage.getItem('currentUser'))._id;
+
+      this.tournamentForm.controls['creatorClubId'].setValue(idClub);
+      this.tournamentService.create(this.tournamentForm.value).subscribe(data => {
+          this.alertService.success('El campeonato se registró con éxito', true),
+            this.router.navigate([ '/admin/campeonato' ]);
+        },
+        error => {
+          this.alertService.error(error.error.msg, false);
+        }
+      );
+    } else {
+      ValidateAllFields.validateAllFields(this.tournamentForm);
+    }
+  }
 }
