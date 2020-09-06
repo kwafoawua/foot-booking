@@ -1,9 +1,25 @@
 .content {
   display: flex;
-  justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 
 .form-field {
-  flex-basis: 33%;
+  flex-basis: 25%;
   margin: 2rem;
+}
+.example-right-align {
+  text-align: right;
+}
+
+.example-card {
+  margin-bottom: 2rem;
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+input.example-right-align {
+  -moz-appearance: textfield;
 }

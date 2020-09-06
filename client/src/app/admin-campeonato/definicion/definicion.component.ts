@@ -14,7 +14,7 @@ export class DefinicionComponent implements OnInit {
 
   constructor(
   private fb: FormBuilder,
-  private tournamentService: TournamentService,
+  public tournamentService: TournamentService,
   private alertService: AlertService,
   private route: ActivatedRoute,
   private router: Router
@@ -33,7 +33,7 @@ export class DefinicionComponent implements OnInit {
       inscriptionEndDate: [ null, Validators.required ],
       startDate: [ null, Validators.required ],
       endDate: [ null ],
-      numbersOfTeams: [ null, Validators.required ],
+      numbersOfTeams: [ {value: 16, disabled: true } ],
       inscriptionCost: [ null, Validators.required ],
       tournamentType: [ null, Validators.required ],
       category: [ null, Validators.required ],
@@ -44,4 +44,5 @@ export class DefinicionComponent implements OnInit {
     });
   }
 
+  registerTournament() { console.log();}
 }

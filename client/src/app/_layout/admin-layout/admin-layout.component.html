@@ -1,20 +1,23 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
-      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-    </button>
-  </mat-toolbar-row>
-</mat-toolbar>
-<mat-sidenav-container class="example-container">
-  <mat-sidenav #drawer mode="side" opened role="navigation">
-    <mat-nav-list>
-      <a mat-list-item routerLink='/admin/dashboard'>Dashboard</a>
-      <a mat-list-item routerLink='/admin/reservas'>Reservas</a>
-      <a mat-list-item routerLink='/admin/campeonato'>Campeonatos</a>
-      <a mat-list-item routerLink='/second'>Perfil</a>
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content class="content">
-    <router-outlet></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+  <mat-toolbar color="primary" [class.mobile-toolbar]="mobileQuery.matches">
+    <mat-toolbar-row>
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="example-sidenav-container">
+    <mat-sidenav class="drawer" #drawer [mode]="mobileQuery.matches ? 'over' : 'side'"
+                 [fixedInViewport]="mobileQuery.matches"  opened="!mobileQuery.matches" fixedTopGap="56" role="navigation">
+      <mat-nav-list>
+        <mat-nav-list>
+          <a mat-list-item routerLink='/admin/dashboard'>Dashboard</a>
+          <a mat-list-item routerLink='/admin/reservas'>Reservas</a>
+          <a mat-list-item routerLink='/admin/campeonato'>Campeonatos</a>
+          <a mat-list-item routerLink='/second'>Perfil</a>
+        </mat-nav-list>    </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content class="content">
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
