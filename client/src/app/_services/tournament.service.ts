@@ -200,9 +200,7 @@ private tState: TState[] = [
     name: 'Cancelado'
   }];
 
-  private tType: string[] = [
-    '5 Jugadores',
-    '7 Jugadores', '9 Jugadores', '11 Jugadores'];
+  private tType: string[] = [ '5 Jugadores', '7 Jugadores', '11 Jugadores'];
 
   private categorias: string[] = ['Femenino', 'Masculino', 'Mixto'];
 

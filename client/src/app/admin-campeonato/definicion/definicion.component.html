@@ -64,16 +64,16 @@
 
         <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
           <mat-label>Tipo de equipo</mat-label>
-          <mat-select formControlName="tournamentType" required>
+          <mat-select formControlName="numberOfPlayers" required>
             <mat-option>--</mat-option>
             <mat-option *ngFor="let tType of tipoTorneo" [value]="tType">
               {{tType}}
             </mat-option>
           </mat-select>
           <mat-error
-            *ngIf="tournamentForm.get('tournamentType').invalid &&
-            (tournamentForm.get('tournamentType').dirty ||
-            tournamentForm.get('tournamentType').touched)"
+            *ngIf="tournamentForm.get('numberOfPlayers').invalid &&
+            (tournamentForm.get('numberOfPlayers').dirty ||
+            tournamentForm.get('numberOfPlayers').touched)"
           >
             El campo es requerido.
           </mat-error>
@@ -120,7 +120,7 @@
 
         <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
           <mat-label>Cantidad de equipos</mat-label>
-          <input matInput formControlName="numbersOfTeams">
+          <input matInput formControlName="numbersOfTeams" readonly>
         </mat-form-field>
 
         <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
@@ -214,7 +214,12 @@
 
     </mat-card-content>
   </mat-card>
-  <button mat-flat-button color="primary" type="submit">Crear Campeonato</button>
+
+  <button *ngIf="!tournamentId" mat-flat-button color="primary" type="submit">Crear Campeonato</button>
 
 </form>
+<div *ngIf="tournamentId">
+  <button  mat-flat-button type="submit">Publicar</button>
+  <button  mat-flat-button type="submit">Actualizar</button>
+</div>
 <pre><code>{{ tournamentForm?.value | json }}</code></pre>

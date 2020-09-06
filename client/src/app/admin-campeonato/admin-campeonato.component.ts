@@ -3,6 +3,7 @@ import { TournamentService } from '../_services/tournament.service';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { Router } from '@angular/router';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-admin-campeonato',
@@ -22,6 +23,8 @@ export class AdminCampeonatoComponent implements OnInit {
   ) { }
 
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
 
   ngOnInit() {
     this.getTournaments();
@@ -33,6 +36,7 @@ export class AdminCampeonatoComponent implements OnInit {
       console.log(this.tournaments);
       this.dataSource = new MatTableDataSource(data.tournament);
       this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
       this.total = data.tournament.length;
     },
         error => console.log(error));
