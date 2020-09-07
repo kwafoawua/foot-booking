@@ -4,6 +4,7 @@ import { TournamentService } from '../../_services/tournament.service';
 import { AlertService } from '../../_services';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ValidateAllFields } from '../../_helpers';
+import { Tournament } from '../../_models/tournament';
 
 @Component({
   selector: 'app-definicion',
@@ -15,6 +16,8 @@ export class DefinicionComponent implements OnInit {
   tipoTorneo: any;
   categorias: any;
   tournamentId: string;
+  status: string;
+  tournament: Tournament;
 
   constructor(
   private fb: FormBuilder,
@@ -59,23 +62,24 @@ export class DefinicionComponent implements OnInit {
     // this.esEdicion = true;
     this.tournamentService.getTournamentInfo(this.tournamentId).subscribe((data: any) => {
       console.log(data.tournament);
-      const t = data.tournament;
+      this.tournament = data.tournament;
+      this.status = this.tournament.state;
       this.tournamentForm.setValue({
-        creatorClubId: t.creatorClubId,
-        tournamentName: t.tournamentName,
-        publicationDescription: t.publicationDescription,
-        inscriptionStartDate: t.inscriptionStartDate,
-        inscriptionEndDate: t.inscriptionEndDate,
-        startDate: t.startDate,
-        endDate: t.endDate,
+        creatorClubId: this.tournament.creatorClubId,
+        tournamentName: this.tournament.tournamentName,
+        publicationDescription: this.tournament.publicationDescription,
+        inscriptionStartDate: this.tournament.inscriptionStartDate,
+        inscriptionEndDate: this.tournament.inscriptionEndDate,
+        startDate: this.tournament.startDate,
+        endDate: this.tournament.endDate,
         numbersOfTeams: 16,
-        inscriptionCost: t.inscriptionCost,
-        numberOfPlayers: t.numberOfPlayers,
-        category: t.category,
-        termsAndConditions : t.termsAndConditions,
-        prize1: t.prize1,
-        prize2: t.prize2,
-        prize3: t.prize3
+        inscriptionCost: this.tournament.inscriptionCost,
+        numberOfPlayers: this.tournament.numberOfPlayers,
+        category: this.tournament.category,
+        termsAndConditions : this.tournament.termsAndConditions,
+        prize1: this.tournament.prize1,
+        prize2: this.tournament.prize2,
+        prize3: this.tournament.prize3
       });
     }, error => console.log(error));
   }
@@ -86,6 +90,20 @@ export class DefinicionComponent implements OnInit {
     }, error => {
       this.alertService.error(error.error.msg, false);
     });
+  }
+
+  publishTournament() {
+    const tournament = {
+      _id: this.tournamentId,
+      state: 'Publicado',
+    };
+    this.tournamentService.updateTournament(tournament).subscribe(data => {
+      this.getTournament();
+      this.alertService.success('Se actualizaron los datos exitosamente', true);
+    }, error => {
+      this.alertService.error(error.error.msg, false);
+    });
+
   }
 
   registerTournament() {

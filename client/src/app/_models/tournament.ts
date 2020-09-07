@@ -20,4 +20,5 @@ export class Tournament {
   category: string;
   state: string;
   //image:File;
+  numberOfPlayers: any;
 }

@@ -13,7 +13,7 @@
       </ng-container>
       <ng-container matColumnDef="startDate">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de inicio </th>
-        <td mat-cell *matCellDef="let tournament"> {{tournament.startDate}} </td>
+        <td mat-cell *matCellDef="let tournament"> {{tournament.startDate | date }} </td>
       </ng-container>
       <ng-container matColumnDef="state">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
