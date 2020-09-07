@@ -1,0 +1,52 @@
+<div class="container-fluid" [ngStyle]="{height: '100vh'}">
+  <div class="header">
+    <div>
+      <button mat-flat-button color="primary" [routerLink]="['/admin/campeonato/nuevo']">Nuevo Campeonato</button>
+    </div>
+    <span>{{total}} resultados en total</span>
+  </div>
+  <div class="tabla-campeonato mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="tournamentName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+        <td mat-cell *matCellDef="let tournament"> {{tournament.tournamentName}} </td>
+      </ng-container>
+      <ng-container matColumnDef="startDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de inicio </th>
+        <td mat-cell *matCellDef="let tournament"> {{tournament.startDate | date }} </td>
+      </ng-container>
+      <ng-container matColumnDef="state">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+        <td mat-cell *matCellDef="let tournament"> {{tournament.state}} </td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell  *matHeaderCellDef >Acciones</th>
+        <td mat-cell *matCellDef="let row">
+          <button
+            mat-icon-button
+            [disabled]="row.state === 'Cancelado'"
+            matTooltip="Click para gestionar"
+            class="iconbutton"
+            color="primary"
+            (click)="goToDetail(row._id)"
+          >
+            <mat-icon aria-label="Edit">edit</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            matTooltip="Click para cancelar"
+            class="iconbutton"
+            color="warn"
+            [disabled]="row.state == 'Cancelado' "
+          >
+            <mat-icon aria-label="Delete">cancel</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+    </table>
+    <mat-paginator [length]="total" [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>

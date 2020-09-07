@@ -1,0 +1,248 @@
+<ng-container *ngIf="status !== 'Publicado' else published">
+  <form [formGroup]="tournamentForm" novalidate (ngSubmit)="registerTournament()">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>Datos principales</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="row">
+          <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
+            <mat-label>Nombre del campeonato</mat-label>
+            <input matInput formControlName="tournamentName" required>
+            <mat-error
+              *ngIf="tournamentForm.get('tournamentName').invalid &&
+            (tournamentForm.get('tournamentName').dirty ||
+            tournamentForm.get('tournamentName').touched)"
+            >
+              El campo es requerido.
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
+            <mat-label>Fecha de inicio</mat-label>
+            <input matInput formControlName="startDate" [matDatepicker]="startDate" required>
+            <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+            <mat-datepicker #startDate disabled="false"></mat-datepicker>
+            <mat-error
+              *ngIf="tournamentForm.get('startDate').invalid &&
+            (tournamentForm.get('startDate').dirty ||
+            tournamentForm.get('startDate').touched)"
+            >
+              El campo es requerido.
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
+            <mat-label>Fecha de fin</mat-label>
+            <input matInput formControlName="endDate" [matDatepicker]="endDate" required>
+            <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+            <mat-datepicker #endDate disabled="false"></mat-datepicker>
+            <mat-error
+              *ngIf="tournamentForm.get('endDate').invalid &&
+            (tournamentForm.get('endDate').dirty ||
+            tournamentForm.get('endDate').touched)"
+            >
+              El campo es requerido.
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
+            <mat-label>Categoría</mat-label>
+            <mat-select formControlName="category" required>
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let category of categorias" [value]="category">
+                {{category}}
+              </mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="tournamentForm.get('category').invalid &&
+            (tournamentForm.get('category').dirty ||
+            tournamentForm.get('category').touched)"
+            >
+              El campo es requerido.
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
+            <mat-label>Tipo de equipo</mat-label>
+            <mat-select formControlName="numberOfPlayers" required>
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let tType of tipoTorneo" [value]="tType">
+                {{tType}}
+              </mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="tournamentForm.get('numberOfPlayers').invalid &&
+            (tournamentForm.get('numberOfPlayers').dirty ||
+            tournamentForm.get('numberOfPlayers').touched)"
+            >
+              El campo es requerido.
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+
+
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>Inscripciones</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="row">
+          <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
+            <mat-label>Fecha de inicio</mat-label>
+            <input matInput formControlName="inscriptionStartDate" [matDatepicker]="inscriptionStartDate" required>
+            <mat-datepicker-toggle matSuffix [for]="inscriptionStartDate"></mat-datepicker-toggle>
+            <mat-datepicker #inscriptionStartDate disabled="false"></mat-datepicker>
+            <mat-error
+              *ngIf="tournamentForm.get('inscriptionStartDate').invalid &&
+            (tournamentForm.get('inscriptionStartDate').dirty ||
+            tournamentForm.get('inscriptionStartDate').touched)"
+            >
+              El campo es requerido.
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
+            <mat-label>Fecha de fin</mat-label>
+            <input matInput formControlName="inscriptionEndDate" [matDatepicker]="inscriptionEndDate" required>
+            <mat-datepicker-toggle matSuffix [for]="inscriptionEndDate"></mat-datepicker-toggle>
+            <mat-datepicker #inscriptionEndDate disabled="false"></mat-datepicker>
+            <mat-error
+              *ngIf="tournamentForm.get('inscriptionEndDate').invalid &&
+            (tournamentForm.get('inscriptionEndDate').dirty ||
+            tournamentForm.get('inscriptionEndDate').touched)"
+            >
+              El campo es requerido.
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
+            <mat-label>Cantidad de equipos</mat-label>
+            <input matInput formControlName="numbersOfTeams" readonly>
+          </mat-form-field>
+
+          <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
+            <mat-label>Precio inscripción</mat-label>
+            <input matInput placeholder="0" type="number" class="example-right-align" formControlName="inscriptionCost" required>
+            <span matPrefix>$&nbsp;</span>
+            <span matSuffix>.00</span>
+            <mat-error
+              *ngIf="tournamentForm.get('inscriptionCost').invalid &&
+            (tournamentForm.get('inscriptionCost').dirty ||
+            tournamentForm.get('inscriptionCost').touched)"
+            >
+              El campo es requerido.
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>Premios</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="row">
+          <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
+            <mat-label>Primer premio</mat-label>
+            <input matInput formControlName="prize1" required>
+            <mat-error
+              *ngIf="tournamentForm.get('prize1').invalid &&
+            (tournamentForm.get('prize1').dirty ||
+            tournamentForm.get('prize1').touched)"
+            >
+              El campo es requerido.
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
+            <mat-label>Segundo premio</mat-label>
+            <input matInput formControlName="prize2">
+          </mat-form-field>
+
+          <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
+            <mat-label>Tercer premio</mat-label>
+            <input matInput formControlName="prize3">
+          </mat-form-field>
+
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>Descripción publicitaria</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="row">
+          <mat-form-field appearance="standard" class="col-12">
+            <input matInput formControlName="publicationDescription" required placeholder="Ingrese breve descripción del torneo...">
+            <mat-error
+              *ngIf="tournamentForm.get('publicationDescription').invalid &&
+            (tournamentForm.get('publicationDescription').dirty ||
+            tournamentForm.get('publicationDescription').touched)"
+            >
+              El campo es requerido.
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>Términos y condiciones</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="row">
+          <mat-form-field appearance="standard" class="col-12">
+            <input matInput formControlName="termsAndConditions" required placeholder="Ingrese términos y condiciones...">
+            <mat-error
+              *ngIf="tournamentForm.get('termsAndConditions').invalid &&
+            (tournamentForm.get('termsAndConditions').dirty ||
+            tournamentForm.get('publicationDescription').touched)"
+            >
+              El campo es requerido.
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+
+    <button *ngIf="!tournamentId" mat-flat-button color="primary" type="submit">Crear Campeonato</button>
+
+  </form>
+  <div *ngIf="tournamentId">
+    <button  mat-flat-button (click)="publishTournament()">Publicar</button>
+    <button  mat-flat-button type="submit">Actualizar</button>
+  </div>
+</ng-container>
+
+
+<ng-template #published>
+  YA esta publicado
+
+  {{tournament.creatorClubId}}
+  {{tournament.tournamentName}}
+  {{tournament.publicationDescription}}
+  {{tournament.inscriptionStartDate}}
+  {{tournament.inscriptionEndDate}}
+  {{tournament.startDate}}
+  {{tournament.endDate}}
+  {{tournament.numbersOfTeams}}
+  {{tournament.inscriptionCost}}
+  {{tournament.numberOfPlayers}}
+  {{tournament.category}}
+  {{tournament.termsAndConditions}}
+  {{tournament.prize1}}
+  {{tournament.prize2}}
+  {{tournament.prize3}}
+</ng-template>
+<pre><code>{{ tournamentForm?.value | json }}</code></pre>

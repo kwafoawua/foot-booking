@@ -9,7 +9,6 @@ import { ProfilePlayerComponent } from './profile-player/index';
 import { AuthGuard, LoginGuard } from './_guards/index';
 import { ConfirmationComponent } from './booking-confirmation/confirmation.component';
 import { ResultComponent } from './result/index';
-import { AdminClubComponent } from './admin-club/index';
 import { bookingPlayerComponent } from './booking-player/booking-player.component';
 import { EstadisticasClubComponent } from './estadisticas-club/index';
 import {MainManagementComponent} from './tournament-management/mainManagement.component';
@@ -19,6 +18,9 @@ import {CampeonatoInfoComponent} from './ClubProfileClient/CampeonatoInfo.compon
 
 
 import { FieldsManagementComponent } from './fields-management';
+import { AdminCampeonatoComponent } from './admin-campeonato/admin-campeonato.component';
+import { DefinicionComponent } from './admin-campeonato/definicion/definicion.component';
+import { DetalleCampeonatoComponent } from './admin-campeonato/detalle-campeonato/detalle-campeonato.component';
 import {SiteLayoutComponent} from './_layout/site-layout/site-layout.component';
 import {AdminLayoutComponent} from './_layout/admin-layout/admin-layout.component';
 
@@ -35,8 +37,6 @@ const appRoutes: Routes = [
       { path: 'profile-player/:id', component: ProfilePlayerComponent, canActivate: [ AuthGuard ] },
       { path: 'results', component: ResultComponent },
       { path: 'club/register', component: RegisterClubComponent },
-      { path: 'club/admin', component: AdminClubComponent, canActivate: [ AuthGuard ] },
-      { path: 'club/gestion-canchas', component: FieldsManagementComponent },
       { path: 'player/mis-reservas', component: bookingPlayerComponent },
       { path: 'campeonatos/administrar', component: MainManagementComponent},
       {path: 'campeonato/:id', component: CampeonatoInfoComponent}
@@ -48,6 +48,10 @@ const appRoutes: Routes = [
     children: [
       { path: 'admin', component: EstadisticasClubComponent },
       { path: 'admin/dashboard', component: EstadisticasClubComponent },
+      { path: 'admin/reservas', component: FieldsManagementComponent },
+      { path: 'admin/campeonato', component: AdminCampeonatoComponent },
+      { path: 'admin/campeonato/nuevo', component: DefinicionComponent },
+      { path: 'admin/campeonato/:id', component: DetalleCampeonatoComponent },
     ],
   },
   { path: '**', redirectTo: '' }

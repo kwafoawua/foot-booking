@@ -40,7 +40,6 @@ import { ResultComponent } from './result/index';
 import { SearchService } from './_services/search.service';
 import { BookingService } from './_services/booking.service';
 import { RegisterPlayerComponent } from './register-player/index';
-import { AdminClubComponent } from './admin-club/index';
 import { ProfileClubModule } from './profile-club/profile-club.module';
 import { ProfilePlayerModule } from './profile-player/profile-player.module';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
@@ -75,8 +74,7 @@ import { DestacadosComponent } from './home/destacados/destacados.component';
 import { InputTextComponent } from './common/input-text/input-text.component';
 import { SiteLayoutComponent } from './_layout/site-layout/site-layout.component';
 import { AdminLayoutComponent } from './_layout/admin-layout/admin-layout.component';
-
-
+import { AdminCampeonatoModule } from './admin-campeonato/admin-campeonato.module';
 
 @NgModule({
   imports: [
@@ -109,6 +107,7 @@ import { AdminLayoutComponent } from './_layout/admin-layout/admin-layout.compon
     AngularFirestoreModule,
     AngularFireModule.initializeApp(environment.firebase),
     MaterialModule,
+    AdminCampeonatoModule,
   ],
   declarations: [
     AppComponent,
@@ -121,7 +120,6 @@ import { AdminLayoutComponent } from './_layout/admin-layout/admin-layout.compon
     SiteFooterComponent,
     ProfileClubClientComponent,
     ResultComponent,
-    AdminClubComponent,
     ConfirmationComponent,
     FieldsManagementComponent,
     EstadisticasClubComponent,
