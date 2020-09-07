@@ -10,7 +10,7 @@ import { Comment } from '../../_models/comment';
 import { CommentService } from '../../_services/comment.service';
 import { AuthService } from '../../_services/auth.service';
 import { now } from 'moment';
-import {StorageService} from "../../_services/storage.service";
+import {StorageService} from '../../_services/storage.service';
 
 @Component({
   selector: 'comments',
@@ -27,6 +27,7 @@ export class commentsComponent implements OnInit {
   private club: Club;
   currentUser: any;
   name = '';
+  rol = '';
 
   constructor(
     private clubService: ClubService,
@@ -39,15 +40,16 @@ export class commentsComponent implements OnInit {
     if (user) {
       this.currentUser = user;
       this.name = user.name;
-      this.authenticated = true;
-      console.log('el user', this.name)
+      if (user.rol !== 'Club')
+      {this.authenticated = true; }
+      console.log('el user', user);
     }
   }
 
   ngOnInit() {
     // this.isAuthenticated();
     this.getComentarios();
-    this.getClub(this.route.snapshot.params[ 'id' ]);
+    this.getClub(this.route.snapshot.params.id);
     this.storageService.getStorage('currentUser').subscribe(user => {
       console.log('site header', user);
       if (user.value && Object.keys(user.value).length !== 0) {
@@ -74,7 +76,7 @@ export class commentsComponent implements OnInit {
     this.commentService.create(this.comment).subscribe(data => {
       this.clubComentarios.push(this.comment);
     }, error => {
-      console.log(error)
+      console.log(error);
     });
     this.textComment = '';
     this.getComentarios();
@@ -87,10 +89,10 @@ export class commentsComponent implements OnInit {
   }
 
   private getComentarios() {
-    console.log(this.route.snapshot.params[ 'id' ]);
-    this.commentService.findAllCommentForAClub(this.route.snapshot.params[ 'id' ]).subscribe((comments) => {
+    console.log(this.route.snapshot.params.id);
+    this.commentService.findAllCommentForAClub(this.route.snapshot.params.id).subscribe((comments) => {
       this.clubComentarios = comments;
-      console.log(comments)
+      console.log(comments);
     });
   }
 
