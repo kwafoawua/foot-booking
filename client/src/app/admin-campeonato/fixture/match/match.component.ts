@@ -5,10 +5,14 @@ export interface DialogData {
   match: {
     id: string;
     round: string;
-    team: {
+    teams: [{
       name: string;
       score: string;
-    }
+    },
+      {
+        name: string;
+        score: string;
+      }]
   };
   teamNames: string[];
 }
@@ -44,14 +48,19 @@ export class MatchComponent implements OnInit {
   selector: 'app-match-update-dialog',
   templateUrl: 'match-update-dialog.html',
 })
-export class MatchUpdateDialogComponent {
-
+export class MatchUpdateDialogComponent implements OnInit{
+  match: any;
   constructor(
     public dialogRef: MatDialogRef<MatchUpdateDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
   onNoClick(): void {
     this.dialogRef.close();
+    console.log(this.match);
+  }
+
+  ngOnInit(): void {
+    this.match = this.data.match;
   }
 
 }

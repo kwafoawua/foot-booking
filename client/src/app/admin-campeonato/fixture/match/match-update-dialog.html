@@ -3,15 +3,15 @@
   <div class="row">
     <div class="col-12 col-md-6" >
       <mat-form-field>
-        <mat-select placeholder="Equipo Local">
+        <mat-select placeholder="Equipo Local"  [(ngModel)]="match?.teams[0].name">
           <mat-option value="">Ninguno</mat-option>
-          <mat-option *ngFor="let equipo of data.teamNames" value="{{equipo}}">{{equipo}}</mat-option>
+          <mat-option *ngFor="let equipo of data.teamNames" [value]="equipo">{{equipo}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
     <div class="col-12 col-md-6">
       <mat-form-field>
-        <input matInput type="number" placeholder="Goles">
+        <input matInput [(ngModel)]="match?.teams[0].score" type="number" placeholder="Goles">
       </mat-form-field>
     </div>
   </div>
@@ -19,21 +19,21 @@
   <div class="row">
     <div class="col-12 col-md-6" >
       <mat-form-field>
-        <mat-select placeholder="Equipo Invitado">
+        <mat-select placeholder="Equipo Invitado" [(ngModel)]="match?.teams[1].name">
           <mat-option value="">Ninguno</mat-option>
-          <mat-option *ngFor="let equipo of data.teamNames" value="{{equipo}}">{{equipo}}</mat-option>
+          <mat-option *ngFor="let equipo of data.teamNames" [value]="equipo">{{equipo}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
     <div class="col-12 col-md-6">
       <mat-form-field>
-        <input matInput type="number" placeholder="Goles">
+        <input matInput [(ngModel)]="match?.teams[1].score" type="number" placeholder="Goles">
       </mat-form-field>
     </div>
   </div>
 
 </div>
-<div mat-dialog-actions>
+<mat-dialog-actions align="end">
   <button mat-button (click)="onNoClick()">Cancelar</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Aceptar</button>
-</div>
+  <button mat-button [mat-dialog-close]="match" cdkFocusInitial>Aceptar</button>
+</mat-dialog-actions>
