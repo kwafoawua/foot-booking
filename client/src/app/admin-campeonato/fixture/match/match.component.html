@@ -1,0 +1,9 @@
+<div class="ngtt__match-wrapper">
+  <ng-container *ngFor="let team of match.teams">
+    <div class="ngtt__team-wrapper" (click)="openDialog(match)">
+      <div class="ngtt__team-avatar"></div>
+      <h6 class="ngtt__team-title">{{team.name}}</h6>
+      <div class="ngtt__team-score">{{team.score}}</div>
+    </div>
+  </ng-container>
+</div>

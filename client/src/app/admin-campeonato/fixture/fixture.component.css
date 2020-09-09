@@ -1,0 +1,12 @@
+.ngtt-se__container {
+  background-color: transparent !important;
+}
+.ngtt-se__match-wrapper {
+  width:300px;
+}
+.ngtt-se__match-component-container {
+  width: 250px
+}
+.ngtt-se__round-wrapper {
+  min-width: 300px;
+}

@@ -9,6 +9,10 @@ import { CustomFormsModule } from 'ng2-validation';
 import { DefinicionComponent } from './definicion/definicion.component';
 import { RouterModule } from '@angular/router';
 import { DetalleCampeonatoComponent } from './detalle-campeonato/detalle-campeonato.component';
+import { FixtureComponent } from './fixture/fixture.component';
+import { MatchComponent } from './fixture/match/match.component';
+import { MatchUpdateDialogComponent } from './fixture/match/match.component';
+import { NgTournamentTreeModule } from 'ng-tournament-tree';
 
 
 @NgModule({
@@ -21,12 +25,19 @@ import { DetalleCampeonatoComponent } from './detalle-campeonato/detalle-campeon
     BrowserAnimationsModule,
     CustomFormsModule,
     RouterModule,
+    NgTournamentTreeModule,
   ],
   exports: [],
   declarations: [
     AdminCampeonatoComponent,
     DefinicionComponent,
-    DetalleCampeonatoComponent
+    DetalleCampeonatoComponent,
+    FixtureComponent,
+    MatchComponent,
+    MatchUpdateDialogComponent
+  ],
+  entryComponents: [
+    MatchUpdateDialogComponent
   ]
 })
 export class AdminCampeonatoModule { }

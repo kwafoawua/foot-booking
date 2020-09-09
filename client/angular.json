@@ -24,6 +24,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/ng-tournament-tree/styles/ngtt-styles.scss",
               "src/css/font-awesome.min.css",
               "src/css/animate.css",
               "src/css/owl.carousel.css",
