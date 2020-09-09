@@ -10,3 +10,12 @@
 .ngtt-se__round-wrapper {
   min-width: 300px;
 }
+
+.header-fases {
+  width: 340px;
+  height: 100px;
+  box-shadow: 2px 5px 10px -1px #cccccc;
+  background: white;
+  padding: 10px;
+  text-align: center;
+}

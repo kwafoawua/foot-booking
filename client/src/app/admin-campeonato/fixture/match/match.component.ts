@@ -10,6 +10,7 @@ export interface DialogData {
       score: string;
     }
   };
+  teamNames: string[];
 }
 
 @Component({
@@ -19,7 +20,7 @@ export interface DialogData {
 })
 export class MatchComponent implements OnInit {
   @Input() match: any;
-  @Input() equipos: any;
+  @Input() teamNames: any;
 
   constructor(public dialog: MatDialog) { }
 
@@ -30,7 +31,7 @@ export class MatchComponent implements OnInit {
     console.log(match);
     const dialogRef = this.dialog.open(MatchUpdateDialogComponent, {
       width: '40%',
-      data: this.match
+      data: { match: this.match, teamNames: this.teamNames }
     });
 
     dialogRef.afterClosed().subscribe(result => {

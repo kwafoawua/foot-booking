@@ -4,7 +4,8 @@
     <div class="col-12 col-md-6" >
       <mat-form-field>
         <mat-select placeholder="Equipo Local">
-          <mat-option value="option">Option</mat-option>
+          <mat-option value="">Ninguno</mat-option>
+          <mat-option *ngFor="let equipo of data.teamNames" value="{{equipo}}">{{equipo}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -20,7 +21,7 @@
       <mat-form-field>
         <mat-select placeholder="Equipo Invitado">
           <mat-option value="">Ninguno</mat-option>
-          <mat-option *ngFor="let equipo of data.equipos" value="{{equipo}}">{{equipo}}</mat-option>
+          <mat-option *ngFor="let equipo of data.teamNames" value="{{equipo}}">{{equipo}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -30,8 +31,6 @@
       </mat-form-field>
     </div>
   </div>
-
-  {{ data | json }}
 
 </div>
 <div mat-dialog-actions>
