@@ -2,7 +2,7 @@
   <div class="header-fases">
     <div class="header-info">
       <p>Octavos de final</p>
-      <p *ngIf="!editOctavos">{{(fechaOctavos | date:'shortDate' ) || 'Elegir fecha'}}</p>
+      <p *ngIf="!editOctavos">{{(fechaOctavos | date:'shortDate') || 'Elegir fecha'}}</p>
       <mat-form-field appearance="standard" *ngIf="editOctavos">
         <input matInput [(ngModel)]="fechaOctavos" [matDatepicker]="dpOctavos">
         <mat-datepicker-toggle matSuffix [for]="dpOctavos"></mat-datepicker-toggle>

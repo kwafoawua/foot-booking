@@ -1,4 +1,6 @@
-﻿﻿import { NgModule } from '@angular/core';
+﻿import { registerLocaleData } from '@angular/common';
+
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -14,6 +16,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 import { MaterialModule } from './material.module';
 import { NgTournamentTreeModule } from 'ng-tournament-tree';
+import localeEsAr from '@angular/common/locales/es-AR';
 
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
@@ -75,6 +78,7 @@ import { SiteLayoutComponent } from './_layout/site-layout/site-layout.component
 import { AdminLayoutComponent } from './_layout/admin-layout/admin-layout.component';
 import { AdminCampeonatoModule } from './admin-campeonato/admin-campeonato.module';
 
+registerLocaleData(localeEsAr, 'es-AR');
 @NgModule({
   imports: [
     BrowserModule,
@@ -148,7 +152,8 @@ import { AdminCampeonatoModule } from './admin-campeonato/admin-campeonato.modul
     SearchService,
     BookingService,
     CommentService,
-    TournamentService
+    TournamentService,
+    { provide: LOCALE_ID, useValue: 'es-AR' },
   ],
   bootstrap: [ AppComponent ]
 })
