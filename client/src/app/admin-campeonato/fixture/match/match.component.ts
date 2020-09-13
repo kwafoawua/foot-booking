@@ -5,6 +5,7 @@ export interface IMatch {
   match: {
     id: string;
     round: string;
+    hourDate: string;
     teams: [{
       name: string;
       score: string;
