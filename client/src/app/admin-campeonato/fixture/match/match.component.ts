@@ -1,7 +1,7 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
-export interface DialogData {
+export interface IMatch {
   match: {
     id: string;
     round: string;
@@ -25,6 +25,7 @@ export interface DialogData {
 export class MatchComponent implements OnInit {
   @Input() match: any;
   @Input() teamNames: any;
+  @Output() updateMatch = new EventEmitter<IMatch>();
 
   constructor(public dialog: MatDialog) { }
 
@@ -39,6 +40,7 @@ export class MatchComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      this.updateMatch.emit(result);
       console.log('The dialog was closed', result);
     });
   }
@@ -52,7 +54,7 @@ export class MatchUpdateDialogComponent implements OnInit{
   match: any;
   constructor(
     public dialogRef: MatDialogRef<MatchUpdateDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+    @Inject(MAT_DIALOG_DATA) public data: IMatch) {}
 
   onNoClick(): void {
     this.dialogRef.close();

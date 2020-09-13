@@ -13,9 +13,17 @@
 
 .header-fases {
   width: 340px;
-  height: 100px;
   box-shadow: 2px 5px 10px -1px #cccccc;
   background: white;
   padding: 10px;
-  text-align: center;
+  display: flex;
+  align-items: center;
+}
+
+.header-info {
+  flex-basis: 80%;
+  height: 100px;
+}
+.header-button-icon {
+  flex-basis: 20%;
 }

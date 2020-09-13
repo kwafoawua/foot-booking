@@ -1,8 +1,68 @@
 <div [ngStyle]="{width: '1200px', display: 'flex'}">
-  <div class="header-fases"> OCTAVAS DE FINAL</div>
-  <div class="header-fases"> CUARTOS DE FINAL</div>
-  <div class="header-fases"> SEMIFINALES</div>
-  <div class="header-fases"> FINAL</div>
+  <div class="header-fases">
+    <div class="header-info">
+      <p>Octavos de final</p>
+      <p *ngIf="!editOctavos">{{(fechaOctavos | date:'shortDate' ) || 'Elegir fecha'}}</p>
+      <mat-form-field appearance="standard" *ngIf="editOctavos">
+        <input matInput [(ngModel)]="fechaOctavos" [matDatepicker]="dpOctavos">
+        <mat-datepicker-toggle matSuffix [for]="dpOctavos"></mat-datepicker-toggle>
+        <mat-datepicker #dpOctavos></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="header-button-icon">
+      <button mat-icon-button color="accent" (click)="editOctavos = !editOctavos">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="header-fases">
+    <div class="header-info">
+      <p>Cuartos de final</p>
+      <p *ngIf="!editCuartos">{{fechaCuartos || 'Elegir fecha'}}</p>
+      <mat-form-field appearance="standard" *ngIf="editCuartos">
+        <input matInput [ngModel]="fechaCuartos"  [matDatepicker]="dpCuartos">
+        <mat-datepicker-toggle matSuffix [for]="dpCuartos"></mat-datepicker-toggle>
+        <mat-datepicker #dpCuartos></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="header-button-icon">
+      <button mat-icon-button color="accent" (click)="editCuartos = !editCuartos">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="header-fases">
+    <div class="header-info">
+      <p>Semifinales</p>
+      <p *ngIf="!editSemifinales">{{fechaSemi || 'Elegir fecha'}}</p>
+      <mat-form-field appearance="standard" *ngIf="editSemifinales">
+        <input matInput [ngModel]="fechaSemi"  [matDatepicker]="dpSemifinales">
+        <mat-datepicker-toggle matSuffix [for]="dpSemifinales"></mat-datepicker-toggle>
+        <mat-datepicker #dpSemifinales></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="header-button-icon">
+      <button mat-icon-button color="accent" (click)="editSemifinales = !editSemifinales">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="header-fases">
+    <div class="header-info">
+      <p>Finales</p>
+      <p *ngIf="!editFinales">{{fechaFinal || 'Elegir fecha'}}</p>
+      <mat-form-field appearance="standard" *ngIf="editFinales">
+        <input matInput [ngModel]="fechaFinal"  [matDatepicker]="dpFinales">
+        <mat-datepicker-toggle matSuffix [for]="dpFinales"></mat-datepicker-toggle>
+        <mat-datepicker #dpFinales></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="header-button-icon">
+      <button mat-icon-button color="accent" (click)="editFinales = !editFinales">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
+  </div>
 </div>
 
 
@@ -12,5 +72,5 @@
 </ngtt-single-elimination-tree>
 
 <ng-template #myMatchTemplate let-match>
-  <app-match [teamNames]="teamNames" [match]="match"></app-match>
+  <app-match [teamNames]="teamNames" [match]="match" (updateMatch)="updateMatch($event)"></app-match>
 </ng-template>
