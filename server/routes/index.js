@@ -15,6 +15,7 @@ let commentController = require('../controllers/CommentController');
 let tournamentController = require('../controllers/tournamentController');
 let fieldController = require('../controllers/FieldController');
 let inscriptionController = require('../controllers/inscriptionController');
+let phaseController = require('../controllers/phaseController');
 
 //*User Controller*//
 router.post('/users/authenticate', userController.authenticate);
@@ -79,9 +80,12 @@ router.put('/tournament/:_id', tournamentController.updateTournament);
 router.delete('/tournament/:_id', tournamentController.deleteTournamente);
 router.get('/filterTournaments', tournamentController.filterTournament);
 
-/* Inscription to Tournament Controller*/
+/* Inscription to Tournament Controller */
 router.post('/inscription/enroll', inscriptionController.newTournamentInscription);
 router.get('/inscription/:_id', inscriptionController.getInscription);
 router.get('/inscription/tournament/:tournamentId', inscriptionController.getTournamentInscriptions);
+
+/* Phases routes */
+router.get('/phase/tournaments/:tournamentId', phaseController.getAllPhasesOfTournament);
 
 module.exports = router;

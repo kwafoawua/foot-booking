@@ -3,6 +3,7 @@ const Tournament = require('../models/Tournament');
 const {validationResult} = require("express-validator");
 const tournamentUtils = require('../utils/TournamentUtils');
 const tournamentAdapter = require('../adapters/TournamentResponseAdapter');
+const phasesCreator = require('./phaseController')
 
 /**
  * Create a Tournament
@@ -14,7 +15,6 @@ exports.createTournament = async (req, res) => {
     if (!errors.isEmpty()) {
         return res.status(400).json({errors: errors.array()});
     }
-    // validar duplicados
     const {creatorClubId, tournamentName} = req.body;
     try {
         let tournament = await Tournament.findOne({
@@ -28,7 +28,8 @@ exports.createTournament = async (req, res) => {
         }
         tournament = new Tournament(req.body);
         await tournament.save();
-        await res.json({msg: "Torneo creado exitosamente"});
+        await phasesCreator.createPhases(tournament._id);
+        res.status(200).send({tournament: {...tournament._doc}, msg: 'Torneo creado exitosamente'});
     } catch (error) {
         console.log(error);
         res.status(500).send("Ocurrio un error imprevisto :/");
