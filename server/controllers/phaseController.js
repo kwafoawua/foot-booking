@@ -1,19 +1,20 @@
 const mongoose = require('mongoose');
 const Phase = require('../models/Phase');
-const phaseTemplate = require('../models/const/PhaseTempale')
+const {roundOfSixteen} = require("../models/const/RoundOfSixteen");
+const {quarterFinal} = require("../models/const/QuarterFinal");
+const {semiFinal} = require("../models/const/SemiFinal");
+const {final} = require("../models/const/Final");
 
 /**
  *  Phases creation. This functions creates all the different phases for a Tournament. The phases should be created
  *  with the Tournament creation.
  */
 exports.createPhases = async tournamentId => {
-    await new Phase({tournamentId: tournamentId, ...phaseTemplate.roundOfSixteen}).save();
-    await new Phase({tournamentId: tournamentId, ...phaseTemplate.quarterFinal}).save();
-    await new Phase({tournamentId: tournamentId, ...phaseTemplate.semiFinal}).save();
-    await new Phase({
-        tournamentId: tournamentId, phaseType: 'Tercero y Cuarto puesto', ...phaseTemplate.final
-    }).save();
-    await new Phase({tournamentId: tournamentId, phaseType: 'Final', ...phaseTemplate.final}).save();
+    await new Phase({tournamentId: tournamentId, ...roundOfSixteen}).save();
+    await new Phase({tournamentId: tournamentId, ...quarterFinal}).save();
+    await new Phase({tournamentId: tournamentId, ...semiFinal}).save();
+    await new Phase({tournamentId: tournamentId, phaseType: 'Tercero y Cuarto puesto', ...final}).save();
+    await new Phase({tournamentId: tournamentId, phaseType: 'Final', ...final}).save();
 }
 
 exports.getParticularPhaseByTournamentId = async (req, res) => {
@@ -81,6 +82,5 @@ exports.updateAPhase = async (req, res) => {
     }
 };
 
-exports
 
 // TODO: update multiple phases
