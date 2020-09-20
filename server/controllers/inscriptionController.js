@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
  */
 exports.newTournamentInscription = async (req, res) => {
     try {
+        // TODO -> validar que queden lugares para inscripcion
+        // TODO -> validar que no exista equipo con ese nombre
         let inscription = new TournamentInscription(req.body);
         await inscription.save();
         await res.json({msg: "Inscipcion exitosa."});
