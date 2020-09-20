@@ -88,5 +88,6 @@ router.get('/inscription/tournament/:tournamentId', inscriptionController.getTou
 /* Phases routes */
 router.get('/phase/tournaments/:tournamentId', phaseController.getAllPhasesOfTournament);
 router.get('/phase/shuffleMatches/:tournamentId', phaseController.randomMatchesLink);
+router.put('/phase/updateMatch', phaseController.setResultOfAMatch);
 
 module.exports = router;

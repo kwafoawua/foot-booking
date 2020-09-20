@@ -57,7 +57,7 @@ exports.randomMatchesLink = async (req, res) => {
                     {_id: mongoose.Types.ObjectId('5f669b16fe33b711fc8d74f5')},
                     // en caso de que el front pueda soportar el id de la fase
                     // {"tournamentId": mongoose.Types.ObjectId("5f669b16fe33b711fc8d74f4")}
-                    {"phaseType": "Octavos de final"}
+                    {phaseType: "Octavos de final"}
                 ]
             },
             {
@@ -95,21 +95,16 @@ exports.randomMatchesLink = async (req, res) => {
 }
 
 exports.setResultOfAMatch = async (req, res) => {
-    const {tournamentId, matchId, localgoals, visitorgoals} = req.body;
+    const {tournamentId, matchId, localgoals: localGoals, visitorgoals: visitorGoals} = req.body;
+    //TODO -> si goal es undefined hacerlo 0
     try {
-        await Phase.findOneAndUpdate(
-            {
-                $and: [
-                    {_id: mongoose.Types.ObjectId(tournamentId)},
-                    {matchId: matchId}
-                ]
-            },
-            {
-                $set: [
-                    {'localTeam.goals': localgoals},
-                    {'visitorTeam.goals': visitorgoals}
-                ]
-            });
+        await Phase.findOneAndUpdate({
+            tournamentId: mongoose.Types.ObjectId(tournamentId),
+            'matches.matchId': matchId
+        }, {
+            'matches.$.localTeam.goals': localGoals,
+            'matches.$.visitorTeam.goals': visitorGoals
+        });
         await res.json({msg: "Partido actualizado correctamente"})
     } catch (error) {
         res.status(500).send("Error al intentar actualizar el resultado de un partido", error);
