@@ -1,8 +1,13 @@
   <mat-toolbar color="primary" [class.mobile-toolbar]="mobileQuery.matches">
     <mat-toolbar-row>
-      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="mobileQuery.matches">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
+      <span>Footbooking</span>
+      <span class="spacer"></span>
+      <button mat-stroked-button routerLink="/">Ir al Sitio</button>
+      <img class="profile-image" src="{{uploadsUrl+profileData.profileImg}}" alt="Foto de perfil">
+
     </mat-toolbar-row>
   </mat-toolbar>
 
@@ -15,7 +20,8 @@
           <a mat-list-item routerLink='/admin/reservas'>Reservas</a>
           <a mat-list-item routerLink='/admin/campeonato'>Campeonatos</a>
           <a mat-list-item routerLink='/second'>Perfil</a>
-        </mat-nav-list>    </mat-nav-list>
+        </mat-nav-list>
+      </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content class="content">
       <router-outlet></router-outlet>

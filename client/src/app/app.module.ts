@@ -58,16 +58,10 @@ import { CampeonatoInfoComponent } from './ClubProfileClient/CampeonatoInfo.comp
 import { AgmCoreModule } from '@agm/core';
 import { DpDatePickerModule } from 'ng2-date-picker';
 import { ConfirmationComponent } from './booking-confirmation/confirmation.component';
-import { TournamentDefinitionComponent } from './tournament/tournament-definition/tournament-definition.component';
 import { TournamentService } from './_services/tournament.service';
-import { TournamentStageComponent } from './tournament/tournament-stage/tournament-stage.component';
-import { StageComponent } from './tournament/stage/stage.component';
-import { GameComponent } from './tournament/game/game.component';
-import { TournamentModule } from './tournament/tournament.module';
 import { LoginGuard } from './_guards/login.guard';
 import {ResultadoBusquedaComponent} from './result/resultadoBusqueda.component';
 
-import {MainManagementComponent} from './tournament-management/mainManagement.component';
 
 import { StorageService } from './_services/storage.service';
 import { FieldsArrayModule } from './fields-array/fields-array.module';
@@ -105,7 +99,6 @@ registerLocaleData(localeEsAr, 'es-AR');
     }),
     NgbModule,
     DemoUtilsModule,
-    TournamentModule,
     AngularFireAuthModule,
     AngularFirestoreModule,
     AngularFireModule.initializeApp(environment.firebase),
@@ -130,7 +123,6 @@ registerLocaleData(localeEsAr, 'es-AR');
     bookingPlayerComponent,
     commentsComponent,
     ResultadoBusquedaComponent,
-    MainManagementComponent,
     CardComponent,
     DestacadosComponent,
     InputTextComponent,

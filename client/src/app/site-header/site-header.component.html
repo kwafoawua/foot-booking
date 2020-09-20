@@ -51,18 +51,6 @@
                   Administrador
                 </a>
               </li>
-
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                  Campeonatos
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                  <a class="dropdown-item" [routerLink]="['/campeonato/nuevo']">NUEVO</a>
-                  <a class="dropdown-item" [routerLink]="['/campeonatos/administrar']">ADMINISTRAR</a>
-                </div>
-              </li>
-
             </div>
 
             <div class="navbar-nav" *ngIf="!isClubUser()">

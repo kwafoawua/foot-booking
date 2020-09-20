@@ -11,7 +11,6 @@ import { ConfirmationComponent } from './booking-confirmation/confirmation.compo
 import { ResultComponent } from './result/index';
 import { bookingPlayerComponent } from './booking-player/booking-player.component';
 import { EstadisticasClubComponent } from './estadisticas-club/index';
-import {MainManagementComponent} from './tournament-management/mainManagement.component';
 import {ClubInfoComponent} from './ClubProfileClient/clubInfo.component';
 
 import {CampeonatoInfoComponent} from './ClubProfileClient/CampeonatoInfo.component';
@@ -38,8 +37,7 @@ const appRoutes: Routes = [
       { path: 'results', component: ResultComponent },
       { path: 'club/register', component: RegisterClubComponent },
       { path: 'player/mis-reservas', component: bookingPlayerComponent },
-      { path: 'campeonatos/administrar', component: MainManagementComponent},
-      {path: 'campeonato/:id', component: CampeonatoInfoComponent}
+      { path: 'campeonato/:id', component: CampeonatoInfoComponent }
     ]
   },
   {

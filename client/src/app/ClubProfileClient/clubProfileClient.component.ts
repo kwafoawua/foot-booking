@@ -29,7 +29,7 @@ export class ProfileClubClientComponent{
   hoursArray: string [] = [ '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00', '24:00' ];
   horasOcupadas: string [] = [];
   horasDisponibles: string [] = [];
-  //club: Club;
+  // club: Club;
   galery: string[];
   uploadsBaseURL = environment.uploadsBaseURL;
   NotanUser: boolean;
@@ -112,7 +112,7 @@ export class ProfileClubClientComponent{
   }
 
   mostrameLasReservas() {
-    //this.crearFiltros(this.idField,this.playingDate);
+    // this.crearFiltros(this.idField,this.playingDate);
     console.log('1- Entró al mostrame las reservas. ');
     this.bookingService.findAllBookingsByFieldAndDay(this.bookingFilter)
       .subscribe(hoursBooking => {

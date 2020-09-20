@@ -48,3 +48,15 @@ h1.example-app-name {
   top: 0;
   z-index: 100;
 }
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.profile-image {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background-color: white;
+  margin: 0 1rem;
+}
