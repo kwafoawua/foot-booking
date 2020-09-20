@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const Phase = require('../models/Phase');
+const {shuffleTeamsArray} = require("../common/phaseLogic");
+const {getAllTeamsRegistered} = require("../common/inscriptionLogic");
 const {roundOfSixteen} = require("../models/const/RoundOfSixteen");
 const {quarterFinal} = require("../models/const/QuarterFinal");
 const {semiFinal} = require("../models/const/SemiFinal");
@@ -42,6 +44,46 @@ exports.getAllPhasesOfTournament = async (req, res) => {
         res.status(500).send("Ocurrio un error imprevisto en la obtencion de fases del torneo" + res.params.tournamentId);
     }
 };
+
+/**
+ * Generates all matches to play
+ */
+exports.randomMatchesLink = async (req, res) => {
+    try {
+        let teamsShuffle = shuffleTeamsArray(await getAllTeamsRegistered(req.params.tournamentId));
+        let octavos = await Phase.update({
+                $and: [
+                    {_id: mongoose.Types.ObjectId('5f669b16fe33b711fc8d74f5')},
+                    {"tournamentId": mongoose.Types.ObjectId("5f669b16fe33b711fc8d74f4")}
+                ]
+            },
+            {
+                $set: {
+                    "matches.0.localTeam.teamName": teamsShuffle[0]._doc.team.name,
+                    "matches.0.visitorTeam.teamName": teamsShuffle[1]._doc.team.name,
+                    "matches.1.localTeam.teamName": teamsShuffle[2]._doc.team.name,
+                    "matches.1.visitorTeam.teamName": teamsShuffle[3]._doc.team.name,
+                    "matches.2.localTeam.teamName": teamsShuffle[4]._doc.team.name,
+                    "matches.2.visitorTeam.teamName": teamsShuffle[5]._doc.team.name,
+                    "matches.3.localTeam.teamName": teamsShuffle[6]._doc.team.name,
+                    "matches.3.visitorTeam.teamName": teamsShuffle[7]._doc.team.name,
+                    "matches.4.localTeam.teamName": teamsShuffle[8]._doc.team.name,
+                    "matches.4.visitorTeam.teamName": teamsShuffle[9]._doc.team.name,
+                    "matches.5.localTeam.teamName": teamsShuffle[10]._doc.team.name,
+                    "matches.5.visitorTeam.teamName": teamsShuffle[11]._doc.team.name,
+                    "matches.6.localTeam.teamName": teamsShuffle[12]._doc.team.name,
+                    "matches.6.visitorTeam.teamName": teamsShuffle[13]._doc.team.name,
+                    "matches.7.localTeam.teamName": teamsShuffle[14]._doc.team.name,
+                    "matches.7.visitorTeam.teamName": teamsShuffle[15]._doc.team.name,
+                }
+            })
+
+        //cambiar el state de la fase
+        await res.json(octavos);
+    } catch (error) {
+        res.status(500).send("No se pudo sortear los partidos, ocurrio un error interno en randomMatchesLink");
+    }
+}
 
 exports.setResultOfAMatch = async (req, res) => {
     const {tournamentId, matchId, localgoals, visitorgoals} = req.body;

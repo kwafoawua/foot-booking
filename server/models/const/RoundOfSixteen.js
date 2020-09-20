@@ -2,28 +2,28 @@ exports.roundOfSixteen = {
     phaseType: 'Octavos de final',
     matches: [{
         matchId: 'P1M1',
-            localTeam: {
-                teamName: 'team1',
-                goals: undefined
-            },
-            visitorTeam: {
-                teamName: 'team2',
-                goals: undefined
-            },
-            dateToPlay: undefined,
-            state: 'Sin asignar',
+        localTeam: {
+            teamName: 'team1',
+            goals: undefined
+        },
+        visitorTeam: {
+            teamName: 'team2',
+            goals: undefined
+        },
+        dateToPlay: undefined,
+        state: 'Sin asignar',
     }, {
-            matchId: 'P1M2',
-            localTeam: {
-                teamName: 'team3',
-                goals: undefined
-            },
-            visitorTeam: {
-                teamName: 'team4',
-                goals: undefined
-            },
-            dateToPlay: undefined,
-            state: 'Sin asignar',
+        matchId: 'P1M2',
+        localTeam: {
+            teamName: 'team3',
+            goals: undefined
+        },
+        visitorTeam: {
+            teamName: 'team4',
+            goals: undefined
+        },
+        dateToPlay: undefined,
+        state: 'Sin asignar',
     }, {
         matchId: 'P1M3',
         localTeam: {
