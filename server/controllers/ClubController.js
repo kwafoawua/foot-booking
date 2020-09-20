@@ -5,6 +5,7 @@
  */
 const _ = require('lodash');
 const Club = require('../models/Club');
+const Tournament = require('../models/Tournament');
 const utils = require('../utils');
 
 var mailingController = require('./mailing');
@@ -61,6 +62,7 @@ async function addClub (club, profilePath, galleryPath) {
 
 module.exports.findById = async function(req, res) {
     try {
+        // let tournament = await Tournament.
         const club = await Club.findById(req.params._id).exec();
         res.status(200).send(club);
     } catch(error) {
@@ -72,8 +74,6 @@ module.exports.findById = async function(req, res) {
 /**
  * Show all Clubs
  */
-
-
 module.exports.findAllClubs = function(req, res) {
 
     Club.find(function(err, clubs) {
