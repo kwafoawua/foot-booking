@@ -102,8 +102,9 @@ exports.setResultOfAMatch = async (req, res) => {
             tournamentId: mongoose.Types.ObjectId(tournamentId),
             'matches.matchId': matchId
         }, {
-            'matches.$.localTeam.goals': localGoals,
-            'matches.$.visitorTeam.goals': visitorGoals
+            ...(localGoals && {'matches.$.localTeam.goals': localGoals}),
+            ...(visitorGoals && {'matches.$.visitorTeam.goals': visitorGoals}),
+            'matches.$.state': "Finalizado"
         });
         await res.json({msg: "Partido actualizado correctamente"})
     } catch (error) {
@@ -111,22 +112,21 @@ exports.setResultOfAMatch = async (req, res) => {
     }
 };
 
-exports.updateAPhase = async (req, res) => {
-    const {tournamentId, matchId} = req.body;
+exports.updatePhaseTeams = async (req, res) => {
+    const {tournamentId, matchId, localteam: localTeam, visitorteam: visitorTeam} = req.body;
     try {
-        await Phase.findOneAndUpdate(
-            {
-                $and: [
-                    {_id: mongoose.Types.ObjectId(tournamentId)},
-                    {matchId: matchId}
-                ]
+        await Phase.findOneAndUpdate({
+                tournamentId: mongoose.Types.ObjectId(tournamentId),
+                'matches.matchId': matchId
             },
-            {$set: req.body}
+            {
+                ...(localTeam && {'matches.$.localTeam.teamName': localTeam}),
+                ...(visitorTeam && {'matches.$.visitorTeam.teamName': visitorTeam}),
+                'matches.$.state': "Pendiente de Juego"
+            }
         );
+        await res.json({msg: "Partido actualizado correctamente"})
     } catch (error) {
         res.status(500).send("Error al intentar actualizar una fase", error);
     }
 };
-
-
-// TODO: update multiple phases
