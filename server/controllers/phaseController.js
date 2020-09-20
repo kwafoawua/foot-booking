@@ -54,7 +54,9 @@ exports.randomMatchesLink = async (req, res) => {
         let octavos = await Phase.update({
                 $and: [
                     {_id: mongoose.Types.ObjectId('5f669b16fe33b711fc8d74f5')},
-                    {"tournamentId": mongoose.Types.ObjectId("5f669b16fe33b711fc8d74f4")}
+                    // en caso de que el front pueda soportar el id de la fase
+                    // {"tournamentId": mongoose.Types.ObjectId("5f669b16fe33b711fc8d74f4")}
+                    {"phaseType": "Octavos de final"}
                 ]
             },
             {
