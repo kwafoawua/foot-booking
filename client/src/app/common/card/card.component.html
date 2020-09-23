@@ -12,7 +12,9 @@
 
     <div class="col col-md-12">
       <div class="card-body">
-        <h5 class="card-title"><a [routerLink]="['/results/club/',club?._id]">{{club?.name}}</a></h5>
+        <h5 class="card-title ">
+          <a class="text-secondary" [routerLink]="['/results/club/',club?._id]">{{club?.name}}</a>
+        </h5>
         <p class="card-text">
           <i class="fa fa-2x fa-map-marker"></i>{{club.address.shortAddress || ''}}
         </p>
@@ -26,11 +28,11 @@
           </ul>
         </div>
 
-        <div id="capeonatos" *ngIf="torneo == true">
-          <ul class="service-list">
-            <img src="../../../../../../../../../Downloads/pngwave.png"/>
-          </ul>
-        </div>
+<!--        <div id="capeonatos" *ngIf="torneo == true">-->
+<!--          <ul class="service-list">-->
+<!--            <img src="../../../../../../../../../Downloads/pngwave.png"/>-->
+<!--          </ul>-->
+<!--        </div>-->
 
         <div class="social-media">
           <ul class="icon-list">
