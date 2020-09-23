@@ -49,14 +49,13 @@ exports.getAllPhasesOfTournament = async (req, res) => {
  * Generates all matches to play
  */
 exports.randomMatchesLink = async (req, res) => {
+    const PENDING_GAME = "Pendiente de Juego";
     try {
         // TODO -> no ejecutarse si al menos un partido se jugo
         let teamsShuffle = shuffleTeamsArray(await getAllTeamsRegistered(req.params.tournamentId));
-        await Phase.update({
+        let phases = await Phase.findOneAndUpdate({
                 $and: [
-                    {_id: mongoose.Types.ObjectId('5f669b16fe33b711fc8d74f5')},
-                    // en caso de que el front pueda soportar el id de la fase
-                    // {"tournamentId": mongoose.Types.ObjectId("5f669b16fe33b711fc8d74f4")}
+                    {"tournamentId": mongoose.Types.ObjectId(req.params.tournamentId)},
                     {phaseType: "Octavos de final"}
                 ]
             },
@@ -64,31 +63,34 @@ exports.randomMatchesLink = async (req, res) => {
                 $set: {
                     'matches.0.localTeam.teamName': teamsShuffle[0]._doc.team.name,
                     'matches.0.visitorTeam.teamName': teamsShuffle[1]._doc.team.name,
-                    'matches.0.state': "Pendiente de Juego",
+                    'matches.0.state': PENDING_GAME,
                     'matches.1.localTeam.teamName': teamsShuffle[2]._doc.team.name,
                     'matches.1.visitorTeam.teamName': teamsShuffle[3]._doc.team.name,
-                    'matches.1.state': "Pendiente de Juego",
+                    'matches.1.state': PENDING_GAME,
                     'matches.2.localTeam.teamName': teamsShuffle[4]._doc.team.name,
                     'matches.2.visitorTeam.teamName': teamsShuffle[5]._doc.team.name,
-                    'matches.2.state': "Pendiente de Juego",
+                    'matches.2.state': PENDING_GAME,
                     'matches.3.localTeam.teamName': teamsShuffle[6]._doc.team.name,
                     'matches.3.visitorTeam.teamName': teamsShuffle[7]._doc.team.name,
-                    'matches.3.state': "Pendiente de Juego",
+                    'matches.3.state': PENDING_GAME,
                     'matches.4.localTeam.teamName': teamsShuffle[8]._doc.team.name,
                     'matches.4.visitorTeam.teamName': teamsShuffle[9]._doc.team.name,
-                    'matches.4.state': "Pendiente de Juego",
+                    'matches.4.state': PENDING_GAME,
                     'matches.5.localTeam.teamName': teamsShuffle[10]._doc.team.name,
                     'matches.5.visitorTeam.teamName': teamsShuffle[11]._doc.team.name,
-                    'matches.5.state': "Pendiente de Juego",
+                    'matches.5.state': PENDING_GAME,
                     'matches.6.localTeam.teamName': teamsShuffle[12]._doc.team.name,
                     'matches.6.visitorTeam.teamName': teamsShuffle[13]._doc.team.name,
-                    'matches.6.state': "Pendiente de Juego",
+                    'matches.6.state': PENDING_GAME,
                     'matches.7.localTeam.teamName': teamsShuffle[14]._doc.team.name,
                     'matches.7.visitorTeam.teamName': teamsShuffle[15]._doc.team.name,
-                    'matches.7.state': "Pendiente de Juego",
+                    'matches.7.state': PENDING_GAME,
                 }
-            });
-        await res.json("Generación de sorteo para torneo de 16 realizada exitosamente");
+            }, {new: true});
+        await res.status(200).send({
+            phases: {...phases._doc},
+            msg: "Generación de sorteo para torneo de 16 realizada exitosamente"
+        });
     } catch (error) {
         res.status(500).send("No se pudo sortear los partidos, ocurrio un error interno en randomMatchesLink");
     }
@@ -102,8 +104,9 @@ exports.setResultOfAMatch = async (req, res) => {
             tournamentId: mongoose.Types.ObjectId(tournamentId),
             'matches.matchId': matchId
         }, {
-            'matches.$.localTeam.goals': localGoals,
-            'matches.$.visitorTeam.goals': visitorGoals
+            ...(localGoals && {'matches.$.localTeam.goals': localGoals}),
+            ...(visitorGoals && {'matches.$.visitorTeam.goals': visitorGoals}),
+            'matches.$.state': "Finalizado"
         });
         await res.json({msg: "Partido actualizado correctamente"})
     } catch (error) {
@@ -111,22 +114,21 @@ exports.setResultOfAMatch = async (req, res) => {
     }
 };
 
-exports.updateAPhase = async (req, res) => {
-    const {tournamentId, matchId} = req.body;
+exports.updatePhaseTeams = async (req, res) => {
+    const {tournamentId, matchId, localteam: localTeam, visitorteam: visitorTeam} = req.body;
     try {
-        await Phase.findOneAndUpdate(
-            {
-                $and: [
-                    {_id: mongoose.Types.ObjectId(tournamentId)},
-                    {matchId: matchId}
-                ]
+        await Phase.findOneAndUpdate({
+                tournamentId: mongoose.Types.ObjectId(tournamentId),
+                'matches.matchId': matchId
             },
-            {$set: req.body}
+            {
+                ...(localTeam && {'matches.$.localTeam.teamName': localTeam}),
+                ...(visitorTeam && {'matches.$.visitorTeam.teamName': visitorTeam}),
+                'matches.$.state': "Pendiente de Juego"
+            }
         );
+        await res.json({msg: "Partido actualizado correctamente"})
     } catch (error) {
         res.status(500).send("Error al intentar actualizar una fase", error);
     }
 };
-
-
-// TODO: update multiple phases
