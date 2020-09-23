@@ -23,7 +23,10 @@ export class ConfirmationComponent implements OnInit {
   reservaFinal: any = {};
   loading = true;
   confirmado = false;
-
+  currentUser: any;
+  name = '';
+  lastName = '';
+  cel = '';
 
   // subscription: Subscription;
 
@@ -34,7 +37,16 @@ export class ConfirmationComponent implements OnInit {
     private clubService: ClubService,
     private alertService: AlertService,
     private router: Router
-  ) {}
+  ) {
+    const user = JSON.parse(localStorage.getItem(('currentUser')));
+    if (user) {
+      this.currentUser = user;
+      this.name = user.name;
+      this.lastName = user.lastName;
+      this.cel = user.email;
+    }
+  }
+
 
   ngOnInit() {
     this.booking = ClubService.obtenerBooking();

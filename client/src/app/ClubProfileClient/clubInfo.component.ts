@@ -35,7 +35,7 @@ export class ClubInfoComponent implements OnInit{
 
   getMyTournament(){
     this.tournamentService.getMyTournaments(this.route.snapshot.params.id).subscribe((data: any) => {
-      this.myTournament = data.tournament; console.log('los datos oiiiopiopiopiopoiioioiop ' + this.myTournament.valueOf());
+      this.myTournament = data.tournament; console.log('los datos oiiiopiopiopiopoiioioiop ' + this.myTournament.values());
     }, error => console.log(error));
 // //  this.collectionSize = this.myListTournament.length;
 //     console.log('this.tournament' + this.myTournament);

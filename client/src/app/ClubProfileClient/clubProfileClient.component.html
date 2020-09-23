@@ -1,91 +1,95 @@
-<div class="contact-seller widget">
-     <div *ngFor="let field of club?.fields; let i = index">
-       <div class="card effect7" style="width: 100%">
-         <div class="row no-gutters">
 
-           <div class="card-body">
-
-             <h5 class="card-title">
-               {{field?.fieldName | uppercase}}
-               <span class="pull-right">
-                 <i class="fa fa-plus"></i>
-               </span>
-             </h5>
-
-             <!--         <div id="{{i}}" class="panel-collapse collapse">-->
-                  <!-- panel-body -->
-
-             <div class="row">
-                      <div class="col-sm-3">
-                        Cantidad de jugadores
-                      </div>
-                      <div class="col" [attr.id]="'cantPlayers'+i">
-                        <b>{{field?.cantPlayers}}</b>
-                      </div>
-                    </div>
-
-             <div class="row">
-                      <div class="col-sm-3">
-                        Tipo de suelo
-                      </div>
-                      <div class="col">
-                        <b>{{field.fieldType}}</b>
-                      </div>
-                    </div>
-
-             <div class="row">
-                      <div class="col-sm-3">
-                        Costo total
-                      </div>
-                      <div class="col">
-                        <b>$ {{field?.price}}</b>
-                      </div>
-                    </div>
-
-             <div class="row">
-                      <div class="col-sm-3">
-                        Servicios que incluye:
-                      </div>
-                      <div class="col">
-                        <ul class="list-inline ">
-                          <li class="list-inline-item" *ngFor="let serv of field?.services"><b>{{serv?.display}}</b>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-
-             <div class="row">
-                      <div class="col-6 col-md-4">
-                        <label class="label-form row" for="datePicker5">Fecha de juego(*)</label>
-                        <input (ngModelChange)="loadHoursValues($event,field)"
-                               class="form-group  dropdown category-dropdown form-control" [dpDayPicker]="config"
-                               name="datePicker" placeholder="DD-MM-AAAA"
-                               id="calendar" inputElementConteiner="#inputConteiner" theme="dp-material"
-                               [(ngModel)]="date[i]">
-                      </div>
+     <mat-card *ngFor="let field of club?.fields; let i = index">
+       <mat-card-subtitle> {{field?.fieldName | uppercase}}</mat-card-subtitle>
+       <mat-card-content>
+         <div class="row">
+           <div class="col">
+             Cantidad de jugadores
+           </div>
+           <div class="col"  [attr.id]="'cantPlayers'+i">
+             <b>{{field?.cantPlayers}}</b>
+           </div>
+         </div>
+         <div class="row">
+           <div class="col">
+             Tipo de suelo
+           </div>
+           <div class="col">
+             <b>{{field.fieldType}}</b>
+           </div>
+         </div>
+         <div class="row">
+           <div class="col">
+             Costo Alquiler
+           </div>
+           <div class="col">
+             <b>$ {{field?.price}}</b>
+           </div>
+         </div>
 
 
-                      <div class="col-6 col-md-4">
-                        <label class="label-form row dropdown" for="datePicker6">Hora de juego(*)</label>
-                        <select name="category-group" id="category-group" class="form-control"
-                                [(ngModel)]="selectedTime[i]">
-                          <option value="Seleccione">Seleccione</option>
-                          <option *ngFor="let hora of horasDisponibles">{{hora}}</option>
-                        </select>
-                      </div>
+         <div class="row">
+           <div class="col">
+             Servicios que incluye:
+           </div>
+           <div class="col">
+             <ul class="list-inline-item" *ngFor="let serv of field?.services">
+               <span class="list-inline-item badge fb-secondary-bg"> {{serv.display}}</span>
+             </ul>
+           </div>
+         </div>
 
-                      <div class="col-6 col-md-4">
-                        <button (click)="reservar(field, i)" align="right" type="button" class="btn btn-primary"
-                                data-toggle="modal" data-target="#myModal">Reservar
-                        </button>
-                      </div>
-                    </div>
 
-           </div><!-- panel-body -->
-<!--         </div>-->
+         <div class="row">
+           <div class="col">
 
-       </div><!-- advanced-filter -->
-       </div>
-     </div>
-</div>
+             <mat-form-field>
+               <input matInput [matDatepicker]="picker" placeholder="Elegi una fecha"
+                      [min]="minDate" [(ngModel)]="date[i]"
+                      (dateInput)="loadHoursValues('input', $event)" (dateChange)="loadHoursValues('change', $event)">
+               <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+               <mat-datepicker #picker></mat-datepicker>
+             </mat-form-field>
+
+           </div>
+             <!--                        <label class="label-form row" for="datePicker5">Fecha de juego(*)</label>-->
+             <!--                        <input (ngModelChange)="loadHoursValues($event,field)"-->
+             <!--                               class="form-group  dropdown category-dropdown form-control" [dpDayPicker]="config"-->
+             <!--                               name="datePicker" placeholder="DD-MM-AAAA"-->
+             <!--                               id="calendar" inputElementConteiner="#inputConteiner" theme="dp-material"-->
+             <!--                               [(ngModel)]="date[i]">-->
+             <!--                      </div>-->
+
+           <div class="col">
+             <mat-form-field>
+               <mat-select placeholder="Hora" [(ngModel)]="selectedTime[i]">
+                 <mat-option value="Seleccione">Seleccione</mat-option>
+                 <mat-option value="{{hora}}}" *ngFor="let hora of horasDisponibles">{{hora}}</mat-option>
+               </mat-select>
+             </mat-form-field>
+           </div>
+
+
+             <!--                      <div class=".col-xs-6 .col-md-4">-->
+             <!--                        <label class="label-form row dropdown" for="datePicker6">Hora de juego(*)</label>-->
+             <!--                        <select name="category-group" id="category-group" class="form-control"-->
+             <!--                                [(ngModel)]="selectedTime[i]">-->
+             <!--                          <option value="Seleccione">Seleccione</option>-->
+             <!--                          <option *ngFor="let hora of horasDisponibles">{{hora}}</option>-->
+             <!--                        </select>-->
+             <!--                      </div>-->
+
+           <div class="col">
+               <button (click)="reservar(field, i)" align="right" type="button" class="btn btn-success"
+                       data-toggle="modal" data-target="#myModal">Reservar
+               </button>
+             </div>
+
+
+         </div><!-- panel-body -->
+
+       </mat-card-content>
+
+     </mat-card>
+
 

@@ -16,25 +16,22 @@
         <p class="card-text">
           <i class="fa fa-2x fa-map-marker"></i>{{club.address.shortAddress || ''}}
         </p>
-        <div id="fieldTypes">
-          <ul class="field-types">
-            <li class="badge fb-secondary-bg" *ngFor="let fieldType of fieldTypes" >
-              {{fieldType}}
-            </li>
-          </ul>
-        </div>
+
+
         <div id="services">
-          <ul class="service-list" *ngFor="let service of club?.services">
-            <li class="badge">{{service.display}}</li>
-          </ul>
-        </div>
-        <div id="capeonatos" *ngIf="torneo == true">
-          <ul class="service-list">
-              <img src="../../assets/icon/trophy-64"/>
+          <ul class="list-inline-item" *ngFor="let service of club?.services">
+
+               <span class="list-inline-item badge fb-secondary-bg"> {{service.display}}</span>
+
           </ul>
         </div>
 
-        <ul></ul>
+        <div id="capeonatos" *ngIf="torneo == true">
+          <ul class="service-list">
+            <img src="../../../../../../../../../Downloads/pngwave.png"/>
+          </ul>
+        </div>
+
         <div class="social-media">
           <ul class="icon-list">
             <li *ngIf="(club.socialMedia?.facebookId)" class="icon">
@@ -54,14 +51,8 @@
             </li>
           </ul>
         </div>
+
       </div>
     </div>
   </div>
-
-
-
-
-
-
-
 </div>

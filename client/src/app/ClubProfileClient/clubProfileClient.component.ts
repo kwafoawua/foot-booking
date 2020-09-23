@@ -33,6 +33,8 @@ export class ProfileClubClientComponent{
   galery: string[];
   uploadsBaseURL = environment.uploadsBaseURL;
   NotanUser: boolean;
+  minDate = new Date(2020, 0, 1);
+
 
   booking1: Booking = new Booking();
   selectedField: Field = new Field();

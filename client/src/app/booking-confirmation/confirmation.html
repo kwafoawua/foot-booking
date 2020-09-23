@@ -28,13 +28,13 @@
                   <label class="col-md-1"> Nombre </label>
                 </div>
                 <div class="col">
-                  <label class="col-md-10"> <b>{{player?.name | uppercase}}</b></label>
+                  <label class="col-md-10"> <b>{{name | uppercase}}</b></label>
                 </div>
                 <div class="col-md-1">
                   <label class="col-md-1"> Apellido </label>
                 </div>
                 <div class="col">
-                  <label class="col-md-10"> <b>{{player?.lastName | uppercase}} </b></label>
+                  <label class="col-md-10"> <b>{{lastName | uppercase}} </b></label>
                 </div>
                 <div class="col-md-1">
                   <label class="col-md-1">Teléfono </label>
@@ -58,7 +58,7 @@
                   Fecha
                 </div>
                 <div class="col-sm">
-                  <b>  {{booking.dateBook}}</b>
+                  <b>  {{booking.dateBook | date:"dd/MM/yy"}}</b>
                 </div>
                 <div class="col-sm-2">
                   Hora

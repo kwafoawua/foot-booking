@@ -99,7 +99,7 @@
               <div class="widget item-tag" *ngIf="myTournament.length > 0">
                 <h4>CAMPEONATOS</h4>
                 <ul class="list-inline" *ngFor="let i of myTournament">
-                  <li class="list-inline-item"  [routerLink]="['/campeonato',i._id]">
+                  <li  *ngIf="i.state === 'Publicado' || i.state === 'Iniciado' " class="list-inline-item"  [routerLink]="['/campeonato',i._id]">
                     <a>{{i.tournamentName | uppercase}}</a>
                   </li>
                 </ul>

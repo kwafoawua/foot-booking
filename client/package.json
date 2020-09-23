@@ -49,6 +49,7 @@
     "ng2-material-dropdown": "^0.9.0",
     "ng2-validation": "^4.2.0",
     "ngx-chips": "^1.7.5",
+    "node-pre-gyp": "^0.15.0",
     "popper.js": "^1.16.1",
     "rxjs": "^6.1.10",
     "traceur": "0.0.111",

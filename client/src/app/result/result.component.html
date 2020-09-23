@@ -24,31 +24,23 @@
                     </mat-autocomplete>
                   </mat-form-field>
 <!--precio minimo y maximo-->
+                  <mat-form-field class="example-form-field">
+                    <input matInput type="number" class="form-control" min="0"
+                           title="precio mínimo" placeholder="precio mínimo" value=""
+                           [(ngModel)]="minPrice">
+                    <button mat-button *ngIf="minPrice" matSuffix mat-icon-button aria-label="Clear" (click)="minPrice=''">
+                      <mat-icon>close</mat-icon>
+                    </button>
+                  </mat-form-field>
 
-                  <table class="example-full-width" cellspacing="0">
-                    <tr>
-                      <td>
-                        <mat-form-field class="example-form-field">
-                          <input matInput type="number" class="form-control" min="0"
-                                 title="precio mínimo" placeholder="min" value=""
-                                 [(ngModel)]="minPrice">
-                          <button mat-button *ngIf="minPrice" matSuffix mat-icon-button aria-label="Clear" (click)="minPrice=''">
-                            <mat-icon>close</mat-icon>
-                          </button>
-                        </mat-form-field>
-                      </td>
-                      <td>
-                        <mat-form-field class="example-form-field">
-                          <input matInput type="number" class="form-control" min="0"
-                                 title="precio máximo" placeholder="max" value=""
-                                 [(ngModel)]="maxPrice">
-                          <button mat-button *ngIf="maxPrice" matSuffix mat-icon-button aria-label="Clear" (click)="maxPrice=''">
-                            <mat-icon>close</mat-icon>
-                          </button>
-                        </mat-form-field>
-                      </td>
-                    </tr>
-                  </table>
+                  <mat-form-field class="example-form-field">
+                    <input matInput type="number" class="form-control" min="0"
+                           title="precio máximo" placeholder="precio máximo" value=""
+                           [(ngModel)]="maxPrice">
+                    <button mat-button *ngIf="maxPrice" matSuffix mat-icon-button aria-label="Clear" (click)="maxPrice=''">
+                      <mat-icon>close</mat-icon>
+                    </button>
+                  </mat-form-field>
 
 <!--SERVICIOS-->
                   <mat-expansion-panel>
@@ -65,11 +57,9 @@
                     </ul>
                   </mat-expansion-panel>
 
-
-                  <mat-divider></mat-divider>
                   <div class="button-row">
                     <button mat-raised-button color="primary"
-                            (click)="buscarClubsPorFiltros()">Actualizar búsqueda
+                            (click)="buscarClubsPorFiltros()" >Actualizar búsqueda
                     </button>
                   </div>
 
