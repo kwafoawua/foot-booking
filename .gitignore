@@ -43,3 +43,4 @@ client/src/app/**/*.js.map
 .idea
 uploads
 server/uploads/*
+client/false
