@@ -6,12 +6,17 @@
 
         <mat-card>
                   <div class="row">
-                    <mat-card-title> {{torneo.tournamentName}}</mat-card-title>
+                    <mat-card-title class="text-justify"> {{torneo.tournamentName}}</mat-card-title>
                   </div>
           <mat-card-content>
                   <div class="row">
                     {{torneo.publicationDescription}}
                   </div>
+          </mat-card-content>
+
+
+
+          <mat-card-content>
             <div class="row">
                   <div class="col-8 col-sm-8">
                     <div class="row">
@@ -36,13 +41,59 @@
 
                       </div>
                     </div>
+                    <div class="row">
+                      <div class="col">
+                        Cantidad de jugadores por equipo
+                      </div>
+                      <div class="col">
+                        <strong>{{torneo.numberOfPlayers}}</strong>
+                      </div>
+                      <div class="col">
+
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        Total de equipos
+                      </div>
+                      <div class="col">
+                        <strong>{{torneo.numbersOfTeams}}</strong>
+                      </div>
+                      <div class="col">
+
+                      </div>
+                    </div>
                   </div>
 
-                    <div class="col-4 col-sm-4">
+                    <div class="col-6 col-sm-4">
+                      <div class="row">
+                        <div class="col">
+                          <div *ngIf="torneo.prize1">
+                          <img *ngIf="torneo.prize1" src="../../assets/icons/medal-first-place-96.png" height="96" width="96"/>
+                         {{torneo.prize1}}</div>
+                        </div>
+
+                        <div class="col">
+                          <img *ngIf="torneo.prize2" src="../../assets/icons/medal-second-place-96.png" height="96" width="96"/>
+                          <div *ngIf="torneo.prize2">{{torneo.prize2}}</div>
+                        </div>
+
+
+                        <div class="col">
+                          <img *ngIf="torneo.prize3" src="../../assets/icons/medal-third-place-96.png" height="96" width="96"/>
+                          <div *ngIf="torneo.prize3">{{torneo.prize3}}</div>
+                        </div>
+
+
+
+                      </div>
+
+                      <div class="row">
                       <div *ngIf="torneo.state == 'Publicado'">
                         <div class="alert alert-success" role="alert">
                           <h4 class="alert-heading">Inscribite ya por {{torneo.inscriptionCost}}</h4>
                         </div>
+                      </div>
                       </div>
                     </div>
 
@@ -54,6 +105,9 @@
       </div>
     </div>
   </div>
+    <div *ngIf="torneo.state == 'Publicado'">
+      <camp-insc [torneo]="this.torneo"></camp-insc>
+    </div>
 </div>
 
-<camp-insc [torneo]="this.torneo"></camp-insc>
+
