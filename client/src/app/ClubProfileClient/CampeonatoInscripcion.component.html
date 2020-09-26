@@ -1,0 +1,72 @@
+<div class="page container">
+
+  <div class="all-categories section">
+    <div class="container">
+      <div class="ad-details">
+
+        <h4>{{torneo.tournamentName}}</h4>
+
+        <mat-horizontal-stepper [linear]="isLinear" #stepper>
+          <!--              PASO 1-->
+          <mat-step >
+            <ng-template matStepLabel>Descripción</ng-template>
+            <div class="row">
+              {{torneo.publicationDescription}}
+            </div>
+            <div>
+              <button mat-button matStepperNext>Siguiente</button>
+            </div>
+          </mat-step>
+          <!--PASO 2-->
+          <mat-step [stepControl]="inscripcionForm" completed>
+
+            <form class="example-container" [formGroup]="inscripcionForm">
+              <ng-template matStepLabel>Responsabe de equipo</ng-template>
+
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Nombre de equipo" formControlName="nombreEquipo" class="form-control" type="text">
+              </mat-form-field>
+
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Nombre de responsable" formControlName="nombreResponsable" class="form-control" type="text">
+              </mat-form-field>
+
+              <!--                    <mat-form-field class="example-full-width">-->
+              <!--                      <input matInput placeholder="Apellido de responsable" formControlName="apellidoResponsable" class="form-control" type="text">-->
+              <!--                    </mat-form-field>-->
+              <!--                    <mat-form-field class="example-full-width">-->
+              <!--                      <input matInput placeholder="Email" formControlName="email" class="form-control" type="text">-->
+              <!--                    </mat-form-field>-->
+
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Telefono" formControlName="telefono" class="form-control" type="number">
+              </mat-form-field>
+
+              <div>
+                <button mat-button matStepperPrevious>Anterior</button>
+                <button mat-button matStepperNext >Siguiente</button>
+              </div>
+            </form>
+
+          </mat-step>
+          <!--              PASO 3 -->
+          <mat-step >
+            <ng-template matStepLabel>Pago</ng-template>
+            Casi esta listo!
+            <p>
+              <mat-checkbox>
+                <a>Acepto términos y condiciones</a>
+              </mat-checkbox>
+            </p>
+            <div>
+              <button mat-button matStepperPrevious>Anterior</button>
+              <button mat-button (click)="Inscribir()">Finalizar</button>
+            </div>
+          </mat-step>
+        </mat-horizontal-stepper>
+
+
+      </div>
+    </div>
+  </div>
+</div>
