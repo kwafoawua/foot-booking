@@ -1,14 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { Field } from '../_models/field';
-import { Club } from '../_models/club';
 import { ClubService } from '../_services/index';
 import { Booking } from '../_models/booking';
 import { Player } from '../_models/index';
 import { PlayerService, AlertService, AuthService } from '../_services/index';
-import { preserveWhitespacesDefault } from '@angular/compiler';
-import { reservaFinal } from '../_models/reservaFinal';
-import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
   templateUrl: 'confirmation.html',
@@ -23,13 +18,6 @@ export class ConfirmationComponent implements OnInit {
   reservaFinal: any = {};
   loading = true;
   confirmado = false;
-  currentUser: any;
-  name = '';
-  lastName = '';
-  cel = '';
-
-  // subscription: Subscription;
-
 
   constructor(
     private playerService: PlayerService,
@@ -37,24 +25,12 @@ export class ConfirmationComponent implements OnInit {
     private clubService: ClubService,
     private alertService: AlertService,
     private router: Router
-  ) {
-    const user = JSON.parse(localStorage.getItem(('currentUser')));
-    if (user) {
-      this.currentUser = user;
-      this.name = user.name;
-      this.lastName = user.lastName;
-      this.cel = user.email;
-    }
-  }
+  ) {}
 
 
   ngOnInit() {
     this.booking = ClubService.obtenerBooking();
     if (this.booking) {
-      const parts: any = this.booking.dateBook.split('/');
-
-      const mydate = new Date(parts[ 2 ], parts[ 1 ] - 1, parts[ 0 ]);
-      console.log('dateObject ' + mydate);
       this.reservaFinal.clubId = this.booking.club._id;
       this.reservaFinal.clubName = this.booking.club.name;
       this.reservaFinal.clubAddress = this.booking.club.address.address;
@@ -64,25 +40,20 @@ export class ConfirmationComponent implements OnInit {
       this.reservaFinal.fieldCantPlayers = this.booking.field.cantPlayers;
       this.reservaFinal.fieldFieldType = this.booking.field.fieldType;
       this.reservaFinal.fieldPrice = this.booking.field.price;
-      this.reservaFinal.playingDate = mydate;
+      this.reservaFinal.playingDate = this.booking.dateBook;
       this.reservaFinal.playingTime = this.booking.timeBook;
-      //this.reservaFinal.paidMethod="EN SITIO";
+      // this.reservaFinal.paidMethod="EN SITIO";
     }
-
-    console.log(this.booking);
-    console.log('el confirmado', this.confirmado);
     console.log('Reserva Final ' + this.reservaFinal);
-    const _id: string = JSON.parse(localStorage.getItem('currentUser'))._id;
-    this.getPlayer(_id);
-    console.log('kakak', +this.player);
+    const id: string = JSON.parse(localStorage.getItem('currentUser'))._id;
+    this.getPlayer(id);
   }
 
 
-  private getPlayer(_id: string) {
-    console.log('ESTOOO', _id);
+  private getPlayer(id: string) {
+    console.log('ESTOOO', id);
     console.log(this.player);
-    // this.player=getUserAuthenticated();
-    this.playerService.getById(_id).subscribe(player => {
+    this.playerService.getById(id).subscribe(player => {
       this.player = player;
       this.reservaFinal.playerName = player.name;
       this.reservaFinal.playerLastName = player.lastName;
@@ -115,7 +86,7 @@ export class ConfirmationComponent implements OnInit {
   }
 
   public goToBusqueda() {
-    this.router.navigate([ 'results' ])
+    this.router.navigate([ 'results' ]);
   }
 
 }
