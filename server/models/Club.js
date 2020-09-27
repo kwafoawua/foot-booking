@@ -1,8 +1,5 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var ObjectId = Schema.Types.ObjectId;
-
-
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 /**
  * Club Schema
  * @param {string} name - Club's name.
