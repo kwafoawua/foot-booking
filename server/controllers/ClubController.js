@@ -5,35 +5,34 @@
  */
 const _ = require('lodash');
 const Club = require('../models/Club');
-const Tournament = require('../models/Tournament');
 const utils = require('../utils');
-
-var mailingController = require('./mailing');
+const ClubResponseAdapter = require('../adapters/ClubResponseAdapter');
 
 /**
  * Create a Club
  */
-module.exports.registerClub = async function (req,res) {
+module.exports.registerClub = async function (req, res) {
     try {
         let galleryPath = [];
         let profilePath = req.files.profile[0].filename;
-        for(let i = 0; i < req.files.gallery.length; i++) {
+        for (let i = 0; i < req.files.gallery.length; i++) {
             galleryPath.push(req.files.gallery[i].filename);
         }
         const club = JSON.parse(req.body.body);
-        for(let i= 0; i < club.fields.length; i++) {
-            if(!club.fields[i]._id) {
+        for (let i = 0; i < club.fields.length; i++) {
+            if (!club.fields[i]._id) {
                 delete club.fields[i]._id;
             }
         }
-        const savedClub = await addClub(club,profilePath, galleryPath);
+        const savedClub = await addClub(club, profilePath, galleryPath);
         const token = utils.generateToken(savedClub._id);
-        res.status(200).send({ user: {...savedClub._doc, token }, success: 'El club se creó exitosamente.'});
-    } catch(error) {
-        res.status(400).send({ errorMessage: error.message });
+        res.status(200).send({user: {...savedClub._doc, token}, success: 'El club se creó exitosamente.'});
+    } catch (error) {
+        res.status(400).send({errorMessage: error.message});
     }
 };
-async function addClub (club, profilePath, galleryPath) {
+
+async function addClub(club, profilePath, galleryPath) {
     console.log('entra al club');
     const newClub = new Club({
         name: club.name,
@@ -55,17 +54,16 @@ async function addClub (club, profilePath, galleryPath) {
     });
     return await newClub.save();
 }
-
+2
 /**
  * Show the current Club
  */
-
-module.exports.findById = async function(req, res) {
+module.exports.findById = async function (req, res) {
     try {
-        // let tournament = await Tournament.
         const club = await Club.findById(req.params._id).exec();
-        res.status(200).send(club);
-    } catch(error) {
+        const clubResponse = await ClubResponseAdapter.adaptClubResponse(club);
+        res.status(200).send(clubResponse);
+    } catch (error) {
         res.status(400).send({error: error.message})
     }
 };
@@ -74,36 +72,36 @@ module.exports.findById = async function(req, res) {
 /**
  * Show all Clubs
  */
-module.exports.findAllClubs = function(req, res) {
-
-    Club.find(function(err, clubs) {
-            if (err) {
-               return res.status(500).send(err);
-            }
-        res.status(200).send(clubs);
+module.exports.findAllClubs = function (req, res) {
+    Club.find(async function (err, clubs) {
+        if (err) {
+            return res.status(500).send(err);
+        }
+        const clubResponse = await ClubResponseAdapter.adaptClubs(clubs);
+        res.status(200).send(clubResponse);
     });
 };
 
 /**
  * Update a Club
  */
-module.exports.updateClub = function(req, res) {
+module.exports.updateClub = function (req, res) {
     //console.log(req.body);
     var body = JSON.parse(req.body.body);
     var galleryPath = [];
     var profilePath = '';
-    if(Object.keys(req.files).length !== 0) {
-        if(req.files.profile[0].filename) {
+    if (Object.keys(req.files).length !== 0) {
+        if (req.files.profile[0].filename) {
             profilePath = req.files.profile[0].filename;
         }
-        if(req.files.gallery){
-            for(var i = 0; i < req.files.gallery.length; i++) {
+        if (req.files.gallery) {
+            for (var i = 0; i < req.files.gallery.length; i++) {
                 galleryPath.push(req.files.gallery[i].filename);
             }
         }
     }
-   // Club.findByIdAndUpdate();
-    Club.findById(body._id, function(err, club) {
+    // Club.findByIdAndUpdate();
+    Club.findById(body._id, function (err, club) {
         // Handle any possible database errors
         if (err) {
             return res.status(500).send(err);
@@ -121,7 +119,7 @@ module.exports.updateClub = function(req, res) {
             club.galleryImg = (galleryPath.length > 0) ? galleryPath : club.galleryImg;
 
             // Save the updated document back to the database
-            club.save(function(err, club) {
+            club.save(function (err, club) {
                 if (err) {
                     return res.status(500).send(err);
                 }
@@ -135,14 +133,16 @@ module.exports.updateClub = function(req, res) {
 /**
  * Delete an Club
  */
-module.exports.deleteClub = function(req, res) {
-    Club.findById(req.params.id, function(err, club) {
+module.exports.deleteClub = function (req, res) {
+    Club.findById(req.params.id, function (err, club) {
         if (err) {
-           return res.status(500).send(err);
+            return res.status(500).send(err);
         }
 
-        club.remove(function(err) {
-            if (err) {return res.status(500).send(err);}
+        club.remove(function (err) {
+            if (err) {
+                return res.status(500).send(err);
+            }
 
             console.log('Club successfully deleted!');
             res.json('Club eliminado');
@@ -164,18 +164,19 @@ module.exports.getDestacados = async (req, res) => {
 
 
 /**
-*   Método que busca solo por nombre, se llama desde el home o cuando la busqueda viene sin filtros
-*/
-module.exports.findClubsByFilter = function (req,res) {
+ *   Método que busca solo por nombre, se llama desde el home o cuando la busqueda viene sin filtros
+ */
+module.exports.findClubsByFilter = function (req, res) {
 
-    Club.find({name : new RegExp(JSON.parse(req.params.clubfilter).clubname, "i"),
-                   //  services : new RegExp(JSON.parse(req.params.services).services, "i")
-            }, function (err, club) {
-                if (err) {
-                    return res.status(500).send(err + "al menos entro");
-                }
-                res.status(200).send(club);
-            });
+    Club.find({
+        name: new RegExp(JSON.parse(req.params.clubfilter).clubname, "i"),
+        //  services : new RegExp(JSON.parse(req.params.services).services, "i")
+    }, function (err, club) {
+        if (err) {
+            return res.status(500).send(err + "al menos entro");
+        }
+        res.status(200).send(club);
+    });
 
 };
 
@@ -184,7 +185,7 @@ module.exports.findClubsByFilter = function (req,res) {
 *   cuando la busqueda viene con filtros desde el boton 'actualizar busqueda'. Se que es una negrada todos los if else que hay,
 *   solucionar eso cuando se pueda
 */
-module.exports.findClubsByMultipleFilter = function (req,res) {
+module.exports.findClubsByMultipleFilter = function (req, res) {
 
     // Se arma solo el array de servicios para utilizar el $in y setean los valores por defecto
     var servicesNameArray = [];
@@ -199,7 +200,7 @@ module.exports.findClubsByMultipleFilter = function (req,res) {
     *   caso de que venga un valor
     */
     if (JSON.parse(req.params.clubfilter).cantPlayers == undefined) {
-        cantPlayers.push(5,7,11);
+        cantPlayers.push(5, 7, 11);
     } else {
         cantPlayers.push(JSON.parse(req.params.clubfilter).cantPlayers);
     }
@@ -212,44 +213,46 @@ module.exports.findClubsByMultipleFilter = function (req,res) {
 
 
     // dentro de este if estan las 2 posibles consultas
-    if (JSON.parse(req.params.clubfilter).services.length==0) {
+    if (JSON.parse(req.params.clubfilter).services.length == 0) {
         // como no se selecciono un tipo de servicio traigo por todos los servicios
-        Club.find({ $and:
-            [
-                {"name" : new RegExp(JSON.parse(req.params.clubfilter).clubname, "i")},
-                {"fields.cantPlayers": { "$in": cantPlayers } },
-                {"fields.price": {"$gte": priceMin, "$lte": priceMax } }
-            ]
-            }, function (err, club) {
-                if (err) {
-                    return res.status(500).send(err + "al menos entro");
-                }
+        Club.find({
+            $and:
+                [
+                    {"name": new RegExp(JSON.parse(req.params.clubfilter).clubname, "i")},
+                    {"fields.cantPlayers": {"$in": cantPlayers}},
+                    {"fields.price": {"$gte": priceMin, "$lte": priceMax}}
+                ]
+        }, function (err, club) {
+            if (err) {
+                return res.status(500).send(err + "al menos entro");
+            }
 
-                res.status(200).send(club);
+            res.status(200).send(club);
 
-            });
-    } else  {
+        });
+    } else {
         // Lleno el array con todos los servicios que me llegan en el req
         for (var i = JSON.parse(req.params.clubfilter).services.length - 1; i >= 0; i--) {
-            servicesNameArray[i]=JSON.parse(req.params.clubfilter).services[i].name;
+            servicesNameArray[i] = JSON.parse(req.params.clubfilter).services[i].name;
         }
         // Realizo la consulta con el array del servicio y el nombre del club en el caso de que venga como parametro
-        Club.find({ $and:
-            [
-                {"name" : new RegExp(JSON.parse(req.params.clubfilter).clubname, "i")},
-                { "services.value": { "$all": servicesNameArray } },
-                {"fields.cantPlayers": { "$in": cantPlayers } },
-                {"fields.price": {"$gte": priceMin, "$lte": priceMax } }
-            ]
-    }, function (err, club) {
-        if (err) {
-            return res.status(500).send(err + "al menos entro");
-        }
-        console.log('El club de arrays');
-        console.log(club);
-        res.status(200).send(club);
+        Club.find({
+            $and:
+                [
+                    {"name": new RegExp(JSON.parse(req.params.clubfilter).clubname, "i")},
+                    {"services.value": {"$all": servicesNameArray}},
+                    {"fields.cantPlayers": {"$in": cantPlayers}},
+                    {"fields.price": {"$gte": priceMin, "$lte": priceMax}}
+                ]
+        }, function (err, club) {
+            if (err) {
+                return res.status(500).send(err + "al menos entro");
+            }
+            console.log('El club de arrays');
+            console.log(club);
+            res.status(200).send(club);
 
-    });
+        });
     }
     console.log(servicesNameArray);
 

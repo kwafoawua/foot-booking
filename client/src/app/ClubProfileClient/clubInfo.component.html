@@ -69,18 +69,18 @@
 
                   <div class="social-media ">
                     <ul class="list-inline">
-                      <li *ngIf="(club.socialMedia?.facebookId)" class="list-inline-item">
+                      <li *ngIf="(club?.socialMedia?.facebookId)" class="list-inline-item">
                         <a target="_blank" href="{{club.socialMedia?.facebookId}}">
                           <img src="../../assets/icons/icon-facebook.svg" />
                         </a>
                       </li>
-                      <li *ngIf="(club.socialMedia?.instagramId)" class="list-inline-item">
+                      <li *ngIf="(club?.socialMedia?.instagramId)" class="list-inline-item">
                         <a target="_blank" href="{{club.socialMedia?.instagramId}}">
                           <img src="../../assets/icons/icon-instagram.svg" />
                         </a>
                       </li>
-                      <li *ngIf="(club.socialMedia?.twitterId)" class="list-inline-item">
-                        <a target="_blank" href="{{club.socialMedia?.twitterId}}">
+                      <li *ngIf="(club?.socialMedia?.twitterId)" class="list-inline-item">
+                        <a target="_blank" href="{{club?.socialMedia?.twitterId}}">
                           <img src="../../assets/icons/icon-twitter.svg" />
                         </a>
                       </li>
@@ -101,7 +101,7 @@
               </div>
 
 
-              <div class="widget item-tag" *ngIf="myTournament.length > 0">
+              <div class="widget item-tag" *ngIf="myTournament?.length > 0">
                 <h4>CAMPEONATOS</h4>
                 <ul class="list-inline" *ngFor="let i of myTournament">
                   <li  *ngIf="i.state === 'Publicado' || i.state === 'Iniciado' " class="list-inline-item"  [routerLink]="['/campeonato',i._id]">

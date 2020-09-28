@@ -28,13 +28,13 @@
                   <label class="col-md-1"> Nombre </label>
                 </div>
                 <div class="col">
-                  <label class="col-md-10"> <b>{{name | uppercase}}</b></label>
+                  <label class="col-md-10"> <b>{{player?.name | uppercase}}</b></label>
                 </div>
                 <div class="col-md-1">
                   <label class="col-md-1"> Apellido </label>
                 </div>
                 <div class="col">
-                  <label class="col-md-10"> <b>{{lastName | uppercase}} </b></label>
+                  <label class="col-md-10"> <b>{{player?.lastName | uppercase}} </b></label>
                 </div>
                 <div class="col-md-1">
                   <label class="col-md-1">Teléfono </label>
@@ -58,13 +58,13 @@
                   Fecha
                 </div>
                 <div class="col-sm">
-                  <b>  {{booking.dateBook | date:"dd/MM/yy"}}</b>
+                  <b>  {{booking?.dateBook | date:"dd/MM/yyyy"}}</b>
                 </div>
                 <div class="col-sm-2">
                   Hora
                 </div>
                 <div class="col-sm">
-                  <b>{{booking.timeBook}}</b>
+                  <b>{{booking?.timeBook}}</b>
                 </div>
               </div>
 
@@ -73,13 +73,13 @@
                   Cancha de juego
                 </div>
                 <div class="col-sm-4">
-                  <b>{{booking.field.fieldName| uppercase}}</b>
+                  <b>{{booking?.field.fieldName| uppercase}}</b>
                 </div>
                 <div class="col-sm-2">
                   Cantidad de jugadores
                 </div>
                 <div class="col">
-                  <b>{{booking.field.cantPlayers}}</b>
+                  <b>{{booking?.field.cantPlayers}}</b>
                 </div>
               </div>
 
@@ -96,18 +96,18 @@
                   Nombre del club
                 </div>
                 <div class="col">
-                  <b> {{booking.club.name| uppercase}}</b>
+                  <b> {{booking?.club.name| uppercase}}</b>
                 </div>
                 <div class="col-sm-2">
                   Teléfono
                 </div>
                 <div class="col">
-                  <b>  {{booking.club.phoneNumber}}</b>
+                  <b>  {{booking?.club.phoneNumber}}</b>
                 </div>
               </div>
               <div class="row">
                 <div class="col-1">Dirección</div>
-                <div class="col-8"><b>{{booking.club.address.address| uppercase}}</b></div>
+                <div class="col-8"><b>{{booking?.club.address.address| uppercase}}</b></div>
               </div>
             </div>
 
@@ -118,7 +118,7 @@
                     <div class="row form-group">
                       <label class="col-md-4"> Total a pagar </label>
                       <div class="col-md-4">
-                        <h4><b>$ {{booking.field?.price}}</b></h4>
+                        <h4><b>$ {{booking?.field?.price}}</b></h4>
                       </div>
                     </div>
                   </div><!-- post-inner -->
