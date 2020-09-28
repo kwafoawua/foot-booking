@@ -16,6 +16,7 @@ export class ClubService {
   }
 
   getAll() {
+    console.log('este es el serviceeee', JSON.stringify(this.http.get('/clubs')));
     return this.http.get('/clubs');
   }
 

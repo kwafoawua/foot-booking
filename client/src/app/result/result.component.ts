@@ -58,6 +58,7 @@ export class ResultComponent implements OnInit {
    // this.clubs = SearchService.clubs;
     this.clubService.getAll().subscribe((clubs: Club[]) => {
       if (clubs) {
+        console.log('en el if JSON', JSON.stringify(clubs));
         this.clubs = clubs;
       }
     });
@@ -93,8 +94,9 @@ export class ResultComponent implements OnInit {
     console.log('ya cree el filtro', this.clubfilter);
     this.searchService.findClubsByMultipleFilter(this.clubfilter).subscribe(() => {
       this.clubs = SearchService.clubs;
+      console.log('clubes', this.clubs);
     });
-    console.log(this.clubfilter)
+    console.log(this.clubfilter);
   }
 
   addService(e: any) {
