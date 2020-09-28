@@ -68,20 +68,25 @@
                     <div class="col-6 col-sm-4">
                       <div class="row">
                         <div class="col">
-                          <div *ngIf="torneo.prize1">
-                          <img *ngIf="torneo.prize1" src="../../assets/icons/medal-first-place-96.png" height="96" width="96"/>
-                         {{torneo.prize1}}</div>
+                            <div *ngIf="torneo?.prize1">
+                              <img src="../../assets/icons/medal-first-place-96.png" height="96" width="96"/>
+                            <div> {{torneo.prize1}}</div>
+                            </div>
                         </div>
 
                         <div class="col">
-                          <img *ngIf="torneo.prize2" src="../../assets/icons/medal-second-place-96.png" height="96" width="96"/>
-                          <div *ngIf="torneo.prize2">{{torneo.prize2}}</div>
+                          <div *ngIf="torneo?.prize2 != null">
+                            <img  src="../../assets/icons/medal-second-place-96.png" height="96" width="96"/>
+                            <div>{{torneo.prize2}}</div>
+                          </div>
                         </div>
 
 
                         <div class="col">
-                          <img *ngIf="torneo.prize3" src="../../assets/icons/medal-third-place-96.png" height="96" width="96"/>
-                          <div *ngIf="torneo.prize3">{{torneo.prize3}}</div>
+                          <div *ngIf="torneo?.prize3 != null">
+                            <img  src="../../assets/icons/medal-third-place-96.png" height="96" width="96"/>
+                            <div>{{torneo.prize3}}</div>
+                          </div>
                         </div>
 
 

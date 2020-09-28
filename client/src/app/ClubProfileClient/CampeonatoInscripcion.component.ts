@@ -29,22 +29,22 @@ export class CampeonatoInscripcionComponent implements OnInit{
   createForm() {
     this.inscripcionForm = this.fb.group({
       idTournament: [''],
-      nombreEquipo: [null, Validators.required, Validators.maxLength(50), Validators.minLength(5)],
-      nombreResponsable: [null, Validators.required, Validators.maxLength(50), Validators.minLength(5)],
-      //apellidoResponsable: [null, Validators.required],
-      //email: [null, Validators.required],
-      telefono: [null, Validators.required, Validators.maxLength(12), Validators.minLength(1)],
+      nombreEquipo: [null, [Validators.required, Validators.maxLength(50), Validators.minLength(5)]],
+      nombreResponsable: [null, [Validators.required, Validators.maxLength(50), Validators.minLength(5)]],
+      telefono: [null, [Validators.required, Validators.maxLength(12), Validators.minLength(1)]],
     });
+    this.inscripcionForm.controls.idTournament.setValue(this.route.snapshot.params.id) ;
   }
 
   Inscribir() {
-    this.inscripcionForm.controls['idTournament'].setValue(this.route.snapshot.params.id) ;
+    console.log('ël form validado', this.inscripcionForm);
     if (this.inscripcionForm.valid) {
       console.log('ël form validado', this.inscripcionForm);
       {
         this.tournamentService.createInscription(this.inscripcionForm.value).subscribe(data => {
-            this.alertService.success('La inscripción se registro con éxito', true),
+            this.alertService.success('La inscripción se registró con éxito', true),
               console.log('el form', this.inscripcionForm);
+
           },
           error => {
             this.alertService.error(error, false);
@@ -52,7 +52,9 @@ export class CampeonatoInscripcionComponent implements OnInit{
         );
       }
       this.createForm();
+
     }
+    else { this.alertService.error('error al registrar la inscripción', this.inscripcionForm.value); }
   }
 
 
