@@ -227,22 +227,37 @@
 
 
 <ng-template #published>
-  YA esta publicado
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{tournament.tournamentName}}</mat-card-title>
+      <mat-card-subtitle>{{tournament.publicationDescription}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="row">
+      <div class="col-12 col-md-6">
+        <p>Requerimientos de inscripción</p>
+        <p>Fecha de Inicio</p> {{tournament.inscriptionStartDate}}
+        <p>Fecha de Fin</p>{{tournament.inscriptionEndDate}}
+        <p>Precio de la inscripción</p>{{tournament.inscriptionCost}}
+      </div>
+      <div class="col-12 col-md-6">
+        {{tournament.startDate}}
+        {{tournament.endDate}}
+        {{tournament.numbersOfTeams}}
+        {{tournament.numberOfPlayers}}
+        {{tournament.category}}
+      </div>
 
-  {{tournament.creatorClubId}}
-  {{tournament.tournamentName}}
-  {{tournament.publicationDescription}}
-  {{tournament.inscriptionStartDate}}
-  {{tournament.inscriptionEndDate}}
-  {{tournament.startDate}}
-  {{tournament.endDate}}
-  {{tournament.numbersOfTeams}}
-  {{tournament.inscriptionCost}}
-  {{tournament.numberOfPlayers}}
-  {{tournament.category}}
-  {{tournament.termsAndConditions}}
-  {{tournament.prize1}}
-  {{tournament.prize2}}
-  {{tournament.prize3}}
+
+    </mat-card-content>
+
+
+    {{tournament.termsAndConditions}}
+    {{tournament.prize1}}
+    {{tournament.prize2}}
+    {{tournament.prize3}}
+  </mat-card>
+
+
+
 </ng-template>
 <pre><code>{{ tournamentForm?.value | json }}</code></pre>

@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgttTournament } from 'ng-tournament-tree';
+import { TournamentService } from '../../_services/tournament.service';
+import { AlertService } from '../../_services';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-fixture',
@@ -22,6 +25,8 @@ export class FixtureComponent implements OnInit {
   fechaCuartos: string;
   fechaSemi: string;
   fechaFinal: string;
+  tournamentId: string;
+  esSinAsignar: boolean;
 
 
   myTournamentData = {
@@ -145,15 +150,47 @@ export class FixtureComponent implements OnInit {
     ]
   };
 
-  constructor() { }
+  constructor(
+    private tournamentService: TournamentService,
+    private alertService: AlertService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) { }
 
   ngOnInit() {
+    this.tournamentId = this.route.snapshot.params[ 'id' ];
+    if (this.tournamentId) {
+      this.getPhases();
+    }
   }
 
   updateMatch($event) {
     console.log('fixture update');
     console.log($event);
-
     console.log('is tournament data updated?', this.myTournamentData);
+  }
+
+  getPhases() {
+    this.tournamentService.getPhases(this.tournamentId).subscribe((data: any) => {
+      console.log('fases', data);
+      this.setEsSinAsignar(data.phases);
+
+      console.log('es pendiendte de juego', this.esSinAsignar);
+    });
+  }
+
+  setEsSinAsignar(phases: any) {
+    this.esSinAsignar = phases.every(phase => {
+      const pendingState = phase.matches.every((match: any) => {
+        return match.state === 'Sin asignar';
+      });
+      return pendingState === true;
+    });
+  }
+
+  shuffleMatches() {
+    this.tournamentService.shuffleMatches(this.tournamentId).subscribe((data: any) => {
+      this.esSinAsignar = false;
+    });
   }
 }
