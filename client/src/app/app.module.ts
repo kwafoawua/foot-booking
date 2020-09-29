@@ -53,6 +53,7 @@ import { EstadisticasClubComponent } from './estadisticas-club/index';
 import { commentsComponent } from './_directives/Comments/commentsComponent';
 import { ClubInfoComponent} from './ClubProfileClient/clubInfo.component';
 import { CampeonatoInfoComponent } from './ClubProfileClient/CampeonatoInfo.component';
+import { CampeonatoInscripcionComponent } from './ClubProfileClient/CampeonatoInscripcion.component';
 
 // API MAPS
 import { AgmCoreModule } from '@agm/core';
@@ -130,6 +131,7 @@ registerLocaleData(localeEsAr, 'es-AR');
     CampeonatoInfoComponent,
     SiteLayoutComponent,
     AdminLayoutComponent,
+    CampeonatoInscripcionComponent,
   ],
   providers: [
     authInterceptorProviders,

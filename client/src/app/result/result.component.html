@@ -42,7 +42,7 @@
                     </button>
                   </mat-form-field>
 
-<!--SERVICIOS-->
+<!--SERVICIOS--> <div class="form-group">
                   <mat-expansion-panel>
                     <mat-expansion-panel-header>
                       <mat-panel-title>
@@ -56,18 +56,19 @@
                         {{service.name}} </mat-checkbox></label></li>
                     </ul>
                   </mat-expansion-panel>
+                </div>
 
-                  <div class="col-sm-12 col-md-4">
+                  <div class="form-group button-row" align="center">
                     <button type="button" class="btn btn-success" (click)="buscarClubsPorFiltros()">
                       Actualizar búsqueda
                     </button>
                   </div>
 
-
+                  <mat-divider></mat-divider>
 <!-- mapa-->
-                  <div class="example-full-width">
-                    <h4>Ubicación</h4>
-                    <div id="gmap">
+                  <div class="form-group">
+
+
                         <agm-map [ngStyle]="{'height': '338px'}" [zoom]="15" [latitude]="lat" [longitude]="lng">
                           <div *ngFor="let c of clubs">
                             <agm-marker [latitude]="lat"
@@ -80,7 +81,7 @@
                             </agm-marker>
                           </div>
                         </agm-map>
-                      </div>
+
                   </div>
 
                </div>

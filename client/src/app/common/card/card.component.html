@@ -3,10 +3,14 @@
 
     <div class="col-5 col-md-12">
       <a [routerLink]="['/results/club/',club?._id]">
+        <div *ngIf= "club.hasATournament === true" class="float-right float-md-right float-sm-right">
+
+          <img src="../../../assets/icons/iconfinder_trophy_1054950.png" height="32" width="32"/></div>
         <div
           class="card-img-top cover-image"
           [ngStyle]="{'background-image': 'url('+uploadsBaseURL+club?.profileImg+')'}">
         </div>
+
       </a>
     </div>
 

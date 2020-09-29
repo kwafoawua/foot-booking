@@ -1,0 +1,62 @@
+
+
+
+    <div class="container">
+      <div class="ad-details">
+
+        <mat-card>
+
+        <mat-horizontal-stepper [linear]="isLinear" #stepper>
+          <!--              PASO 1-->
+          <mat-step [stepControl]="inscripcionForm" completed >
+             <form class="example-container" [formGroup]="inscripcionForm">
+              <ng-template matStepLabel>Responsabe de equipo</ng-template>
+
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Nombre de equipo" formControlName="nombreEquipo" class="form-control" type="text" required>
+              </mat-form-field>
+
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Nombre de responsable" formControlName="nombreResponsable" class="form-control" type="text" required>
+              </mat-form-field>
+
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Teléfono" formControlName="telefono" class="form-control" type="number" required>
+              </mat-form-field>
+              <div>
+                <button class="btn btn-success" matStepperNext>Siguiente</button>
+              </div>
+            </form>
+
+          </mat-step>
+          <!--PASO 2-->
+          <mat-step >
+            <ng-template matStepLabel>Términos y Condiciones</ng-template>
+            {{torneo.termsAndConditions}}
+            <p>
+              <mat-checkbox>
+                <a>Acepto términos y condiciones</a>
+              </mat-checkbox>
+            </p>
+            <div>
+              <button class="btn btn-light" matStepperPrevious>Anterior</button>
+              <button class="btn btn-success" matStepperNext  >Siguiente</button>
+            </div>
+          </mat-step>
+          <!--              PASO 3 -->
+          <mat-step >
+            <ng-template matStepLabel>Pago</ng-template>
+            Casi esta listo!
+
+            <div>
+              <button class="btn btn-light" matStepperPrevious>Anterior</button>
+              <button class="btn btn-success" (click)="Inscribir()"  >Finalizar</button>
+            </div>
+          </mat-step>
+        </mat-horizontal-stepper>
+
+          </mat-card>
+      </div>
+    </div>
+
+

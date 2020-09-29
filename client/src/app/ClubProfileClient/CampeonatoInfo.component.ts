@@ -14,19 +14,15 @@ import {Equipo} from '../_models/equipo';
 
 export class CampeonatoInfoComponent implements OnInit {
   torneo: Tournament;
-  inscripcionForm: FormGroup;
-  isLinear: false;
-  inscripcion: Equipo;
+
 
   ngOnInit(): void {
     this.getTorneo(this.route.snapshot.params.id);
-    this.createForm();
   }
 
   constructor(private route: ActivatedRoute,
               private tournamentService: TournamentService,
-              private fb: FormBuilder,
-              private alertService: AlertService) {
+              ) {
   }
 
   getTorneo(torneoId: string) {
@@ -36,35 +32,5 @@ export class CampeonatoInfoComponent implements OnInit {
     }, error => console.log(error));
 
   }
-
-  createForm() {
-    this.inscripcionForm = this.fb.group({
-      idTournament: [''],
-      nombreEquipo: [null, Validators.required, Validators.maxLength(50), Validators.minLength(5)],
-      nombreResponsable: [null, Validators.required, Validators.maxLength(50), Validators.minLength(5)],
-      //apellidoResponsable: [null, Validators.required],
-      //email: [null, Validators.required],
-      telefono: [null, Validators.required, Validators.maxLength(12), Validators.minLength(1)],
-    });
-  }
-
-  Inscribir() {
-    this.inscripcionForm.controls['idTournament'].setValue(this.route.snapshot.params.id) ;
-    if (this.inscripcionForm.valid) {
-      console.log('ël form validado', this.inscripcionForm);
-      {
-           this.tournamentService.createInscription(this.inscripcionForm.value).subscribe(data => {
-           this.alertService.success('La inscripción se registro con éxito', true),
-              console.log('el form', this.inscripcionForm);
-          },
-          error => {
-          this.alertService.error(error, false);
-          }
-        );
-      }
-      this.createForm();
-    }
-  }
-
 
 }
