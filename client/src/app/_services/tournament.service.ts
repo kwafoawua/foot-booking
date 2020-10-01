@@ -243,9 +243,8 @@ private tState: TState[] = [
     return this.faseOne; }
 
   createInscription(equipo: any){
-    console.log('El service ', equipo);
+    console.log('El service el equipooooooooo El service el equipooooooooo  ', equipo);
     return this.http.post('/inscription/enroll', equipo);
   }
-
 
 }
