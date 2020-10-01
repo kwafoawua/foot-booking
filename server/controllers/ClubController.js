@@ -158,7 +158,8 @@ module.exports.deleteClub = function (req, res) {
 module.exports.getDestacados = async (req, res) => {
     try {
         const clubsDestacados = await Club.find({}, null, {limit: 10}).exec();
-        return res.status(200).send(clubsDestacados);
+        const clubResponse = await ClubResponseAdapter.adaptClubs(clubsDestacados);
+        return res.status(200).send(clubResponse);
     } catch (error) {
         return res.status(400).send({errorMessage: 'Hubo un problema al obtener los datos'});
     }
@@ -172,12 +173,12 @@ module.exports.findClubsByFilter = function (req, res) {
 
     Club.find({
         name: new RegExp(JSON.parse(req.params.clubfilter).clubname, "i"),
-        //  services : new RegExp(JSON.parse(req.params.services).services, "i")
-    }, function (err, club) {
+    }, async function (err, club) {
         if (err) {
             return res.status(500).send(err + "al menos entro");
         }
-        res.status(200).send(club);
+        const clubResponse = await ClubResponseAdapter.adaptClubResponse(club);
+        res.status(200).send(clubResponse);
     });
 
 };
@@ -201,7 +202,7 @@ module.exports.findClubsByMultipleFilter = function (req, res) {
     *   Se realizan validaciones para ver si toman un valor por defecto o el propio de la consulta en el
     *   caso de que venga un valor
     */
-    if (JSON.parse(req.params.clubfilter).cantPlayers == undefined) {
+    if (JSON.parse(req.params.clubfilter).cantPlayers === undefined) {
         cantPlayers.push(5, 7, 11);
     } else {
         cantPlayers.push(JSON.parse(req.params.clubfilter).cantPlayers);
@@ -215,7 +216,7 @@ module.exports.findClubsByMultipleFilter = function (req, res) {
 
 
     // dentro de este if estan las 2 posibles consultas
-    if (JSON.parse(req.params.clubfilter).services.length == 0) {
+    if (JSON.parse(req.params.clubfilter).services.length === 0) {
         // como no se selecciono un tipo de servicio traigo por todos los servicios
         Club.find({
             $and:
@@ -246,13 +247,14 @@ module.exports.findClubsByMultipleFilter = function (req, res) {
                     {"fields.cantPlayers": {"$in": cantPlayers}},
                     {"fields.price": {"$gte": priceMin, "$lte": priceMax}}
                 ]
-        }, function (err, club) {
+        }, async function (err, club) {
             if (err) {
                 return res.status(500).send(err + "al menos entro");
             }
             console.log('El club de arrays');
             console.log(club);
-            res.status(200).send(club);
+            const clubResponse = await ClubResponseAdapter.adaptClubs(club);
+            res.status(200).send(clubResponse);
 
         });
     }

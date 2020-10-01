@@ -5,12 +5,25 @@ const mongoose = require('mongoose');
  * Create inscription
  */
 exports.newTournamentInscription = async (req, res) => {
+    const {idTournament, idUser, name, team, phoneNumber} = req.body;
+    let inscription = new TournamentInscription({
+        tournamentId: idTournament,
+        userId: idUser,
+        referringContact: {
+            name: name,
+            phoneNumber: phoneNumber
+        },
+        team: {
+            name: team
+        }
+    })
+
     try {
         // TODO -> validar que queden lugares para inscripcion
         // TODO -> validar que no exista equipo con ese nombre
-        let inscription = new TournamentInscription(req.body);
+        // TODO -> validar que no se inscriba jugador 2 veces
         await inscription.save();
-        await res.json({msg: "Inscipcion exitosa."});
+        res.status(200).send({inscription: inscription, success: 'Inscipcion exitosa.'});
     } catch (e) {
         res.status(500).send("Ocurrio un error imprevisto :(");
     }
