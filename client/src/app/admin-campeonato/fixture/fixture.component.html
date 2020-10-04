@@ -85,5 +85,6 @@
     Las fases se crean con los equipos de Octavos de final aleatoreamente creados. Para comenzar a diagramar
     las fases presione la opcion de Generar fase aleatoria.
   </p>
-  <button mat-button (click)="shuffleMatches()">Generar Fases</button>
+  <button mat-button (click)="shuffleMatches()" [disabled]="isGenerable">Generar Fases</button>
+  <span *ngIf="isGenerable">Se necesitan 16 equipos inscriptos</span>
 </ng-template>

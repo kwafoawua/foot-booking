@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgttTournament } from 'ng-tournament-tree';
 import { TournamentService } from '../../_services/tournament.service';
 import { AlertService } from '../../_services';
@@ -12,6 +12,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 })
 export class FixtureComponent implements OnInit {
+
+  @Input() inscriptionsCount: number;
 
   teamNames = [
     'Team 1', 'Team 2', 'Team 3', 'Team 4', 'Team 5', 'Team 6', 'Team 7', 'Team 8', 'Team 9', 'Team 10', 'Team 11', 'Team 12',
@@ -27,6 +29,8 @@ export class FixtureComponent implements OnInit {
   fechaFinal: string;
   tournamentId: string;
   esSinAsignar: boolean;
+
+  isGenerable: boolean;
 
 
   myTournamentData = {
@@ -161,6 +165,9 @@ export class FixtureComponent implements OnInit {
     this.tournamentId = this.route.snapshot.params[ 'id' ];
     if (this.tournamentId) {
       this.getPhases();
+      this.isGenerable = this.inscriptionsCount > 15;
+      console.log('isGenerable', this.isGenerable);
+      console.log('inscriptionCount', this.inscriptionsCount);
     }
   }
 

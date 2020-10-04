@@ -28,8 +28,8 @@ export class DetalleCampeonatoComponent implements OnInit {
   getInscriptions() {
     this.tournamentService.getAllInscriptions(this.tournamentId).subscribe((data: any) => {
       this.inscriptions = data.inscriptions;
+      console.log('inscriptions', data.inscriptions.length);
       this.inscriptionsCount = data.inscriptions.length;
-
     });
   }
 
