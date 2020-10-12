@@ -77,7 +77,7 @@
   </ngtt-single-elimination-tree>
 </ng-container>
 <ng-template #myMatchTemplate let-match>
-  <app-match [teamNames]="teamNames" [match]="match" (updateMatch)="updateMatch($event)"></app-match>
+  <app-match [teams]="inscriptions" [match]="match" (updateMatch)="updateMatch($event)"></app-match>
 </ng-template>
 
 <ng-template #shuffleIt>

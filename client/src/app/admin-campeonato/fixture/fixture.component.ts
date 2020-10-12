@@ -1,5 +1,4 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { NgttTournament } from 'ng-tournament-tree';
 import { TournamentService } from '../../_services/tournament.service';
 import { AlertService } from '../../_services';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,12 +13,8 @@ import { fixtureRegexp } from '../../../utils/utils';
 })
 export class FixtureComponent implements OnInit {
 
-  @Input() inscriptionsCount: number;
+  @Input() inscriptions: any;
 
-  teamNames = [
-    'Team 1', 'Team 2', 'Team 3', 'Team 4', 'Team 5', 'Team 6', 'Team 7', 'Team 8', 'Team 9', 'Team 10', 'Team 11', 'Team 12',
-    'Team 13', 'Team 14', 'Team 15', 'Team 16'
-  ];
   editOctavos = false;
   editCuartos = false;
   editSemifinales = false;
@@ -165,25 +160,18 @@ export class FixtureComponent implements OnInit {
     this.tournamentId = this.route.snapshot.params[ 'id' ];
     if (this.tournamentId) {
       this.getPhases();
-      this.isGenerable = this.inscriptionsCount > 15;
-      console.log('isGenerable', this.isGenerable);
-      console.log('inscriptionCount', this.inscriptionsCount);
+      this.isGenerable = this.inscriptions.length > 15;
     }
   }
 
   updateMatch($event) {
-    console.log('fixture update');
     console.log($event);
-    console.log('is tournament data updated?', this.myTournamentData);
   }
 
   getPhases() {
     this.tournamentService.getPhases(this.tournamentId).subscribe((data: any) => {
-      console.log('fases', data);
       this.setEsSinAsignar(data.phases);
       this.generateTournamentData(data.phases);
-
-      console.log('es pendiendte de juego', this.esSinAsignar);
     });
   }
 
@@ -205,7 +193,6 @@ export class FixtureComponent implements OnInit {
   mapPhaseToMatch(match, phaseId, phaseType) {
     const localTeamName = !fixtureRegexp(match.localTeam.teamName) ? match.localTeam.teamName : null;
     const visitorTeamName = !fixtureRegexp(match.visitorTeam.teamName) ? match.visitorTeam.teamName : null;
-
     return {
       hourDate: match.hourDate || null,
       id: match._id,
@@ -246,7 +233,8 @@ export class FixtureComponent implements OnInit {
     }
 
     rounds.push(lastRound);
-    console.log(rounds);
     this.myTournamentData = { rounds };
   }
+
+
 }

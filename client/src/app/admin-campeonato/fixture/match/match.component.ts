@@ -15,7 +15,7 @@ export interface IMatch {
         score: string;
       }]
   };
-  teamNames: string[];
+  teams: any[];
 }
 
 @Component({
@@ -25,7 +25,7 @@ export interface IMatch {
 })
 export class MatchComponent implements OnInit {
   @Input() match: any;
-  @Input() teamNames: any;
+  @Input() teams: any;
   @Output() updateMatch = new EventEmitter<IMatch>();
 
   constructor(public dialog: MatDialog) { }
@@ -34,15 +34,13 @@ export class MatchComponent implements OnInit {
   }
 
   openDialog(match): void {
-    console.log(match);
     const dialogRef = this.dialog.open(MatchUpdateDialogComponent, {
       width: '40%',
-      data: { match: this.match, teamNames: this.teamNames }
+      data: { match: this.match, teams: this.teams }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       this.updateMatch.emit(result);
-      console.log('The dialog was closed', result);
     });
   }
 }
@@ -53,17 +51,20 @@ export class MatchComponent implements OnInit {
 })
 export class MatchUpdateDialogComponent implements OnInit{
   match: any;
+  inscriptions: any;
+  disabledSelect = false;
   constructor(
     public dialogRef: MatDialogRef<MatchUpdateDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: IMatch) {}
 
   onNoClick(): void {
     this.dialogRef.close();
-    console.log(this.match);
   }
 
   ngOnInit(): void {
     this.match = this.data.match;
+    this.inscriptions = this.data.teams;
+    this.disabledSelect = (this.match.phaseType === 'Octavos de final');
   }
 
 }
