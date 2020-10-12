@@ -1,186 +1,11 @@
 import { Tournament } from '../_models/tournament';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {Observable} from 'rxjs';
-import {Club, Service, User} from '../_models';
-import {NgForm} from '@angular/forms';
-import * as moment from 'moment';
 import {TState} from '../_models/TState';
-import {Booking} from "../_models/booking";
-import {Fase} from '../_models/fase';
-import {Equipo} from '../_models/equipo';
-
 
 @Injectable()
 
 export class TournamentService {
-/*
-private myTournament: Tournament[] = [
-  {
-    idTournament: '1',
-  nameT: 'Mi capeonato 1',
-  description: 'string',
-  startInscription: new Date('07/19/2020'),
-  finishInscription: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-  statingDay: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-  finishDay: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-  cantequipos: 5,
-  inscriptionFee: 100,
-  publicationDescrip: 'descripcion',
-  prize_1: 'premio1',
-  prize_2: 'premio 2',
-  prize_3: 'prmio 3',
-  tournamentType:  '6 Jugadores',
-  state: {id: 2, name: 'Publicado'},
-  category: 'Mixto'
-},
-  { idTournament: '2',
-    nameT: 'Mi capeonato 2',
-    description: 'string',
-    startInscription: new Date('07/19/2020'),
-    finishInscription: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-    statingDay: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-    finishDay: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-    cantequipos: 5,
-    inscriptionFee: 100,
-    publicationDescrip: 'descripcion',
-    prize_1: 'premio1',
-    prize_2: 'premio 2',
-    prize_3: 'prmio 3',
-    tournamentType:  '6 Jugadores',
-    state: {id: 1, name: 'Nuevo'},
-    category: 'Mixto'
-  },
-  {idTournament: '3',
-    nameT: 'Mi capeonato 3',
-    description: 'string',
-    startInscription: new Date('07/19/2020'),
-    finishInscription: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-    statingDay: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-    finishDay: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-    cantequipos: 5,
-    inscriptionFee: 100,
-    publicationDescrip: 'descripcion',
-    prize_1: 'premio1',
-    prize_2: 'premio 2',
-    prize_3: 'prmio 3',
-    tournamentType:  '6 Jugadores',
-    state: {id: 1, name: 'Nuevo'},
-    category: 'Mixto'
-  },
-  {idTournament: '4',
-    nameT: 'Mi capeonato 4',
-    description: 'string',
-    startInscription: new Date('07/19/2020'),
-    finishInscription: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-    statingDay: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-    finishDay: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-    cantequipos: 5,
-    inscriptionFee: 100,
-    publicationDescrip: 'descripcion',
-    prize_1: 'premio1',
-    prize_2: 'premio 2',
-    prize_3: 'prmio 3',
-    tournamentType:  '6 Jugadores',
-    state: {id: 1, name: 'Nuevo'},
-    category: 'Mixto'
-  },
-  {idTournament: '5',
-    nameT: 'Mi capeonato 5',
-    description: 'string',
-    startInscription: new Date('07/19/2020'),
-    finishInscription: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-    statingDay: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-    finishDay: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-    cantequipos: 5,
-    inscriptionFee: 100,
-    publicationDescrip: 'descripcion',
-    prize_1: 'premio1',
-    prize_2: 'premio 2',
-    prize_3: 'prmio 3',
-    tournamentType:  '6 Jugadores',
-    state: {id: 1, name: 'Nuevo'},
-    category: 'Mixto'
-  },
-  {idTournament: '6',
-    nameT: 'Mi capeonato 6',
-    description: 'string',
-    startInscription: new Date('07/19/2020'),
-    finishInscription: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-    statingDay: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-    finishDay: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-    cantequipos: 5,
-    inscriptionFee: 100,
-    publicationDescrip: 'descripcion',
-    prize_1: 'premio1',
-    prize_2: 'premio 2',
-    prize_3: 'prmio 3',
-    tournamentType:  '6 Jugadores',
-    state: {id: 1, name: 'Nuevo'},
-    category: 'Mixto'
-  }];
-
-// private theOnlyTournmanet: Tournament = {
-//   idTournament: '1',
-//   nameT: 'Mi capeonato 1',
-//   description: 'string',
-//   startInscription: new Date('07/19/2020'),
-//   finishInscription: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-//   statingDay: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-//   finishDay: moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-//   cantequipos: 5,
-//   inscriptionFee: 100,
-//   publicationDescrip: 'descripcion',
-//   prize_1: 'premio1',
-//   prize_2: 'premio 2',
-//   prize_3: 'prmio 3',
-//   tournamentType:  '6 Jugadores',
-//   state: {id: 2, name: 'Publicado'},
-//   category: 'Mixto'
-// };
-*/
-
-  private fasesTorneo: Fase[] = [
-      {
-       idTorneo: 'idtorneo',
-       idfase: '1',
-       nro_fase: 1,
-        games: [{
-          equipo1: 'Equipo 3',
-          equipo2: 'Equipo 4',
-          fecha:  moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-          hora:  moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-          estado: 'Pendiente'
-        },
-          {
-            equipo1: 'Equipo 5',
-            equipo2: 'Equipo 6',
-            fecha:  moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-            hora:  moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-            estado: 'Finalizado'
-          }]
-      },
-    ];
-
-  private faseOne: Fase = {
-    idTorneo: 'idtorneo',
-    idfase: '1',
-    nro_fase: 1,
-    games: [{
-      equipo1: 'Equipo 3',
-      equipo2: 'Equipo 4',
-      fecha:  moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-      hora:  moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-      estado: 'Pendiente'
-    },
-      {
-      equipo1: 'Equipo 5',
-      equipo2: 'Equipo 6',
-      fecha:  moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-      hora:  moment('19-07-2020', 'DD-MM-YYYY').toDate(),
-      estado: 'Finalizado'
-    }]
-  };
 
 private tState: TState[] = [
   {
@@ -220,31 +45,33 @@ private tState: TState[] = [
     return this.categorias;
   }
 
-  getMyTournaments(_id: string){
-  return this.http.get<Tournament[]>('/tournament/club/' + _id);
-  console.log('este es el servicio');
-   // return this.myTournament;
+  getMyTournaments(id: string){
+  return this.http.get<Tournament[]>('/tournament/club/' + id);
   }
 
-  getTournamentInfo(_id: string){
-    return this.http.get<Tournament>('/tournament/' + _id);
+  getTournamentInfo(id: string){
+    return this.http.get<Tournament>('/tournament/' + id);
   }
 
   updateTournament(torneo: any) {
     return this.http.put('/tournament/' + torneo._id, torneo);
   }
 
-// obtego la cantidad de fases del torneo
-  getFases() {
-    return this.fasesTorneo; }
+  getPhases(id: string) {
+    return this.http.get('/phase/tournaments/' + id);
+  }
 
-    // obtengo info de una fase
-  getInfoFase() {
-    return this.faseOne; }
+  shuffleMatches(id: string) {
+    return this.http.get(`/phase/shuffleMatches/${id}`);
+  }
 
   createInscription(equipo: any){
     console.log('El service el equipooooooooo El service el equipooooooooo  ', equipo);
     return this.http.post('/inscription/enroll', equipo);
+  }
+
+  getAllInscriptions(id: string) {
+    return this.http.get(`/inscription/tournament/${id}`);
   }
 
 }
