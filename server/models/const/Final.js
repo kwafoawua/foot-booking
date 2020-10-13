@@ -9,7 +9,7 @@ exports.final = {
             teamName: 'P3M2',
             goals: undefined
         },
-        dateToPlay: undefined,
+        hourToPlay: undefined,
         state: 'Sin asignar',
     }]
 };

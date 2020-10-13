@@ -97,38 +97,53 @@ exports.randomMatchesLink = async (req, res) => {
 }
 
 exports.setResultOfAMatch = async (req, res) => {
-    const {tournamentId, matchId, localgoals: localGoals, visitorgoals: visitorGoals} = req.body;
-    //TODO -> si goal es undefined hacerlo 0
+    const {tournamentId, matchId, localGoals, visitorGoals} = req.body;
     try {
         await Phase.findOneAndUpdate({
             tournamentId: mongoose.Types.ObjectId(tournamentId),
-            'matches.matchId': matchId
+            'matches._id': matchId
         }, {
             ...(localGoals && {'matches.$.localTeam.goals': localGoals}),
             ...(visitorGoals && {'matches.$.visitorTeam.goals': visitorGoals}),
             'matches.$.state': "Finalizado"
-        });
+        }, {useFindAndModify: false});
         await res.json({msg: "Partido actualizado correctamente"})
     } catch (error) {
         res.status(500).send("Error al intentar actualizar el resultado de un partido", error);
     }
 };
 
-exports.updatePhaseTeams = async (req, res) => {
-    const {tournamentId, matchId, localteam: localTeam, visitorteam: visitorTeam} = req.body;
+exports.updatePhaseMatch = async (req, res) => {
+    const {tournamentId, matchId, localTeam, visitorTeam, localGoals, visitorGoals, hourDate} = req.body;
+    let state = localGoals && visitorGoals ? "Finalizado" : "Pendiente de Juego";
     try {
         await Phase.findOneAndUpdate({
                 tournamentId: mongoose.Types.ObjectId(tournamentId),
-                'matches.matchId': matchId
+                'matches._id': matchId
             },
             {
                 ...(localTeam && {'matches.$.localTeam.teamName': localTeam}),
                 ...(visitorTeam && {'matches.$.visitorTeam.teamName': visitorTeam}),
-                'matches.$.state': "Pendiente de Juego"
-            }
-        );
+                ...(localGoals && {'matches.$.localTeam.goals': localGoals}),
+                ...(visitorGoals && {'matches.$.visitorTeam.goals': visitorGoals}),
+                ...(hourDate && {'matches.$.hourToPlay': hourDate}),
+                'matches.$.state': state
+            }, {useFindAndModify: false});
         await res.json({msg: "Partido actualizado correctamente"})
     } catch (error) {
         res.status(500).send("Error al intentar actualizar una fase", error);
     }
 };
+
+exports.updatePhase = async (req, res) => {
+    try {
+        await Phase.findOneAndUpdate({
+            _id: req.body.phaseId
+        }, {
+            $set: {'dateToPlay': req.body.dateToPlay}
+        },  {useFindAndModify: false})
+        await res.json({msg: "Fase actualizada correctamente"})
+    } catch (error) {
+        res.status(500).send("Ocurrio un error en la actualizacion de la fase: " + error);
+    }
+}

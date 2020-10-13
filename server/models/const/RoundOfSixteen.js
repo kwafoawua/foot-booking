@@ -10,7 +10,7 @@ exports.roundOfSixteen = {
             teamName: 'team2',
             goals: undefined
         },
-        dateToPlay: undefined,
+        hourToPlay: undefined,
         state: 'Sin asignar',
     }, {
         matchId: 'P1M2',
@@ -22,7 +22,7 @@ exports.roundOfSixteen = {
             teamName: 'team4',
             goals: undefined
         },
-        dateToPlay: undefined,
+        hourToPlay: undefined,
         state: 'Sin asignar',
     }, {
         matchId: 'P1M3',
@@ -34,7 +34,7 @@ exports.roundOfSixteen = {
             teamName: 'team6',
             goals: undefined
         },
-        dateToPlay: undefined,
+        hourToPlay: undefined,
         state: 'Sin asignar',
     }, {
         matchId: 'P1M4',
@@ -46,7 +46,7 @@ exports.roundOfSixteen = {
             teamName: 'team8',
             goals: undefined
         },
-        dateToPlay: undefined,
+        hourToPlay: undefined,
         state: 'Sin asignar',
     }, {
         matchId: 'P1M5',
@@ -58,7 +58,7 @@ exports.roundOfSixteen = {
             teamName: 'team10',
             goals: undefined
         },
-        dateToPlay: undefined,
+        hourToPlay: undefined,
         state: 'Sin asignar',
     }, {
         matchId: 'P1M6',
@@ -70,7 +70,7 @@ exports.roundOfSixteen = {
             teamName: 'team12',
             goals: undefined
         },
-        dateToPlay: undefined,
+        hourToPlay: undefined,
         state: 'Sin asignar',
     }, {
         matchId: 'P1M7',
@@ -82,7 +82,7 @@ exports.roundOfSixteen = {
             teamName: 'team14',
             goals: undefined
         },
-        dateToPlay: undefined,
+        hourToPlay: undefined,
         state: 'Sin asignar',
     }, {
         matchId: 'P1M8',
@@ -94,7 +94,7 @@ exports.roundOfSixteen = {
             teamName: 'team16',
             goals: undefined
         },
-        dateToPlay: undefined,
+        hourToPlay: undefined,
         state: 'Sin asignar',
     }]
 };
