@@ -13,7 +13,7 @@ import { fixtureRegexp } from '../../../utils/utils';
 })
 export class FixtureComponent implements OnInit {
 
-  @Input() inscriptions: any;
+  @Input() inscriptions: any[];
 
   editOctavos = false;
   editCuartos = false;
@@ -160,7 +160,6 @@ export class FixtureComponent implements OnInit {
     this.tournamentId = this.route.snapshot.params[ 'id' ];
     if (this.tournamentId) {
       this.getPhases();
-      this.isGenerable = this.inscriptions.length > 15;
     }
   }
 
@@ -172,6 +171,7 @@ export class FixtureComponent implements OnInit {
     this.tournamentService.getPhases(this.tournamentId).subscribe((data: any) => {
       this.setEsSinAsignar(data.phases);
       this.generateTournamentData(data.phases);
+      this.isGenerable = this.inscriptions.length > 15;
     });
   }
 

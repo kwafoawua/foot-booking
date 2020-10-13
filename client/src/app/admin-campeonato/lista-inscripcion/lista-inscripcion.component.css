@@ -1,0 +1,24 @@
+.lista-inscripcion-card {
+  max-width: 400px;
+  min-width: 360px;
+  margin: 1rem;
+}
+
+.lista-inscripcion-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+
+.lista-inscripcion-info {
+  padding-left: 2rem;
+}
+
+.lista-inscripcion-title {
+  margin-top: 3rem;
+}
+
+.lista-inscripcion-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
