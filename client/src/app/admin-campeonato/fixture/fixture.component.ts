@@ -164,7 +164,25 @@ export class FixtureComponent implements OnInit {
   }
 
   updateMatch($event) {
-    console.log($event);
+    console.log('event', $event);
+    const local = $event.teams[ 0 ];
+    const visitor = $event.teams[ 1 ];
+    const match = {
+      tournamentId: $event.tournamentId,
+      matchId: $event.id,
+      visitorTeam: visitor.name,
+      localTeam: local.name,
+      localGoals: local.score,
+      visitorGoals: visitor.score,
+      hourDate: $event.hourDate
+    };
+    this.tournamentService.updateMatch(match).subscribe(response => {
+      console.log('success', response);
+    },
+      error => {
+      console.log('error ', error)
+      })
+    ;
   }
 
   getPhases() {
@@ -190,18 +208,19 @@ export class FixtureComponent implements OnInit {
     });
   }
 
-  mapPhaseToMatch(match, phaseId, phaseType) {
+  mapPhaseToMatch(match, phaseId, phaseType, tournamentId) {
     const localTeamName = !fixtureRegexp(match.localTeam.teamName) ? match.localTeam.teamName : null;
     const visitorTeamName = !fixtureRegexp(match.visitorTeam.teamName) ? match.visitorTeam.teamName : null;
     return {
-      hourDate: match.hourDate || null,
+      tournamentId,
+      hourDate: match.hourToPlay || null,
       id: match._id,
       state: match.state,
       phaseId,
       phaseType,
       teams: [
-        { name: localTeamName, score: match.localTeam.score || null },
-        { name: visitorTeamName, score: match.visitorTeam.score || null }
+        { name: localTeamName, score: match.localTeam.goals || null },
+        { name: visitorTeamName, score: match.visitorTeam.goals || null }
       ]
     };
   }
@@ -217,18 +236,19 @@ export class FixtureComponent implements OnInit {
       const round = {} as any;
       const phase = phases[ i ];
       const phaseType = phase.phaseType;
+      const tournamentId = phase.tournamentId;
       if (phaseType !== 'Final' && phaseType !== 'Tercero y Cuarto puesto') {
         round.type = 'Winnerbracket';
         round.matches = phase.matches.map(match => {
-          return this.mapPhaseToMatch(match, phase._id, phaseType);
+          return this.mapPhaseToMatch(match, phase._id, phaseType, tournamentId);
         });
         rounds.push(round);
       } else if (phaseType === 'Final') {
         const match = phase.matches[ 0 ];
-        lastRound.matches[ 0 ] = this.mapPhaseToMatch(match, phase._id, phaseType);
+        lastRound.matches[ 0 ] = this.mapPhaseToMatch(match, phase._id, phaseType, tournamentId);
       } else {
         const match = phase.matches[ 0 ];
-        lastRound.matches[ 1 ] = this.mapPhaseToMatch(match, phase._id, phaseType);
+        lastRound.matches[ 1 ] = this.mapPhaseToMatch(match, phase._id, phaseType, tournamentId);
       }
     }
 

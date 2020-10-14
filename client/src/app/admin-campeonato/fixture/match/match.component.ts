@@ -40,7 +40,10 @@ export class MatchComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.updateMatch.emit(result);
+      if (result) {
+        this.updateMatch.emit(result);
+      }
+
     });
   }
 }
