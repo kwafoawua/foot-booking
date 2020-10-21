@@ -14,19 +14,13 @@ import { fixtureRegexp } from '../../../utils/utils';
 export class FixtureComponent implements OnInit {
 
   @Input() inscriptions: any[];
-
-  editOctavos = false;
-  editCuartos = false;
-  editSemifinales = false;
-  editFinales = false;
-  fechaOctavos: string;
-  fechaCuartos: string;
-  fechaSemi: string;
-  fechaFinal: string;
+  maxDate: Date;
+  minDate: Date;
   tournamentId: string;
   esSinAsignar: boolean;
-
   isGenerable: boolean;
+  phases: any;
+  phaseDateList: any[];
 
   myTournamentData = {
     rounds: [
@@ -160,7 +154,16 @@ export class FixtureComponent implements OnInit {
     this.tournamentId = this.route.snapshot.params[ 'id' ];
     if (this.tournamentId) {
       this.getPhases();
+      this.getTournament();
     }
+  }
+
+  getTournament() {
+    this.tournamentService.getTournamentInfo(this.tournamentId).subscribe((data: any) => {
+      this.maxDate = new Date(data.tournament.endDate);
+      this.minDate = new Date(data.tournament.startDate);
+      console.log(this.maxDate, this.minDate);
+    });
   }
 
   updateMatch($event) {
@@ -190,6 +193,33 @@ export class FixtureComponent implements OnInit {
       this.setEsSinAsignar(data.phases);
       this.generateTournamentData(data.phases);
       this.isGenerable = this.inscriptions.length > 15;
+      this.phases = data.phases;
+      this.phaseDateList = [
+        {
+          state: false,
+          date: null,
+          name: 'octavos',
+          phaseId: this.phases[0]._id
+        },
+        {
+          state: false,
+          date: null,
+          name: 'cuartos',
+          phaseId: this.phases[1]._id
+        },
+        {
+          state: false,
+          date: null,
+          name: 'semifinales',
+          phaseId: this.phases[2]._id
+        },
+        {
+          state: false,
+          date: null,
+          name: 'finales',
+          phaseId: this.phases[3]._id
+        }
+      ];
     });
   }
 
@@ -204,11 +234,15 @@ export class FixtureComponent implements OnInit {
 
   shuffleMatches() {
     this.tournamentService.shuffleMatches(this.tournamentId).subscribe((data: any) => {
+      console.log('shuffle data', data);
       this.esSinAsignar = false;
+      this.getPhases();
     });
   }
 
   mapPhaseToMatch(match, phaseId, phaseType, tournamentId) {
+    console.log('mapPHaseToMatch match', match);
+    console.log('maphasetomatch regexpq', fixtureRegexp(match.localTeam.teamName));
     const localTeamName = !fixtureRegexp(match.localTeam.teamName) ? match.localTeam.teamName : null;
     const visitorTeamName = !fixtureRegexp(match.visitorTeam.teamName) ? match.visitorTeam.teamName : null;
     return {
@@ -256,5 +290,22 @@ export class FixtureComponent implements OnInit {
     this.myTournamentData = { rounds };
   }
 
+  updatePhaseDate(phase, action, index) {
+    console.log(phase, action);
+    if (action === 'edit') {
+      this.phaseDateList[index].state = true;
+    } else {
+      const toUpdate = {
+        phaseId: phase.phaseId,
+        dateToPlay: phase.date,
+      };
+      this.tournamentService.updatePhase(toUpdate).subscribe((data: any) => {
+        console.log(data);
+        this.phaseDateList[index].state = false;
 
+      });
+
+    }
+
+  }
 }

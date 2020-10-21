@@ -8,22 +8,11 @@ import {TState} from '../_models/TState';
 export class TournamentService {
 
 private tState: TState[] = [
-  {
-  id: 1,
-  name: 'Nuevo'
-},
-  {id: 2,
-  name: 'Publicado'
-  },
-  {id: 3,
-  name: 'Iniciado'
-  },
-  {id: 4,
-  name: 'Finalizado'
-  },
-  {id: 5,
-    name: 'Cancelado'
-  }];
+  { id: 1, name: 'Nuevo' },
+  {id: 2, name: 'Publicado' },
+  {id: 3, name: 'Iniciado' },
+  {id: 4, name: 'Finalizado' },
+  {id: 5, name: 'Cancelado' }];
 
   private tType: string[] = [ '5 Jugadores', '7 Jugadores', '11 Jugadores'];
 
@@ -78,4 +67,7 @@ private tState: TState[] = [
     return this.http.put('/phase/updatePhaseMatch', match);
   }
 
+  updatePhase(phase: any) {
+    return this.http.put('/phase/updatePhase', phase);
+  }
 }
