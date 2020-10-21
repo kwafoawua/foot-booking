@@ -18,54 +18,54 @@
 
           <mat-card-content>
             <div class="row">
-                  <div class="col-8 col-sm-8">
+                  <div class="col-xs-8 col-md-8">
                     <div class="row">
-                      <div class="col">
+                      <div class="col-xs-4 col-md-4">
                         Inicio de campeonato
                       </div>
-                      <div class="col">
+                      <div class="col-xs-4 col-md-4">
                         <strong> {{torneo.startDate | date:"dd/MM/yyyy"}} </strong>
                       </div>
-                      <div class="col">
+                      <div class="col-xs-4 col-md-4">
 
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col">
+                      <div class="col-xs-4 col-md-4">
                         Modalidad de campeonato
                       </div>
-                      <div class="col">
+                      <div class="col-xs-4 col-md-4">
                         <strong>{{torneo.category}}</strong>
                       </div>
-                      <div class="col">
+                      <div class="col-xs-4 col-md-4">
 
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col">
+                      <div class="col-xs-4 col-md-4">
                         Cantidad de jugadores por equipo
                       </div>
-                      <div class="col">
+                      <div class="col-xs-4 col-md-4">
                         <strong>{{torneo.numberOfPlayers}}</strong>
                       </div>
-                      <div class="col">
+                      <div class="col-xs-4 col-md-4">
 
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col">
+                      <div class="col-xs-4 col-md-4">
                         Total de equipos
                       </div>
-                      <div class="col">
+                      <div class="col-xs-4 col-md-4">
                         <strong>{{torneo.numbersOfTeams}}</strong>
                       </div>
-                      <div class="col">
+                      <div class="col-xs-4 col-md-4">
 
                       </div>
                     </div>
                   </div>
 
-                    <div class="col-6 col-sm-4">
+                    <div class="col-md-4 col-xs-4">
                       <ul class="list-inline">
                         <li *ngIf="torneo?.prize1"  class="list-inline-item">
                           <img src="../../assets/icons/medal-first-place-96.png" height="96" width="96"/>

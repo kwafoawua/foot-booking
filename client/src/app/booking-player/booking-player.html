@@ -6,8 +6,12 @@
       <div class="tab-content">
         <div id="all-faq" class="faq-post tab-pane active">
           <div class="faq">
+            <div *ngIf="bookings.length === 0">
+              No hay reservas que mostrar
+            </div>
+            <div *ngIf="bookings.length != 0">
 
-            <div class="card" *ngFor="let r of bookings">
+              <div  class="card" *ngFor="let r of bookings">
               <div class="card-header">
                 <b>Club {{r.club.name | uppercase}}</b>
               </div>
@@ -32,41 +36,8 @@
                 </div>
               </div>
             </div>
-            <!--<div class="faq-ans" *ngFor="let r of bookings" >-->
-            <!--<div class="post-inner">-->
-            <!--<div class="row form-group">-->
-            <!--<label class="col-md-4"> Estado de la reserva </label>-->
-            <!--<div class="col-md-8">-->
-            <!--<h3>{{r.status}}</h3>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--<div class="row form-group">-->
-            <!--<label class="col-md-4"> Fecha de reserva </label>-->
-            <!--<div class="col-md-8">-->
-            <!--{{r.createdOn}}-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--<div class="row form-group">-->
-            <!--<label class="col-md-4"> Club </label>-->
-            <!--<div class="col-md-8">-->
-            <!--{{r.club.name}}-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--<div class="row form-group">-->
-            <!--<label class="col-md-4"> Cancha </label>-->
-            <!--<div class="col-md-8">-->
-            <!--{{r.field.fieldName}}-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--<div class="row form-group">-->
-            <!--<label class="col-md-4"> Fecha y Hora de juego </label>-->
-            <!--<div class="col-md-8">-->
-            <!--{{r.playingDate}}{{r.playingTime}}-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>&lt;!&ndash; post-inner &ndash;&gt;-->
-            <!--</div>-->
 
+            </div>
           </div>
 
         </div>
