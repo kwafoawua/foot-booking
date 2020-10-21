@@ -1,0 +1,16 @@
+<div class="lista-inscripcion-container">
+  <div class="lista-inscripcion-title">
+    <h1>Equipos Inscriptos: {{inscriptions?.length}}</h1>
+  </div>
+  <div class="lista-inscripcion-card-container">
+    <mat-card class="lista-inscripcion-card" *ngFor="let in of inscriptions">
+      <mat-card-header>
+        <div mat-card-avatar class="lista-inscripcion-header-image"></div>
+        <div class="lista-inscripcion-info">
+          <mat-card-title>{{in.team?.name}}</mat-card-title>
+          <mat-card-subtitle>{{in.referringContact?.name}}</mat-card-subtitle>
+        </div>
+      </mat-card-header>
+    </mat-card>
+  </div>
+</div>

@@ -10,7 +10,7 @@ exports.quarterFinal = {
             teamName: 'P1M2',
             goals: undefined
         },
-        dateToPlay: undefined,
+        hourToPlay: undefined,
         state: 'Sin asignar',
     }, {
         matchId: 'P2M2',
@@ -22,7 +22,7 @@ exports.quarterFinal = {
             teamName: 'P1M4',
             goals: undefined
         },
-        dateToPlay: undefined,
+        hourToPlay: undefined,
         state: 'Sin asignar',
     }, {
         matchId: 'P2M3',
@@ -34,7 +34,7 @@ exports.quarterFinal = {
             teamName: 'P1M6',
             goals: undefined
         },
-        dateToPlay: undefined,
+        hourToPlay: undefined,
         state: 'Sin asignar',
     }, {
         matchId: 'P2M4',
@@ -46,7 +46,7 @@ exports.quarterFinal = {
             teamName: 'P1M8',
             goals: undefined
         },
-        dateToPlay: undefined,
+        hourToPlay: undefined,
         state: 'Sin asignar',
     }]
 };

@@ -13,6 +13,7 @@ import { FixtureComponent } from './fixture/fixture.component';
 import { MatchComponent } from './fixture/match/match.component';
 import { MatchUpdateDialogComponent } from './fixture/match/match.component';
 import { NgTournamentTreeModule } from 'ng-tournament-tree';
+import { ListaInscripcionComponent } from './lista-inscripcion/lista-inscripcion.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { NgTournamentTreeModule } from 'ng-tournament-tree';
     DetalleCampeonatoComponent,
     FixtureComponent,
     MatchComponent,
-    MatchUpdateDialogComponent
+    MatchUpdateDialogComponent,
+    ListaInscripcionComponent
   ],
   entryComponents: [
     MatchUpdateDialogComponent

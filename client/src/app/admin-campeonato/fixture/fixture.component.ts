@@ -1,5 +1,4 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { NgttTournament } from 'ng-tournament-tree';
 import { TournamentService } from '../../_services/tournament.service';
 import { AlertService } from '../../_services';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,12 +13,8 @@ import { fixtureRegexp } from '../../../utils/utils';
 })
 export class FixtureComponent implements OnInit {
 
-  @Input() inscriptionsCount: number;
+  @Input() inscriptions: any[];
 
-  teamNames = [
-    'Team 1', 'Team 2', 'Team 3', 'Team 4', 'Team 5', 'Team 6', 'Team 7', 'Team 8', 'Team 9', 'Team 10', 'Team 11', 'Team 12',
-    'Team 13', 'Team 14', 'Team 15', 'Team 16'
-  ];
   editOctavos = false;
   editCuartos = false;
   editSemifinales = false;
@@ -165,25 +160,36 @@ export class FixtureComponent implements OnInit {
     this.tournamentId = this.route.snapshot.params[ 'id' ];
     if (this.tournamentId) {
       this.getPhases();
-      this.isGenerable = this.inscriptionsCount > 15;
-      console.log('isGenerable', this.isGenerable);
-      console.log('inscriptionCount', this.inscriptionsCount);
     }
   }
 
   updateMatch($event) {
-    console.log('fixture update');
-    console.log($event);
-    console.log('is tournament data updated?', this.myTournamentData);
+    console.log('event', $event);
+    const local = $event.teams[ 0 ];
+    const visitor = $event.teams[ 1 ];
+    const match = {
+      tournamentId: $event.tournamentId,
+      matchId: $event.id,
+      visitorTeam: visitor.name,
+      localTeam: local.name,
+      localGoals: local.score,
+      visitorGoals: visitor.score,
+      hourDate: $event.hourDate
+    };
+    this.tournamentService.updateMatch(match).subscribe(response => {
+      console.log('success', response);
+    },
+      error => {
+      console.log('error ', error)
+      })
+    ;
   }
 
   getPhases() {
     this.tournamentService.getPhases(this.tournamentId).subscribe((data: any) => {
-      console.log('fases', data);
       this.setEsSinAsignar(data.phases);
       this.generateTournamentData(data.phases);
-
-      console.log('es pendiendte de juego', this.esSinAsignar);
+      this.isGenerable = this.inscriptions.length > 15;
     });
   }
 
@@ -202,19 +208,19 @@ export class FixtureComponent implements OnInit {
     });
   }
 
-  mapPhaseToMatch(match, phaseId, phaseType) {
+  mapPhaseToMatch(match, phaseId, phaseType, tournamentId) {
     const localTeamName = !fixtureRegexp(match.localTeam.teamName) ? match.localTeam.teamName : null;
     const visitorTeamName = !fixtureRegexp(match.visitorTeam.teamName) ? match.visitorTeam.teamName : null;
-
     return {
-      hourDate: match.hourDate || null,
+      tournamentId,
+      hourDate: match.hourToPlay || null,
       id: match._id,
       state: match.state,
       phaseId,
       phaseType,
       teams: [
-        { name: localTeamName, score: match.localTeam.score || null },
-        { name: visitorTeamName, score: match.visitorTeam.score || null }
+        { name: localTeamName, score: match.localTeam.goals || null },
+        { name: visitorTeamName, score: match.visitorTeam.goals || null }
       ]
     };
   }
@@ -230,23 +236,25 @@ export class FixtureComponent implements OnInit {
       const round = {} as any;
       const phase = phases[ i ];
       const phaseType = phase.phaseType;
+      const tournamentId = phase.tournamentId;
       if (phaseType !== 'Final' && phaseType !== 'Tercero y Cuarto puesto') {
         round.type = 'Winnerbracket';
         round.matches = phase.matches.map(match => {
-          return this.mapPhaseToMatch(match, phase._id, phaseType);
+          return this.mapPhaseToMatch(match, phase._id, phaseType, tournamentId);
         });
         rounds.push(round);
       } else if (phaseType === 'Final') {
         const match = phase.matches[ 0 ];
-        lastRound.matches[ 0 ] = this.mapPhaseToMatch(match, phase._id, phaseType);
+        lastRound.matches[ 0 ] = this.mapPhaseToMatch(match, phase._id, phaseType, tournamentId);
       } else {
         const match = phase.matches[ 0 ];
-        lastRound.matches[ 1 ] = this.mapPhaseToMatch(match, phase._id, phaseType);
+        lastRound.matches[ 1 ] = this.mapPhaseToMatch(match, phase._id, phaseType, tournamentId);
       }
     }
 
     rounds.push(lastRound);
-    console.log(rounds);
     this.myTournamentData = { rounds };
   }
+
+
 }

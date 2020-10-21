@@ -74,4 +74,10 @@ private tState: TState[] = [
     return this.http.get(`/inscription/tournament/${id}`);
   }
 
+
+  updateMatch(match: any) {
+    return this.http.put('/phase/updatePhaseMatch', match);
+  }
+
+
 }

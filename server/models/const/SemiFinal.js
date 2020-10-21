@@ -10,7 +10,7 @@ exports.semiFinal = {
             teamName: 'P2M2',
             goals: undefined
         },
-        dateToPlay: undefined,
+        hourToPlay: undefined,
         state: 'Sin asignar',
     }, {
         matchId: 'P3M2',
@@ -22,7 +22,7 @@ exports.semiFinal = {
             teamName: 'P2M4',
             goals: undefined
         },
-        dateToPlay: undefined,
+        hourToPlay: undefined,
         state: 'Sin asignar',
     }]
 };

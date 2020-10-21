@@ -3,9 +3,9 @@
   <div class="row">
     <div class="col-12 col-md-6" >
       <mat-form-field>
-        <mat-select placeholder="Equipo Local"  [(ngModel)]="match?.teams[0].name">
-          <mat-option value="">Ninguno</mat-option>
-          <mat-option *ngFor="let equipo of data.teamNames" [value]="equipo">{{equipo}}</mat-option>
+        <mat-select placeholder="Equipo Local" [(value)]="match?.teams[0].name" [(ngModel)]="match?.teams[0].name" [disabled]="disabledSelect">
+          <mat-option>Ninguno</mat-option>
+          <mat-option *ngFor="let inscription of inscriptions" [value]="inscription?.team.name" >{{inscription.team.name}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -19,9 +19,9 @@
   <div class="row">
     <div class="col-12 col-md-6" >
       <mat-form-field>
-        <mat-select placeholder="Equipo Invitado" [(ngModel)]="match?.teams[1].name">
-          <mat-option value="">Ninguno</mat-option>
-          <mat-option *ngFor="let equipo of data.teamNames" [value]="equipo">{{equipo}}</mat-option>
+        <mat-select placeholder="Equipo Invitado"  [(value)]="match?.teams[1].name" [(ngModel)]="match?.teams[1].name" [disabled]="disabledSelect">
+          <mat-option>Ninguno</mat-option>
+          <mat-option *ngFor="let inscription of inscriptions" [value]="inscription?.team.name" >{{inscription?.team.name}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
