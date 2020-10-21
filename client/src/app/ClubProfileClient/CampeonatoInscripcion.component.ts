@@ -41,10 +41,11 @@ export class CampeonatoInscripcionComponent implements OnInit{
   createForm() {
     this.inscripcionForm = this.fb.group({
       idTournament: [''],
-      nombreResponsable: [null, [Validators.required, Validators.maxLength(50), Validators.minLength(5)]],
-      nombreEquipo: [null, [Validators.required, Validators.maxLength(50), Validators.minLength(5)]],
+
+      team: [null, [Validators.required, Validators.maxLength(50), Validators.minLength(5)]],
+      name: [null, [Validators.required, Validators.maxLength(50), Validators.minLength(5)]],
       phoneNumber: [null, [Validators.required, Validators.maxLength(12), Validators.minLength(1)]],
-      idUser: [''],
+
     });
     this.inscripcionForm.controls.idTournament.setValue(this.route.snapshot.params.id) ;
     this.inscripcionForm.controls.idUser.setValue(this.currentUser);
