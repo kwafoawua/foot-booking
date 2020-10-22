@@ -8,7 +8,7 @@
 
         <mat-horizontal-stepper [linear]="isLinear" #stepper>
           <!--              PASO 1-->
-          <mat-step [stepControl]="inscripcionForm" completed >
+          <mat-step [stepControl]="inscripcionForm" completed = "false">
              <form class="example-container" [formGroup]="inscripcionForm">
               <ng-template matStepLabel>Responsabe de equipo</ng-template>
 

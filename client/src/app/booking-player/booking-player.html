@@ -19,7 +19,25 @@
 
                 <div class="row">
                   <div class="col card-text">Fecha de reserva: {{r.createdOn | date:"dd/MM/yy"}} </div>
-                  <div class="col card-text">{{r.status | uppercase}}</div>
+                  <div class="col card-text">
+                    <div *ngIf="r.status == 'Pendiente de Pago'">
+                      <span class="badge badge-warning">{{r.status | uppercase}}</span>
+                    </div>
+                    <div *ngIf="r.status == 'Reservado'">
+                      <span class="badge badge-info">{{r.status | uppercase}}</span>
+                    </div>
+                    <div *ngIf="r.status == 'Cancelado' || r.status == 'Anulado' ">
+                      <span class="badge badge-warning">{{r.status | uppercase}}</span>
+                    </div>
+                    <div *ngIf="r.status == 'Ausente'">
+                      <span class="badge badge-light">{{r.status | uppercase}}</span>
+                    </div>
+                    <div *ngIf="r.status == 'Asistido'">
+                      <span class="badge badge-success">{{r.status | uppercase}}</span>
+                    </div>
+
+
+                  </div>
                   <div class="w-100"></div>
                   <div class="col card-text">Fecha de juego: {{r.playingDate | date:"dd/MM/yy"}}</div>
                   <div class="col card-text">Hora de juego: {{r.playingTime}}</div>
