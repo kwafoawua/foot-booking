@@ -21,4 +21,5 @@ export class Tournament {
   state: string;
   //image:File;
   numberOfPlayers: any;
+  inscriptionNumber;
 }

@@ -28,7 +28,7 @@ export class CampeonatoInfoComponent implements OnInit {
   getTorneo(torneoId: string) {
     this.tournamentService.getTournamentInfo(torneoId).subscribe((data: any) => {
       this.torneo = data.tournament;
-      console.log('los datos ' + this.torneo.valueOf());
+      console.log('los datos ' + JSON.stringify(data));
     }, error => console.log(error));
 
   }

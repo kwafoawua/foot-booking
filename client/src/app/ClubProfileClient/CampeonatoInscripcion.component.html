@@ -8,7 +8,7 @@
 
         <mat-horizontal-stepper [linear]="isLinear" #stepper>
           <!--              PASO 1-->
-          <mat-step [stepControl]="inscripcionForm" completed >
+          <mat-step [stepControl]="inscripcionForm" completed = "false">
              <form class="example-container" [formGroup]="inscripcionForm">
               <ng-template matStepLabel>Responsabe de equipo</ng-template>
 
@@ -21,7 +21,9 @@
               </mat-form-field>
 
               <mat-form-field class="example-full-width">
+
                 <input matInput placeholder="Teléfono" formControlName="phoneNumber" class="form-control" type="number" required>
+
               </mat-form-field>
               <div>
                 <button class="btn btn-success" matStepperNext>Siguiente</button>

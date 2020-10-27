@@ -77,7 +77,9 @@ module.exports.findAllClubs = function (req, res) {
         if (err) {
             return res.status(500).send(err);
         }
+
         const clubResponse = await ClubResponseAdapter.adaptClubs(clubs);
+        console.log('esto es en eluccontroleer', JSON.stringify(clubResponse));
         res.status(200).send(clubResponse);
     });
 };

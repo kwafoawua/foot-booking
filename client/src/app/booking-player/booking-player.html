@@ -6,8 +6,12 @@
       <div class="tab-content">
         <div id="all-faq" class="faq-post tab-pane active">
           <div class="faq">
+            <div *ngIf="bookings.length === 0">
+              No hay reservas que mostrar
+            </div>
+            <div *ngIf="bookings.length != 0">
 
-            <div class="card" *ngFor="let r of bookings">
+              <div  class="card" *ngFor="let r of bookings">
               <div class="card-header">
                 <b>Club {{r.club.name | uppercase}}</b>
               </div>
@@ -15,7 +19,25 @@
 
                 <div class="row">
                   <div class="col card-text">Fecha de reserva: {{r.createdOn | date:"dd/MM/yy"}} </div>
-                  <div class="col card-text">{{r.status | uppercase}}</div>
+                  <div class="col card-text">
+                    <div *ngIf="r.status == 'Pendiente de Pago'">
+                      <span class="badge badge-warning">{{r.status | uppercase}}</span>
+                    </div>
+                    <div *ngIf="r.status == 'Reservado'">
+                      <span class="badge badge-info">{{r.status | uppercase}}</span>
+                    </div>
+                    <div *ngIf="r.status == 'Cancelado' || r.status == 'Anulado' ">
+                      <span class="badge badge-warning">{{r.status | uppercase}}</span>
+                    </div>
+                    <div *ngIf="r.status == 'Ausente'">
+                      <span class="badge badge-light">{{r.status | uppercase}}</span>
+                    </div>
+                    <div *ngIf="r.status == 'Asistido'">
+                      <span class="badge badge-success">{{r.status | uppercase}}</span>
+                    </div>
+
+
+                  </div>
                   <div class="w-100"></div>
                   <div class="col card-text">Fecha de juego: {{r.playingDate | date:"dd/MM/yy"}}</div>
                   <div class="col card-text">Hora de juego: {{r.playingTime}}</div>
@@ -32,41 +54,8 @@
                 </div>
               </div>
             </div>
-            <!--<div class="faq-ans" *ngFor="let r of bookings" >-->
-            <!--<div class="post-inner">-->
-            <!--<div class="row form-group">-->
-            <!--<label class="col-md-4"> Estado de la reserva </label>-->
-            <!--<div class="col-md-8">-->
-            <!--<h3>{{r.status}}</h3>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--<div class="row form-group">-->
-            <!--<label class="col-md-4"> Fecha de reserva </label>-->
-            <!--<div class="col-md-8">-->
-            <!--{{r.createdOn}}-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--<div class="row form-group">-->
-            <!--<label class="col-md-4"> Club </label>-->
-            <!--<div class="col-md-8">-->
-            <!--{{r.club.name}}-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--<div class="row form-group">-->
-            <!--<label class="col-md-4"> Cancha </label>-->
-            <!--<div class="col-md-8">-->
-            <!--{{r.field.fieldName}}-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--<div class="row form-group">-->
-            <!--<label class="col-md-4"> Fecha y Hora de juego </label>-->
-            <!--<div class="col-md-8">-->
-            <!--{{r.playingDate}}{{r.playingTime}}-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>&lt;!&ndash; post-inner &ndash;&gt;-->
-            <!--</div>-->
 
+            </div>
           </div>
 
         </div>

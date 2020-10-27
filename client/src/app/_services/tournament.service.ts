@@ -55,13 +55,14 @@ private tState: TState[] = [
   }
 
   createInscription(equipo: any){
-    console.log('El service ', equipo);
+    console.log('El service el equipooooooooo El service el equipooooooooo  ', equipo);
     return this.http.post('/inscription/enroll', equipo);
   }
 
   getAllInscriptions(id: string) {
     return this.http.get(`/inscription/tournament/${id}`);
   }
+
 
   updateMatch(match: any) {
     return this.http.put('/phase/updatePhaseMatch', match);
@@ -70,4 +71,5 @@ private tState: TState[] = [
   updatePhase(phase: any) {
     return this.http.put('/phase/updatePhase', phase);
   }
+
 }

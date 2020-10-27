@@ -17,7 +17,10 @@ export class ClubInfoComponent implements OnInit{
   uploadsBaseURL = environment.uploadsBaseURL;
   galery: string[];
   public myTournament: Tournament[];
-  constructor(private clubService: ClubService, private route: ActivatedRoute, private tournamentService: TournamentService) {
+  constructor(
+    private clubService: ClubService,
+    private route: ActivatedRoute,
+    private tournamentService: TournamentService) {
   }
 
   ngOnInit(): void {
