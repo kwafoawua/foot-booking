@@ -124,8 +124,8 @@ exports.updatePhaseMatch = async (req, res) => {
             {
                 ...(localTeam && {'matches.$.localTeam.teamName': localTeam}),
                 ...(visitorTeam && {'matches.$.visitorTeam.teamName': visitorTeam}),
-                ...(localGoals && {'matches.$.localTeam.goals': localGoals}),
-                ...(visitorGoals && {'matches.$.visitorTeam.goals': visitorGoals}),
+                ...(localGoals >= 0 && {'matches.$.localTeam.goals': localGoals}),
+                ...(visitorGoals >= 0 && {'matches.$.visitorTeam.goals': visitorGoals}),
                 ...(hourDate && {'matches.$.hourToPlay': hourDate}),
                 'matches.$.state': state
             }, {useFindAndModify: false});
