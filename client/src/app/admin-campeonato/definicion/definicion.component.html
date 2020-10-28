@@ -1,4 +1,4 @@
-<ng-container *ngIf="status !== 'Publicado' else published">
+<ng-container *ngIf="status === 'Nuevo' else published">
   <form [formGroup]="tournamentForm" novalidate (ngSubmit)="registerTournament()">
     <mat-card class="example-card">
       <mat-card-header>
