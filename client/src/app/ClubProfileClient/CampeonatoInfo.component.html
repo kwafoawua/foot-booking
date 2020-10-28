@@ -6,11 +6,11 @@
 
         <mat-card>
                   <div class="row">
-                    <mat-card-title class="text-justify"> {{torneo.tournamentName}}</mat-card-title>
+                    <mat-card-title class="text-justify"> {{torneo?.tournamentName}}</mat-card-title>
                   </div>
           <mat-card-content>
                   <div class="row">
-                    {{torneo.publicationDescription}}
+                    {{torneo?.publicationDescription}}
                   </div>
           </mat-card-content>
 
@@ -24,7 +24,7 @@
                         Inicio de campeonato
                       </div>
                       <div class="col-xs-4 col-md-4">
-                        <strong> {{torneo.startDate | date:"dd/MM/yyyy"}} </strong>
+                        <strong> {{torneo?.startDate | date:"dd/MM/yyyy"}} </strong>
                       </div>
                       <div class="col-xs-4 col-md-4">
 
@@ -35,7 +35,7 @@
                         Modalidad de campeonato
                       </div>
                       <div class="col-xs-4 col-md-4">
-                        <strong>{{torneo.category}}</strong>
+                        <strong>{{torneo?.category}}</strong>
                       </div>
                       <div class="col-xs-4 col-md-4">
 
@@ -46,7 +46,7 @@
                         Cantidad de jugadores por equipo
                       </div>
                       <div class="col-xs-4 col-md-4">
-                        <strong>{{torneo.numberOfPlayers}}</strong>
+                        <strong>{{torneo?.numberOfPlayers}}</strong>
                       </div>
                       <div class="col-xs-4 col-md-4">
 
@@ -57,7 +57,7 @@
                         Total de equipos
                       </div>
                       <div class="col-xs-4 col-md-4">
-                        <strong>{{torneo.numbersOfTeams}}</strong>
+                        <strong>{{torneo?.numbersOfTeams}}</strong>
                       </div>
                       <div class="col-xs-4 col-md-4">
 
@@ -106,7 +106,7 @@
 <!--                      </div>-->
 
                       <div class="row">
-                      <div *ngIf="torneo.state === 'Publicado'">
+                      <div *ngIf="torneo?.state === 'Publicado'">
                         <div class="alert alert-success" role="alert">
                           <h4 class="alert-heading">Inscribite ya por {{torneo.inscriptionCost}}</h4>
                         </div>
@@ -122,8 +122,11 @@
       </div>
     </div>
   </div>
-    <div *ngIf="torneo.state == 'Publicado' || torneo.inscriptionNumber > torneo.numbersOfTeams " >
-      <camp-insc [torneo]="this.torneo"></camp-insc>
+    <div *ngIf="torneo?.state == 'Publicado' && torneo?.numbersOfTeams > cantidad " >
+      <camp-insc [torneo]="torneo" [cantidad]="cantidad"></camp-insc>
+    </div>
+    <div *ngIf="cantidad >= torneo?.numbersOfTeams">
+      <h5> El torneo esta complento. </h5>
     </div>
 </div>
 

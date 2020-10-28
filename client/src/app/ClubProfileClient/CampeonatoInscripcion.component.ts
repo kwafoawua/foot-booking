@@ -12,6 +12,7 @@ import {AlertService} from '../_services';
 
 export class CampeonatoInscripcionComponent implements OnInit{
   @Input() torneo: Tournament;
+  @Input() cantidad: any;
   inscripcionForm: FormGroup;
   isLinear: false;
   currentUser: any;
@@ -41,7 +42,7 @@ export class CampeonatoInscripcionComponent implements OnInit{
   createForm() {
     this.inscripcionForm = this.fb.group({
       idTournament: [''],
-
+      idUser: [''],
       team: [null, [Validators.required, Validators.maxLength(50), Validators.minLength(5)]],
       name: [null, [Validators.required, Validators.maxLength(50), Validators.minLength(5)]],
       phoneNumber: [null, [Validators.required, Validators.maxLength(12), Validators.minLength(1)]],
@@ -60,12 +61,21 @@ export class CampeonatoInscripcionComponent implements OnInit{
         this.tournamentService.createInscription(this.inscripcionForm.value).subscribe(data => {
             this.alertService.success('La inscripción se registró con éxito', true),
               console.log('el form', this.inscripcionForm);
-
+            console.log('informacion', this.torneo);
           },
           error => {
             this.alertService.error(error, false);
           }
         );
+
+      }
+      if (this.cantidad >= this.torneo.numbersOfTeams){
+        this.torneo.state = 'Completo';
+        this.tournamentService.updateTournament(this.torneo).subscribe(data => {
+          this.alertService.success('Se actualizaron los datos exitosamente', true);
+        }, error => {
+          this.alertService.error(error.error.msg, false);
+        });
       }
       this.createForm();
 

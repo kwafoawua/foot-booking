@@ -14,10 +14,13 @@ import {Equipo} from '../_models/equipo';
 
 export class CampeonatoInfoComponent implements OnInit {
   torneo: Tournament;
-
+  inscriptions: any[];
+  cantidad: any;
 
   ngOnInit(): void {
     this.getTorneo(this.route.snapshot.params.id);
+    this.getInscriptions();
+
   }
 
   constructor(private route: ActivatedRoute,
@@ -31,6 +34,14 @@ export class CampeonatoInfoComponent implements OnInit {
       console.log('los datos ' + JSON.stringify(data));
     }, error => console.log(error));
 
+  }
+
+  getInscriptions() {
+    this.tournamentService.getAllInscriptions(this.route.snapshot.params.id).subscribe((data: any) => {
+      this.inscriptions = data.inscriptions;
+      this.cantidad = this.inscriptions.length;
+      console.log('cantidad', this.cantidad);
+    });
   }
 
 }
