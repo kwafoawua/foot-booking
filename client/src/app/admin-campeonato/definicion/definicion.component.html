@@ -233,8 +233,8 @@
       <mat-card-subtitle>{{tournament.publicationDescription}}</mat-card-subtitle>
       <mat-card-subtitle>{{tournament.termsAndConditions}}</mat-card-subtitle>
     </mat-card-header>
-    <div class="row mb-2">
-      <div class="col-12 col-md-6">
+    <div class="row">
+      <div class="col-12 mb-2">
         <mat-card>
           <p>Información del campeonato</p>
           <p><b>Fecha de Inicio</b>  {{tournament.startDate | date:'shortDate' }}</p>
@@ -244,7 +244,7 @@
           <p><b>Cantidad de jugadores</b> {{tournament.numberOfPlayers}}</p>
         </mat-card>
       </div>
-      <div class="col-12 col-md-6">
+      <div class="col-12 mb-2">
         <mat-card>
           <p>Requerimientos de inscripción</p>
           <p><b>Fecha de Inicio</b>  {{tournament.inscriptionStartDate | date:'shortDate' }}</p>
@@ -253,8 +253,6 @@
           <div></div>
         </mat-card>
       </div>
-    </div>
-    <div class="row">
       <div class="col-12">
         <mat-card>
           <p>Premios</p>
@@ -265,9 +263,8 @@
           </div>
         </mat-card>
       </div>
-
-
     </div>
+
   </mat-card>
 
 </ng-template>
