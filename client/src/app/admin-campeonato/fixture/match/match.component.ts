@@ -3,6 +3,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 export interface IMatch {
   match: {
+    index: number;
     id: string;
     round: string;
     hourDate: string;

@@ -170,6 +170,7 @@ export class FixtureComponent implements OnInit {
     console.log('event', $event);
     const local = $event.teams[ 0 ];
     const visitor = $event.teams[ 1 ];
+    let nextUpdate;
     const match = {
       tournamentId: $event.tournamentId,
       matchId: $event.id,
@@ -179,14 +180,63 @@ export class FixtureComponent implements OnInit {
       visitorGoals: visitor.score,
       hourDate: $event.hourDate
     };
+    const finalizado = (visitor.score >= 0) && (local.score >= 0);
+    if (finalizado) {
+      const nextTeamName = visitor.score > local.score ? visitor.name : local.name;
+      switch ($event.phaseType){
+        case 'Octavos de final':
+         const  i8 = this.phases[0].matches.findIndex(m => m._id === $event.id);
+         nextUpdate = this.getNextMatch({phaseIndex: 1, matchIndex: i8, tournamentId: $event.tournamentId, teamName: nextTeamName});
+         break;
+        case 'Cuartos de final':
+          const i4 = this.phases[1].matches.findIndex(m => m._id === $event.id);
+          nextUpdate = this.getNextMatch({phaseIndex: 2, matchIndex: i4, tournamentId: $event.tournamentId, teamName: nextTeamName});
+          break;
+        case 'Semifinal':
+          const i2 = this.phases[2].matches.findIndex(m => m._id === $event.id);
+          nextUpdate = this.getNextMatch({phaseIndex: 3, matchIndex: i2, tournamentId: $event.tournamentId, teamName: nextTeamName});
+          break;
+        case 'Final':
+          const i1 = this.phases[1].matches.findIndex(m => m._id === $event.id);
+          nextUpdate = this.getNextMatch({phaseIndex: 4, matchIndex: i1, tournamentId: $event.tournamentId, teamName: nextTeamName});
+          break;
+        default:
+      }
+
+      this.tournamentService.updateMatch(nextUpdate).subscribe(response => {
+          console.log('update next match', response);
+          this.getPhases();
+        },
+        error => {
+          console.log('error ', error);
+        });
+    }
+
     this.tournamentService.updateMatch(match).subscribe(response => {
       console.log('success', response);
+      this.getPhases();
     },
       error => {
-      console.log('error ', error)
-      })
-    ;
+      console.log('error ', error);
+    });
   }
+
+getNextMatch({phaseIndex, matchIndex, tournamentId, teamName}) {
+  const actualizarSiguiente = {} as any;
+  actualizarSiguiente.tournamentId = tournamentId;
+  if (matchIndex % 2 === 0) {
+    const nextIndex = matchIndex / 2;
+    const nextMatch = this.phases[phaseIndex].matches[nextIndex];
+    actualizarSiguiente.matchId = nextMatch._id;
+    actualizarSiguiente.localTeam = teamName;
+  } else {
+    const nextIndex = Math.floor((matchIndex / 2));
+    const nextMatch = this.phases[phaseIndex].matches[nextIndex];
+    actualizarSiguiente.matchId = nextMatch._id;
+    actualizarSiguiente.visitorTeam = teamName;
+  }
+  return actualizarSiguiente;
+}
 
   getPhases() {
     this.tournamentService.getPhases(this.tournamentId).subscribe((data: any) => {
@@ -253,8 +303,8 @@ export class FixtureComponent implements OnInit {
       phaseId,
       phaseType,
       teams: [
-        { name: localTeamName, score: match.localTeam.goals || null },
-        { name: visitorTeamName, score: match.visitorTeam.goals || null }
+        { name: localTeamName, score: match.localTeam.goals >= 0 ? match.localTeam.goals : null },
+        { name: visitorTeamName, score: match.localTeam.goals >= 0 ? match.visitorTeam.goals : null }
       ]
     };
   }
