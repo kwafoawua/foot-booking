@@ -46,4 +46,11 @@ export class AdminCampeonatoComponent implements OnInit {
     this.router.navigate(['admin/campeonato', id]);
   }
 
+  cancel(id) {
+    this.tournamentService.updateTournament({_id: id, state: 'Cancelado'}).subscribe((data) => {
+      this.getTournaments();
+      }
+    );
+  }
+
 }
