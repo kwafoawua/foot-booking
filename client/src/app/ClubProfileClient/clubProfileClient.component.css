@@ -7,3 +7,9 @@
   -moz-background-size: cover;
 }
 
+.icon-service:hover{
+  color:green;
+  fill: green;
+
+}
+

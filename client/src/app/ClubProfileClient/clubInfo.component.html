@@ -95,19 +95,64 @@
               <div class="widget item-tag">
                 <h4>SERVICIOS DEL CLUB</h4>
                 <ul class="list-inline">
-                  <li class="list-inline-item" *ngFor="let serv of club?.services"><a>{{serv.display | uppercase}}</a>
-                  </li>
+                  <div class="list-inline-item" *ngFor="let serv of club?.services">
+                    <div *ngIf="serv.value === 'Parking'">
+                        <li class="icon-service">
+                          <img src="../../assets/icons/parking-area.png" height="24" width="24"/>
+                          {{serv.display | uppercase}}
+                        </li>
+                    </div>
+                    <div *ngIf="serv.value === 'Buffet'">
+                      <li class="icon-service">
+                        <img src="../../assets/icons/hot-pancakes.png" height="24" width="24"/>
+                        {{serv.display | uppercase}}
+                      </li>
+                    </div>
+                    <div *ngIf="serv.value === 'Bar'">
+                      <li class="icon-service">
+                        <img src="../../assets/icons/milkshake-with-straw.png" height="24" width="24"/>
+                        {{serv.display | uppercase}}
+                      </li>
+                    </div>
+                    <div *ngIf="serv.value === 'Techado'">
+                      <li class="icon-service">
+                        <img src="../../assets/icons/inclined-open-umbrella.png" height="24" width="24"/>
+                        {{serv.display | uppercase}}
+                      </li>
+                    </div>
+                    <div *ngIf="serv.value === 'Nocturno'">
+                      <li class="icon-service">
+                        <img src="../../assets/icons/ceiling-lamp.png" height="24" width="24"/>
+                        {{serv.display | uppercase}}
+                      </li>
+                    </div>
+                    <div *ngIf="serv.value === 'Asador'">
+                      <li class="icon-service">
+                        <img src="../../assets/icons/barbacue.png" height="24" width="24"/>
+                        {{serv.display | uppercase}}
+                      </li>
+                    </div>
+                  </div>
                 </ul>
               </div>
 
 
               <div class="widget item-tag" *ngIf="myTournament?.length > 0">
                 <h4>CAMPEONATOS</h4>
-                <ul class="list-inline" *ngFor="let i of myTournament">
-                  <li  *ngIf="i.state === 'Publicado' || i.state === 'Iniciado' " class="list-inline-item"  [routerLink]="['/campeonato',i._id]">
-                    <a>{{i.tournamentName | uppercase}}</a>
-                  </li>
-                </ul>
+                <div  *ngFor="let i of myTournament">
+                  <div *ngIf="i.state === 'Publicado' || i.state === 'Iniciado'">
+                   <ul class="list-inline">
+
+                      <li class="list-inline-item" [routerLink]="['/campeonato',i._id]">
+
+                        <a>
+                          <img src="../../assets/icons/football-cup.png"  height="24" width="24"/>
+                          {{i.tournamentName | uppercase}}
+                        </a>
+                      </li>
+                  </ul>
+                  </div>
+                </div>
               </div>
 
 
