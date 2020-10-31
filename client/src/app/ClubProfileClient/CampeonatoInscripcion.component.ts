@@ -69,6 +69,8 @@ export class CampeonatoInscripcionComponent implements OnInit{
         );
 
       }
+      this.cantidad++;
+
       if (this.cantidad >= this.torneo.numbersOfTeams){
         this.torneo.state = 'Completo';
         this.tournamentService.updateTournament(this.torneo).subscribe(data => {

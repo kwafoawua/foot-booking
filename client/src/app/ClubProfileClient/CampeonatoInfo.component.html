@@ -122,12 +122,16 @@
       </div>
     </div>
   </div>
-    <div *ngIf="torneo?.state == 'Publicado' && torneo?.numbersOfTeams > cantidad " >
+    <div *ngIf="torneo?.state == 'Publicado' " >
       <camp-insc [torneo]="torneo" [cantidad]="cantidad"></camp-insc>
     </div>
-    <div *ngIf="cantidad >= torneo?.numbersOfTeams">
-      <h5> El torneo esta complento. </h5>
+    <div *ngIf="torneo?.state == 'Completo'">
+      <app-fixture [inscriptions]="inscriptions" [user]="rol"></app-fixture>
+      El torneo esta completo, y pronto se realizará el sorteo...
     </div>
+  <div *ngIf="torneo?.state == 'Jugando'">
+
+  </div>
 </div>
 
 

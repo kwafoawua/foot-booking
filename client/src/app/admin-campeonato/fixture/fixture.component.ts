@@ -14,6 +14,7 @@ import { fixtureRegexp } from '../../../utils/utils';
 export class FixtureComponent implements OnInit {
 
   @Input() inscriptions: any[];
+  @Input() user: any;
   maxDate: Date;
   minDate: Date;
   tournamentId: string;
@@ -156,6 +157,10 @@ export class FixtureComponent implements OnInit {
       this.getPhases();
       this.getTournament();
     }
+    if (this.user == null){
+      this.user = 'Club';
+    }
+    console.log('el usuario' + this.user)
   }
 
   getTournament() {
