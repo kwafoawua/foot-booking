@@ -43,9 +43,9 @@ export class CampeonatoInscripcionComponent implements OnInit{
     this.inscripcionForm = this.fb.group({
       idTournament: [''],
       idUser: [''],
-      team: [null, [Validators.required, Validators.maxLength(50), Validators.minLength(5)]],
-      name: [null, [Validators.required, Validators.maxLength(50), Validators.minLength(5)]],
-      phoneNumber: [null, [Validators.required, Validators.maxLength(12), Validators.minLength(1)]],
+      team: [null, [Validators.required, Validators.maxLength(20), Validators.minLength(2)]],
+      name: [null, [Validators.required, Validators.maxLength(20), Validators.minLength(2)]],
+      phoneNumber: [null, [Validators.required, Validators.maxLength(15), Validators.minLength(10)]],
 
     });
     this.inscripcionForm.controls.idTournament.setValue(this.route.snapshot.params.id) ;
