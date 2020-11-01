@@ -5,6 +5,8 @@ import { AlertService } from '../../_services';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ValidateAllFields } from '../../_helpers';
 import { Tournament } from '../../_models/tournament';
+import {MatSnackBar} from '@angular/material';
+
 
 @Component({
   selector: 'app-definicion',
@@ -16,7 +18,7 @@ export class DefinicionComponent implements OnInit {
   tipoTorneo: any;
   categorias: any;
   tournamentId: string;
-  status: string;
+  status = 'Nuevo';
   tournament: Tournament;
 
   constructor(
@@ -24,7 +26,8 @@ export class DefinicionComponent implements OnInit {
   private tournamentService: TournamentService,
   private alertService: AlertService,
   private route: ActivatedRoute,
-  private router: Router
+  private router: Router,
+  public snackBar: MatSnackBar,
   ) { }
 
   ngOnInit() {
@@ -85,10 +88,14 @@ export class DefinicionComponent implements OnInit {
   }
 
   updateTournament(){
-    this.tournamentService.updateTournament(this.tournamentForm.value).subscribe(data => {
-      this.alertService.success('Se actualizaron los datos exitosamente', true);
+    this.tournamentService.updateTournament({_id : this.tournamentId, ...this.tournamentForm.value}).subscribe(data => {
+      this.snackBar.open('Se actualizaron los datos exitosamente', null, {
+        duration: 1000
+      });
     }, error => {
-      this.alertService.error(error.error.msg, false);
+      this.snackBar.open('Hubo un error al intentar actualizar los datos', null, {
+        duration: 1000
+      });
     });
   }
 

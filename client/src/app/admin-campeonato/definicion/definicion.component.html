@@ -220,8 +220,8 @@
 
   </form>
   <div *ngIf="tournamentId">
-    <button  mat-flat-button (click)="publishTournament()">Publicar</button>
-    <button  mat-flat-button type="submit">Actualizar</button>
+    <button mat-flat-button (click)="publishTournament()">Publicar</button>
+    <button mat-flat-button (click)="updateTournament()">Actualizar</button>
   </div>
 </ng-container>
 
@@ -237,19 +237,19 @@
       <div class="col-12 mb-2">
         <mat-card>
           <p>Información del campeonato</p>
-          <p><b>Fecha de Inicio</b>  {{tournament.startDate | date:'shortDate' }}</p>
-          <p><b>Fecha de Fin</b> {{tournament.endDate | date:'shortDate' }}</p>
-          <p><b>Categoría</b> {{tournament.category}}</p>
-          <p><b>Cantidad de equpos</b> {{tournament.numbersOfTeams}}</p>
-          <p><b>Cantidad de jugadores</b> {{tournament.numberOfPlayers}}</p>
+          <p><b>Fecha de Inicio</b>  {{tournament?.startDate | date:'shortDate' }}</p>
+          <p><b>Fecha de Fin</b> {{tournament?.endDate | date:'shortDate' }}</p>
+          <p><b>Categoría</b> {{tournament?.category}}</p>
+          <p><b>Cantidad de equpos</b> {{tournament?.numbersOfTeams}}</p>
+          <p><b>Cantidad de jugadores</b> {{tournament?.numberOfPlayers}}</p>
         </mat-card>
       </div>
       <div class="col-12 mb-2">
         <mat-card>
           <p>Requerimientos de inscripción</p>
-          <p><b>Fecha de Inicio</b>  {{tournament.inscriptionStartDate | date:'shortDate' }}</p>
-          <p><b>Fecha de Fin</b> {{tournament.inscriptionEndDate | date:'shortDate' }}</p>
-          <p><b>Precio de la inscripción</b> {{tournament.inscriptionCost}}</p>
+          <p><b>Fecha de Inicio</b>  {{tournament?.inscriptionStartDate | date:'shortDate' }}</p>
+          <p><b>Fecha de Fin</b> {{tournament?.inscriptionEndDate | date:'shortDate' }}</p>
+          <p><b>Precio de la inscripción</b> {{tournament?.inscriptionCost}}</p>
           <div></div>
         </mat-card>
       </div>
@@ -257,9 +257,9 @@
         <mat-card>
           <p>Premios</p>
           <div class="row">
-            <div class=" col-12 col-md-4"><b>Primer premio</b> {{tournament.prize1}}</div>
-            <div class=" col-12 col-md-4"><b>Segundo Premio</b> {{tournament.prize2 || '--'}}</div>
-            <div class=" col-12 col-md-4"><b>Tercer premio</b> {{tournament.prize3 || '--'}}</div>
+            <div class=" col-12 col-md-4"><b>Primer premio</b> {{tournament?.prize1}}</div>
+            <div class=" col-12 col-md-4"><b>Segundo Premio</b> {{tournament?.prize2 || '--'}}</div>
+            <div class=" col-12 col-md-4"><b>Tercer premio</b> {{tournament?.prize3 || '--'}}</div>
           </div>
         </mat-card>
       </div>

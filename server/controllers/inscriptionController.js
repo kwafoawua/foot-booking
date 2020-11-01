@@ -39,7 +39,7 @@ exports.getInscription = async (req, res) => {
     } catch (e) {
         res.status(500).send("Ocurrio un error imprevisto :(");
     }
-}
+};
 
 /**
  * Find all inscription of a tournament
@@ -53,7 +53,7 @@ exports.getTournamentInscriptions = async (req, res) => {
     } catch (e) {
         res.status(500).send("Ocurrio un error imprevisto :(");
     }
-}
+};
 
 /**
  * Utility - checks:
@@ -69,6 +69,6 @@ canEffectuateInscription = async (tournamentId) => {
     } catch (error) {
         return false;
     }
-}
+};
 
 // TODO: validations for endpoints

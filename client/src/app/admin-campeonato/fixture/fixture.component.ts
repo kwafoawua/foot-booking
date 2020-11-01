@@ -246,26 +246,26 @@ getNextMatch({phaseIndex, matchIndex, tournamentId, teamName}) {
       this.phaseDateList = [
         {
           state: false,
-          date: null,
-          name: 'octavos',
+          date: this.phases[0].dateToPlay || null,
+          name: 'Octavos de final',
           phaseId: this.phases[0]._id
         },
         {
           state: false,
-          date: null,
-          name: 'cuartos',
+          date: this.phases[1].dateToPlay || null,
+          name: 'Cuartos de final',
           phaseId: this.phases[1]._id
         },
         {
           state: false,
-          date: null,
-          name: 'semifinales',
+          date: this.phases[2].dateToPlay || null,
+          name: 'Semifinales',
           phaseId: this.phases[2]._id
         },
         {
           state: false,
-          date: null,
-          name: 'finales',
+          date: this.phases[3].dateToPlay || null,
+          name: 'Finales',
           phaseId: this.phases[3]._id
         }
       ];
@@ -291,8 +291,6 @@ getNextMatch({phaseIndex, matchIndex, tournamentId, teamName}) {
   }
 
   mapPhaseToMatch(match, phaseId, phaseType, tournamentId) {
-    console.log('mapPHaseToMatch match', match);
-    console.log('maphasetomatch regexpq', fixtureRegexp(match.localTeam.teamName));
     const localTeamName = !fixtureRegexp(match.localTeam.teamName) ? match.localTeam.teamName : null;
     const visitorTeamName = !fixtureRegexp(match.visitorTeam.teamName) ? match.visitorTeam.teamName : null;
     return {

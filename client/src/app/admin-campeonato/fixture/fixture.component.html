@@ -5,7 +5,7 @@
     <div *ngFor="let pdl of phaseDateList, let i = index" class="header-fases">
 
       <div class="header-info">
-        <p>Octavos de final</p>
+        <p>{{pdl.name}}</p>
         <p *ngIf="!pdl.state">{{(pdl.date | date:'shortDate') || 'Elegir fecha'}}</p>
         <mat-form-field appearance="standard" *ngIf="pdl.state">
           <input matInput [max]="maxDate" [min]="minDate" [(ngModel)]="pdl.date" [matDatepicker]="datePicker">
