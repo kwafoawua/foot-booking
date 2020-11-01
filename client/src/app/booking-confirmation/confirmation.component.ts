@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { ClubService } from '../_services/index';
+import { ClubService, BookingService } from '../_services/index';
 import { Booking } from '../_models/booking';
-import { Player } from '../_models/index';
+import { Player} from '../_models/index';
 import { PlayerService, AlertService, AuthService } from '../_services/index';
+import {reservaFinal} from "../_models/reservaFinal";
 
 @Component({
   templateUrl: 'confirmation.html',
   providers: [ ClubService ]
-
 })
 
 export class ConfirmationComponent implements OnInit {
@@ -18,13 +18,17 @@ export class ConfirmationComponent implements OnInit {
   reservaFinal: any = {};
   loading = true;
   confirmado = false;
+  mercadoPagoData: any = {};
+  mpResponse: any = {};
+  mercadoPagoOpt: string
 
   constructor(
     private playerService: PlayerService,
     private route: ActivatedRoute,
     private clubService: ClubService,
     private alertService: AlertService,
-    private router: Router
+    private router: Router,
+    private bookingService: BookingService
   ) {}
 
 
@@ -44,9 +48,10 @@ export class ConfirmationComponent implements OnInit {
       this.reservaFinal.playingTime = this.booking.timeBook;
       // this.reservaFinal.paidMethod="EN SITIO";
     }
-    console.log('Reserva Final ' + this.reservaFinal);
+    console.log('Reserva Final ' + JSON.stringify(this.reservaFinal));
     const id: string = JSON.parse(localStorage.getItem('currentUser'))._id;
     this.getPlayer(id);
+    this.getMercadoPagoCheckout();
   }
 
 
@@ -60,25 +65,42 @@ export class ConfirmationComponent implements OnInit {
       this.reservaFinal.playerPhoneNumber = player.phoneNumber;
       this.reservaFinal.playerId = player._id;
       console.log(this.reservaFinal);
-
     });
   }
 
-  public confirm() {
-
-
-    console.log('Reserva Final ' + JSON.stringify(this.reservaFinal));
-    this.clubService.guardarReserva(this.reservaFinal)
+  private getMercadoPagoCheckout() {
+    this.mercadoPagoData.title = `Reserva en club ${this.reservaFinal.clubName}`;
+    this.mercadoPagoData.description = `Cancha: ${this.reservaFinal.fieldName} - Fecha: ${this.reservaFinal.playingDate} Hora: ${this.reservaFinal.playingTime}`;
+    this.mercadoPagoData.unitPrice = parseFloat(this.reservaFinal.fieldPrice);
+    this.mercadoPagoData.successURL = "";
+    this.mercadoPagoData.failureURL = "";
+    this.bookingService.generateMercadoPagoCheckout(this.mercadoPagoData)
       .subscribe(
-        data => {
-          this.confirmado = true;
-          this.alertService.success('Su reserva se ha registrado con exito', true);
-          this.router.navigate([ '/player/mis-reservas' ]);
-        },
-        error => {
-          this.alertService.error(error);
-          this.loading = false;
-        });
+        mpData => {
+          this.mpResponse = mpData;
+          console.log(`la data de mercado de pago: ${JSON.stringify(this.mpResponse)}`)
+        }
+      );
+  }
+
+  public confirm() {
+    console.log(`asdfasdfkjalsdjf ajdfa sdfkñajsdlf klasjdf ajdf ${this.mercadoPagoOpt}`)
+    if ("payment-two" === this.mercadoPagoOpt) {
+      this.onBuy()
+    } else {
+      console.log('Reserva Final ' + JSON.stringify(this.reservaFinal));
+      this.clubService.guardarReserva(this.reservaFinal)
+        .subscribe(
+          data => {
+            this.confirmado = true;
+            this.alertService.success('Su reserva se ha registrado con exito', true);
+            this.router.navigate(['/player/mis-reservas']);
+          },
+          error => {
+            this.alertService.error(error);
+            this.loading = false;
+          });
+    }
   }
 
   public goToMisReservas() {
@@ -87,6 +109,10 @@ export class ConfirmationComponent implements OnInit {
 
   public goToBusqueda() {
     this.router.navigate([ 'results' ]);
+  }
+
+  public onBuy() {
+    window.location.href = this.mpResponse.body.init_point;
   }
 
 }

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
 import { Booking } from '../_models/booking';
 import { BookingFilter } from '../_models/bookingfilter';
 
@@ -47,6 +46,11 @@ export class BookingService {
 
   updateBookingStatus(newStatus: any) {
     return this.http.put('/bookings/setStatus/', newStatus);
-
   }
+
+  generateMercadoPagoCheckout(bookingData: any){
+    console.log(`en el llamado a mp con datos ${JSON.stringify(bookingData)}`)
+    return this.http.post('/mercadopago/generatePreference', bookingData);
+  }
+
 }
