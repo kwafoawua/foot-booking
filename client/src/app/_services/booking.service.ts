@@ -47,6 +47,5 @@ export class BookingService {
 
   updateBookingStatus(newStatus: any) {
     return this.http.put('/bookings/setStatus/', newStatus);
-
   }
 }

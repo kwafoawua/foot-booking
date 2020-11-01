@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {BookingService, ClubService, PlayerService} from '../_services';
+import {TournamentService} from '../_services/tournament.service';
 
 @Component({
   templateUrl: 'torneos-player.component.html'
@@ -12,7 +13,7 @@ export class TorneosPlayerComponent implements OnInit{
   constructor(private route: ActivatedRoute,
               private playerService: PlayerService,
               private clubService: ClubService,
-              private bookingService: BookingService) {
+              private bookingService: TournamentService) {
   }
 
   ngOnInit() {
@@ -21,7 +22,7 @@ export class TorneosPlayerComponent implements OnInit{
   }
 
   private getBookings(_id: string) {
-    this.bookingService.findAllByReferenceId(_id).subscribe((bookings) => {
+    this.bookingService.getInscriptionByUser(_id).subscribe((bookings) => {
       this.bookings = bookings;
       console.log('esto', this.bookings);
     });
