@@ -1,6 +1,9 @@
+
+
 <ng-container *ngIf="!esSinAsignar else shuffleIt">
   <div [ngStyle]="{width: '1200px', display: 'flex'}">
     <div *ngFor="let pdl of phaseDateList, let i = index" class="header-fases">
+
       <div class="header-info">
         <p>Octavos de final</p>
         <p *ngIf="!pdl.state">{{(pdl.date | date:'shortDate') || 'Elegir fecha'}}</p>
@@ -22,14 +25,18 @@
   </div>
 
 
-  <ngtt-single-elimination-tree
-    [tournament]="myTournamentData"
-    [matchTemplate]="myMatchTemplate">
-  </ngtt-single-elimination-tree>
+      <ngtt-single-elimination-tree
+        [tournament]="myTournamentData"
+        [matchTemplate]="myMatchTemplate">
+
+    </ngtt-single-elimination-tree>
 </ng-container>
-<ng-template #myMatchTemplate let-match>
-  <app-match [teams]="inscriptions" [match]="match" (updateMatch)="updateMatch($event)"></app-match>
-</ng-template>
+
+
+  <ng-template #myMatchTemplate let-match>
+    <app-match [teams]="inscriptions" [match]="match" (updateMatch)="updateMatch($event)"></app-match>
+  </ng-template>
+
 
 <ng-template #shuffleIt>
   <p>

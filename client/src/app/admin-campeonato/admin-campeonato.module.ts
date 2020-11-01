@@ -28,7 +28,11 @@ import { ListaInscripcionComponent } from './lista-inscripcion/lista-inscripcion
     RouterModule,
     NgTournamentTreeModule,
   ],
-  exports: [],
+    exports: [
+        FixtureComponent,
+      MatchComponent,
+      MatchUpdateDialogComponent,
+    ],
   declarations: [
     AdminCampeonatoComponent,
     DefinicionComponent,

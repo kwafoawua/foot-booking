@@ -54,6 +54,7 @@ import { commentsComponent } from './_directives/Comments/commentsComponent';
 import { ClubInfoComponent} from './ClubProfileClient/clubInfo.component';
 import { CampeonatoInfoComponent } from './ClubProfileClient/CampeonatoInfo.component';
 import { CampeonatoInscripcionComponent } from './ClubProfileClient/CampeonatoInscripcion.component';
+import { InfoFixtureComponent } from './ClubProfileClient/infoFixture.component';
 
 // API MAPS
 import { AgmCoreModule } from '@agm/core';
@@ -132,6 +133,7 @@ registerLocaleData(localeEsAr, 'es-AR');
     SiteLayoutComponent,
     AdminLayoutComponent,
     CampeonatoInscripcionComponent,
+    InfoFixtureComponent,
   ],
   providers: [
     authInterceptorProviders,

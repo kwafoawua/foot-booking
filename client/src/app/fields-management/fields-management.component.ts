@@ -32,6 +32,7 @@ const I18N_VALUES = {
 @Injectable()
 export class CustomDatepickerI18n extends NgbDatepickerI18n {
 
+
   constructor() {
     super();
   }
@@ -51,6 +52,8 @@ export class CustomDatepickerI18n extends NgbDatepickerI18n {
     return this.getDayAriaLabel(date);
   }
 }
+
+
 
 @Component({
   selector: 'mwl-demo-component',
