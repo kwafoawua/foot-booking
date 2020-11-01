@@ -7,7 +7,8 @@ import * as html2canvas from 'html2canvas';
 import { CommentService } from '../_services/comment.service';
 
 @Component({
-  templateUrl: 'estadisticas-club.component.html'
+  templateUrl: 'estadisticas-club.component.html',
+  styleUrls: ['./estadisticas-club.css']
 })
 
 export class EstadisticasClubComponent implements OnInit {
@@ -145,6 +146,7 @@ export class EstadisticasClubComponent implements OnInit {
   _id: string = JSON.parse(localStorage.getItem('currentUser'))._id;
   loaded: Boolean;
   cantComments: number;
+  cantBookings : number;
   statusChart: any[] = [];
   bookingMonthChart: any[] = [
     {
@@ -225,7 +227,8 @@ export class EstadisticasClubComponent implements OnInit {
   private getBookings(_id: string) {
     let finalizado = false;
     this.bookingService.findAllByReferenceId(_id).subscribe((bookings) => {
-      console.log(bookings);
+
+
       bookings.forEach((booking) => {
         //statusChart asistido, cancelado, reservado
         if ([ 'Asistido', 'Cancelado', 'Pago Total' ].indexOf(booking.status) > -1) {
@@ -271,6 +274,8 @@ export class EstadisticasClubComponent implements OnInit {
         console.log(this.bookingMonthChart);
         finalizado = true;
       });
+
+      this.cantBookings = bookings.length;
       this.loaded = finalizado;
     });
   }

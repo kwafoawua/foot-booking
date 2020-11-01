@@ -218,7 +218,7 @@ export class FieldsManagementComponent implements OnInit {
       if (this.events) {
         this.refresh.next();
       }
-      console.log(this.events);
+      console.log('eventoooos', this.events);
     });
 
   }
