@@ -22,6 +22,7 @@ import { DefinicionComponent } from './admin-campeonato/definicion/definicion.co
 import { DetalleCampeonatoComponent } from './admin-campeonato/detalle-campeonato/detalle-campeonato.component';
 import {SiteLayoutComponent} from './_layout/site-layout/site-layout.component';
 import {AdminLayoutComponent} from './_layout/admin-layout/admin-layout.component';
+import {ProfileClubComponent} from "./profile-club";
 
 const appRoutes: Routes = [
   {
@@ -50,6 +51,7 @@ const appRoutes: Routes = [
       { path: 'admin/campeonato', component: AdminCampeonatoComponent },
       { path: 'admin/campeonato/nuevo', component: DefinicionComponent },
       { path: 'admin/campeonato/:id', component: DetalleCampeonatoComponent },
+      { path: 'adm/profile-club/:id', component: ProfileClubComponent}
     ],
   },
   { path: '**', redirectTo: '' }
