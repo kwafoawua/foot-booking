@@ -55,6 +55,17 @@ exports.getTournamentInscriptions = async (req, res) => {
     }
 }
 
+exports.getPlayerInscriptions = async (req, res) => {
+    try {
+        let inscriptions = await TournamentInscription.find({
+            userId: mongoose.Types.ObjectId(req.params.playerId)
+        });
+        await res.json({inscriptions});
+    } catch (e) {
+        res.status(500).send("Ocurrio un error imprevisto :(");
+    }
+}
+
 /**
  * Utility - checks:
  *      - with quota for inscription?
