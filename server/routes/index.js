@@ -16,6 +16,7 @@ let tournamentController = require('../controllers/tournamentController');
 let fieldController = require('../controllers/FieldController');
 let inscriptionController = require('../controllers/inscriptionController');
 let phaseController = require('../controllers/phaseController');
+let mercadoPagoController = require('../controllers/MercadoPagoController')
 
 //*User Controller*//
 router.post('/users/authenticate', userController.authenticate);
@@ -84,6 +85,7 @@ router.get('/filterTournaments', tournamentController.filterTournament);
 router.post('/inscription/enroll', inscriptionController.newTournamentInscription);
 router.get('/inscription/:_id', inscriptionController.getInscription);
 router.get('/inscription/tournament/:tournamentId', inscriptionController.getTournamentInscriptions);
+router.get('/inscription/player/:playerId', inscriptionController.getPlayerInscriptions);
 
 /* Phases routes */
 router.get('/phase/tournaments/:tournamentId', phaseController.getAllPhasesOfTournament);
@@ -91,5 +93,8 @@ router.put('/phase/updatePhase', phaseController.updatePhase);
 router.get('/phase/shuffleMatches/:tournamentId', phaseController.randomMatchesLink);
 router.put('/phase/updateMatch', phaseController.setResultOfAMatch);
 router.put('/phase/updatePhaseMatch', phaseController.updatePhaseMatch);
+
+/* MercadoPago */
+router.post("/mercadopago/generatePreference", mercadoPagoController.generatePreference);
 
 module.exports = router;

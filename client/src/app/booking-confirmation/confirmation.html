@@ -131,11 +131,11 @@
                       <div class="payment-options">
                         <ul>
                           <li class="payment-option">
-                            <input type="radio" name="payment-option" value="payment-one">
+                            <input type="radio" name="payment-option" value="payment-one" checked="checked">
                             <label for="payment-one">En sitio</label>
                           </li>
                           <li class="payment-option">
-                            <input type="radio" name="payment-option" value="payment-two">
+                            <input type="radio" name="payment-option" value="payment-two" [(ngModel)]="mercadoPagoOpt">
                             <label for="payment-two">Mercado Pago</label>
                           </li>
                         </ul>
