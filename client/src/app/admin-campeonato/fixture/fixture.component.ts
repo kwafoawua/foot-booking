@@ -165,7 +165,6 @@ export class FixtureComponent implements OnInit {
       console.log(this.maxDate, this.minDate);
     });
   }
-
   updateMatch($event) {
     console.log('event', $event);
     const local = $event.teams[ 0 ];
@@ -286,6 +285,7 @@ getNextMatch({phaseIndex, matchIndex, tournamentId, teamName}) {
     this.tournamentService.shuffleMatches(this.tournamentId).subscribe((data: any) => {
       console.log('shuffle data', data);
       this.esSinAsignar = false;
+      this.tournamentService.updateTournament({_id: this.tournamentId, state: 'Iniciado'}).subscribe((data) => {});
       this.getPhases();
     });
   }

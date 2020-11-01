@@ -35,7 +35,7 @@ const TournamentSchema = new mongoose.Schema({
     numberOfPlayers: {type: String, requiered: true, trim: true},
     state: {
         type: String, default: 'Nuevo', requiered: true, trim: true,
-        enum: ['Nuevo', 'Publicado', 'Iniciado', 'Finalizado', 'Cancelado']
+        enum: ['Nuevo', 'Publicado', 'Completado','Iniciado', 'Finalizado', 'Cancelado']
     },
     category: {type: String, requiered: true, trim: true},
     termsAndConditions: {type: String, requiered: true},
