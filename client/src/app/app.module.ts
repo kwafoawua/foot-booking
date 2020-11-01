@@ -63,7 +63,7 @@ import { ConfirmationComponent } from './booking-confirmation/confirmation.compo
 import { TournamentService } from './_services/tournament.service';
 import { LoginGuard } from './_guards/login.guard';
 import {ResultadoBusquedaComponent} from './result/resultadoBusqueda.component';
-
+import {TorneosPlayerComponent } from './booking-player/torneos-player-component';
 
 import { StorageService } from './_services/storage.service';
 import { FieldsArrayModule } from './fields-array/fields-array.module';
@@ -134,6 +134,7 @@ registerLocaleData(localeEsAr, 'es-AR');
     AdminLayoutComponent,
     CampeonatoInscripcionComponent,
     InfoFixtureComponent,
+    TorneosPlayerComponent,
   ],
   providers: [
     authInterceptorProviders,

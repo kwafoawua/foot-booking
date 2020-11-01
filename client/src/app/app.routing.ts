@@ -22,7 +22,8 @@ import { DefinicionComponent } from './admin-campeonato/definicion/definicion.co
 import { DetalleCampeonatoComponent } from './admin-campeonato/detalle-campeonato/detalle-campeonato.component';
 import {SiteLayoutComponent} from './_layout/site-layout/site-layout.component';
 import {AdminLayoutComponent} from './_layout/admin-layout/admin-layout.component';
-import {ProfileClubComponent} from "./profile-club";
+import {ProfileClubComponent} from './profile-club';
+import {TorneosPlayerComponent} from './booking-player/torneos-player-component';
 
 const appRoutes: Routes = [
   {
@@ -38,7 +39,8 @@ const appRoutes: Routes = [
       { path: 'results', component: ResultComponent },
       { path: 'club/register', component: RegisterClubComponent },
       { path: 'player/mis-reservas', component: bookingPlayerComponent },
-      { path: 'campeonato/:id', component: CampeonatoInfoComponent }
+      { path: 'campeonato/:id', component: CampeonatoInfoComponent },
+      { path: 'player/mis-campeonatos/:id', component: TorneosPlayerComponent },
     ]
   },
   {
