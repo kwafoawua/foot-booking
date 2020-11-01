@@ -124,14 +124,12 @@
   </div>
     <div *ngIf="torneo?.state == 'Publicado' " >
       <camp-insc [torneo]="torneo" [cantidad]="cantidad"></camp-insc>
-      <info-fixture [torneo]="torneo" [inscriptions]="inscriptions" ></info-fixture>
     </div>
     <div *ngIf="torneo?.state == 'Completo'">
-
       El torneo esta completo, y pronto se realizará el sorteo...
     </div>
   <div *ngIf="torneo?.state == 'Jugando'">
-
+    <info-fixture [torneo]="torneo" [inscriptions]="inscriptions" ></info-fixture>
   </div>
 </div>
 

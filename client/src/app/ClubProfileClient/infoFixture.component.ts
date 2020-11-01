@@ -152,7 +152,7 @@ export class InfoFixtureComponent implements OnInit{
   }
 
   getPhases() {
-    this.tournamentService.getPhases(this.torneo.idTournament).subscribe((data: any) => {
+    this.tournamentService.getPhases(this.route.snapshot.params.id).subscribe((data: any) => {
       this.generateTournamentData(data.phases);
       console.log('las fases', data.phases);
       this.phases = data.phases;
