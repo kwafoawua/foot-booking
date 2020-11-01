@@ -97,6 +97,7 @@ export class ProfileClubClientComponent{
         if (ClubService.guardarBooking(this.booking1)) {
           this.router.navigate([ 'confirmation' ]);
         }
+        console.log('horas ocupadasaaaaa', this.horasOcupadas);
       } else {
         console.log('faltan los datos');
       }

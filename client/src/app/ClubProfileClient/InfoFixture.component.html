@@ -1,0 +1,9 @@
+
+<ngtt-single-elimination-tree
+  [tournament]="this.myTournamentData"
+  [matchTemplate]="myMatchTemplate">
+</ngtt-single-elimination-tree>
+
+<ng-template #myMatchTemplate let-match>
+  <app-match [teams]="inscriptions" [match]="match" (updateMatch)="updateMatch()" ></app-match>
+</ng-template>

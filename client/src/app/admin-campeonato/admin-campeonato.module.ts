@@ -29,7 +29,9 @@ import { ListaInscripcionComponent } from './lista-inscripcion/lista-inscripcion
     NgTournamentTreeModule,
   ],
     exports: [
-        FixtureComponent
+        FixtureComponent,
+      MatchComponent,
+      MatchUpdateDialogComponent,
     ],
   declarations: [
     AdminCampeonatoComponent,
