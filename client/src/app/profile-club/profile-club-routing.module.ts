@@ -10,7 +10,7 @@ import {
 
 const profileClubRoutes: Routes = [
   {
-    path: 'profile-club/:id',
+    path: 'admin/profile-club/:id',
     component: ProfileClubComponent,
     children: [
       {
