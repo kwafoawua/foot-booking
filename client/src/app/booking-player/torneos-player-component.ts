@@ -8,7 +8,7 @@ import {TournamentService} from '../_services/tournament.service';
 })
 
 export class TorneosPlayerComponent implements OnInit{
-  public bookings: any [] = [];
+  public inscriptions: any [] = [];
 
   constructor(private route: ActivatedRoute,
               private playerService: PlayerService,
@@ -23,10 +23,9 @@ export class TorneosPlayerComponent implements OnInit{
 
   private getBookings(_id: string) {
     this.bookingService.getInscriptionByUser(_id).subscribe((bookings) => {
-      this.bookings = bookings;
-      console.log('esto', this.bookings);
+      this.inscriptions = bookings.inscriptions;
+      console.log('esto', this.inscriptions);
     });
   }
-
 
 }

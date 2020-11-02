@@ -74,7 +74,7 @@ private tState: TState[] = [
   }
 
   getInscriptionByUser(user: any){
-    return this.http.get<Booking[]>(`/inscription/player/ ${user}`);
+    return this.http.get<any[]>('/inscription/player/' + user);
   }
 
 }
