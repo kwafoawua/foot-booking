@@ -34,7 +34,12 @@
 
 
   <ng-template #myMatchTemplate let-match>
-    <app-match [teams]="inscriptions" [match]="match" (updateMatch)="updateMatch($event)"></app-match>
+    <app-match
+      [teams]="inscriptions"
+      [match]="match"
+      [isCampeonato]="true"
+      (updateMatch)="updateMatch($event)"
+    ></app-match>
   </ng-template>
 
 

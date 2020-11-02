@@ -32,10 +32,10 @@ const appRoutes: Routes = [
     children: [
       { path: '', component: HomeComponent },
       { path: 'login', component: LoginComponent, canActivate: [ LoginGuard ] },
+      { path: 'profile-player/:id', component: ProfilePlayerComponent, canActivate: [ AuthGuard ] },
       { path: 'results/club/:id', component: ClubInfoComponent },
       { path: 'confirmation', component: ConfirmationComponent },
       { path: 'player/register', component: RegisterPlayerComponent },
-      { path: 'profile-player/:id', component: ProfilePlayerComponent, canActivate: [ AuthGuard ] },
       { path: 'results', component: ResultComponent },
       { path: 'club/register', component: RegisterClubComponent },
       { path: 'player/mis-reservas', component: bookingPlayerComponent },
@@ -53,7 +53,7 @@ const appRoutes: Routes = [
       { path: 'admin/campeonato', component: AdminCampeonatoComponent },
       { path: 'admin/campeonato/nuevo', component: DefinicionComponent },
       { path: 'admin/campeonato/:id', component: DetalleCampeonatoComponent },
-      { path: 'adm/profile-club/:id', component: ProfileClubComponent}
+      { path: 'admin/profile-club/:id', component: ProfileClubComponent}
     ],
   },
   { path: '**', redirectTo: '' }

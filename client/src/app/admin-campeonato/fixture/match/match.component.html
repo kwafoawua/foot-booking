@@ -1,6 +1,13 @@
-<div class="ngtt__match-wrapper">
+<div
+  class="ngtt__match-wrapper"
+  [matTooltip]="!isCampeonato ? tooltipText: ''"
+  matTooltipClass="multiline-tooltip"
+>
   <ng-container *ngFor="let team of match.teams">
-    <div class="ngtt__team-wrapper" (click)="openDialog(match)">
+    <div
+      [ngClass]="{'ngtt__team-wrapper': true, 'pointer': isCampeonato}"
+      (click)="isCampeonato && openDialog(match)"
+    >
       <div class="ngtt__team-avatar"></div>
       <h6 class="ngtt__team-title">{{team.name}}</h6>
       <div class="ngtt__team-score">{{team.score}}</div>

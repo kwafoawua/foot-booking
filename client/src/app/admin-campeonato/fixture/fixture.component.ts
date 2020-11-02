@@ -290,11 +290,12 @@ getNextMatch({phaseIndex, matchIndex, tournamentId, teamName}) {
     });
   }
 
-  mapPhaseToMatch(match, phaseId, phaseType, tournamentId) {
+  mapPhaseToMatch(match, phaseId, phaseType, tournamentId, dateToPlay) {
     const localTeamName = !fixtureRegexp(match.localTeam.teamName) ? match.localTeam.teamName : null;
     const visitorTeamName = !fixtureRegexp(match.visitorTeam.teamName) ? match.visitorTeam.teamName : null;
     return {
       tournamentId,
+      dateToPlay,
       hourDate: match.hourToPlay || null,
       id: match._id,
       state: match.state,
@@ -322,15 +323,15 @@ getNextMatch({phaseIndex, matchIndex, tournamentId, teamName}) {
       if (phaseType !== 'Final' && phaseType !== 'Tercero y Cuarto puesto') {
         round.type = 'Winnerbracket';
         round.matches = phase.matches.map(match => {
-          return this.mapPhaseToMatch(match, phase._id, phaseType, tournamentId);
+          return this.mapPhaseToMatch(match, phase._id, phaseType, tournamentId, phase.dateToPlay);
         });
         rounds.push(round);
       } else if (phaseType === 'Final') {
         const match = phase.matches[ 0 ];
-        lastRound.matches[ 0 ] = this.mapPhaseToMatch(match, phase._id, phaseType, tournamentId);
+        lastRound.matches[ 0 ] = this.mapPhaseToMatch(match, phase._id, phaseType, tournamentId, phase.dateToPlay);
       } else {
         const match = phase.matches[ 0 ];
-        lastRound.matches[ 1 ] = this.mapPhaseToMatch(match, phase._id, phaseType, tournamentId);
+        lastRound.matches[ 1 ] = this.mapPhaseToMatch(match, phase._id, phaseType, tournamentId, phase.dateToPlay);
       }
     }
 
