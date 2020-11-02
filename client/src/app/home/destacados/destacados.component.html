@@ -12,14 +12,21 @@
       [showNavigationArrows]="true"
       [showNavigationIndicators]="false"
     >
-      <div class="row">
-          <ng-template ngbSlide>
-            <div class="fb-md-2" *ngFor="let club of clubs.slice(0, clubs.length / 2)">
-              <app-card class="col" [club]="club"></app-card>
-            </div>
-          </ng-template>
+      <div class="row" *ngIf="clubs.length < 6">
+        <ng-template ngbSlide>
+          <div class="fb-md-2" *ngFor="let club of clubs">
+            <app-card class="col" [club]="club"></app-card>
+          </div>
+        </ng-template>
+      </div>
+      <div class="row" *ngIf="clubs.length > 5">
+        <ng-template ngbSlide>
+          <div class="fb-md-2" *ngFor="let club of clubs.slice(0, 5)">
+            <app-card class="col" [club]="club"></app-card>
+          </div>
+        </ng-template>
         <ng-template ngbSlide class="item-flex">
-          <div class="fb-md-2" *ngFor="let club of clubs.slice(clubs.length / 2, clubs.length)">
+          <div class="fb-md-2" *ngFor="let club of clubs.slice(5, clubs.length)">
             <app-card class="col" [club]="club"></app-card>
           </div>
         </ng-template>

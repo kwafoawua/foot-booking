@@ -21,6 +21,7 @@ export class ConfirmationComponent implements OnInit {
   mercadoPagoData: any = {};
   mpResponse: any = {};
   mercadoPagoOpt: string
+  operationState: string;
 
   constructor(
     private playerService: PlayerService,
@@ -33,6 +34,12 @@ export class ConfirmationComponent implements OnInit {
 
 
   ngOnInit() {
+    this.operationState = this.route.snapshot.queryParamMap.get('status');
+    if (this.operationState !== null && this.operationState === 'approved') {
+      this.confirmado = true;
+      this.alertService.success('Su reserva se ha registrado con exito', true);
+      this.router.navigate(['/player/mis-reservas']);
+    }
     this.booking = ClubService.obtenerBooking();
     if (this.booking) {
       this.reservaFinal.clubId = this.booking.club._id;
@@ -54,7 +61,6 @@ export class ConfirmationComponent implements OnInit {
     this.getMercadoPagoCheckout();
   }
 
-
   private getPlayer(id: string) {
     console.log('ESTOOO', id);
     console.log(this.player);
@@ -72,8 +78,8 @@ export class ConfirmationComponent implements OnInit {
     this.mercadoPagoData.title = `Reserva en club ${this.reservaFinal.clubName}`;
     this.mercadoPagoData.description = `Cancha: ${this.reservaFinal.fieldName} - Fecha: ${this.reservaFinal.playingDate} Hora: ${this.reservaFinal.playingTime}`;
     this.mercadoPagoData.unitPrice = parseFloat(this.reservaFinal.fieldPrice);
-    this.mercadoPagoData.successURL = "";
-    this.mercadoPagoData.failureURL = "";
+    this.mercadoPagoData.successURL = "http://localhost:4200/confirmation";
+    this.mercadoPagoData.failureURL = "http://localhost:4200/confirmation?state=error";
     this.bookingService.generateMercadoPagoCheckout(this.mercadoPagoData)
       .subscribe(
         mpData => {
@@ -84,7 +90,6 @@ export class ConfirmationComponent implements OnInit {
   }
 
   public confirm() {
-    console.log(`asdfasdfkjalsdjf ajdfa sdfkñajsdlf klasjdf ajdf ${this.mercadoPagoOpt}`)
     if ("payment-two" === this.mercadoPagoOpt) {
       this.onBuy()
     } else {
@@ -112,7 +117,15 @@ export class ConfirmationComponent implements OnInit {
   }
 
   public onBuy() {
-    window.location.href = this.mpResponse.body.init_point;
+    this.reservaFinal.fee = this.booking.field.price;
+    this.clubService.guardarReserva(this.reservaFinal) .subscribe(
+      data => {
+        window.location.href = this.mpResponse.body.init_point;
+      },
+      error => {
+        this.alertService.error(error);
+        this.loading = false;
+      });
   }
 
 }

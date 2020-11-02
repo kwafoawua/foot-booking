@@ -7,7 +7,7 @@ mercadopago.configure({
 exports.generatePreference = async (req, res) => {
     const items = [
         {
-            title: req.body.title,
+            title: req.body.title + req.body.description,
             description: req.body.description,
             unit_price: req.body.unitPrice,
             currency_id: "ARS",
@@ -17,12 +17,12 @@ exports.generatePreference = async (req, res) => {
     const preference = {
         items,
         back_urls: {
-            success: req.body.succesURL,
+            success: req.body.successURL,
             // pending: req.body.pendingURL,
             failure: req.body.failureURL,
         },
         // notification_url: "https://mercadopago-checkout.herokuapp.com/webhook",
-        // auto_return: "approved"
+        auto_return: "approved"
     }
     try {
         let mpResponse = await mercadopago.preferences.create(preference);
