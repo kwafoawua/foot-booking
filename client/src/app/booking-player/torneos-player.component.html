@@ -1,22 +1,52 @@
 <div class="ad-post-wrapper section">
   <div class="container">
     <div id="faq-filter">
-      <h3>Historial de reservas </h3>
+      <h3>Campeonatos inscriptos</h3>
       <div class="tab-content">
         <div id="all-faq" class="faq-post tab-pane active">
           <div class="faq">
 
-            <div *ngIf="bookings.length === 0">
-              No te has inscripto a ningún torneo.
+            <div *ngIf="inscriptions.length === 0">
+              No te has inscripto a ningún campeonato.
             </div>
-            <div *ngIf="bookings.length != 0">
+            <div *ngIf="inscriptions.length > 0">
 
-              <div  class="card" *ngFor="let r of bookings">
+              <div  class="card" *ngFor="let r of inscriptions">
                 <div class="card-header">
-                  <b>Club {{r.club.name | uppercase}}</b>
+                 Nombre Campeonato <b> {{r.tournamentId | uppercase}}</b>
                 </div>
+
                 <div class="card-body">
-                
+                  <div class="row">
+                    <div class="col">
+                    <div class="col card-text">
+                     Fecha de inscripción  <b> {{r.inscriptionDate | uppercase | date:"dd/MM/yy"}}</b>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                    <div class="col card-text">
+                  Nombre de equipo <b> {{r.team.name | uppercase }}</b>
+                    </div>
+                    </div>
+                </div>
+                  <div class="row">
+                    <div class="col-8">
+                    <div class="col card-text">
+                     Nombre responsable <b> {{r.referringContact.name | uppercase }}</b>
+                      , Tel: <b> {{r.referringContact.phoneNumber}} </b>
+                    </div>
+                  </div>
+                    <div class="col-4">
+                      <button type="button" class="btn btn-success" align="right" [routerLink]="['/campeonato/', r.tournamentId]"> Ver campeonato</button>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="col card-text">
+
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

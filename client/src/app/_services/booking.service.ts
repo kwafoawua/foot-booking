@@ -46,11 +46,13 @@ export class BookingService {
 
   updateBookingStatus(newStatus: any) {
     return this.http.put('/bookings/setStatus/', newStatus);
+
   }
 
   generateMercadoPagoCheckout(bookingData: any){
     console.log(`en el llamado a mp con datos ${JSON.stringify(bookingData)}`)
     return this.http.post('/mercadopago/generatePreference', bookingData);
+
   }
 
 }

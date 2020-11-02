@@ -2,6 +2,7 @@ import { Tournament } from '../_models/tournament';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {TState} from '../_models/TState';
+import {Booking} from "../_models/booking";
 
 @Injectable()
 
@@ -70,6 +71,10 @@ private tState: TState[] = [
 
   updatePhase(phase: any) {
     return this.http.put('/phase/updatePhase', phase);
+  }
+
+  getInscriptionByUser(user: any){
+    return this.http.get<any[]>('/inscription/player/' + user);
   }
 
 }
