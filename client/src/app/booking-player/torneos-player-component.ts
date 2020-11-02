@@ -22,7 +22,7 @@ export class TorneosPlayerComponent implements OnInit{
   }
 
   private getBookings(_id: string) {
-    this.bookingService.getInscriptionByUser(_id).subscribe((bookings) => {
+    this.bookingService.getInscriptionByUser(_id).subscribe((bookings:any) => {
       this.inscriptions = bookings.inscriptions;
       console.log('esto', this.inscriptions);
     });
