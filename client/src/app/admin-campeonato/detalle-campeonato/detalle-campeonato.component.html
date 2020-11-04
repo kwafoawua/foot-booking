@@ -2,8 +2,10 @@
   <mat-tab label="Información de Campeonato">
     <app-definicion></app-definicion>
   </mat-tab>
+  <mat-tab label="Inscripciones">
+    <app-lista-inscripcion [inscriptions]="inscriptions"></app-lista-inscripcion>
+  </mat-tab>
   <mat-tab label="Fases">
     <app-fixture [inscriptions]="inscriptions"></app-fixture>
   </mat-tab>
-  <mat-tab label="Inscripciones"><app-lista-inscripcion [inscriptions]="inscriptions"></app-lista-inscripcion></mat-tab>
 </mat-tab-group>
