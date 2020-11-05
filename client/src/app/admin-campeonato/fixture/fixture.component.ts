@@ -170,6 +170,7 @@ export class FixtureComponent implements OnInit {
     const local = $event.teams[ 0 ];
     const visitor = $event.teams[ 1 ];
     let nextUpdate;
+    let tercerYCuarto;
     const match = {
       tournamentId: $event.tournamentId,
       matchId: $event.id,
@@ -193,23 +194,36 @@ export class FixtureComponent implements OnInit {
           break;
         case 'Semifinal':
           const i2 = this.phases[2].matches.findIndex(m => m._id === $event.id);
-          nextUpdate = this.getNextMatch({phaseIndex: 3, matchIndex: i2, tournamentId: $event.tournamentId, teamName: nextTeamName});
+          nextUpdate = this.getNextMatch({phaseIndex: 4, matchIndex: i2, tournamentId: $event.tournamentId, teamName: nextTeamName});
+          const tercerYCuartoName = visitor.score < local.score ? visitor.name : local.name;
+          tercerYCuarto = this.getNextMatch({phaseIndex: 3, matchIndex: i2, tournamentId: $event.tournamentId, teamName: tercerYCuartoName});
           break;
         case 'Final':
-          const i1 = this.phases[1].matches.findIndex(m => m._id === $event.id);
-          nextUpdate = this.getNextMatch({phaseIndex: 4, matchIndex: i1, tournamentId: $event.tournamentId, teamName: nextTeamName});
+          const i1 = this.phases[4].matches.findIndex(m => m._id === $event.id);
           break;
         default:
       }
 
-      this.tournamentService.updateMatch(nextUpdate).subscribe(response => {
-          console.log('update next match', response);
-          this.getPhases();
-        },
-        error => {
-          console.log('error ', error);
-        });
+      if (nextUpdate) {
+        this.tournamentService.updateMatch(nextUpdate).subscribe(response => {
+            console.log('update next match', response);
+            this.getPhases();
+          },
+          error => {
+            console.log('error ', error);
+          });
+        }
+      if (tercerYCuarto) {
+        this.tournamentService.updateMatch(tercerYCuarto).subscribe(response => {
+            console.log('update next match', response);
+            this.getPhases();
+          },
+          error => {
+            console.log('error ', error);
+          });
+      }
     }
+
 
     this.tournamentService.updateMatch(match).subscribe(response => {
       console.log('success', response);
@@ -219,6 +233,7 @@ export class FixtureComponent implements OnInit {
       console.log('error ', error);
     });
   }
+
 
 getNextMatch({phaseIndex, matchIndex, tournamentId, teamName}) {
   const actualizarSiguiente = {} as any;
@@ -290,11 +305,12 @@ getNextMatch({phaseIndex, matchIndex, tournamentId, teamName}) {
     });
   }
 
-  mapPhaseToMatch(match, phaseId, phaseType, tournamentId) {
+  mapPhaseToMatch(match, phaseId, phaseType, tournamentId, dateToPlay) {
     const localTeamName = !fixtureRegexp(match.localTeam.teamName) ? match.localTeam.teamName : null;
     const visitorTeamName = !fixtureRegexp(match.visitorTeam.teamName) ? match.visitorTeam.teamName : null;
     return {
       tournamentId,
+      dateToPlay,
       hourDate: match.hourToPlay || null,
       id: match._id,
       state: match.state,
@@ -322,15 +338,15 @@ getNextMatch({phaseIndex, matchIndex, tournamentId, teamName}) {
       if (phaseType !== 'Final' && phaseType !== 'Tercero y Cuarto puesto') {
         round.type = 'Winnerbracket';
         round.matches = phase.matches.map(match => {
-          return this.mapPhaseToMatch(match, phase._id, phaseType, tournamentId);
+          return this.mapPhaseToMatch(match, phase._id, phaseType, tournamentId, phase.dateToPlay);
         });
         rounds.push(round);
       } else if (phaseType === 'Final') {
         const match = phase.matches[ 0 ];
-        lastRound.matches[ 0 ] = this.mapPhaseToMatch(match, phase._id, phaseType, tournamentId);
+        lastRound.matches[ 0 ] = this.mapPhaseToMatch(match, phase._id, phaseType, tournamentId, phase.dateToPlay);
       } else {
         const match = phase.matches[ 0 ];
-        lastRound.matches[ 1 ] = this.mapPhaseToMatch(match, phase._id, phaseType, tournamentId);
+        lastRound.matches[ 1 ] = this.mapPhaseToMatch(match, phase._id, phaseType, tournamentId, phase.dateToPlay);
       }
     }
 

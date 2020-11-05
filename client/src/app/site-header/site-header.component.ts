@@ -48,7 +48,7 @@ export class SiteHeaderComponent implements OnInit {
     if (this.currentUser.rol === 'Club') {
       this.router.navigate([ '/profile-club', this.currentUser._id ]);
     } else {
-      this.router.navigate([ '/profile-player', this.currentUser._id ]);
+      this.router.navigate([ '/player/profile', this.currentUser._id ]);
     }
   }
 

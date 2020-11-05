@@ -33,10 +33,10 @@ const appRoutes: Routes = [
     children: [
       { path: '', component: HomeComponent },
       { path: 'login', component: LoginComponent, canActivate: [ LoginGuard ] },
+      { path: 'player', loadChildren: './profile-player/profile-player.module#ProfilePlayerModule' },
       { path: 'results/club/:id', component: ClubInfoComponent },
       { path: 'confirmation', component: ConfirmationComponent },
       { path: 'player/register', component: RegisterPlayerComponent },
-      { path: 'profile-player/:id', component: ProfilePlayerComponent, canActivate: [ AuthGuard ] },
       { path: 'results', component: ResultComponent },
       { path: 'club/register', component: RegisterClubComponent },
       { path: 'player/mis-reservas', component: bookingPlayerComponent },
@@ -45,20 +45,19 @@ const appRoutes: Routes = [
     ]
   },
   {
-    path: '',
+    path: 'admin',
     component: AdminLayoutComponent,
     children: [
-      { path: 'admin', component: EstadisticasClubComponent },
-      { path: 'admin/dashboard', component: EstadisticasClubComponent },
-      { path: 'admin/reservas', component: FieldsManagementComponent },
-      { path: 'admin/campeonato', component: AdminCampeonatoComponent },
-      { path: 'admin/campeonato/nuevo', component: DefinicionComponent },
-      { path: 'admin/campeonato/:id', component: DetalleCampeonatoComponent },
-      { path: 'adm/profile-club/:id', component: ProfileClubComponent}
+      { path: '', component: EstadisticasClubComponent },
+      { path: 'dashboard', component: EstadisticasClubComponent },
+      { path: 'reservas', component: FieldsManagementComponent },
+      { path: 'campeonato', component: AdminCampeonatoComponent },
+      { path: 'campeonato/nuevo', component: DefinicionComponent },
+      { path: 'campeonato/:id', component: DetalleCampeonatoComponent },
+      { path: 'club', loadChildren: './profile-club/profile-club.module#ProfileClubModule' }
     ],
   },
   { path: '**', redirectTo: '' }
-
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

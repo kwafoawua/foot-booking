@@ -42,7 +42,7 @@ function addBooking (booking) {
         },
         playingDate: new Date(booking.playingDate),
         playingTime: booking.playingTime,
-        paidMethod: booking.paidMethod,
+        paidMethod: booking.fee ? 'Mercado Pago' : 'En sitio',
         player: {
             name: booking.playerName,
             lastName: booking.playerLastName,
@@ -54,8 +54,8 @@ function addBooking (booking) {
             date: ((booking.fee) ? Date.now() : null),
             fee: booking.fee || null //cambiara cuando se seleccione el pago por mercadopago
         },
-        status: booking.status
-
+        status: booking.status,
+        paymentStatus: booking.fee ? 'Pago Total' : 'Pendiente de Pago'
     });
 
     newBooking.save(function (err) {

@@ -1901,7 +1901,7 @@ th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
   caret-color: currentColor; }
 
 .mat-tooltip {
-  background: rgba(95, 95, 95, 0.9); }
+  background: rgba(95, 95, 95, 1); }
 
 .mat-tree {
   background: white; }

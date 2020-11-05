@@ -10,7 +10,7 @@ import {
 
 const profileClubRoutes: Routes = [
   {
-    path: 'profile-club/:id',
+    path: 'profile/:id',
     component: ProfileClubComponent,
     children: [
       {
@@ -25,7 +25,7 @@ const profileClubRoutes: Routes = [
       {
         path: 'canchas',
         component: ProfileClubCanchasComponent
-      }
+      },
     ]
   }
 ];

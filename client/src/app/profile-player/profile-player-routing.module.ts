@@ -8,7 +8,7 @@ import {
 
 const profilePlayerRoutes: Routes = [
   {
-    path: 'profile-player/:_id',
+    path: 'profile/:_id',
     component: ProfilePlayerComponent,
     children: [
       {
@@ -22,7 +22,7 @@ const profilePlayerRoutes: Routes = [
       {
         path: 'config',
         component: ProfilePlayerConfigComponent
-      }
+      },
     ]
   }
 ];
