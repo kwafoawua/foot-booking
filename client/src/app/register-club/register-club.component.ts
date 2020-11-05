@@ -30,7 +30,7 @@ export class RegisterClubComponent implements OnInit {
   icon: '../../assets/icon/iconochico.png';
   zoom: number;
   draggable = true; //Necesario para el que el marcador del mapa se mueva
-
+  isLinear = false;
 
   @ViewChild('address')
   public searchElementRef: ElementRef;

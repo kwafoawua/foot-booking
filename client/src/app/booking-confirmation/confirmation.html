@@ -39,7 +39,7 @@
                 <div class="col-md-1">
                   <label class="col-md-1">Teléfono </label>
                 </div>
-                <div class="col">
+                <div *ngIf="player.phoneNumber != null" class="col">
                   <label class="col-md-10"> <b>{{player?.phoneNumber | uppercase}}</b></label>
                 </div>
               </div>
