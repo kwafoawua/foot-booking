@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Inject, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { DatePipe } from '@angular/common';
+import * as moment from 'moment';
 
 export interface IMatch {
   match: {
@@ -45,8 +46,8 @@ export class MatchComponent implements OnInit {
 
       this.tooltipText = `Fecha de juego: ${myFormattedDate || 'Sin Definir'} \n
       Hora de juego: ${hourDate || 'Sin Definir'} \n
-      Equipo Local: ${teams[0].name} - Goles: ${teams[0].goals || ''} \n
-      Equipo Visitante: ${teams[1].name} - Goles: ${teams[1].goals || ''}`;
+      Equipo Local: ${teams[0].name} - Goles: ${teams[0].score || ''} \n
+      Equipo Visitante: ${teams[1].name} - Goles: ${teams[1].score || ''}`;
     }
   }
 
@@ -73,7 +74,7 @@ export class MatchComponent implements OnInit {
 export class MatchUpdateDialogComponent implements OnInit{
   match: any;
   inscriptions: any;
-  disabledSelect = false;
+  disabledScore = false;
   constructor(
     public dialogRef: MatDialogRef<MatchUpdateDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: IMatch) {}
@@ -85,7 +86,7 @@ export class MatchUpdateDialogComponent implements OnInit{
   ngOnInit(): void {
     this.match = this.data.match;
     this.inscriptions = this.data.teams;
-    this.disabledSelect = (this.match.phaseType === 'Octavos de final');
+    this.disabledScore = moment(this.match.dateToPlay).isSameOrAfter(new Date());
   }
 
 }
