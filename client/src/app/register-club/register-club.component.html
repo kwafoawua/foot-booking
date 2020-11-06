@@ -12,17 +12,18 @@
         <form enctype="multipart/form-data" [formGroup]="registerClubForm"
               novalidate="novalidate" >
           <ng-template matStepLabel>Nueva cuenta</ng-template>
-              <div class="card" formGroupName="user">
-                 <div class="row card-body">
+              <div class="card card-login col-12 col-md-6 col-lg-6 col-xl-4 mx-auto mt-5" formGroupName="user">
+                 <div class="card-body">
 
-                  <div class="col-md-6 ">
+
+                  <div class="col">
 
                     <div class="post-inner select-cat">
                       <div class="row form-group" [ngClass]="{ 'has-error': registerClubForm.get('user.email').invalid &&
                                           (registerClubForm.get('user.email').dirty || registerClubForm.get('user.email').touched)}">
 
                         <div class="col-md-8 example-container">
-                          <mat-form-field>
+                          <mat-form-field class="example-full-width">
                           <input matInput formControlName="email" class="form-control" type="email" placeholder="Email">
                           </mat-form-field>
                             <div name="valida-email" *ngIf="registerClubForm.get('user.email').invalid &&
@@ -46,7 +47,7 @@
                                               (registerClubForm.get('user.password').dirty || registerClubForm.get('user.password').touched)}">
 
                         <div class="col-md-8 example-container">
-                          <mat-form-field>
+                          <mat-form-field class="example-full-width">
                           <input matInput formControlName="password" class="form-control input-md" type="password"
                                  placeholder="Contraseña">
                           </mat-form-field>
@@ -68,7 +69,7 @@
                                               (registerClubForm.get('user.repeatPassword').dirty || registerClubForm.get('user.repeatPassword').touched)}">
 
                       <div class="col-md-8 example-container">
-                        <mat-form-field>
+                        <mat-form-field class="example-full-width">
                         <input matInput formControlName="repeatPassword" class="form-control input-md" type="password"
                                placeholder="Repetir Contraseña">
                         </mat-form-field>
@@ -357,18 +358,16 @@
         <form enctype="multipart/form-data" [formGroup]="registerClubForm"
               novalidate="novalidate" >
           <ng-template matStepLabel>Canchas</ng-template>
-        <div class="card">
-          <div class="card-body">
+
             <div class="col-12">
-              <h3>Carga de Canchas</h3>
+              <h4>Agrega las canchas de tu club</h4>
             </div>
             <fields-array
                 formArrayName="fields"
                 [fieldFormArray]="registerClubForm.get('fields')"
                 class="col-12">
             </fields-array>
-          </div>
-        </div><!-- carga de canchas -section -->
+
 
           <div>
             <button class="btn btn-light" matStepperPrevious>Anterior</button>

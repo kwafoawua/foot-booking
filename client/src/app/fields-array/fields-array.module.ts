@@ -5,6 +5,7 @@ import { FieldFormControlComponent } from './field-form-control.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TagInputModule } from 'ngx-chips';
 import { CustomFormsModule } from 'ng2-validation';
+import { MaterialModule } from '../material.module';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { CustomFormsModule } from 'ng2-validation';
     ReactiveFormsModule,
     TagInputModule,
     CustomFormsModule,
+    MaterialModule,
   ],
   declarations: [
     FieldFormArrayComponent,

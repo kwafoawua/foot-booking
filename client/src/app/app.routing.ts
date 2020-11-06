@@ -24,7 +24,6 @@ import {SiteLayoutComponent} from './_layout/site-layout/site-layout.component';
 import {AdminLayoutComponent} from './_layout/admin-layout/admin-layout.component';
 import {ProfileClubComponent} from './profile-club';
 import {TorneosPlayerComponent} from './booking-player/torneos-player-component';
-import {registerClubStepperComponent} from "./register-club/register-club-stepper.component";
 
 const appRoutes: Routes = [
   {

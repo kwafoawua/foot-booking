@@ -13,6 +13,7 @@ import { PasswordValidation } from '../_helpers/validate-password';
 import { FirebaseErrorHandler } from '../_helpers/firebaseErrorHandler';
 import { StorageService } from '../_services/storage.service';
 
+
 declare var google: any;
 
 @Component({
