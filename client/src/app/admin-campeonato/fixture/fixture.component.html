@@ -40,10 +40,24 @@
       <button
         mat-flat-button
         color="primary"
-        (click)="iniciarCampeonato()"
+        (click)="setCampeonatoState('Iniciado')"
         [disabled]="!sePuedeIniciarCampeonato"
       >
         Iniciar Campeonato
+      </button>
+    </div>
+  </div>
+
+  <div class="row mt-2" *ngIf="tournamentState === 'Iniciado'">
+    <div class="col-md-9"></div>
+    <div class="col-md-2">
+      <button
+        mat-flat-button
+        color="primary"
+        (click)="setCampeonatoState('Finalizado')"
+        [disabled]="!sePuedeFinalizarCampeonato"
+      >
+        Finalizar Campeonato
       </button>
     </div>
   </div>

@@ -24,6 +24,7 @@ export class FixtureComponent implements OnInit {
   phases: any;
   phaseDateList: any[];
   sePuedeIniciarCampeonato: boolean;
+  sePuedeFinalizarCampeonato: boolean;
   tournamentState: string;
 
   myTournamentData = {
@@ -186,7 +187,6 @@ export class FixtureComponent implements OnInit {
       visitorGoals: visitor.score,
       hourDate: $event.hourDate
     };
-    debugger;
     const finalizado = (visitor.score >= 0 && visitor.score !== null) && (local.score >= 0 && local.score !== null);
     if (finalizado) {
       const nextTeamName = visitor.score > local.score ? visitor.name : local.name;
@@ -295,7 +295,7 @@ export class FixtureComponent implements OnInit {
         }
       ];
       this.setOctavosState();
-
+      this.setFinalizarCampeonato(data.phases);
     });
   }
 
@@ -304,7 +304,18 @@ export class FixtureComponent implements OnInit {
       const pendingState = phase.matches.every((match: any) => {
         return match.state === 'Sin asignar';
       });
-      return pendingState === true;
+      return pendingState;
+    });
+  }
+
+  setFinalizarCampeonato(phases: any) {
+    this.sePuedeFinalizarCampeonato = phases.every(phase => {
+      const partidoCompletado = phase.matches.every((match: any) => {
+        const localGoals = match.localTeam.goals;
+        const visitorGoals = match.visitorTeam.goals;
+        return (localGoals >= 0 && localGoals !== null) && (visitorGoals >= 0 && visitorGoals !== null);
+      });
+      return partidoCompletado;
     });
   }
 
@@ -379,8 +390,8 @@ export class FixtureComponent implements OnInit {
           duration: 2000
         });
         this.phaseDateList[index].state = false;
-
       });
+
     }
   }
 
@@ -393,10 +404,11 @@ export class FixtureComponent implements OnInit {
     console.log('sePuedeIniciarCampeonato', this.sePuedeIniciarCampeonato);
   }
 
-  iniciarCampeonato() {
-    this.tournamentService.updateTournament({_id: this.tournamentId, state: 'Iniciado'}).subscribe((data) => {
-      this.tournamentState = 'Iniciado';
-      this.snackBar.open('Se inició el campeonato', null, {
+  setCampeonatoState(stateName) {
+    this.tournamentService.updateTournament({_id: this.tournamentId, state: stateName}).subscribe((data) => {
+      this.tournamentState = stateName;
+      const snackMessage = stateName === 'Iniciado' ? 'Se inició el campeonato': 'Se finalizó el campeonato';
+      this.snackBar.open(snackMessage, null, {
         duration: 2000
       });
     });
