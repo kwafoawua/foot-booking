@@ -26,6 +26,7 @@ import {ProfileClubComponent} from './profile-club';
 import {TorneosPlayerComponent} from './booking-player/torneos-player-component';
 import {commentsComponent} from './_directives/Comments/commentsComponent';
 
+
 const appRoutes: Routes = [
   {
     path: '',
