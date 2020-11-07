@@ -27,3 +27,14 @@
 .header-button-icon {
   flex-basis: 20%;
 }
+
+.fixture-alert {
+  display: flex;
+  height: 50px;
+  align-items: center;
+  border: 1px solid lightblue;
+  border-radius: 20px;
+  padding: 20px;
+  margin: 20px 0;
+  background: white;
+}

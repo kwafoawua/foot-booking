@@ -25,6 +25,7 @@ import {AdminLayoutComponent} from './_layout/admin-layout/admin-layout.componen
 import {ProfileClubComponent} from './profile-club';
 import {TorneosPlayerComponent} from './booking-player/torneos-player-component';
 
+
 const appRoutes: Routes = [
   {
     path: '',

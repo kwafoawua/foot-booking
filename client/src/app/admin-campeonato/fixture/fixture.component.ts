@@ -3,6 +3,8 @@ import { TournamentService } from '../../_services/tournament.service';
 import { AlertService } from '../../_services';
 import { ActivatedRoute, Router } from '@angular/router';
 import { fixtureRegexp } from '../../../utils/utils';
+import {MatSnackBar} from '@angular/material';
+
 
 @Component({
   selector: 'app-fixture',
@@ -21,6 +23,8 @@ export class FixtureComponent implements OnInit {
   isGenerable: boolean;
   phases: any;
   phaseDateList: any[];
+  sePuedeIniciarCampeonato: boolean;
+  tournamentState: string;
 
   myTournamentData = {
     rounds: [
@@ -147,7 +151,8 @@ export class FixtureComponent implements OnInit {
     private tournamentService: TournamentService,
     private alertService: AlertService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    public snackBar: MatSnackBar,
   ) { }
 
   ngOnInit() {
@@ -162,7 +167,8 @@ export class FixtureComponent implements OnInit {
     this.tournamentService.getTournamentInfo(this.tournamentId).subscribe((data: any) => {
       this.maxDate = new Date(data.tournament.endDate);
       this.minDate = new Date(data.tournament.startDate);
-      console.log(this.maxDate, this.minDate);
+      this.tournamentState = data.tournament.state;
+      console.log(this.maxDate, this.minDate, this.tournamentState);
     });
   }
   updateMatch($event) {
@@ -180,7 +186,8 @@ export class FixtureComponent implements OnInit {
       visitorGoals: visitor.score,
       hourDate: $event.hourDate
     };
-    const finalizado = (visitor.score >= 0) && (local.score >= 0);
+    debugger;
+    const finalizado = (visitor.score >= 0 && visitor.score !== null) && (local.score >= 0 && local.score !== null);
     if (finalizado) {
       const nextTeamName = visitor.score > local.score ? visitor.name : local.name;
       switch ($event.phaseType){
@@ -227,6 +234,9 @@ export class FixtureComponent implements OnInit {
 
     this.tournamentService.updateMatch(match).subscribe(response => {
       console.log('success', response);
+      this.snackBar.open('Partido actualizado con éxito', null, {
+        duration: 2000
+      });
       this.getPhases();
     },
       error => {
@@ -235,7 +245,7 @@ export class FixtureComponent implements OnInit {
   }
 
 
-getNextMatch({phaseIndex, matchIndex, tournamentId, teamName}) {
+  getNextMatch({phaseIndex, matchIndex, tournamentId, teamName}) {
   const actualizarSiguiente = {} as any;
   actualizarSiguiente.tournamentId = tournamentId;
   if (matchIndex % 2 === 0) {
@@ -279,11 +289,13 @@ getNextMatch({phaseIndex, matchIndex, tournamentId, teamName}) {
         },
         {
           state: false,
-          date: this.phases[3].dateToPlay || null,
+          date: this.phases[4].dateToPlay || null,
           name: 'Finales',
-          phaseId: this.phases[3]._id
+          phaseId: this.phases[4]._id
         }
       ];
+      this.setOctavosState();
+
     });
   }
 
@@ -300,7 +312,6 @@ getNextMatch({phaseIndex, matchIndex, tournamentId, teamName}) {
     this.tournamentService.shuffleMatches(this.tournamentId).subscribe((data: any) => {
       console.log('shuffle data', data);
       this.esSinAsignar = false;
-      this.tournamentService.updateTournament({_id: this.tournamentId, state: 'Iniciado'}).subscribe((data) => {});
       this.getPhases();
     });
   }
@@ -364,12 +375,31 @@ getNextMatch({phaseIndex, matchIndex, tournamentId, teamName}) {
         dateToPlay: phase.date,
       };
       this.tournamentService.updatePhase(toUpdate).subscribe((data: any) => {
-        console.log(data);
+        this.snackBar.open('Fecha actualizada con éxito', null, {
+          duration: 2000
+        });
         this.phaseDateList[index].state = false;
 
       });
-
     }
+  }
+
+  setOctavosState() {
+    const phasesState = !!this.phaseDateList[ 0 ].date &&
+      !!this.phaseDateList[ 1 ].date && !!this.phaseDateList[ 2 ].date &&
+      !!this.phaseDateList[ 3 ].date;
+    const matchOctavosState = this.phases[ 0 ].matches.every(match => !!match.hourToPlay === true);
+    this.sePuedeIniciarCampeonato = phasesState && matchOctavosState;
+    console.log('sePuedeIniciarCampeonato', this.sePuedeIniciarCampeonato);
+  }
+
+  iniciarCampeonato() {
+    this.tournamentService.updateTournament({_id: this.tournamentId, state: 'Iniciado'}).subscribe((data) => {
+      this.tournamentState = 'Iniciado';
+      this.snackBar.open('Se inició el campeonato', null, {
+        duration: 2000
+      });
+    });
 
   }
 }
