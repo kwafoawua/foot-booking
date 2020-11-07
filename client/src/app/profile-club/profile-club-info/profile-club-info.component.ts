@@ -91,6 +91,8 @@ export class ProfileClubInfoComponent implements OnInit {
         profileImg: this.club.profileImg,
         galleryImg: this.club.galleryImg,
         socialMedia: this.club.socialMedia,
+        mercadoPago: this.club.mercadoPago,
+        dniMercadoPago: this.club.dniMercadoPago,
       });
 
       if (this.club.address.address) {
@@ -126,7 +128,8 @@ export class ProfileClubInfoComponent implements OnInit {
       address: this.fb.group({
         lat: null,
         lng: null,
-        address: null
+        address: null,
+        shortAddress: null
       }),
       services: [ [], Validators.required ],
       profileImg: [ null, Validators.required ],
@@ -136,8 +139,9 @@ export class ProfileClubInfoComponent implements OnInit {
         twitterId: null,
         instagramId: null,
         googleId: null
-
-      })
+      }),
+      mercadoPago: null,
+     dniMercadoPago: [ null, Validators.compose([ Validators.maxLength(8) ]) ],
     });
   }
 

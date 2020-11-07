@@ -44,7 +44,7 @@ export class ProfileClubCanchasComponent implements OnInit {
 
   createForm(cantFields: number) {
     this.fieldClubForm = this.fb.group({
-      fields: FieldFormArrayComponent.initFields(cantFields)
+      fields: FieldFormArrayComponent.initFields(cantFields),
     });
     console.log(this.fieldClubForm);
   }

@@ -34,9 +34,9 @@ export class RegisterPlayerComponent implements OnInit {
       repeatPassword: [ null, Validators.compose([ Validators.required, Validators.minLength(8) ]) ],
       uid: [null],
       providerId: [null],
-    },{
+    }, {
       validator: PasswordValidation.MatchPassword // your validation method
-    })
+    });
   }
 
   showErrorAlert (error: string) {

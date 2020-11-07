@@ -24,6 +24,7 @@ import {SiteLayoutComponent} from './_layout/site-layout/site-layout.component';
 import {AdminLayoutComponent} from './_layout/admin-layout/admin-layout.component';
 import {ProfileClubComponent} from './profile-club';
 import {TorneosPlayerComponent} from './booking-player/torneos-player-component';
+import {commentsComponent} from './_directives/Comments/commentsComponent';
 
 const appRoutes: Routes = [
   {
@@ -53,7 +54,8 @@ const appRoutes: Routes = [
       { path: 'campeonato', component: AdminCampeonatoComponent },
       { path: 'campeonato/nuevo', component: DefinicionComponent },
       { path: 'campeonato/:id', component: DetalleCampeonatoComponent },
-      { path: 'club', loadChildren: './profile-club/profile-club.module#ProfileClubModule' }
+      { path: 'club', loadChildren: './profile-club/profile-club.module#ProfileClubModule' },
+      { path: 'comentarios/:id', component: commentsComponent}
     ],
   },
   { path: '**', redirectTo: '' }
