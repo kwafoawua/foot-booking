@@ -165,6 +165,8 @@ export class RegisterClubComponent implements OnInit {
         googleId: null
 
       }),
+      mercadoPago: false,
+      dniMercadoPago:  [ null, Validators.compose([ Validators.maxLength(8) ]) ],
       fields: FieldFormArrayComponent.initFields()
     });
   }

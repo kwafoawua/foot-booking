@@ -22,6 +22,8 @@ export class Club {
     snapchatId: string,
     googleId: string
   };
+  mercadoPago: boolean;
+  dniMercadoPago: string;
   hasATournament: boolean;
 
 }
