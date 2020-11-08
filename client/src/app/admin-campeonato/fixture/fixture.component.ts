@@ -291,7 +291,8 @@ export class FixtureComponent implements OnInit {
           state: false,
           date: this.phases[4].dateToPlay || null,
           name: 'Finales',
-          phaseId: this.phases[4]._id
+          phaseId: this.phases[4]._id,
+          tercerosId: this.phases[3]._id,
         }
       ];
       this.setOctavosState();
@@ -391,6 +392,15 @@ export class FixtureComponent implements OnInit {
         });
         this.phaseDateList[index].state = false;
       });
+
+      if (phase.name === 'Finales') {
+        const updateTercerosYCuartos = {
+          phaseId: this.phases[3].phaseId,
+          dateToPlay: phase.date,
+        };
+        this.tournamentService.updatePhase(updateTercerosYCuartos).subscribe((data: any) => {
+        });
+      }
 
     }
   }
