@@ -52,14 +52,6 @@
              </mat-form-field>
 
            </div>
-             <!--                        <label class="label-form row" for="datePicker5">Fecha de juego(*)</label>-->
-             <!--                        <input (ngModelChange)="loadHoursValues($event,field)"-->
-             <!--                               class="form-group  dropdown category-dropdown form-control" [dpDayPicker]="config"-->
-             <!--                               name="datePicker" placeholder="DD-MM-AAAA"-->
-             <!--                               id="calendar" inputElementConteiner="#inputConteiner" theme="dp-material"-->
-             <!--                               [(ngModel)]="date[i]">-->
-             <!--                      </div>-->
-
            <div class="col">
              <mat-form-field>
                <mat-select placeholder="Hora" [(ngModel)]="selectedTime[i]">
@@ -68,17 +60,6 @@
                </mat-select>
              </mat-form-field>
            </div>
-
-
-             <!--                      <div class=".col-xs-6 .col-md-4">-->
-             <!--                        <label class="label-form row dropdown" for="datePicker6">Hora de juego(*)</label>-->
-             <!--                        <select name="category-group" id="category-group" class="form-control"-->
-             <!--                                [(ngModel)]="selectedTime[i]">-->
-             <!--                          <option value="Seleccione">Seleccione</option>-->
-             <!--                          <option *ngFor="let hora of horasDisponibles">{{hora}}</option>-->
-             <!--                        </select>-->
-             <!--                      </div>-->
-
            <div class="col">
                <button (click)="reservar(field, i)" align="right" type="button" class="btn btn-success"
                        data-toggle="modal" data-target="#myModal">Reservar

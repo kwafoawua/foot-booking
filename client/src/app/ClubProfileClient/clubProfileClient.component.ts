@@ -144,11 +144,6 @@ export class ProfileClubClientComponent{
   }
 
   loadHoursValues(date: any, field) {
-    console.log('la fecha: ' + date);
-    console.log('el campooooo' + field);
-    const parts: any = date.split('/');
-    const fieldDate = new Date(parts[ 2 ], parts[ 1 ] - 1, parts[ 0 ]);
-    console.log('dateObject ' + fieldDate);
     this.selectedField = field;
     this.bookingFilter = new BookingFilter(this.selectedField.id, date);
 
