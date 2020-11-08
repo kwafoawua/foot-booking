@@ -14,7 +14,7 @@
     <div class="avt-post-wrapper section">
       <div class="container">
         <div class="avt-post">
-          <form action="#">
+          <form action="#" [formGroup]="confirmationForm">
 
             <!-- client information -->
 
@@ -127,21 +127,11 @@
                 <div class="col-md-6">
                   <div class="post-inner">
                     <div class="form-group">
-                      <span>Por favor, selecciona una forma de pago </span>
-                      <div class="payment-options">
-                        <ul>
-                          <li class="payment-option">
-                            <input type="radio" name="payment-option" value="payment-one" checked="checked">
-                            <label for="payment-one">En sitio</label>
-                          </li>
-                          <div *ngIf="permiteMercadoPago">
-                            <li class="payment-option">
-                              <input type="radio" name="payment-option" value="payment-two" [(ngModel)]="mercadoPagoOpt">
-                              <label for="payment-two">Mercado Pago</label>
-                            </li>
-                          </div>
-                        </ul>
-                      </div>
+                      <span>Slecciona una forma de pago </span>
+                      <mat-radio-group formControlName="payMethod">
+                        <mat-radio-button name="payMethod" value="payment-one">En sitio</mat-radio-button>
+                        <mat-radio-button name="payMethod" formControlName="payMethod" value="payment-two">Mercado Pago</mat-radio-button>
+                      </mat-radio-group>
                     </div>
                   </div><!-- post-inner -->
                 </div>
@@ -150,8 +140,9 @@
             <div class="submit-section">
               <div class="ad-condition checkbox">
                 <label for="submit-post">
-                  <input type="checkbox" name="submit-post" id="submit-post">
-                  <a href="#">Aceptar término y condiciones</a>
+                  <mat-checkbox name="submit-post" id="submit-post" formControlName="condiciones">
+                    <a href="#">Aceptar término y condiciones</a>
+                  </mat-checkbox>
                 </label>
               </div>
 
@@ -205,4 +196,8 @@
       </div>
     </div> <!-- avt-post -->
   </div>  <!-- page -->
+</div>
+
+<div>
+  <pre><code>{{ confirmationForm?.value | json }}</code></pre>
 </div>

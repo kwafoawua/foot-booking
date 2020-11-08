@@ -5,6 +5,8 @@ import { Booking } from '../_models/booking';
 import { Player} from '../_models/index';
 import { PlayerService, AlertService, AuthService } from '../_services/index';
 import {reservaFinal} from "../_models/reservaFinal";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {CustomValidators} from "ng2-validation";
 
 @Component({
   templateUrl: 'confirmation.html',
@@ -23,6 +25,7 @@ export class ConfirmationComponent implements OnInit {
   mercadoPagoOpt: string
   operationState: string;
   permiteMercadoPago: boolean;
+  confirmationForm: FormGroup;
 
   constructor(
     private playerService: PlayerService,
@@ -30,8 +33,11 @@ export class ConfirmationComponent implements OnInit {
     private clubService: ClubService,
     private alertService: AlertService,
     private router: Router,
-    private bookingService: BookingService
-  ) {}
+    private bookingService: BookingService,
+    private fb: FormBuilder,
+  ) {
+    this.createForm();
+  }
 
 
   ngOnInit() {
@@ -93,22 +99,29 @@ export class ConfirmationComponent implements OnInit {
   }
 
   public confirm() {
-    if ("payment-two" === this.mercadoPagoOpt) {
-      this.onBuy()
-    } else {
-      console.log('Reserva Final ' + JSON.stringify(this.reservaFinal));
-      this.clubService.guardarReserva(this.reservaFinal)
-        .subscribe(
-          data => {
-            this.confirmado = true;
-            this.alertService.success('Su reserva se ha registrado con exito', true);
-            this.router.navigate(['/player/mis-reservas']);
-          },
-          error => {
-            this.alertService.error(error);
-            this.loading = false;
-          });
+    if (this.confirmationForm.valid) {
+      if (this.confirmationForm.get('condiciones').value === true) {
+        if (this.confirmationForm.get('payMethod').value === 'payment-two') {
+          // if ("payment-two" === this.mercadoPagoOpt) {
+          this.onBuy();
+        } else {
+          console.log('Reserva Final ' + JSON.stringify(this.reservaFinal));
+          this.clubService.guardarReserva(this.reservaFinal)
+            .subscribe(
+              data => {
+                this.confirmado = true;
+                this.alertService.success('Su reserva se ha registrado con exito', true);
+                this.router.navigate(['/player/mis-reservas']);
+              },
+              error => {
+                this.alertService.error(error);
+                this.loading = false;
+              });
+        }
+      }
+      else { this.alertService.error('Debe aceptar términos y condiciones'); }
     }
+    this.alertService.error('Falta ingresar datos requeridos');
   }
 
   public goToMisReservas() {
@@ -129,6 +142,13 @@ export class ConfirmationComponent implements OnInit {
         this.alertService.error(error);
         this.loading = false;
       });
+  }
+
+  createForm() {
+    this.confirmationForm = this.fb.group({
+      condiciones: [ null, Validators.compose([ Validators.required ]) ],
+      payMethod: [ null, Validators.compose([ Validators.required ]) ],
+    });
   }
 
 }
