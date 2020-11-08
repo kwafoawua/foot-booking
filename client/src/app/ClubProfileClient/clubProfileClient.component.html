@@ -39,8 +39,9 @@
            </div>
          </div>
 
+        <div *ngIf="permiteReserva === true">
+             <div class="row">
 
-         <div class="row">
            <div class="col">
 
              <mat-form-field>
@@ -86,6 +87,11 @@
 
 
          </div><!-- panel-body -->
+        </div>
+
+         <div *ngIf="NotanUser === true">
+           Debe iniciar sesion para poder hacer una reserva
+         </div>
 
        </mat-card-content>
 

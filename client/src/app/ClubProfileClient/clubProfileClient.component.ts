@@ -32,10 +32,10 @@ export class ProfileClubClientComponent{
   // club: Club;
   galery: string[];
   uploadsBaseURL = environment.uploadsBaseURL;
-  NotanUser: boolean;
+  NotanUser = false;
   minDate = new Date(2020, 0, 1);
-
-
+  currentUser: any;
+  permiteReserva: boolean;
   booking1: Booking = new Booking();
   selectedField: Field = new Field();
   date: string[] = [];
@@ -67,6 +67,20 @@ export class ProfileClubClientComponent{
     private alertService: AlertService,
     private bookingService: BookingService
   ) {
+    const user = JSON.parse(localStorage.getItem(('currentUser')));
+    if (user != null){
+         if (user.rol === 'Club' ) {
+           this.permiteReserva = false;
+         }
+         else { this.permiteReserva = true; }
+       }
+       else {
+         this.permiteReserva = false;
+         this.NotanUser = true;
+       }
+
+
+    console.log('PERMITE RESERVA ' , this.permiteReserva);
   }
 
   // ngOnInit(): void {
