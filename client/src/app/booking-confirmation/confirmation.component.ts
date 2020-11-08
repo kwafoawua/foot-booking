@@ -22,6 +22,7 @@ export class ConfirmationComponent implements OnInit {
   mpResponse: any = {};
   mercadoPagoOpt: string
   operationState: string;
+  permiteMercadoPago: boolean;
 
   constructor(
     private playerService: PlayerService,
@@ -55,6 +56,8 @@ export class ConfirmationComponent implements OnInit {
       this.reservaFinal.playingTime = this.booking.timeBook;
       // this.reservaFinal.paidMethod="EN SITIO";
     }
+    this.permiteMercadoPago = this.booking.club.mercadoPago;
+    console.log('veo el club del booking', this.booking.club.mercadoPago);
     console.log('Reserva Final ' + JSON.stringify(this.reservaFinal));
     const id: string = JSON.parse(localStorage.getItem('currentUser'))._id;
     this.getPlayer(id);
