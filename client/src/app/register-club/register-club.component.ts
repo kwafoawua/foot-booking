@@ -169,6 +169,12 @@ export class RegisterClubComponent implements OnInit {
       dniMercadoPago:  [ null, Validators.compose([ Validators.maxLength(8) ]) ],
       fields: FieldFormArrayComponent.initFields()
     });
+
+   // this.registerClubForm.controls['dniMercadoPago'].disable() = true;
+   // if(this.registerClubForm.controls['mercadoPago'].value === true) {
+    //  this.registerClubForm.controls['dniMercadoPago'].disable() = false;
+    //  ;
+   // }
   }
 
   public requestAutocompleteItemsFake = () =>
@@ -287,6 +293,13 @@ export class RegisterClubComponent implements OnInit {
     console.log('nueva lat ' + this.lat, 'nueva lng' + this.lng);
 
 
+  }
+
+  desabilitar(){
+    if (this.registerClubForm.controls['mercadoPago'].value === true) {
+     return  false;
+     }
+    else { return true;  }
   }
 
 }

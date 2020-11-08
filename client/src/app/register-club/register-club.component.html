@@ -371,7 +371,7 @@
                     <mat-checkbox formControlName="mercadoPago"> Agregar mercado pago a mis reservas
                     </mat-checkbox>
                     <mat-form-field>
-                      <input  matInput formControlName="dniMercadoPago" type="number" placeholder="Ingrese DNI de la cuenta">
+                      <input matInput formControlName="dniMercadoPago" type="number" placeholder="Ingrese DNI de la cuenta" [readonly]="this.desabilitar()">
                     </mat-form-field>
                     <div *ngIf="registerClubForm.get('dniMercadoPago').errors?.required &&
                     registerClubForm.get('mercadoPago').value === 'true'"  class="text-danger">
