@@ -50,9 +50,10 @@
         <div class="col-12"><h4>Estado de la reserva</h4></div>
         <div class="form-group col-md-6">
           <label for="bookingStatus">Seleccione estado de reserva</label>
-          <select class="form-control" id="bookingStatus" (change)="onStatusChange($event.target.value)">
-            <option *ngFor="let status of modalData?.event.booking.estados" [value]="status"
-                    [selected]="status == modalData?.event.booking.status">{{status}}
+
+          <select class="form-control" formControlName="status" (change)="setStatusCreateBooking($event)">
+            <option *ngFor="let status of bookingStatus" [ngValue]="status">
+              {{status}}
             </option>
           </select>
         </div>

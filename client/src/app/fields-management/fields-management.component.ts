@@ -96,7 +96,7 @@ export class FieldsManagementComponent implements OnInit {
   club: any = {};
   _id: string = JSON.parse(localStorage.getItem('currentUser'))._id;
   private montoPagado: number;
-  bookingStatus: string[] = ['Reservado', 'Asistido', 'Cancelado', 'Ausente', 'Anulado'];
+  bookingStatus: string[] = ['Reservado', 'Asistido', 'Cancelado', 'Ausente'];
   //horas
   hoursArray: string [] = [ '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00', '24:00' ];
   horasOcupadas: string [] = [];
@@ -126,14 +126,14 @@ export class FieldsManagementComponent implements OnInit {
       onClick: ({ event }: { event: CalendarEvent }): void => {
         this.handleEvent('Edited', event);
       }
-    },
+    }/*,
     {
       label: '<i class="fa fa-fw fa-times"></i>',
       onClick: ({ event }: { event: CalendarEvent }): void => {
         this.events = this.events.filter(iEvent => iEvent !== event);
         this.handleEvent('Deleted', event);
       }
-    }
+    }*/
   ];
 
   refresh: Subject<any> = new Subject();

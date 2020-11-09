@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ValidateAllFields } from '../../_helpers';
 import { Tournament } from '../../_models/tournament';
 import {MatSnackBar} from '@angular/material';
+import * as moment from 'moment';
 
 
 @Component({
@@ -20,6 +21,8 @@ export class DefinicionComponent implements OnInit {
   tournamentId: string;
   status = 'Nuevo';
   tournament: Tournament;
+  mindDate= moment().startOf('day').toDate();
+
 
   constructor(
   private fb: FormBuilder,
@@ -28,6 +31,7 @@ export class DefinicionComponent implements OnInit {
   private route: ActivatedRoute,
   private router: Router,
   public snackBar: MatSnackBar,
+
   ) { }
 
   ngOnInit() {
@@ -49,6 +53,7 @@ export class DefinicionComponent implements OnInit {
       inscriptionStartDate: [ null, Validators.required ],
       inscriptionEndDate: [ null, Validators.required ],
       startDate: [ null, Validators.required ],
+      minDate: [null, Validators.required ],
       endDate: [ null ],
       numbersOfTeams: [ 16, { disabled: true } ],
       inscriptionCost: [ null, Validators.required ],
