@@ -20,6 +20,7 @@ import { IDatePickerDirectiveConfig } from 'ng2-date-picker';
 import { Field } from '../_models/field';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { colors } from './colors';
+import * as moment from 'moment';
 
 const I18N_VALUES = {
   'es': {
@@ -117,6 +118,7 @@ export class FieldsManagementComponent implements OnInit {
   fieldIndex: number;
   fieldDropdown: any;
   nuevaReservaForm: FormGroup;
+  now = moment().startOf('day').toDate();
 
   actions: CalendarEventAction[] = [
     {
@@ -141,7 +143,8 @@ export class FieldsManagementComponent implements OnInit {
   ngOnInit() {
     this.getBookings(this._id);
     this.getClub(this._id);
-    this.createForm();
+    this.createForm();  console.log('now', this.now);
+
   }
 
   private getClub(_id: string) {
@@ -322,15 +325,8 @@ export class FieldsManagementComponent implements OnInit {
   }
 
   loadHoursValues(date: any) {
-    console.log('la fecha: ' + date);
-    const parts: any = date.split('/');
-
-    const fieldDate = new Date(parts[ 2 ], parts[ 1 ] - 1, parts[ 0 ]);
-    console.log('dateObject ' + fieldDate);
-    this.nuevaReservaForm.get('playingDate').setValue(fieldDate.toISOString());
-    this.bookingFilter = new BookingFilter(this.nuevaReservaForm.controls[ 'fieldId' ].value, fieldDate);
-
-    console.log('El selectedDate: ' + this.bookingFilter);
+    this.nuevaReservaForm.get('playingDate').setValue(date.toISOString());
+    this.bookingFilter = new BookingFilter(this.nuevaReservaForm.controls[ 'fieldId' ].value, date);
 
     this.bookingService.findAllBookingsByFieldAndDay(this.bookingFilter)
       .subscribe(hoursBooking => {

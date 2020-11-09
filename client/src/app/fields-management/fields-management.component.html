@@ -162,10 +162,19 @@
         </div>
       </td>
       <td>
-
-        <input (ngModelChange)="loadHoursValues($event)" [ngModelOptions]="{standalone: true}"
-               class="form-control" [dpDayPicker]="config" name="datePicker" placeholder="DD-MM-AAAA"
-               id="calendar" autocomplete="off" inputElementConteiner="#inputConteiner" theme="dp-material" [(ngModel)]="date">
+        <mat-form-field appearance="outline" [ngStyle]="{width: '100%', backgroundColor: 'white'}">
+          <input
+            matInput
+            [min]="now"
+            [matDatepicker]="picker"
+            placeholder="Elegi una fecha"
+            [ngModelOptions]="{standalone: true}"
+            [(ngModel)]="date"
+            (ngModelChange)="loadHoursValues($event)"
+          >
+          <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
       </td>
       <td>
         <div class="dropdown">
