@@ -34,8 +34,7 @@ export class ProfileClubClientComponent{
   galery: string[];
   uploadsBaseURL = environment.uploadsBaseURL;
   NotanUser = false;
-
- minDate = new Date(); 
+  minDate = moment().startOf('day').toDate();
   currentUser: any;
   permiteReserva: boolean;
   booking1: Booking = new Booking();
