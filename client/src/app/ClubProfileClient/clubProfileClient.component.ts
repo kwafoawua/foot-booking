@@ -12,6 +12,7 @@ import { Booking } from '../_models/booking';
 import { BookingFilter } from '../_models/bookingfilter';
 import * as moment from 'moment';
 import { environment } from '../../environments/environment';
+import { isToday } from 'date-fns';
 
 
 @Component({
@@ -33,7 +34,7 @@ export class ProfileClubClientComponent{
   galery: string[];
   uploadsBaseURL = environment.uploadsBaseURL;
   NotanUser = false;
-  minDate = new Date(2020, 0, 1);
+  minDate = moment().startOf('day').toDate();
   currentUser: any;
   permiteReserva: boolean;
   booking1: Booking = new Booking();
