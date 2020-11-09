@@ -20,6 +20,7 @@ export class CampeonatoInscripcionComponent implements OnInit{
   name = '';
   rol = '';
 
+
   ngOnInit(): void {
     this.createForm();
   }
@@ -46,7 +47,7 @@ export class CampeonatoInscripcionComponent implements OnInit{
       team: [null, [Validators.required, Validators.maxLength(20), Validators.minLength(2)]],
       name: [null, [Validators.required, Validators.maxLength(20), Validators.minLength(2)]],
       phoneNumber: [null, [Validators.required, Validators.maxLength(15), Validators.minLength(10)]],
-
+      TyCcheckbox: [null, [Validators.required]],
     });
     this.inscripcionForm.controls.idTournament.setValue(this.route.snapshot.params.id) ;
     this.inscripcionForm.controls.idUser.setValue(this.currentUser);

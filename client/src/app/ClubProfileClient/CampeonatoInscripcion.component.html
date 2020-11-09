@@ -33,17 +33,19 @@
           </mat-step>
           <!--PASO 2-->
           <mat-step >
-            <ng-template matStepLabel>Términos y Condiciones</ng-template>
-            {{torneo.termsAndConditions}}
-            <p>
-              <mat-checkbox>
-                <a>Acepto términos y condiciones</a>
-              </mat-checkbox>
-            </p>
-            <div>
-              <button class="btn btn-light" matStepperPrevious>Anterior</button>
-              <button class="btn btn-success" matStepperNext  >Siguiente</button>
-            </div>
+            <form class="example-container" [formGroup]="inscripcionForm">
+              <ng-template matStepLabel>Términos y Condiciones</ng-template>
+              {{torneo.termsAndConditions}}
+              <p>
+                <mat-checkbox formControlName="TyCcheckbox">
+                  <a>Acepto términos y condiciones</a>
+                </mat-checkbox>
+              </p>
+              <div>
+                <button class="btn btn-light" matStepperPrevious>Anterior</button>
+                <button class="btn btn-success" matStepperNext  >Siguiente</button>
+              </div>
+            </form>
           </mat-step>
           <!--              PASO 3 -->
           <mat-step >
@@ -52,7 +54,7 @@
 
             <div>
               <button class="btn btn-light" matStepperPrevious>Anterior</button>
-              <button class="btn btn-success" (click)="Inscribir()"  >Finalizar</button>
+              <button class="btn btn-success" [disabled]="inscripcionForm.invalid" (click)="Inscribir()"  >Finalizar</button>
             </div>
           </mat-step>
         </mat-horizontal-stepper>
