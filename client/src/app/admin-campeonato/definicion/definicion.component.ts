@@ -21,7 +21,7 @@ export class DefinicionComponent implements OnInit {
   tournamentId: string;
   status = 'Nuevo';
   tournament: Tournament;
-  mindDate= moment().startOf('day').toDate();
+  minDate = moment().startOf('day').toDate();
 
 
   constructor(
@@ -53,7 +53,6 @@ export class DefinicionComponent implements OnInit {
       inscriptionStartDate: [ null, Validators.required ],
       inscriptionEndDate: [ null, Validators.required ],
       startDate: [ null, Validators.required ],
-      minDate: [null, Validators.required ],
       endDate: [ null ],
       numbersOfTeams: [ 16, { disabled: true } ],
       inscriptionCost: [ null, Validators.required ],

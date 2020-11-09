@@ -20,7 +20,7 @@
 
           <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
             <mat-label>Fecha de inicio</mat-label>
-            <input matInput formControlName="startDate" [min]="minDate" [matDatepicker]="startDate" required >
+            <input matInput formControlName="startDate" [matDatepicker]="startDate" required >
             <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
             <mat-datepicker #startDate disabled="false"></mat-datepicker>
             <mat-error
