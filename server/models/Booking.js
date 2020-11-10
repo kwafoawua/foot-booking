@@ -39,7 +39,7 @@ var bookingSchema = new Schema({
             type: String,
             default: 'Reservado',
             required: true,
-            enum: ['Asistido', 'Cancelado', 'Ausente','Anulado', 'Reservado']//, 'Anulado'
+            enum: ['Asistido', 'Cancelado', 'Ausente', 'Reservado']//, 'Anulado'
         }, //modificar con los estados verdaderos
         paidMethod: {type: String,
             default: 'En sitio',
