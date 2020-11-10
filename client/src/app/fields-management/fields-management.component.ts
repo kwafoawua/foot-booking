@@ -319,9 +319,7 @@ export class FieldsManagementComponent implements OnInit {
           error => {
             this.alertService.error(error);
           });
-
     }
-
   }
 
   loadHoursValues(date: any) {
