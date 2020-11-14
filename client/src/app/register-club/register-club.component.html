@@ -363,25 +363,25 @@
               <h5>Agrega las canchas de tu club</h5>
             </div>
 
-          <div class="card">
-            <div class="card-body">
-              <div class="post-inner">
-                <div class="row form-group">
-                  <div class="col-md-8 example-container">
-                    <mat-checkbox formControlName="mercadoPago"> Agregar mercado pago a mis reservas
-                    </mat-checkbox>
-                    <mat-form-field>
-                      <input matInput formControlName="dniMercadoPago" type="number" placeholder="Ingrese DNI de la cuenta" [readonly]="this.desabilitar()">
-                    </mat-form-field>
-                    <div *ngIf="registerClubForm.get('dniMercadoPago').errors?.required &&
-                    registerClubForm.get('mercadoPago').value === 'true'"  class="text-danger">
-                      <small class="form-text">El campo DNI es requerido.</small>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              </div>
-            </div>
+<!--          <div class="card">-->
+<!--            <div class="card-body">-->
+<!--              <div class="post-inner">-->
+<!--                <div class="row form-group">-->
+<!--                  <div class="col-md-8 example-container">-->
+<!--                    <mat-checkbox formControlName="mercadoPago"> Agregar mercado pago a mis reservas-->
+<!--                    </mat-checkbox>-->
+<!--                    <mat-form-field>-->
+<!--                      <input matInput formControlName="dniMercadoPago" type="number" placeholder="Ingrese DNI de la cuenta" [readonly]="this.desabilitar()">-->
+<!--                    </mat-form-field>-->
+<!--                    <div *ngIf="registerClubForm.get('dniMercadoPago').errors?.required &&-->
+<!--                    registerClubForm.get('mercadoPago').value === 'true'"  class="text-danger">-->
+<!--                      <small class="form-text">El campo DNI es requerido.</small>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              </div>-->
+<!--            </div>-->
 
             <fields-array
                 formArrayName="fields"
