@@ -38,25 +38,25 @@
           <label><b>{{modalData?.event.booking.paidMethod}}</b></label></div>
         <div class="col-6">Monto pagado $ <label><b>{{modalData?.event.booking.payment.fee}}</b></label>
         </div>
-        <div class="col-6"> Actualización de Monto
-          <input [(ngModel)]="montoPagado" type="number" class="form-control" placeholder="Monto Pagado"
-                 max="{{modalData?.event.booking.field.price}}" value="{{montoPagado}}">
-        </div>
       </div>
 
       <hr>
 
-      <div class="row">
-        <div class="col-12"><h4>Estado de la reserva</h4></div>
+      <div class="row" *ngIf="modalData?.event.booking.status === 'Reservado'">
+        <div class="col-12"><h4>Actualizar reserva</h4></div>
         <div class="form-group col-md-6">
           <label for="bookingStatus">Seleccione estado de reserva</label>
-
-          <select class="form-control" formControlName="status" (change)="setStatusCreateBooking($event)">
+          <select class="form-control"  (change)="setStatusCreateBooking($event)">
             <option *ngFor="let status of bookingStatus" [ngValue]="status">
               {{status}}
             </option>
           </select>
         </div>
+        <div class="form-group col-md-6"> Actualización de Monto
+          <input [(ngModel)]="montoPagado" type="number" class="form-control" placeholder="Monto Pagado"
+                 max="{{modalData?.event.booking.field.price}}" value="{{montoPagado}}">
+        </div>
+
       </div>
     </div>
 
