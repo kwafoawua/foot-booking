@@ -91,8 +91,8 @@ export class ProfileClubInfoComponent implements OnInit {
         profileImg: this.club.profileImg,
         galleryImg: this.club.galleryImg,
         socialMedia: this.club.socialMedia,
-        mercadoPago: this.club.mercadoPago,
-        dniMercadoPago: this.club.dniMercadoPago,
+      //  mercadoPago: this.club.mercadoPago,
+      //  dniMercadoPago: this.club.dniMercadoPago,
       });
 
       if (this.club.address.address) {
@@ -140,8 +140,8 @@ export class ProfileClubInfoComponent implements OnInit {
         instagramId: null,
         googleId: null
       }),
-      mercadoPago: null,
-     dniMercadoPago: [ null, Validators.compose([ Validators.maxLength(8) ]) ],
+   //   mercadoPago: null,
+   //  dniMercadoPago: [ null, Validators.compose([ Validators.maxLength(8) ]) ],
     });
   }
 

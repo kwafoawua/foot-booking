@@ -165,8 +165,8 @@ export class RegisterClubComponent implements OnInit {
         googleId: null
 
       }),
-      mercadoPago: false,
-      dniMercadoPago:  [ null, Validators.compose([ Validators.maxLength(8) ]) ],
+     // mercadoPago: false,
+     // dniMercadoPago:  [ null, Validators.compose([ Validators.maxLength(8) ]) ],
       fields: FieldFormArrayComponent.initFields()
     });
 
@@ -294,12 +294,12 @@ export class RegisterClubComponent implements OnInit {
 
 
   }
-
-  desabilitar(){
-    if (this.registerClubForm.controls['mercadoPago'].value === true) {
-     return  false;
-     }
-    else { return true;  }
-  }
+  //
+  // desabilitar(){
+  //   if (this.registerClubForm.controls['mercadoPago'].value === true) {
+  //    return  false;
+  //    }
+  //   else { return true;  }
+  // }
 
 }

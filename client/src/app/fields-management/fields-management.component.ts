@@ -260,7 +260,8 @@ export class FieldsManagementComponent implements OnInit {
 
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action };
-    console.log(event);
+    console.log('HANDLE EVENTO', event);
+    console.log('HANDLE EVENTO', event);
     this.montoPagado = (event as any).booking.payment.fee;
     this.modal.open(this.modalContent, { size: 'lg' }).result.then((result) => {
       console.log(this.selectedStatus);
@@ -279,15 +280,11 @@ export class FieldsManagementComponent implements OnInit {
         if (this.montoPagado) {
           newStatus.fee = this.montoPagado;
         }
-
+        console.log('NUEVO ESTADOOOOOOOOO', newStatus);
         this.bookingService.updateBookingStatus(newStatus).subscribe((data) => {
-          this.selectedStatus = undefined;
-          this.montoPagado = undefined;
-
           this.alertService.success('Se actualizó correctamente el estado de la reserva', false);
           this.getBookings(this._id);
           //this.getBookingsByStatus(this._id, "Cancelado");
-          console.log(this.selectedStatus);
         }, error => {
           this.alertService.error('el error q viene de backend ' + error);
         });
@@ -319,9 +316,7 @@ export class FieldsManagementComponent implements OnInit {
           error => {
             this.alertService.error(error);
           });
-
     }
-
   }
 
   loadHoursValues(date: any) {
@@ -357,8 +352,10 @@ export class FieldsManagementComponent implements OnInit {
   }
 
   setStatusCreateBooking($event: any) {
+    this.selectedStatus = $event.target.value;
     this.nuevaReservaForm.get('status').setValue($event.target.value, {
       onlySelf: true
     });
+    console.log('NUEVO ESTADO', $event.target.value );
   }
 }
