@@ -132,13 +132,13 @@ function setBookingStatus (newStatus) {
                 if(newStatus.fee < booking.field.price && newStatus.fee > 0) {
                     booking.payment.fee = newStatus.fee;
                     booking.payment.date = Date.now();
-                    booking.status = 'Pago Parcial';
+                    booking.paymentStatus = 'Pago Parcial';
                 }else if(newStatus.fee >= booking.field.price){
-                    booking.status = 'Pago Total';
+                    booking.paymentStatus = 'Pago Total';
                     booking.payment.fee = newStatus.fee;
                     booking.payment.date = Date.now();
                 } else if(newStatus.fee === 0 || !newStatus.fee) {
-                    booking.status = ((newStatus.status) ? newStatus.status : 'Pendiente de Pago');
+                    booking.paymentStatus = ((newStatus.status) ? newStatus.status : 'Pendiente de Pago');
                     booking.payment.fee = newStatus.fee;
                     booking.payment.date = Date.now();
                 }
