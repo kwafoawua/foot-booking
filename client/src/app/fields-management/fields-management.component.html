@@ -36,6 +36,8 @@
         </div>
         <div class="col-6">Forma de Pago:
           <label><b>{{modalData?.event.booking.paidMethod}}</b></label></div>
+        <div class="col-6">Estado de pago
+          <label><b>{{modalData?.event.booking.paymentStatus}}</b></label></div>
         <div class="col-6">Monto pagado $ <label><b>{{modalData?.event.booking.payment.fee}}</b></label>
         </div>
       </div>
@@ -52,11 +54,10 @@
             </option>
           </select>
         </div>
-        <div class="form-group col-md-6"> Actualización de Monto
-          <input [(ngModel)]="montoPagado" type="number" class="form-control" placeholder="Monto Pagado"
-                 max="{{modalData?.event.booking.field.price}}" value="{{montoPagado}}">
-        </div>
-
+          <div  *ngIf="modalData?.event.booking.paymentStatus != 'Pago Total'"  class="form-group col-md-6"> Actualización de Monto
+            <input [(ngModel)]="montoPagado" type="number" class="form-control" placeholder="Monto Pagado"
+                   max="{{modalData?.event.booking.field.price}}" value="{{montoPagado}}">
+          </div>
       </div>
     </div>
 
