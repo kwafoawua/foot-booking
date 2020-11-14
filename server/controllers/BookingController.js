@@ -25,6 +25,17 @@ module.exports.registerBooking = function (req,res) {
 };
 function addBooking (booking) {
     var deferred = Q.defer();
+    let paymentStatus;
+
+
+    if(booking.fee < booking.fieldPrice && booking.fee > 0) {
+        paymentStatus = 'Pago Parcial';
+    }else if(booking.fee >= booking.fieldPrice){
+        paymentStatus = 'Pago Total';
+    } else {
+        paymentStatus = 'Pendiente de Pago'
+    }
+
 
     var newBooking = new Booking({
         club: {
@@ -55,7 +66,7 @@ function addBooking (booking) {
             fee: booking.fee || null //cambiara cuando se seleccione el pago por mercadopago
         },
         status: booking.status,
-        paymentStatus: booking.fee ? 'Pago Total' : 'Pendiente de Pago'
+        paymentStatus,
     });
 
     newBooking.save(function (err) {
