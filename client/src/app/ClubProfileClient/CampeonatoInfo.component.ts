@@ -19,7 +19,7 @@ export class CampeonatoInfoComponent implements OnInit {
   currentUser: any;
   name = '';
   rol = '';
-
+  yaRegistrado: boolean;
   ngOnInit(): void {
     this.getTorneo(this.route.snapshot.params.id);
     this.getInscriptions();
@@ -48,8 +48,11 @@ export class CampeonatoInfoComponent implements OnInit {
 
   getInscriptions() {
     this.tournamentService.getAllInscriptions(this.route.snapshot.params.id).subscribe((data: any) => {
+      const userId = JSON.parse(localStorage.getItem(('currentUser')))._id;
       this.inscriptions = data.inscriptions;
       this.cantidad = this.inscriptions.length;
+      this.yaRegistrado = data.inscriptions.some(i => i.userId === userId);
+      console.log(this.yaRegistrado);
       console.log('cantidad', this.cantidad);
     });
   }

@@ -19,6 +19,7 @@ export class CampeonatoInscripcionComponent implements OnInit{
   public authenticated: boolean;
   name = '';
   rol = '';
+  success = false;
 
 
   ngOnInit(): void {
@@ -60,6 +61,7 @@ export class CampeonatoInscripcionComponent implements OnInit{
       console.log('ël form validado', this.inscripcionForm);
       {
         this.tournamentService.createInscription(this.inscripcionForm.value).subscribe(data => {
+          this.success = true;
             this.alertService.success('La inscripción se registró con éxito', true),
               console.log('el form', this.inscripcionForm);
             console.log('informacion', this.torneo);

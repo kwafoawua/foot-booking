@@ -143,15 +143,19 @@
       </div>
     </div>
   </div>
-    <div *ngIf="torneo?.state == 'Publicado' " >
+    <div *ngIf="torneo?.state == 'Publicado' && !yaRegistrado" >
       <camp-insc [torneo]="torneo" [cantidad]="cantidad"></camp-insc>
     </div>
     <div class="alert alert-light" role="alert" *ngIf="torneo?.state == 'Completo'">
       El torneo esta completo, y pronto se realizará el sorteo ...
     </div>
+  <div *ngIf="torneo?.state == 'Publicado' && yaRegistrado">
+    Ya estás registrado en este torneo.
+  </div>
   <div *ngIf="torneo?.state == 'Iniciado'">
     <info-fixture [torneo]="torneo" [inscriptions]="inscriptions" ></info-fixture>
   </div>
+
 </div>
 
 

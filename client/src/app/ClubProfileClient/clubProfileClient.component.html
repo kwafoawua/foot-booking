@@ -1,5 +1,5 @@
 
-     <mat-card *ngFor="let field of club?.fields; let i = index">
+     <mat-card class="mb-3" *ngFor="let field of club?.fields; let i = index">
        <mat-card-subtitle> {{field?.fieldName | uppercase}}</mat-card-subtitle>
        <mat-card-content>
          <div class="row">
@@ -55,14 +55,14 @@
            <div class="col">
              <mat-form-field>
                <mat-select placeholder="Hora" [(ngModel)]="selectedTime[i]">
-                 <mat-option value="Seleccione">Seleccione</mat-option>
+                 <mat-option value="">Seleccione</mat-option>
                  <mat-option value="{{hora}}" *ngFor="let hora of horasDisponibles">{{hora}}</mat-option>
                </mat-select>
              </mat-form-field>
            </div>
            <div class="col">
                <button (click)="reservar(field, i)" align="right" type="button" class="btn btn-success"
-                       data-toggle="modal" data-target="#myModal">Reservar
+                       data-toggle="modal" data-target="#myModal" [disabled]="!selectedTime[i] || !date[i]">Reservar
                </button>
              </div>
 

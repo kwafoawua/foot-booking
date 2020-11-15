@@ -1,5 +1,6 @@
 
 
+<ng-container *ngIf="!success else registroExitoso">
 
     <div class="container">
       <div class="ad-details">
@@ -62,5 +63,11 @@
           </mat-card>
       </div>
     </div>
+
+</ng-container>
+
+<ng-template #registroExitoso>
+ <p>¡Muchas gracias por registrarte al torneo!</p>
+</ng-template>
 
 
