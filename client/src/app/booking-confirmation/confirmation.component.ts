@@ -39,7 +39,6 @@ export class ConfirmationComponent implements OnInit {
     this.createForm();
   }
 
-
   ngOnInit() {
     this.operationState = this.route.snapshot.queryParamMap.get('status');
     if (this.operationState !== null && this.operationState === 'approved') {
@@ -102,7 +101,6 @@ export class ConfirmationComponent implements OnInit {
     if (this.confirmationForm.valid) {
       if (this.confirmationForm.get('condiciones').value === true) {
         if (this.confirmationForm.get('payMethod').value === 'payment-two') {
-          // if ("payment-two" === this.mercadoPagoOpt) {
           this.onBuy();
         } else {
           console.log('Reserva Final ' + JSON.stringify(this.reservaFinal));
@@ -134,6 +132,8 @@ export class ConfirmationComponent implements OnInit {
 
   public onBuy() {
     this.reservaFinal.fee = this.booking.field.price;
+    this.reservaFinal.externalReference = this.mpResponse.body.external_reference;
+    this.loading = true;
     this.clubService.guardarReserva(this.reservaFinal) .subscribe(
       data => {
         window.location.href = this.mpResponse.body.init_point;

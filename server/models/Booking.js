@@ -14,6 +14,7 @@ var ObjectId = Schema.Types.ObjectId;
  */
 
 var bookingSchema = new Schema({
+        mpExternalReference: String,
         createdOn: {type: Date, default: Date.now},
         club: {
             id: {type: String, required: true},

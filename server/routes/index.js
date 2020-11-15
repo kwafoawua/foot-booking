@@ -96,5 +96,17 @@ router.put('/phase/updatePhaseMatch', phaseController.updatePhaseMatch);
 
 /* MercadoPago */
 router.post("/mercadopago/generatePreference", mercadoPagoController.generatePreference);
+router.post("/mercadopago/preferenceCallBack", mercadoPagoController.callback);
+router.get("/mercadopago/linkMPAccount", mercadoPagoController.linkAccount);
+
+/* MP2 */
+//importamos el controller
+const PaymentController = require("../controllers/PaymentController");
+//importamos el service
+const PaymentService = require("../services/PaymentService");
+// Permitimos que el controller pueda usar el service
+const PaymentInstance = new PaymentController(new PaymentService());
+router.post("/payment/new", (req, res) => PaymentInstance.getMercadoPagoLink(req, res));
+router.post("/webhook", (req, res) => PaymentInstance.webhook(req, res));
 
 module.exports = router;

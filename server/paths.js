@@ -42,11 +42,12 @@ module.exports.path = {
         updateBookingStatus,
         findAllHoursBookings,
         findAllBookingsByFieldAndDay,
-        // "/comments/changeComment/",
         findAllCommentForAClub,
         findAllAuthorComments,
         findAllClubComments,
-        '/destacados'
-        // deleteComment
+        '/destacados',
+        '/mercadopago/preferenceCallBack',
+        '/webhook',
+        '/mercadopago/linkMPAccount'
     ]
 };
