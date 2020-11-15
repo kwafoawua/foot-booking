@@ -144,7 +144,6 @@ export class FieldsManagementComponent implements OnInit {
     this.getBookings(this._id);
     this.getClub(this._id);
     this.createForm();  console.log('now', this.now);
-
   }
 
   private getClub(_id: string) {
@@ -316,6 +315,10 @@ export class FieldsManagementComponent implements OnInit {
           error => {
             this.alertService.error(error);
           });
+      this.createForm();
+      this.getClub(this._id);
+      this.date = '';
+
     }
   }
 

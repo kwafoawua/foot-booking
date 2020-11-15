@@ -34,7 +34,7 @@ export class FieldFormControlComponent {
     return of([
       'Techado', 'Marcador', 'Iluminación'
     ]);
-  };
+  }
 
   onSelectCant(cant: number) {
   }

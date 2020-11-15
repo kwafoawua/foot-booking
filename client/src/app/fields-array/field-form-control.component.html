@@ -62,7 +62,7 @@
               <mat-form-field>
                 <mat-select class="example-full-width" (change)="onSelectCant($event.target.value)"
                         [attr.id]="'cantPlayers'+index" formControlName="cantPlayers" placeholder="Cantidad de jugadores">
-                  <mat-option *ngFor="let cantPlayer of cantPlayerSelect" value={{cantPlayer.cant}}>
+                  <mat-option *ngFor="let cantPlayer of cantPlayerSelect" value={{cantPlayer.desc}}>
                     {{cantPlayer.desc}}
                   </mat-option>
                 </mat-select>
