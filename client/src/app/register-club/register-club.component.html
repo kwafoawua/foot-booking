@@ -195,7 +195,7 @@
                   <div class="col-md-12 example-container">
                     <mat-form-field>
                     <input matInput placeholder="Ingresar Direccion" autocorrect="off" autocapitalize="off"
-                           spellcheck="off" type="text" class="form-control" #address>
+                           spellcheck="off" type="text" class="form-control" #address required>
                     </mat-form-field>
                     <div name="valida-direccion" *ngIf="registerClubForm.get('address.address').invalid &&
                         (registerClubForm.get('address.address').dirty || registerClubForm.get('address.address').touched)">

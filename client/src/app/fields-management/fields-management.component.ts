@@ -173,7 +173,7 @@ export class FieldsManagementComponent implements OnInit {
       fieldPrice: [ null, Validators.required ],
       playingDate: [ null, Validators.required ],
       playingTime: [ null, Validators.required ],
-      fee: null,
+      fee:  [ null, Validators.required ],
       status: [ 'Reservado', Validators.required ],
     });
   }

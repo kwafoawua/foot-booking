@@ -56,7 +56,7 @@
         </div>
           <div  *ngIf="modalData?.event.booking.paymentStatus != 'Pago Total'"  class="form-group col-md-6"> Actualización de Monto
             <input [(ngModel)]="montoPagado" type="number" class="form-control" placeholder="Monto Pagado"
-                   max="{{modalData?.event.booking.field.price}}" value="{{montoPagado}}">
+                   max="{{modalData?.event.booking.field.price}}" value="{{montoPagado}}" >
           </div>
       </div>
     </div>
@@ -179,7 +179,7 @@
           </div>
           <div class="col">
             <mat-form-field class="example-container">
-              <input matInput placeholder="Monto pagado" type="number" formControlName="fee" required>
+              <input matInput placeholder="Monto pagado" type="number" formControlName="fee" required >
             </mat-form-field>
           </div>
           <div class="col">
