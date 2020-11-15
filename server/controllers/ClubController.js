@@ -54,7 +54,7 @@ async function addClub(club, profilePath, galleryPath) {
     });
     return await newClub.save();
 }
-2
+
 /**
  * Show the current Club
  */
@@ -77,9 +77,7 @@ module.exports.findAllClubs = function (req, res) {
         if (err) {
             return res.status(500).send(err);
         }
-
         const clubResponse = await ClubResponseAdapter.adaptClubs(clubs);
-        console.log('esto es en eluccontroleer', JSON.stringify(clubResponse));
         res.status(200).send(clubResponse);
     });
 };
@@ -193,36 +191,45 @@ module.exports.findClubsByMultipleFilter = function (req, res) {
     // Se arma solo el array de servicios para utilizar el $in y setean los valores por defecto
     var servicesNameArray = [];
     var cantPlayers = [];
+    var fieldTypes = [];
     // @priceMax tiene que ser un número muy grande para que por defecto traiga clubes con precio menor al precio maximo
     // es decir, si no se ingresa esta campo deberia traer todos
     var priceMax = 99999;
     var priceMin = 0;
+    const clubFilter = JSON.parse(req.params.clubfilter);
 
     /*
     *   Se realizan validaciones para ver si toman un valor por defecto o el propio de la consulta en el
     *   caso de que venga un valor
     */
-    if (JSON.parse(req.params.clubfilter).cantPlayers === undefined) {
+    if (clubFilter.cantPlayers === undefined) {
         cantPlayers.push(5, 7, 11);
     } else {
-        cantPlayers.push(JSON.parse(req.params.clubfilter).cantPlayers);
+        cantPlayers.push(clubFilter.cantPlayers);
     }
-    if (JSON.parse(req.params.clubfilter).maxPrice != null) {
-        priceMax = JSON.parse(req.params.clubfilter).maxPrice;
+    if (clubFilter.fieldType === undefined) {
+        fieldTypes.push('Cesped', 'Sintético', 'Tierra');
+    } else {
+        fieldTypes.push(clubFilter.fieldType);
     }
-    if (JSON.parse(req.params.clubfilter).minPrice != null) {
-        priceMin = JSON.parse(req.params.clubfilter).minPrice;
+    if (clubFilter.maxPrice) {
+        priceMax = clubFilter.maxPrice;
+    }
+    if (clubFilter.minPrice) {
+        priceMin = clubFilter.minPrice;
     }
 
 
     // dentro de este if estan las 2 posibles consultas
-    if (JSON.parse(req.params.clubfilter).services.length === 0) {
+    if (!clubFilter.services || clubFilter.services.length === 0) {
         // como no se selecciono un tipo de servicio traigo por todos los servicios
+        console.log('fieldType',fieldTypes);
         Club.find({
             $and:
                 [
-                    {"name": new RegExp(JSON.parse(req.params.clubfilter).clubname, "i")},
+                    {"name": new RegExp(clubFilter.clubname, "i")},
                     {"fields.cantPlayers": {"$in": cantPlayers}},
+                    {"fields.fieldType": {"$in": fieldTypes}},
                     {"fields.price": {"$gte": priceMin, "$lte": priceMax}}
                 ]
         }, function (err, club) {
@@ -235,16 +242,17 @@ module.exports.findClubsByMultipleFilter = function (req, res) {
         });
     } else {
         // Lleno el array con todos los servicios que me llegan en el req
-        for (var i = JSON.parse(req.params.clubfilter).services.length - 1; i >= 0; i--) {
-            servicesNameArray[i] = JSON.parse(req.params.clubfilter).services[i].name;
+        for (var i = clubFilter.services.length - 1; i >= 0; i--) {
+            servicesNameArray[i] = clubFilter.services[i].name;
         }
         // Realizo la consulta con el array del servicio y el nombre del club en el caso de que venga como parametro
         Club.find({
             $and:
                 [
-                    {"name": new RegExp(JSON.parse(req.params.clubfilter).clubname, "i")},
+                    {"name": new RegExp(clubFilter.clubname, "i")},
                     {"services.value": {"$all": servicesNameArray}},
                     {"fields.cantPlayers": {"$in": cantPlayers}},
+                    {"fields.fieldType": {"$in": fieldTypes}},
                     {"fields.price": {"$gte": priceMin, "$lte": priceMax}}
                 ]
         }, async function (err, club) {

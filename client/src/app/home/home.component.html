@@ -25,14 +25,14 @@
             <a [ngStyle]="{display: 'flex', justifyContent: 'space-between', alignItems: 'baseline'}" id="tipoCancha" ngbDropdownToggle>{{selectedTipoCancha}}</a>
             <ul ngbDropdownMenu class="dropdown-menu ddm-home" aria-labelledby="tipoCancha">
               <li class="dropdown-item" ngbDropdownItem (click)="handleTipoCancha('Tipo de cancha', null)">Ninguno</li>
-              <li class="dropdown-item" ngbDropdownItem (click)="handleTipoCancha('Sintético', 'sintético')">Sintético</li>
-              <li class="dropdown-item" ngbDropdownItem (click)="handleTipoCancha('Cesped', 'cesped')">Cesped</li>
-              <li class="dropdown-item" ngbDropdownItem (click)="handleTipoCancha('Tierra', 'tierra')">Tierra</li>
+              <li class="dropdown-item" ngbDropdownItem (click)="handleTipoCancha('Sintético', 'Sintético')">Sintético</li>
+              <li class="dropdown-item" ngbDropdownItem (click)="handleTipoCancha('Cesped', 'Cesped')">Cesped</li>
+              <li class="dropdown-item" ngbDropdownItem (click)="handleTipoCancha('Tierra', 'Tierra')">Tierra</li>
             </ul>
           </div>
         </div>
 
-        <div class="col-sm-12 col-md-4">
+<!--        <div class="col-sm-12 col-md-4">
           <div ngbDropdown class="dropdown form-control">
             <a [ngStyle]="{display: 'flex', justifyContent: 'space-between', alignItems: 'baseline'}" id="campOrPlay" ngbDropdownToggle>{{selectedCampOrPlay}}</a>
             <ul ngbDropdownMenu class="dropdown-menu ddm-home" aria-labelledby="campOrPlay">
@@ -41,7 +41,7 @@
               <li class="dropdown-item" ngbDropdownItem (click)="handleCampOrPlay('Campeonato', true)">Campeonato</li>
             </ul>
           </div>
-        </div>
+        </div>-->
       </div>
       <div class="row">
         <div class="col-sm-12 col-md-8">
