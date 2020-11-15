@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   lng: number;
   icon: '../../assets/icon/iconochico.png';
   zoom = 16.88;
-  name = '';
+  clubname = '';
   selectedCampOrPlay = '¿Qué vas a jugar?';
   selectedCantJugadores = 'Jugadores';
   selectedTipoCancha = 'Tipo de cancha';
@@ -32,8 +32,8 @@ export class HomeComponent implements OnInit {
   }
 
   buscarClub() {
-    if (this.name) {
-      this.filters['name'] = this.name;
+    if (this.clubname) {
+      this.filters['clubname'] = this.clubname;
     }
     this.router.navigate(['results'], {queryParams: this.filters});
   }
