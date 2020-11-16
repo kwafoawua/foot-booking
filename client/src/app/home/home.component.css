@@ -13,6 +13,12 @@
   background-position-y: bottom;
 }
 
+@media only screen and (max-width: 768px) {
+  .search-form, .welcome-text {
+    width: 100% !important;
+  }
+}
+
 .search-form {
   padding: 2rem;
   background-color: white;
