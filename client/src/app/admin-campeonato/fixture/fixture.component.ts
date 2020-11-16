@@ -395,7 +395,7 @@ export class FixtureComponent implements OnInit {
 
       if (phase.name === 'Finales') {
         const updateTercerosYCuartos = {
-          phaseId: this.phases[3].phaseId,
+          phaseId: this.phases[3]._id,
           dateToPlay: phase.date,
         };
         this.tournamentService.updatePhase(updateTercerosYCuartos).subscribe((data: any) => {
