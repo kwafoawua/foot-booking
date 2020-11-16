@@ -46,7 +46,7 @@
 
              <mat-form-field>
                <input matInput [matDatepicker]="picker" placeholder="Elegi una fecha"
-                      [min]="minDate" [(ngModel)]="date[i]" (ngModelChange)="loadHoursValues($event, field)">
+                      [min]="minDate" [(ngModel)]="date[i]" (ngModelChange)="loadHoursValues($event, field, i)">
                <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
                <mat-datepicker #picker></mat-datepicker>
              </mat-form-field>
@@ -56,7 +56,7 @@
              <mat-form-field>
                <mat-select placeholder="Hora" [(ngModel)]="selectedTime[i]">
                  <mat-option value="">Seleccione</mat-option>
-                 <mat-option value="{{hora}}" *ngFor="let hora of horasDisponibles">{{hora}}</mat-option>
+                 <mat-option value="{{hora}}" *ngFor="let hora of horasDisponibles[i]">{{hora}}</mat-option>
                </mat-select>
              </mat-form-field>
            </div>

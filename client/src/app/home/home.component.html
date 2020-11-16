@@ -8,7 +8,7 @@
   </div>
   <div class="search-form full-shadow" >
       <div class="row" [ngStyle]="{marginBottom: '1.5rem'}">
-        <div class="col-sm-12 col-md-4">
+        <div class="col-sm-12 col-md-6">
           <div ngbDropdown class="dropdown form-control">
             <a [ngStyle]="{display: 'flex', justifyContent: 'space-between', alignItems: 'baseline'}" id="cantJugadores" ngbDropdownToggle>{{selectedCantJugadores}}</a>
             <ul ngbDropdownMenu class="dropdown-menu ddm-home" aria-labelledby="cantJugadores">
@@ -20,7 +20,7 @@
           </div>
         </div>
 
-        <div class="col-sm-12 col-md-4">
+        <div class="col-sm-12 col-md-6">
           <div ngbDropdown class="dropdown form-control">
             <a [ngStyle]="{display: 'flex', justifyContent: 'space-between', alignItems: 'baseline'}" id="tipoCancha" ngbDropdownToggle>{{selectedTipoCancha}}</a>
             <ul ngbDropdownMenu class="dropdown-menu ddm-home" aria-labelledby="tipoCancha">
@@ -45,7 +45,7 @@
       </div>
       <div class="row">
         <div class="col-sm-12 col-md-8">
-          <input [(ngModel)]="name" name="clubname" (keyup.enter)="buscarClub()"
+          <input [(ngModel)]="clubname" name="clubname" (keyup.enter)="buscarClub()"
                  type="text" class="form-control" placeholder="Nombre de club">
         </div>
         <div class="col-sm-12 col-md-4">
