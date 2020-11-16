@@ -126,14 +126,7 @@ export class FieldsManagementComponent implements OnInit {
       onClick: ({ event }: { event: CalendarEvent }): void => {
         this.handleEvent('Edited', event);
       }
-    }/*,
-    {
-      label: '<i class="fa fa-fw fa-times"></i>',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.events = this.events.filter(iEvent => iEvent !== event);
-        this.handleEvent('Deleted', event);
-      }
-    }*/
+    }
   ];
 
   refresh: Subject<any> = new Subject();
@@ -144,7 +137,6 @@ export class FieldsManagementComponent implements OnInit {
     this.getBookings(this._id);
     this.getClub(this._id);
     this.createForm();  console.log('now', this.now);
-
   }
 
   private getClub(_id: string) {
@@ -173,7 +165,7 @@ export class FieldsManagementComponent implements OnInit {
       fieldPrice: [ null, Validators.required ],
       playingDate: [ null, Validators.required ],
       playingTime: [ null, Validators.required ],
-      fee: null,
+      fee:  [ null, Validators.required ],
       status: [ 'Reservado', Validators.required ],
     });
   }
@@ -316,6 +308,10 @@ export class FieldsManagementComponent implements OnInit {
           error => {
             this.alertService.error(error);
           });
+      this.createForm();
+      this.getClub(this._id);
+      this.date = '';
+
     }
   }
 
