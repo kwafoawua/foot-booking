@@ -18,6 +18,7 @@ import {
 } from './index';
 import { ProfileClubRoutingModule } from './profile-club-routing.module';
 import { FieldsArrayModule } from '../fields-array/fields-array.module';
+import {AlertService} from "../_services";
 
 @NgModule({
   imports: [
@@ -43,7 +44,9 @@ import { FieldsArrayModule } from '../fields-array/fields-array.module';
     ProfileClubCanchasComponent,
     ClubLinkMpComponent
   ],
-  providers: []
+  providers: [
+    AlertService,
+  ]
 })
 export class ProfileClubModule {
 }

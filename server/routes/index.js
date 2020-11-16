@@ -99,6 +99,7 @@ router.post("/mercadopago/generatePreference", mercadoPagoController.generatePre
 router.post("/mercadopago/preferenceCallBack", mercadoPagoController.callback);
 router.get("/mercadopago/linkMPAccount/:id", mercadoPagoController.linkAccountUrlRedirection);
 router.get("/mercadopago/webhook/linkAccount", mercadoPagoController.linkAccount);
+router.get("/mercadopago/hasLinkedAccount/:id", clubController.hasMercadoPagoToken)
 
 /* MP2 */
 //importamos el controller

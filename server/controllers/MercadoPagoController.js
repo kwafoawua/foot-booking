@@ -12,7 +12,6 @@ mercadopago.configure({
     access_token: 'TEST-6530093699700144-102523-3292da805622a29d660ec29ce76bcb56-38445751'
 });
 
-// Crear la url de redireccion para vincular cuenta
 exports.linkAccountUrlRedirection = async (req, res) => {
     // IF -> clubId undefined
     const _BASE_URL = `https://auth.mercadopago.com.ar/authorization?client_id=${_API_ID}`;
@@ -41,16 +40,17 @@ exports.linkAccount = async  (req, res) => {
             headers: headers
         });
         await clubController.linkClubToMercadoPagoAccount(authorizationResponse.data.access_token, referenceId);
+        return res.redirect(`http://localhost:4200/admin/configuracion/${referenceId}?state=success`);
     } catch (e) {
         if (process.env.NODE_ENV === 'production') {
             console.log(`Ocurrió un error al vincular la cuenta de MP del club con id: ${referenceId}`);
+            return res.redirect(`http://localhost:4200/admin/configuracion/${referenceId}?state=failure`);
         } else {
             // como los usuarios de prueba son limitados aseguramos en ambiente de desarrollo este circuito poniendole el pago de la aplicacion
             await clubController.linkClubToMercadoPagoAccount(_APP_TOKEN, referenceId);
+            return res.redirect(`http://localhost:4200/admin/configuracion/${referenceId}?state=success`);
         }
     }
-
-    return res.redirect(`http://localhost:4200/admin/configuracion/${referenceId}`);
 }
 
 exports.callback = async (req, res) => {

@@ -7,6 +7,7 @@ import { PlayerService, AlertService, AuthService } from '../_services/index';
 import {reservaFinal} from "../_models/reservaFinal";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CustomValidators} from "ng2-validation";
+import {MercadoPagoService} from "../_services/mercado-pago.service";
 
 @Component({
   templateUrl: 'confirmation.html',
@@ -26,6 +27,7 @@ export class ConfirmationComponent implements OnInit {
   operationState: string;
   permiteMercadoPago: boolean;
   confirmationForm: FormGroup;
+  clubLinkedToMP: boolean;
 
   constructor(
     private playerService: PlayerService,
@@ -35,6 +37,7 @@ export class ConfirmationComponent implements OnInit {
     private router: Router,
     private bookingService: BookingService,
     private fb: FormBuilder,
+    private mpService: MercadoPagoService,
   ) {
     this.createForm();
   }
@@ -67,6 +70,7 @@ export class ConfirmationComponent implements OnInit {
     const id: string = JSON.parse(localStorage.getItem('currentUser'))._id;
     this.getPlayer(id);
     this.getMercadoPagoCheckout();
+    this.isClubLinkedToMP();
   }
 
   private getPlayer(id: string) {
@@ -149,6 +153,16 @@ export class ConfirmationComponent implements OnInit {
       condiciones: [ null, Validators.compose([ Validators.required ]) ],
       payMethod: [ null, Validators.compose([ Validators.required ]) ],
     });
+  }
+
+  public isClubLinkedToMP(){
+    this.mpService.accountIsAlreadyLinked(this.booking.club._id).subscribe((res:any) => {
+        this.clubLinkedToMP = res.isAlreadyLinked;
+      },
+      error => {
+        this.alertService.error(error);
+        this.clubLinkedToMP = false;
+      });
   }
 
 }
