@@ -134,7 +134,8 @@ export class ProfileClubClientComponent{
           hoursBooking.forEach((booking, index) => {
             console.log(booking);
             console.log('Ultimo- Lo que retorna la consulta: ' + booking.playingTime);
-            this.horasOcupadas[i]=booking.playingTime;
+            if ( this.horasOcupadas[i] === undefined ) { this.horasOcupadas[i] = []; }
+            this.horasOcupadas[i].push(booking.playingTime);
 
             this.horasDisponibles[i] = this.hoursArray.filter(item => this.horasOcupadas[i].indexOf(item) < 0);
           });
