@@ -61,7 +61,7 @@
             <div class="col-md-8 example-container">
               <mat-form-field>
                 <mat-select class="example-full-width" (change)="onSelectCant($event.target.value)"
-                        [attr.id]="'cantPlayers'+index" formControlName="cantPlayers" placeholder="Cantidad de jugadores">
+                        [attr.id]="'cantPlayers'+index" formControlName="cantPlayers" placeholder="Cantidad de jugadores" required>
                   <mat-option *ngFor="let cantPlayer of cantPlayerSelect" value={{cantPlayer}}>
                     {{cantPlayer + " Jugadores"}}
 
@@ -83,8 +83,8 @@
             <div class="col-md-8 example-container">
               <mat-form-field>
               <mat-select class="example-full-width" (change)="onSelectType($event.target.value)"
-                      [attr.id]="'fieldType'+index" formControlName="fieldType" placeholder="Tipo de cancha">
-                <mat-option *ngFor="let type of fieldTypeSelect" value={{type}}>{{type}}</mat-option>
+                      [attr.id]="'fieldType'+index" formControlName="fieldType" placeholder="Tipo de cancha" required>
+                <mat-option *ngFor="let type of fieldTypeSelect" value={{type}} >{{type}}</mat-option>
               </mat-select>
                 </mat-form-field>
               <div name="valida-tipoCancha" *ngIf="field.get('fieldType').invalid &&

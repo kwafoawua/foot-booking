@@ -24,7 +24,7 @@
 
                         <div class="col-md-8 example-container">
                           <mat-form-field class="example-full-width">
-                          <input matInput formControlName="email" class="form-control" type="email" placeholder="Email">
+                          <input matInput formControlName="email" class="form-control" type="email" placeholder="Email" required>
                           </mat-form-field>
                             <div name="valida-email" *ngIf="registerClubForm.get('user.email').invalid &&
                                           (registerClubForm.get('user.email').dirty || registerClubForm.get('user.email').touched)">
@@ -49,7 +49,7 @@
                         <div class="col-md-8 example-container">
                           <mat-form-field class="example-full-width">
                           <input matInput formControlName="password" class="form-control input-md" type="password"
-                                 placeholder="Contraseña">
+                                 placeholder="Contraseña" required>
                           </mat-form-field>
                           <div name="valida-contraseña" *ngIf="registerClubForm.get('user.password').invalid &&
                                               (registerClubForm.get('user.password').dirty || registerClubForm.get('user.password').touched)">
@@ -113,7 +113,7 @@
                         (registerClubForm.get('name').dirty || registerClubForm.get('name').touched)}">
                   <div class="col-md-8 example-container">
                     <mat-form-field>
-                    <input matInput formControlName="name" class="form-control" type="text" placeholder="Nombre del club">
+                    <input matInput formControlName="name" class="form-control" type="text" placeholder="Nombre del club" required>
                     </mat-form-field>
                     <div name="valida-nombreclub" *ngIf="registerClubForm.get('name').invalid &&
                         (registerClubForm.get('name').dirty || registerClubForm.get('name').touched)">
@@ -132,7 +132,7 @@
                 <div class="row form-group" [ngClass]="{ 'has-error': registerClubForm.get('phoneNumber').invalid}">
                   <div class="col-md-8 example-container">
                     <mat-form-field>
-                    <input matInput formControlName="phoneNumber" class="form-control" type="number" placeholder="Teléfono">
+                    <input matInput formControlName="phoneNumber" class="form-control" type="number" placeholder="Teléfono" required>
                     </mat-form-field>
                   </div>
                 </div>
@@ -168,7 +168,8 @@
 
                   <div class="col-md-12 example-container">
                     <mat-form-field>
-                    <textarea matInput formControlName="description" class="form-control" placeholder="Descripción comercial"></textarea>
+                    <textarea matInput formControlName="description" class="form-control" placeholder="Descripción comercial" required>
+                    </textarea>
                     </mat-form-field>
                     <div name="valida-descripcion" *ngIf="registerClubForm.get('description').invalid &&
                         (registerClubForm.get('description').dirty || registerClubForm.get('description').touched)">
@@ -295,7 +296,7 @@
               <div class="post-inner">
                 <div class="row form-group" [ngClass]="{ 'has-error': registerClubForm.get('profileImg').invalid &&
                         (registerClubForm.get('profileImg').dirty || registerClubForm.get('profileImg').touched)}">
-                  <label class="col-md-4">Imagen de portada</label>
+                  <label class="col-md-4">Imagen de portada (*)</label>
                   <div class="col-md-12">
                     <image-upload
                         (uploadFinished)="profileUploaded($event)"
@@ -322,7 +323,7 @@
               <div class="post-inner">
                 <div class="row form-group" [ngClass]="{ 'has-error': registerClubForm.get('galleryImg').invalid &&
                         (registerClubForm.get('galleryImg').dirty || registerClubForm.get('galleryImg').touched)}">
-                  <label class="col-md-4">Galería de Imágenes</label>
+                  <label class="col-md-4">Galería de Imágenes (*)</label>
                   <div class="col-md-12">
                     <image-upload
                         (uploadFinished)="galleryUploaded($event)"
@@ -337,7 +338,7 @@
                         (registerClubForm.get('galleryImg').dirty || registerClubForm.get('galleryImg').touched)">
 
                       <div *ngIf="registerClubForm.get('galleryImg').errors?.required" class="text-danger">
-                        <small class="form-text">Se debe cargar al menos una imagen en la galeria.</small>
+                        <small class="form-text">Se debe cargar al menos una imagen en la galería.</small>
                       </div>
                     </div>
                   </div>
