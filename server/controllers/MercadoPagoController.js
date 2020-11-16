@@ -1,15 +1,56 @@
+const axios = require("axios");
 let bookingController = require('./BookingController.js')
+let clubController = require('./ClubController.js')
 
 const mercadopago = require('mercadopago');
+const _API_ID = '5031143008001395';
+const _APP_TOKEN = 'TEST-5031143008001395-111516-733bdaea16cf2e392e5479898628d1f0-38445751';
+const _NGROK_HTTPS_URL = 'https://81ea20d23a28.ngrok.io';
+const oauthUrl = 'https://api.mercadopago.com/oauth/token';
 
 mercadopago.configure({
-    access_token: 'TEST-1195475678227993-102923-ea2420ed86ee23913c17d7f3a019c07c-665598763'
+    access_token: 'TEST-6530093699700144-102523-3292da805622a29d660ec29ce76bcb56-38445751'
 });
 
-exports.linkAccount = async (req, res) => {
-    let mpRes = req.query.code
-    console.log(`lo que trae la vinculacion: ${JSON.stringify(mpRes)}`)
-    return res.redirect('www.google.com');
+// Crear la url de redireccion para vincular cuenta
+exports.linkAccountUrlRedirection = async (req, res) => {
+    // IF -> clubId undefined
+    const _BASE_URL = `https://auth.mercadopago.com.ar/authorization?client_id=${_API_ID}`;
+    const _BASE_PARAM = `&response_type=code&platform_id=mp&state=${req.params.id}`;
+    const _REDIRECT_URI = `&redirect_uri=${_NGROK_HTTPS_URL}/mercadopago/webhook/linkAccount`;
+    let authorizationURL = _BASE_URL.concat(_BASE_PARAM, _REDIRECT_URI);
+
+    res.status(200).send({authorizationURL: authorizationURL});
+}
+
+exports.linkAccount = async  (req, res) => {
+    const headers = {
+        'accept': 'application/json',
+        'content-type': 'application/x-www-form-urlencoded',
+    }
+    const data = {
+        'client_secret': _APP_TOKEN,
+        'grant_type': 'authorization_code',
+        'code': req.query.code,
+        'redirect_uri': _NGROK_HTTPS_URL.concat('/mercadopago/webhook/linkAccount')
+    }
+    let referenceId = req.query.state;
+
+    try {
+        const authorizationResponse = await axios.post(oauthUrl, data, {
+            headers: headers
+        });
+        await clubController.linkClubToMercadoPagoAccount(authorizationResponse.data.access_token, referenceId);
+    } catch (e) {
+        if (process.env.NODE_ENV === 'production') {
+            console.log(`Ocurrió un error al vincular la cuenta de MP del club con id: ${referenceId}`);
+        } else {
+            // como los usuarios de prueba son limitados aseguramos en ambiente de desarrollo este circuito poniendole el pago de la aplicacion
+            await clubController.linkClubToMercadoPagoAccount(_APP_TOKEN, referenceId);
+        }
+    }
+
+    return res.redirect(`http://localhost:4200/admin/configuracion/${referenceId}`);
 }
 
 exports.callback = async (req, res) => {

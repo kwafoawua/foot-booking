@@ -48,6 +48,6 @@ module.exports.path = {
         '/destacados',
         '/mercadopago/preferenceCallBack',
         '/webhook',
-        '/mercadopago/linkMPAccount'
+        '/mercadopago/webhook/linkAccount'
     ]
 };

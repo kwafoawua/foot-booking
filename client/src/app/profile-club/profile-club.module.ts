@@ -13,11 +13,11 @@ import {
   ProfileClubCanchasComponent,
   ProfileClubInfoComponent,
   ProfileClubPasswordComponent,
-  ProfileClubUserComponent
+  ProfileClubUserComponent,
+  ClubLinkMpComponent
 } from './index';
 import { ProfileClubRoutingModule } from './profile-club-routing.module';
 import { FieldsArrayModule } from '../fields-array/fields-array.module';
-
 
 @NgModule({
   imports: [
@@ -41,6 +41,7 @@ import { FieldsArrayModule } from '../fields-array/fields-array.module';
     ProfileClubInfoComponent,
     ProfileClubComponent,
     ProfileClubCanchasComponent,
+    ClubLinkMpComponent
   ],
   providers: []
 })

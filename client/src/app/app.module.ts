@@ -73,6 +73,7 @@ import { InputTextComponent } from './common/input-text/input-text.component';
 import { SiteLayoutComponent } from './_layout/site-layout/site-layout.component';
 import { AdminLayoutComponent } from './_layout/admin-layout/admin-layout.component';
 import { AdminCampeonatoModule } from './admin-campeonato/admin-campeonato.module';
+import {MercadoPagoService} from "./_services/mercado-pago.service";
 
 registerLocaleData(localeEsAr, 'es-AR');
 @NgModule({
@@ -150,6 +151,7 @@ registerLocaleData(localeEsAr, 'es-AR');
     BookingService,
     CommentService,
     TournamentService,
+    MercadoPagoService,
     { provide: LOCALE_ID, useValue: 'es-AR' },
   ],
   bootstrap: [ AppComponent ]

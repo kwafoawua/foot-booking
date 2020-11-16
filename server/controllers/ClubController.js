@@ -261,3 +261,10 @@ module.exports.findClubsByMultipleFilter = function (req, res) {
     console.log(servicesNameArray);
 
 };
+
+exports.linkClubToMercadoPagoAccount = async (accessToken, referenceId) => {
+    await Club.findOneAndUpdate(
+        {_id: referenceId},
+        {$set:{access_token: accessToken}}
+        );
+}
