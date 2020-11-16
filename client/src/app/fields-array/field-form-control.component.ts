@@ -9,10 +9,7 @@ import { Observable, of } from 'rxjs';
 })
 export class FieldFormControlComponent {
 
-  public cantPlayerSelect: any[] = [ { cant: 5, desc: '5 Jugadores' }, { cant: 7, desc: '7 Jugadores' }, {
-    cant: 11,
-    desc: '11 Jugadores'
-  } ];
+  public cantPlayerSelect: number[] = [5, 7, 11];
   public fieldTypeSelect: string[] = [ 'Cesped', 'Sintético', 'Tierra' ];
 
   @Input() public index: number;
