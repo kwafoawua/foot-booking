@@ -308,9 +308,9 @@ export class FieldsManagementComponent implements OnInit {
           error => {
             this.alertService.error(error);
           });
-      this.createForm();
+/*      this.createForm();
       this.getClub(this._id);
-      this.date = '';
+      this.date = '';*/
 
     }
   }
@@ -321,7 +321,7 @@ export class FieldsManagementComponent implements OnInit {
 
     this.bookingService.findAllBookingsByFieldAndDay(this.bookingFilter)
       .subscribe(hoursBooking => {
-        if (hoursBooking.length >= 1) {
+        if (hoursBooking.length) {
           hoursBooking.forEach((booking, index) => {
             console.log(booking);
             console.log('Ultimo- Lo que retorna la consulta: ' + booking.playingTime);
@@ -344,7 +344,7 @@ export class FieldsManagementComponent implements OnInit {
     this.nuevaReservaForm.get('fieldName').setValue(field.fieldName);
     this.nuevaReservaForm.get('fieldCantPlayers').setValue(field.cantPlayers);
     this.nuevaReservaForm.get('fieldPrice').setValue(field.price);
-
+    console.log(this.nuevaReservaForm.get('fieldId'));
   }
 
   setStatusCreateBooking($event: any) {
