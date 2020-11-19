@@ -27,7 +27,7 @@
 
               </mat-form-field>
               <div>
-                <button class="btn btn-success" matStepperNext>Siguiente</button>
+                <button class="btn btn-success" [disabled]="isValidStepOne()" matStepperNext>Siguiente</button>
               </div>
             </form>
 
@@ -44,7 +44,7 @@
               </p>
               <div>
                 <button class="btn btn-light" matStepperPrevious>Anterior</button>
-                <button class="btn btn-success" matStepperNext  >Siguiente</button>
+                <button class="btn btn-success" [disabled]=" isValidStepTwo()"  matStepperNext  >Siguiente</button>
               </div>
             </form>
           </mat-step>

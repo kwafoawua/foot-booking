@@ -36,7 +36,7 @@
           <div class="row form-group">
             <div class="col-md-8 example-container">
               <tag-input [formControlName]="'services'" name="items"
-                         [onlyFromAutocomplete]="true" required="true">
+                         [onlyFromAutocomplete]="true" required="true" >
                 <tag-input-dropdown [showDropdownIfEmpty]="true"
                                     [autocompleteObservable]="requestAutocompleteItemsFake">
                 </tag-input-dropdown>
@@ -102,8 +102,9 @@
 
             <div class="col-md-8 example-container">
               <mat-form-field>
-                <input matInput placeholder="Precio cancha"
-                       formControlName="price" [attr.id]="'price'+index" class="form-control" type="number" min="0" required>
+                <input matInput placeholder="Precio por hora/turno de cancha"
+                       formControlName="price" [attr.id]="'price'+index" class="example-right-align" type="number" min="0" required>
+                <span matPrefix>$&nbsp;</span>
               </mat-form-field>
                 <div name="valida-precio" *ngIf="field.get('price').invalid &&
                         (field.get('price').dirty || field.get('price').touched)">

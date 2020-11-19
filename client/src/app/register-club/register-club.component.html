@@ -95,7 +95,7 @@
                </div>
               </div>
             <div>
-              <button class="btn btn-success"  matStepperNext>Siguiente</button>
+              <button class="btn btn-success" [disabled]="isValidStepOne()"  matStepperNext>Siguiente</button>
             </div>
         </form>
         </mat-step>
@@ -223,7 +223,7 @@
         </div><!-- club-section -->
           <div>
             <button class="btn btn-light" matStepperPrevious>Anterior</button>
-            <button class="btn btn-success"  matStepperNext>Siguiente</button>
+            <button class="btn btn-success" [disabled]="isValidStepTwo()" matStepperNext>Siguiente</button>
           </div>
 
         </form>
@@ -350,7 +350,7 @@
         </div><!-- carga de imagenes -section -->
           <div>
             <button class="btn btn-light" matStepperPrevious>Anterior</button>
-            <button class="btn btn-success"  matStepperNext>Siguiente</button>
+            <button class="btn btn-success" [disabled]="isValidStepThree()" matStepperNext>Siguiente</button>
           </div>
         </form>
         </mat-step>
@@ -393,7 +393,7 @@
 
           <div>
             <button class="btn btn-light" matStepperPrevious>Anterior</button>
-            <button class="btn btn-success"  matStepperNext (click)="registerClub()">Finalizar</button>
+            <button class="btn btn-success" [disabled]="isValidStepFour()" matStepperNext (click)="registerClub()">Finalizar</button>
           </div>
 
         </form>
