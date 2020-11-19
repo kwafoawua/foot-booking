@@ -5,11 +5,11 @@ let clubController = require('./ClubController.js')
 const mercadopago = require('mercadopago');
 const _API_ID = '5031143008001395';
 const _APP_TOKEN = 'TEST-5031143008001395-111516-733bdaea16cf2e392e5479898628d1f0-38445751';
-const _NGROK_HTTPS_URL = 'https://81ea20d23a28.ngrok.io';
+const _NGROK_HTTPS_URL = 'https://21ed8c4d55ac.ngrok.io';
 const oauthUrl = 'https://api.mercadopago.com/oauth/token';
 
 mercadopago.configure({
-    access_token: 'TEST-6530093699700144-102523-3292da805622a29d660ec29ce76bcb56-38445751'
+    access_token: 'TEST-1195475678227993-102923-ea2420ed86ee23913c17d7f3a019c07c-665598763'
 });
 
 exports.linkAccountUrlRedirection = async (req, res) => {
@@ -74,7 +74,7 @@ exports.generatePreference = async (req, res) => {
             failure: req.body.failureURL,
         },
         external_reference: `${Date.now()}-${req.body.title}`,
-        notification_url: "https://3616fbc965db.ngrok.io/webhook?source_news=webhooks",
+        notification_url: "https://21ed8c4d55ac.ngrok.io/webhook?source_news=webhooks",
         auto_return: "approved"
     }
     try {
