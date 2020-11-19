@@ -88,6 +88,22 @@ export class CampeonatoInscripcionComponent implements OnInit{
     else { this.alertService.error('error al registrar la inscripción', this.inscripcionForm.value); }
   }
 
+  isValidStepOne() {
+    if (this.inscripcionForm.get('team').valid &&
+      this.inscripcionForm.get('name').valid &&
+      this.inscripcionForm.get('phoneNumber').valid) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  isValidStepTwo() {
+    if (this.inscripcionForm.get('TyCcheckbox').valid) {
+    return false;
+    }
+    else { return true; }
+  }
 
 
 }
