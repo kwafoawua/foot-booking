@@ -183,23 +183,17 @@
             </mat-form-field>
           </div>
           <div class="col">
-            <mat-form-field>
-              <mat-select placeholder="Estado reserva"  (change)="setStatusCreateBooking($event)" required>
-                <mat-option *ngFor="let status of bookingStatus" [value]="status">
-                  {{status}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+            <button [ngStyle]="{alignSelf: 'flex-end'}"
+                    class="btn btn-primary"
+                    type="submit">
+              Nueva Reserva
+            </button>
           </div>
         </div>
 
       </div>
 
-      <button [ngStyle]="{alignSelf: 'flex-end'}"
-        class="btn btn-primary"
-        type="submit">
-        Nueva Reserva
-      </button>
+
 
     </form>
   </mat-card-content>

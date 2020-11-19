@@ -43,6 +43,16 @@
                     </div>
                   </div>
                 </div>
+
+                <agm-map [zoom]="zoom" [latitude]="lat" [longitude]="lng" (mapClick)="clickMapa($event)">
+                  <agm-marker [latitude]="lat"
+                              [longitude]="lng"
+                              [iconUrl]="'../../assets/icon/iconochico.png'"
+                              [markerDraggable]="draggable" (dragEnd)="nuevaPosicionMarcador($event)">
+                  </agm-marker>
+                </agm-map>
+
+
               </div>
             </div><!-- post-inner direccion-->
 
