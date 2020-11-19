@@ -149,11 +149,12 @@ function setBookingStatus (newStatus) {
                     booking.payment.fee = newStatus.fee;
                     booking.payment.date = Date.now();
                 } else if(newStatus.fee === 0 || !newStatus.fee) {
-                    booking.paymentStatus = ((newStatus.status) ? newStatus.status : 'Pendiente de Pago');
+                    booking.paymentStatus =  'Pendiente de Pago';
                     booking.payment.fee = newStatus.fee;
                     booking.payment.date = Date.now();
                 }
-            } else if(newStatus.status) {
+            }
+            if(newStatus.status) {
                 booking.status = newStatus.status;
             }
             booking.save(function (err) {
@@ -193,17 +194,14 @@ module.exports.findAllHoursBookings = function(req, res){
 };
 
 module.exports.findAllBookingsByFieldAndDay = function(req,res){
-    console.log("#");
-    console.log("3- Entro al BookingController!!");
-    console.log("3.A- El id: " + JSON.parse(req.params.bookingfilter).idField);
-    console.log("3.A- EL playingDate: " + JSON.parse(req.params.bookingfilter).playingDate);
-    console.log("#");
+    const idField = JSON.parse(req.params.bookingfilter).idField;
+    const playingDate = JSON.parse(req.params.bookingfilter).playingDate;
 
     Booking.find({$and:
             [
-                {"field.id":JSON.parse(req.params.bookingfilter).idField},
-                {"playingDate":JSON.parse(req.params.bookingfilter).playingDate},
-                {"status": {"$ne":"Cancelado"} }
+                {"field.id": idField},
+                {"playingDate": new Date(playingDate)},
+                {"status": {"$ne": 'Cancelado'} }
             ]
         }, function (err, bookings) {
         if (err) {

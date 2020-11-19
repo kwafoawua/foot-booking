@@ -67,6 +67,9 @@
     <button type="button" class="btn btn-success" (click)="close(modalData?.event.booking)">Aceptar</button>
   </div>
 </ng-template>
+
+
+
 <mwl-demo-utils-calendar-header
     [(view)]="view"
     [(viewDate)]="viewDate"
@@ -112,7 +115,7 @@
 
 <mat-card>
   <mat-card-content>
-    <form [formGroup]="nuevaReservaForm" (ngSubmit)="addEvent()">
+    <form [formGroup]="nuevaReservaForm" (ngSubmit)="addEvent()" #formDirective="ngForm" >
       <div class="form-group">
         <div class="row">
           <div class="col">
@@ -179,7 +182,7 @@
           </div>
           <div class="col">
             <mat-form-field class="example-container">
-              <input matInput placeholder="Monto pagado" type="number" formControlName="fee" required >
+              <input matInput placeholder="Monto pagado" type="number" formControlName="fee">
             </mat-form-field>
           </div>
           <div class="col">
