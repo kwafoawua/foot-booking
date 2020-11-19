@@ -15,7 +15,7 @@ export const colors: any = {
     primary: '#009900',
     secondary: '#ccffcc'
   },
-  lightgreen: {
+  orange: {
     primary: '#F87217',
     secondary: '#fffbe2'
 

@@ -149,11 +149,12 @@ function setBookingStatus (newStatus) {
                     booking.payment.fee = newStatus.fee;
                     booking.payment.date = Date.now();
                 } else if(newStatus.fee === 0 || !newStatus.fee) {
-                    booking.paymentStatus = ((newStatus.status) ? newStatus.status : 'Pendiente de Pago');
+                    booking.paymentStatus =  'Pendiente de Pago';
                     booking.payment.fee = newStatus.fee;
                     booking.payment.date = Date.now();
                 }
-            } else if(newStatus.status) {
+            }
+            if(newStatus.status) {
                 booking.status = newStatus.status;
             }
             booking.save(function (err) {
