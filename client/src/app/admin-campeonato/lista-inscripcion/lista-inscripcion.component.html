@@ -8,7 +8,17 @@
         <div mat-card-avatar class="lista-inscripcion-header-image"></div>
         <div class="lista-inscripcion-info">
           <mat-card-title>{{in.team?.name}}</mat-card-title>
-          <mat-card-subtitle>{{in.referringContact?.name}}</mat-card-subtitle>
+          <mat-card-subtitle></mat-card-subtitle>
+          <mat-card-content>
+            <div class="row">
+              <div class="col">
+                Referente {{in.referringContact?.name}}
+              </div>
+              <div class="col">
+                Tel {{in.referringContact?.phoneNumber}}
+              </div>
+            </div>
+          </mat-card-content>
         </div>
       </mat-card-header>
     </mat-card>
