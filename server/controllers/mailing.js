@@ -2,12 +2,12 @@ var nodemailer = require("nodemailer");
 
 // create reusable transport method (opens pool of SMTP connections)
 var smtpTransport = nodemailer.createTransport({
-    service: "Gmail",
+    service: process.env.SMTP_SERVICE,
     auth: {
-        user: "footbooking.dev@gmail.com",
-        pass: "Footbooking01"
+        user: process.env.SMTP_EMAIL,
+        pass: process.env.SMTP_PASSWORD
     }
-});//no esta bueno tener la pass aca, buscar otro tipo de autorizacion
+});
 
 
 module.exports.sendRegistrationMail = function(username, userEmail) {
