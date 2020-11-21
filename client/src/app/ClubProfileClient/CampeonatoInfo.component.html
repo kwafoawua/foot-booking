@@ -145,18 +145,35 @@
       </div>
     </div>
   </div>
-    <div *ngIf="torneo?.state == 'Publicado' && !yaRegistrado" >
-      <camp-insc [torneo]="torneo" [cantidad]="cantidad"></camp-insc>
+
+    <div *ngIf="rol == 'Jugador'">
+      <div *ngIf="torneo?.state == 'Publicado' && !yaRegistrado" >
+        <camp-insc [torneo]="torneo" [cantidad]="cantidad"></camp-insc>
+      </div>
+      <div class="alert alert-light" role="alert" *ngIf="torneo?.state == 'Completo'">
+        El torneo esta completo, y pronto se realizará el sorteo ...
+      </div>
+      <div class="alert alert-light" role="alert" *ngIf="torneo?.state == 'Publicado' && yaRegistrado">
+        Ya estás registrado en este torneo.
+      </div>
     </div>
-    <div class="alert alert-light" role="alert" *ngIf="torneo?.state == 'Completo'">
-      El torneo esta completo, y pronto se realizará el sorteo ...
-    </div>
-  <div *ngIf="torneo?.state == 'Publicado' && yaRegistrado">
-    Ya estás registrado en este torneo.
+
+  <div class="alert alert-light" role="alert" *ngIf=" torneo?.state == 'Publicado' && NotanUser == true">
+    Debe iniciar sesión para poder registrarse en el campeonato.
   </div>
-  <div *ngIf="torneo?.state == 'Iniciado' || 'Finalizado'">
+
+  <div class="alert alert-light" role="alert" *ngIf=" torneo?.state == 'Publicado' && rol == 'Club'">
+    Debe iniciar sesion como un Jugador.
+  </div>
+
+
+  <div *ngIf="torneo?.state == 'Iniciado'">
     <info-fixture [torneo]="torneo" [inscriptions]="inscriptions" ></info-fixture>
   </div>
+  <div *ngIf="torneo?.state == 'Finalizado'">
+    <info-fixture [torneo]="torneo" [inscriptions]="inscriptions" ></info-fixture>
+  </div>
+
 
 </div>
 
