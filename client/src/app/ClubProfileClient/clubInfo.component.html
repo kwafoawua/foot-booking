@@ -138,7 +138,7 @@
               <div class="widget item-tag" *ngIf="myTournament?.length > 0">
                 <h4>CAMPEONATOS</h4>
                 <div  *ngFor="let i of myTournament">
-                  <div *ngIf="i.state !=  'Nuevo'">
+                  <div *ngIf="i.state !=  'Nuevo' || 'Cancelado'">
                    <ul class="list-inline">
                       <li class="list-inline-item" [routerLink]="['/campeonato',i._id]">
                         <a>

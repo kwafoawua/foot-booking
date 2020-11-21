@@ -122,17 +122,19 @@
 
 
 <!--                      </div>-->
-
-                      <div class="row">
                       <div *ngIf="torneo?.state === 'Publicado'">
+                      <div class="row">
+
                         <div class="alert alert-success" role="alert">
                           <h4 class="alert-heading">Inscribite ya por {{torneo.inscriptionCost}}</h4>
                         </div>
-                      </div>
+
                       </div>
                       <div class="row">
                         *El medio de pago disponible es MercadoPago
                       </div>
+                    </div>
+
                     </div>
 
             </div>
@@ -152,7 +154,7 @@
   <div *ngIf="torneo?.state == 'Publicado' && yaRegistrado">
     Ya estás registrado en este torneo.
   </div>
-  <div *ngIf="torneo?.state == 'Iniciado'">
+  <div *ngIf="torneo?.state == 'Iniciado' || 'Finalizado'">
     <info-fixture [torneo]="torneo" [inscriptions]="inscriptions" ></info-fixture>
   </div>
 

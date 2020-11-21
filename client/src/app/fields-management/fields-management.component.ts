@@ -289,12 +289,13 @@ export class FieldsManagementComponent implements OnInit {
             this.getClub(this._id);
             this.fieldDropdown = null;
             this.date = null;
-
+            this.createForm();
             this.getBookings(this._id);
           },
           error => {
             this.alertService.error(error);
           });
+
     }
   }
 

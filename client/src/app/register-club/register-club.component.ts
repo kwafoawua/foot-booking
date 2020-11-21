@@ -167,7 +167,8 @@ export class RegisterClubComponent implements OnInit {
       }),
      // mercadoPago: false,
      // dniMercadoPago:  [ null, Validators.compose([ Validators.maxLength(8) ]) ],
-      fields: FieldFormArrayComponent.initFields()
+      fields: FieldFormArrayComponent.initFields(),
+      TyCcheckbox: [null, Validators.required],
     });
 
    // this.registerClubForm.controls['dniMercadoPago'].disable() = true;
@@ -333,10 +334,11 @@ export class RegisterClubComponent implements OnInit {
   }
 
   isValidStepFour(){
-    if(this.registerClubForm.get('fields').valid){
-      return true;
+    if(this.registerClubForm.get('fields').valid &&
+      this.registerClubForm.get('TyCcheckbox').valid){
+      return false;
     }
-    else { return false; }
+    else { return true; }
   }
 
 
