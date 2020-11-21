@@ -90,4 +90,15 @@ canEffectuateInscription = async (tournamentId) => {
     }
 };
 
+module.exports.getInscriptionEmails = async (id) => {
+    let inscriptions = await TournamentInscription.find({
+        tournamentId: mongoose.Types.ObjectId(id)
+    })
+      .populate({path: 'userId', select: 'email'});
+
+    return inscriptions
+      .map(inscription => inscription.userId && inscription.userId.email)
+      .filter(email => email);
+};
+
 // TODO: validations for endpoints

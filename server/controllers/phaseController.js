@@ -6,6 +6,10 @@ const {roundOfSixteen} = require("../models/const/RoundOfSixteen");
 const {quarterFinal} = require("../models/const/QuarterFinal");
 const {semiFinal} = require("../models/const/SemiFinal");
 const {final} = require("../models/const/Final");
+const moment = require('moment');
+const { getInscriptionEmails } = require('./inscriptionController');
+const Tournament = require('../models/Tournament');
+const { sendEmail } = require('./mailing');
 
 /**
  *  Phases creation. This functions creates all the different phases for a Tournament. The phases should be created
@@ -87,14 +91,32 @@ exports.randomMatchesLink = async (req, res) => {
                     'matches.7.state': PENDING_GAME,
                 }
             }, {new: true});
+        await sendShuffleEmails(req.params.tournamentId);
         await res.status(200).send({
             phases: {...phases._doc},
             msg: "Generación de sorteo para torneo de 16 realizada exitosamente"
         });
     } catch (error) {
+        console.log(error);
         res.status(500).send("No se pudo sortear los partidos, ocurrio un error interno en randomMatchesLink");
     }
-}
+};
+
+const sendShuffleEmails = async (tId) => {
+    const emails = await getInscriptionEmails(tId);
+    const tournament = await Tournament.findById(tId).select('tournamentName').exec();
+    const phase =  await Phase.findOne({"tournamentId": mongoose.Types.ObjectId(tId), phaseType: "Octavos de final"}).exec();
+    const subject = `El campeonato ${tournament.tournamentName} ya se sorteó. ¿Estás listo para jugar?`;
+    const text = `
+    Hola! ¿Están listos con tu equipo para comenzar a jugar?.
+    El campeonato ${tournament.tournamentName} ya se sorteó y ya podes ir a visitar el sitio para saber contra quien jugas en http://localhost:4200/campeonato/${tId}.
+    Fecha de octavos de final: ${moment(phase.dateToPlay).format('D/M/YY')}
+    Mucha suerte para este campeonato! \n
+    Saludos Footbooking!
+    `;
+    await sendEmail('', emails, subject, text);
+};
+
 
 exports.setResultOfAMatch = async (req, res) => {
     const {tournamentId, matchId, localGoals, visitorGoals} = req.body;
