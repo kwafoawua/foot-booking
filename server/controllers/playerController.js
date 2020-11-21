@@ -6,6 +6,7 @@
 const _ = require('lodash');
 const Player = require('../models/Player');
 const utils = require('../utils');
+const { sendEmail } = require('./mailing');
 
 /**
  * Create a Player
@@ -23,6 +24,7 @@ module.exports.registerPlayer = async function (req,res) {
         });
 
         const savedPlayer = await newPlayer.save();
+        await sendEmail(player.name, player.email);
         const token = utils.generateToken(savedPlayer._id);
 
         res.status(200).send({ user: {...savedPlayer._doc, token }, success: 'Usuario creado con éxito' });

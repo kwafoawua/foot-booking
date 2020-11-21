@@ -7,6 +7,7 @@ const _ = require('lodash');
 const Club = require('../models/Club');
 const utils = require('../utils');
 const ClubResponseAdapter = require('../adapters/ClubResponseAdapter');
+const { sendEmail } = require('./mailing');
 
 /**
  * Create a Club
@@ -24,7 +25,20 @@ module.exports.registerClub = async function (req, res) {
                 delete club.fields[i]._id;
             }
         }
+        const registrationText =  `
+        Hola ${club.name} Muchas gracias por registrarte en Footbooking. \n
+        Disfrutá de la gestión de tus canchas, pudiendo llegar asi a más personas que puedan disfrutar de un buen partido de football.\n
+        Ahora podras administrar las reservas que se hacen en cada una de tus canchas llevando un mejor control y así brindar información
+        correcta a tus clientes. \n
+        También está la posibilidad de gestionar campeonatos, generando aleatoriamente los primeros partidos y teniendo un fixture personalizado.\n
+    
+        Para cualquier ayuda o soporte, comunicate a footbooking.dev@gmail.com
+        Saludos Footbooking.
+        `;
+
         const savedClub = await addClub(club, profilePath, galleryPath);
+        await sendEmail(club.name, club.user.email, null, registrationText);
+
         const token = utils.generateToken(savedClub._id);
         res.status(200).send({user: {...savedClub._doc, token}, success: 'El club se creó exitosamente.'});
     } catch (error) {
