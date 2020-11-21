@@ -1,11 +1,9 @@
 .lista-inscripcion-card {
-  max-width: 400px;
-  min-width: 360px;
   margin: 1rem;
 }
 
 .lista-inscripcion-header-image {
-  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-image: url('https://www.flaticon.com/svg/static/icons/svg/3034/3034900.svg');
   background-size: cover;
 }
 

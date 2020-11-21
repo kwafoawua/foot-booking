@@ -138,15 +138,17 @@
               <div class="widget item-tag" *ngIf="myTournament?.length > 0">
                 <h4>CAMPEONATOS</h4>
                 <div  *ngFor="let i of myTournament">
-                  <div *ngIf="i.state !=  'Nuevo' || 'Cancelado'">
-                   <ul class="list-inline">
-                      <li class="list-inline-item" [routerLink]="['/campeonato',i._id]">
-                        <a>
-                          <img src="../../assets/icons/football-cup.png"  height="24" width="24"/>
-                          {{i.tournamentName | uppercase}}
-                        </a>
-                      </li>
-                  </ul>
+                  <div *ngIf=" i.state !== 'Nuevo'">
+                    <div *ngIf="i.state !== 'Cancelado' ">
+                       <ul class="list-inline">
+                          <li class="list-inline-item" [routerLink]="['/campeonato',i._id]">
+                            <a>
+                              <img src="../../assets/icons/football-cup.png"  height="24" width="24"/>
+                              {{i.tournamentName | uppercase}}
+                            </a>
+                          </li>
+                      </ul>
+                  </div>
                   </div>
                 </div>
               </div>
