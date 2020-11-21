@@ -35,38 +35,47 @@
     position: relative !important;
     right: 45px !important;
   }
+
+  .content {
+    display: grid;
+  }
 </style>
 <div class="container-fluid">
   <div class="row">
     <div class="col-4">
-          <mat-card >
-            <mat-card-content>
-              <div class="card-estadisticas">
-                  <div  class="col-3">
-                    <i class="fa fa-comments align-middle text-success" aria-hidden="true"></i>
-                  </div>
-                  <div >{{cantComments}}</div>
-                  <div>
-                    <a [routerLink]="['admin/comentarios/',_id]">
-                      <span class="col-4">Comentarios</span></a>
-                  </div>
-              </div>
-            </mat-card-content>
-          </mat-card>
-      </div>
+      <mat-card>
+        <mat-card-title>
+          <i class="fa fa-comments align-middle text-success"></i>
+          <a [routerLink]="['admin/comentarios/', _id]">
+            <span class="title-cards">Comentarios</span></a>
+        </mat-card-title>
+        <mat-card-content class="content">
+          <span><strong>Cantidad de comentarios: </strong> {{cantComments}} comentarios</span>
+        </mat-card-content>
+      </mat-card>
+    </div>
     <div class="col-4">
       <mat-card>
-        <mat-card-content class="card-estadisticas">
-          <div class="col-3">
-            <i class="fa fa-address-book align-middle text-danger"
-                                aria-hidden="true"></i></div>
-          <div>{{cantBookings}}</div>
-          <div>
-            <span class="col-4">Reservas totales</span>
-          </div>
+        <mat-card-title>
+          <i class="fa fa-address-book align-middle text-danger"></i>
+          <span class="title-cards">Reservas</span>
+        </mat-card-title>
+        <mat-card-content class="content">
+          <span><strong>Cantidad total de reservas: </strong> {{cantBookings}} reservas</span>
         </mat-card-content>
-        </mat-card>
-
+      </mat-card>
+    </div>
+    <div class="col-4">
+      <mat-card>
+        <mat-card-title>
+          <i class="fa fa-address-book align-middle text-warning"></i>
+          <span class="title-cards">Medios de pago</span>
+        </mat-card-title>
+        <mat-card-content class="content">
+            <span><strong>Pago personal: </strong>23 pagos (23%)</span>
+            <span><strong>Pago por MercadoPago: </strong>23 pagos (23%)</span>
+        </mat-card-content>
+      </mat-card>
     </div>
   </div>
 
@@ -75,13 +84,30 @@
     <div class="col-md-12">
       <mat-card>
         <mat-card-title>
-          Reservas realizadas en el año
-          <button (click)="download()" class="btn btn-success btn-sm pull-right">Descargar Gráfico</button>
+          Reservas realizadas por año
         </mat-card-title>
 
-        <div class="card-body chart">
-          <ngx-charts-bar-vertical *ngIf="loaded"
-                                   id="chart-bar-vertical"
+        <div class="filtroFechas">
+          <div class="col-3">
+            <mat-form-field>
+              <mat-select [(value)]="anioReportOne" ngModel
+                          (selectionChange)="onSelect(1)"
+                          placeholder="Año">
+                <mat-option *ngFor="let anio of anios" [value]="anio.value">
+                  {{anio.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-3">
+            <button class="btn btn-success btn-sm btn-generar"
+                    (click)="getReportByYear()"
+                    [disabled]="!isValidReportOne()"
+            >Generar</button>
+          </div>
+        </div>
+        <div *ngIf="loadedReportByYear" class="card-body chart">
+          <ngx-charts-bar-vertical id="chart-bar-vertical"
                                    [view]="view1"
                                    [scheme]="options.colorScheme"
                                    [results]="bookingMonthChart"
@@ -94,24 +120,102 @@
                                    (select)="onSelect($event)">
           </ngx-charts-bar-vertical>
         </div>
+        <div align="center">
+          <button (click)="download()" class="btn btn-success btn-download"
+                  *ngIf="loadedReportByYear">Descargar Gráfico</button>
+        </div>
       </mat-card>
-
     </div>
   </div>
 
   <div class="row justify-content-md-center mt-lg-5">
+    <div class="col-md-12">
+      <mat-card>
+        <mat-card-title>
+          Reservas realizadas por mes
+        </mat-card-title>
+
+        <div class="filtroFechas">
+          <div class="col-3">
+            <mat-form-field>
+              <mat-select [(value)]="monthReportTwo" ngModel
+                          (selectionChange)="onSelect(2)"
+                          placeholder="Mes">
+                <mat-option *ngFor="let month of months" [value]="month.value">
+                  {{month.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-3">
+            <mat-form-field>
+              <mat-select [(value)]="anioReportTwo" ngModel
+                          (selectionChange)="onSelect(2)"
+                          placeholder="Año">
+                <mat-option *ngFor="let anio of anios" [value]="anio.value">
+                  {{anio.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-3">
+            <button class="btn btn-success btn-sm btn-generar"
+                    (click)="getReportByMonth()"
+                    [disabled]="!isValidReportTwo()"
+            >Generar</button>
+          </div>
+        </div>
+        <div *ngIf="loadedReportByMonth" class="card-body chart">
+          <ngx-charts-line-chart  id="chart-bar-vertical"
+                                  [results]="bookingDayChart"
+                                  [view]="view1"
+                                  [scheme]="options.colorScheme"
+                                  [xAxis]="options.showXAxis"
+                                  [yAxis]="options.showYAxis">
+          </ngx-charts-line-chart>
+        </div>
+        <div align="center">
+          <button (click)="download()" class="btn btn-success btn-download"
+                  *ngIf="loadedReportByMonth">Descargar Gráfico</button>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+
+  <div [formGroup]="formFilter" class="row justify-content-md-center mt-lg-5">
     <div class="col-md-6" align="center">
       <mat-card>
         <mat-card-title>
-          Reservas realizadas por Estado
-
-          <button (click)="download1()" class="btn btn-success btn-sm pull-right">Descargar Gráfico</button>
-
+          Reservas realizadas por estado
         </mat-card-title>
 
-        <div class="card-body chart">
-          <ngx-charts-advanced-pie-chart *ngIf="loaded"
-                                         id="chart-advanced-pie"
+        <div class="filtroFechas">
+          <div class="col-5">
+            <mat-form-field>
+              <input matInput [matDatepicker]="fromDateStatus" placeholder="Fecha desde"
+                     formControlName="dpFromDateStatus">
+              <mat-datepicker-toggle matSuffix [for]="fromDateStatus"></mat-datepicker-toggle>
+              <mat-datepicker #fromDateStatus></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-5">
+            <mat-form-field>
+              <input matInput [matDatepicker]="toDateStatus" placeholder="Fecha hasta"
+                     formControlName="dpToDateStatus">
+              <mat-datepicker-toggle matSuffix [for]="toDateStatus"></mat-datepicker-toggle>
+              <mat-datepicker #toDateStatus></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-2">
+            <button class="btn btn-success btn-sm btn-generar"
+                    (click)="getReportByState()"
+                    [disabled]="!isValidReportThree()"
+            >Generar</button>
+          </div>
+        </div>
+
+        <div *ngIf="loadedReportByStatus" class="card-body chart">
+          <ngx-charts-advanced-pie-chart id="chart-advanced-pie"
                                          [view]="view"
                                          [scheme]="options.colorScheme1"
                                          [animations]="options.animations"
@@ -120,27 +224,55 @@
                                          (select)="onSelect($event)">
           </ngx-charts-advanced-pie-chart>
         </div>
+        <button (click)="download1()" class="btn btn-success btn-download"
+                *ngIf="loadedReportByStatus">Descargar Gráfico</button>
       </mat-card>
     </div>
+
     <div class="col-md-6" align="center">
       <mat-card>
         <mat-card-title>
-          Reservas realizadas por Cancha
-          <button (click)="download2()" class="btn btn-success btn-sm pull-right">Descargar Gráfico</button>
+          Reservas realizadas por cancha
         </mat-card-title>
 
-        <div class="card-body chart">
-          <ngx-charts-pie-chart *ngIf="loaded"
-                                id="chart-pie-chart-canchas"
+        <div class="filtroFechas">
+          <div class="col-5">
+            <mat-form-field>
+              <input matInput [matDatepicker]="fromDateCancha" placeholder="Fecha desde"
+                     formControlName="dpFromDateCancha">
+              <mat-datepicker-toggle matSuffix [for]="fromDateCancha"></mat-datepicker-toggle>
+              <mat-datepicker #fromDateCancha></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-5">
+            <mat-form-field>
+              <input matInput [matDatepicker]="toDateCancha" placeholder="Fecha hasta"
+                     formControlName="dpToDateCancha">
+              <mat-datepicker-toggle matSuffix [for]="toDateCancha"></mat-datepicker-toggle>
+              <mat-datepicker #toDateCancha></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-2">
+            <button class="btn btn-success btn-sm btn-generar"
+                    (click)="getReportByCancha()"
+                    [disabled]="!isValidReportFour()"
+            >Generar</button>
+          </div>
+        </div>
+
+        <div *ngIf="loadedReportByCancha" class="card-body chart">
+          <ngx-charts-pie-chart id="chart-pie-chart-canchas"
                                 [view]="view2"
                                 [scheme]="options.colorScheme"
                                 [results]="fieldChart"
                                 [labels]="options.showLabels"
                                 [legendTitle]="Leyenda"
+                                [trimLabels]="false"
                                 (select)="onSelect($event)">
           </ngx-charts-pie-chart>
-
         </div>
+        <button (click)="download2()" class="btn btn-success btn-download"
+                *ngIf="loadedReportByCancha">Descargar Gráfico</button>
       </mat-card>
     </div>
   </div>
