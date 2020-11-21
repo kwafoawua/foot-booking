@@ -1,5 +1,9 @@
 const TournamentInscription = require('../models/TournamentInscription');
+const Tournament = require('../models/Tournament');
 const mongoose = require('mongoose');
+const Player = require('../models/Player');
+const { sendEmail } = require('./mailing');
+const moment = require('moment');
 
 /**
  * Create inscription
@@ -9,20 +13,24 @@ exports.newTournamentInscription = async (req, res) => {
     let inscription = new TournamentInscription({
         tournamentId: idTournament,
         userId: idUser,
-        referringContact: {
-            name: name,
-            phoneNumber: phoneNumber
-        },
-        team: {
-            name: team
-        }
-    })
-
+        referringContact: { name: name, phoneNumber: phoneNumber },
+        team: { name: team }
+    });
     try {
         // TODO -> validar que queden lugares para inscripcion
         // TODO -> validar que no exista equipo con ese nombre
         // TODO -> validar que no se inscriba jugador 2 veces
+        const player = await Player.findById(idUser).exec();
+        const tournament = await Tournament.findById(idTournament).exec();
+        const subject = `Te inscribiste al campeonato ${tournament.tournamentName}`;
+        const text = `
+        Hola ${player.name}! Muchas gracias por inscribirte al torneo ${tournament.tournamentName}.
+        El mismo va a iniciar el día ${moment(tournament.startDate).format('D/M/YY')}.
+        Estate atento con tu equipo para saber que día y horario tienen el partido en www.footbooking.com. \n
+        Saludos Footbooking!
+        `;
         await inscription.save();
+        await sendEmail(player.name, player.email, subject, text);
         res.status(200).send({inscription: inscription, success: 'Inscipcion exitosa.'});
     } catch (e) {
         res.status(500).send("Ocurrio un error imprevisto :(");
