@@ -177,12 +177,16 @@
         <div class="row">
           <div class="col">
             <mat-form-field class="example-container">
-              <input matInput placeholder="Monto total" type="number" formControlName="fieldPrice" required>
+              <input matInput placeholder="Monto total" type="number"   class="example-right-align" formControlName="fieldPrice" required>
+              <span matPrefix>$&nbsp;</span>
+              <span matSuffix>.00</span>
             </mat-form-field>
           </div>
           <div class="col">
             <mat-form-field class="example-container">
               <input matInput placeholder="Monto pagado" type="number" formControlName="fee">
+              <span matPrefix>$&nbsp;</span>
+              <span matSuffix>.00</span>
             </mat-form-field>
           </div>
           <div class="col">
