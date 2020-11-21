@@ -1,9 +1,10 @@
+const {sendEmail} = require('./mailing');
 const mongoose = require('mongoose');
 const Tournament = require('../models/Tournament');
 const {validationResult} = require("express-validator");
 const tournamentUtils = require('../utils/TournamentUtils');
 const tournamentAdapter = require('../adapters/TournamentResponseAdapter');
-const phasesCreator = require('./phaseController')
+const phasesCreator = require('./phaseController');
 
 /**
  * Create a Tournament
@@ -86,12 +87,31 @@ exports.updateTournament = async (req, res) => {
         await Tournament.findOneAndUpdate(
             {_id: mongoose.Types.ObjectId(req.params._id)},
             {$set: req.body},
-            {new: true});
+            {new: true}
+            );
+        if(req.body.state === 'Completo') {
+            console.log(req.body.state);
+            await sendCompletedEmail(req.params._id)
+        }
         await res.json({msg: "Torneo modificado exitosamente"});
     } catch (error) {
         console.log(error);
         res.status(500).send("Ocurrio un error imprevisto :/");
     }
+};
+
+const sendCompletedEmail = async (tId) => {
+    const tournament = await Tournament.findById(tId).populate('creatorClubId').exec();
+    console.log(tournament);
+    const clubName = tournament.creatorClubId.name;
+    const email = tournament.creatorClubId.email;
+    const subject = `Se completaron las inscripciones del campeonato ${tournament.tournamentName}`;
+    const text = `
+    Hola ${clubName}! Se completaron las inscripciones del torneo y ya está listo para sortear los equipos.
+     Te esperamos en www.footbooking.com para que comiences el campeonato!\n
+    Saludos Footbooking!
+    `;
+    await sendEmail('', email, subject, text);
 };
 
 /**
