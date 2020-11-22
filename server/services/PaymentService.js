@@ -9,15 +9,12 @@ class PaymentService {
                     'TEST-6530093699700144-102523-3292da805622a29d660ec29ce76bcb56-38445751'
             }
         };
-// declaramos de la siguiente manera el token, para que sea más fácil cambiarlo dependiendo del ambiente
         this.mercadoPagoUrl = "https://api.mercadopago.com/checkout";
-        // declaramos la url en el constructor para poder accederla a lo largo de toda la clase
     }
 
     async createPaymentMercadoPago(name, price, unit) {
-// recibimos las props que le mandamos desde el PaymentController
         const url = `${this.mercadoPagoUrl}/preferences?access_token=${this.tokensMercadoPago.test.access_token}`;
-// url a la que vamos a hacer los requests
+        // url a la que vamos a hacer los requests
 
         const items = [
             {
@@ -77,13 +74,9 @@ class PaymentService {
 // la cantidad de cuotas que van a aparecer por defecto
             },
             back_urls: {
-// declaramos las urls de redireccionamiento
                 success: "https://localhost:3000/success",
-// url que va a redireccionar si sale todo bien
                 pending: "https://localhost:3000.com/pending",
-// url a la que va a redireccionar si decide pagar en efectivo por ejemplo
                 failure: "https://localhost:3000.com/error"
-// url a la que va a redireccionar si falla el pago
             },
             notification_url: "https://mercadopago-checkout.herokuapp.com/webhook",
 // declaramos nuestra url donde recibiremos las notificaciones
@@ -95,21 +88,14 @@ class PaymentService {
             const request = await axios.post(url, preferences, {
                 // hacemos el POST a la url que declaramos arriba, con las preferencias
                 headers: {
-// y el header, que contiene content-Type
                     "Content-Type": "application/json"
                 }
             });
-
             return request.data;
-// devolvemos la data que devuelve el POST
         } catch (e) {
             console.log(e);
-// mostramos error en caso de que falle el POST
         }
     }
 }
-
-//NOTA: TODAS las URLS que usemos tienen que ser reales,
-//si prueban con localhost, va a fallar
 
 module.exports = PaymentService;

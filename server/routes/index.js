@@ -99,14 +99,13 @@ router.post("/mercadopago/generatePreference", mercadoPagoController.generatePre
 router.post("/mercadopago/preferenceCallBack", mercadoPagoController.callback);
 router.get("/mercadopago/linkMPAccount/:id", mercadoPagoController.linkAccountUrlRedirection);
 router.get("/mercadopago/webhook/linkAccount", mercadoPagoController.linkAccount);
-router.get("/mercadopago/hasLinkedAccount/:id", clubController.hasMercadoPagoToken)
+router.get("/mercadopago/hasLinkedAccount/:id", clubController.hasMercadoPagoToken);
+router.post("/mercadopago/preference/tournamentInscription", mercadoPagoController.generatePreference);
+router.post("/webhook/tournamentInscription", mercadoPagoController.inscriptionPaymentWebhook);
 
-/* MP2 */
-//importamos el controller
+/* MercadoPago prueba de imple */
 const PaymentController = require("../controllers/PaymentController");
-//importamos el service
 const PaymentService = require("../services/PaymentService");
-// Permitimos que el controller pueda usar el service
 const PaymentInstance = new PaymentController(new PaymentService());
 router.post("/payment/new", (req, res) => PaymentInstance.getMercadoPagoLink(req, res));
 router.post("/webhook", (req, res) => PaymentInstance.webhook(req, res));

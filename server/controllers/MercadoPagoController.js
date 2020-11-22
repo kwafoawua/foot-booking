@@ -1,11 +1,12 @@
 const axios = require("axios");
 let bookingController = require('./BookingController.js')
 let clubController = require('./ClubController.js')
+let inscriptionController = require('./inscriptionController')
 
 const mercadopago = require('mercadopago');
 const _API_ID = '5031143008001395';
 const _APP_TOKEN = 'TEST-5031143008001395-111516-733bdaea16cf2e392e5479898628d1f0-38445751';
-const _NGROK_HTTPS_URL = 'https://21ed8c4d55ac.ngrok.io';
+const _NGROK_HTTPS_URL = 'https://134b92d1d88f.ngrok.io';
 const oauthUrl = 'https://api.mercadopago.com/oauth/token';
 
 mercadopago.configure({
@@ -70,11 +71,11 @@ exports.generatePreference = async (req, res) => {
     const preference = {
         items,
         back_urls: {
-            success: req.body.successURL,
-            failure: req.body.failureURL,
+            success: 'http://localhost:4200/confirmation',
+            failure: 'http://localhost:4200/confirmation?state=error',
         },
         external_reference: `${Date.now()}-${req.body.title}`,
-        notification_url: "https://21ed8c4d55ac.ngrok.io/webhook?source_news=webhooks",
+        notification_url: `${_NGROK_HTTPS_URL}/webhook?source_news=webhooks`,
         auto_return: "approved"
     }
     try {
@@ -83,6 +84,59 @@ exports.generatePreference = async (req, res) => {
     } catch (error) {
         res.status(500).send("No se pudo impactar la API de mercado de pago");
     }
+}
+
+exports.generatePreferenceForInscription = async (tournament, inscriptionReference) => {
+    const items = [
+        {
+            title: `Inscripción a torneo ${tournament.tournamentName}`,
+            description: tournament.publicationDescription,
+            unit_price: tournament.inscriptionCost,
+            currency_id: "ARS",
+            quantity: 1,
+        }
+    ]
+    const preference = {
+        items,
+        back_urls: {
+            success: `http://localhost:4200/campeonato/${tournament._id}?paymentStatus=success`,
+            failure: `http://localhost:4200/campeonato/${tournament._id}?paymentStatus=failure`,
+        },
+        external_reference: inscriptionReference,
+        notification_url: `${_NGROK_HTTPS_URL}/webhook/tournamentInscription?source_news=webhooks`,
+        auto_return: "approved"
+    }
+    const clubToken = await clubController.getMercadoPagoToken(tournament.creatorClubId);
+    // mercadopago.configure({
+    //     access_token: clubToken
+    // });
+    let mpResponse = await mercadopago.preferences.create(preference);
+    return mpResponse.body;
+}
+
+exports.inscriptionPaymentWebhook = async (req, res) => {
+    console.log(`la body: ${JSON.stringify(req.body)}`)
+    console.log(`la id de la tx: ${req.body.data.id}`)
+    const paymentId = req.body.data.id;
+    if (req.method === "POST") {
+        let body = "";
+        req.on("data", chunk => {
+            body += chunk.toString();
+            console.log(`le body: ${body}`)
+        });
+        req.on("end", () => {
+            console.log(body, "webhook response");
+            res.end("ok");
+        });
+    }
+    let mpRes = await mercadopago.payment.get(paymentId);
+    try {
+        await inscriptionController.updateInscriptionByExternalReference(mpRes.body.external_reference,
+            paymentIsApproved(mpRes.body.status, mpRes.body.status_detail));
+    } catch (e) {
+        console.log(`Ocurrió un error al actualizar el pago de la inscripcion con id de transaccion de Mercado de Pago: ${paymentId}`)
+    }
+    return res.status(200);
 }
 
 exports.getPaymentStatusById = async (paymentId) => {

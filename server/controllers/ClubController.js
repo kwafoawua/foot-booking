@@ -269,6 +269,11 @@ exports.linkClubToMercadoPagoAccount = async (accessToken, referenceId) => {
         );
 }
 
+exports.getMercadoPagoToken = async clubId => {
+    const club = await Club.findById(clubId);
+    return club.access_token;
+}
+
 exports.hasMercadoPagoToken = async (req, res) => {
     await Club.find(
         {

@@ -48,6 +48,7 @@ module.exports.path = {
         '/destacados',
         '/mercadopago/preferenceCallBack',
         '/webhook',
-        '/mercadopago/webhook/linkAccount'
+        '/mercadopago/webhook/linkAccount',
+        '/webhook/tournamentInscription'
     ]
 };
