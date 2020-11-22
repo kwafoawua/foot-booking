@@ -4,8 +4,8 @@ const mongoose = require('mongoose');
 const Player = require('../models/Player');
 const { sendEmail } = require('./mailing');
 const moment = require('moment');
-let mercadoPagoController = require('./MercadoPagoController');
-const {getTournamentById} = require("./tournamentController");
+const mercadoPagoController = require('./MercadoPagoController');
+const tournamentController = require("./tournamentController");
 
 /**
  * Create inscription
@@ -25,7 +25,7 @@ exports.newTournamentInscription = async (req, res) => {
         // TODO -> validar que queden lugares para inscripcion
         // TODO -> validar que no exista equipo con ese nombre
         // TODO -> validar que no se inscriba jugador 2 veces
-        let tournamentInfo = await getTournamentById(idTournament);
+        let tournamentInfo = await tournamentController.getTournamentById(idTournament);
         const player = await Player.findById(idUser).exec();
         const tournament = await Tournament.findById(idTournament).exec();
         const subject = `Te inscribiste al campeonato ${tournament.tournamentName}`;
