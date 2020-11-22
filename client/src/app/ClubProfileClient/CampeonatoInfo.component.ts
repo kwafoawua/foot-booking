@@ -22,6 +22,9 @@ export class CampeonatoInfoComponent implements OnInit {
   yaRegistrado: boolean;
   NotanUser = false;
   permiteReserva: boolean;
+  primerEquipo: string;
+  segundoEquipo: string;
+  tercerEquipo: string;
 
   ngOnInit(): void {
     this.getTorneo(this.route.snapshot.params.id);
@@ -59,6 +62,14 @@ export class CampeonatoInfoComponent implements OnInit {
       console.log(this.yaRegistrado);
       console.log('cantidad', this.cantidad);
     });
+  }
+
+  setWinners($event) {
+    if ($event) {
+      this.primerEquipo = $event.primerEquipo;
+      this.segundoEquipo = $event.segundoEquipo;
+      this.tercerEquipo = $event.tercerEquipo;
+    }
   }
 
 }

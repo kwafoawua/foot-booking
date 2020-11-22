@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {TournamentService} from '../_services/tournament.service';
 import {Tournament} from '../_models/tournament';
@@ -15,6 +15,7 @@ import {fixtureRegexp} from '../../utils/utils';
 export class InfoFixtureComponent implements OnInit{
   @Input() inscriptions: any[];
   @Input() torneo: Tournament;
+  @Output() setWinners = new EventEmitter<any>();
   phases: any;
   phaseDateList: any[];
 
@@ -153,6 +154,10 @@ export class InfoFixtureComponent implements OnInit{
 
   getPhases() {
     this.tournamentService.getPhases(this.route.snapshot.params.id).subscribe((data: any) => {
+      if (!this.phases) {
+        const winners = this.tournamentService.calculateWinners(data.phases[4].matches, data.phases[3].matches);
+        this.setWinners.emit(winners);
+      }
       this.generateTournamentData(data.phases);
       console.log('las fases', data.phases);
       this.phases = data.phases;

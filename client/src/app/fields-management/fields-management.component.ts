@@ -23,7 +23,7 @@ import { colors } from './colors';
 import * as moment from 'moment';
 
 const I18N_VALUES = {
-  'es': {
+  es: {
     weekdays: [ 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa', 'Do' ],
     months: [ 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ],
   }
@@ -75,9 +75,6 @@ export class CustomDatepickerI18n extends NgbDatepickerI18n {
 
 export class FieldsManagementComponent implements OnInit {
 
-  @ViewChild('modalContent') modalContent: TemplateRef<any>;
-  @ViewChild('formDirective') private formDirective: NgForm;
-
 
   constructor(private modal: NgbModal,
               private bookingService: BookingService,
@@ -85,8 +82,11 @@ export class FieldsManagementComponent implements OnInit {
               private fb: FormBuilder) {
     registerLocaleData(localeEs);
   }
-  view: string = 'month';
-  locale: string = 'es';
+
+  @ViewChild('modalContent') modalContent: TemplateRef<any>;
+  @ViewChild('formDirective') private formDirective: NgForm;
+  view = 'month';
+  locale = 'es';
   viewDate: Date = new Date();
   selectedStatus: string;
   modalData: {
@@ -119,6 +119,7 @@ export class FieldsManagementComponent implements OnInit {
   fieldIndex: number;
   fieldDropdown: any;
   nuevaReservaForm: FormGroup;
+  precioCanchaModel: number;
   now = moment().startOf('day').toDate();
 
   actions: CalendarEventAction[] = [
@@ -133,6 +134,9 @@ export class FieldsManagementComponent implements OnInit {
   refresh: Subject<any> = new Subject();
 
   activeDayIsOpen = false;
+
+
+  closeResult: string;
 
   ngOnInit() {
     this.getBookings(this._id);
@@ -169,6 +173,7 @@ export class FieldsManagementComponent implements OnInit {
       fee:  [ null ],
       status: [ 'Reservado', Validators.required ],
     });
+
   }
 
   private getBookings(_id: string) {
@@ -192,13 +197,13 @@ export class FieldsManagementComponent implements OnInit {
             colorStatus = colors.yellow;
             break;
         }
-        let event = {
+        const event = {
           start: startOfDay(parseISO(booking.playingDate)),
           end: startOfDay(parseISO(booking.playingDate)),
           title: booking.field.fieldName + ' Horario: ' + booking.playingTime + ' Cliente: ' + booking.player.name + ' ' + booking.player.lastName,
           color: colorStatus,
           actions: this.actions,
-          booking: booking,
+          booking,
 
 
         };
@@ -217,9 +222,6 @@ export class FieldsManagementComponent implements OnInit {
     console.log(newStatus);
     this.selectedStatus = newStatus;
   }
-
-
-  closeResult: string;
   // open(content) {
   //     this.modal.open(content)
   // }
@@ -256,7 +258,7 @@ export class FieldsManagementComponent implements OnInit {
 
       if (this.selectedStatus || this.montoPagado) {
         this.closeResult = result;
-        let newStatus: any = {};
+        const newStatus: any = {};
         newStatus.bookingId = result._id;
 
         if (this.selectedStatus) {
@@ -270,7 +272,7 @@ export class FieldsManagementComponent implements OnInit {
         this.bookingService.updateBookingStatus(newStatus).subscribe((data) => {
           this.alertService.success('Se actualizó correctamente el estado de la reserva', false);
           this.getBookings(this._id);
-          //this.getBookingsByStatus(this._id, "Cancelado");
+          // this.getBookingsByStatus(this._id, "Cancelado");
         }, error => {
           this.alertService.error('el error q viene de backend ' + error);
         });
@@ -301,7 +303,7 @@ export class FieldsManagementComponent implements OnInit {
 
   loadHoursValues(date: any) {
     this.nuevaReservaForm.get('playingDate').setValue(date.toISOString());
-    this.bookingFilter = new BookingFilter(this.nuevaReservaForm.controls[ 'fieldId' ].value, date);
+    this.bookingFilter = new BookingFilter(this.nuevaReservaForm.controls.fieldId.value, date);
 
     this.bookingService.findAllBookingsByFieldAndDay(this.bookingFilter)
       .subscribe(hoursBooking => {

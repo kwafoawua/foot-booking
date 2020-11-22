@@ -26,6 +26,10 @@ export class FixtureComponent implements OnInit {
   sePuedeIniciarCampeonato: boolean;
   sePuedeFinalizarCampeonato: boolean;
   tournamentState: string;
+  tournament: any;
+  primerEquipo: string;
+  segundoEquipo: string;
+  tercerEquipo: string;
 
   myTournamentData = {
     rounds: [
@@ -169,6 +173,7 @@ export class FixtureComponent implements OnInit {
       this.maxDate = new Date(data.tournament.endDate);
       this.minDate = new Date(data.tournament.startDate);
       this.tournamentState = data.tournament.state;
+      this.tournament = data.tournament;
       console.log(this.maxDate, this.minDate, this.tournamentState);
     });
   }
@@ -267,7 +272,16 @@ export class FixtureComponent implements OnInit {
       this.setEsSinAsignar(data.phases);
       this.generateTournamentData(data.phases);
       this.isGenerable = this.inscriptions.length > 15;
+      if (!this.phases) {
+        const winners = this.tournamentService.calculateWinners(data.phases[4].matches, data.phases[3].matches);
+        if (winners) {
+          this.primerEquipo = winners.primerEquipo;
+          this.segundoEquipo = winners.segundoEquipo;
+          this.tercerEquipo = winners.tercerEquipo;
+        }
+      }
       this.phases = data.phases;
+
       this.phaseDateList = [
         {
           state: false,

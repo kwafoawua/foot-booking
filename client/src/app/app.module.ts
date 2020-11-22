@@ -24,14 +24,7 @@ import { routing } from './app.routing';
 import { authInterceptorProviders } from './_helpers/index';
 import { AlertComponent } from './_directives/index';
 import { AuthGuard } from './_guards/index';
-import {
-  AlertService,
-  AuthService,
-  UserService,
-  ClubService,
-  PlayerService,
-  CommentService
-} from './_services/index';
+import { AlertService, AuthService, ClubService, CommentService, PlayerService, UserService } from './_services/index';
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import { RegisterClubComponent } from './register-club/index';
@@ -51,19 +44,18 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { bookingPlayerComponent } from './booking-player/booking-player.component';
 import { EstadisticasClubComponent } from './estadisticas-club/index';
 import { commentsComponent } from './_directives/Comments/commentsComponent';
-import { ClubInfoComponent} from './ClubProfileClient/clubInfo.component';
+import { ClubInfoComponent } from './ClubProfileClient/clubInfo.component';
 import { CampeonatoInfoComponent } from './ClubProfileClient/CampeonatoInfo.component';
 import { CampeonatoInscripcionComponent } from './ClubProfileClient/CampeonatoInscripcion.component';
 import { InfoFixtureComponent } from './ClubProfileClient/infoFixture.component';
-
 // API MAPS
 import { AgmCoreModule } from '@agm/core';
 import { DpDatePickerModule } from 'ng2-date-picker';
 import { ConfirmationComponent } from './booking-confirmation/confirmation.component';
 import { TournamentService } from './_services/tournament.service';
 import { LoginGuard } from './_guards/login.guard';
-import {ResultadoBusquedaComponent} from './result/resultadoBusqueda.component';
-import {TorneosPlayerComponent } from './booking-player/torneos-player-component';
+import { ResultadoBusquedaComponent } from './result/resultadoBusqueda.component';
+import { TorneosPlayerComponent } from './booking-player/torneos-player-component';
 
 import { StorageService } from './_services/storage.service';
 import { FieldsArrayModule } from './fields-array/fields-array.module';
@@ -73,6 +65,7 @@ import { InputTextComponent } from './common/input-text/input-text.component';
 import { SiteLayoutComponent } from './_layout/site-layout/site-layout.component';
 import { AdminLayoutComponent } from './_layout/admin-layout/admin-layout.component';
 import { AdminCampeonatoModule } from './admin-campeonato/admin-campeonato.module';
+import { SharedModule } from './shared.module';
 import {MercadoPagoService} from "./_services/mercado-pago.service";
 
 registerLocaleData(localeEsAr, 'es-AR');
@@ -91,7 +84,7 @@ registerLocaleData(localeEsAr, 'es-AR');
     DpDatePickerModule,
     AgmCoreModule.forRoot({// old: AIzaSyAAwaI8YafySsHraMA_9G_n30_FECUhoVs
       apiKey: 'AIzaSyBuNW_HnnPaMrMq8KGEhiEzUnbVOO_OJzA',
-      libraries: ['places']
+      libraries: [ 'places' ]
     }),
     ProfileClubModule,
     ProfilePlayerModule,
@@ -108,6 +101,7 @@ registerLocaleData(localeEsAr, 'es-AR');
     MaterialModule,
     AdminCampeonatoModule,
     NgTournamentTreeModule,
+    SharedModule,
   ],
   declarations: [
     AppComponent,

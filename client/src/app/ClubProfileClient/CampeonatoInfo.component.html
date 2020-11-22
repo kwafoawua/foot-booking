@@ -18,110 +18,57 @@
 
           <mat-card-content>
             <div class="row">
-                  <div class="col-xs-8 col-md-8">
+                  <div class="col-xs-8 col-md-6">
                     <div class="row">
-                      <div class="col-xs-4 col-md-4">
+                      <div class="col-xs-6 col-md-6">
                         Inicio de campeonato
                       </div>
-                      <div class="col-xs-4 col-md-4">
+                      <div class="col-xs-6 col-md-6">
                         <strong> {{torneo?.startDate | date:"dd/MM/yyyy"}} </strong>
                       </div>
-                      <div class="col-xs-4 col-md-4">
-
-                      </div>
                     </div>
                     <div class="row">
-                      <div class="col-xs-4 col-md-4">
+                      <div class="col-xs-6 col-md-6">
                         Modalidad de campeonato
                       </div>
-                      <div class="col-xs-4 col-md-4">
+                      <div class="col-xs-6 col-md-6">
                         <strong>{{torneo?.category}}</strong>
                       </div>
-                      <div class="col-xs-4 col-md-4">
 
-                      </div>
                     </div>
                     <div class="row">
-                      <div class="col-xs-4 col-md-4">
+                      <div class="col-xs-6 col-md-6">
                         Cantidad de jugadores por equipo
                       </div>
-                      <div class="col-xs-4 col-md-4">
+                      <div class="col-xs-6 col-md-6">
                         <strong>{{torneo?.numberOfPlayers}}</strong>
                       </div>
-                      <div class="col-xs-4 col-md-4">
 
-                      </div>
                     </div>
                     <div class="row">
-                      <div class="col-xs-4 col-md-4">
+                      <div class="col-xs-6 col-md-6">
                         Total de equipos
                       </div>
-                      <div class="col-xs-4 col-md-4">
+                      <div class="col-xs-6 col-md-6">
                         <strong>{{torneo?.numbersOfTeams}}</strong>
-                      </div>
-                      <div class="col-xs-4 col-md-4">
-
                       </div>
                     </div>
                   </div>
 
-                    <div class="col-md-4 col-xs-4">
+                    <div class="col-md-6 col-xs-6">
                       <div class="row">
-                        <ul class="list-inline">
-                        <li *ngIf="torneo?.prize1"  class="list-inline-item">
-                          <img src="../../assets/icons/medal-first-place-96.png" height="96" width="96"/>
-                        </li>
-                        <li *ngIf="torneo?.prize2"  class="list-inline-item">
-                          <img src="../../assets/icons/medal-second-place-96.png" height="96" width="96"/>
-                        </li>
-                        <li *ngIf="torneo?.prize3"  class="list-inline-item">
-                          <img  src="../../assets/icons/medal-third-place-96.png" height="96" width="96"/>
-                        </li>
-                      </ul>
+                          <app-winner-card-campeonato
+                            class="w-100"
+                            [primerPremio]="torneo?.prize1"
+                            [segundoPremio]="torneo?.prize2"
+                            [tercerPremio]="torneo?.prize3"
+                            [primerEquipo]="primerEquipo"
+                            [segundoEquipo]="segundoEquipo"
+                            [tercerEquipo]="tercerEquipo"
+                          ></app-winner-card-campeonato>
                     </div>
-                      <div class="row">
-                        <div class="col">
-                          <div *ngIf="torneo?.prize1">
-                            {{torneo?.prize1}}
-                          </div>
-                        </div>
-                        <div class="col">
-                          <div *ngIf="torneo?.prize2">
-                            {{torneo?.prize2}}
-                          </div>
-                        </div>
-                        <div class="col">
-                          <div *ngIf="torneo?.prize3">
-                            {{torneo?.prize3}}
-                          </div>
-                        </div>
-                      </div>
-<!--                        <div class="row list-inline">-->
-<!--                        <div class="col list-inline-ite">-->
-<!--                            <div *ngIf="torneo?.prize1">-->
-<!--                              <img src="../../assets/icons/medal-first-place-96.png" height="96" width="96"/>-->
-<!--                            <div> {{torneo.prize1}}</div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-
-<!--                        <div class="col list-inline-ite">-->
-<!--                          <div *ngIf="torneo?.prize2 != null">-->
-<!--                            <img  src="../../assets/icons/medal-second-place-96.png" height="96" width="96"/>-->
-<!--                            <div>{{torneo.prize2}}</div>-->
-<!--                          </div>-->
-<!--                        </div>-->
 
 
-<!--                        <div class="col list-inline-ite">-->
-<!--                          <div *ngIf="torneo?.prize3 != null">-->
-<!--                            <img  src="../../assets/icons/medal-third-place-96.png" height="96" width="96"/>-->
-<!--                            <div>{{torneo.prize3}}</div>-->
-<!--                          </div>-->
-<!--                        </div>-->
-
-
-
-<!--                      </div>-->
                       <div *ngIf="torneo?.state === 'Publicado'">
                       <div class="row">
 
@@ -168,10 +115,10 @@
 
 
   <div *ngIf="torneo?.state == 'Iniciado'">
-    <info-fixture [torneo]="torneo" [inscriptions]="inscriptions" ></info-fixture>
+    <info-fixture [torneo]="torneo" [inscriptions]="inscriptions" (setWinners)="setWinners($event)" ></info-fixture>
   </div>
   <div *ngIf="torneo?.state == 'Finalizado'">
-    <info-fixture [torneo]="torneo" [inscriptions]="inscriptions" ></info-fixture>
+    <info-fixture [torneo]="torneo" [inscriptions]="inscriptions" (setWinners)="setWinners($event)"></info-fixture>
   </div>
 
 
