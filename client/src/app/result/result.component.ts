@@ -38,11 +38,12 @@ export class ResultComponent implements OnInit {
   public services: Service[];
   private servicesChecked: Service [] = [];
   public radio: boolean; //true es club
-  clubname = '';
+  clubname: string;
   cantPlayers: any;
   minPrice: any;
   maxPrice: any;
-
+  fieldType: any;
+  public fieldTypesSelect: string[] = [ 'Cesped', 'Sintético', 'Tierra' ];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -54,49 +55,60 @@ export class ResultComponent implements OnInit {
 
   ngOnInit(): void {
     this.setCurrentPosition();
-    // TODO: poder obtener los clubs dependiendo de la url y los filtros que se aplican arriba
-   // this.clubs = SearchService.clubs;
-    this.clubService.getAll().subscribe((clubs: Club[]) => {
-      if (clubs) {
-        console.log('en el if JSON', JSON.stringify(clubs));
-        this.clubs = clubs;
-      }
-    });
     this.services = this.searchService.getClubServices();
+    this.activatedRoute.queryParams.subscribe(params => {
+      console.log('params', params);
+      if ((Object.keys(params).length === 0)) {
+        this.clubService.getAll().subscribe((clubs: Club[]) => {
+          if (clubs) {
+            this.clubs = clubs;
+          }
+        });
+      } else {
+        this.clubname = params.clubname;
+        this.servicesChecked = params.services ? JSON.parse(params.services) : [];
+        this.cantPlayers = params.cantPlayers;
+        this.maxPrice = params.maxPrice;
+        this.minPrice = params.minPrice;
+        this.fieldType = params.fieldType;
+        this.clubfilter = this.crearFiltros();
+        this.searchService.findClubsByMultipleFilter(this.clubfilter).subscribe(() => {
+          this.clubs = SearchService.clubs;
+          console.log('clubes', this.clubs);
+        });
+        }
+    });
   }
 
 
 // LE PASO LOS DATOS PARA CREAR LOS FILTROS
   private crearFiltros(): ClubFilter {
     // let modelform = this.form.value;
-    return new ClubFilter(
+    const newClubFilter = new ClubFilter(
       this.clubname,
       this.servicesChecked,
-      this.cantPlayers, this.maxPrice, this.minPrice
+      this.cantPlayers,
+      this.maxPrice,
+      this.minPrice,
+      this.fieldType,
     );
-  }
-
-  // BUSCO POR NOMBRE
-
-  buscarClubsPorNombre() {
-    this.clubfilter = this.crearFiltros();
-    console.log('ya cree el filtro', this.clubfilter);
-    this.searchService.findClubsByFilters(this.clubfilter).subscribe(() => {
-      this.clubs = SearchService.clubs;
-    });
-    console.log(this.clubfilter);
+    return newClubFilter;
   }
 
   // BUSCO POR LOS FILTROS
 
   buscarClubsPorFiltros() {
     this.clubfilter = this.crearFiltros();
-    console.log('ya cree el filtro', this.clubfilter);
-    this.searchService.findClubsByMultipleFilter(this.clubfilter).subscribe(() => {
-      this.clubs = SearchService.clubs;
-      console.log('clubes', this.clubs);
-    });
-    console.log(this.clubfilter);
+    const newFilter: any = this.clubfilter;
+    if (this.clubfilter.services) {
+      newFilter.services = JSON.stringify(this.clubfilter.services);
+    }
+    this.router.navigate(
+      [],
+      {
+        relativeTo: this.activatedRoute,
+        queryParams: newFilter,
+      });
   }
 
   addService(e: any) {
@@ -114,6 +126,7 @@ export class ResultComponent implements OnInit {
         }
       }
     }
+    console.log(this.servicesChecked);
   }
 
   private setCurrentPosition() {

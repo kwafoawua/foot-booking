@@ -96,7 +96,6 @@ router.put('/phase/updatePhaseMatch', phaseController.updatePhaseMatch);
 
 /* MercadoPago */
 router.post("/mercadopago/generatePreference", mercadoPagoController.generatePreference);
-router.post("/mercadopago/preferenceCallBack", mercadoPagoController.callback);
 router.get("/mercadopago/linkMPAccount/:id", mercadoPagoController.linkAccountUrlRedirection);
 router.get("/mercadopago/webhook/linkAccount", mercadoPagoController.linkAccount);
 router.get("/mercadopago/hasLinkedAccount/:id", clubController.hasMercadoPagoToken);

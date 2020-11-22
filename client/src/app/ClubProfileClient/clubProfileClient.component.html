@@ -1,5 +1,5 @@
 
-     <mat-card *ngFor="let field of club?.fields; let i = index">
+     <mat-card class="mb-3" *ngFor="let field of club?.fields; let i = index">
        <mat-card-subtitle> {{field?.fieldName | uppercase}}</mat-card-subtitle>
        <mat-card-content>
          <div class="row">
@@ -20,7 +20,7 @@
          </div>
          <div class="row">
            <div class="col">
-             Costo Alquiler
+             Costo alquiler por hora
            </div>
            <div class="col">
              <b>$ {{field?.price}}</b>
@@ -46,7 +46,7 @@
 
              <mat-form-field>
                <input matInput [matDatepicker]="picker" placeholder="Elegi una fecha"
-                      [min]="minDate" [(ngModel)]="date[i]" (ngModelChange)="loadHoursValues($event, field)">
+                      [min]="minDate" [(ngModel)]="date[i]" (ngModelChange)="loadHoursValues($event, field, i)">
                <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
                <mat-datepicker #picker></mat-datepicker>
              </mat-form-field>
@@ -55,14 +55,14 @@
            <div class="col">
              <mat-form-field>
                <mat-select placeholder="Hora" [(ngModel)]="selectedTime[i]">
-                 <mat-option value="Seleccione">Seleccione</mat-option>
-                 <mat-option value="{{hora}}" *ngFor="let hora of horasDisponibles">{{hora}}</mat-option>
+                 <mat-option value="">Seleccione</mat-option>
+                 <mat-option value="{{hora}}" *ngFor="let hora of horasDisponibles[i]">{{hora}}</mat-option>
                </mat-select>
              </mat-form-field>
            </div>
            <div class="col">
                <button (click)="reservar(field, i)" align="right" type="button" class="btn btn-success"
-                       data-toggle="modal" data-target="#myModal">Reservar
+                       data-toggle="modal" data-target="#myModal" [disabled]="!selectedTime[i] || !date[i]">Reservar
                </button>
              </div>
 
@@ -71,8 +71,7 @@
         </div>
 
          <div *ngIf="NotanUser === true">
-           <p class="text-secondary">Debe iniciar sesion para poder realizar una reserva</p>
-
+           <p class="text-secondary">Debe iniciar sesión para poder realizar una reserva</p>
          </div>
 
        </mat-card-content>

@@ -54,10 +54,6 @@ exports.linkAccount = async  (req, res) => {
     }
 }
 
-exports.callback = async (req, res) => {
-    console.log(`al menos alhgo loggeo`);
-    console.log(`entre con este req: ${JSON.stringify(req)}`)
-}
 exports.generatePreference = async (req, res) => {
     const items = [
         {

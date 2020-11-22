@@ -18,7 +18,7 @@ import { BookingFilter } from '../_models/bookingfilter';
 import { Moment } from 'moment';
 import { IDatePickerDirectiveConfig } from 'ng2-date-picker';
 import { Field } from '../_models/field';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { colors } from './colors';
 import * as moment from 'moment';
 
@@ -76,6 +76,8 @@ export class CustomDatepickerI18n extends NgbDatepickerI18n {
 export class FieldsManagementComponent implements OnInit {
 
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
+  @ViewChild('formDirective') private formDirective: NgForm;
+
 
   constructor(private modal: NgbModal,
               private bookingService: BookingService,
@@ -97,7 +99,6 @@ export class FieldsManagementComponent implements OnInit {
   _id: string = JSON.parse(localStorage.getItem('currentUser'))._id;
   private montoPagado: number;
   bookingStatus: string[] = ['Reservado', 'Asistido', 'Cancelado', 'Ausente'];
-  //horas
   hoursArray: string [] = [ '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00', '24:00' ];
   horasOcupadas: string [] = [];
   horasDisponibles: string [] = [];
@@ -126,14 +127,7 @@ export class FieldsManagementComponent implements OnInit {
       onClick: ({ event }: { event: CalendarEvent }): void => {
         this.handleEvent('Edited', event);
       }
-    }/*,
-    {
-      label: '<i class="fa fa-fw fa-times"></i>',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.events = this.events.filter(iEvent => iEvent !== event);
-        this.handleEvent('Deleted', event);
-      }
-    }*/
+    }
   ];
 
   refresh: Subject<any> = new Subject();
@@ -142,9 +136,8 @@ export class FieldsManagementComponent implements OnInit {
 
   ngOnInit() {
     this.getBookings(this._id);
+    this.createForm();
     this.getClub(this._id);
-    this.createForm();  console.log('now', this.now);
-
   }
 
   private getClub(_id: string) {
@@ -173,7 +166,7 @@ export class FieldsManagementComponent implements OnInit {
       fieldPrice: [ null, Validators.required ],
       playingDate: [ null, Validators.required ],
       playingTime: [ null, Validators.required ],
-      fee: null,
+      fee:  [ null ],
       status: [ 'Reservado', Validators.required ],
     });
   }
@@ -186,20 +179,14 @@ export class FieldsManagementComponent implements OnInit {
       this.bookings.forEach((booking) => {
         let colorStatus: any;
         switch (booking.status) {
-          case 'Pago Parcial':
-            colorStatus = colors.blue;
-            break;
           case 'Cancelado':
             colorStatus = colors.red;
             break;
           case 'Asistido':
             colorStatus = colors.green;
             break;
-          case 'Pendiente de Pago':
-            colorStatus = colors.yellow;
-            break;
-          case 'Pago Total':
-            colorStatus = colors.lightgreen;
+          case 'Ausente':
+            colorStatus = colors.orange;
             break;
           default:
             colorStatus = colors.yellow;
@@ -260,7 +247,7 @@ export class FieldsManagementComponent implements OnInit {
 
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action };
-    console.log(event);
+    console.log('HANDLE EVENTO', event);
     this.montoPagado = (event as any).booking.payment.fee;
     this.modal.open(this.modalContent, { size: 'lg' }).result.then((result) => {
       console.log(this.selectedStatus);
@@ -279,15 +266,11 @@ export class FieldsManagementComponent implements OnInit {
         if (this.montoPagado) {
           newStatus.fee = this.montoPagado;
         }
-
+        console.log('NUEVO ESTADOOOOOOOOO', newStatus);
         this.bookingService.updateBookingStatus(newStatus).subscribe((data) => {
-          this.selectedStatus = undefined;
-          this.montoPagado = undefined;
-
           this.alertService.success('Se actualizó correctamente el estado de la reserva', false);
           this.getBookings(this._id);
           //this.getBookingsByStatus(this._id, "Cancelado");
-          console.log(this.selectedStatus);
         }, error => {
           this.alertService.error('el error q viene de backend ' + error);
         });
@@ -296,24 +279,17 @@ export class FieldsManagementComponent implements OnInit {
   }
 
   addEvent(): void {
-    let registrado: Boolean;
     if (this.nuevaReservaForm.valid) {
       console.log('NUEVA RESERVA', this.nuevaReservaForm.value);
       this.clubService.guardarReserva(this.nuevaReservaForm.value)
         .subscribe(
           booking => {
-            this.nuevaReservaForm.get('fieldId').setValue(null);
-            this.nuevaReservaForm.get('fieldName').setValue(null);
-            this.nuevaReservaForm.get('fieldCantPlayers').setValue(null);
-            this.nuevaReservaForm.get('fieldPrice').setValue(null);
-            this.nuevaReservaForm.get('playingDate').setValue(null);
-            this.nuevaReservaForm.get('fee').setValue(null);
-            this.nuevaReservaForm.get('status').setValue('Reservado');
-            this.nuevaReservaForm.get('playingTime').setValue(null);
-            this.nuevaReservaForm.get('playerName').setValue(null);
-            this.nuevaReservaForm.get('playerLastName').setValue(null);
-            this.nuevaReservaForm.get('playerPhoneNumber').setValue(null);
-
+            this.formDirective.resetForm();
+            this.nuevaReservaForm.reset();
+            this.getClub(this._id);
+            this.fieldDropdown = null;
+            this.date = null;
+            this.createForm();
             this.getBookings(this._id);
           },
           error => {
@@ -321,7 +297,6 @@ export class FieldsManagementComponent implements OnInit {
           });
 
     }
-
   }
 
   loadHoursValues(date: any) {
@@ -330,7 +305,7 @@ export class FieldsManagementComponent implements OnInit {
 
     this.bookingService.findAllBookingsByFieldAndDay(this.bookingFilter)
       .subscribe(hoursBooking => {
-        if (hoursBooking.length >= 1) {
+        if (hoursBooking.length) {
           hoursBooking.forEach((booking, index) => {
             console.log(booking);
             console.log('Ultimo- Lo que retorna la consulta: ' + booking.playingTime);
@@ -347,18 +322,18 @@ export class FieldsManagementComponent implements OnInit {
   }
 
   setFieldValues(field: any) {
-    //this.fieldIndex = i;
     console.log(field);
     this.nuevaReservaForm.get('fieldId').setValue(field._id);
     this.nuevaReservaForm.get('fieldName').setValue(field.fieldName);
     this.nuevaReservaForm.get('fieldCantPlayers').setValue(field.cantPlayers);
     this.nuevaReservaForm.get('fieldPrice').setValue(field.price);
-
   }
 
   setStatusCreateBooking($event: any) {
+    this.selectedStatus = $event.target.value;
     this.nuevaReservaForm.get('status').setValue($event.target.value, {
       onlySelf: true
     });
+    console.log('NUEVO ESTADO', $event.target.value );
   }
 }

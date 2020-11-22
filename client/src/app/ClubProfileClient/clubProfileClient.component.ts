@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, Input, ViewEncapsulation} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { AlertService, AuthService } from '../_services/index';
@@ -7,12 +7,10 @@ import { ClubService, BookingService } from '../_services/index';
 import { IDatePickerDirectiveConfig } from 'ng2-date-picker';
 import { Moment } from 'moment';
 import { ITimeSelectConfig } from 'ng2-date-picker/time-select/time-select-config.model';
-import { Field } from '../_models/field';
 import { Booking } from '../_models/booking';
 import { BookingFilter } from '../_models/bookingfilter';
 import * as moment from 'moment';
 import { environment } from '../../environments/environment';
-import { isToday } from 'date-fns';
 
 
 @Component({
@@ -28,9 +26,8 @@ export class ProfileClubClientComponent{
   bookingFilter: BookingFilter;
   icon: '../../assets/icon/iconochico.png';
   hoursArray: string [] = [ '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00', '24:00' ];
-  horasOcupadas: string [] = [];
-  horasDisponibles: string [] = [];
-  // club: Club;
+  horasOcupadas: string [][] = [];
+  horasDisponibles: string [][] = [];
   galery: string[];
   uploadsBaseURL = environment.uploadsBaseURL;
   NotanUser = false;
@@ -38,10 +35,8 @@ export class ProfileClubClientComponent{
   currentUser: any;
   permiteReserva: boolean;
   booking1: Booking = new Booking();
-  selectedField: Field = new Field();
   date: string[] = [];
   selectedTime: any[] = [];
-  // selectedButton: any[] = [];
 
   configTime: ITimeSelectConfig = {
     minutesInterval: 60,
@@ -69,42 +64,23 @@ export class ProfileClubClientComponent{
     private bookingService: BookingService
   ) {
     const user = JSON.parse(localStorage.getItem(('currentUser')));
-    if (user != null){
-         if (user.rol === 'Club' ) {
-           this.permiteReserva = false;
-         }
-         else { this.permiteReserva = true; }
-       }
-       else {
-         this.permiteReserva = false;
-         this.NotanUser = true;
-       }
-
-
+    if (user != null) {
+      this.permiteReserva = !(user.rol === 'Club');
+    } else {
+      this.permiteReserva = false;
+      this.NotanUser = true;
+    }
     console.log('PERMITE RESERVA ' , this.permiteReserva);
   }
 
-  // ngOnInit(): void {
-  //   console.log(moment().format());
-  //   this.getClub(this.route.snapshot.params[ 'id' ]);
-  // }
-
-  // private getClub(_id: string) {
-  //   this.clubService.getResultById(_id).subscribe(club => {
-  //     this.club = club;
-  //     this.galery = club.galleryImg;
-  //   });
-  // }
-
-
   reservar(field: any, i: any) {
     console.log('los datos' + this.date[ i ] + this.selectedTime[ i ]);
-    // if(localStorage.currentUser){
-    //     this.NotanUser =false ;
-    if (field != null) {
-      if (this.date[ i ] !== '' || this.selectedTime[ i ] !== '') {
 
-        this.booking1.field = field;
+    if (field !== null) {
+      if (this.date[ i ] !== '' || this.selectedTime[ i ] !== '') {
+        const { _id, ...extrField } = field;
+        const formattedField = { ...extrField, id: _id };
+        this.booking1.field = formattedField;
         this.booking1.club = this.club;
         this.booking1.dateBook = this.date[ i ];
         this.booking1.timeBook = this.selectedTime[ i ];
@@ -144,22 +120,22 @@ export class ProfileClubClientComponent{
     );
   }
 
-  loadHoursValues(date: any, field) {
-    this.selectedField = field;
-    this.bookingFilter = new BookingFilter(this.selectedField.id, date);
+  loadHoursValues(date: any, field, i) {
+    this.bookingFilter = new BookingFilter(field._id, date);
 
     this.bookingService.findAllBookingsByFieldAndDay(this.bookingFilter)
       .subscribe(hoursBooking => {
-        if (hoursBooking.length >= 1) {
+        if (hoursBooking.length) {
           hoursBooking.forEach((booking, index) => {
             console.log(booking);
             console.log('Ultimo- Lo que retorna la consulta: ' + booking.playingTime);
-            this.horasOcupadas.push(booking.playingTime);
+            if ( this.horasOcupadas[i] === undefined ) { this.horasOcupadas[i] = []; }
+            this.horasOcupadas[i].push(booking.playingTime);
 
-            this.horasDisponibles = this.hoursArray.filter(item => this.horasOcupadas.indexOf(item) < 0);
+            this.horasDisponibles[i] = this.hoursArray.filter(item => this.horasOcupadas[i].indexOf(item) < 0);
           });
         } else {
-          this.horasDisponibles = this.hoursArray;
+          this.horasDisponibles[i] = this.hoursArray;
         }
       });
   }

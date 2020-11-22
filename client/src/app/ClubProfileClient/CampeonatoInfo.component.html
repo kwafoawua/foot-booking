@@ -122,14 +122,19 @@
 
 
 <!--                      </div>-->
-
-                      <div class="row">
                       <div *ngIf="torneo?.state === 'Publicado'">
+                      <div class="row">
+
                         <div class="alert alert-success" role="alert">
                           <h4 class="alert-heading">Inscribite ya por {{torneo.inscriptionCost}}</h4>
                         </div>
+
                       </div>
+                      <div class="row">
+                        *El medio de pago disponible es MercadoPago
                       </div>
+                    </div>
+
                     </div>
 
             </div>
@@ -140,15 +145,36 @@
       </div>
     </div>
   </div>
-    <div *ngIf="torneo?.state == 'Publicado' " >
-      <camp-insc [torneo]="torneo" [cantidad]="cantidad"></camp-insc>
+
+    <div *ngIf="rol == 'Jugador'">
+      <div *ngIf="torneo?.state == 'Publicado' && !yaRegistrado" >
+        <camp-insc [torneo]="torneo" [cantidad]="cantidad"></camp-insc>
+      </div>
+      <div class="alert alert-light" role="alert" *ngIf="torneo?.state == 'Completo'">
+        El torneo esta completo, y pronto se realizará el sorteo ...
+      </div>
+      <div class="alert alert-light" role="alert" *ngIf="torneo?.state == 'Publicado' && yaRegistrado">
+        Ya estás registrado en este torneo.
+      </div>
     </div>
-    <div class="alert alert-light" role="alert" *ngIf="torneo?.state == 'Completo'">
-      El torneo esta completo, y pronto se realizará el sorteo ...
-    </div>
+
+  <div class="alert alert-light" role="alert" *ngIf=" torneo?.state == 'Publicado' && NotanUser == true">
+    Debe iniciar sesión para poder registrarse en el campeonato.
+  </div>
+
+  <div class="alert alert-light" role="alert" *ngIf=" torneo?.state == 'Publicado' && rol == 'Club'">
+    Debe iniciar sesion como un Jugador.
+  </div>
+
+
   <div *ngIf="torneo?.state == 'Iniciado'">
     <info-fixture [torneo]="torneo" [inscriptions]="inscriptions" ></info-fixture>
   </div>
+  <div *ngIf="torneo?.state == 'Finalizado'">
+    <info-fixture [torneo]="torneo" [inscriptions]="inscriptions" ></info-fixture>
+  </div>
+
+
 </div>
 
 

@@ -20,7 +20,7 @@
 
           <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
             <mat-label>Fecha de inicio</mat-label>
-            <input matInput formControlName="startDate" [matDatepicker]="startDate" required >
+            <input matInput formControlName="startDate" [min]="minDate" [matDatepicker]="startDate" required >
             <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
             <mat-datepicker #startDate disabled="false"></mat-datepicker>
             <mat-error
@@ -34,7 +34,7 @@
 
           <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
             <mat-label>Fecha de fin</mat-label>
-            <input matInput formControlName="endDate" [matDatepicker]="endDate" required>
+            <input matInput formControlName="endDate" [min]="minDate" [matDatepicker]="endDate" required>
             <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
             <mat-datepicker #endDate disabled="false"></mat-datepicker>
             <mat-error
@@ -88,12 +88,13 @@
     <mat-card class="example-card">
       <mat-card-header>
         <mat-card-title>Inscripciones</mat-card-title>
+        <mat-card-subtitle>El sistema utilizado para los campeonatos es eliminación directa de 16 equipos</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
         <div class="row">
           <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
             <mat-label>Fecha de inicio</mat-label>
-            <input matInput formControlName="inscriptionStartDate" [matDatepicker]="inscriptionStartDate" required>
+            <input matInput formControlName="inscriptionStartDate" [min]="minDate" [matDatepicker]="inscriptionStartDate" required>
             <mat-datepicker-toggle matSuffix [for]="inscriptionStartDate"></mat-datepicker-toggle>
             <mat-datepicker #inscriptionStartDate disabled="false"></mat-datepicker>
             <mat-error
@@ -107,7 +108,7 @@
 
           <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
             <mat-label>Fecha de fin</mat-label>
-            <input matInput formControlName="inscriptionEndDate" [matDatepicker]="inscriptionEndDate" required>
+            <input matInput formControlName="inscriptionEndDate" [min]="minDate" [matDatepicker]="inscriptionEndDate" required>
             <mat-datepicker-toggle matSuffix [for]="inscriptionEndDate"></mat-datepicker-toggle>
             <mat-datepicker #inscriptionEndDate disabled="false"></mat-datepicker>
             <mat-error
@@ -118,11 +119,11 @@
               El campo es requerido.
             </mat-error>
           </mat-form-field>
-
+<!-- 
           <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
             <mat-label>Cantidad de equipos</mat-label>
             <input matInput formControlName="numbersOfTeams" readonly>
-          </mat-form-field>
+          </mat-form-field> -->
 
           <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
             <mat-label>Precio inscripción</mat-label>

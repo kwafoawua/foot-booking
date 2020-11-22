@@ -231,7 +231,7 @@ export class EstadisticasClubComponent implements OnInit {
 
       bookings.forEach((booking) => {
         //statusChart asistido, cancelado, reservado
-        if ([ 'Asistido', 'Cancelado', 'Pago Total' ].indexOf(booking.status) > -1) {
+        if ([ 'Asistido', 'Cancelado', 'Reservado', 'Ausente' ].indexOf(booking.status) > -1) {
           let statusC = this.statusChart;
           let statusChartIndex = statusC.findIndex(status => status.name === booking.status);
           if (statusChartIndex > -1) {

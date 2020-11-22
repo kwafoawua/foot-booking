@@ -25,6 +25,17 @@ module.exports.registerBooking = function (req,res) {
 };
 function addBooking (booking) {
     var deferred = Q.defer();
+    let paymentStatus;
+
+
+    if(booking.fee < booking.fieldPrice && booking.fee > 0) {
+        paymentStatus = 'Pago Parcial';
+    }else if(booking.fee >= booking.fieldPrice){
+        paymentStatus = 'Pago Total';
+    } else {
+        paymentStatus = 'Pendiente de Pago'
+    }
+
 
     var newBooking = new Booking({
         mpExternalReference: booking.externalReference,
@@ -56,7 +67,7 @@ function addBooking (booking) {
             fee: booking.fee || null //cambiara cuando se seleccione el pago por mercadopago
         },
         status: booking.status,
-        paymentStatus: 'Pendiente de Pago'
+        paymentStatus,
     });
 
     newBooking.save(function (err) {
@@ -133,17 +144,18 @@ function setBookingStatus (newStatus) {
                 if(newStatus.fee < booking.field.price && newStatus.fee > 0) {
                     booking.payment.fee = newStatus.fee;
                     booking.payment.date = Date.now();
-                    booking.status = 'Pago Parcial';
+                    booking.paymentStatus = 'Pago Parcial';
                 }else if(newStatus.fee >= booking.field.price){
-                    booking.status = 'Pago Total';
+                    booking.paymentStatus = 'Pago Total';
                     booking.payment.fee = newStatus.fee;
                     booking.payment.date = Date.now();
                 } else if(newStatus.fee === 0 || !newStatus.fee) {
-                    booking.status = ((newStatus.status) ? newStatus.status : 'Pendiente de Pago');
+                    booking.paymentStatus =  'Pendiente de Pago';
                     booking.payment.fee = newStatus.fee;
                     booking.payment.date = Date.now();
                 }
-            } else if(newStatus.status) {
+            }
+            if(newStatus.status) {
                 booking.status = newStatus.status;
             }
             booking.save(function (err) {
@@ -183,17 +195,14 @@ module.exports.findAllHoursBookings = function(req, res){
 };
 
 module.exports.findAllBookingsByFieldAndDay = function(req,res){
-    console.log("#");
-    console.log("3- Entro al BookingController!!");
-    console.log("3.A- El id: " + JSON.parse(req.params.bookingfilter).idField);
-    console.log("3.A- EL playingDate: " + JSON.parse(req.params.bookingfilter).playingDate);
-    console.log("#");
+    const idField = JSON.parse(req.params.bookingfilter).idField;
+    const playingDate = JSON.parse(req.params.bookingfilter).playingDate;
 
     Booking.find({$and:
             [
-                {"field.id":JSON.parse(req.params.bookingfilter).idField},
-                {"playingDate":JSON.parse(req.params.bookingfilter).playingDate},
-                {"status": {"$ne":"Cancelado"} }
+                {"field.id": idField},
+                {"playingDate": new Date(playingDate)},
+                {"status": {"$ne": 'Cancelado'} }
             ]
         }, function (err, bookings) {
         if (err) {

@@ -46,7 +46,6 @@ module.exports.path = {
         findAllAuthorComments,
         findAllClubComments,
         '/destacados',
-        '/mercadopago/preferenceCallBack',
         '/webhook',
         '/mercadopago/webhook/linkAccount',
         '/webhook/tournamentInscription'

@@ -36,27 +36,28 @@
         </div>
         <div class="col-6">Forma de Pago:
           <label><b>{{modalData?.event.booking.paidMethod}}</b></label></div>
+        <div class="col-6">Estado de pago
+          <label><b>{{modalData?.event.booking.paymentStatus}}</b></label></div>
         <div class="col-6">Monto pagado $ <label><b>{{modalData?.event.booking.payment.fee}}</b></label>
-        </div>
-        <div class="col-6"> Actualización de Monto
-          <input [(ngModel)]="montoPagado" type="number" class="form-control" placeholder="Monto Pagado"
-                 max="{{modalData?.event.booking.field.price}}" value="{{montoPagado}}">
         </div>
       </div>
 
       <hr>
 
-      <div class="row">
-        <div class="col-12"><h4>Estado de la reserva</h4></div>
+      <div class="row" *ngIf="modalData?.event.booking.status === 'Reservado'">
+        <div class="col-12"><h4>Actualizar reserva</h4></div>
         <div class="form-group col-md-6">
           <label for="bookingStatus">Seleccione estado de reserva</label>
-
-          <select class="form-control" formControlName="status" (change)="setStatusCreateBooking($event)">
+          <select class="form-control"  (change)="setStatusCreateBooking($event)">
             <option *ngFor="let status of bookingStatus" [ngValue]="status">
               {{status}}
             </option>
           </select>
         </div>
+          <div  *ngIf="modalData?.event.booking.paymentStatus != 'Pago Total'"  class="form-group col-md-6"> Actualización de Monto
+            <input [(ngModel)]="montoPagado" type="number" class="form-control" placeholder="Monto Pagado"
+                   max="{{modalData?.event.booking.field.price}}" value="{{montoPagado}}" >
+          </div>
       </div>
     </div>
 
@@ -66,6 +67,9 @@
     <button type="button" class="btn btn-success" (click)="close(modalData?.event.booking)">Aceptar</button>
   </div>
 </ng-template>
+
+
+
 <mwl-demo-utils-calendar-header
     [(view)]="view"
     [(viewDate)]="viewDate"
@@ -109,115 +113,99 @@
 <mat-divider></mat-divider>
 
 
-<form [formGroup]="nuevaReservaForm" (ngSubmit)="addEvent()">
-
-  <table class="table table-bordered">
-
-    <thead>
-    <tr>
-      <th>Nombre</th>
-      <th>Apellido</th>
-      <th>Telefono</th>
-      <th></th>
-
-    </tr>
-    </thead>
-
-    <tbody>
-    <tr>
-      <td>
-        <input formControlName="playerName" type="text" class="form-control">
-      </td>
-      <td>
-        <input type="text" class="form-control" formControlName="playerLastName">
-      </td>
-      <td>
-        <input type="number" class="form-control" formControlName="playerPhoneNumber">
-      </td>
-      <td rowspan=3>
-        <button
-            class="btn btn-primary pull-right"
-            type="submit">
-          Nueva Reserva
-        </button>
-        <div class="clearfix"></div>
-      </td>
-    </tr>
-    </tbody>
-    <tr>
-      <th>Cancha</th>
-      <th>Fecha de Reserva</th>
-      <th>Hora de Reserva</th>
-
-    </tr>
-
-    <tbody>
-    <tr>
-      <td>
-        <div class="dropdown">
-          <select name="dropdown-time" class="form-control" [ngModelOptions]="{standalone: true}"
-                  [(ngModel)]="fieldDropdown" (ngModelChange)="setFieldValues($event)">
-            <option value=" " selected class="dropdown-item">Canchas</option>
-            <option *ngFor="let field of club?.fields; let i = index" [ngValue]="field">{{field.fieldName}}</option>
-          </select>
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="nuevaReservaForm" (ngSubmit)="addEvent()" #formDirective="ngForm" >
+      <div class="form-group">
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="example-container">
+              <input matInput placeholder="Nombre" type="text" formControlName="playerName" required>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="example-container">
+              <input matInput placeholder="Apellido" type="text" formControlName="playerLastName" required>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="example-container">
+              <input matInput placeholder="Teléfono" type="number" formControlName="playerPhoneNumber" required>
+            </mat-form-field>
+          </div>
         </div>
-      </td>
-      <td>
-        <mat-form-field appearance="outline" [ngStyle]="{width: '100%', backgroundColor: 'white'}">
-          <input
-            matInput
-            [min]="now"
-            [matDatepicker]="picker"
-            placeholder="Elegi una fecha"
-            [ngModelOptions]="{standalone: true}"
-            [(ngModel)]="date"
-            (ngModelChange)="loadHoursValues($event)"
-          >
-          <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-      </td>
-      <td>
-        <div class="dropdown">
-          <select name="dropdown-time" id="dropdown-time" class="form-control" formControlName="playingTime">
-            <option value=" " selected class="dropdown-item">Horarios</option>
-            <option *ngFor="let hora of horasDisponibles" [value]="hora">{{hora}}</option>
-          </select>
+        <div class="row">
+          <div class="col">
+            <mat-form-field>
+              <mat-select placeholder="Cancha" [ngModelOptions]="{standalone: true}"
+                          [(ngModel)]="fieldDropdown" (ngModelChange)="setFieldValues($event)" required>
+                <mat-option  *ngFor="let field of club?.fields; let i = index" [value]="field">
+                  {{field.fieldName}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col">
+
+
+            <mat-form-field >
+              <input
+                matInput
+                [min]="now"
+                [matDatepicker]="picker"
+                placeholder="Elegi una fecha"
+                [ngModelOptions]="{standalone: true}"
+                [(ngModel)]="date"
+                (ngModelChange)="loadHoursValues($event)"
+              required>
+              <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div class="col">
+            <mat-form-field>
+              <mat-select placeholder="Seleccione una hora" formControlName="playingTime" required>
+                <mat-option  *ngFor="let hora of horasDisponibles" [value]="hora">
+                  {{hora}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
         </div>
-      </td>
-    </tr>
 
-    </tbody>
-    <tr>
-      <th>Monto Total</th>
-      <th>Monto Pagado</th>
-      <th>Estado</th>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="example-container">
+              <input matInput placeholder="Monto total" type="number"   class="example-right-align" formControlName="fieldPrice" required>
+              <span matPrefix>$&nbsp;</span>
+              <span matSuffix>.00</span>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="example-container">
+              <input matInput placeholder="Monto pagado" type="number" formControlName="fee">
+              <span matPrefix>$&nbsp;</span>
+              <span matSuffix>.00</span>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <button [ngStyle]="{alignSelf: 'flex-end'}"
+                    class="btn btn-primary"
+                    type="submit">
+              Nueva Reserva
+            </button>
+          </div>
+        </div>
 
-    </tr>
-
-
-    <tbody>
-    <tr>
-      <td>
-        <input type="text" class="form-control" formControlName="fieldPrice">
-      </td>
-      <td>
-        <input type="text" class="form-control" formControlName="fee">
-      </td>
-      <td>
-        <select class="form-control" formControlName="status" (change)="setStatusCreateBooking($event)">
-          <option *ngFor="let status of bookingStatus" [ngValue]="status">
-            {{status}}
-          </option>
-        </select>
-      </td>
-    </tr>
-
-    </tbody>
+      </div>
 
 
-  </table>
-</form>
+
+    </form>
+  </mat-card-content>
+</mat-card>
+
 
 <!--<div><pre><code>{{ nuevaReservaForm?.value | json }}</code></pre></div>-->
 

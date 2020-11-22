@@ -19,6 +19,8 @@ export class CampeonatoInscripcionComponent implements OnInit{
   public authenticated: boolean;
   name = '';
   rol = '';
+  success = false;
+
   operationState: string;
   // debería ir a la base isAlreadyEnroll
   isAlreadyEnroll: boolean;
@@ -57,7 +59,7 @@ export class CampeonatoInscripcionComponent implements OnInit{
       team: [null, [Validators.required, Validators.maxLength(20), Validators.minLength(2)]],
       name: [null, [Validators.required, Validators.maxLength(20), Validators.minLength(2)]],
       phoneNumber: [null, [Validators.required, Validators.maxLength(15), Validators.minLength(10)]],
-
+      TyCcheckbox: [null, [Validators.required]],
     });
     this.inscripcionForm.controls.idTournament.setValue(this.route.snapshot.params.id) ;
     this.inscripcionForm.controls.idUser.setValue(this.currentUser);
@@ -93,5 +95,23 @@ export class CampeonatoInscripcionComponent implements OnInit{
     }
     else { this.alertService.error('error al registrar la inscripción', this.inscripcionForm.value); }
   }
+
+  isValidStepOne() {
+    if (this.inscripcionForm.get('team').valid &&
+      this.inscripcionForm.get('name').valid &&
+      this.inscripcionForm.get('phoneNumber').valid) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  isValidStepTwo() {
+    if (this.inscripcionForm.get('TyCcheckbox').valid) {
+    return false;
+    }
+    else { return true; }
+  }
+
 
 }

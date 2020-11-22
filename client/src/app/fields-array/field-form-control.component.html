@@ -36,7 +36,7 @@
           <div class="row form-group">
             <div class="col-md-8 example-container">
               <tag-input [formControlName]="'services'" name="items"
-                         [onlyFromAutocomplete]="true" required="true">
+                         [onlyFromAutocomplete]="true" required="true" >
                 <tag-input-dropdown [showDropdownIfEmpty]="true"
                                     [autocompleteObservable]="requestAutocompleteItemsFake">
                 </tag-input-dropdown>
@@ -61,9 +61,10 @@
             <div class="col-md-8 example-container">
               <mat-form-field>
                 <mat-select class="example-full-width" (change)="onSelectCant($event.target.value)"
-                        [attr.id]="'cantPlayers'+index" formControlName="cantPlayers" placeholder="Cantidad de jugadores">
-                  <mat-option *ngFor="let cantPlayer of cantPlayerSelect" value={{cantPlayer.cant}}>
-                    {{cantPlayer.desc}}
+                        [attr.id]="'cantPlayers'+index" formControlName="cantPlayers" placeholder="Cantidad de jugadores" required>
+                  <mat-option *ngFor="let cantPlayer of cantPlayerSelect" value={{cantPlayer}}>
+                    {{cantPlayer + " Jugadores"}}
+
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -82,8 +83,8 @@
             <div class="col-md-8 example-container">
               <mat-form-field>
               <mat-select class="example-full-width" (change)="onSelectType($event.target.value)"
-                      [attr.id]="'fieldType'+index" formControlName="fieldType" placeholder="Tipo de cancha">
-                <mat-option *ngFor="let type of fieldTypeSelect" value={{type}}>{{type}}</mat-option>
+                      [attr.id]="'fieldType'+index" formControlName="fieldType" placeholder="Tipo de cancha" required>
+                <mat-option *ngFor="let type of fieldTypeSelect" value={{type}} >{{type}}</mat-option>
               </mat-select>
                 </mat-form-field>
               <div name="valida-tipoCancha" *ngIf="field.get('fieldType').invalid &&
@@ -101,8 +102,9 @@
 
             <div class="col-md-8 example-container">
               <mat-form-field>
-                <input matInput placeholder="Precio cancha"
-                       formControlName="price" [attr.id]="'price'+index" class="form-control" type="number" min="0" required>
+                <input matInput placeholder="Precio por hora/turno de cancha"
+                       formControlName="price" [attr.id]="'price'+index" class="example-right-align" type="number" min="0" required>
+                <span matPrefix>$&nbsp;</span>
               </mat-form-field>
                 <div name="valida-precio" *ngIf="field.get('price').invalid &&
                         (field.get('price').dirty || field.get('price').touched)">
