@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../material.module';
-import { AdminCampeonatoComponent } from './admin-campeonato.component';
+import {AdminCampeonatoComponent, CancelTorneoDialogComponent} from './admin-campeonato.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CustomFormsModule } from 'ng2-validation';
@@ -38,10 +38,12 @@ import { ListaInscripcionComponent } from './lista-inscripcion/lista-inscripcion
     FixtureComponent,
     MatchComponent,
     MatchUpdateDialogComponent,
-    ListaInscripcionComponent
+    ListaInscripcionComponent,
+    CancelTorneoDialogComponent,
   ],
   entryComponents: [
-    MatchUpdateDialogComponent
+    MatchUpdateDialogComponent,
+    CancelTorneoDialogComponent
   ]
 })
 export class AdminCampeonatoModule { }

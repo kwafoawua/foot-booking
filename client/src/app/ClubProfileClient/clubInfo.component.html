@@ -32,7 +32,7 @@
 
             <div class="details-description">
               <div class="item-info">
-                <h4>DESCRIPCIÓN</h4>
+                <h4>{{club?.name}}</h4>
                 <p>
                   {{club?.description | uppercase}}
                 </p>
@@ -61,8 +61,8 @@
                 <h4>DATOS DE CONTACTO</h4>
 
                 <div class="seller-info">
-                  <p> NOMBRE <span>{{club?.name | uppercase}}</span></p>
                   <p> TEL <span>  {{club?.phoneNumber}} </span></p>
+                  <p>EMILA <span> {{club?.email}}</span></p>
 
 
                   <div class="social-media ">
