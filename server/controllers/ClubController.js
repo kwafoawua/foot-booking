@@ -283,3 +283,31 @@ module.exports.findClubsByMultipleFilter = function (req, res) {
     console.log(servicesNameArray);
 
 };
+
+exports.linkClubToMercadoPagoAccount = async (accessToken, referenceId) => {
+    await Club.findOneAndUpdate(
+        {_id: referenceId},
+        {$set:{access_token: accessToken}}
+        );
+}
+
+exports.getMercadoPagoToken = async clubId => {
+    const club = await Club.findById(clubId);
+    return club.access_token;
+}
+
+exports.hasMercadoPagoToken = async (req, res) => {
+    await Club.find(
+        {
+            _id: req.params.id,
+            access_token: {$exists: true, $ne: null}
+        },
+        (err, docs) => {
+            if (err) {
+                return res.status(500).send(err);
+            }
+            const existAny = docs.length > 0
+            res.status(200).send({isAlreadyLinked: existAny});
+        }
+    );
+}

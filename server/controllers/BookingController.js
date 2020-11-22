@@ -38,6 +38,7 @@ function addBooking (booking) {
 
 
     var newBooking = new Booking({
+        mpExternalReference: booking.externalReference,
         club: {
             id: booking.clubId,
             name: booking.clubName,
@@ -241,16 +242,19 @@ function deleteBooking (bookingId) {
     }).exec();
 }
 
-/*
-* Se paga la cancha parcial o total
-*/
-
-/*module.exports.countBookingStatus = function (req, res) {
-    var club_id = req.params._id;
-    Booking.find({'club.id': club_id}, function(err, bookings) {
-        if(err) {
-            return console.log(err);
-        }
-        bookings.count();
-    });
-};*/
+/**
+ * Update booking as payed when mercadopago confirm payment.
+ * If payment is reject then delete that temporal booking.
+ */
+exports.updateBookingByExternalReference = async (externalReference, isPaid) => {
+    isPaid ?
+        await Booking.findOneAndUpdate(
+            {mpExternalReference: externalReference},
+            {$set:{paymentStatus: 'Pago Total'}},
+            {new: true}
+            )
+        :
+        await Booking.findOneAndDelete(
+            {mpExternalReference: externalReference}
+        );
+}
