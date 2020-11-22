@@ -6,24 +6,22 @@
     <mat-card class="lista-inscripcion-card" *ngFor="let in of inscriptions">
       <mat-card-header>
         <div mat-card-avatar class="lista-inscripcion-header-image"></div>
-        <div >
           <mat-card-title>{{in.team?.name}}</mat-card-title>
           <mat-card-subtitle></mat-card-subtitle>
-          <mat-card-content>
-            <div class="row">
-              <div class="col-6">
-                Referente {{in.referringContact?.name}}
+      </mat-card-header>
+      <mat-card-content>
+            <div class="row px-5 py-2">
+              <div class="col-4">
+                Referente: <strong>{{in.referringContact?.name}}</strong>
               </div>
-              <div class="col-3">
-                Tel {{in.referringContact?.phoneNumber}}
+              <div class="col-4">
+                Tel: <strong>{{in.referringContact?.phoneNumber}}</strong>
               </div>
-              <div class="col-6">
-                Fecha de inscripción {{in.inscriptionDate | date:"dd/MM/yy"}}
+              <div class="col-4">
+                Fecha de inscripción: <strong>{{in.inscriptionDate | date:"dd/MM/yy"}}</strong>
               </div>
             </div>
           </mat-card-content>
-        </div>
-      </mat-card-header>
     </mat-card>
   </div>
 </div>
