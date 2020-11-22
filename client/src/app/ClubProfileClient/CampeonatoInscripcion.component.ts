@@ -21,9 +21,20 @@ export class CampeonatoInscripcionComponent implements OnInit{
   rol = '';
   success = false;
 
+  operationState: string;
+  // debería ir a la base isAlreadyEnroll
+  isAlreadyEnroll: boolean;
 
   ngOnInit(): void {
     this.createForm();
+    this.operationState = this.route.snapshot.queryParamMap.get('paymentStatus');
+    if(this.operationState !== null && this.operationState === 'success') {
+      this.isAlreadyEnroll = true;
+      this.alertService.success('Tu equipo se ha inscripto con éxito! Hemos recibido la confirmación de pago de Mercado de Pago', false);
+    } else if (this.operationState !== null && this.operationState === 'failure') {
+      this.isAlreadyEnroll = false;
+      this.alertService.error('Ups! Mercado de Pago ha marcado la inscripción como no pagada, intenta nuevamente para inscribir a tu equipo.', false);
+    }
   }
 
   constructor(private route: ActivatedRoute,
@@ -60,14 +71,11 @@ export class CampeonatoInscripcionComponent implements OnInit{
     if (this.inscripcionForm.valid) {
       console.log('ël form validado', this.inscripcionForm);
       {
-        this.tournamentService.createInscription(this.inscripcionForm.value).subscribe(data => {
-          this.success = true;
-            this.alertService.success('La inscripción se registró con éxito', true),
-              console.log('el form', this.inscripcionForm);
-            console.log('informacion', this.torneo);
+        this.tournamentService.createInscription(this.inscripcionForm.value).subscribe((res: any) => {
+            window.location.href = res.initPoint;
           },
           error => {
-            this.alertService.error(error, false);
+            this.alertService.error('Ups! No se pudo completar la inscripcion al torneo, intenta más tarde.', false);
           }
         );
 

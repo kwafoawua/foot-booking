@@ -9,11 +9,10 @@ import { DefinicionComponent } from './definicion/definicion.component';
 import { RouterModule } from '@angular/router';
 import { DetalleCampeonatoComponent } from './detalle-campeonato/detalle-campeonato.component';
 import { FixtureComponent } from './fixture/fixture.component';
-import { MatchComponent } from './fixture/match/match.component';
-import { MatchUpdateDialogComponent } from './fixture/match/match.component';
+import { MatchComponent, MatchUpdateDialogComponent } from './fixture/match/match.component';
 import { NgTournamentTreeModule } from 'ng-tournament-tree';
 import { ListaInscripcionComponent } from './lista-inscripcion/lista-inscripcion.component';
-
+import { SharedModule } from '../shared.module';
 
 @NgModule({
   imports: [
@@ -25,9 +24,10 @@ import { ListaInscripcionComponent } from './lista-inscripcion/lista-inscripcion
     CustomFormsModule,
     RouterModule,
     NgTournamentTreeModule,
+    SharedModule,
   ],
     exports: [
-        FixtureComponent,
+      FixtureComponent,
       MatchComponent,
       MatchUpdateDialogComponent,
     ],

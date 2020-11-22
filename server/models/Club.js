@@ -57,6 +57,8 @@ var clubSchema = new Schema({
         required: true,
         enum: ['Pendiente', 'Activo', 'Eliminado']
     }, //modificar con los estados verdaderos
+    //token de Mercado de Pago para este club
+    access_token: String,
 });
 
 clubSchema.pre('remove', function(next) {

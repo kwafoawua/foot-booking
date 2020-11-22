@@ -43,7 +43,7 @@ exports.createTournament = async (req, res) => {
 exports.getTournament = async (req, res) => {
     try {
         const {_id} = req.params;
-        const tournament = await Tournament.findById(_id);
+        const tournament = await this.getTournamentById(_id);
         const inscriptionNumber = await tournamentUtils.getNumberOfInscriptions(_id);
         await res.json({tournament, inscriptionNumber});
     } catch (error) {
@@ -51,6 +51,8 @@ exports.getTournament = async (req, res) => {
         res.status(500).send("Ocurrio un error imprevisto :/");
     }
 };
+
+exports.getTournamentById = async id => await Tournament.findById(id);
 
 /**
  * Find a Tournament by creator club id

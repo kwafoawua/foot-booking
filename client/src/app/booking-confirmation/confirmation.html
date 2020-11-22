@@ -124,7 +124,7 @@
                   </div><!-- post-inner -->
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-6"  *ngIf="clubLinkedToMP">
                   <div class="post-inner">
                     <div class="row form-group">
                       <span>Slecciona una forma de pago </span>
@@ -133,6 +133,18 @@
                       <mat-radio-group class="example-radio-group" formControlName="payMethod">
                         <mat-radio-button class="example-radio-group" name="payMethod" value="payment-one">En sitio</mat-radio-button>
                         <mat-radio-button class="example-radio-group" name="payMethod" formControlName="payMethod" value="payment-two"> por Mercado Pago</mat-radio-button>
+                      </mat-radio-group>
+                    </div>
+                  </div><!-- post-inner -->
+                </div>
+                <div class="col-md-6"  *ngIf="!clubLinkedToMP">
+                  <div class="post-inner">
+                    <div class="row form-group">
+                      <span>Slecciona una forma de pago </span>
+                    </div>
+                    <div class="row">
+                      <mat-radio-group class="example-radio-group" formControlName="payMethod">
+                        <mat-radio-button class="example-radio-group" name="payMethod" value="payment-one">En sitio</mat-radio-button>
                       </mat-radio-group>
                     </div>
                   </div><!-- post-inner -->
@@ -194,8 +206,4 @@
       </div>
     </div> <!-- avt-post -->
   </div>  <!-- page -->
-</div>
-
-<div>
-  <pre><code>{{ confirmationForm?.value | json }}</code></pre>
 </div>
