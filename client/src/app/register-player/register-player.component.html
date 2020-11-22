@@ -9,7 +9,7 @@
         <div class="form-row">
           <div class="form-group col-12" [ngClass]="{ 'has-error': registerForm.get('email').invalid &&
                                         (registerForm.get('email').dirty || registerForm.get('email').touched)}">
-            <label class="label-form">E-mail</label>
+            <label class="label-form">E-mail (*)</label>
             <input type="text" class="form-control" name="email" formControlName="email" required/>
             <div name="valida-email" *ngIf="registerForm.get('email').invalid &&
                         						(registerForm.get('email').dirty || registerForm.get('email').touched)">
@@ -24,7 +24,7 @@
           </div>
           <div class="form-group col-12" [ngClass]="{ 'has-error': registerForm.get('password').invalid &&
                                         (registerForm.get('password').dirty || registerForm.get('password').touched)}">
-            <label class="label-form">Contraseña</label>
+            <label class="label-form">Contraseña (*)</label>
             <input type="password" class="form-control" name="passwordPlayer" formControlName="password" required/>
             <div name="valida-contraseña" *ngIf="registerForm.get('password').invalid &&
                         								(registerForm.get('password').dirty || registerForm.get('password').touched)">
@@ -39,7 +39,7 @@
           </div>
           <div class="form-group col-12" [ngClass]="{ 'has-error': registerForm.get('password').invalid &&
                                         (registerForm.get('password').dirty || registerForm.get('password').touched)}">
-            <label class="label-form">Repetir contraseña</label>
+            <label class="label-form">Repetir contraseña (*)</label>
             <input type="password" class="form-control" name="repeatPassword" formControlName="repeatPassword" required/>
             <div name="valida-contraseña" *ngIf="registerForm.get('repeatPassword').invalid &&
                         								(registerForm.get('repeatPassword').dirty || registerForm.get('repeatPassword').touched)">
@@ -59,7 +59,7 @@
         <div class="form-row">
           <div class="form-group col-12" [ngClass]="{ 'has-error': registerForm.get('name').invalid &&
                                         (registerForm.get('name').dirty || registerForm.get('name').touched)}">
-            <label class="label-form">Nombre</label>
+            <label class="label-form">Nombre (*)</label>
             <input type="text" class="form-control" name="namePlayer" formControlName="name" required/>
             <div name="valida-nombreclub" *ngIf="registerForm.get('name').invalid &&
                         (registerForm.get('name').dirty || registerForm.get('name').touched)">
@@ -72,7 +72,7 @@
           </div>
           <div class="form-group col-12" [ngClass]="{ 'has-error': registerForm.get('lastName').invalid &&
                                         (registerForm.get('lastName').dirty || registerForm.get('lastName').touched)}">
-            <label class="label-form">Apellido</label>
+            <label class="label-form">Apellido (*)</label>
             <input type="text" class="form-control" name="lastName" formControlName="lastName" required/>
             <div name="valida-nombreclub" *ngIf="registerForm.get('lastName').invalid &&
                         (registerForm.get('lastName').dirty || registerForm.get('lastName').touched)">
