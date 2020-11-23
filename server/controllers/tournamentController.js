@@ -59,7 +59,7 @@ exports.getTournamentById = async id => await Tournament.findById(id);
  */
 exports.getClubTournaments = async (req, res) => {
     try {
-        const tournament = await Tournament.find({creatorClubId: mongoose.Types.ObjectId(req.params.clubId)});
+        const tournament = await Tournament.find({creatorClubId: mongoose.Types.ObjectId(req.params.clubId)}).sort({'_id': -1});
         await res.json({tournament});
     } catch (error) {
         console.log(error)
