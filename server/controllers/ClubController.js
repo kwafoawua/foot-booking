@@ -8,6 +8,7 @@ const Club = require('../models/Club');
 const utils = require('../utils');
 const ClubResponseAdapter = require('../adapters/ClubResponseAdapter');
 const { sendEmail } = require('./mailing');
+const { getPagination } = require('../utils/utils');
 
 /**
  * Create a Club
@@ -86,21 +87,27 @@ module.exports.findById = async function (req, res) {
 /**
  * Show all Clubs
  */
-module.exports.findAllClubs = function (req, res) {
-    Club.find(async function (err, clubs) {
-        if (err) {
-            return res.status(500).send(err);
-        }
-        const clubResponse = await ClubResponseAdapter.adaptClubs(clubs);
-        res.status(200).send(clubResponse);
-    });
+module.exports.findAllClubs = async (req, res) => {
+    const { page, size } = req.query;
+    const { limit, offset } = getPagination(page, size);
+    try {
+        const clubs = await Club.paginate({}, { offset, limit });
+        res.status(200).send({
+            totalItems: clubs.totalDocs,
+            clubs: clubs.docs,
+            totalPages: clubs.totalPages,
+            currentPage: clubs.page - 1,
+        });
+    } catch(err) {
+        console.log(err);
+        return res.status(500).send(err);
+    }
 };
 
 /**
  * Update a Club
  */
 module.exports.updateClub = function (req, res) {
-    //console.log(req.body);
     var body = JSON.parse(req.body.body);
     var galleryPath = [];
     var profilePath = '';
@@ -114,7 +121,6 @@ module.exports.updateClub = function (req, res) {
             }
         }
     }
-    // Club.findByIdAndUpdate();
     Club.findById(body._id, function (err, club) {
         // Handle any possible database errors
         if (err) {
@@ -200,7 +206,7 @@ module.exports.findClubsByFilter = function (req, res) {
 *   cuando la busqueda viene con filtros desde el boton 'actualizar busqueda'. Se que es una negrada todos los if else que hay,
 *   solucionar eso cuando se pueda
 */
-module.exports.findClubsByMultipleFilter = function (req, res) {
+module.exports.findClubsByMultipleFilter = async (req, res) => {
 
     // Se arma solo el array de servicios para utilizar el $in y setean los valores por defecto
     var servicesNameArray = [];
@@ -210,8 +216,9 @@ module.exports.findClubsByMultipleFilter = function (req, res) {
     // es decir, si no se ingresa esta campo deberia traer todos
     var priceMax = 99999;
     var priceMin = 0;
-    const clubFilter = JSON.parse(req.params.clubfilter);
-
+    const filters = JSON.parse(req.params.clubfilter);
+    const {page, size, ...clubFilter} = filters;
+    const { limit, offset } = getPagination(page, size);
     /*
     *   Se realizan validaciones para ver si toman un valor por defecto o el propio de la consulta en el
     *   caso de que venga un valor
@@ -232,55 +239,31 @@ module.exports.findClubsByMultipleFilter = function (req, res) {
     if (clubFilter.minPrice) {
         priceMin = clubFilter.minPrice;
     }
+    let querySearch = [
+        {"name": new RegExp(clubFilter.clubname, "i")},
+        {"fields.cantPlayers": {"$in": cantPlayers}},
+        {"fields.fieldType": {"$in": fieldTypes}},
+        {"fields.price": {"$gte": priceMin, "$lte": priceMax}}
+    ];
 
-
-    // dentro de este if estan las 2 posibles consultas
-    if (!clubFilter.services || clubFilter.services.length === 0) {
-        // como no se selecciono un tipo de servicio traigo por todos los servicios
-        console.log('fieldType',fieldTypes);
-        Club.find({
-            $and:
-                [
-                    {"name": new RegExp(clubFilter.clubname, "i")},
-                    {"fields.cantPlayers": {"$in": cantPlayers}},
-                    {"fields.fieldType": {"$in": fieldTypes}},
-                    {"fields.price": {"$gte": priceMin, "$lte": priceMax}}
-                ]
-        }, function (err, club) {
-            if (err) {
-                return res.status(500).send(err + "al menos entro");
-            }
-
-            res.status(200).send(club);
-
-        });
-    } else {
-        // Lleno el array con todos los servicios que me llegan en el req
+    if (clubFilter.services && clubFilter.services.length) {
         for (var i = clubFilter.services.length - 1; i >= 0; i--) {
             servicesNameArray[i] = clubFilter.services[i].name;
         }
-        // Realizo la consulta con el array del servicio y el nombre del club en el caso de que venga como parametro
-        Club.find({
-            $and:
-                [
-                    {"name": new RegExp(clubFilter.clubname, "i")},
-                    {"services.value": {"$all": servicesNameArray}},
-                    {"fields.cantPlayers": {"$in": cantPlayers}},
-                    {"fields.fieldType": {"$in": fieldTypes}},
-                    {"fields.price": {"$gte": priceMin, "$lte": priceMax}}
-                ]
-        }, async function (err, club) {
-            if (err) {
-                return res.status(500).send(err + "al menos entro");
-            }
-            console.log('El club de arrays');
-            console.log(club);
-            const clubResponse = await ClubResponseAdapter.adaptClubs(club);
-            res.status(200).send(clubResponse);
-
-        });
+        querySearch.push({"services.value": {"$all": servicesNameArray}});
     }
-    console.log(servicesNameArray);
+
+        try{
+            const clubs = await Club.paginate({ $and: querySearch}, { offset, limit });
+            res.status(200).send({
+                totalItems: clubs.totalDocs,
+                clubs: clubs.docs,
+                totalPages: clubs.totalPages,
+                currentPage: clubs.page - 1,
+            });
+        } catch(err) {
+            return res.status(500).send(err);
+        }
 
 };
 

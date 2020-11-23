@@ -16,6 +16,7 @@ import { ClubFilter } from '../_models/clubfilter';
 import { Service } from '../_models/service';
 import { Field } from '../_models/field';
 import { environment } from '../../environments/environment';
+import { PaginationResponse } from '../_models/pagination';
 
 @Component({
   selector: 'app-results',
@@ -44,6 +45,7 @@ export class ResultComponent implements OnInit {
   maxPrice: any;
   fieldType: any;
   public fieldTypesSelect: string[] = [ 'Cesped', 'Sintético', 'Tierra' ];
+  pagination: PaginationResponse;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -59,9 +61,11 @@ export class ResultComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       console.log('params', params);
       if ((Object.keys(params).length === 0)) {
-        this.clubService.getAll().subscribe((clubs: Club[]) => {
-          if (clubs) {
+        this.clubService.getAll().subscribe((paginatedClub: any) => {
+          if (paginatedClub) {
+            const {clubs, ...pagination } = paginatedClub;
             this.clubs = clubs;
+            this.pagination = pagination;
           }
         });
       } else {
@@ -72,8 +76,10 @@ export class ResultComponent implements OnInit {
         this.minPrice = params.minPrice;
         this.fieldType = params.fieldType;
         this.clubfilter = this.crearFiltros();
-        this.searchService.findClubsByMultipleFilter(this.clubfilter).subscribe(() => {
-          this.clubs = SearchService.clubs;
+        this.searchService.findClubsByMultipleFilter(this.clubfilter).subscribe((paginatedClub: any) => {
+          const {clubs, ...pagination } = paginatedClub;
+          this.clubs = clubs;
+          this.pagination = pagination;
           console.log('clubes', this.clubs);
         });
         }
