@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
+const mongoosePaginate = require("mongoose-paginate-v2");
 
 /**
  * Comment Schema
@@ -11,23 +12,15 @@ var ObjectId = Schema.Types.ObjectId;
  * @param ex{Date} dateModify - Date an hour of the comment modify.
  */
 
-var commentSchema = new Schema({
-
+const commentSchema = new Schema({
         _idClub: {type: String, required: true},
         userName: {type: String, required: true},
         comment: {type: String, required: true},
         createdOn: {type: Date, default: Date.now},
         dateModify: {type: Date}
     }
-    // },{
-    //     toObject: {
-    //         virtuals: true
-    //     },
-    //     toJSON: {
-    //         virtuals: true
-    //     }
-    // }
 );
+commentSchema.plugin(mongoosePaginate);
 
 
 module.exports = mongoose.model('Comment', commentSchema);

@@ -57,14 +57,7 @@ export class commentsComponent implements OnInit {
         this.name = user.value.name;
       }
     });
-    // if (this.authenticatedService.isAuthenticated()) {
-    //   this.authenticated = true;
-    //   this.currrentUser = JSON.parse(localStorage.getItem('currentUser')).username;
-    //   this.isClub = this.authenticatedService.isUserClub();
-    //   if (this.isClub === true) {
-    //     this.authenticated = false;
-    //   }// this.currrentUser =  this.authenticatedService.getUserAuthenticated
-    // }
+
   }
 
 
@@ -90,9 +83,9 @@ export class commentsComponent implements OnInit {
 
   private getComentarios() {
     console.log(this.route.snapshot.params.id);
-    this.commentService.findAllCommentForAClub(this.route.snapshot.params.id).subscribe((comments) => {
-      this.clubComentarios = comments;
-      console.log(comments);
+    this.commentService.findAllCommentForAClub(this.route.snapshot.params.id).subscribe((data: any) => {
+      this.clubComentarios = data.comments;
+      console.log(data);
     });
   }
 
