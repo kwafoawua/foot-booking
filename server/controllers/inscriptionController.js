@@ -6,6 +6,8 @@ const { sendEmail } = require('./mailing');
 const moment = require('moment');
 const mercadoPagoController = require('./MercadoPagoController');
 const tournamentController = require("./tournamentController");
+const { getPagination } = require('../utils/utils');
+
 
 /**
  * Create inscription
@@ -72,11 +74,17 @@ exports.getTournamentInscriptions = async (req, res) => {
 
 exports.getPlayerInscriptions = async (req, res) => {
     try {
-        let inscriptions = await TournamentInscription.find({
-            userId: mongoose.Types.ObjectId(req.params.playerId)
+        const { page, size } = req.query;
+        const { limit, offset } = getPagination(page, size);
+        let inscriptions = await TournamentInscription.paginate({userId: mongoose.Types.ObjectId(req.params.playerId)}, { limit, offset });
+        res.status(200).send({
+            totalItems: inscriptions.totalDocs,
+            inscriptions: inscriptions.docs,
+            totalPages: inscriptions.totalPages,
+            currentPage: inscriptions.page - 1,
         });
-        await res.json({inscriptions});
     } catch (e) {
+        console.log(e);
         res.status(500).send("Ocurrio un error imprevisto :(");
     }
 }

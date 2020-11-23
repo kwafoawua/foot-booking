@@ -25,8 +25,8 @@ export class bookingPlayerComponent implements OnInit {
   }
 
   private getBookings(_id: string) {
-    this.bookingService.findAllByReferenceId(_id).subscribe((bookings) => {
-      this.bookings = bookings;
+    this.bookingService.findPlayerBookings(_id).subscribe((data: any) => {
+      this.bookings = data.bookings;
       console.log('esto', this.bookings);
     });
   }

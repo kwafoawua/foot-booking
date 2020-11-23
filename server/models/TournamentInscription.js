@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require("mongoose-paginate-v2");
+
 
 const InscriptionSchema = new mongoose.Schema({
     tournamentId: {type: mongoose.Schema.Types.ObjectId, ref: 'Tournament', requiered: true},
@@ -24,5 +26,6 @@ const InscriptionSchema = new mongoose.Schema({
         enum: ['Procesando', 'Pagado']
     }
 })
+InscriptionSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('TournamentInscription', InscriptionSchema)

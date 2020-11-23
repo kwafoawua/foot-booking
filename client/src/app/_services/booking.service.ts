@@ -26,6 +26,10 @@ export class BookingService {
     return this.http.get<Booking[]>('/bookings/' + _id);
   }
 
+  findPlayerBookings(_id: string) {
+    return this.http.get('/bookings/player/' + _id);
+  }
+
   update(booking: Booking, _id: string) {
     return this.http.put<Booking>('/booking/' + _id, booking);
   }

@@ -7,6 +7,8 @@ var mongoose = require('mongoose');
 var _ = require('lodash');
 var Booking = require('../models/Booking');
 var Q = require('q');
+const { getPagination } = require('../utils/utils');
+
 
 
 /**
@@ -101,6 +103,26 @@ module.exports.findAllByReferenceId = function(req, res) {
 
         res.status(200).send(booking);
     });
+
+};
+
+module.exports.findPlayerBookings = async (req, res) => {
+    const { page, size } = req.query;
+    const { limit, offset } = getPagination(page, size);
+    try{
+        const playerBookings = await Booking.paginate({"player.id":req.params._id}, { limit, offset });
+        res.status(200).send({
+            totalItems: playerBookings.totalDocs,
+            bookings: playerBookings.docs,
+            totalPages: playerBookings.totalPages,
+            currentPage: playerBookings.page - 1,
+        });
+    }
+    catch(err) {
+        res.status(500).send(err);
+    }
+
+
 
 };
 
