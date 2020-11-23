@@ -28,6 +28,6 @@ export class bookingPlayerComponent implements OnInit {
     this.bookingService.findAllByReferenceId(_id).subscribe((bookings) => {
       this.bookings = bookings;
       console.log('esto', this.bookings);
-    });
+    })  ;
   }
 }

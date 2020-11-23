@@ -67,6 +67,7 @@ import { AdminLayoutComponent } from './_layout/admin-layout/admin-layout.compon
 import { AdminCampeonatoModule } from './admin-campeonato/admin-campeonato.module';
 import { SharedModule } from './shared.module';
 import {MercadoPagoService} from "./_services/mercado-pago.service";
+import {TerminosCondiciones} from "./common/terminos-condiciones/terminos-condiciones";
 
 registerLocaleData(localeEsAr, 'es-AR');
 @NgModule({
@@ -130,6 +131,7 @@ registerLocaleData(localeEsAr, 'es-AR');
     CampeonatoInscripcionComponent,
     InfoFixtureComponent,
     TorneosPlayerComponent,
+    TerminosCondiciones,
   ],
   providers: [
     authInterceptorProviders,

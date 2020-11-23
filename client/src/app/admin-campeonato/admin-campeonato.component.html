@@ -42,6 +42,16 @@
           >
             <mat-icon aria-label="Delete">cancel</mat-icon>
           </button>
+          <button
+            mat-icon-button
+            matTooltip="Click para Ocultar Campeonato"
+            class="iconbutton"
+            color="secondary"
+            [disabled]="row.state != 'Finalizado'"
+            (click)="OcultarCampeonato(row._id)"
+          >
+            <mat-icon aria-label="Delete">Ocultar</mat-icon>
+          </button>
         </td>
       </ng-container>
 

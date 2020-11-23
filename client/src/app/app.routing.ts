@@ -25,7 +25,8 @@ import {AdminLayoutComponent} from './_layout/admin-layout/admin-layout.componen
 import {ProfileClubComponent} from './profile-club';
 import {TorneosPlayerComponent} from './booking-player/torneos-player-component';
 import {commentsComponent} from './_directives/Comments/commentsComponent';
-import {ClubLinkMpComponent} from "./club-link-mp/club-link-mp.component";
+import {ClubLinkMpComponent} from './club-link-mp/club-link-mp.component';
+import {TerminosCondiciones} from "./common/terminos-condiciones/terminos-condiciones";
 
 
 const appRoutes: Routes = [
@@ -44,6 +45,7 @@ const appRoutes: Routes = [
       { path: 'player/mis-reservas', component: bookingPlayerComponent },
       { path: 'campeonato/:id', component: CampeonatoInfoComponent },
       { path: 'player/mis-campeonatos/:id', component: TorneosPlayerComponent },
+      {path: 'terminos-condiciones', component: TerminosCondiciones},
     ]
   },
   {
