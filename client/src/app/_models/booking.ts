@@ -13,6 +13,7 @@ export class Booking {
   playingTime: string;
   status: string;
   playingDate: string;
+  paidMethod: string;
   //state: any;
   player: Player;
   // fee: number;

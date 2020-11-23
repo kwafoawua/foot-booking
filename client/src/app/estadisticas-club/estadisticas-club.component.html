@@ -72,8 +72,8 @@
           <span class="title-cards">Medios de pago</span>
         </mat-card-title>
         <mat-card-content class="content">
-            <span><strong>Pago personal: </strong>23 pagos (23%)</span>
-            <span><strong>Pago por MercadoPago: </strong>23 pagos (23%)</span>
+            <span><strong>En sitio: </strong>{{paidMethodSitio + " pagos"}}</span>
+            <span><strong>MercadoPago: </strong>{{paidMethodMP + " pagos"}}</span>
         </mat-card-content>
       </mat-card>
     </div>
@@ -106,22 +106,21 @@
             >Generar</button>
           </div>
         </div>
-        <div *ngIf="loadedReportByYear" class="card-body chart">
-          <ngx-charts-bar-vertical id="chart-bar-vertical"
-                                   [view]="view1"
-                                   [scheme]="options.colorScheme"
-                                   [results]="bookingMonthChart"
-                                   [gradient]="options.gradient"
-                                   [xAxis]="options.showXAxis"
-                                   [yAxis]="options.showYAxis"
-                                   [showXAxisLabel]="options.showXAxisLabel"
-                                   [showYAxisLabel]="options.showYAxisLabel"
-                                   [yAxisLabel]="options.yAxisLabel1"
-                                   (select)="onSelect($event)">
-          </ngx-charts-bar-vertical>
+          <div *ngIf="loadedReportByYear" class="card-body grafico">
+              <ngx-charts-bar-vertical id="reportYear"
+                [view]="view1"
+                [scheme]="options.colorScheme"
+                [results]="bookingMonthChart"
+                [xAxis]="options.showXAxis"
+                [yAxis]="options.showYAxis"
+                [showXAxisLabel]="options.showXAxisLabel"
+                [showYAxisLabel]="options.showYAxisLabel"
+                [yAxisLabel]="options.yAxisLabel1">
+              </ngx-charts-bar-vertical>
         </div>
+
         <div align="center">
-          <button (click)="download()" class="btn btn-success btn-download"
+          <button (click)="downloadReportYear()" class="btn btn-success btn-download"
                   *ngIf="loadedReportByYear">Descargar Gráfico</button>
         </div>
       </mat-card>
@@ -165,9 +164,8 @@
             >Generar</button>
           </div>
         </div>
-        <div *ngIf="loadedReportByMonth" class="card-body chart">
-          <ngx-charts-line-chart  id="chart-bar-vertical"
-                                  [results]="bookingDayChart"
+        <div *ngIf="loadedReportByMonth" class="card-body chart" id="reportMonth">
+          <ngx-charts-line-chart [results]="bookingDayChart"
                                   [view]="view1"
                                   [scheme]="options.colorScheme"
                                   [xAxis]="options.showXAxis"
@@ -175,7 +173,7 @@
           </ngx-charts-line-chart>
         </div>
         <div align="center">
-          <button (click)="download()" class="btn btn-success btn-download"
+          <button (click)="downloadReportMonth()" class="btn btn-success btn-download"
                   *ngIf="loadedReportByMonth">Descargar Gráfico</button>
         </div>
       </mat-card>
@@ -214,17 +212,16 @@
           </div>
         </div>
 
-        <div *ngIf="loadedReportByStatus" class="card-body chart">
-          <ngx-charts-advanced-pie-chart id="chart-advanced-pie"
+        <div *ngIf="loadedReportByStatus" class="card-body chart" id="reportStatus">
+          <ngx-charts-advanced-pie-chart
                                          [view]="view"
                                          [scheme]="options.colorScheme1"
                                          [animations]="options.animations"
                                          [results]="statusChart"
-                                         [label]="'Total'"
-                                         (select)="onSelect($event)">
+                                         [label]="'Total'">
           </ngx-charts-advanced-pie-chart>
         </div>
-        <button (click)="download1()" class="btn btn-success btn-download"
+        <button (click)="downloadReportStatus()" class="btn btn-success btn-download"
                 *ngIf="loadedReportByStatus">Descargar Gráfico</button>
       </mat-card>
     </div>
@@ -260,18 +257,17 @@
           </div>
         </div>
 
-        <div *ngIf="loadedReportByCancha" class="card-body chart">
-          <ngx-charts-pie-chart id="chart-pie-chart-canchas"
+        <div *ngIf="loadedReportByCancha" class="card-body chart" id="reportCancha">
+          <ngx-charts-pie-chart
                                 [view]="view2"
                                 [scheme]="options.colorScheme"
                                 [results]="fieldChart"
                                 [labels]="options.showLabels"
                                 [legendTitle]="Leyenda"
-                                [trimLabels]="false"
-                                (select)="onSelect($event)">
+                                [trimLabels]="false">
           </ngx-charts-pie-chart>
         </div>
-        <button (click)="download2()" class="btn btn-success btn-download"
+        <button (click)="downloadReportCancha()" class="btn btn-success btn-download"
                 *ngIf="loadedReportByCancha">Descargar Gráfico</button>
       </mat-card>
     </div>

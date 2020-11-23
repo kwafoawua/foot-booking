@@ -19,3 +19,11 @@ justify-content: space-between !important;}
 .title-cards {
   margin-left: 15px;
 }
+
+.grafico {
+  display: flex;
+}
+
+strong {
+  padding-right: 10px;
+}

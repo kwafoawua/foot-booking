@@ -1,11 +1,9 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { BookingService } from '../_services/booking.service';
 import * as moment from 'moment';
-
-import * as jsPDF from 'jspdf';
-import * as html2canvas from 'html2canvas';
 import { CommentService } from '../_services/comment.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import {PdfModel} from "./model/pdf.model";
 
 @Component({
   templateUrl: 'estadisticas-club.component.html',
@@ -276,6 +274,9 @@ export class EstadisticasClubComponent implements OnInit {
 
   formFilter: FormGroup;
 
+  pdf: PdfModel;
+  paidMethodSitio: number = 0;
+  paidMethodMP: number = 0;
   constructor(private bookingService: BookingService,
               private commentService: CommentService,
               private formBuilder: FormBuilder) {
@@ -312,6 +313,13 @@ export class EstadisticasClubComponent implements OnInit {
   private countBookings() {
     this.bookingService.findAllByReferenceId(this._id).subscribe((bookings) => {
       this.cantBookings = bookings.length;
+      bookings.forEach(booking => {
+        if (booking.paidMethod.toLowerCase() === "en sitio") {
+          this.paidMethodSitio++;
+        } else {
+          this.paidMethodMP++;
+        }
+      });
     });
   }
 
@@ -332,13 +340,12 @@ export class EstadisticasClubComponent implements OnInit {
 
   getReportByMonth() {
     this.bookingService.findAllByReferenceId(this._id).subscribe((bookings) => {
+      this.bookingDayChart[0].series = this.getArrayDays(this.monthReportTwo - 1);
       bookings.forEach((booking) => {
-
         let dateb = moment(booking.playingDate, 'YYYY-MM-DD').toDate();
         let month = dateb.getMonth();
         let year = dateb.getFullYear();
         let day = dateb.getDate() - 1;
-        this.bookingDayChart[0].series = this.getArrayDays(this.monthReportTwo - 1);
         if (year == this.anioReportTwo && month == this.monthReportTwo - 1) {
           this.bookingDayChart[0].series[ day ].value = this.bookingDayChart[0].series[ day ].value + 1;
         }
@@ -423,49 +430,52 @@ export class EstadisticasClubComponent implements OnInit {
     console.log(event);
   }
 
-  download() {
-    const svg: HTMLElement = (<HTMLElement><any>document.getElementById('chart-bar-vertical').getElementsByTagName('svg')[ 0 ]);
-    html2canvas(svg).then(function (canvas) {
-      console.log(canvas);
-      const img = canvas.toDataURL('image/png');
-      let doc = new jsPDF('l', 'mm', 'a4');
-      const width = doc.internal.pageSize.width;
-      const height = doc.internal.pageSize.height;
-      doc.text('Reservas realizadas en el año', 20, 50);
-
-      doc.addImage(img, 'PNG', 20, 50, 160, 80);
-
-      doc.save('reservas-realizadas-en-el-anio.pdf');
-    });
+  downloadReportYear() {
+    this.pdf = new PdfModel();
+    this.pdf.setNameFile('Reservas-realizadas-en-el-anio');
+    this.pdf.setNameReport('Footbooking');
+    this.pdf.setTitle('Reporte de las reservas realizadas en el año ' + this.anioReportOne)
+    this.pdf.addIdImage('reportYear');
+    this.pdf.setTotalPages(1);
+    this.pdf.generate(true);
   }
 
-  download1() {
-    const svg: HTMLElement = (<HTMLElement><any>document.getElementById('chart-advanced-pie').getElementsByTagName('svg')[ 0 ]);
-    html2canvas(svg).then(function (canvas) {
-      console.log(canvas);
-      const img = canvas.toDataURL('image/png');
-      let doc = new jsPDF();
-      doc.text(50, 20, 'Reservas realizadas por Estado');
-      // doc.addHTML(document.getElementByClassName('advanced-pie-legend-wrapper'));
-
-      doc.addImage(img, 'JPEG', 20, 50);
-      doc.save('reservas-realizadas-por-estado.pdf');
-    });
+  downloadReportMonth() {
+    this.pdf = new PdfModel();
+    this.pdf.setNameFile('Reservas-realizadas-en-mes');
+    this.pdf.setNameReport('Footbooking');
+    this.pdf.setTitle('Reporte de las reservas realizadas en ' +
+      this.months[this.monthReportTwo - 1].name + ' del ' + this.anioReportTwo);
+    this.pdf.addIdImage('reportMonth');
+    this.pdf.setTotalPages(1);
+    this.pdf.generate(true);
   }
 
-  download2() {
-    const svg: HTMLElement = (<HTMLElement><any>document.getElementById('chart-pie-chart-canchas').getElementsByTagName('svg')[ 0 ]);
-    html2canvas(svg).then(function (canvas) {
-      console.log(canvas);
-      const img = canvas.toDataURL('image/png');
-      let doc = new jsPDF();
-      doc.text(50, 20, 'Reservas realizadas por Cancha');
-
-      doc.addImage(img, 'JPEG', 20, 50);
-      doc.save('reservas-realizadas-por-cancha.pdf');
-    });
+  downloadReportStatus() {
+    const options = {year: 'numeric', month: 'long', day: 'numeric' };
+    this.pdf = new PdfModel();
+    this.pdf.setNameFile('Reservas-realizadas-por-estados');
+    this.pdf.setNameReport('Footbooking');
+    this.pdf.setTitle('Reporte de las reservas realizadas por estados');
+    this.pdf.addSubtitle('Fecha desde: ' + this.dpFromDateStatus.value.toLocaleString('es-AR', options))
+    this.pdf.addSubtitle('Fecha hasta: ' + this.dpToDateStatus.value.toLocaleString('es-AR', options))
+    this.pdf.addIdImage('reportStatus');
+    this.pdf.setTotalPages(1);
+    this.pdf.generate();
   }
 
+  downloadReportCancha() {
+    const options = {year: 'numeric', month: 'long', day: 'numeric' };
+    this.pdf = new PdfModel();
+    this.pdf.setNameFile('Reservas-realizadas-por-cancha');
+    this.pdf.setNameReport('Footbooking');
+    this.pdf.setTitle('Reporte de las reservas realizadas por cancha');
+    this.pdf.addSubtitle('Fecha desde: ' + this.dpFromDateCancha.value.toLocaleString('es-AR', options))
+    this.pdf.addSubtitle('Fecha hasta: ' + this.dpToDateCancha.value.toLocaleString('es-AR', options))
+    this.pdf.addIdImage('reportCancha');
+    this.pdf.setTotalPages(1);
+    this.pdf.generate();
+  }
 
   onSelect(loaded: number) {
     switch (loaded) {
