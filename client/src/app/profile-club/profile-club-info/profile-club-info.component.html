@@ -72,10 +72,14 @@
                         (clubForm.get('services').dirty || clubForm.get('services').touched)}">
                 <label class="col-md-4">Servicios * </label>
                 <div class="col-md-8">
-                  <tag-input [formControlName]="'services'" name="items"
-                             [onlyFromAutocomplete]="true">
-                    <tag-input-dropdown [showDropdownIfEmpty]="true"
-                                        [autocompleteObservable]="requestAutocompleteItemsFake">
+                  <tag-input
+                    [formControlName]="'services'" name="items"
+                    [onlyFromAutocomplete]="true"
+                    [placeholder]="'+Servicios'"
+                    [secondaryPlaceholder]="'Servicios'">
+                    <tag-input-dropdown
+                      [showDropdownIfEmpty]="true"
+                      [autocompleteItems]="requestAutocompleteItemsFake()">
                     </tag-input-dropdown>
                   </tag-input>
 

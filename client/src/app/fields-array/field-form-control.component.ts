@@ -27,11 +27,7 @@ export class FieldFormControlComponent {
     });
   }
 
-  public requestAutocompleteItemsFake = (text: string): Observable<string[]> => {
-    return of([
-      'Techado', 'Marcador', 'Iluminación'
-    ]);
-  }
+  public requestAutocompleteItemsFake = () => [ 'Techado', 'Marcador', 'Iluminación' ];
 
   onSelectCant(cant: number) {
   }

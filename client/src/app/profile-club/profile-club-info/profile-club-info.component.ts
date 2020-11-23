@@ -181,11 +181,7 @@ export class ProfileClubInfoComponent implements OnInit {
     console.log(this.clubForm.controls[ 'profileImg' ])
   }
 
-  public requestAutocompleteItemsFake = (text: string): Observable<string[]> => {
-    return of([
-      'Asador', 'Buffet', 'Parking', 'Techado', 'Bar', 'Nocturno'
-    ]);
-  };
+  public requestAutocompleteItemsFake = () => ['Asador', 'Buffet', 'Parking', 'Techado', 'Bar', 'Nocturno' ];
 
   public updateClubData() {
     if (this.clubForm.valid) {
