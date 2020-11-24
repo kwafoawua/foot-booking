@@ -3,22 +3,22 @@
  */
 
 import { Component, OnInit } from '@angular/core';
-import { ClubService } from '../../_services/club.service';
-import { Club } from '../../_models/club';
+import { ClubService } from '../_services/club.service';
+import { Club } from '../_models/club';
 import { ActivatedRoute } from '@angular/router';
-import { Comment } from '../../_models/comment';
-import { CommentService } from '../../_services/comment.service';
-import { AuthService } from '../../_services/auth.service';
+import { Comment } from '../_models/comment';
+import { CommentService } from '../_services/comment.service';
+import { AuthService } from '../_services/auth.service';
 import { now } from 'moment';
-import {StorageService} from '../../_services/storage.service';
-import { PaginationService } from '../../_services';
+import {StorageService} from '../_services/storage.service';
+import { PaginationService } from '../_services';
 
 @Component({
   selector: 'comments',
   templateUrl: 'comment.html'
 })
 
-export class commentsComponent implements OnInit {
+export class CommentsComponent implements OnInit {
   public comment: Comment = new Comment();
   public clubComentarios: Comment[] = [];
   public authenticated: boolean;

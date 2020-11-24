@@ -71,6 +71,13 @@ export class AdminCampeonatoComponent implements OnInit {
     });
   }
 
+  OcultarCampeonato(id){
+    this.tournamentService.updateTournament({_id: id, state: 'Cerrado'}).subscribe((data) => {
+        this.getTournaments();
+      }
+    );
+  }
+
 
   cancel(id) {
     this.tournamentService.updateTournament({_id: id, state: 'Cancelado'}).subscribe((data) => {

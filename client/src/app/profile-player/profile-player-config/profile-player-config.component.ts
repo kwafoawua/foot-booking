@@ -37,6 +37,7 @@ export class ProfilePlayerConfigComponent implements OnInit {
         password: password,
         username: this.username
       };
+
       this.userService.updatePassword(user)
         .subscribe(
           data => {
@@ -47,5 +48,6 @@ export class ProfilePlayerConfigComponent implements OnInit {
           });
     }
     this.alertService.error('Ups! Hubo un problema en la validación, revise los campos ingresados', false);
+
   }
 }

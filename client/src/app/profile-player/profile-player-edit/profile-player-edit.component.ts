@@ -57,9 +57,9 @@ export class ProfilePlayerEditComponent implements OnInit {
       _id: null,
       name: [ null, Validators.required ],
       lastName: [ null, Validators.required ],
-      birthDate: [ null ],
+     // birthDate: [ null ],
       phoneNumber: [ null ],
-      dni: [ null, NumberValidationService.validRange(1000000, 99999999) ]
+     dni: [ null, NumberValidationService.validRange(1000000, 99999999) ]
     });
   }
 
@@ -71,9 +71,9 @@ export class ProfilePlayerEditComponent implements OnInit {
         _id: this.player._id,
         name: this.player.name,
         lastName: this.player.lastName,
-        birthDate: this.player.birthDate ? this.formatDate(this.player.birthDate) : null,
+     //   birthDate: this.player.birthDate ? this.formatDate(this.player.birthDate) : null,
         phoneNumber: this.player.phoneNumber || null,
-        dni: this.player.dni || null,
+      dni: this.player.dni || null,
       });
     });
   }

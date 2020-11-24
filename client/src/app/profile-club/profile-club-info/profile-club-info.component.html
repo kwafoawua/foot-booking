@@ -4,68 +4,73 @@
 <div class="container">
   <div class="avt-post">
     <form enctype="multipart/form-data" [formGroup]="clubForm" (ngSubmit)="updateClubData()"
-          novalidate="novalidate">
+          novalidate="novalidate" class="example-form">
       <div class="avtpost-fields">
         <div class="row">
           <div class="col-xs-12">
-            <h3>Datos del Club</h3>
+            <h3>Información del club</h3>
           </div>
           <div class="col-md-12">
-            <div class="post-inner">
-              <div class="row form-group" [ngClass]="{ 'has-error': clubForm.get('name').invalid &&
+
+            <div class="row" [ngClass]="{ 'has-error': clubForm.get('name').invalid &&
                         (clubForm.get('name').dirty || clubForm.get('name').touched)}">
-                <label class="col-md-4">Nombre del Club *</label>
-                <div class="col-md-8">
-                  <input formControlName="name" class="form-control" type="text">
-                  <div name="valida-nombreclub" *ngIf="clubForm.get('name').invalid &&
+              <div class="col example-container">
+                <mat-form-field>
+                  <input matInput formControlName="name" class="form-control" type="text" placeholder="Nombre del club" required>
+                </mat-form-field>
+                <div name="valida-nombreclub" *ngIf="clubForm.get('name').invalid &&
                         (clubForm.get('name').dirty || clubForm.get('name').touched)">
 
-                    <div *ngIf="clubForm.get('name').errors?.required" class="help-block text-danger">
-                      El nombre del club es requerido.
-                    </div>
-
+                  <div *ngIf="clubForm.get('name').errors?.required" class="text-danger">
+                    <small class="form-text">El nombre del club es requerido.</small>
                   </div>
+
                 </div>
               </div>
-            </div><!-- post-inner nombre del club-->
-            <div class="post-inner">
-              <div class="row form-group" [ngClass]="{ 'has-error': clubForm.get('address.address').invalid &&
+            </div>
+
+
+
+            <div class="col">
+              <div class="post-inner">
+                <div class="row form-group" [ngClass]="{ 'has-error': clubForm.get('address.address').invalid &&
                         (clubForm.get('address.address').dirty || clubForm.get('address.address').touched)}">
-                <label class="col-md-4">Dirección * </label>
-                <div class="col-md-8">
-                  <input placeholder="Ingresar Direccion" autocorrect="off" autocapitalize="off"
-                         spellcheck="off" type="text" class="form-control" #address>
-                  <div name="valida-direccion" *ngIf="clubForm.get('address.address').invalid &&
+                  <div class="col-md-12 example-container">
+                    <mat-form-field>
+                      <input matInput placeholder="Ingresar Direccion" autocorrect="off" autocapitalize="off"
+                             spellcheck="off" type="text" class="form-control" #address required>
+                    </mat-form-field>
+                    <div name="valida-direccion" *ngIf="clubForm.get('address.address').invalid &&
                         (clubForm.get('address.address').dirty || clubForm.get('address.address').touched)">
-                    <div *ngIf="clubForm.get('address.address').errors?.required"
-                         class="help-block text-danger">
-                      El campo Dirección es requerido.
+                      <div *ngIf="clubForm.get('address.address').errors?.required" class="text-danger">
+                        <small class="form-text">El campo Dirección es requerido.</small>
+                      </div>
                     </div>
                   </div>
                 </div>
+              </div><!-- post-inner direccion-->
 
-                <agm-map [zoom]="zoom" [latitude]="lat" [longitude]="lng" (mapClick)="clickMapa($event)">
-                  <agm-marker [latitude]="lat"
-                              [longitude]="lng"
-                              [iconUrl]="'../../assets/icon/iconochico.png'"
-                              [markerDraggable]="draggable" (dragEnd)="nuevaPosicionMarcador($event)">
-                  </agm-marker>
-                </agm-map>
+              <agm-map [zoom]="zoom" [latitude]="lat" [longitude]="lng" (mapClick)="clickMapa($event)">
+                <agm-marker [latitude]="lat"
+                            [longitude]="lng"
+                            [iconUrl]="'../../assets/icon/iconochico.png'"
+                            [markerDraggable]="draggable" (dragEnd)="nuevaPosicionMarcador($event)">
+                </agm-marker>
+              </agm-map>
 
+            </div>
 
-              </div>
-            </div><!-- post-inner direccion-->
 
             <div class="post-inner">
-              <div class="row form-group"
-                   [ngClass]="{ 'has-error': clubForm.get('phoneNumber').invalid}">
-                <label class="col-md-4">Teléfono </label>
-                <div class="col-md-8">
-                  <input formControlName="phoneNumber" class="form-control" type="number">
-
+              <div class="row form-group" [ngClass]="{ 'has-error': clubForm.get('phoneNumber').invalid}">
+                <div class="col example-container">
+                  <mat-form-field>
+                    <input matInput formControlName="phoneNumber" class="form-control" type="number" placeholder="Teléfono" required>
+                  </mat-form-field>
                 </div>
               </div>
             </div><!-- post-inner telefono-->
+
 
             <div class="post-inner">
               <div class="row form-group" [ngClass]="{ 'has-error': clubForm.get('services').invalid &&
@@ -98,71 +103,80 @@
             <div class="post-inner">
               <div class="row form-group" [ngClass]="{ 'has-error': clubForm.get('description').invalid &&
                         (clubForm.get('description').dirty || clubForm.get('description').touched)}">
-                <label class="col-md-12">Descripción *</label>
-                <div class="col-md-12">
-                  <textarea formControlName="description" class="form-control"></textarea>
+
+                <div class="col-md-12 example-container">
+                  <mat-form-field>
+                    <textarea matInput formControlName="description" class="form-control" placeholder="Descripción comercial" required>
+                    </textarea>
+                  </mat-form-field>
                   <div name="valida-descripcion" *ngIf="clubForm.get('description').invalid &&
                         (clubForm.get('description').dirty || clubForm.get('description').touched)">
 
-                    <div *ngIf="clubForm.get('description').errors?.required"
-                         class="help-block text-danger">
-                      El campo Descripción es requerido.
+                    <div *ngIf="clubForm.get('description').errors?.required" class="text-danger">
+                      <small class="form-text">La descripción es requerido.</small>
                     </div>
-                    <div *ngIf="clubForm.get('description').errors?.maxlength"
-                         class="help-block text-danger">
-                      La descripción no debe ser de mas de 255 caracteres.
+                    <div *ngIf="clubForm.get('description').errors?.maxlength" class="text-danger">
+                      <small class="form-text">La descripción no debe ser de mas de 255 caracteres.</small>
                     </div>
 
                   </div>
                 </div>
               </div>
             </div><!-- post-inner repeat descripcion-->
+
           </div>
         </div>
       </div><!-- club-section -->
 
       <div formGroupName="socialMedia" class="avtpost-fields">
-        <div class="row">
-          <div class="col-xs-12">
-            <h3>Redes Sociales</h3>
-          </div>
-          <div class="col-md-12">
+        <div class="row card-body">
+
+          <div class="col-md-6">
             <div class="post-inner">
               <div class="row form-group">
-                <label class="col-md-4">Facebook</label>
-                <div class="col-md-8">
-                  <input formControlName="facebookId" class="form-control input-md" type="text"
-                         placeholder="&#xf230;" style="font-family:Arial, FontAwesome">
+                <div class="col example-container">
+                  <mat-form-field>
+                    <input matInput formControlName="facebookId" class="form-control input-md" type="text"
+                           placeholder="Facebook" style="font-family:Arial, FontAwesome">
+                  </mat-form-field>
                 </div>
               </div>
             </div><!-- post-inner facebook-->
             <div class="post-inner">
               <div class="row form-group">
-                <label class="col-md-4">Twitter </label>
-                <div class="col-md-8">
-                  <input formControlName="twitterId" class="form-control" type="text"
-                         placeholder="&#xf099;" style="font-family:Arial, FontAwesome">
 
+                <div class="col example-container">
+                  <mat-form-field>
+                    <input matInput formControlName="twitterId" class="form-control" type="text"
+                           placeholder="Twitter" style="font-family:Arial, FontAwesome">
+                  </mat-form-field>
                 </div>
               </div>
             </div><!-- post-inner twitter-->
 
+          </div>
+
+          <div class="col-md-6">
             <div class="post-inner">
               <div class="row form-group">
-                <label class="col-md-4">Instagram</label>
-                <div class="col-md-8">
-                  <input type="text" formControlName="instagramId" class="form-control"
-                         placeholder="&#xf16d;" style="font-family:Arial, FontAwesome">
+
+                <div class="col example-container">
+                  <mat-form-field>
+                    <input matInput type="text" formControlName="instagramId" class="form-control"
+                           placeholder="Instagram" style="font-family:Arial, FontAwesome">
+                  </mat-form-field>
                 </div>
               </div>
             </div><!-- post-inner instagram-->
 
             <div class="post-inner">
               <div class="row form-group">
-                <label class="col-md-4">Google +</label>
-                <div class="col-md-8">
-                  <input type="text" formControlName="googleId" class="form-control"
-                         placeholder="&#xf0d5;" style="font-family: Arial, FontAwesome">
+
+                <div class="col example-container">
+                  <mat-form-field>
+                    <input matInput type="text" formControlName="googleId" class="form-control"
+                           placeholder="Google +" style="font-family: Arial, FontAwesome">
+                  </mat-form-field>
                 </div>
               </div>
             </div><!-- post-inner google+-->
@@ -187,7 +201,7 @@
       <div class="avtpost-fields">
         <div class="row">
           <div class="col-xs-12">
-            <h3>Carga de Imágenes</h3>
+            <h5>Imágenes</h5>
           </div>
           <div class="col-md-12">
             <div class="post-inner">

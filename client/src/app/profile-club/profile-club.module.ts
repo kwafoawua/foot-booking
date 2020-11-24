@@ -19,23 +19,25 @@ import {
 import { ProfileClubRoutingModule } from './profile-club-routing.module';
 import { FieldsArrayModule } from '../fields-array/fields-array.module';
 import {AlertService} from "../_services";
+import {MaterialModule} from "../material.module";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    ProfileClubRoutingModule,
-    ReactiveFormsModule,
-    TagInputModule,
-    ImageUploadModule.forRoot(),
-    CustomFormsModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAAwaI8YafySsHraMA_9G_n30_FECUhoVs',
-      libraries: [ 'places' ]
-    }),
-    DpDatePickerModule,
-    FieldsArrayModule
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ProfileClubRoutingModule,
+        ReactiveFormsModule,
+        TagInputModule,
+        ImageUploadModule.forRoot(),
+        CustomFormsModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyAAwaI8YafySsHraMA_9G_n30_FECUhoVs',
+            libraries: ['places']
+        }),
+        DpDatePickerModule,
+        FieldsArrayModule,
+        MaterialModule
+    ],
   declarations: [
     ProfileClubUserComponent,
     ProfileClubPasswordComponent,

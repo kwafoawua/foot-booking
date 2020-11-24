@@ -41,9 +41,9 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { FieldsManagementComponent } from './fields-management/index';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { bookingPlayerComponent } from './booking-player/booking-player.component';
+import { BookingPlayerComponent } from './booking-player/booking-player.component';
 import { EstadisticasClubComponent } from './estadisticas-club/index';
-import { commentsComponent } from './_directives/Comments/commentsComponent';
+import { CommentsComponent } from './Comments/commentsComponent';
 import { ClubInfoComponent } from './ClubProfileClient/clubInfo.component';
 import { CampeonatoInfoComponent } from './ClubProfileClient/CampeonatoInfo.component';
 import { CampeonatoInscripcionComponent } from './ClubProfileClient/CampeonatoInscripcion.component';
@@ -68,7 +68,7 @@ import { AdminCampeonatoModule } from './admin-campeonato/admin-campeonato.modul
 import { SharedModule } from './shared.module';
 import {MercadoPagoService} from './_services/mercado-pago.service';
 import { NgxPaginationModule } from 'ngx-pagination';
-
+import {TerminosCondiciones} from './common/terminos-condiciones/terminos-condiciones';
 
 registerLocaleData(localeEsAr, 'es-AR');
 @NgModule({
@@ -120,8 +120,8 @@ registerLocaleData(localeEsAr, 'es-AR');
     ConfirmationComponent,
     FieldsManagementComponent,
     EstadisticasClubComponent,
-    bookingPlayerComponent,
-    commentsComponent,
+    BookingPlayerComponent,
+    CommentsComponent,
     ResultadoBusquedaComponent,
     CardComponent,
     DestacadosComponent,
@@ -133,6 +133,7 @@ registerLocaleData(localeEsAr, 'es-AR');
     CampeonatoInscripcionComponent,
     InfoFixtureComponent,
     TorneosPlayerComponent,
+    TerminosCondiciones,
   ],
   providers: [
     authInterceptorProviders,

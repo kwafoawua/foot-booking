@@ -9,7 +9,7 @@ import { ProfilePlayerComponent } from './profile-player/index';
 import { AuthGuard, LoginGuard } from './_guards/index';
 import { ConfirmationComponent } from './booking-confirmation/confirmation.component';
 import { ResultComponent } from './result/index';
-import { bookingPlayerComponent } from './booking-player/booking-player.component';
+import { BookingPlayerComponent } from './booking-player/booking-player.component';
 import { EstadisticasClubComponent } from './estadisticas-club/index';
 import {ClubInfoComponent} from './ClubProfileClient/clubInfo.component';
 
@@ -24,8 +24,9 @@ import {SiteLayoutComponent} from './_layout/site-layout/site-layout.component';
 import {AdminLayoutComponent} from './_layout/admin-layout/admin-layout.component';
 import {ProfileClubComponent} from './profile-club';
 import {TorneosPlayerComponent} from './booking-player/torneos-player-component';
-import {commentsComponent} from './_directives/Comments/commentsComponent';
-import {ClubLinkMpComponent} from "./club-link-mp/club-link-mp.component";
+import {CommentsComponent} from './Comments/commentsComponent';
+import {ClubLinkMpComponent} from './club-link-mp/club-link-mp.component';
+import {TerminosCondiciones} from './common/terminos-condiciones/terminos-condiciones';
 
 
 const appRoutes: Routes = [
@@ -41,9 +42,10 @@ const appRoutes: Routes = [
       { path: 'player/register', component: RegisterPlayerComponent },
       { path: 'results', component: ResultComponent },
       { path: 'club/register', component: RegisterClubComponent },
-      { path: 'player/mis-reservas', component: bookingPlayerComponent },
+      { path: 'player/mis-reservas', component: BookingPlayerComponent },
       { path: 'campeonato/:id', component: CampeonatoInfoComponent },
       { path: 'player/mis-campeonatos/:id', component: TorneosPlayerComponent },
+      {path: 'terminos-condiciones', component: TerminosCondiciones},
     ]
   },
   {
@@ -57,7 +59,7 @@ const appRoutes: Routes = [
       { path: 'campeonato/nuevo', component: DefinicionComponent },
       { path: 'campeonato/:id', component: DetalleCampeonatoComponent },
       { path: 'club', loadChildren: './profile-club/profile-club.module#ProfileClubModule' },
-      { path: 'comentarios/:id', component: commentsComponent},
+      { path: 'comentarios/:id', component: CommentsComponent},
       { path: 'configuracion/:id', component: ClubLinkMpComponent }
     ],
   },

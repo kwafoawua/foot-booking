@@ -62,7 +62,7 @@
 
                 <div class="seller-info">
                   <p> TEL <span>  {{club?.phoneNumber}} </span></p>
-                  <p>EMILA <span> {{club?.email}}</span></p>
+                  <p>E-MAIL <span> {{club?.email}}</span></p>
 
 
                   <div class="social-media ">
@@ -140,14 +140,16 @@
                 <div  *ngFor="let i of myTournament">
                   <div *ngIf=" i.state !== 'Nuevo'">
                     <div *ngIf="i.state !== 'Cancelado' ">
-                       <ul class="list-inline">
-                          <li class="list-inline-item" [routerLink]="['/campeonato',i._id]">
-                            <a>
-                              <img src="../../assets/icons/football-cup.png"  height="24" width="24"/>
-                              {{i.tournamentName | uppercase}}
-                            </a>
-                          </li>
+                      <div *ngIf="i.state !== 'Cerrado'">
+                         <ul class="list-inline">
+                        <li class="list-inline-item" [routerLink]="['/campeonato',i._id]">
+                          <a>
+                            <img src="../../assets/icons/football-cup.png"  height="24" width="24"/>
+                            {{i.tournamentName | uppercase}}
+                          </a>
+                        </li>
                       </ul>
+                      </div>
                   </div>
                   </div>
                 </div>

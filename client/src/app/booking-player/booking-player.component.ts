@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Booking } from '../_models/booking';
 import { ActivatedRoute } from '@angular/router';
 import { ClubService } from '../_services/club.service';
-import { Player } from '../_models/player';
 import { BookingService } from '../_services/booking.service';
 import { PlayerService } from '../_services/player.service';
 import { PaginationService } from '../_services';
@@ -11,7 +9,7 @@ import { PaginationService } from '../_services';
   templateUrl: 'booking-player.html'
 })
 
-export class bookingPlayerComponent implements OnInit {
+export class BookingPlayerComponent implements OnInit {
   public bookings: any [] = [];
   playerId: string;
   page = 1;
