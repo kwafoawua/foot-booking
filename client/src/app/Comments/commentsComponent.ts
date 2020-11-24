@@ -3,38 +3,42 @@
  */
 
 import { Component, OnInit } from '@angular/core';
-import { ClubService } from '../../_services/club.service';
-import { Club } from '../../_models/club';
+import { ClubService } from '../_services/club.service';
+import { Club } from '../_models/club';
 import { ActivatedRoute } from '@angular/router';
-import { Comment } from '../../_models/comment';
-import { CommentService } from '../../_services/comment.service';
-import { AuthService } from '../../_services/auth.service';
+import { Comment } from '../_models/comment';
+import { CommentService } from '../_services/comment.service';
+import { AuthService } from '../_services/auth.service';
 import { now } from 'moment';
-import {StorageService} from '../../_services/storage.service';
+import {StorageService} from '../_services/storage.service';
+import { PaginationService } from '../_services';
 
 @Component({
   selector: 'comments',
   templateUrl: 'comment.html'
 })
 
-export class commentsComponent implements OnInit {
+export class CommentsComponent implements OnInit {
   public comment: Comment = new Comment();
   public clubComentarios: Comment[] = [];
-  public currrentUser: any;
-  public isClub: any;
   public authenticated: boolean;
   private textComment = '';
   private club: Club;
   currentUser: any;
   name = '';
   rol = '';
+  page = 1;
+  count = 0;
+  pageSize = 5;
+  pageSizes = [5, 10, 15];
 
   constructor(
     private clubService: ClubService,
     private route: ActivatedRoute,
     private commentService: CommentService,
     private authenticatedService: AuthService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private paginationService: PaginationService,
   ) {
     const user = JSON.parse(localStorage.getItem(('currentUser')));
     if (user) {
@@ -47,7 +51,6 @@ export class commentsComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.isAuthenticated();
     this.getComentarios();
     this.getClub(this.route.snapshot.params.id);
     this.storageService.getStorage('currentUser').subscribe(user => {
@@ -57,14 +60,7 @@ export class commentsComponent implements OnInit {
         this.name = user.value.name;
       }
     });
-    // if (this.authenticatedService.isAuthenticated()) {
-    //   this.authenticated = true;
-    //   this.currrentUser = JSON.parse(localStorage.getItem('currentUser')).username;
-    //   this.isClub = this.authenticatedService.isUserClub();
-    //   if (this.isClub === true) {
-    //     this.authenticated = false;
-    //   }// this.currrentUser =  this.authenticatedService.getUserAuthenticated
-    // }
+
   }
 
 
@@ -89,11 +85,24 @@ export class commentsComponent implements OnInit {
   }
 
   private getComentarios() {
-    console.log(this.route.snapshot.params.id);
-    this.commentService.findAllCommentForAClub(this.route.snapshot.params.id).subscribe((comments) => {
-      this.clubComentarios = comments;
-      console.log(comments);
+    console.log('getcomentarios')
+    const params = this.paginationService.getRequestParams(this.page, this.pageSize);
+    this.commentService.findAllCommentForAClub(this.route.snapshot.params.id, params).subscribe((data: any) => {
+      this.clubComentarios = data.comments;
+      this.count = data.totalItems;
+      console.log(data);
     });
+  }
+
+  handlePageChange(event) {
+    this.page = event;
+    this.getComentarios();
+  }
+
+  handlePageSizeChange(event) {
+    this.pageSize = event.value;
+    this.page = 1;
+    this.getComentarios();
   }
 
 

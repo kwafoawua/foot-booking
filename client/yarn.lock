@@ -5938,6 +5938,11 @@ ngx-chips@^1.7.5:
     ng2-material-dropdown "0.10.1"
     tslib "^1.9.0"
 
+ngx-pagination@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/ngx-pagination/-/ngx-pagination-5.0.0.tgz#a4b4c150a70aef17ccd825e4543e174a974bbd14"
+  integrity sha512-Ur0pTWRe2ZXoJ8impEzo0IZKxY5aEcQfSmL5uBqW1rHI2J6nfzgZAHsSLagKHFGchXq0PkRlDVVMcIaNxYJwvQ==
+
 nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"

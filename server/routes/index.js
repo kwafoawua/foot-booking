@@ -61,6 +61,7 @@ router.put('/bookings/setStatus/', bookingController.updateBookingStatus);
 router.get('/bookings/:_id', bookingController.findAllByReferenceId);
 router.get('/bookings/getHoursToPlay', bookingController.findAllHoursBookings);
 router.get('/bookings/horarios/:bookingfilter', bookingController.findAllBookingsByFieldAndDay);
+router.get('/bookings/player/:_id', bookingController.findPlayerBookings);
 
 /* Comment Controller */
 router.post('/comments/create', commentController.createComment);

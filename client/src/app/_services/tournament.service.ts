@@ -73,8 +73,8 @@ private tState: TState[] = [
     return this.http.put('/phase/updatePhase', phase);
   }
 
-  getInscriptionByUser(user: any){
-    return this.http.get<any[]>('/inscription/player/' + user);
+  getInscriptionByUser(user: any, params){
+    return this.http.get<any[]>('/inscription/player/' + user, {params});
   }
 
   calculateWinners(matchesFinal, matchesTercerPuesto) {

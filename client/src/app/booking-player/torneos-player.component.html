@@ -11,7 +11,11 @@
             </div>
             <div *ngIf="inscriptions.length > 0">
 
-              <div  class="card" *ngFor="let r of inscriptions">
+              <div  class="card" *ngFor="let r of inscriptions  | paginate : {
+                  itemsPerPage: pageSize,
+                  currentPage: page,
+                  totalItems: count
+                };">
                 <div class="card-header">
                  Nombre Campeonato <b> {{r.tournamentId | uppercase}}</b>
                 </div>
@@ -47,6 +51,25 @@
 
                     </div>
                   </div>
+                </div>
+              </div>
+              <div class="row mt-3 align-items-center">
+                <div class="col-12 col-md-3">
+                  <mat-form-field>
+                    <mat-select placeholder="Por página" (selectionChange)="handlePageSizeChange($event)">
+                      <mat-option *ngFor="let size of pageSizes" [value]="size">
+                        {{size}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-12 col-md-9">
+                  <pagination-controls
+                    previousLabel="Anterior"
+                    nextLabel="Siguiente"
+                    responsive="true"
+                    (pageChange)="handlePageChange($event)"
+                  ></pagination-controls>
                 </div>
               </div>
             </div>

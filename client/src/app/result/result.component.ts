@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SearchService } from '../_services/index';
+import { PaginationService, SearchService } from '../_services/index';
 import { Club } from '../_models/club';
 import { ClubService } from '../_services/index';
 import { Observable ,  Subject } from 'rxjs';
@@ -16,6 +16,7 @@ import { ClubFilter } from '../_models/clubfilter';
 import { Service } from '../_models/service';
 import { Field } from '../_models/field';
 import { environment } from '../../environments/environment';
+import { PaginationResponse } from '../_models/pagination';
 
 @Component({
   selector: 'app-results',
@@ -37,46 +38,49 @@ export class ResultComponent implements OnInit {
   public clubs: Club[];
   public services: Service[];
   private servicesChecked: Service [] = [];
-  public radio: boolean; //true es club
+  public radio: boolean; // true es club
   clubname: string;
   cantPlayers: any;
   minPrice: any;
   maxPrice: any;
   fieldType: any;
   public fieldTypesSelect: string[] = [ 'Cesped', 'Sintético', 'Tierra' ];
+  pagination: PaginationResponse;
+  page = 1;
+  count = 0;
+  pageSize = 9;
+  pageSizes = [9, 15, 21];
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private searchService: SearchService,
     private clubService: ClubService,
-    private router: Router) {
+    private router: Router,
+    private paginationService: PaginationService
+  ) {
   }
 
 
   ngOnInit(): void {
     this.setCurrentPosition();
     this.services = this.searchService.getClubServices();
+
     this.activatedRoute.queryParams.subscribe(params => {
-      console.log('params', params);
-      if ((Object.keys(params).length === 0)) {
-        this.clubService.getAll().subscribe((clubs: Club[]) => {
-          if (clubs) {
-            this.clubs = clubs;
-          }
+      const pagParams = this.paginationService.getRequestParams(this.page, this.pageSize);
+
+      this.clubname = params.clubname || null;
+      this.servicesChecked = params.services ? JSON.parse(params.services) : [];
+      this.cantPlayers = params.cantPlayers || null;
+      this.maxPrice = params.maxPrice || null;
+      this.minPrice = params.minPrice || null;
+      this.fieldType = params.fieldType || null;
+      this.clubfilter = this.crearFiltros();
+      debugger;
+      this.searchService.findClubsByMultipleFilter(this.clubfilter, pagParams).subscribe((paginatedClub: any) => {
+          const {clubs, totalItems } = paginatedClub;
+          this.clubs = clubs;
+          this.count = totalItems;
         });
-      } else {
-        this.clubname = params.clubname;
-        this.servicesChecked = params.services ? JSON.parse(params.services) : [];
-        this.cantPlayers = params.cantPlayers;
-        this.maxPrice = params.maxPrice;
-        this.minPrice = params.minPrice;
-        this.fieldType = params.fieldType;
-        this.clubfilter = this.crearFiltros();
-        this.searchService.findClubsByMultipleFilter(this.clubfilter).subscribe(() => {
-          this.clubs = SearchService.clubs;
-          console.log('clubes', this.clubs);
-        });
-        }
     });
   }
 
@@ -114,7 +118,7 @@ export class ResultComponent implements OnInit {
   addService(e: any) {
 
     if (e.state) {
-      console.log('agrego el servicio ', e.name)
+      console.log('agrego el servicio ', e.name);
       this.servicesChecked.push({ id: e.id, name: e.name });
       // console.log("array", this.servicesChecked)
     } else {
@@ -137,6 +141,32 @@ export class ResultComponent implements OnInit {
         this.zoom = 16;
       });
     }
+  }
+
+  handlePageChange(event) {
+    this.page = event;
+    const params = this.paginationService.getRequestParams(this.page, this.pageSize);
+    this.router.navigate(
+      [],
+      {
+        relativeTo: this.activatedRoute,
+        queryParams: params,
+        queryParamsHandling: 'merge'
+      });
+
+  }
+
+  handlePageSizeChange(event) {
+    this.pageSize = event.value;
+    this.page = 1;
+    const params = this.paginationService.getRequestParams(this.page, this.pageSize);
+    this.router.navigate(
+      [],
+      {
+        relativeTo: this.activatedRoute,
+        queryParams: params,
+        queryParamsHandling: 'merge'
+      });
 
   }
 }
