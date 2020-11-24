@@ -5,6 +5,7 @@ import { ClubService } from '../_services/club.service';
 import { Player } from '../_models/player';
 import { BookingService } from '../_services/booking.service';
 import { PlayerService } from '../_services/player.service';
+import { PaginationService } from '../_services';
 
 @Component({
   templateUrl: 'booking-player.html'
@@ -12,22 +13,44 @@ import { PlayerService } from '../_services/player.service';
 
 export class bookingPlayerComponent implements OnInit {
   public bookings: any [] = [];
+  playerId: string;
+  page = 1;
+  count = 0;
+  pageSize = 5;
+  pageSizes = [5, 10, 15];
 
-  constructor(private route: ActivatedRoute,
-              private playerService: PlayerService,
-              private clubService: ClubService,
-              private bookingService: BookingService) {
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private playerService: PlayerService,
+    private clubService: ClubService,
+    private bookingService: BookingService,
+    private paginationService: PaginationService,
+  ) {}
 
   ngOnInit() {
     const _id: string = JSON.parse(localStorage.getItem('currentUser'))._id;
-    this.getBookings(_id);
+    this.playerId = _id;
+    this.getBookings();
   }
 
-  private getBookings(_id: string) {
-    this.bookingService.findPlayerBookings(_id).subscribe((data: any) => {
-      this.bookings = data.bookings;
-      console.log('esto', this.bookings);
+  private getBookings() {
+    const params = this.paginationService.getRequestParams(this.page, this.pageSize);
+
+    this.bookingService.findPlayerBookings(this.playerId, params).subscribe((data: any) => {
+      const {bookings, totalItems } = data;
+      this.count = totalItems;
+      this.bookings = bookings;
     });
+  }
+
+  handlePageChange(event) {
+    this.page = event;
+    this.getBookings();
+  }
+
+  handlePageSizeChange(event) {
+    this.pageSize = event.value;
+    this.page = 1;
+    this.getBookings();
   }
 }

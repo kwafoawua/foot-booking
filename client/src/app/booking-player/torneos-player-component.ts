@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {BookingService, ClubService, PlayerService} from '../_services';
 import {TournamentService} from '../_services/tournament.service';
-import { PaginationResponse } from '../_models/pagination';
+import { PaginationService } from '../_services/pagination.service';
 
 @Component({
   templateUrl: 'torneos-player.component.html'
@@ -10,27 +10,48 @@ import { PaginationResponse } from '../_models/pagination';
 
 export class TorneosPlayerComponent implements OnInit{
   public inscriptions: any [] = [];
-  pagination: PaginationResponse;
+  page = 1;
+  count = 0;
+  pageSize = 5;
+  pageSizes = [5, 10, 15];
+  playerId: string;
 
-  constructor(private route: ActivatedRoute,
-              private playerService: PlayerService,
-              private clubService: ClubService,
-              private bookingService: TournamentService) {
+  constructor(
+    private route: ActivatedRoute,
+    private playerService: PlayerService,
+    private clubService: ClubService,
+    private bookingService: TournamentService,
+    private paginationService: PaginationService,
+  ) {
   }
 
   ngOnInit() {
     const _id: string = JSON.parse(localStorage.getItem('currentUser'))._id;
-    this.getInscriptions(_id);
+    this.playerId = _id;
+    this.getInscriptions();
   }
 
-  private getInscriptions(_id: string) {
-    this.bookingService.getInscriptionByUser(_id).subscribe((data: any) => {
-      const {inscriptions, ...pagination } = data;
+  private getInscriptions() {
+    const params = this.paginationService.getRequestParams(this.page, this.pageSize);
+
+    this.bookingService.getInscriptionByUser(this.playerId, params).subscribe((data: any) => {
+      const {inscriptions, totalItems } = data;
 
       this.inscriptions = inscriptions;
-      this.pagination = pagination;
+      this.count = totalItems;
       console.log('esto', data);
     });
+  }
+
+  handlePageChange(event) {
+    this.page = event;
+    this.getInscriptions();
+  }
+
+  handlePageSizeChange(event) {
+    this.pageSize = event.value;
+    this.page = 1;
+    this.getInscriptions();
   }
 
 }

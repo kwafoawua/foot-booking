@@ -24,7 +24,7 @@ import { routing } from './app.routing';
 import { authInterceptorProviders } from './_helpers/index';
 import { AlertComponent } from './_directives/index';
 import { AuthGuard } from './_guards/index';
-import { AlertService, AuthService, ClubService, CommentService, PlayerService, UserService } from './_services/index';
+import { AlertService, AuthService, ClubService, CommentService, PlayerService, UserService, PaginationService } from './_services/index';
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import { RegisterClubComponent } from './register-club/index';
@@ -66,7 +66,9 @@ import { SiteLayoutComponent } from './_layout/site-layout/site-layout.component
 import { AdminLayoutComponent } from './_layout/admin-layout/admin-layout.component';
 import { AdminCampeonatoModule } from './admin-campeonato/admin-campeonato.module';
 import { SharedModule } from './shared.module';
-import {MercadoPagoService} from "./_services/mercado-pago.service";
+import {MercadoPagoService} from './_services/mercado-pago.service';
+import { NgxPaginationModule } from 'ngx-pagination';
+
 
 registerLocaleData(localeEsAr, 'es-AR');
 @NgModule({
@@ -102,6 +104,7 @@ registerLocaleData(localeEsAr, 'es-AR');
     AdminCampeonatoModule,
     NgTournamentTreeModule,
     SharedModule,
+    NgxPaginationModule,
   ],
   declarations: [
     AppComponent,
@@ -146,6 +149,7 @@ registerLocaleData(localeEsAr, 'es-AR');
     CommentService,
     TournamentService,
     MercadoPagoService,
+    PaginationService,
     { provide: LOCALE_ID, useValue: 'es-AR' },
   ],
   bootstrap: [ AppComponent ]

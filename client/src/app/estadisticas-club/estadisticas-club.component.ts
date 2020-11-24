@@ -219,7 +219,7 @@ export class EstadisticasClubComponent implements OnInit {
   }
 
   private countComments(_id) {
-    this.commentService.findAllCommentForAClub(_id).subscribe((comments) => {
+    this.commentService.findAllCommentForAClub(_id, {}).subscribe((comments) => {
       this.cantComments = comments.length;
     });
   }
