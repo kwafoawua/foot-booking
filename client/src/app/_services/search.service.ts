@@ -33,9 +33,9 @@ export class SearchService {
     return this.service;
   }
 
-  findClubsByMultipleFilter(filter: ClubFilter) {
+  findClubsByMultipleFilter(filter: ClubFilter, params) {
     console.log('en esl servico', filter)
-    return this.http.get<Club[]>('/findClubsByFilters/' + JSON.stringify(filter));
+    return this.http.get<Club[]>('/findClubsByFilters/' + JSON.stringify(filter), {params});
   }
 
 }

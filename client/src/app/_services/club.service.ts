@@ -15,9 +15,8 @@ export class ClubService {
     return this.http.post('/clubs/register', club);
   }
 
-  getAll() {
-    console.log('este es el serviceeee', JSON.stringify(this.http.get('/clubs')));
-    return this.http.get('/clubs');
+  getAll(params) {
+    return this.http.get('/clubs', {params});
   }
 
 

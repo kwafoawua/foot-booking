@@ -216,8 +216,8 @@ module.exports.findClubsByMultipleFilter = async (req, res) => {
     // es decir, si no se ingresa esta campo deberia traer todos
     var priceMax = 99999;
     var priceMin = 0;
-    const filters = JSON.parse(req.params.clubfilter);
-    const {page, size, ...clubFilter} = filters;
+    const clubFilter = JSON.parse(req.params.clubfilter);
+    const {page, size} = req.query;
     const { limit, offset } = getPagination(page, size);
     /*
     *   Se realizan validaciones para ver si toman un valor por defecto o el propio de la consulta en el
