@@ -75,7 +75,6 @@ export class ResultComponent implements OnInit {
       this.minPrice = params.minPrice || null;
       this.fieldType = params.fieldType || null;
       this.clubfilter = this.crearFiltros();
-      debugger;
       this.searchService.findClubsByMultipleFilter(this.clubfilter, pagParams).subscribe((paginatedClub: any) => {
           const {clubs, totalItems } = paginatedClub;
           this.clubs = clubs;
