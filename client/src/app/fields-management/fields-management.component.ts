@@ -120,6 +120,7 @@ export class FieldsManagementComponent implements OnInit {
   fieldDropdown: any;
   nuevaReservaForm: FormGroup;
   precioCanchaModel: number;
+  precioCanchaModal: number;
   now = moment().startOf('day').toDate();
 
   actions: CalendarEventAction[] = [
@@ -250,6 +251,7 @@ export class FieldsManagementComponent implements OnInit {
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action };
     console.log('HANDLE EVENTO', event);
+    this.precioCanchaModal = (event as any).booking.field.price;
     this.montoPagado = (event as any).booking.payment.fee;
     this.modal.open(this.modalContent, { size: 'lg' }).result.then((result) => {
       console.log(this.selectedStatus);

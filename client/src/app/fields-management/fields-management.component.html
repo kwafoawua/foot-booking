@@ -54,9 +54,13 @@
             </option>
           </select>
         </div>
-          <div  *ngIf="modalData?.event.booking.paymentStatus != 'Pago Total'"  class="form-group col-md-6"> Actualización de Monto
-            <input [(ngModel)]="montoPagado" type="number" class="form-control" placeholder="Monto Pagado"
-                   max="{{modalData?.event.booking.field.price}}" value="{{montoPagado}}" >
+          <div  *ngIf="modalData?.event.booking.paymentStatus != 'Pago Total'"  class="col-md-6"> Actualización de Monto
+            <mat-form-field appearance="outline">
+            <input matInput [(ngModel)]="montoPagado" type="number" class="example-right-align" placeholder="Monto Pagado"
+                   [max]="precioCanchaModal"  value="{{montoPagado}}" >
+              <span matPrefix>$&nbsp;</span>
+              <span matSuffix>.00</span>
+            </mat-form-field>
           </div>
       </div>
     </div>
