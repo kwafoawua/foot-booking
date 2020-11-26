@@ -37,6 +37,7 @@ export class ClubInfoComponent implements OnInit{
 
   getMyTournament(){
     this.tournamentService.getMyTournaments(this.route.snapshot.params.id).subscribe((data: any) => {
+      this.myTournament = data.tournament;
     }, error => console.log(error));
 
   }
