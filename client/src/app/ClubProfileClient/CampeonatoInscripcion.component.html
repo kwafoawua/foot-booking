@@ -22,7 +22,7 @@
                 <input matInput placeholder="Teléfono" formControlName="phoneNumber" class="form-control" [min]="00000000" [max]="9999999999" type="number" required>
 <!--                <mat-icon matPrefix>perm_phone_msg</mat-icon>-->
               </mat-form-field>
-              <div>
+              <div style="text-align: right;">
                 <button class="btn btn-success" [disabled]="isValidStepOne()" matStepperNext>Siguiente</button>
               </div>
             </form>
@@ -38,7 +38,7 @@
                   <a>Acepto términos y condiciones</a>
                 </mat-checkbox>
               </p>
-              <div>
+              <div style="text-align: right;">
                 <button class="btn btn-light" matStepperPrevious>Anterior</button>
                 <button class="btn btn-success" [disabled]=" isValidStepTwo()"  matStepperNext  >Siguiente</button>
               </div>
@@ -49,7 +49,7 @@
             <ng-template matStepLabel>Pago</ng-template>
             Casi esta listo!
 
-            <div>
+            <div style="text-align: right;">
               <button class="btn btn-light" matStepperPrevious>Anterior</button>
               <button class="btn btn-success" [disabled]="inscripcionForm.invalid" (click)="Inscribir()"  >Finalizar</button>
             </div>

@@ -94,7 +94,7 @@
 
                </div>
               </div>
-            <div>
+            <div style="text-align: right;">
               <button class="btn btn-success" [disabled]="isValidStepOne()"  matStepperNext>Siguiente</button>
             </div>
         </form>
@@ -226,7 +226,7 @@
 
           </div>
         </div><!-- club-section -->
-          <div>
+          <div style="text-align: right;">
             <button class="btn btn-light" matStepperPrevious>Anterior</button>
             <button class="btn btn-success" [disabled]="isValidStepTwo()" matStepperNext>Siguiente</button>
           </div>
@@ -353,7 +353,7 @@
             </div>
           </div>
         </div><!-- carga de imagenes -section -->
-          <div>
+          <div style="text-align: right;">
             <button class="btn btn-light" matStepperPrevious>Anterior</button>
             <button class="btn btn-success" [disabled]="isValidStepThree()" matStepperNext>Siguiente</button>
           </div>
@@ -394,12 +394,12 @@
                 [fieldFormArray]="registerClubForm.get('fields')"
                 class="col-12">
             </fields-array>
-
+        <div style="text-align: right;">
           <mat-checkbox formControlName="TyCcheckbox">
             <a  [routerLink]="['/terminos-condiciones']">Acepto términos y condiciones</a>
           </mat-checkbox>
-
-          <div>
+         </div>
+          <div style="text-align: right;">
             <button class="btn btn-light" matStepperPrevious>Anterior</button>
             <button class="btn btn-success" [disabled]="isValidStepFour()" matStepperNext (click)="registerClub()">Finalizar</button>
           </div>
