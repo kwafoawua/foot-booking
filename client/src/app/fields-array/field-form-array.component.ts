@@ -20,7 +20,6 @@ export class FieldFormArrayComponent {
       let fieldArray: any = [];
       for (let i = 0; i < cantFields; i++) {
         fieldArray.push(FieldFormControlComponent.buildField());
-        console.log('fieldArray', fieldArray);
       }
       return new FormArray(fieldArray);
     }

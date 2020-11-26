@@ -23,7 +23,6 @@ private tState: TState[] = [
   }
 
   create(tournament: Tournament){
-    console.log('El service ', tournament);
     return this.http.post('/tournament/register', tournament);
   }
 
@@ -56,7 +55,6 @@ private tState: TState[] = [
   }
 
   createInscription(equipo: any){
-    console.log('El service el equipooooooooo El service el equipooooooooo  ', equipo);
     return this.http.post('/inscription/enroll', equipo);
   }
 

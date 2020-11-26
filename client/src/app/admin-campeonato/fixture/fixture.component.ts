@@ -174,11 +174,9 @@ export class FixtureComponent implements OnInit {
       this.minDate = new Date(data.tournament.startDate);
       this.tournamentState = data.tournament.state;
       this.tournament = data.tournament;
-      console.log(this.maxDate, this.minDate, this.tournamentState);
     });
   }
   updateMatch($event) {
-    console.log('event', $event);
     const local = $event.teams[ 0 ];
     const visitor = $event.teams[ 1 ];
     let nextUpdate;

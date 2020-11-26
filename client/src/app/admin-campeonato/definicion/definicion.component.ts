@@ -68,7 +68,6 @@ export class DefinicionComponent implements OnInit {
   getTournament(){
     // this.esEdicion = true;
     this.tournamentService.getTournamentInfo(this.tournamentId).subscribe((data: any) => {
-      console.log(data.tournament);
       this.tournament = data.tournament;
       this.status = this.tournament.state;
       this.tournamentForm.setValue({

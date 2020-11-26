@@ -46,7 +46,6 @@ export class ProfileClubCanchasComponent implements OnInit {
     this.fieldClubForm = this.fb.group({
       fields: FieldFormArrayComponent.initFields(cantFields),
     });
-    console.log(this.fieldClubForm);
   }
 
   private getClub(id: string) {
