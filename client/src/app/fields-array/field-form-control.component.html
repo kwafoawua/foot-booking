@@ -11,14 +11,14 @@
     </div>
   </div>
   <div class="field-control-container">
-    <div class="row">
+
       <div [ngClass]="{
-        'col-md-12': field.get('_id').value,
-        'col-md-6': !field.get('_id').value
-      }">
+        'col-md-12': field.get('_id').value }
+        // 'col-md-12': !field.get('_id').value
+      ">
         <div class="post-inner">
-          <div class="row form-group">
-            <div class=" col-md-8 example-container">
+          <div class="row example-container">
+
               <mat-form-field>
                 <input matInput formControlName="fieldName" [attr.id]="'fieldName'+index"
                        class="form-control" placeholder="Nombre de cancha" type="text" required>
@@ -29,40 +29,18 @@
                   <small class="form-text">El campo Nombre de la Cancha es requerido.</small>
                 </div>
               </div>
-            </div>
+
           </div>
         </div><!-- post-inner nombre de la cancha descriptivo-->
-        <div class="post-inner">
-          <div class="row form-group">
-            <div class="col-md-8 example-container">
-              <tag-input
-                [formControlName]="'services'" name="items"
-                [onlyFromAutocomplete]="true" required="true"
-                [placeholder]="'+Servicios'"
-                [secondaryPlaceholder]="'Servicios'">
-                <tag-input-dropdown
-                  [showDropdownIfEmpty]="true"
-                  [autocompleteItems]="requestAutocompleteItemsFake()">
-                </tag-input-dropdown>
-              </tag-input>
-              <div name="valida-servicios" *ngIf="field.get('services').invalid &&
-                        (field.get('services').dirty || field.get('services').touched)">
-                <div *ngIf="field.get('services').errors?.required" class="text-danger">
-                  <small class="form-text">El campo servicios es requerido.</small>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div><!-- post-inner servicios-->
       </div>
 
-      <div [ngClass]="{
-        'col-md-12': field.get('_id').value,
-        'col-md-6': !field.get('_id').value
-      }">
+    <div [ngClass]="{
+        'col-md-12': field.get('_id').value }
+        // 'col-md-12': !field.get('_id').value
+      ">
         <div class="post-inner">
-          <div class="row form-group">
-            <div class="col-md-8 example-container">
+          <div class="row example-container">
+
               <mat-form-field>
                 <mat-select class="example-full-width" (change)="onSelectCant($event.target.value)"
                         [attr.id]="'cantPlayers'+index" formControlName="cantPlayers" placeholder="Cantidad de jugadores" required>
@@ -78,13 +56,13 @@
                   <small class="form-text">El campo cantidad de jugadores es requerido.</small>
                 </div>
               </div>
-            </div>
+
           </div>
         </div><!-- post-inner cantidad de jugadores-->
 
         <div class="post-inner">
-          <div class="row form-group">
-            <div class="col-md-8 example-container">
+          <div class="row example-container">
+
               <mat-form-field>
               <mat-select class="example-full-width" (change)="onSelectType($event.target.value)"
                       [attr.id]="'fieldType'+index" formControlName="fieldType" placeholder="Tipo de cancha" required>
@@ -97,14 +75,14 @@
                   <small class="form-text">El campo tipo es requerido.</small>
                 </div>
               </div>
-            </div>
+
           </div>
         </div><!-- post-inner cantidad de jugadores-->
 
         <div class="post-inner">
-          <div class="row form-group">
+          <div class="row example-container">
 
-            <div class="col-md-8 example-container">
+
               <mat-form-field>
                 <input matInput placeholder="Precio por hora/turno de cancha"
                        formControlName="price" [attr.id]="'price'+index" class="example-right-align" type="number" min="0" required>
@@ -116,11 +94,34 @@
                   <small class="form-text">El campo precio es requerido.</small>
                 </div>
               </div>
-            </div>
+
           </div>
         </div><!-- post-inner precio-->
+
+        <div class="post-inner">
+          <div class="row example-container">
+
+            <tag-input
+              [formControlName]="'services'" name="items"
+              [onlyFromAutocomplete]="true" required="true"
+              [placeholder]="'+Servicios'"
+              [secondaryPlaceholder]="'Servicios'">
+              <tag-input-dropdown
+                [showDropdownIfEmpty]="true"
+                [autocompleteItems]="requestAutocompleteItemsFake()">
+              </tag-input-dropdown>
+            </tag-input>
+            <div name="valida-servicios" *ngIf="field.get('services').invalid &&
+                        (field.get('services').dirty || field.get('services').touched)">
+              <div *ngIf="field.get('services').errors?.required" class="text-danger">
+                <small class="form-text">El campo servicios es requerido.</small>
+              </div>
+            </div>
+
+          </div>
+        </div><!-- post-inner servicios-->
       </div>
 
-    </div>
+
   </div>
 </div>
