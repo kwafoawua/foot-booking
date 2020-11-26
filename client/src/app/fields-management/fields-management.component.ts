@@ -179,7 +179,6 @@ export class FieldsManagementComponent implements OnInit {
 
   private getBookings(_id: string) {
     this.bookingService.findAllByReferenceId(_id).subscribe((bookings) => {
-      console.log(bookings);
       this.bookings = bookings;
       const eventArray: CalendarEvent[] = [];
       this.bookings.forEach((booking) => {
@@ -214,7 +213,6 @@ export class FieldsManagementComponent implements OnInit {
       if (this.events) {
         this.refresh.next();
       }
-      console.log('eventoooos', this.events);
     });
 
   }

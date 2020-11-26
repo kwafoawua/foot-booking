@@ -496,3 +496,6 @@ div#loginContainer {
 	}
 }
 
+.fb-pagination /deep/ .ngx-pagination .current {
+  background: var(--primary-darker-color);
+}

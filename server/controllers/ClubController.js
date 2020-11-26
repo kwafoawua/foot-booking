@@ -40,8 +40,8 @@ module.exports.registerClub = async function (req, res) {
         const savedClub = await addClub(club, profilePath, galleryPath);
         await sendEmail(club.name, club.user.email, null, registrationText);
 
-        const token = utils.generateToken(savedClub._id);
-        res.status(200).send({user: {...savedClub._doc, token}, success: 'El club se creó exitosamente.'});
+        //const token = utils.generateToken(savedClub._id);
+        res.status(200).send({user: {...savedClub._doc}, success: 'El club se creó exitosamente.'});
     } catch (error) {
         res.status(400).send({errorMessage: error.message});
     }
@@ -255,9 +255,10 @@ module.exports.findClubsByMultipleFilter = async (req, res) => {
 
         try{
             const clubs = await Club.paginate({ $and: querySearch}, { offset, limit });
+            const adaptedClubs = await ClubResponseAdapter.adaptClubs(clubs.docs);
             res.status(200).send({
                 totalItems: clubs.totalDocs,
-                clubs: clubs.docs,
+                clubs: adaptedClubs,
                 totalPages: clubs.totalPages,
                 currentPage: clubs.page - 1,
             });

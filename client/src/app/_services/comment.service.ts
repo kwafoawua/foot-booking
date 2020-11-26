@@ -11,7 +11,6 @@ export class CommentService {
   }
 
   create(comment: any) {
-    console.log(comment);
     return this.http.post('/comments/create', comment);
   }
 

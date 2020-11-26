@@ -42,7 +42,6 @@ export class AdminCampeonatoComponent implements OnInit {
     this.id = JSON.parse(localStorage.getItem('currentUser'))._id;
     this.tournamentService.getMyTournaments(this.id).subscribe((data: any) => {
       this.tournaments = data.tournament;
-      console.log(this.tournaments);
       this.dataSource = new MatTableDataSource(data.tournament);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
@@ -66,7 +65,6 @@ export class AdminCampeonatoComponent implements OnInit {
       if (result) {
         this.updateTorneo.emit(result);
         this.cancel(result);
-        console.log('RESULTADO', result);
       }
     });
   }

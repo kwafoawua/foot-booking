@@ -34,7 +34,6 @@ export class SearchService {
   }
 
   findClubsByMultipleFilter(filter: ClubFilter, params) {
-    console.log('en esl servico', filter)
     return this.http.get<Club[]>('/findClubsByFilters/' + JSON.stringify(filter), {params});
   }
 
