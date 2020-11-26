@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Cancelar Reserva</h1>
+<div mat-dialog-content>
+
+  ¿Esta seguro que desea salir de la reserva?
+
+</div>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button  [mat-dialog-close]="cancelo" cdkFocusInitial>Aceptar</button>
+</mat-dialog-actions>
+

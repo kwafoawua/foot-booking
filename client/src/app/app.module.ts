@@ -51,7 +51,10 @@ import { InfoFixtureComponent } from './ClubProfileClient/infoFixture.component'
 // API MAPS
 import { AgmCoreModule } from '@agm/core';
 import { DpDatePickerModule } from 'ng2-date-picker';
-import { ConfirmationComponent } from './booking-confirmation/confirmation.component';
+import {
+  CancelPreReservaComponent,
+  ConfirmationComponent
+} from './booking-confirmation/confirmation.component';
 import { TournamentService } from './_services/tournament.service';
 import { LoginGuard } from './_guards/login.guard';
 import { ResultadoBusquedaComponent } from './result/resultadoBusqueda.component';
@@ -69,6 +72,8 @@ import { SharedModule } from './shared.module';
 import {MercadoPagoService} from './_services/mercado-pago.service';
 import { NgxPaginationModule } from 'ngx-pagination';
 import {TerminosCondiciones} from './common/terminos-condiciones/terminos-condiciones';
+import {MatchUpdateDialogComponent} from "./admin-campeonato/fixture/match/match.component";
+import {CancelTorneoDialogComponent} from "./admin-campeonato/admin-campeonato.component";
 
 registerLocaleData(localeEsAr, 'es-AR');
 @NgModule({
@@ -134,6 +139,7 @@ registerLocaleData(localeEsAr, 'es-AR');
     InfoFixtureComponent,
     TorneosPlayerComponent,
     TerminosCondiciones,
+    CancelPreReservaComponent,
   ],
   providers: [
     authInterceptorProviders,
@@ -152,6 +158,9 @@ registerLocaleData(localeEsAr, 'es-AR');
     MercadoPagoService,
     PaginationService,
     { provide: LOCALE_ID, useValue: 'es-AR' },
+  ],
+  entryComponents: [
+    CancelPreReservaComponent
   ],
   bootstrap: [ AppComponent ]
 })
