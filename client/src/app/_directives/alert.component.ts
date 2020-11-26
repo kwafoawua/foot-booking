@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AlertService } from '../_services/index';
 
 @Component({
@@ -17,5 +17,9 @@ export class AlertComponent implements OnInit{
       this.message = message;
       window.scrollTo(0, 0);
     });
+  }
+
+  closeAlert() {
+  this.message = null;
   }
 }
