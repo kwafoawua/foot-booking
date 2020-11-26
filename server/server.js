@@ -1,3 +1,4 @@
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 require('dotenv').config();
 require('rootpath')();
 const express = require('express');
