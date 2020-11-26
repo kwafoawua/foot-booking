@@ -9,7 +9,6 @@ export class PlayerService {
   }
 
   create(player: Player) {
-    console.log('El player ');
     return this.http.post('/players/register', player);
   }
 

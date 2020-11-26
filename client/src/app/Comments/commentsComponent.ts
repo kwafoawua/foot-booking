@@ -46,7 +46,6 @@ export class CommentsComponent implements OnInit {
       this.name = user.name;
       if (user.rol !== 'Club')
       {this.authenticated = true; }
-      console.log('el user', user);
     }
   }
 
@@ -54,7 +53,6 @@ export class CommentsComponent implements OnInit {
     this.getComentarios();
     this.getClub(this.route.snapshot.params.id);
     this.storageService.getStorage('currentUser').subscribe(user => {
-      console.log('site header', user);
       if (user.value && Object.keys(user.value).length !== 0) {
         this.currentUser = user.value;
         this.name = user.value.name;
@@ -85,12 +83,10 @@ export class CommentsComponent implements OnInit {
   }
 
   private getComentarios() {
-    console.log('getcomentarios')
     const params = this.paginationService.getRequestParams(this.page, this.pageSize);
     this.commentService.findAllCommentForAClub(this.route.snapshot.params.id, params).subscribe((data: any) => {
       this.clubComentarios = data.comments;
       this.count = data.totalItems;
-      console.log(data);
     });
   }
 

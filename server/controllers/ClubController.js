@@ -255,9 +255,10 @@ module.exports.findClubsByMultipleFilter = async (req, res) => {
 
         try{
             const clubs = await Club.paginate({ $and: querySearch}, { offset, limit });
+            const adaptedClubs = await ClubResponseAdapter.adaptClubs(clubs.docs);
             res.status(200).send({
                 totalItems: clubs.totalDocs,
-                clubs: clubs.docs,
+                clubs: adaptedClubs,
                 totalPages: clubs.totalPages,
                 currentPage: clubs.page - 1,
             });

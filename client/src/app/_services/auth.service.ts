@@ -35,7 +35,6 @@ export class AuthService {
   private authenticate(uid) {
     return this.http.post('/users/authenticate', { uid })
       .subscribe( (user: any) => {
-        console.log(user);
         this.storageService.store('currentUser', user);
         this.router.navigate(['/']);
       },
@@ -87,10 +86,8 @@ export class AuthService {
           ? {...baseUser, ...AuthService.createFacebookUser(pUser)}
           : {...baseUser, ...AuthService.createGmailUser(pUser)};
 
-        console.log('created player', player);
 
         this.playerService.create(player).subscribe(async (data: any) => {
-          console.log('CREATED PLAYER', data);
           this.storageService.store('currentUser', data.user);
           this.router.navigate(['/']);
         });

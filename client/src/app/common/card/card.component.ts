@@ -22,7 +22,6 @@ export class CardComponent implements OnInit {
       countMap[cancha.fieldType] = countMap[cancha.fieldType] ? countMap[cancha.fieldType] + 1 : 1;
     });
     this.fieldTypes = Object.keys(countMap);
-    console.log(this.fieldTypes);
   }
 
 }

@@ -52,7 +52,6 @@ export class ClubService {
   //SET
   public static guardarBooking(book: Booking) {
     ClubService.booking = book;
-    console.log(this.booking);
     return true;
   }
 
