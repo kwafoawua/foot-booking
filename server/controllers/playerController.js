@@ -1,5 +1,6 @@
 'use strict';
 
+const { json } = require('body-parser');
 /**
  * Module dependencies.
  */
@@ -22,12 +23,12 @@ module.exports.registerPlayer = async function (req,res) {
             poviderId: player.providerId,
             photoURL: player.photoURL,
         });
-
+console.log('lo q entro  del register: '+JSON.stringify(req.body));
         const savedPlayer = await newPlayer.save();
         await sendEmail(player.name, player.email);
-        const token = utils.generateToken(savedPlayer._id);
+        //const token = utils.generateToken(savedPlayer._id);
 
-        res.status(200).send({ user: {...savedPlayer._doc, token }, success: 'Usuario creado con éxito' });
+        res.status(200).send({ user: {...savedPlayer._doc}, success: 'Usuario creado con éxito' });
     } catch (error) {
         console.log('error',error);
         res.status(500).send({ errorMessage: error.message });
