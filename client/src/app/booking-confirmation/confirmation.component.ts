@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { ClubService, BookingService } from '../_services/index';
 import { Booking } from '../_models/booking';
@@ -8,6 +8,9 @@ import {reservaFinal} from "../_models/reservaFinal";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CustomValidators} from "ng2-validation";
 import {MercadoPagoService} from "../_services/mercado-pago.service";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {TournamentService} from "../_services/tournament.service";
+import {CancelTorneoDialogComponent} from "../admin-campeonato/admin-campeonato.component";
 
 @Component({
   templateUrl: 'confirmation.html',
@@ -15,7 +18,7 @@ import {MercadoPagoService} from "../_services/mercado-pago.service";
 })
 
 export class ConfirmationComponent implements OnInit {
-
+  @Output() cancelo = new EventEmitter<any>();
   booking: Booking;
   player: Player;
   reservaFinal: any = {};
@@ -38,6 +41,7 @@ export class ConfirmationComponent implements OnInit {
     private bookingService: BookingService,
     private fb: FormBuilder,
     private mpService: MercadoPagoService,
+    public dialog: MatDialog,
   ) {
     this.createForm();
   }
@@ -164,5 +168,43 @@ export class ConfirmationComponent implements OnInit {
         this.clubLinkedToMP = false;
       });
   }
+
+
+  openDialog() {
+    const dialogRef = this.dialog.open(CancelPreReservaComponent, {
+      width: '40%',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('RESULTADO', result);
+      if (result) {
+        this.goToBusqueda();
+        this.cancelo.emit(result);
+      }
+    });
+  }
+
+}
+
+
+@Component({
+  selector: 'app-cancel-booking-dialog',
+  templateUrl: 'cancel-booking-modal.html',
+})
+export class CancelPreReservaComponent implements OnInit{
+  cancelo = true;
+
+  constructor(
+    public dialogRef: MatDialogRef<CancelPreReservaComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+  ) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  ngOnInit(): void {
+    this.cancelo = true;
+  }
+
 
 }
