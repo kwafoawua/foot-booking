@@ -122,18 +122,21 @@
       <div class="form-group">
         <div class="row">
           <div class="col">
-            <mat-form-field class="example-container">
-              <input matInput placeholder="Nombre" type="text" formControlName="playerName" required>
+            <mat-form-field class="example-container" hintLabel="Max 25 caracteres">
+              <input matInput placeholder="Nombre"
+                     type="text" formControlName="playerName" [maxlength]="25" required>
             </mat-form-field>
           </div>
           <div class="col">
-            <mat-form-field class="example-container">
-              <input matInput placeholder="Apellido" type="text" formControlName="playerLastName" required>
+            <mat-form-field class="example-container" hintLabel="Max 25 caracteres">
+              <input matInput placeholder="Apellido"
+                     type="text" formControlName="playerLastName" [maxlength]="25" required>
             </mat-form-field>
           </div>
           <div class="col">
-            <mat-form-field class="example-container">
-              <input matInput placeholder="Teléfono" type="number" formControlName="playerPhoneNumber" required>
+            <mat-form-field class="example-container" hintLabel="Max 10 caracteres">
+              <input matInput placeholder="Teléfono" type="number"
+                     formControlName="playerPhoneNumber" [min]="00000000" [max]="9999999999" required>
             </mat-form-field>
           </div>
         </div>
