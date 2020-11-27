@@ -17,15 +17,16 @@
                   totalItems: count
                 };">
                 <div class="card-header">
-                 Nombre Campeonato <b> {{r.tournamentId | uppercase}}</b>
+                 Nombre Campeonato <b> {{r.tournamentId.tournamentName | uppercase}}</b> por <b>{{r.tournamentId.creatorClubId.name}}</b>
                 </div>
 
                 <div class="card-body">
                   <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-8 card-text">
-
+                    <div class="col-xs-6 col-sm-6 col-md-4 card-text">
+                      {{r.tournamentId.creatorClubId.status}}
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-4 card-text">
                      Fecha de inscripción  <b> {{r.inscriptionDate | uppercase | date:"dd/MM/yy"}}</b>
-
                     </div>
                   </div>
                   <div class="row">

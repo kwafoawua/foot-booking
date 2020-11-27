@@ -39,6 +39,7 @@ export class TorneosPlayerComponent implements OnInit{
 
       this.inscriptions = inscriptions;
       this.count = totalItems;
+      console.log('Inscripciones', this.inscriptions);
     });
   }
 
