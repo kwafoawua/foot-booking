@@ -2,6 +2,11 @@
   outline: none;
 }
 
+.title {
+  font-weight: 700;
+  color: #039c8a;
+}
+
 .destacados {
   box-shadow: 0 12px 6px -6px #e5e5e5;
   margin-top: 3rem;

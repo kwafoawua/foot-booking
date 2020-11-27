@@ -1,6 +1,6 @@
 import { Component, AfterViewInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ClubService } from '../../_services';
-import { NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
   selector: 'app-destacados',
   templateUrl: './destacados.component.html',
