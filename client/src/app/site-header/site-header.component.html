@@ -21,6 +21,12 @@
               Inicio
             </a>
           </li>
+          <li class="navbar-nav ml-auto">
+            <a class="nav-link" [routerLink]="['/results']"
+               routerLinkActive="active-link">
+              Clubs
+            </a>
+          </li>
 
           <div class="navbar-nav" *ngIf="!isAuthenticated()">
             <li class="nav-item">
