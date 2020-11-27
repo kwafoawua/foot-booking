@@ -105,12 +105,10 @@ exports.randomMatchesLink = async (req, res) => {
 const sendShuffleEmails = async (tId) => {
     const emails = await getInscriptionEmails(tId);
     const tournament = await Tournament.findById(tId).select('tournamentName').exec();
-    const phase =  await Phase.findOne({"tournamentId": mongoose.Types.ObjectId(tId), phaseType: "Octavos de final"}).exec();
     const subject = `El campeonato ${tournament.tournamentName} ya se sorteó. ¿Estás listo para jugar?`;
     const text = `
     Hola! ¿Están listos con tu equipo para comenzar a jugar?.
-    El campeonato ${tournament.tournamentName} ya se sorteó y ya podes ir a visitar el sitio para saber contra quien jugas en http://localhost:4200/campeonato/${tId}.
-    Fecha de octavos de final: ${moment(phase.dateToPlay).format('D/M/YY')}
+    El campeonato ${tournament.tournamentName} ya se sorteó y ya podes ir a visitar el sitio para saber contra quien jugas en www.footbooking.com.
     Mucha suerte para este campeonato! \n
     Saludos Footbooking!
     `;
