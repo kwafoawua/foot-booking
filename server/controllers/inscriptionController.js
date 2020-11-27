@@ -74,22 +74,6 @@ exports.getTournamentInscriptions = async (req, res) => {
 
 exports.getPlayerInscriptions = async (req, res) => {
     try {
-        /*
-        await TournamentInscription.find({userId: mongoose.Types.ObjectId(req.params.playerId)})
-            .populate({
-                path: 'tournamentId',
-                populate: {
-                    path: 'creatorClubId'
-                }
-            })
-            .exec((err, doc) => {
-                if (err) console.log("se rompio")
-                else {
-                    console.log(doc)
-                    res.status(200).send(doc)
-                }
-            })
-            */
         const { page, size } = req.query;
         const { limit, offset } = getPagination(page, size);
         let inscriptions = await TournamentInscription.paginate({
