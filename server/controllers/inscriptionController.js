@@ -76,7 +76,18 @@ exports.getPlayerInscriptions = async (req, res) => {
     try {
         const { page, size } = req.query;
         const { limit, offset } = getPagination(page, size);
-        let inscriptions = await TournamentInscription.paginate({userId: mongoose.Types.ObjectId(req.params.playerId)}, { limit, offset });
+        let inscriptions = await TournamentInscription.paginate({
+            userId: mongoose.Types.ObjectId(req.params.playerId)
+        }, {
+            limit,
+            offset,
+            populate: {
+                path: 'tournamentId',
+                populate: {
+                    path: 'creatorClubId'
+                }
+            }
+        });
         res.status(200).send({
             totalItems: inscriptions.totalDocs,
             inscriptions: inscriptions.docs,

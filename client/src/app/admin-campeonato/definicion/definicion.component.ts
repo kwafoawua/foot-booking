@@ -9,6 +9,7 @@ import {MatSnackBar} from '@angular/material';
 import * as moment from 'moment';
 
 
+
 @Component({
   selector: 'app-definicion',
   templateUrl: './definicion.component.html',
@@ -22,6 +23,9 @@ export class DefinicionComponent implements OnInit {
   status = 'Nuevo';
   tournament: Tournament;
   minDate = moment().startOf('day').toDate();
+  fechafinValidacion: any;
+  fechaInicioInscValidacion: any;
+  fechaFinInscValidacion: any;
 
 
   constructor(
