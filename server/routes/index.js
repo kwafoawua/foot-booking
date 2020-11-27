@@ -110,4 +110,8 @@ const PaymentInstance = new PaymentController(new PaymentService());
 router.post("/payment/new", (req, res) => PaymentInstance.getMercadoPagoLink(req, res));
 router.post("/webhook", (req, res) => PaymentInstance.webhook(req, res));
 
+/* Endpoints temporales: sólo para facilitar el armado de datos para las demos */
+const specialPurposeController = require("../controllers/specialPurposeController");
+router.post("/tempRoute/inscription/enroll", specialPurposeController.newTournamentInscription)
+
 module.exports = router;
