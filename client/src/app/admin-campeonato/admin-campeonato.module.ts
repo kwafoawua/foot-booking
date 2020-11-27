@@ -5,7 +5,7 @@ import {AdminCampeonatoComponent, CancelTorneoDialogComponent} from './admin-cam
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CustomFormsModule } from 'ng2-validation';
-import { DefinicionComponent } from './definicion/definicion.component';
+import {DefinicionComponent, PublicarTorneoDialogComponent} from './definicion/definicion.component';
 import { RouterModule } from '@angular/router';
 import { DetalleCampeonatoComponent } from './detalle-campeonato/detalle-campeonato.component';
 import { FixtureComponent } from './fixture/fixture.component';
@@ -40,10 +40,12 @@ import { SharedModule } from '../shared.module';
     MatchUpdateDialogComponent,
     ListaInscripcionComponent,
     CancelTorneoDialogComponent,
+    PublicarTorneoDialogComponent,
   ],
   entryComponents: [
     MatchUpdateDialogComponent,
-    CancelTorneoDialogComponent
+    CancelTorneoDialogComponent,
+    PublicarTorneoDialogComponent,
   ]
 })
 export class AdminCampeonatoModule { }

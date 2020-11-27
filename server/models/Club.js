@@ -12,7 +12,7 @@ const Schema = mongoose.Schema;
  * @param {Usuario} user - Club's user.
  */
 
-var clubSchema = new mongoose.Schema({
+var clubSchema = new Schema({
     name: { type: String, required: true, index: true },
     email: { type: String, required: true },
     uid: { type: String, required: true, unique: true },
