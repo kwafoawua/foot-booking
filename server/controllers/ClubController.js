@@ -175,7 +175,7 @@ module.exports.deleteClub = function (req, res) {
  */
 module.exports.getDestacados = async (req, res) => {
     try {
-        const clubsDestacados = await Club.find({}, null, {limit: 10}).exec();
+        const clubsDestacados = await Club.find({}, null, {limit: 10}).sort({ _id: -1 }).exec();
         const clubResponse = await ClubResponseAdapter.adaptClubs(clubsDestacados);
         return res.status(200).send(clubResponse);
     } catch (error) {
