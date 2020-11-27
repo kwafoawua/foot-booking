@@ -1,3 +1,29 @@
 .card-estadisticas{
 display: flex !important;
 justify-content: space-between !important;}
+
+
+.filtroFechas {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.btn-generar {
+  margin-top: 13px;
+}
+
+.btn-download {
+  text-align: center;
+}
+
+.title-cards {
+  margin-left: 15px;
+}
+
+.grafico {
+  display: flex;
+}
+
+strong {
+  padding-right: 10px;
+}
