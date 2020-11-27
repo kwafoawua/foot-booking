@@ -1,0 +1,60 @@
+<div class="contact-seller widget">
+
+  <h4>Comentarios</h4>
+
+          <div *ngIf="!clubComentarios.length">
+             No hay comentarios registrados
+          </div>
+        <div *ngIf="clubComentarios.length">
+          <div class="card border-light mb-3" *ngFor="let c of clubComentarios.reverse()  | paginate : {
+                  itemsPerPage: pageSize,
+                  currentPage: page,
+                  totalItems: count
+                };">
+            <div class="card-body">
+              <p class="card-text">{{c.comment}}</p>
+              <h6 class="card-subtitle mb-2 text-muted">Por: {{c.userName}}</h6>
+              <h6 class="card-subtitle mb-2 text-muted">{{[(c.createdOn | date:'M/d/yy, h:mm a')]}}</h6>
+            </div>
+          </div>
+          <div class="row mt-3 align-items-center justify-content-end">
+            <div class="mr-3">
+              <mat-form-field>
+                <mat-select placeholder="Por página" (selectionChange)="handlePageSizeChange($event)">
+                  <mat-option *ngFor="let size of pageSizes" [value]="size">
+                    {{size}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="mr-3">
+              <pagination-controls
+                previousLabel="Anterior"
+                nextLabel="Siguiente"
+                responsive="true"
+                (pageChange)="handlePageChange($event)"
+                class="fb-pagination"
+              ></pagination-controls>
+            </div>
+          </div>
+        </div>
+
+</div>
+<div class="contact-seller widget" *ngIf="authenticated ">
+
+      <div>
+
+        <div class="form-group post-inner">
+            <textarea [(ngModel)]="textComment" class="form-control" id="comment" placeholder="{{name}} dejanos tu comentario..."
+                      rows="6"></textarea>
+        </div>
+
+        <div align="right" class="col align-self-end">
+          <button (click)="agregarComment()" class="btn btn-secondary" type="button">Comentar</button>
+        </div>
+
+    </div>
+
+</div>
+
+

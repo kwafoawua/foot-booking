@@ -63,20 +63,22 @@
       </div>
     </div>
 
-    <div class="form-group row">
-      <label class="label-form">Fecha de nacimiento</label>
-      <input formControlName="birthDate" class="dropdown category-dropdown" [dpDayPicker]="config" name="datePicker"
-             theme="dp-material" style="display: block" inputElementConteiner="#inputConteiner" [(ngModel)]="date"/>
-      <div *ngIf="playerForm.get('birthDate').invalid &&
-                            (playerForm.get('birthDate').dirty || playerForm.get('birthDate').touched)">
-        <div *ngIf="playerForm.get('birthDate').errors?.required" class="alert alert-danger">
-          <small>Este campo no puede quedar vacío.</small>
-        </div>
-        <div *ngIf="!playerForm.get('birthDate').valid">
-          <small class="form-text">La fecha seleccionada no se encuentra en el rango permitido.</small>
-        </div>
-      </div>
-    </div>
+<!--    <div class="form-group row">-->
+<!--      <label class="label-form">Fecha de nacimiento</label>-->
+<!--      <input formControlName="birthDate" class="dropdown category-dropdown" [dpDayPicker]="config" name="datePicker"-->
+<!--             theme="dp-material" style="display: block" inputElementConteiner="#inputConteiner" [(ngModel)]="date"/>-->
+<!--      <div *ngIf="playerForm.get('birthDate').invalid &&-->
+<!--                            (playerForm.get('birthDate').dirty || playerForm.get('birthDate').touched)">-->
+<!--        <div *ngIf="playerForm.get('birthDate').errors?.required" class="alert alert-danger">-->
+<!--          <small>Este campo no puede quedar vacío.</small>-->
+<!--        </div>-->
+<!--        <div *ngIf="!playerForm.get('birthDate').valid">-->
+<!--          <small class="form-text">La fecha seleccionada no se encuentra en el rango permitido.</small>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+
 
 
     <h4></h4>

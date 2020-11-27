@@ -20,6 +20,12 @@ export class CampeonatoInfoComponent implements OnInit {
   name = '';
   rol = '';
   yaRegistrado: boolean;
+  NotanUser = false;
+  permiteReserva: boolean;
+  primerEquipo: string;
+  segundoEquipo: string;
+  tercerEquipo: string;
+
   ngOnInit(): void {
     this.getTorneo(this.route.snapshot.params.id);
     this.getInscriptions();
@@ -29,13 +35,14 @@ export class CampeonatoInfoComponent implements OnInit {
               private tournamentService: TournamentService,
               ) {
         const user = JSON.parse(localStorage.getItem(('currentUser')));
-        if (user) {
-          this.currentUser = user;
-          this.name = user.name;
-          if (user.rol !== 'Club')
-          {this.rol = 'Jugador'; }
-          console.log('el user', this.rol);
-        }
+
+        if (user != null) {
+            if (user.rol !== 'Club')
+            {this.rol = 'Jugador'; }
+          } else {
+            this.permiteReserva = false;
+            this.NotanUser = true;
+          }
   }
 
   getTorneo(torneoId: string) {
@@ -55,6 +62,14 @@ export class CampeonatoInfoComponent implements OnInit {
       console.log(this.yaRegistrado);
       console.log('cantidad', this.cantidad);
     });
+  }
+
+  setWinners($event) {
+    if ($event) {
+      this.primerEquipo = $event.primerEquipo;
+      this.segundoEquipo = $event.segundoEquipo;
+      this.tercerEquipo = $event.tercerEquipo;
+    }
   }
 
 }

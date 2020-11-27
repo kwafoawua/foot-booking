@@ -6,12 +6,16 @@
       <div class="tab-content">
         <div id="all-faq" class="faq-post tab-pane active">
           <div class="faq">
-            <div *ngIf="bookings.length === 0">
+            <div *ngIf="!bookings.length">
               No hay reservas que mostrar
             </div>
-            <div *ngIf="bookings.length != 0">
+            <div *ngIf="bookings.length">
 
-              <div  class="card" *ngFor="let r of bookings">
+              <div  class="card" *ngFor="let r of bookings.reverse()  | paginate : {
+                  itemsPerPage: pageSize,
+                  currentPage: page,
+                  totalItems: count
+                };">
               <div class="card-header">
                 <b>Club {{r.club.name | uppercase}}</b>
               </div>
@@ -55,6 +59,27 @@
               </div>
             </div>
 
+              <div class="row mt-3 align-items-center">
+                <div class="col-12 col-md-3">
+                  <mat-form-field>
+                    <mat-select placeholder="Por página" (selectionChange)="handlePageSizeChange($event)">
+                      <mat-option *ngFor="let size of pageSizes" [value]="size">
+                        {{size}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-12 col-md-9">
+                  <pagination-controls
+                    previousLabel="Anterior"
+                    nextLabel="Siguiente"
+                    responsive="true"
+                    (pageChange)="handlePageChange($event)"
+                    class="fb-pagination"
+                  ></pagination-controls>
+                </div>
+              </div>
+            </div>
             </div>
           </div>
 
@@ -63,4 +88,3 @@
       </div>
     </div><!-- #faq-filter -->
   </div>
-</div> <!-- ad-post -->

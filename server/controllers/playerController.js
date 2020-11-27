@@ -1,11 +1,13 @@
 'use strict';
 
+const { json } = require('body-parser');
 /**
  * Module dependencies.
  */
 const _ = require('lodash');
 const Player = require('../models/Player');
 const utils = require('../utils');
+const { sendEmail } = require('./mailing');
 
 /**
  * Create a Player
@@ -21,14 +23,15 @@ module.exports.registerPlayer = async function (req,res) {
             poviderId: player.providerId,
             photoURL: player.photoURL,
         });
-
+console.log('lo q entro  del register: '+JSON.stringify(req.body));
         const savedPlayer = await newPlayer.save();
-        const token = utils.generateToken(savedPlayer._id);
+        await sendEmail(player.name, player.email);
+        //const token = utils.generateToken(savedPlayer._id);
 
-        res.status(200).send({ user: {...savedPlayer._doc, token }, success: 'Usuario creado con éxito' });
+        res.status(200).send({ user: {...savedPlayer._doc}, success: 'Usuario creado con éxito' });
     } catch (error) {
         console.log('error',error);
-        res.status(error.status).send({ errorMessage: error.message });
+        res.status(500).send({ errorMessage: error.message });
     }
 };
 

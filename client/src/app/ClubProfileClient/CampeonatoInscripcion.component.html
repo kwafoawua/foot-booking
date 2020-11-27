@@ -1,7 +1,4 @@
-
-
-<ng-container *ngIf="!success else registroExitoso">
-
+<div *ngIf="!isAlreadyEnroll">
     <div class="container">
       <div class="ad-details">
 
@@ -18,16 +15,15 @@
               </mat-form-field>
 
               <mat-form-field class="example-full-width">
-                <input matInput placeholder="Nombre de responsable" formControlName="name" class="form-control" type="text" required>
+                <input matInput placeholder="Nombre y apellido del responsable" formControlName="name" class="form-control" type="text" required>
               </mat-form-field>
 
-              <mat-form-field class="example-full-width">
-
-                <input matInput placeholder="Teléfono" formControlName="phoneNumber" class="form-control" type="number" required>
-
+              <mat-form-field class="example-full-width" hintLabel="Max 10 caracteres">
+                <input matInput placeholder="Teléfono" formControlName="phoneNumber" class="form-control" [min]="00000000" [max]="9999999999" type="number" required>
+<!--                <mat-icon matPrefix>perm_phone_msg</mat-icon>-->
               </mat-form-field>
-              <div>
-                <button class="btn btn-success" matStepperNext>Siguiente</button>
+              <div style="text-align: right;">
+                <button class="btn btn-success" [disabled]="isValidStepOne()" matStepperNext>Siguiente</button>
               </div>
             </form>
 
@@ -42,9 +38,9 @@
                   <a>Acepto términos y condiciones</a>
                 </mat-checkbox>
               </p>
-              <div>
+              <div style="text-align: right;">
                 <button class="btn btn-light" matStepperPrevious>Anterior</button>
-                <button class="btn btn-success" matStepperNext  >Siguiente</button>
+                <button class="btn btn-success" [disabled]=" isValidStepTwo()"  matStepperNext  >Siguiente</button>
               </div>
             </form>
           </mat-step>
@@ -53,21 +49,29 @@
             <ng-template matStepLabel>Pago</ng-template>
             Casi esta listo!
 
-            <div>
+            <div style="text-align: right;">
               <button class="btn btn-light" matStepperPrevious>Anterior</button>
               <button class="btn btn-success" [disabled]="inscripcionForm.invalid" (click)="Inscribir()"  >Finalizar</button>
             </div>
           </mat-step>
         </mat-horizontal-stepper>
-
           </mat-card>
       </div>
     </div>
+</div>
 
-</ng-container>
+<div *ngIf="isAlreadyEnroll">
+  <div class="container">
+    <div class="ad-details">
+      <mat-card>
+        <p>Felicidades, has inscripto a tu equipo al torneo!!</p>
+        <p>Cuando se realice el sorteo <b>recibirás un mail</b> al correo especificado en tu cuenta.</p>
+        <p>Podrás seguir el estado y avance del torneo en la sección de <a [routerLink]="['/player/mis-campeonatos', currentUser._id]"><b>Campeonatos</b></a>. Mucha suerte!!</p>
+      </mat-card>
+    </div>
+  </div>
+</div>
 
-<ng-template #registroExitoso>
- <p>¡Muchas gracias por registrarte al torneo!</p>
-</ng-template>
+
 
 

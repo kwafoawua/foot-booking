@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
+const mongoosePaginate = require("mongoose-paginate-v2");
 
 /**
  * Booking Schema
@@ -14,6 +15,7 @@ var ObjectId = Schema.Types.ObjectId;
  */
 
 var bookingSchema = new Schema({
+        mpExternalReference: String,
         createdOn: {type: Date, default: Date.now},
         club: {
             id: {type: String, required: true},
@@ -79,6 +81,8 @@ bookingSchema.virtual('estados').get(function () {
     return bookingSchema.path('status').enumValues;
     //console.log(Temp.schema.path('salutation').enumValues);
 });
+
+bookingSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Booking', bookingSchema);
 

@@ -1,3 +1,5 @@
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+require('dotenv').config();
 require('rootpath')();
 const express = require('express');
 const app = express();
@@ -15,7 +17,7 @@ app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:500
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
 // use JWT auth to secure the api, the token can be passed in the authorization header or querystring
-app.use(expressJwt({
+/*app.use(expressJwt({
     secret: config.secret,
     getToken: function (req) {
         if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
@@ -26,7 +28,7 @@ app.use(expressJwt({
         return null;
     }
 
-}).unless(pathList.path));
+}).unless(pathList.path));*/
 
 
 // routes

@@ -23,7 +23,6 @@ private tState: TState[] = [
   }
 
   create(tournament: Tournament){
-    console.log('El service ', tournament);
     return this.http.post('/tournament/register', tournament);
   }
 
@@ -56,7 +55,6 @@ private tState: TState[] = [
   }
 
   createInscription(equipo: any){
-    console.log('El service el equipooooooooo El service el equipooooooooo  ', equipo);
     return this.http.post('/inscription/enroll', equipo);
   }
 
@@ -73,8 +71,36 @@ private tState: TState[] = [
     return this.http.put('/phase/updatePhase', phase);
   }
 
-  getInscriptionByUser(user: any){
-    return this.http.get<any[]>('/inscription/player/' + user);
+  getInscriptionByUser(user: any, params){
+    return this.http.get<any[]>('/inscription/player/' + user, {params});
   }
 
+  calculateWinners(matchesFinal, matchesTercerPuesto) {
+    const localFinal = matchesFinal[0].localTeam;
+    const visitorFinal = matchesFinal[0].visitorTeam;
+    const localTercero = matchesTercerPuesto[0].localTeam;
+    const visitorTercero = matchesTercerPuesto[0].visitorTeam;
+    let primerEquipo, segundoEquipo, tercerEquipo;
+    if (
+      localFinal.goals !== undefined &&
+      visitorFinal.goals !== undefined &&
+      localTercero.goals !== undefined &&
+      visitorTercero.goals !== undefined
+    ) {
+      primerEquipo = visitorFinal.goals > localFinal.goals ? visitorFinal.teamName : localFinal.teamName;
+      segundoEquipo = visitorFinal.goals < localFinal.goals ? visitorFinal.teamName : localFinal.teamName;
+      tercerEquipo = visitorTercero.goals > localTercero.goals ? visitorTercero.teamName : localTercero.teamName;
+      console.table({primer: primerEquipo, segundo: segundoEquipo, tercero: tercerEquipo});
+
+      return {
+        primerEquipo,
+        segundoEquipo,
+        tercerEquipo
+      };
+    } else {
+      return false;
+    }
+
+
+  }
 }

@@ -44,3 +44,4 @@ client/src/app/**/*.js.map
 uploads
 server/uploads/*
 client/false
+server/.env

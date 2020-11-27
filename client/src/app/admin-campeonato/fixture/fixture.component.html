@@ -62,6 +62,18 @@
     </div>
   </div>
 
+  <div class="row mt-2 justify-content-center" *ngIf="tournamentState === 'Finalizado'">
+    <app-winner-card-campeonato
+      class="w-100 border-success full-shadow"
+      [primerPremio]="tournament?.prize1"
+      [segundoPremio]="tournament?.prize2"
+      [tercerPremio]="tournament?.prize3"
+      [primerEquipo]="primerEquipo"
+      [segundoEquipo]="segundoEquipo"
+      [tercerEquipo]="tercerEquipo"
+    ></app-winner-card-campeonato>
+  </div>
+
 
   <ngtt-single-elimination-tree
     [tournament]="myTournamentData"
@@ -74,7 +86,7 @@
     <app-match
       [teams]="inscriptions"
       [match]="match"
-      [isCampeonato]="true"
+      [isCampeonato]="tournamentState !== 'Finalizado'"
       (updateMatch)="updateMatch($event)"
     ></app-match>
   </ng-template>

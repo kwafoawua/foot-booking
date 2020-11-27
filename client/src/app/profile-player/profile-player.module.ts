@@ -13,6 +13,7 @@ import {
 } from './index';
 import { ProfilePlayerRoutingModule } from './profile-player-routing.module';
 import { DpDatePickerModule } from 'ng2-date-picker';
+import {MaterialModule} from "../material.module";
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import { DpDatePickerModule } from 'ng2-date-picker';
     // BrowserAnimationsModule,
     ImageUploadModule.forRoot(),
     CustomFormsModule,
-    DpDatePickerModule
+    DpDatePickerModule,
+    MaterialModule
   ],
   declarations: [
     ProfilePlayerComponent,

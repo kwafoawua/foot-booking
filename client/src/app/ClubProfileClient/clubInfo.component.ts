@@ -24,7 +24,6 @@ export class ClubInfoComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    console.log(moment().format());
     this.getClub(this.route.snapshot.params.id);
     this.getMyTournament();
   }
@@ -38,10 +37,8 @@ export class ClubInfoComponent implements OnInit{
 
   getMyTournament(){
     this.tournamentService.getMyTournaments(this.route.snapshot.params.id).subscribe((data: any) => {
-      this.myTournament = data.tournament; console.log('los datos oiiiopiopiopiopoiioioiop ' + this.myTournament.values());
+      this.myTournament = data.tournament;
     }, error => console.log(error));
-// //  this.collectionSize = this.myListTournament.length;
-//     console.log('this.tournament' + this.myTournament);
 
   }
 

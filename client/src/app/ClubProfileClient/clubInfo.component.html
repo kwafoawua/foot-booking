@@ -32,7 +32,7 @@
 
             <div class="details-description">
               <div class="item-info">
-                <h4>DESCRIPCIÓN</h4>
+                <h4>{{club?.name}}</h4>
                 <p>
                   {{club?.description | uppercase}}
                 </p>
@@ -61,8 +61,8 @@
                 <h4>DATOS DE CONTACTO</h4>
 
                 <div class="seller-info">
-                  <p> NOMBRE <span>{{club?.name | uppercase}}</span></p>
                   <p> TEL <span>  {{club?.phoneNumber}} </span></p>
+                  <p>E-MAIL <span> {{club?.email}}</span></p>
 
 
                   <div class="social-media ">
@@ -138,21 +138,22 @@
               <div class="widget item-tag" *ngIf="myTournament?.length > 0">
                 <h4>CAMPEONATOS</h4>
                 <div  *ngFor="let i of myTournament">
-                  <div *ngIf="i.state !=  'Nuevo'">
-                   <ul class="list-inline">
-                      <li class="list-inline-item" [routerLink]="['/campeonato',i._id]">
-                        <a>
-                          <img src="../../assets/icons/football-cup.png"  height="24" width="24"/>
-                          {{i.tournamentName | uppercase}}
-                        </a>
-                      </li>
-                  </ul>
+                  <div *ngIf=" i.state !== 'Nuevo'">
+                    <div *ngIf="i.state !== 'Cancelado' ">
+                      <div *ngIf="i.state !== 'Cerrado'">
+                         <ul class="list-inline">
+                        <li class="list-inline-item" [routerLink]="['/campeonato',i._id]">
+                          <a>
+                            <img src="../../assets/icons/football-cup.png"  height="24" width="24"/>
+                            {{i.tournamentName | uppercase}}
+                          </a>
+                        </li>
+                      </ul>
+                      </div>
+                  </div>
                   </div>
                 </div>
               </div>
-
-              <div *ngIf="club?.dniMercadoPago">{{club?.dniMercadoPago}}</div>
-
 
               <div class="location-map">
                 <h4>UBICACIÓN</h4>

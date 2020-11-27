@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { ClubService, BookingService } from '../_services/index';
 import { Booking } from '../_models/booking';
@@ -7,6 +7,10 @@ import { PlayerService, AlertService, AuthService } from '../_services/index';
 import {reservaFinal} from "../_models/reservaFinal";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CustomValidators} from "ng2-validation";
+import {MercadoPagoService} from "../_services/mercado-pago.service";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {TournamentService} from "../_services/tournament.service";
+import {CancelTorneoDialogComponent} from "../admin-campeonato/admin-campeonato.component";
 
 @Component({
   templateUrl: 'confirmation.html',
@@ -14,7 +18,7 @@ import {CustomValidators} from "ng2-validation";
 })
 
 export class ConfirmationComponent implements OnInit {
-
+  @Output() cancelo = new EventEmitter<any>();
   booking: Booking;
   player: Player;
   reservaFinal: any = {};
@@ -26,6 +30,7 @@ export class ConfirmationComponent implements OnInit {
   operationState: string;
   permiteMercadoPago: boolean;
   confirmationForm: FormGroup;
+  clubLinkedToMP: boolean;
 
   constructor(
     private playerService: PlayerService,
@@ -35,10 +40,11 @@ export class ConfirmationComponent implements OnInit {
     private router: Router,
     private bookingService: BookingService,
     private fb: FormBuilder,
+    private mpService: MercadoPagoService,
+    public dialog: MatDialog,
   ) {
     this.createForm();
   }
-
 
   ngOnInit() {
     this.operationState = this.route.snapshot.queryParamMap.get('status');
@@ -68,6 +74,7 @@ export class ConfirmationComponent implements OnInit {
     const id: string = JSON.parse(localStorage.getItem('currentUser'))._id;
     this.getPlayer(id);
     this.getMercadoPagoCheckout();
+    this.isClubLinkedToMP();
   }
 
   private getPlayer(id: string) {
@@ -102,7 +109,6 @@ export class ConfirmationComponent implements OnInit {
     if (this.confirmationForm.valid) {
       if (this.confirmationForm.get('condiciones').value === true) {
         if (this.confirmationForm.get('payMethod').value === 'payment-two') {
-          // if ("payment-two" === this.mercadoPagoOpt) {
           this.onBuy();
         } else {
           console.log('Reserva Final ' + JSON.stringify(this.reservaFinal));
@@ -134,6 +140,8 @@ export class ConfirmationComponent implements OnInit {
 
   public onBuy() {
     this.reservaFinal.fee = this.booking.field.price;
+    this.reservaFinal.externalReference = this.mpResponse.body.external_reference;
+    this.loading = true;
     this.clubService.guardarReserva(this.reservaFinal) .subscribe(
       data => {
         window.location.href = this.mpResponse.body.init_point;
@@ -150,5 +158,53 @@ export class ConfirmationComponent implements OnInit {
       payMethod: [ null, Validators.compose([ Validators.required ]) ],
     });
   }
+
+  public isClubLinkedToMP(){
+    this.mpService.accountIsAlreadyLinked(this.booking.club._id).subscribe((res:any) => {
+        this.clubLinkedToMP = res.isAlreadyLinked;
+      },
+      error => {
+        this.alertService.error(error);
+        this.clubLinkedToMP = false;
+      });
+  }
+
+
+  openDialog() {
+    const dialogRef = this.dialog.open(CancelPreReservaComponent, {
+      width: '40%',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('RESULTADO', result);
+      if (result) {
+        this.goToBusqueda();
+        this.cancelo.emit(result);
+      }
+    });
+  }
+
+}
+
+
+@Component({
+  selector: 'app-cancel-booking-dialog',
+  templateUrl: 'cancel-booking-modal.html',
+})
+export class CancelPreReservaComponent implements OnInit{
+  cancelo = true;
+
+  constructor(
+    public dialogRef: MatDialogRef<CancelPreReservaComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+  ) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  ngOnInit(): void {
+    this.cancelo = true;
+  }
+
 
 }

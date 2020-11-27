@@ -1,0 +1,23 @@
+.img {
+  height: 100px;
+  width: 100px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.oro {
+  background-image: url(../../assets/icons/oro.png);
+}
+
+.plata {
+  background-image: url(../../assets/icons/plata.png);
+}
+
+.bronce {
+  background-image: url(../../assets/icons/bronce.png);
+}
+
+.pos-rel {
+  position: relative;
+  top: -70px;
+}

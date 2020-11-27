@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Eliminar Campeonato</h1>
+<div mat-dialog-content>
+
+  ¿Esta seguro que desea CANCELAR el campeonato?
+  - Se enviará un mail a los inscriptos para informar que se ha cancelado el torneo.
+
+</div>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button [mat-dialog-close]="torneoEliminacion"  cdkFocusInitial>Aceptar</button>
+</mat-dialog-actions>
+

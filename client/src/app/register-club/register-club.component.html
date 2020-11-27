@@ -12,7 +12,7 @@
         <form enctype="multipart/form-data" [formGroup]="registerClubForm"
               novalidate="novalidate" >
           <ng-template matStepLabel>Nueva cuenta</ng-template>
-              <div class="card card-login col-12 col-md-6 col-lg-6 col-xl-4 mx-auto mt-5" formGroupName="user">
+              <div class="card col-12" formGroupName="user">
                  <div class="card-body">
 
 
@@ -24,7 +24,7 @@
 
                         <div class="col-md-8 example-container">
                           <mat-form-field class="example-full-width">
-                          <input matInput formControlName="email" class="form-control" type="email" placeholder="Email">
+                          <input matInput formControlName="email" class="form-control" type="email" placeholder="Email" required>
                           </mat-form-field>
                             <div name="valida-email" *ngIf="registerClubForm.get('user.email').invalid &&
                                           (registerClubForm.get('user.email').dirty || registerClubForm.get('user.email').touched)">
@@ -49,7 +49,7 @@
                         <div class="col-md-8 example-container">
                           <mat-form-field class="example-full-width">
                           <input matInput formControlName="password" class="form-control input-md" type="password"
-                                 placeholder="Contraseña">
+                                 placeholder="Contraseña" required>
                           </mat-form-field>
                           <div name="valida-contraseña" *ngIf="registerClubForm.get('user.password').invalid &&
                                               (registerClubForm.get('user.password').dirty || registerClubForm.get('user.password').touched)">
@@ -94,8 +94,8 @@
 
                </div>
               </div>
-            <div>
-              <button class="btn btn-success"  matStepperNext>Siguiente</button>
+            <div style="text-align: right;">
+              <button class="btn btn-success" [disabled]="isValidStepOne()"  matStepperNext>Siguiente</button>
             </div>
         </form>
         </mat-step>
@@ -113,7 +113,7 @@
                         (registerClubForm.get('name').dirty || registerClubForm.get('name').touched)}">
                   <div class="col-md-8 example-container">
                     <mat-form-field>
-                    <input matInput formControlName="name" class="form-control" type="text" placeholder="Nombre del club">
+                    <input matInput formControlName="name" class="form-control" type="text" placeholder="Nombre del club" required>
                     </mat-form-field>
                     <div name="valida-nombreclub" *ngIf="registerClubForm.get('name').invalid &&
                         (registerClubForm.get('name').dirty || registerClubForm.get('name').touched)">
@@ -132,7 +132,7 @@
                 <div class="row form-group" [ngClass]="{ 'has-error': registerClubForm.get('phoneNumber').invalid}">
                   <div class="col-md-8 example-container">
                     <mat-form-field>
-                    <input matInput formControlName="phoneNumber" class="form-control" type="number" placeholder="Teléfono">
+                    <input matInput formControlName="phoneNumber" class="form-control" type="number" placeholder="Teléfono" required>
                     </mat-form-field>
                   </div>
                 </div>
@@ -143,10 +143,15 @@
                         (registerClubForm.get('services').dirty || registerClubForm.get('services').touched)}">
 
                   <div class="col-md-8 example-chip-list">
-                    <tag-input [formControlName]="'services'" name="items"
-                               [onlyFromAutocomplete]="true" >
-                      <tag-input-dropdown [showDropdownIfEmpty]="true"
-                                          [autocompleteItems]="requestAutocompleteItemsFake()">
+                    <tag-input
+                      [formControlName]="'services'" name="items"
+                      [onlyFromAutocomplete]="true"
+                      [placeholder]="'+Servicios'"
+                      [secondaryPlaceholder]="'Servicios'"
+                    >
+                      <tag-input-dropdown
+                        [showDropdownIfEmpty]="true"
+                        [autocompleteItems]="requestAutocompleteItemsFake()">
                       </tag-input-dropdown>
                     </tag-input>
 
@@ -168,7 +173,8 @@
 
                   <div class="col-md-12 example-container">
                     <mat-form-field>
-                    <textarea matInput formControlName="description" class="form-control" placeholder="Descripción comercial"></textarea>
+                    <textarea matInput formControlName="description" class="form-control" placeholder="Descripción comercial" required>
+                    </textarea>
                     </mat-form-field>
                     <div name="valida-descripcion" *ngIf="registerClubForm.get('description').invalid &&
                         (registerClubForm.get('description').dirty || registerClubForm.get('description').touched)">
@@ -195,7 +201,7 @@
                   <div class="col-md-12 example-container">
                     <mat-form-field>
                     <input matInput placeholder="Ingresar Direccion" autocorrect="off" autocapitalize="off"
-                           spellcheck="off" type="text" class="form-control" #address>
+                           spellcheck="off" type="text" class="form-control" #address required>
                     </mat-form-field>
                     <div name="valida-direccion" *ngIf="registerClubForm.get('address.address').invalid &&
                         (registerClubForm.get('address.address').dirty || registerClubForm.get('address.address').touched)">
@@ -220,9 +226,9 @@
 
           </div>
         </div><!-- club-section -->
-          <div>
+          <div style="text-align: right;">
             <button class="btn btn-light" matStepperPrevious>Anterior</button>
-            <button class="btn btn-success"  matStepperNext>Siguiente</button>
+            <button class="btn btn-success" [disabled]="isValidStepTwo()" matStepperNext>Siguiente</button>
           </div>
 
         </form>
@@ -295,7 +301,7 @@
               <div class="post-inner">
                 <div class="row form-group" [ngClass]="{ 'has-error': registerClubForm.get('profileImg').invalid &&
                         (registerClubForm.get('profileImg').dirty || registerClubForm.get('profileImg').touched)}">
-                  <label class="col-md-4">Imagen de portada</label>
+                  <label class="col-md-4">Imagen de portada (*)</label>
                   <div class="col-md-12">
                     <image-upload
                         (uploadFinished)="profileUploaded($event)"
@@ -322,7 +328,7 @@
               <div class="post-inner">
                 <div class="row form-group" [ngClass]="{ 'has-error': registerClubForm.get('galleryImg').invalid &&
                         (registerClubForm.get('galleryImg').dirty || registerClubForm.get('galleryImg').touched)}">
-                  <label class="col-md-4">Galería de Imágenes</label>
+                  <label class="col-md-4">Galería de Imágenes (*)</label>
                   <div class="col-md-12">
                     <image-upload
                         (uploadFinished)="galleryUploaded($event)"
@@ -337,7 +343,7 @@
                         (registerClubForm.get('galleryImg').dirty || registerClubForm.get('galleryImg').touched)">
 
                       <div *ngIf="registerClubForm.get('galleryImg').errors?.required" class="text-danger">
-                        <small class="form-text">Se debe cargar al menos una imagen en la galeria.</small>
+                        <small class="form-text">Se debe cargar al menos una imagen en la galería.</small>
                       </div>
                     </div>
                   </div>
@@ -347,9 +353,9 @@
             </div>
           </div>
         </div><!-- carga de imagenes -section -->
-          <div>
+          <div style="text-align: right;">
             <button class="btn btn-light" matStepperPrevious>Anterior</button>
-            <button class="btn btn-success"  matStepperNext>Siguiente</button>
+            <button class="btn btn-success" [disabled]="isValidStepThree()" matStepperNext>Siguiente</button>
           </div>
         </form>
         </mat-step>
@@ -388,11 +394,14 @@
                 [fieldFormArray]="registerClubForm.get('fields')"
                 class="col-12">
             </fields-array>
-
-
-          <div>
+        <div style="text-align: right;">
+          <mat-checkbox formControlName="TyCcheckbox">
+            <a  [routerLink]="['/terminos-condiciones']">Acepto términos y condiciones</a>
+          </mat-checkbox>
+         </div>
+          <div style="text-align: right;">
             <button class="btn btn-light" matStepperPrevious>Anterior</button>
-            <button class="btn btn-success"  matStepperNext (click)="registerClub()">Finalizar</button>
+            <button class="btn btn-success" [disabled]="isValidStepFour()" matStepperNext (click)="registerClub()">Finalizar</button>
           </div>
 
         </form>
@@ -407,5 +416,4 @@
 
 <h6 class="mt-3">FormGroup Model (<code>registerClubForm.value</code>)</h6>
 <div>
-  <pre><code>{{ registerClubForm?.value | json }}</code></pre>
 </div>

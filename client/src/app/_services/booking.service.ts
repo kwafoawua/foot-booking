@@ -13,7 +13,6 @@ export class BookingService {
   }
 
   create(booking: Booking) {
-    console.log('El Booking ');
     return this.http.post('/bookings/register', booking);
   }
 
@@ -22,8 +21,11 @@ export class BookingService {
   }
 
   findAllByReferenceId(_id: string) {
-    console.log(_id);
     return this.http.get<Booking[]>('/bookings/' + _id);
+  }
+
+  findPlayerBookings(_id: string, params) {
+    return this.http.get('/bookings/player/' + _id, {params});
   }
 
   update(booking: Booking, _id: string) {
@@ -35,12 +37,10 @@ export class BookingService {
   }
 
   findAllHoursBookings() {
-    console.log('En el servicio de findAllHoursBookings, datos de entrada:');
     return this.http.get('/bookings/getHoursToPlay');
   }
 
   findAllBookingsByFieldAndDay(filter: BookingFilter) {
-    console.log('2- Entro al servicio con filter: ');
     return this.http.get<Booking[]>('/bookings/horarios/' + JSON.stringify(filter));
   }
 

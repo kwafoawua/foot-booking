@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TournamentService } from '../../_services/tournament.service';
 import { AlertService } from '../../_services';
@@ -7,6 +7,9 @@ import { ValidateAllFields } from '../../_helpers';
 import { Tournament } from '../../_models/tournament';
 import {MatSnackBar} from '@angular/material';
 import * as moment from 'moment';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {CancelTorneoDialogComponent} from "../admin-campeonato.component";
+
 
 
 @Component({
@@ -15,6 +18,7 @@ import * as moment from 'moment';
   styleUrls: ['./definicion.component.css']
 })
 export class DefinicionComponent implements OnInit {
+  @Output() updateTorneo = new EventEmitter<string>();
   tournamentForm: FormGroup;
   tipoTorneo: any;
   categorias: any;
@@ -22,6 +26,9 @@ export class DefinicionComponent implements OnInit {
   status = 'Nuevo';
   tournament: Tournament;
   minDate = moment().startOf('day').toDate();
+  fechafinValidacion: any;
+  fechaInicioInscValidacion: any;
+  fechaFinInscValidacion: any;
 
 
   constructor(
@@ -31,7 +38,7 @@ export class DefinicionComponent implements OnInit {
   private route: ActivatedRoute,
   private router: Router,
   public snackBar: MatSnackBar,
-
+  public dialog: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -68,7 +75,6 @@ export class DefinicionComponent implements OnInit {
   getTournament(){
     // this.esEdicion = true;
     this.tournamentService.getTournamentInfo(this.tournamentId).subscribe((data: any) => {
-      console.log(data.tournament);
       this.tournament = data.tournament;
       this.status = this.tournament.state;
       this.tournamentForm.setValue({
@@ -103,11 +109,8 @@ export class DefinicionComponent implements OnInit {
     });
   }
 
-  publishTournament() {
-    const tournament = {
-      _id: this.tournamentId,
-      state: 'Publicado',
-    };
+  publishTournament(tournament:any) {
+
     this.tournamentService.updateTournament(tournament).subscribe(data => {
       this.getTournament();
       this.alertService.success('Se actualizaron los datos exitosamente', true);
@@ -134,4 +137,51 @@ export class DefinicionComponent implements OnInit {
       ValidateAllFields.validateAllFields(this.tournamentForm);
     }
   }
+
+  openDialog(): void {
+    const tournament = {
+      _id: this.tournamentId,
+      state: 'Publicado',
+    }
+
+    const dialogRef = this.dialog.open(PublicarTorneoDialogComponent, {
+      width: '40%',
+      data: tournament
+    })
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.updateTorneo.emit(result);
+        this.publishTournament(result);
+        console.log('RESULT', result);
+      }
+    });
+  }
+
+
+
+}
+
+
+@Component({
+  selector: 'app-publicar-torneo-dialog',
+  templateUrl: 'publicar-campeonato-modal.html',
+})
+export class PublicarTorneoDialogComponent implements OnInit{
+  torneoPublicacion: any;
+
+  constructor(
+    public dialogRef: MatDialogRef<PublicarTorneoDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private tournamentService: TournamentService,
+  ) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+    console.log('data modal', this.data);
+  }
+
+  ngOnInit(): void {
+    this.torneoPublicacion = this.data;
+  }
+
 }

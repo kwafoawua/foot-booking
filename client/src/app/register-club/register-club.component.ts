@@ -30,7 +30,7 @@ export class RegisterClubComponent implements OnInit {
   lng: number;
   icon: '../../assets/icon/iconochico.png';
   zoom: number;
-  draggable = true; //Necesario para el que el marcador del mapa se mueva
+  draggable = true; // Necesario para el que el marcador del mapa se mueva
   isLinear = false;
 
   @ViewChild('address')
@@ -54,23 +54,23 @@ export class RegisterClubComponent implements OnInit {
     this.lat = -31.4;
     this.lng = -64.1833;
 
-    //load Places Autocomplete
+    // load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
       this.setCurrentPosition();
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
         types: [ 'address' ]
       });
       autocomplete.addListener('place_changed', () => {
         this.ngZone.run(() => {
-          //get the place result
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          // get the place result
+          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
 
-          //verify result
+          // verify result
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
 
-          //set latitude, longitude and zoom
+          // set latitude, longitude and zoom
 
           this.lat = place.geometry.location.lat();
           this.lng = place.geometry.location.lng();
@@ -80,7 +80,7 @@ export class RegisterClubComponent implements OnInit {
           this.registerClubForm.get('address.lng').setValue(place.geometry.location.lng());
           this.registerClubForm.get('address.address').setValue(place.formatted_address);
           console.log(this.registerClubForm.get('address').value);
-          //this.registerClubForm.get('address.address').setValue(place.
+          // this.registerClubForm.get('address.address').setValue(place.
         });
       });
     });
@@ -140,7 +140,7 @@ export class RegisterClubComponent implements OnInit {
     this.registerClubForm = this.fb.group({
       user: this.fb.group({
         email: [ null, Validators.compose([ Validators.required, CustomValidators.email ]) ],
-        password: [ null, Validators.compose([ Validators.required, Validators.minLength(8) ]) ],//falta validar contraseña
+        password: [ null, Validators.compose([ Validators.required, Validators.minLength(8) ]) ], // falta validar contraseña
         repeatPassword: [ null, Validators.compose([ Validators.required, Validators.minLength(8) ]) ]
       }, {
         validator: PasswordValidation.MatchPassword // your validation method
@@ -167,7 +167,8 @@ export class RegisterClubComponent implements OnInit {
       }),
      // mercadoPago: false,
      // dniMercadoPago:  [ null, Validators.compose([ Validators.maxLength(8) ]) ],
-      fields: FieldFormArrayComponent.initFields()
+      fields: FieldFormArrayComponent.initFields(),
+      TyCcheckbox: [null, Validators.required],
     });
 
    // this.registerClubForm.controls['dniMercadoPago'].disable() = true;
@@ -178,37 +179,37 @@ export class RegisterClubComponent implements OnInit {
   }
 
   public requestAutocompleteItemsFake = () =>
-    [ 'Asador', 'Buffet', 'Parking', 'Techado', 'Bar', 'Nocturno' ];
+    [ 'Asador', 'Buffet', 'Parking', 'Techado', 'Bar', 'Nocturno' ]
 
   public profileUploaded(file: FileHolder) {
     this.filesToUpload = file.file;
-    this.registerClubForm.controls[ 'profileImg' ].setValue(true);
+    this.registerClubForm.controls.profileImg.setValue(true);
   }
 
   public galleryUploaded(file: FileHolder) {
     console.log(file);
     this.galleryToUpload.push(file.file);
     console.log(this.galleryToUpload);
-    this.registerClubForm.controls[ 'galleryImg' ].setValue(true);
+    this.registerClubForm.controls.galleryImg.setValue(true);
   }
 
   public galleryRemoved(file: FileHolder) {
     for (let i = 0; i < this.galleryToUpload.length; i++) {
-      if ((<any>this).galleryToUpload[ i ].lastModified === (<any>file).file.lastModified) {
+      if ((this as any).galleryToUpload[ i ].lastModified === (file as any).file.lastModified) {
         this.galleryToUpload.splice(i, 1);
         console.log(this.galleryToUpload);
         break;
       }
     }
     if (this.galleryToUpload.length === 0) {
-      this.registerClubForm.controls[ 'galleryImg' ].setValue(null);
+      this.registerClubForm.controls.galleryImg.setValue(null);
     }
   }
 
   public profileRemoved() {
-    this.registerClubForm.controls[ 'profileImg' ].setValue(null);
+    this.registerClubForm.controls.profileImg.setValue(null);
     this.filesToUpload = null;
-    console.log(this.registerClubForm.controls[ 'profileImg' ])
+    console.log(this.registerClubForm.controls.profileImg);
   }
 
   /*FIELDS*/
@@ -223,13 +224,13 @@ export class RegisterClubComponent implements OnInit {
 
   public addFields() {
     // add address to the list
-    const control = <FormArray>this.registerClubForm.controls[ 'fields' ];
+    const control = this.registerClubForm.controls.fields as FormArray;
     control.push(this.initFields());
   }
 
   public removeFields(i: number) {
     // remove address from the list
-    const control = <FormArray>this.registerClubForm.controls[ 'fields' ];
+    const control = this.registerClubForm.controls.fields as FormArray;
     control.removeAt(i);
   }
 
@@ -242,14 +243,14 @@ export class RegisterClubComponent implements OnInit {
         const file: File = this.filesToUpload;
         const gallery: File[] = this.galleryToUpload;
 
-        formData.append('profile', file, file[ 'name' ]);
+        formData.append('profile', file, file.name);
         for (let i = 0; i < gallery.length; i++) {
           formData.append('gallery', gallery[ i ], gallery[ i ].name);
         }
         const email = this.registerClubForm.get('user.email').value;
         const password = this.registerClubForm.get('user.password').value;
         const newUser = await this.authService.firebaseRegister(email, password);
-        this.registerClubForm.controls['uid'].setValue(newUser.user.uid);
+        this.registerClubForm.controls.uid.setValue(newUser.user.uid);
         formData.append('body', JSON.stringify(this.registerClubForm.value));
 
         this.clubService.create(formData)
@@ -274,7 +275,7 @@ export class RegisterClubComponent implements OnInit {
   }
 
 
-  //El primer click sobre el mapa
+  // El primer click sobre el mapa
   clickMapa(e) {
     this.lng = e.coords.lng;
     this.lat = e.coords.lat;
@@ -285,7 +286,7 @@ export class RegisterClubComponent implements OnInit {
     //     this.registerClubForm.address.lng=e.coords.lng;
   }
 
-  //se actualiza la ubicacion de lat y log al terminar de arrastrar el marcador
+  // se actualiza la ubicacion de lat y log al terminar de arrastrar el marcador
   nuevaPosicionMarcador(e) {
     this.lat = e.coords.lat;
     this.lng = e.coords.lng;
@@ -294,6 +295,54 @@ export class RegisterClubComponent implements OnInit {
 
 
   }
+
+  validSteper(){
+  return (!!this.registerClubForm.get('user.email').valid && !!this.registerClubForm.get('user.password') && !!this.registerClubForm.get('user.repeatPassword'));
+    }
+
+  isValidStepOne() {
+    if (this.registerClubForm.get('user.email').valid && this.registerClubForm.get('user.password').valid && this.registerClubForm.get('user.repeatPassword').valid) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+
+    isValidStepTwo(){
+    if (
+      this.registerClubForm.get('name').valid &&
+      this.registerClubForm.get('description').valid &&
+      this.registerClubForm.get('phoneNumber').valid &&
+      this.registerClubForm.get('address.lat').valid &&
+      this.registerClubForm.get('address.lng').valid &&
+      this.registerClubForm.get('address.address').valid &&
+      this.registerClubForm.get('address.shortAddress').valid &&
+      this.registerClubForm.get('services').valid
+    ){
+      return false;
+    }
+    else {return true; }
+    }
+
+  isValidStepThree(){
+    if (
+    this.registerClubForm.get('profileImg').valid &&
+    this.registerClubForm.get('galleryImg').valid  )
+    {return false; }
+    else {return true; }
+  }
+
+  isValidStepFour(){
+    if(this.registerClubForm.get('fields').valid &&
+      this.registerClubForm.get('TyCcheckbox').valid){
+      return false;
+    }
+    else { return true; }
+  }
+
+
+
   //
   // desabilitar(){
   //   if (this.registerClubForm.controls['mercadoPago'].value === true) {

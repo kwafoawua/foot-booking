@@ -61,6 +61,7 @@ router.put('/bookings/setStatus/', bookingController.updateBookingStatus);
 router.get('/bookings/:_id', bookingController.findAllByReferenceId);
 router.get('/bookings/getHoursToPlay', bookingController.findAllHoursBookings);
 router.get('/bookings/horarios/:bookingfilter', bookingController.findAllBookingsByFieldAndDay);
+router.get('/bookings/player/:_id', bookingController.findPlayerBookings);
 
 /* Comment Controller */
 router.post('/comments/create', commentController.createComment);
@@ -96,5 +97,21 @@ router.put('/phase/updatePhaseMatch', phaseController.updatePhaseMatch);
 
 /* MercadoPago */
 router.post("/mercadopago/generatePreference", mercadoPagoController.generatePreference);
+router.get("/mercadopago/linkMPAccount/:id", mercadoPagoController.linkAccountUrlRedirection);
+router.get("/mercadopago/webhook/linkAccount", mercadoPagoController.linkAccount);
+router.get("/mercadopago/hasLinkedAccount/:id", clubController.hasMercadoPagoToken);
+router.post("/mercadopago/preference/tournamentInscription", mercadoPagoController.generatePreference);
+router.post("/webhook/tournamentInscription", mercadoPagoController.inscriptionPaymentWebhook);
+
+/* MercadoPago prueba de imple */
+const PaymentController = require("../controllers/PaymentController");
+const PaymentService = require("../services/PaymentService");
+const PaymentInstance = new PaymentController(new PaymentService());
+router.post("/payment/new", (req, res) => PaymentInstance.getMercadoPagoLink(req, res));
+router.post("/webhook", (req, res) => PaymentInstance.webhook(req, res));
+
+/* Endpoints temporales: sólo para facilitar el armado de datos para las demos */
+const specialPurposeController = require("../controllers/specialPurposeController");
+router.post("/tempRoute/inscription/enroll", specialPurposeController.newTournamentInscription)
 
 module.exports = router;

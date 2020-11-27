@@ -11,7 +11,7 @@
 <!--                  nombre-->
                   <mat-form-field>
                     <input matInput class="example-full-width"
-                           [(ngModel)]="clubname" name="name" placeholder="Buscar por nombre de club">
+                           [(ngModel)]="clubname" name="name" placeholder="Nombre de club">
                   </mat-form-field>
 
 <!--                  cantidad de jugadores -->
@@ -35,7 +35,7 @@
 <!--precio minimo y maximo-->
                   <mat-form-field class="example-form-field">
                     <input matInput type="number" class="form-control" min="0"
-                           title="precio mínimo" placeholder="precio mínimo" value=""
+                           title="precio mínimo" placeholder="Precio mínimo" value=""
                            [(ngModel)]="minPrice">
                     <button mat-button *ngIf="minPrice" matSuffix mat-icon-button aria-label="Clear" (click)="minPrice=''">
                       <mat-icon>close</mat-icon>
@@ -44,7 +44,7 @@
 
                   <mat-form-field class="example-form-field">
                     <input matInput type="number" class="form-control" min="0"
-                           title="precio máximo" placeholder="precio máximo" value=""
+                           title="precio máximo" placeholder="Precio máximo" value=""
                            [(ngModel)]="maxPrice">
                     <button mat-button *ngIf="maxPrice" matSuffix mat-icon-button aria-label="Clear" (click)="maxPrice=''">
                       <mat-icon>close</mat-icon>
@@ -99,7 +99,36 @@
           </div>
          <!-- EL RESULTADO DE LA BUSQUEDA -->
           <div class="col-md-8 col-sm-8" >
-         <rs-list [clubsFound]="clubs"></rs-list>
+            <div class="row">
+              <div class="col-sm-12 col-md-6 col-lg-4 mb-3" *ngFor="let club of clubs | paginate : {
+                  itemsPerPage: pageSize,
+                  currentPage: page,
+                  totalItems: count
+                };">
+                <app-card [club]="club"></app-card>
+              </div>
+            </div>
+
+
+            <div class="row mt-3 align-items-center">
+              <div class="col-12 col-md-3">
+                <mat-form-field>
+                  <mat-select placeholder="Por página" (selectionChange)="handlePageSizeChange($event)">
+                    <mat-option *ngFor="let size of pageSizes" [value]="size">
+                      {{size}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-12 col-md-9">
+                <pagination-controls
+                  previousLabel="Anterior"
+                  nextLabel="Siguiente"
+                  responsive="true"
+                  (pageChange)="handlePageChange($event)"
+                  class="fb-pagination"
+                ></pagination-controls>
+              </div>
           </div>
 
        </div>

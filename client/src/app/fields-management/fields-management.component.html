@@ -11,13 +11,13 @@
 
       <div class="row">
         <div class="col-12"><h4>Datos del Cliente</h4></div>
-        <div class="col-6">Nombre:
+        <div class="col-4">Nombre:
           <label><b>{{modalData?.event.booking.player.name}}</b></label>
         </div>
-        <div class="col-6">
+        <div class="col-4">
           Apellido:
           <label><b>{{modalData?.event.booking.player.lastName}}</b></label></div>
-        <div class="col-6">
+        <div class="col-4">
           Teléfono: <label><b>{{modalData?.event.booking.player.phoneNumber}}</b></label></div>
 
       </div>
@@ -54,19 +54,25 @@
             </option>
           </select>
         </div>
-          <div  *ngIf="modalData?.event.booking.paymentStatus != 'Pago Total'"  class="form-group col-md-6"> Actualización de Monto
-            <input [(ngModel)]="montoPagado" type="number" class="form-control" placeholder="Monto Pagado"
-                   max="{{modalData?.event.booking.field.price}}" value="{{montoPagado}}">
+          <div  *ngIf="modalData?.event.booking.paymentStatus != 'Pago Total'"  class="col-md-6"> Actualización de Monto
+            <mat-form-field appearance="outline">
+            <input matInput [(ngModel)]="montoPagado" type="number" class="example-right-align" placeholder="Monto Pagado"
+                   [max]="precioCanchaModal"  value="{{montoPagado}}" >
+              <span matPrefix>$&nbsp;</span>
+              <span matSuffix>.00</span>
+            </mat-form-field>
           </div>
       </div>
     </div>
 
-    <!--<pre>{{ modalData?.event.booking | json }}</pre>-->
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-success" (click)="close(modalData?.event.booking)">Aceptar</button>
   </div>
 </ng-template>
+
+
+
 <mwl-demo-utils-calendar-header
     [(view)]="view"
     [(viewDate)]="viewDate"
@@ -93,7 +99,10 @@
       [refresh]="refresh"
       [locale]="locale"
       (eventClicked)="handleEvent('Clicked', $event.event)"
-      (eventTimesChanged)="eventTimesChanged($event)">
+      (eventTimesChanged)="eventTimesChanged($event)"
+      [dayStartHour]="7"
+      [dayEndHour]="24"
+  >
   </mwl-calendar-week-view>
   <mwl-calendar-day-view
       *ngSwitchCase="'day'"
@@ -112,22 +121,25 @@
 
 <mat-card>
   <mat-card-content>
-    <form [formGroup]="nuevaReservaForm" (ngSubmit)="addEvent()">
+    <form [formGroup]="nuevaReservaForm" (ngSubmit)="addEvent()" #formDirective="ngForm" >
       <div class="form-group">
         <div class="row">
           <div class="col">
-            <mat-form-field class="example-container">
-              <input matInput placeholder="Nombre" type="text" formControlName="playerName" required>
+            <mat-form-field class="example-container" hintLabel="Max 25 caracteres">
+              <input matInput placeholder="Nombre"
+                     type="text" formControlName="playerName" [maxlength]="25" required>
             </mat-form-field>
           </div>
           <div class="col">
-            <mat-form-field class="example-container">
-              <input matInput placeholder="Apellido" type="text" formControlName="playerLastName" required>
+            <mat-form-field class="example-container" hintLabel="Max 25 caracteres">
+              <input matInput placeholder="Apellido"
+                     type="text" formControlName="playerLastName" [maxlength]="25" required>
             </mat-form-field>
           </div>
           <div class="col">
-            <mat-form-field class="example-container">
-              <input matInput placeholder="Teléfono" type="number" formControlName="playerPhoneNumber" required>
+            <mat-form-field class="example-container" hintLabel="Max 10 caracteres">
+              <input matInput placeholder="Teléfono" type="number"
+                     formControlName="playerPhoneNumber" [min]="00000000" [max]="9999999999" required>
             </mat-form-field>
           </div>
         </div>
@@ -174,37 +186,35 @@
         <div class="row">
           <div class="col">
             <mat-form-field class="example-container">
-              <input matInput placeholder="Monto total" type="number" formControlName="fieldPrice" required>
+              <input matInput placeholder="Monto total" type="number"  [(ngModel)]="precioCanchaModel"  class="example-right-align" formControlName="fieldPrice" [readonly]="true" required>
+              <span matPrefix>$&nbsp;</span>
+              <span matSuffix>.00</span>
             </mat-form-field>
           </div>
           <div class="col">
             <mat-form-field class="example-container">
-              <input matInput placeholder="Monto pagado" type="number" formControlName="fee" required>
+              <input matInput placeholder="Monto pagado" type="number" [max]="precioCanchaModel" formControlName="fee">
+              <span matPrefix>$&nbsp;</span>
+              <span matSuffix>.00</span>
+
             </mat-form-field>
           </div>
           <div class="col">
-            <mat-form-field>
-              <mat-select placeholder="Estado reserva"  (change)="setStatusCreateBooking($event)" required>
-                <mat-option *ngFor="let status of bookingStatus" [value]="status">
-                  {{status}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+            <button [ngStyle]="{alignSelf: 'flex-end'}"
+                    class="btn btn-primary"
+                    type="submit">
+              Nueva Reserva
+            </button>
           </div>
         </div>
 
       </div>
 
-      <button [ngStyle]="{alignSelf: 'flex-end'}"
-        class="btn btn-primary"
-        type="submit">
-        Nueva Reserva
-      </button>
+
 
     </form>
   </mat-card-content>
 </mat-card>
 
 
-<!--<div><pre><code>{{ nuevaReservaForm?.value | json }}</code></pre></div>-->
 

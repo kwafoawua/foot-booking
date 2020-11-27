@@ -54,33 +54,23 @@
               </div>
 
               <div class="row">
-                <div class="col-sm-2">
-                  Fecha
+                <div class="col-sm-4">
+                  Fecha de juego : <b>  {{booking?.dateBook | date:"dd/MM/yyyy"}}</b>
                 </div>
-                <div class="col-sm">
-                  <b>  {{booking?.dateBook | date:"dd/MM/yyyy"}}</b>
-                </div>
-                <div class="col-sm-2">
-                  Hora
-                </div>
-                <div class="col-sm">
-                  <b>{{booking?.timeBook}}</b>
+                <div class="col-sm-4">
+                  Hora de juego :  <b>{{booking?.timeBook}}</b>
                 </div>
               </div>
 
               <div class="row">
-                <div class="col-sm-2">
-                  Cancha de juego
-                </div>
                 <div class="col-sm-4">
-                  <b>{{booking?.field.fieldName| uppercase}}</b>
+                  Cancha de juego:  <b>{{booking?.field.fieldName| uppercase}}</b>
                 </div>
-                <div class="col-sm-2">
-                  Cantidad de jugadores
+
+                <div class="col-sm-4">
+                  Cantidad de jugadores:  <b>{{booking?.field.cantPlayers}}</b>
                 </div>
-                <div class="col">
-                  <b>{{booking?.field.cantPlayers}}</b>
-                </div>
+
               </div>
 
             </div>
@@ -106,7 +96,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-1">Dirección</div>
+                <div class="col-sm-2">Dirección</div>
                 <div class="col-8"><b>{{booking?.club.address.address| uppercase}}</b></div>
               </div>
             </div>
@@ -124,15 +114,33 @@
                   </div><!-- post-inner -->
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-6"  *ngIf="clubLinkedToMP" >
                   <div class="post-inner">
                     <div class="row form-group">
-                      <span>Slecciona una forma de pago </span>
+                      <span>Selecciona una forma de pago </span>
+                    </div>
+                    <div class="row">
+                      <mat-radio-group class="example-radio-group" formControlName="payMethod">
+                        <div class="col">
+                          <mat-radio-button class="example-radio-group" name="payMethod" value="payment-one">En sitio</mat-radio-button>
+
+                        </div>
+                        <div class="col">
+                          <mat-radio-button class="example-radio-group" name="payMethod" formControlName="payMethod" value="payment-two"> por Mercado Pago</mat-radio-button>
+
+                        </div>
+                      </mat-radio-group>
+                    </div>
+                  </div><!-- post-inner -->
+                </div>
+                <div class="col-md-6"  *ngIf="!clubLinkedToMP">
+                  <div class="post-inner">
+                    <div class="row form-group">
+                      <span>Selecciona una forma de pago </span>
                     </div>
                     <div class="row">
                       <mat-radio-group class="example-radio-group" formControlName="payMethod">
                         <mat-radio-button class="example-radio-group" name="payMethod" value="payment-one">En sitio</mat-radio-button>
-                        <mat-radio-button class="example-radio-group" name="payMethod" formControlName="payMethod" value="payment-two"> por Mercado Pago</mat-radio-button>
                       </mat-radio-group>
                     </div>
                   </div><!-- post-inner -->
@@ -143,17 +151,25 @@
               <div class="ad-condition checkbox">
                 <label for="submit-post">
                   <mat-checkbox name="submit-post" id="submit-post" formControlName="condiciones">
-                    <a href="#">Aceptar término y condiciones</a>
+                    <a [routerLink]="['/terminos-condiciones']">Aceptar término y condiciones</a>
                   </mat-checkbox>
                 </label>
               </div>
 
 
-              <div class="form-group" align="right">
-                  <button type="button" class="btn btn-secondary" (click)="goToBusqueda()">Cancelar</button>
+              <div class="row form-group" align="right">
+                <div class="col-6">
+
+                </div>
+              <div class="col-3">
+                <button type="button" class="btn btn-secondary" (click)="openDialog()">Cancelar</button>
+              </div>
+                <div class="col-3">
                   <button (click)="confirm()" type="button"class="btn btn-success" data-toggle="modal"
                           data-target="#myModal">Reservar
                   </button>
+                </div>
+
               </div>
 
               <!-- Modal -->
@@ -194,8 +210,4 @@
       </div>
     </div> <!-- avt-post -->
   </div>  <!-- page -->
-</div>
-
-<div>
-  <pre><code>{{ confirmationForm?.value | json }}</code></pre>
 </div>

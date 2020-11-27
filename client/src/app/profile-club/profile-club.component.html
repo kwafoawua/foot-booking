@@ -23,24 +23,21 @@
 
             <div class="profile-usermenu">
               <ul class="list-group list-group-flush">
-                <li>
-                  <a a (click)="goToInfo()" data-toggle="tab" id="2_tab" class="list-group-item list-group-item-action"
-                     data-toggle="list" role="tab" aria-controls="home">
-                    <i class="fa fa-home" aria-hidden="true"></i>
-                    &nbsp;&nbsp;Info del Club</a>
-                </li>
-                <li>
-                  <a (click)="goToFields()" data-toggle="tab" id="4_tab" class="list-group-item list-group-item-action"
-                     data-toggle="list" role="tab" aria-controls="home">
-                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                    &nbsp;&nbsp;Modificar Canchas </a>
-                </li>
-                <li>
-                  <a (click)="goToPassword()" data-toggle="tab" id="3_tab"
-                     class="list-group-item list-group-item-action" data-toggle="list" role="tab" aria-controls="home">
-                    <i class="fa fa-cog" aria-hidden="true"></i>
-                    &nbsp;&nbsp;Contraseña </a>
-                </li>
+                <mat-toolbar color="primary">
+                  <mat-toolbar-row>
+                    <span><a (click)="goToInfo()">Info del Club</a></span>
+                  </mat-toolbar-row>
+
+                  <mat-toolbar-row>
+                    <span> <a (click)="goToFields()">Canchas</a> </span>
+                    <span class="example-spacer"></span>
+                  </mat-toolbar-row>
+
+                  <mat-toolbar-row>
+                    <span><a (click)="goToPassword()">Contraseña</a></span>
+                    <span class="example-spacer"></span>
+                  </mat-toolbar-row>
+                </mat-toolbar>
               </ul>
             </div>
 
@@ -48,7 +45,7 @@
           </div>
 
         </div>
-        <div class="col-lg-6 col-md-7">
+        <div class="col-lg-8 col-md-8">
           <div class="card">
             <div class="card-body">
               <router-outlet></router-outlet>

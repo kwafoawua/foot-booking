@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require("mongoose-paginate-v2");
+
 const Schema = mongoose.Schema;
 /**
  * Club Schema
@@ -57,7 +59,11 @@ var clubSchema = new Schema({
         required: true,
         enum: ['Pendiente', 'Activo', 'Eliminado']
     }, //modificar con los estados verdaderos
+    //token de Mercado de Pago para este club
+    access_token: String,
 });
+
+clubSchema.plugin(mongoosePaginate);
 
 clubSchema.pre('remove', function(next) {
     // 'this' is the client being removed. Provide callbacks here if you want

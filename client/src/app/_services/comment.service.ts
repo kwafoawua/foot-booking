@@ -11,7 +11,6 @@ export class CommentService {
   }
 
   create(comment: any) {
-    console.log(comment);
     return this.http.post('/comments/create', comment);
   }
 
@@ -19,8 +18,8 @@ export class CommentService {
     return this.http.put('/comments/changeComment/' + _id, { comment, authorId });
   }
 
-  findAllCommentForAClub(_id: string) {
-    return this.http.get<Comment[]>('/comments/clubComment/' + _id);
+  findAllCommentForAClub(_id: string, params) {
+    return this.http.get<Comment[]>('/comments/clubComment/' + _id, {params});
   }
 
   findAllAuthorComments(_id: string) {

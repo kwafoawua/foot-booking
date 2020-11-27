@@ -19,34 +19,6 @@
           </mat-form-field>
 
           <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
-            <mat-label>Fecha de inicio</mat-label>
-            <input matInput formControlName="startDate" [min]="minDate" [matDatepicker]="startDate" required >
-            <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
-            <mat-datepicker #startDate disabled="false"></mat-datepicker>
-            <mat-error
-              *ngIf="tournamentForm.get('startDate').invalid &&
-            (tournamentForm.get('startDate').dirty ||
-            tournamentForm.get('startDate').touched)"
-            >
-              El campo es requerido.
-            </mat-error>
-          </mat-form-field>
-
-          <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
-            <mat-label>Fecha de fin</mat-label>
-            <input matInput formControlName="endDate" [min]="minDate" [matDatepicker]="endDate" required>
-            <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
-            <mat-datepicker #endDate disabled="false"></mat-datepicker>
-            <mat-error
-              *ngIf="tournamentForm.get('endDate').invalid &&
-            (tournamentForm.get('endDate').dirty ||
-            tournamentForm.get('endDate').touched)"
-            >
-              El campo es requerido.
-            </mat-error>
-          </mat-form-field>
-
-          <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
             <mat-label>Categoría</mat-label>
             <mat-select formControlName="category" required>
               <mat-option>--</mat-option>
@@ -79,6 +51,7 @@
               El campo es requerido.
             </mat-error>
           </mat-form-field>
+
         </div>
 
       </mat-card-content>
@@ -93,8 +66,8 @@
       <mat-card-content>
         <div class="row">
           <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
-            <mat-label>Fecha de inicio</mat-label>
-            <input matInput formControlName="inscriptionStartDate" [min]="minDate" [matDatepicker]="inscriptionStartDate" required>
+            <mat-label>Fecha de inicio de inscripción</mat-label>
+            <input matInput formControlName="inscriptionStartDate" [min]="minDate" [matDatepicker]="inscriptionStartDate" [(ngModel)]="fechaInicioInscValidacion" required>
             <mat-datepicker-toggle matSuffix [for]="inscriptionStartDate"></mat-datepicker-toggle>
             <mat-datepicker #inscriptionStartDate disabled="false"></mat-datepicker>
             <mat-error
@@ -107,8 +80,9 @@
           </mat-form-field>
 
           <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
-            <mat-label>Fecha de fin</mat-label>
-            <input matInput formControlName="inscriptionEndDate" [min]="minDate" [matDatepicker]="inscriptionEndDate" required>
+            <mat-label>Fecha de fin de inscripción</mat-label>
+            <input matInput formControlName="inscriptionEndDate" [min]="fechaInicioInscValidacion"
+                   [matDatepicker]="inscriptionEndDate" [(ngModel)]="fechaFinInscValidacion" required>
             <mat-datepicker-toggle matSuffix [for]="inscriptionEndDate"></mat-datepicker-toggle>
             <mat-datepicker #inscriptionEndDate disabled="false"></mat-datepicker>
             <mat-error
@@ -119,11 +93,11 @@
               El campo es requerido.
             </mat-error>
           </mat-form-field>
-
+<!--
           <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
             <mat-label>Cantidad de equipos</mat-label>
             <input matInput formControlName="numbersOfTeams" readonly>
-          </mat-form-field>
+          </mat-form-field> -->
 
           <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
             <mat-label>Precio inscripción</mat-label>
@@ -138,6 +112,37 @@
               El campo es requerido.
             </mat-error>
           </mat-form-field>
+
+          <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
+            <mat-label>Fecha de inicio de partidos</mat-label>
+            <input matInput formControlName="startDate" [min]="fechaFinInscValidacion"
+                   [(ngModel)]="fechafinValidacion"[matDatepicker]="startDate" required >
+            <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+            <mat-datepicker #startDate disabled="false"></mat-datepicker>
+            <mat-error
+              *ngIf="tournamentForm.get('startDate').invalid &&
+            (tournamentForm.get('startDate').dirty ||
+            tournamentForm.get('startDate').touched)"
+            >
+              El campo es requerido.
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
+            <mat-label>Fecha de fin de partidos</mat-label>
+            <input matInput formControlName="endDate" [min]="fechafinValidacion" [matDatepicker]="endDate" required>
+            <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+            <mat-datepicker #endDate disabled="false"></mat-datepicker>
+            <mat-error
+              *ngIf="tournamentForm.get('endDate').invalid &&
+            (tournamentForm.get('endDate').dirty ||
+            tournamentForm.get('endDate').touched)"
+            >
+              El campo es requerido.
+            </mat-error>
+          </mat-form-field>
+
+
         </div>
 
       </mat-card-content>
@@ -221,7 +226,7 @@
 
   </form>
   <div *ngIf="tournamentId">
-    <button mat-flat-button (click)="publishTournament()">Publicar</button>
+    <button mat-flat-button (click)="openDialog()">Publicar</button>
     <button mat-flat-button (click)="updateTournament()">Actualizar</button>
   </div>
 </ng-container>
@@ -269,4 +274,3 @@
   </mat-card>
 
 </ng-template>
-<pre><code>{{ tournamentForm?.value | json }}</code></pre>
