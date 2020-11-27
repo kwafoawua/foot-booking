@@ -197,9 +197,13 @@ export class FieldsManagementComponent implements OnInit {
             colorStatus = colors.yellow;
             break;
         }
+        const fecha = moment(booking.playingDate).format('YYYY-MM-DD');
+        const startDate = moment(fecha + ' ' + booking.playingTime, 'YYYY-MM-DD HH:mm:ss').format();
+        const endDate = moment(startDate).add(1, 'hours').format();
+
         const event = {
-          start: startOfDay(parseISO(booking.playingDate)),
-          end: startOfDay(parseISO(booking.playingDate)),
+          start: new Date(startDate),
+          end: new Date(endDate),
           title: booking.field.fieldName + ' Horario: ' + booking.playingTime + ' Cliente: ' + booking.player.name + ' ' + booking.player.lastName,
           color: colorStatus,
           actions: this.actions,
