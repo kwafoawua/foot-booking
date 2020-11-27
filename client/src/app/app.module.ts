@@ -90,7 +90,7 @@ registerLocaleData(localeEsAr, 'es-AR');
     CustomFormsModule,
     DpDatePickerModule,
     AgmCoreModule.forRoot({// old: AIzaSyAAwaI8YafySsHraMA_9G_n30_FECUhoVs
-      apiKey: 'AIzaSyBuNW_HnnPaMrMq8KGEhiEzUnbVOO_OJzA',
+      apiKey: 'AIzaSyB4OTv481RhKhcMM8NP10PxO_6HbJPney8',
       libraries: [ 'places' ]
     }),
     ProfileClubModule,
