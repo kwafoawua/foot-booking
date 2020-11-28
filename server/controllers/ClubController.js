@@ -268,6 +268,31 @@ module.exports.findClubsByMultipleFilter = async (req, res) => {
 
 };
 
+exports.getFieldsCapacities = async (req, res) => {
+    const {_id} = req.params;
+    const availableCapacities = [ '5 Jugadores', '7 Jugadores', '11 Jugadores'];
+    try {
+        const clubCapacities = await Club.findById(_id).distinct('fields.cantPlayers');
+        const capacities = clubCapacities.map(c => {
+            switch (c) {
+                case 5:
+                    return availableCapacities[0];
+                case 7:
+                    return availableCapacities[1];
+                case 11:
+                    return availableCapacities[2];
+                default:
+                    console.error(`Se ha encontrado en las canchas una cantidad de jugadors no esperada. Cantidad: ${c}`);
+                    return c.concat(' Jugadores');
+            }
+        })
+        res.status(200).send({capacities})
+    } catch (e) {
+        console.error(`Ocurrió un error al intentar recuperar las capacidades de canchas del club ${_id}`, e)
+        return res.status(500).send('Ocurrió un error al intentar recuperar las capacidades de canchas del club');
+    }
+}
+
 exports.linkClubToMercadoPagoAccount = async (accessToken, referenceId) => {
     await Club.findOneAndUpdate(
         {_id: referenceId},
