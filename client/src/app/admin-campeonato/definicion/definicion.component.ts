@@ -8,9 +8,6 @@ import { Tournament } from '../../_models/tournament';
 import {MatSnackBar} from '@angular/material';
 import * as moment from 'moment';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
-import {CancelTorneoDialogComponent} from "../admin-campeonato.component";
-
-
 
 @Component({
   selector: 'app-definicion',
@@ -42,7 +39,6 @@ export class DefinicionComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.tipoTorneo = this.tournamentService.getTournamentType();
     this.categorias = this.tournamentService.getTournamentCategories();
     this.createForm();
 
@@ -50,6 +46,7 @@ export class DefinicionComponent implements OnInit {
     if (this.tournamentId) {
       this.getTournament();
     }
+    this.getTournamentTypes();
   }
 
   createForm() {
@@ -157,6 +154,14 @@ export class DefinicionComponent implements OnInit {
     });
   }
 
+  async getTournamentTypes() {
+    const idClub: string = JSON.parse(localStorage.getItem('currentUser'))._id;
+
+    this.tournamentService.getTournamentTypeForClub(idClub).subscribe((res: any) => {
+      this.tipoTorneo = res.capacities;
+      console.log(`como devuelvo el tipo de torneo: ${res.capacities}`);
+    });
+  }
 
 
 }

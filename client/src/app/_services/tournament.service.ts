@@ -30,6 +30,11 @@ private tState: TState[] = [
     return this.tType;
   }
 
+  // This will iterates the fields of a club an return what type of tournament can create
+  getTournamentTypeForClub(id: string){
+    return this.http.get('/club/fieldsCapacities/' + id);
+  }
+
   getTournamentCategories(){
     return this.categorias;
   }

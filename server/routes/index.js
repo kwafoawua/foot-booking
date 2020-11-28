@@ -49,7 +49,7 @@ router.put('/clubs/:_id', uploadsManager.upload.fields([
 ]), clubController.updateClub);
 router.put('/clubs/fields/:_id', fieldController.updateFields);
 router.get('/destacados/', clubController.getDestacados);
-
+router.get('/club/fieldsCapacities/:_id', clubController.getFieldsCapacities);
 
 /*FILTERS*/
 router.get('/findClub/:clubfilter', clubController.findClubsByFilter);
