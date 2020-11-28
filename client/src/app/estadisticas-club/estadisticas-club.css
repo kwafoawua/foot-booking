@@ -27,3 +27,16 @@ justify-content: space-between !important;}
 strong {
   padding-right: 10px;
 }
+
+.marginLeft {
+  margin-right: 20px;
+}
+
+.marginBottom {
+  margin-bottom: 30px;
+}
+
+.content-download {
+  text-align: center;
+  margin-top: 20px;
+}

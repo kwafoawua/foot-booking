@@ -78,6 +78,7 @@ router.post('/tournament/register', [
 router.get('/tournament/:_id', tournamentController.getTournament);
 router.get('/tournament/club/:clubId', tournamentController.getClubTournaments);
 router.get('/tournaments', tournamentController.getAllTournaments);
+router.get('/tournamentsInscriptions/:clubId', tournamentController.getAllTournamentsInscriptions);
 router.put('/tournament/:_id', tournamentController.updateTournament);
 router.delete('/tournament/:_id', tournamentController.deleteTournamente);
 router.get('/filterTournaments', tournamentController.filterTournament);

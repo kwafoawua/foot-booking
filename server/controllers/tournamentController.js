@@ -82,6 +82,20 @@ exports.getAllTournaments = async (req, res) => {
 };
 
 /**
+ * Find all Tournament whith inscriptions
+ */
+exports.getAllTournamentsInscriptions = async (req, res) => {
+    try {
+        const rawTournament = await Tournament.find({creatorClubId: mongoose.Types.ObjectId(req.params.clubId)}).sort({'_id': -1});
+        const tournaments = await tournamentAdapter.applyWithInscriptions(rawTournament);
+        await res.json({tournaments});
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Ocurrio un error imprevisto :/");
+    }
+};
+
+/**
  * Edit a Tournament
  */
 exports.updateTournament = async (req, res) => {

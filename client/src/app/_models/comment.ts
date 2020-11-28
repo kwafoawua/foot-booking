@@ -5,3 +5,10 @@ export class Comment {
   createdOn: Date;
 
 }
+
+export class CommentPagination {
+  comments: Comment[];
+  currentPage: number;
+  totalItems: number;
+  totalPages: number;
+}
