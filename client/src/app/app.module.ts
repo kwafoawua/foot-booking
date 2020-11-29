@@ -89,7 +89,7 @@ registerLocaleData(localeEsAr, 'es-AR');
     ImageUploadModule.forRoot(),
     CustomFormsModule,
     DpDatePickerModule,
-    AgmCoreModule.forRoot({// old: AIzaSyAAwaI8YafySsHraMA_9G_n30_FECUhoVs
+    AgmCoreModule.forRoot({
       apiKey: 'AIzaSyB4OTv481RhKhcMM8NP10PxO_6HbJPney8',
       libraries: [ 'places' ]
     }),

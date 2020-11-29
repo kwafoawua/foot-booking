@@ -71,6 +71,8 @@ export class ProfileClubInfoComponent implements OnInit {
           this.clubForm.get('address.lng').setValue(place.geometry.location.lng());
           this.clubForm.get('address.address').setValue(place.formatted_address);
           console.log(this.clubForm.get('address').value);
+          this.zoom = 16;
+
           // this.registerClubForm.get('address.address').setValue(place.
         });
       });

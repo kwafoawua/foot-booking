@@ -31,7 +31,7 @@ import {MaterialModule} from "../material.module";
         ImageUploadModule.forRoot(),
         CustomFormsModule,
         AgmCoreModule.forRoot({
-            apiKey: 'AIzaSyAAwaI8YafySsHraMA_9G_n30_FECUhoVs',
+            apiKey: 'AIzaSyB4OTv481RhKhcMM8NP10PxO_6HbJPney8',
             libraries: ['places']
         }),
         DpDatePickerModule,
