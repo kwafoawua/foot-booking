@@ -21,6 +21,7 @@ import { Field } from '../_models/field';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { colors } from './colors';
 import * as moment from 'moment';
+import {dateISO} from 'ng2-validation/dist/date-ios';
 
 const I18N_VALUES = {
   es: {
@@ -306,25 +307,40 @@ export class FieldsManagementComponent implements OnInit {
   }
 
   loadHoursValues(date: any) {
+    this.horasDisponibles = [];
+    this.horasOcupadas = [];
     this.nuevaReservaForm.get('playingDate').setValue(date.toISOString());
     this.bookingFilter = new BookingFilter(this.nuevaReservaForm.controls.fieldId.value, date);
+
+    const hoursArrayForPickedDate = this.filterHourForToday(date);
 
     this.bookingService.findAllBookingsByFieldAndDay(this.bookingFilter)
       .subscribe(hoursBooking => {
         if (hoursBooking.length) {
           hoursBooking.forEach((booking, index) => {
-            console.log(booking);
-            console.log('Ultimo- Lo que retorna la consulta: ' + booking.playingTime);
             this.horasOcupadas.push(booking.playingTime);
-            this.horasDisponibles = this.hoursArray.filter(item => this.horasOcupadas.indexOf(item) < 0);
-            console.log('Array nuevo: ' + this.horasDisponibles);
+            this.horasDisponibles = hoursArrayForPickedDate.filter(item => this.horasOcupadas.indexOf(item) < 0);
           });
         } else {
-          this.horasDisponibles = this.hoursArray;
-          console.log('No hay reservas en este día');
+          this.horasDisponibles = hoursArrayForPickedDate;
         }
       });
 
+  }
+
+  filterHourForToday(pickedDate) {
+    const tempHoursArray = [...this.hoursArray];
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    if (pickedDate.getTime() === today.getTime()) {
+      const arrayHourOffset = 9;
+      const currentHour = new Date().getHours();
+      if (currentHour >= 10) {
+        const spliceAmount = currentHour - arrayHourOffset;
+        tempHoursArray.splice(0, spliceAmount);
+      }
+    }
+    return tempHoursArray;
   }
 
   setFieldValues(field: any) {
