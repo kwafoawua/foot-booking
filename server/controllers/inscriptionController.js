@@ -64,7 +64,8 @@ exports.getInscription = async (req, res) => {
 exports.getTournamentInscriptions = async (req, res) => {
     try {
         let inscriptions = await TournamentInscription.find({
-            tournamentId: mongoose.Types.ObjectId(req.params.tournamentId)
+            tournamentId: mongoose.Types.ObjectId(req.params.tournamentId),
+            paymentStatus: 'Pagado'
         });
         await res.json({inscriptions});
     } catch (e) {
@@ -77,7 +78,8 @@ exports.getPlayerInscriptions = async (req, res) => {
         const { page, size } = req.query;
         const { limit, offset } = getPagination(page, size);
         let inscriptions = await TournamentInscription.paginate({
-            userId: mongoose.Types.ObjectId(req.params.playerId)
+            userId: mongoose.Types.ObjectId(req.params.playerId),
+            paymentStatus: 'Pagado'
         }, {
             limit,
             offset,
