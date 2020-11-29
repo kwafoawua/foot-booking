@@ -1,9 +1,9 @@
-import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
 import { AlertService, ClubService } from '../../_services/index';
 import { Club } from '../../_models/club';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {} from 'googlemaps';
-import { MapsAPILoader } from '@agm/core';
+import { AgmMap, MapsAPILoader } from '@agm/core';
 import { Observable, of } from 'rxjs';
 import { FieldFormArrayComponent } from '../../fields-array';
 import { ValidateAllFields } from '../../_helpers/validate-all-fields';
@@ -12,9 +12,11 @@ import { environment } from '../../../environments/environment';
 import { StorageService } from '../../_services/storage.service';
 
 @Component({
-  templateUrl: 'profile-club-info.component.html'
+  templateUrl: 'profile-club-info.component.html',
+
 })
 export class ProfileClubInfoComponent implements OnInit {
+
   id: string;
   club: Club;
   clubForm: FormGroup;
@@ -37,9 +39,7 @@ export class ProfileClubInfoComponent implements OnInit {
               private alertService: AlertService,
               private ngZone: NgZone,
               private storageService: StorageService,
-              ) {
-
-  }
+              ) {}
 
   @ViewChild('address')
   public searchElementRef: ElementRef;
@@ -80,9 +80,6 @@ export class ProfileClubInfoComponent implements OnInit {
 
   }
 
-  private initAddress() {
-
-  }
 
   private getClub(id: string) {
     this.clubService.getById(id).subscribe(userClub => {
@@ -98,8 +95,6 @@ export class ProfileClubInfoComponent implements OnInit {
         profileImg: this.club.profileImg,
         galleryImg: this.club.galleryImg,
         socialMedia: this.club.socialMedia,
-      //  mercadoPago: this.club.mercadoPago,
-      //  dniMercadoPago: this.club.dniMercadoPago,
       });
 
       if (this.club.address.address) {
