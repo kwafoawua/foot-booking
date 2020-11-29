@@ -121,7 +121,11 @@ export class ProfileClubClientComponent{
   }
 
   loadHoursValues(date: any, field, i) {
+    this.horasDisponibles = [];
+    this.horasOcupadas = [];
     this.bookingFilter = new BookingFilter(field._id, date);
+
+    const hoursArrayForPickedDate = this.filterHourForToday(date);
 
     this.bookingService.findAllBookingsByFieldAndDay(this.bookingFilter)
       .subscribe(hoursBooking => {
@@ -132,11 +136,26 @@ export class ProfileClubClientComponent{
             if ( this.horasOcupadas[i] === undefined ) { this.horasOcupadas[i] = []; }
             this.horasOcupadas[i].push(booking.playingTime);
 
-            this.horasDisponibles[i] = this.hoursArray.filter(item => this.horasOcupadas[i].indexOf(item) < 0);
+            this.horasDisponibles[i] = hoursArrayForPickedDate.filter(item => this.horasOcupadas[i].indexOf(item) < 0);
           });
         } else {
-          this.horasDisponibles[i] = this.hoursArray;
+          this.horasDisponibles[i] = hoursArrayForPickedDate;
         }
       });
+  }
+
+  filterHourForToday(pickedDate) {
+    const tempHoursArray = [...this.hoursArray];
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    if (pickedDate.getTime() === today.getTime()) {
+      const arrayHourOffset = 9;
+      const currentHour = new Date().getHours();
+      if (currentHour >= 10) {
+        const spliceAmount = currentHour - arrayHourOffset;
+        tempHoursArray.splice(0, spliceAmount);
+      }
+    }
+    return tempHoursArray;
   }
 }
