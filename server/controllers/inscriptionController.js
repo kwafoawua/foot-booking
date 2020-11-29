@@ -120,7 +120,8 @@ canEffectuateInscription = async (tournamentId) => {
 
 module.exports.getInscriptionEmails = async (id) => {
     let inscriptions = await TournamentInscription.find({
-        tournamentId: mongoose.Types.ObjectId(id)
+        tournamentId: mongoose.Types.ObjectId(id),
+        paymentStatus: 'Pagado'
     })
       .populate({path: 'userId', select: 'email'});
 
