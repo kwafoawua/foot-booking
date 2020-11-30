@@ -4,6 +4,7 @@ import { UserService } from '../../_services/user.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PasswordValidation } from '../../_helpers/index';
 import { AlertService } from '../../_services/alert.service';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   templateUrl: 'profile-club-password.component.html'
@@ -17,7 +18,8 @@ export class ProfileClubPasswordComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private alertService: AlertService,
-    private userService: UserService) {}
+    private userService: UserService,
+    public snackBar: MatSnackBar ) {}
 
   ngOnInit() {
     this.createForm();
@@ -45,8 +47,14 @@ export class ProfileClubPasswordComponent implements OnInit {
       .subscribe(
         data => {
           this.alertService.success('La password se modificó con éxito', true);
+          this.snackBar.open('El club se actualizó con éxito', null, {
+            duration: 2000
+          });
         },
         error => {
+          this.snackBar.open(error, null, {
+            duration: 2000
+          });
           this.alertService.error(error);
         });
   }

@@ -22,6 +22,7 @@ import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { colors } from './colors';
 import * as moment from 'moment';
 import {dateISO} from 'ng2-validation/dist/date-ios';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 const I18N_VALUES = {
   es: {
@@ -80,7 +81,8 @@ export class FieldsManagementComponent implements OnInit {
   constructor(private modal: NgbModal,
               private bookingService: BookingService,
               private clubService: ClubService, private alertService: AlertService,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              public snackBar: MatSnackBar) {
     registerLocaleData(localeEs);
   }
 
@@ -298,8 +300,14 @@ export class FieldsManagementComponent implements OnInit {
             this.date = null;
             this.createForm();
             this.getBookings(this._id);
+            this.snackBar.open('La registró la reserva con éxito', null, {
+              duration: 2000
+            });
           },
           error => {
+            this.snackBar.open(error, null, {
+              duration: 2000
+            });
             this.alertService.error(error);
           });
 
@@ -312,19 +320,35 @@ export class FieldsManagementComponent implements OnInit {
     this.nuevaReservaForm.get('playingDate').setValue(date.toISOString());
     this.bookingFilter = new BookingFilter(this.nuevaReservaForm.controls.fieldId.value, date);
 
-    const hoursArrayForPickedDate = this.filterHourForToday(date);
-
     this.bookingService.findAllBookingsByFieldAndDay(this.bookingFilter)
       .subscribe(hoursBooking => {
         if (hoursBooking.length) {
           hoursBooking.forEach((booking, index) => {
+            console.log(booking);
+            console.log('Ultimo- Lo que retorna la consulta: ' + booking.playingTime);
             this.horasOcupadas.push(booking.playingTime);
-            this.horasDisponibles = hoursArrayForPickedDate.filter(item => this.horasOcupadas.indexOf(item) < 0);
+            this.horasDisponibles = this.hoursArray.filter(item => this.horasOcupadas.indexOf(item) < 0);
+            console.log('Array nuevo: ' + this.horasDisponibles);
           });
         } else {
-          this.horasDisponibles = hoursArrayForPickedDate;
+          this.horasDisponibles = this.hoursArray;
+          console.log('No hay reservas en este día');
         }
       });
+
+    // const hoursArrayForPickedDate = this.filterHourForToday(date);
+    //
+    // this.bookingService.findAllBookingsByFieldAndDay(this.bookingFilter)
+    //   .subscribe(hoursBooking => {
+    //     if (hoursBooking.length) {
+    //       hoursBooking.forEach((booking, index) => {
+    //         this.horasOcupadas.push(booking.playingTime);
+    //         this.horasDisponibles = hoursArrayForPickedDate.filter(item => this.horasOcupadas.indexOf(item) < 0);
+    //       });
+    //     } else {
+    //       this.horasDisponibles = hoursArrayForPickedDate;
+    //     }
+    //   });
 
   }
 

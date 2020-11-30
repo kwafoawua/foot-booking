@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { FieldFormArrayComponent } from '../../fields-array';
 import { ValidateAllFields } from '../../_helpers/index';
 import { forEach } from '@angular/router/src/utils/collection';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 /**
  * Created by pablo on 6/11/2017.
@@ -32,7 +33,8 @@ export class ProfileClubCanchasComponent implements OnInit {
     private router: Router,
     private clubService: ClubService,
     private alertService: AlertService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    public snackBar: MatSnackBar) {
   }
 
 
@@ -103,9 +105,15 @@ export class ProfileClubCanchasComponent implements OnInit {
       console.log(canchas);
       this.clubService.updateFields(this.club._id, canchas).subscribe(
         data => {
+          this.snackBar.open('Se actualizó con éxito', null, {
+            duration: 2000
+          });
           this.alertService.success('Los datos se actualizaron correctamente', true);
         },
         error => {
+          this.snackBar.open(error, null, {
+            duration: 2000
+          });
           this.alertService.error(error);
           this.loading = false;
         });
