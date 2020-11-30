@@ -22,6 +22,7 @@ import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { colors } from './colors';
 import * as moment from 'moment';
 import {dateISO} from 'ng2-validation/dist/date-ios';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 const I18N_VALUES = {
   es: {
@@ -80,7 +81,8 @@ export class FieldsManagementComponent implements OnInit {
   constructor(private modal: NgbModal,
               private bookingService: BookingService,
               private clubService: ClubService, private alertService: AlertService,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              public snackBar: MatSnackBar) {
     registerLocaleData(localeEs);
   }
 
@@ -298,8 +300,14 @@ export class FieldsManagementComponent implements OnInit {
             this.date = null;
             this.createForm();
             this.getBookings(this._id);
+            this.snackBar.open('La registró la reserva con éxito', null, {
+              duration: 2000
+            });
           },
           error => {
+            this.snackBar.open(error, null, {
+              duration: 2000
+            });
             this.alertService.error(error);
           });
 

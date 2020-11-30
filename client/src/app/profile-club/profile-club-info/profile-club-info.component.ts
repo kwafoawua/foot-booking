@@ -10,6 +10,7 @@ import { ValidateAllFields } from '../../_helpers/validate-all-fields';
 import { FileHolder } from 'angular2-image-upload';
 import { environment } from '../../../environments/environment';
 import { StorageService } from '../../_services/storage.service';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   templateUrl: 'profile-club-info.component.html',
@@ -39,6 +40,7 @@ export class ProfileClubInfoComponent implements OnInit {
               private alertService: AlertService,
               private ngZone: NgZone,
               private storageService: StorageService,
+              public snackBar: MatSnackBar,
               ) {}
 
   @ViewChild('address')
@@ -202,9 +204,15 @@ export class ProfileClubInfoComponent implements OnInit {
           data => {
             console.log(data);
             this.storageService.store('currentUser', data);
+            this.snackBar.open('El club se actualizó con éxito', null, {
+              duration: 2000
+            });
             this.alertService.success('Los datos se actualizaron correctamente', true);
           },
           error => {
+            this.snackBar.open(error, null, {
+              duration: 2000
+            });
             this.alertService.error(error);
             this.loading = false;
           });
