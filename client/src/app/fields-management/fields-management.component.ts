@@ -312,19 +312,35 @@ export class FieldsManagementComponent implements OnInit {
     this.nuevaReservaForm.get('playingDate').setValue(date.toISOString());
     this.bookingFilter = new BookingFilter(this.nuevaReservaForm.controls.fieldId.value, date);
 
-    const hoursArrayForPickedDate = this.filterHourForToday(date);
-
     this.bookingService.findAllBookingsByFieldAndDay(this.bookingFilter)
       .subscribe(hoursBooking => {
         if (hoursBooking.length) {
           hoursBooking.forEach((booking, index) => {
+            console.log(booking);
+            console.log('Ultimo- Lo que retorna la consulta: ' + booking.playingTime);
             this.horasOcupadas.push(booking.playingTime);
-            this.horasDisponibles = hoursArrayForPickedDate.filter(item => this.horasOcupadas.indexOf(item) < 0);
+            this.horasDisponibles = this.hoursArray.filter(item => this.horasOcupadas.indexOf(item) < 0);
+            console.log('Array nuevo: ' + this.horasDisponibles);
           });
         } else {
-          this.horasDisponibles = hoursArrayForPickedDate;
+          this.horasDisponibles = this.hoursArray;
+          console.log('No hay reservas en este día');
         }
       });
+
+    // const hoursArrayForPickedDate = this.filterHourForToday(date);
+    //
+    // this.bookingService.findAllBookingsByFieldAndDay(this.bookingFilter)
+    //   .subscribe(hoursBooking => {
+    //     if (hoursBooking.length) {
+    //       hoursBooking.forEach((booking, index) => {
+    //         this.horasOcupadas.push(booking.playingTime);
+    //         this.horasDisponibles = hoursArrayForPickedDate.filter(item => this.horasOcupadas.indexOf(item) < 0);
+    //       });
+    //     } else {
+    //       this.horasDisponibles = hoursArrayForPickedDate;
+    //     }
+    //   });
 
   }
 
