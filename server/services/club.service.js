@@ -10,6 +10,5 @@ exports.getClubFieldsForTournament = async (clubId, fieldCapacity) => {
     const club = await Club.findById(clubId);
     return club
         ? club.fields.filter(field => field.cantPlayers === fieldCapacityMap.get(fieldCapacity))
-            .map(({_id, fieldName}) => ({_id, fieldName}))
         : [];
 };
