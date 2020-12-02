@@ -30,7 +30,7 @@ export class FixtureComponent implements OnInit {
   primerEquipo: string;
   segundoEquipo: string;
   tercerEquipo: string;
-  fields: any;
+  fields: any[];
 
   constructor(
     private tournamentService: TournamentService,
@@ -57,7 +57,6 @@ export class FixtureComponent implements OnInit {
       this.tournamentState = data.tournament.state;
       this.tournament = data.tournament;
       this.fields = data.availableFieldsForBookingTournament;
-      console.log(data);
     });
   }
   updateMatch($event) {
@@ -202,10 +201,11 @@ export class FixtureComponent implements OnInit {
   mapPhaseToMatch(match, phaseId, phaseType, tournamentId) {
     const localTeamName = !fixtureRegexp(match.localTeam.teamName) ? match.localTeam.teamName : null;
     const visitorTeamName = !fixtureRegexp(match.visitorTeam.teamName) ? match.visitorTeam.teamName : null;
+
     return {
+      field: null,
+      fieldId: match.fieldId,
       tournamentId,
-      fieldName: match.fieldName || null,
-      fieldId: match.fieldId || null,
       hourDate: match.hourToPlay || null,
       dateToPlay: match.dateToPlay || null,
       id: match._id,
