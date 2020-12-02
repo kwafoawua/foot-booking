@@ -72,8 +72,11 @@ export class FixtureComponent implements OnInit {
       localTeam: local.name,
       localGoals: local.score,
       visitorGoals: visitor.score,
-      hourDate: $event.hourDate
+      hourDate: $event.hourDate,
+      dateToPlay: $event.dateToPlay,
+      field: $event.field,
     };
+    console.log('match', match);
     const finalizado = (visitor.score >= 0 && visitor.score !== null) && (local.score >= 0 && local.score !== null);
     if (finalizado) {
       const nextTeamName = visitor.score > local.score ? visitor.name : local.name;
@@ -100,7 +103,6 @@ export class FixtureComponent implements OnInit {
 
       if (nextUpdate) {
         this.tournamentService.updateMatch(nextUpdate).subscribe(response => {
-            console.log('update next match', response);
             this.getPhases();
           },
           error => {
@@ -151,7 +153,6 @@ export class FixtureComponent implements OnInit {
 
   getPhases() {
     this.tournamentService.getPhases(this.tournamentId).subscribe((data: any) => {
-      console.log(data);
       this.setEsSinAsignar(data.phases);
       this.generateTournamentData(data.phases);
       this.isGenerable = this.inscriptions.length > 15;
@@ -203,7 +204,8 @@ export class FixtureComponent implements OnInit {
     const visitorTeamName = !fixtureRegexp(match.visitorTeam.teamName) ? match.visitorTeam.teamName : null;
     return {
       tournamentId,
-      field: null,
+      fieldName: match.fieldName || null,
+      fieldId: match.fieldId || null,
       hourDate: match.hourToPlay || null,
       dateToPlay: match.dateToPlay || null,
       id: match._id,

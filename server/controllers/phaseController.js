@@ -134,7 +134,19 @@ exports.setResultOfAMatch = async (req, res) => {
 };
 
 exports.updatePhaseMatch = async (req, res) => {
-    const {tournamentId, matchId, localTeam, visitorTeam, localGoals, visitorGoals, hourDate} = req.body;
+    const {
+        tournamentId,
+        matchId,
+        localTeam,
+        visitorTeam,
+        localGoals,
+        visitorGoals,
+        hourDate,
+        dateToPlay,
+        field,
+        bookingId,
+
+    } = req.body;
     let state = localGoals && visitorGoals ? "Finalizado" : "Pendiente de Juego";
     try {
         await Phase.findOneAndUpdate({
@@ -147,6 +159,10 @@ exports.updatePhaseMatch = async (req, res) => {
                 ...(localGoals >= 0 && {'matches.$.localTeam.goals': localGoals}),
                 ...(visitorGoals >= 0 && {'matches.$.visitorTeam.goals': visitorGoals}),
                 ...(hourDate && {'matches.$.hourToPlay': hourDate}),
+                ...(dateToPlay && {'matches.$.dateToPlay': dateToPlay}),
+                ...(field && {'matches.$.fieldName': field.fieldName}),
+                ...(field && {'matches.$.fieldId': field._id}),
+
                 'matches.$.state': state
             }, {useFindAndModify: false});
         await res.json({msg: "Partido actualizado correctamente"})
