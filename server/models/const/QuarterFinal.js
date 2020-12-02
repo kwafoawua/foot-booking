@@ -3,50 +3,50 @@ exports.quarterFinal = {
     matches: [{
         matchId: 'P2M1',
         localTeam: {
-            teamName: 'P1M1',
-            goals: undefined
+            teamName: '',
+            goals: null
         },
         visitorTeam: {
-            teamName: 'P1M2',
-            goals: undefined
+            teamName: '',
+            goals: null
         },
-        hourToPlay: undefined,
+        hourToPlay: null,
         state: 'Sin asignar',
     }, {
         matchId: 'P2M2',
         localTeam: {
-            teamName: 'P1M3',
-            goals: undefined
+            teamName: '',
+            goals: null
         },
         visitorTeam: {
-            teamName: 'P1M4',
-            goals: undefined
+            teamName: '',
+            goals: null
         },
-        hourToPlay: undefined,
+        hourToPlay: null,
         state: 'Sin asignar',
     }, {
         matchId: 'P2M3',
         localTeam: {
-            teamName: 'P1M5',
-            goals: undefined
+            teamName: '',
+            goals: null
         },
         visitorTeam: {
-            teamName: 'P1M6',
-            goals: undefined
+            teamName: '',
+            goals: null
         },
-        hourToPlay: undefined,
+        hourToPlay: null,
         state: 'Sin asignar',
     }, {
         matchId: 'P2M4',
         localTeam: {
-            teamName: 'P1M7',
-            goals: undefined
+            teamName: '',
+            goals: null
         },
         visitorTeam: {
-            teamName: 'P1M8',
-            goals: undefined
+            teamName: '',
+            goals: null
         },
-        hourToPlay: undefined,
+        hourToPlay: null,
         state: 'Sin asignar',
     }]
 };

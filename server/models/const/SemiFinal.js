@@ -3,26 +3,26 @@ exports.semiFinal = {
     matches: [{
         matchId: 'P3M1',
         localTeam: {
-            teamName: 'P2M1',
-            goals: undefined
+            teamName: '',
+            goals: null
         },
         visitorTeam: {
-            teamName: 'P2M2',
-            goals: undefined
+            teamName: '',
+            goals: null
         },
-        hourToPlay: undefined,
+        hourToPlay: null,
         state: 'Sin asignar',
     }, {
         matchId: 'P3M2',
         localTeam: {
-            teamName: 'P2M3',
-            goals: undefined
+            teamName: '',
+            goals: null
         },
         visitorTeam: {
-            teamName: 'P2M4',
-            goals: undefined
+            teamName: '',
+            goals: null
         },
-        hourToPlay: undefined,
+        hourToPlay: null,
         state: 'Sin asignar',
     }]
 };

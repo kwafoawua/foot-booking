@@ -5,6 +5,7 @@ const {validationResult} = require("express-validator");
 const tournamentUtils = require('../utils/TournamentUtils');
 const tournamentAdapter = require('../adapters/TournamentResponseAdapter');
 const phasesCreator = require('./phaseController');
+const clubService = require('../services/club.service');
 
 /**
  * Create a Tournament
@@ -45,7 +46,8 @@ exports.getTournament = async (req, res) => {
         const {_id} = req.params;
         const tournament = await this.getTournamentById(_id);
         const inscriptionNumber = await tournamentUtils.getNumberOfInscriptions(_id);
-        await res.json({tournament, inscriptionNumber});
+        const clubFields = await clubService.getClubFieldsForTournament(tournament.creatorClubId, tournament.numberOfPlayers);
+        await res.json({tournament, inscriptionNumber, availableFieldsForBookingTournament: clubFields});
     } catch (error) {
         console.log(error);
         res.status(500).send("Ocurrio un error imprevisto :/");

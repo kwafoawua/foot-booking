@@ -28,6 +28,11 @@ const PhaseSchema = new mongoose.Schema({
             type: String,
             default: 'Sin asignar',
             enum: ['Sin asignar', 'Pendiente de Juego', 'Finalizado', 'Suspendido']
+        },
+        bookingId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Booking',
+            requiered: false
         }
     }]
 });
