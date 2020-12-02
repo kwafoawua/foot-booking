@@ -16,6 +16,7 @@ import {MatSnackBar} from '@angular/material';
 export class FixtureComponent implements OnInit {
 
   @Input() inscriptions: any[];
+  clubId: string;
   maxDate: Date;
   minDate: Date;
   tournamentId: string;
@@ -47,6 +48,8 @@ export class FixtureComponent implements OnInit {
     if (this.tournamentId) {
       this.getPhases();
       this.getTournament();
+      this.clubId = JSON.parse(localStorage.getItem(('currentUser')))._id;
+
     }
   }
 
@@ -74,6 +77,7 @@ export class FixtureComponent implements OnInit {
       hourDate: $event.hourDate,
       dateToPlay: $event.dateToPlay,
       field: $event.field,
+      clubId: this.clubId,
     };
     console.log('match', match);
     const finalizado = (visitor.score >= 0 && visitor.score !== null) && (local.score >= 0 && local.score !== null);
