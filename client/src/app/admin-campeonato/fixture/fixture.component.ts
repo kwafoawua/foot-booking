@@ -30,127 +30,7 @@ export class FixtureComponent implements OnInit {
   primerEquipo: string;
   segundoEquipo: string;
   tercerEquipo: string;
-
-  myTournamentData = {
-    rounds: [
-      {
-        type: 'Winnerbracket',
-        matches: [
-          {
-            round: 'Octavos',
-            id: '16-1',
-            hourDate: null,
-            teams: [{ name: '--', score: 0 }, { name: '--', score: 0 }]
-          },
-          {
-            round: 'Octavos',
-            id: '16-2',
-            hourDate: null,
-            teams: [{ name: '--', score: 0 }, { name: '--', score: 0 }]
-          },
-          {
-            round: 'Octavos',
-            id: '16-3',
-            hourDate: null,
-            teams: [{ name: '--', score: 0 }, { name: '--', score: 0 }]
-          },
-          {
-            round: 'Octavos',
-            id: '16-4',
-            hourDate: null,
-            teams: [{ name: '--', score: 0 }, { name: '--', score: 0 }]
-          },
-          {
-            round: 'Octavos',
-            id: '16-5',
-            hourDate: null,
-            teams: [{ name: '--', score: 0 }, { name: '--', score: 0 }]
-          },
-          {
-            round: 'Octavos',
-            id: '16-6',
-            hourDate: null,
-            teams: [{ name: '--', score: 0 }, { name: '--', score: 0 }]
-          },
-          {
-            round: 'Octavos',
-            id: '16-7',
-            hourDate: null,
-            teams: [{ name: '--', score: 0 }, { name: '--', score: 0 }]
-          },
-          {
-            round: 'Octavos',
-            id: '16-8',
-            hourDate: null,
-            teams: [{ name: '--', score: 0 }, { name: '--', score: 0 }]
-          }
-        ]
-      },
-      {
-        type: 'Winnerbracket',
-        matches: [
-          {
-            round: 'Cuartos',
-            id: '8-1',
-            hourDate: null,
-            teams: [{ name: '--', score: 0 }, { name: '--', score: 0 }]
-          },
-          {
-            round: 'Cuartos',
-            id: '8-2',
-            hourDate: null,
-            teams: [{ name: '--', score: 0 }, { name: '--', score: 0 }]
-          },
-          {
-            round: 'Cuartos',
-            id: '8-3',
-            hourDate: null,
-            teams: [{ name: '--', score: 0 }, { name: '--', score: 0 }]
-          },
-          {
-            round: 'Cuartos',
-            id: '8-4',
-            hourDate: null,
-            teams: [{ name: '--', score: 0 }, { name: '--', score: 0 }]
-          }
-        ]
-      },
-      {
-        type: 'Winnerbracket',
-        matches: [
-          {
-            round: 'Semifinales',
-            id: '4-1',
-            hourDate: null,
-            teams: [{ name: '--', score: 0 }, { name: '--', score: 0 }]
-          },
-          {
-            round: 'Semifinales',
-            id: '4-2',
-            hourDate: null,
-            teams: [{ name: '--', score: 0 }, { name: '--', score: 0 }]
-          }
-        ]
-      },
-      {
-        type: 'Final',
-        matches: [
-          {
-            round: 'Final',
-            id: '2-1',
-            hourDate: null,
-            teams: [{ name: '--', score: 0 }, { name: '--', score: 0 }]
-          },
-          {
-            round: 'Final',
-            id: '2-2',
-            hourDate: null,
-            teams: [{ name: '--', score: 0 }, { name: '--', score: 0 }]
-          },
-        ]
-      }
-    ]
-  };
+  fields: any;
 
   constructor(
     private tournamentService: TournamentService,
@@ -159,6 +39,8 @@ export class FixtureComponent implements OnInit {
     private router: Router,
     public snackBar: MatSnackBar,
   ) { }
+
+  myTournamentData = this.tournamentService.getInitialTournamentData();
 
   ngOnInit() {
     this.tournamentId = this.route.snapshot.params[ 'id' ];
@@ -174,6 +56,8 @@ export class FixtureComponent implements OnInit {
       this.minDate = new Date(data.tournament.startDate);
       this.tournamentState = data.tournament.state;
       this.tournament = data.tournament;
+      this.fields = data.availableFieldsForBookingTournament;
+      console.log(data);
     });
   }
   updateMatch($event) {
@@ -267,6 +151,7 @@ export class FixtureComponent implements OnInit {
 
   getPhases() {
     this.tournamentService.getPhases(this.tournamentId).subscribe((data: any) => {
+      console.log(data);
       this.setEsSinAsignar(data.phases);
       this.generateTournamentData(data.phases);
       this.isGenerable = this.inscriptions.length > 15;
@@ -280,34 +165,7 @@ export class FixtureComponent implements OnInit {
       }
       this.phases = data.phases;
 
-      this.phaseDateList = [
-        {
-          state: false,
-          date: this.phases[0].dateToPlay || null,
-          name: 'Octavos de final',
-          phaseId: this.phases[0]._id
-        },
-        {
-          state: false,
-          date: this.phases[1].dateToPlay || null,
-          name: 'Cuartos de final',
-          phaseId: this.phases[1]._id
-        },
-        {
-          state: false,
-          date: this.phases[2].dateToPlay || null,
-          name: 'Semifinales',
-          phaseId: this.phases[2]._id
-        },
-        {
-          state: false,
-          date: this.phases[4].dateToPlay || null,
-          name: 'Finales',
-          phaseId: this.phases[4]._id,
-          tercerosId: this.phases[3]._id,
-        }
-      ];
-      this.setOctavosState();
+      // this.setOctavosState();
       this.setFinalizarCampeonato(data.phases);
     });
   }
@@ -340,17 +198,19 @@ export class FixtureComponent implements OnInit {
     });
   }
 
-  mapPhaseToMatch(match, phaseId, phaseType, tournamentId, dateToPlay) {
+  mapPhaseToMatch(match, phaseId, phaseType, tournamentId) {
     const localTeamName = !fixtureRegexp(match.localTeam.teamName) ? match.localTeam.teamName : null;
     const visitorTeamName = !fixtureRegexp(match.visitorTeam.teamName) ? match.visitorTeam.teamName : null;
     return {
       tournamentId,
-      dateToPlay,
+      field: null,
       hourDate: match.hourToPlay || null,
+      dateToPlay: match.dateToPlay || null,
       id: match._id,
       state: match.state,
       phaseId,
       phaseType,
+      bookingId: match.bookingId || null,
       teams: [
         { name: localTeamName, score: match.localTeam.goals >= 0 ? match.localTeam.goals : null },
         { name: visitorTeamName, score: match.localTeam.goals >= 0 ? match.visitorTeam.goals : null }
@@ -373,15 +233,15 @@ export class FixtureComponent implements OnInit {
       if (phaseType !== 'Final' && phaseType !== 'Tercero y Cuarto puesto') {
         round.type = 'Winnerbracket';
         round.matches = phase.matches.map(match => {
-          return this.mapPhaseToMatch(match, phase._id, phaseType, tournamentId, phase.dateToPlay);
+          return this.mapPhaseToMatch(match, phase._id, phaseType, tournamentId);
         });
         rounds.push(round);
       } else if (phaseType === 'Final') {
         const match = phase.matches[ 0 ];
-        lastRound.matches[ 0 ] = this.mapPhaseToMatch(match, phase._id, phaseType, tournamentId, phase.dateToPlay);
+        lastRound.matches[ 0 ] = this.mapPhaseToMatch(match, phase._id, phaseType, tournamentId);
       } else {
         const match = phase.matches[ 0 ];
-        lastRound.matches[ 1 ] = this.mapPhaseToMatch(match, phase._id, phaseType, tournamentId, phase.dateToPlay);
+        lastRound.matches[ 1 ] = this.mapPhaseToMatch(match, phase._id, phaseType, tournamentId);
       }
     }
 
@@ -389,35 +249,9 @@ export class FixtureComponent implements OnInit {
     this.myTournamentData = { rounds };
   }
 
-  updatePhaseDate(phase, action, index) {
-    console.log(phase, action);
-    if (action === 'edit') {
-      this.phaseDateList[index].state = true;
-    } else {
-      const toUpdate = {
-        phaseId: phase.phaseId,
-        dateToPlay: phase.date,
-      };
-      this.tournamentService.updatePhase(toUpdate).subscribe((data: any) => {
-        this.snackBar.open('Fecha actualizada con éxito', null, {
-          duration: 2000
-        });
-        this.phaseDateList[index].state = false;
-      });
-
-      if (phase.name === 'Finales') {
-        const updateTercerosYCuartos = {
-          phaseId: this.phases[3]._id,
-          dateToPlay: phase.date,
-        };
-        this.tournamentService.updatePhase(updateTercerosYCuartos).subscribe((data: any) => {
-        });
-      }
-
-    }
-  }
-
   setOctavosState() {
+
+    // TODO: VALIDAR ESTA FUNCION PARA INICIAR CAMPEONATO.
     const phasesState = !!this.phaseDateList[ 0 ].date &&
       !!this.phaseDateList[ 1 ].date && !!this.phaseDateList[ 2 ].date &&
       !!this.phaseDateList[ 3 ].date;
@@ -429,7 +263,7 @@ export class FixtureComponent implements OnInit {
   setCampeonatoState(stateName) {
     this.tournamentService.updateTournament({_id: this.tournamentId, state: stateName}).subscribe((data) => {
       this.tournamentState = stateName;
-      const snackMessage = stateName === 'Iniciado' ? 'Se inició el campeonato': 'Se finalizó el campeonato';
+      const snackMessage = stateName === 'Iniciado' ? 'Se inició el campeonato' : 'Se finalizó el campeonato';
       this.snackBar.open(snackMessage, null, {
         duration: 2000
       });
