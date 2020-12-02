@@ -22,7 +22,7 @@ import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { colors } from './colors';
 import * as moment from 'moment';
 import {dateISO} from 'ng2-validation/dist/date-ios';
-import {MatSnackBar} from "@angular/material/snack-bar";
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 const I18N_VALUES = {
   es: {
@@ -335,20 +335,6 @@ export class FieldsManagementComponent implements OnInit {
           console.log('No hay reservas en este día');
         }
       });
-
-    // const hoursArrayForPickedDate = this.filterHourForToday(date);
-    //
-    // this.bookingService.findAllBookingsByFieldAndDay(this.bookingFilter)
-    //   .subscribe(hoursBooking => {
-    //     if (hoursBooking.length) {
-    //       hoursBooking.forEach((booking, index) => {
-    //         this.horasOcupadas.push(booking.playingTime);
-    //         this.horasDisponibles = hoursArrayForPickedDate.filter(item => this.horasOcupadas.indexOf(item) < 0);
-    //       });
-    //     } else {
-    //       this.horasDisponibles = hoursArrayForPickedDate;
-    //     }
-    //   });
 
   }
 
