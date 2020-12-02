@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-12 col-md-6" >
       <mat-form-field>
-        <mat-select placeholder="Equipo Invitado"  [(value)]="match?.teams[0].name" [(ngModel)]="match?.teams[0].name" [disabled]="true">
+        <mat-select placeholder="Equipo Local"  [(value)]="match?.teams[0].name" [(ngModel)]="match?.teams[0].name" [disabled]="true">
           <mat-option>Ninguno</mat-option>
           <mat-option *ngFor="let inscription of inscriptions" [value]="inscription?.team.name" >{{inscription?.team.name}}</mat-option>
         </mat-select>
@@ -19,7 +19,7 @@
   <div class="row">
     <div class="col-12 col-md-6" >
       <mat-form-field>
-        <mat-select placeholder="Equipo Invitado"  [(value)]="match?.teams[1].name" [(ngModel)]="match?.teams[1].name" [disabled]="true">
+        <mat-select placeholder="Equipo Visitante"  [(value)]="match?.teams[1].name" [(ngModel)]="match?.teams[1].name" [disabled]="true">
           <mat-option>Ninguno</mat-option>
           <mat-option *ngFor="let inscription of inscriptions" [value]="inscription?.team.name" >{{inscription?.team.name}}</mat-option>
         </mat-select>
@@ -32,10 +32,41 @@
     </div>
   </div>
   <div class="row">
-      <mat-form-field appearance="standard" class="col-12 col-md-6">
-        <mat-label>Horario</mat-label>
-        <input matInput type="time" [(ngModel)]="match.hourDate">
+    <div class="col">
+      <mat-form-field>
+        <mat-select placeholder="Cancha" [ngModelOptions]="{standalone: true}"
+                    [(ngModel)]="match.field" (ngModelChange)="setFieldValues($event)" required>
+          <mat-option  *ngFor="let field of fields; let i = index" [value]="field">
+            {{field.fieldName}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
+    </div>
+    <div class="col">
+      <mat-form-field >
+        <input
+          matInput
+          [matDatepicker]="picker"
+          placeholder="Elegi una fecha"
+          [ngModelOptions]="{standalone: true}"
+          [(ngModel)]="match.dateToPlay"
+          (ngModelChange)="loadHoursValues($event)"
+          [max]="maxDate" [min]="minDate"
+          required>
+        <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="col">
+      <mat-form-field>
+        <mat-select placeholder="Seleccione una hora" required [(ngModel)]="match.hourDate">
+          <mat-option  *ngFor="let hora of horasDisponibles" [value]="hora">
+            {{hora}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
   </div>
 
 </div>
