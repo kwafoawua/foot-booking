@@ -147,7 +147,16 @@ exports.updatePhaseMatch = async (req, res) => {
         bookingId,
 
     } = req.body;
-    let state = localGoals && visitorGoals ? "Finalizado" : "Pendiente de Juego";
+    let state;
+    const localState = typeof(localGoals) === "number" && localGoals >= 0;
+    const visitorState =  typeof(visitorGoals) === "number" && visitorGoals >= 0;
+    if(localState && visitorState) {
+        state = 'Finalizado';
+    }  else if(visitorTeam || localTeam) {
+        state = "Pendiente de Juego";
+    } else {
+        state = 'Sin asignar';
+    }
     try {
         await Phase.findOneAndUpdate({
                 tournamentId: mongoose.Types.ObjectId(tournamentId),
