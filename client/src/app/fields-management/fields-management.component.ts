@@ -62,6 +62,7 @@ export class CustomDatepickerI18n extends NgbDatepickerI18n {
   selector: 'mwl-demo-component',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: 'fields-management.component.html',
+  styleUrls: ['fields-management.component.css'],
   providers: [
     {
       provide: CalendarDateFormatter,
