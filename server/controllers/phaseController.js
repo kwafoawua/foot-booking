@@ -160,7 +160,6 @@ exports.updatePhaseMatch = async (req, res) => {
     }
     try {
         const bookingMatch = await bookingService.registerBookingsForPhase(bookingId, clubId, localTeam, visitorTeam, dateToPlay, hourDate, field);
-        console.log(JSON.stringify(bookingMatch))
         await Phase.findOneAndUpdate({
                 tournamentId: mongoose.Types.ObjectId(tournamentId),
                 'matches._id': matchId
@@ -174,9 +173,10 @@ exports.updatePhaseMatch = async (req, res) => {
                 ...(dateToPlay && {'matches.$.dateToPlay': dateToPlay}),
                 ...(field && {'matches.$.fieldName': field.fieldName}),
                 ...(field && {'matches.$.fieldId': field._id}),
-
+                'matches.$.bookingId': bookingMatch._id,
                 'matches.$.state': state
             }, {useFindAndModify: false});
+        console.log(bookingMatch._id)
         await res.json({msg: "Partido actualizado correctamente"})
     } catch (error) {
         res.status(500).send("Error al intentar actualizar una fase", error);
