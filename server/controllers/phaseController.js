@@ -10,6 +10,7 @@ const moment = require('moment');
 const { getInscriptionEmails } = require('./inscriptionController');
 const Tournament = require('../models/Tournament');
 const { sendEmail } = require('./mailing');
+const bookingService = require('../services/booking.service')
 
 /**
  *  Phases creation. This functions creates all the different phases for a Tournament. The phases should be created
@@ -145,7 +146,7 @@ exports.updatePhaseMatch = async (req, res) => {
         dateToPlay,
         field,
         bookingId,
-
+        clubId
     } = req.body;
     let state;
     const localState = typeof(localGoals) === "number" && localGoals >= 0;
@@ -158,6 +159,8 @@ exports.updatePhaseMatch = async (req, res) => {
         state = 'Sin asignar';
     }
     try {
+        const bookingMatch = await bookingService.registerBookingsForPhase(bookingId, clubId, localTeam, visitorTeam, dateToPlay, hourDate, field);
+        console.log(JSON.stringify(bookingMatch))
         await Phase.findOneAndUpdate({
                 tournamentId: mongoose.Types.ObjectId(tournamentId),
                 'matches._id': matchId

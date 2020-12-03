@@ -115,6 +115,8 @@ const specialPurposeController = require("../controllers/specialPurposeControlle
 router.post("/tempRoute/inscription/enroll", specialPurposeController.newTournamentInscription)
 
 const clubservice = require("../services/club.service")
-router.get("/fastTest/:clubId", clubservice.getClubFieldsForTournament);
+const book = require("../services/booking.service")
+// router.get("/fastTest/:clubId", clubservice.getClubFieldsForTournament);
+router.get("/fastTest/:clubId", book.cancelTournamentBookings);
 
 module.exports = router;
