@@ -113,7 +113,7 @@ export class MatchUpdateDialogComponent implements OnInit{
     this.data.match.field = this.data.fields.find(f => f._id === this.data.match.fieldId);
     this.match = this.data.match;
     this.inscriptions = this.data.teams;
-    this.disabledScore = moment(this.match.dateToPlay).isSameOrAfter(new Date());
+    this.disabledScore = !this.match.dateToPlay || moment(this.match.dateToPlay).isSameOrAfter(new Date());
     this.fields = this.data.fields;
     this.maxDate = this.data.maxDate;
     this.minDate = this.data.minDate;

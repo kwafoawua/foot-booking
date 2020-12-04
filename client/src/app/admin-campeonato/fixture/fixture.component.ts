@@ -80,7 +80,6 @@ export class FixtureComponent implements OnInit {
       field: $event.field,
       clubId: this.clubId,
     };
-    console.log('match', match);
     const finalizado = (visitor.score >= 0 && visitor.score !== null) && (local.score >= 0 && local.score !== null);
     if (finalizado) {
       const nextTeamName = visitor.score > local.score ? visitor.name : local.name;
