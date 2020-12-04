@@ -11,6 +11,7 @@ export interface IMatch {
     id: string;
     round: string;
     hourDate: string;
+    bookingId: string;
     dateToPlay: Date;
     field: any;
     fieldId: string;

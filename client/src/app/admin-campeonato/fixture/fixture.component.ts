@@ -76,6 +76,7 @@ export class FixtureComponent implements OnInit {
       visitorGoals: visitor.score,
       hourDate: $event.hourDate,
       dateToPlay: $event.dateToPlay,
+      bookingId: $event.bookingId,
       field: $event.field,
       clubId: this.clubId,
     };
