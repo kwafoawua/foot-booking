@@ -117,8 +117,8 @@ export class MatchUpdateDialogComponent implements OnInit{
     this.fields = this.data.fields;
     this.maxDate = this.data.maxDate;
     this.minDate = this.data.minDate;
-    if(this.data.match.fieldId && this.data.match.dateToPlay && this.data.match.hourDate) {
-      this.loadHoursValues(this.data.match.dateToPlay);
+    if (this.data.match.fieldId && this.data.match.dateToPlay && this.data.match.hourDate) {
+      this.loadHoursValues(new Date(this.data.match.dateToPlay), this.match.hourDate);
     }
   }
 
@@ -126,16 +126,18 @@ export class MatchUpdateDialogComponent implements OnInit{
     console.log(field);
   }
 
-  loadHoursValues(date: any) {
+  loadHoursValues(date: Date, fixedHour?: string) {
     this.horasDisponibles = [];
     this.horasOcupadas = [];
     this.filter = new BookingFilter(this.match.field._id, date);
     this.bookingService.findAllBookingsByFieldAndDay(this.filter).subscribe(hoursBooking => {
         if (hoursBooking.length) {
           hoursBooking.forEach((booking, index) => {
-            this.horasOcupadas.push(booking.playingTime);
-            this.horasDisponibles = this.hoursArray.filter(item => this.horasOcupadas.indexOf(item) < 0);
+            if (fixedHour !== booking.playingTime){
+              this.horasOcupadas.push(booking.playingTime);
+            }
           });
+          this.horasDisponibles = this.hoursArray.filter(item => this.horasOcupadas.indexOf(item) < 0);
         } else {
           this.horasDisponibles = this.hoursArray;
         }
