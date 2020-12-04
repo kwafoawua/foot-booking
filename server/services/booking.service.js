@@ -2,8 +2,10 @@ const mongoose = require('mongoose');
 const Booking = require("../models/Booking");
 const Club = require("../models/Club");
 
-exports.registerBookingsForPhase = async (bookingId, clubId, localTeam, visitorTeam, dateToPlay, hourDate, field) => {
+exports.registerBookingsForPhase = async (bookingId, clubId, localTeam, visitorTeam, dateToPlay, hourDate, rawField) => {
     const _id = bookingId || new mongoose.mongo.ObjectID();
+    const {_id: fieldId, ...field } = rawField;
+    field.id = fieldId;
     let query = {
         isTournamentBooking: true,
         _id: _id
