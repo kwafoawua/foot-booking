@@ -6,6 +6,7 @@ const tournamentUtils = require('../utils/TournamentUtils');
 const tournamentAdapter = require('../adapters/TournamentResponseAdapter');
 const phasesCreator = require('./phaseController');
 const clubService = require('../services/club.service');
+const bookingService = require('../services/booking.service');
 
 /**
  * Create a Tournament
@@ -87,15 +88,19 @@ exports.getAllTournaments = async (req, res) => {
  * Edit a Tournament
  */
 exports.updateTournament = async (req, res) => {
+    const tournamentId = req.params._id;
     try {
         await Tournament.findOneAndUpdate(
-            {_id: mongoose.Types.ObjectId(req.params._id)},
+            {_id: mongoose.Types.ObjectId(tournamentId)},
             {$set: req.body},
             {new: true}
             );
+        await bookingService.cancelTournamentBookings(tournamentId)
         if(req.body.state === 'Completo') {
             console.log(req.body.state);
-            await sendCompletedEmail(req.params._id)
+            await sendCompletedEmail(tournamentId)
+        } else if (req.body.state === 'Cancelado') {
+            // await bookingService.sendTournamentCancellationEmailToTeams();
         }
         await res.json({msg: "Torneo modificado exitosamente"});
     } catch (error) {
