@@ -79,8 +79,8 @@ export class FixtureComponent implements OnInit {
       bookingId: $event.bookingId,
       field: $event.field,
       clubId: this.clubId,
+      tournamentName: this.tournament.tournamentName,
     };
-    console.log('match', match);
     const finalizado = (visitor.score >= 0 && visitor.score !== null) && (local.score >= 0 && local.score !== null);
     if (finalizado) {
       const nextTeamName = visitor.score > local.score ? visitor.name : local.name;
@@ -170,7 +170,7 @@ export class FixtureComponent implements OnInit {
       }
       this.phases = data.phases;
 
-      // this.setOctavosState();
+      this.setOctavosState();
       this.setFinalizarCampeonato(data.phases);
     });
   }
@@ -257,13 +257,9 @@ export class FixtureComponent implements OnInit {
   }
 
   setOctavosState() {
-
     // TODO: VALIDAR ESTA FUNCION PARA INICIAR CAMPEONATO.
-    const phasesState = !!this.phaseDateList[ 0 ].date &&
-      !!this.phaseDateList[ 1 ].date && !!this.phaseDateList[ 2 ].date &&
-      !!this.phaseDateList[ 3 ].date;
     const matchOctavosState = this.phases[ 0 ].matches.every(match => !!match.hourToPlay === true);
-    this.sePuedeIniciarCampeonato = phasesState && matchOctavosState;
+    this.sePuedeIniciarCampeonato = matchOctavosState;
     console.log('sePuedeIniciarCampeonato', this.sePuedeIniciarCampeonato);
   }
 

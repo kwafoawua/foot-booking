@@ -88,6 +88,8 @@ export class FieldsManagementComponent implements OnInit {
   }
 
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
+  @ViewChild('modalTournament') modalTournament: TemplateRef<any>;
+
   @ViewChild('formDirective') private formDirective: NgForm;
   view = 'month';
   locale = 'es';
@@ -201,19 +203,23 @@ export class FieldsManagementComponent implements OnInit {
             colorStatus = colors.yellow;
             break;
         }
+
         const fecha = moment(booking.playingDate).format('YYYY-MM-DD');
         const startDate = moment(fecha + ' ' + booking.playingTime, 'YYYY-MM-DD HH:mm:ss').format();
         const endDate = moment(startDate).add(1, 'hours').format();
 
+        let title = booking.field.fieldName + ' Horario: ' + booking.playingTime + ' Cliente: ' + booking.player.name + ' ' + booking.player.lastName;
+        if (booking.isTournamentBooking) {
+          colorStatus = colors.blue;
+          title = `${booking.player.name}: ${booking.player.lastName} | Horario: ${booking.playingTime}`;
+        }
         const event = {
           start: new Date(startDate),
           end: new Date(endDate),
-          title: booking.field.fieldName + ' Horario: ' + booking.playingTime + ' Cliente: ' + booking.player.name + ' ' + booking.player.lastName,
+          title,
           color: colorStatus,
           actions: this.actions,
           booking,
-
-
         };
         eventArray.push(event);
       });
@@ -257,13 +263,14 @@ export class FieldsManagementComponent implements OnInit {
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action };
     console.log('HANDLE EVENTO', event);
+
+    if ((event as any).booking.isTournamentBooking) {
+      this.modal.open(this.modalTournament, {size: 'lg'});
+      return;
+    }
     this.precioCanchaModal = (event as any).booking.field.price;
     this.montoPagado = (event as any).booking.payment.fee;
     this.modal.open(this.modalContent, { size: 'lg' }).result.then((result) => {
-      console.log(this.selectedStatus);
-      console.log(result);
-
-
       if (this.selectedStatus || this.montoPagado) {
         this.closeResult = result;
         const newStatus: any = {};
