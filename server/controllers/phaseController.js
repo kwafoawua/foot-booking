@@ -147,20 +147,24 @@ exports.updatePhaseMatch = async (req, res) => {
         field,
         bookingId,
         clubId,
-      tournamentName,
+        tournamentName,
     } = req.body;
     let state;
+    let bookingState;
     const localState = typeof(localGoals) === "number" && localGoals >= 0;
     const visitorState =  typeof(visitorGoals) === "number" && visitorGoals >= 0;
     if(localState && visitorState) {
         state = 'Finalizado';
+        bookingState = 'Asistido';
     }  else if(visitorTeam || localTeam) {
         state = "Pendiente de Juego";
+        bookingState = 'Reservado';
     } else {
         state = 'Sin asignar';
+        bookingState = 'Reservado';
     }
     try {
-        const bookingMatch = await bookingService.registerBookingsForPhase(bookingId, clubId, localTeam, visitorTeam, dateToPlay, hourDate, field, tournamentName);
+        const bookingMatch = await bookingService.registerBookingsForPhase(bookingId, clubId, localTeam, visitorTeam, dateToPlay, hourDate, field, tournamentName, tournamentId, bookingState);
         await Phase.findOneAndUpdate({
                 tournamentId: mongoose.Types.ObjectId(tournamentId),
                 'matches._id': matchId

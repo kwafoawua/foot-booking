@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var ObjectId = Schema.Types.ObjectId;
 const mongoosePaginate = require("mongoose-paginate-v2");
 
 /**
@@ -20,6 +19,7 @@ var bookingSchema = new Schema({
         type: Boolean,
         default: false
     },
+    tournamentId: {type: mongoose.Schema.Types.ObjectId, ref: 'Tournament', requiered: false},
     createdOn: {type: Date, default: Date.now},
     club: {
         id: {type: String, required: true},
