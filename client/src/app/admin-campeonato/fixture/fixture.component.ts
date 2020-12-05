@@ -169,7 +169,7 @@ export class FixtureComponent implements OnInit {
       }
       this.phases = data.phases;
 
-      // this.setOctavosState();
+      this.setOctavosState();
       this.setFinalizarCampeonato(data.phases);
     });
   }
@@ -256,13 +256,9 @@ export class FixtureComponent implements OnInit {
   }
 
   setOctavosState() {
-
     // TODO: VALIDAR ESTA FUNCION PARA INICIAR CAMPEONATO.
-    const phasesState = !!this.phaseDateList[ 0 ].date &&
-      !!this.phaseDateList[ 1 ].date && !!this.phaseDateList[ 2 ].date &&
-      !!this.phaseDateList[ 3 ].date;
     const matchOctavosState = this.phases[ 0 ].matches.every(match => !!match.hourToPlay === true);
-    this.sePuedeIniciarCampeonato = phasesState && matchOctavosState;
+    this.sePuedeIniciarCampeonato = matchOctavosState;
     console.log('sePuedeIniciarCampeonato', this.sePuedeIniciarCampeonato);
   }
 

@@ -59,15 +59,15 @@ export class InfoFixtureComponent implements OnInit{
       if (phaseType !== 'Final' && phaseType !== 'Tercero y Cuarto puesto') {
         round.type = 'Winnerbracket';
         round.matches = phase.matches.map(match => {
-          return this.mapPhaseToMatch(match, phase._id, phaseType, tournamentId, phase.dateToPlay);
+          return this.mapPhaseToMatch(match, phase._id, phaseType, tournamentId);
         });
         rounds.push(round);
       } else if (phaseType === 'Final') {
         const match = phase.matches[ 0 ];
-        lastRound.matches[ 0 ] = this.mapPhaseToMatch(match, phase._id, phaseType, tournamentId, phase.dateToPlay);
+        lastRound.matches[ 0 ] = this.mapPhaseToMatch(match, phase._id, phaseType, tournamentId);
       } else {
         const match = phase.matches[ 0 ];
-        lastRound.matches[ 1 ] = this.mapPhaseToMatch(match, phase._id, phaseType, tournamentId, phase.dateToPlay);
+        lastRound.matches[ 1 ] = this.mapPhaseToMatch(match, phase._id, phaseType, tournamentId);
       }
     }
 
@@ -75,14 +75,13 @@ export class InfoFixtureComponent implements OnInit{
     this.myTournamentData = { rounds };
   }
 
-  mapPhaseToMatch(match, phaseId, phaseType, tournamentId, dateToPlay) {
-    console.log('mapPHaseToMatch match', match);
+  mapPhaseToMatch(match, phaseId, phaseType, tournamentId) {
     console.log('maphasetomatch regexpq', fixtureRegexp(match.localTeam.teamName));
     const localTeamName = !fixtureRegexp(match.localTeam.teamName) ? match.localTeam.teamName : null;
     const visitorTeamName = !fixtureRegexp(match.visitorTeam.teamName) ? match.visitorTeam.teamName : null;
     return {
       tournamentId,
-      dateToPlay,
+      dateToPlay: match.dateToPlay,
       hourDate: match.hourToPlay || null,
       id: match._id,
       state: match.state,
