@@ -1,6 +1,6 @@
 <div
   class="ngtt__match-wrapper"
-  [matTooltip]="!isCampeonato ? tooltipText: ''"
+  [matTooltip]="!isCampeonato ? tooltipText: tieneCanchaAsignada ? canchaAsignadaTooltip : ''"
   matTooltipClass="multiline-tooltip"
 >
   <ng-container *ngFor="let team of match.teams">

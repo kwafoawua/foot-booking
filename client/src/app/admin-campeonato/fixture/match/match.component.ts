@@ -46,6 +46,8 @@ export class MatchComponent implements OnInit {
   @Input() maxDate: Date;
   @Input() minDate: Date;
   tooltipText: string;
+  canchaAsignadaTooltip: string;
+  tieneCanchaAsignada: boolean;
   pipe = new DatePipe('es-AR'); // Use your own locale
 
   constructor(public dialog: MatDialog) { }
@@ -55,11 +57,14 @@ export class MatchComponent implements OnInit {
       const {dateToPlay, hourDate, teams } = this.match;
       const myFormattedDate = this.pipe.transform(dateToPlay, 'shortDate');
 
-
       this.tooltipText = `Fecha de juego: ${myFormattedDate || 'Sin Definir'} \n
       Hora de juego: ${hourDate || 'Sin Definir'} \n
       Equipo Local: ${teams[0].name} - Goles: ${teams[0].score || ''} \n
       Equipo Visitante: ${teams[1].name} - Goles: ${teams[1].score || ''}`;
+
+      this.canchaAsignadaTooltip = 'Partido con reserva asignada';
+
+      this.tieneCanchaAsignada = this.isCampeonato && dateToPlay && hourDate;
     }
   }
 
