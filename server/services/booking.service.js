@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Booking = require("../models/Booking");
 const Club = require("../models/Club");
 
-exports.registerBookingsForPhase = async (bookingId, clubId, localTeam, visitorTeam, dateToPlay, hourDate, rawField) => {
+exports.registerBookingsForPhase = async (bookingId, clubId, localTeam, visitorTeam, dateToPlay, hourDate, rawField, tournamentName) => {
     const _id = bookingId || new mongoose.mongo.ObjectID();
     const {_id: fieldId, ...field } = rawField;
     field.id = fieldId;
@@ -19,7 +19,7 @@ exports.registerBookingsForPhase = async (bookingId, clubId, localTeam, visitorT
         status: 'Reservado',
         paidMethod: 'Torneo',
         player: {
-            name: '',
+            name: tournamentName || 'Campeonato',
             lastName: `${localTeam} - ${visitorTeam}`
         },
         paymentStatus: 'Pago Total'

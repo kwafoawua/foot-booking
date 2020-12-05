@@ -79,6 +79,7 @@ export class FixtureComponent implements OnInit {
       bookingId: $event.bookingId,
       field: $event.field,
       clubId: this.clubId,
+      tournamentName: this.tournament.tournamentName,
     };
     const finalizado = (visitor.score >= 0 && visitor.score !== null) && (local.score >= 0 && local.score !== null);
     if (finalizado) {

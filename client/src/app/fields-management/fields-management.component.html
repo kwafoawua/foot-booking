@@ -71,6 +71,24 @@
   </div>
 </ng-template>
 
+<ng-template #modalTournament let-close="close">
+  <div class="modal-header">
+    <h2 class="modal-title"> Reserva del campeonato: {{modalData?.event.booking.player.name }}</h2>
+    <button type="button" class="close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container">
+      <p>Fecha: {{modalData?.event.booking.playingDate | date:"dd/MM/yy" }} | Hora: {{modalData?.event.booking.playingTime }}</p>
+      <p>Equipos: {{modalData?.event.booking.player.lastName }}</p>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn" (click)="close()">Cerrar</button>
+  </div>
+</ng-template>
+
 
 
 <mwl-demo-utils-calendar-header
