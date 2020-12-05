@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
 const Booking = require("../models/Booking");
 const Club = require("../models/Club");
+const Tournament = require("../models/Tournament")
 
-exports.registerBookingsForPhase = async (bookingId, clubId, localTeam, visitorTeam, dateToPlay, hourDate, rawField) => {
+exports.registerBookingsForPhase = async (bookingId, clubId, localTeam, visitorTeam, dateToPlay, hourDate, rawField, tournamentId) => {
+    const tournament = await Tournament.findById(tournamentId).select({tournamentName: 1, _id: 0});
     const _id = bookingId || new mongoose.mongo.ObjectID();
     const {_id: fieldId, ...field } = rawField;
     field.id = fieldId;
@@ -19,7 +21,7 @@ exports.registerBookingsForPhase = async (bookingId, clubId, localTeam, visitorT
         status: 'Reservado',
         paidMethod: 'Torneo',
         player: {
-            name: '',
+            name: tournament._doc.tournamentName,
             lastName: `${localTeam} - ${visitorTeam}`
         },
         paymentStatus: 'Pago Total'

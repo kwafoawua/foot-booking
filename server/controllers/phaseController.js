@@ -159,7 +159,7 @@ exports.updatePhaseMatch = async (req, res) => {
         state = 'Sin asignar';
     }
     try {
-        const bookingMatch = await bookingService.registerBookingsForPhase(bookingId, clubId, localTeam, visitorTeam, dateToPlay, hourDate, field);
+        const bookingMatch = await bookingService.registerBookingsForPhase(bookingId, clubId, localTeam, visitorTeam, dateToPlay, hourDate, field, tournamentId);
         await Phase.findOneAndUpdate({
                 tournamentId: mongoose.Types.ObjectId(tournamentId),
                 'matches._id': matchId
