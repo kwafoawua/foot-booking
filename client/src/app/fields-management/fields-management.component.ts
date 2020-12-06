@@ -22,7 +22,7 @@ import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { colors } from './colors';
 import * as moment from 'moment';
 import {dateISO} from 'ng2-validation/dist/date-ios';
-import {MatSnackBar} from "@angular/material/snack-bar";
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 const I18N_VALUES = {
   es: {
@@ -62,6 +62,7 @@ export class CustomDatepickerI18n extends NgbDatepickerI18n {
   selector: 'mwl-demo-component',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: 'fields-management.component.html',
+  styleUrls: ['fields-management.component.css'],
   providers: [
     {
       provide: CalendarDateFormatter,
@@ -87,6 +88,8 @@ export class FieldsManagementComponent implements OnInit {
   }
 
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
+  @ViewChild('modalTournament') modalTournament: TemplateRef<any>;
+
   @ViewChild('formDirective') private formDirective: NgForm;
   view = 'month';
   locale = 'es';
@@ -200,19 +203,23 @@ export class FieldsManagementComponent implements OnInit {
             colorStatus = colors.yellow;
             break;
         }
+
         const fecha = moment(booking.playingDate).format('YYYY-MM-DD');
         const startDate = moment(fecha + ' ' + booking.playingTime, 'YYYY-MM-DD HH:mm:ss').format();
         const endDate = moment(startDate).add(1, 'hours').format();
 
+        let title = booking.field.fieldName + ' Horario: ' + booking.playingTime + ' Cliente: ' + booking.player.name + ' ' + booking.player.lastName;
+        if (booking.isTournamentBooking) {
+          colorStatus = colors.blue;
+          title = `${booking.player.name}: ${booking.player.lastName} | Horario: ${booking.playingTime}`;
+        }
         const event = {
           start: new Date(startDate),
           end: new Date(endDate),
-          title: booking.field.fieldName + ' Horario: ' + booking.playingTime + ' Cliente: ' + booking.player.name + ' ' + booking.player.lastName,
+          title,
           color: colorStatus,
           actions: this.actions,
           booking,
-
-
         };
         eventArray.push(event);
       });
@@ -256,13 +263,14 @@ export class FieldsManagementComponent implements OnInit {
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action };
     console.log('HANDLE EVENTO', event);
+
+    if ((event as any).booking.isTournamentBooking) {
+      this.modal.open(this.modalTournament, {size: 'lg'});
+      return;
+    }
     this.precioCanchaModal = (event as any).booking.field.price;
     this.montoPagado = (event as any).booking.payment.fee;
     this.modal.open(this.modalContent, { size: 'lg' }).result.then((result) => {
-      console.log(this.selectedStatus);
-      console.log(result);
-
-
       if (this.selectedStatus || this.montoPagado) {
         this.closeResult = result;
         const newStatus: any = {};
@@ -335,20 +343,6 @@ export class FieldsManagementComponent implements OnInit {
           console.log('No hay reservas en este día');
         }
       });
-
-    // const hoursArrayForPickedDate = this.filterHourForToday(date);
-    //
-    // this.bookingService.findAllBookingsByFieldAndDay(this.bookingFilter)
-    //   .subscribe(hoursBooking => {
-    //     if (hoursBooking.length) {
-    //       hoursBooking.forEach((booking, index) => {
-    //         this.horasOcupadas.push(booking.playingTime);
-    //         this.horasDisponibles = hoursArrayForPickedDate.filter(item => this.horasOcupadas.indexOf(item) < 0);
-    //       });
-    //     } else {
-    //       this.horasDisponibles = hoursArrayForPickedDate;
-    //     }
-    //   });
 
   }
 

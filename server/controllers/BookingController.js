@@ -217,8 +217,7 @@ module.exports.findAllHoursBookings = function(req, res){
 };
 
 module.exports.findAllBookingsByFieldAndDay = function(req,res){
-    const idField = JSON.parse(req.params.bookingfilter).idField;
-    const playingDate = JSON.parse(req.params.bookingfilter).playingDate;
+    const { idField, playingDate } = JSON.parse(req.params.bookingfilter);
 
     Booking.find({$and:
             [

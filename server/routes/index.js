@@ -114,4 +114,9 @@ router.post("/webhook", (req, res) => PaymentInstance.webhook(req, res));
 const specialPurposeController = require("../controllers/specialPurposeController");
 router.post("/tempRoute/inscription/enroll", specialPurposeController.newTournamentInscription)
 
+const clubservice = require("../services/club.service")
+const book = require("../services/booking.service")
+// router.get("/fastTest/:clubId", clubservice.getClubFieldsForTournament);
+router.get("/fastTest/:clubId", book.cancelTournamentBookings);
+
 module.exports = router;

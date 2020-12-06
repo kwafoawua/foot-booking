@@ -5,6 +5,8 @@ const {validationResult} = require("express-validator");
 const tournamentUtils = require('../utils/TournamentUtils');
 const tournamentAdapter = require('../adapters/TournamentResponseAdapter');
 const phasesCreator = require('./phaseController');
+const clubService = require('../services/club.service');
+const bookingService = require('../services/booking.service');
 
 /**
  * Create a Tournament
@@ -45,7 +47,8 @@ exports.getTournament = async (req, res) => {
         const {_id} = req.params;
         const tournament = await this.getTournamentById(_id);
         const inscriptionNumber = await tournamentUtils.getNumberOfInscriptions(_id);
-        await res.json({tournament, inscriptionNumber});
+        const clubFields = await clubService.getClubFieldsForTournament(tournament.creatorClubId, tournament.numberOfPlayers);
+        await res.json({tournament, inscriptionNumber, availableFieldsForBookingTournament: clubFields});
     } catch (error) {
         console.log(error);
         res.status(500).send("Ocurrio un error imprevisto :/");
@@ -85,15 +88,19 @@ exports.getAllTournaments = async (req, res) => {
  * Edit a Tournament
  */
 exports.updateTournament = async (req, res) => {
+    const tournamentId = req.params._id;
     try {
         await Tournament.findOneAndUpdate(
-            {_id: mongoose.Types.ObjectId(req.params._id)},
+            {_id: mongoose.Types.ObjectId(tournamentId)},
             {$set: req.body},
             {new: true}
             );
+        await bookingService.cancelTournamentBookings(tournamentId)
         if(req.body.state === 'Completo') {
             console.log(req.body.state);
-            await sendCompletedEmail(req.params._id)
+            await sendCompletedEmail(tournamentId)
+        } else if (req.body.state === 'Cancelado') {
+            await bookingService.sendTournamentCancellationEmailToTeams(tournamentId);
         }
         await res.json({msg: "Torneo modificado exitosamente"});
     } catch (error) {
