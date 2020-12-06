@@ -27,10 +27,13 @@ module.exports.updateFields = async function (req, res) {
 };
 
 const updateFields = async (clubId, modifiedFields) => {
-    return await Club.findByIdAndUpdate(clubId,
-        {fields: modifiedFields},
-        {new: true}
-    );
+
+    return Promise.all(modifiedFields.map(async (field) => {
+        return await Club.update(
+          {'_id': clubId, 'fields._id': field._id},
+          {'$set': { 'fields.$': field }},
+        );
+    }));
 }
 
 const addFields = async (clubId, newFields) => {

@@ -40,9 +40,7 @@ console.log('lo q entro  del register: '+JSON.stringify(req.body));
  * Show the current Player
  */
 module.exports.findById = function(req, res) {
-    console.log(req);
 
-    console.log(req.params._id);
     Player.findById(req.params._id, function(err, player) {
         if (err) {
 

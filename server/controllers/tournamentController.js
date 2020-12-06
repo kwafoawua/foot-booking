@@ -98,7 +98,6 @@ exports.updateTournament = async (req, res) => {
             );
         await bookingService.cancelTournamentBookings(tournamentId)
         if(req.body.state === 'Completo') {
-            console.log(req.body.state);
             await sendCompletedEmail(tournamentId)
         } else if (req.body.state === 'Cancelado') {
             await tournamentService.sendTournamentCancellationEmailToTeams(tournamentId);

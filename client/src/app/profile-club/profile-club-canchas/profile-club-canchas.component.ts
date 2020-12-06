@@ -59,7 +59,7 @@ export class ProfileClubCanchasComponent implements OnInit {
       this.fieldClubForm.patchValue({
         fields: this.club.fields
       });
-      // console.log(this.fieldClubForm);
+      console.log(this.fieldClubForm.controls[ 'fields' ].value);
 
     });
   }

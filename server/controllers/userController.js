@@ -10,7 +10,6 @@ const Club = require('../models/Club');
 
 module.exports.authenticate = async function(req, res) {
   try {
-    console.log(req.body);
     // TODO: generalizar para club y player
       const player = await Player.findOne({ uid: req.body.uid }).exec();
       const club = await Club.findOne({ uid: req.body.uid }).exec();
