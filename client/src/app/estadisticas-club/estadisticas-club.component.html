@@ -190,7 +190,7 @@
         <div class="filtroFechas">
           <div class="col-5">
             <mat-form-field>
-              <input matInput [matDatepicker]="fromDateStatus" placeholder="Fecha desde"
+              <input autocomplete="off" matInput [matDatepicker]="fromDateStatus" placeholder="Fecha desde"
                      formControlName="dpFromDateStatus">
               <mat-datepicker-toggle matSuffix [for]="fromDateStatus"></mat-datepicker-toggle>
               <mat-datepicker #fromDateStatus></mat-datepicker>
@@ -198,7 +198,7 @@
           </div>
           <div class="col-5">
             <mat-form-field>
-              <input matInput [matDatepicker]="toDateStatus" placeholder="Fecha hasta"
+              <input autocomplete="off" matInput [matDatepicker]="toDateStatus" placeholder="Fecha hasta"
                      formControlName="dpToDateStatus">
               <mat-datepicker-toggle matSuffix [for]="toDateStatus"></mat-datepicker-toggle>
               <mat-datepicker #toDateStatus></mat-datepicker>
@@ -235,7 +235,7 @@
         <div class="filtroFechas">
           <div class="col-5">
             <mat-form-field>
-              <input matInput [matDatepicker]="fromDateCancha" placeholder="Fecha desde"
+              <input autocomplete="off" matInput [matDatepicker]="fromDateCancha" placeholder="Fecha desde"
                      formControlName="dpFromDateCancha">
               <mat-datepicker-toggle matSuffix [for]="fromDateCancha"></mat-datepicker-toggle>
               <mat-datepicker #fromDateCancha></mat-datepicker>
@@ -243,7 +243,7 @@
           </div>
           <div class="col-5">
             <mat-form-field>
-              <input matInput [matDatepicker]="toDateCancha" placeholder="Fecha hasta"
+              <input autocomplete="off" matInput [matDatepicker]="toDateCancha" placeholder="Fecha hasta"
                      formControlName="dpToDateCancha">
               <mat-datepicker-toggle matSuffix [for]="toDateCancha"></mat-datepicker-toggle>
               <mat-datepicker #toDateCancha></mat-datepicker>

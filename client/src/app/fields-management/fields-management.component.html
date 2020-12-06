@@ -56,7 +56,7 @@
         </div>
           <div  *ngIf="modalData?.event.booking.paymentStatus != 'Pago Total'"  class="col-md-6"> Actualización de Monto
             <mat-form-field appearance="outline">
-            <input matInput [(ngModel)]="montoPagado" type="number" class="example-right-align" placeholder="Monto Pagado"
+            <input autocomplete="off" matInput [(ngModel)]="montoPagado" type="number" class="example-right-align" placeholder="Monto Pagado"
                    [max]="precioCanchaModal"  value="{{montoPagado}}" >
               <span matPrefix>$&nbsp;</span>
               <span matSuffix>.00</span>
@@ -68,6 +68,25 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-success" (click)="close(modalData?.event.booking)">Aceptar</button>
+  </div>
+</ng-template>
+
+<ng-template #modalTournament let-close="close">
+  <div class="modal-header">
+    <h2 class="modal-title"> Reserva del campeonato: {{modalData?.event.booking.player.name }}</h2>
+    <button type="button" class="close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container">
+      <p>Fecha: {{modalData?.event.booking.playingDate | date:"dd/MM/yy" }} | Hora: {{modalData?.event.booking.playingTime }}</p>
+      <p>Equipos: {{modalData?.event.booking.player.lastName }}</p>
+      <p>Cancha {{modalData?.event.booking.field.fieldName}}</p>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn" (click)="close()">Cerrar</button>
   </div>
 </ng-template>
 
@@ -115,9 +134,18 @@
   </mwl-calendar-day-view>
 </div>
 
-<br><br><br>
+<br>
 <mat-divider></mat-divider>
+<div class="d-flex">
+  <div class="d-flex align-items-center"><div class="circle reservado"></div>Reservado </div>
+  <div class="d-flex align-items-center"><div class="circle asistido"></div>Asistido </div>
+  <div class="d-flex align-items-center"><div class="circle ausente"></div>Ausente </div>
+  <div class="d-flex align-items-center"><div class="circle cancelado"></div>Cancelado</div>
+  <div class="d-flex align-items-center"><div class="circle campeonato"></div>Campeonato</div>
 
+</div>
+<mat-divider></mat-divider>
+<br>
 
 <mat-card>
   <mat-card-content>
@@ -138,7 +166,7 @@
           </div>
           <div class="col">
             <mat-form-field class="example-container" hintLabel="Max 10 caracteres">
-              <input matInput placeholder="Teléfono" type="number"
+              <input autocomplete="off" matInput placeholder="Teléfono" type="number"
                      formControlName="playerPhoneNumber" [min]="00000000" [max]="9999999999" required>
             </mat-form-field>
           </div>
@@ -160,6 +188,7 @@
             <mat-form-field >
               <input
                 matInput
+                autocomplete="off"
                 [matDatepicker]="picker"
                 placeholder="Elegi una fecha"
                 [ngModelOptions]="{standalone: true}"
@@ -185,14 +214,14 @@
         <div class="row">
           <div class="col">
             <mat-form-field class="example-container">
-              <input matInput placeholder="Monto total" type="number"  [(ngModel)]="precioCanchaModel"  class="example-right-align" formControlName="fieldPrice" [readonly]="true" required>
+              <input autocomplete="off" matInput placeholder="Monto total" type="number"  [(ngModel)]="precioCanchaModel"  class="example-right-align" formControlName="fieldPrice" [readonly]="true" required>
               <span matPrefix>$&nbsp;</span>
               <span matSuffix>.00</span>
             </mat-form-field>
           </div>
           <div class="col">
             <mat-form-field class="example-container">
-              <input matInput placeholder="Monto pagado" type="number" [max]="precioCanchaModel" formControlName="fee">
+              <input autocomplete="off" matInput placeholder="Monto pagado" type="number" [max]="precioCanchaModel" formControlName="fee">
               <span matPrefix>$&nbsp;</span>
               <span matSuffix>.00</span>
 

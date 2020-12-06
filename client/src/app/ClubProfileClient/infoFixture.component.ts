@@ -20,133 +20,12 @@ export class InfoFixtureComponent implements OnInit{
   phaseDateList: any[];
 
 
-  constructor(private route: ActivatedRoute,
-              private tournamentService: TournamentService,
+  constructor(
+    private route: ActivatedRoute,
+    private tournamentService: TournamentService,
   ) {}
 
-
-
-  myTournamentData = {
-    rounds: [
-      {
-        type: 'Winnerbracket',
-        matches: [
-          {
-            round: 'Octavos',
-            id: '16-1',
-            hourDate: null,
-            teams: [{ name: '--', score: 0 }, { name: '--', score: 0 }]
-          },
-          {
-            round: 'Octavos',
-            id: '16-2',
-            hourDate: null,
-            teams: [{ name: '--', score: 0 }, { name: '--', score: 0 }]
-          },
-          {
-            round: 'Octavos',
-            id: '16-3',
-            hourDate: null,
-            teams: [{ name: '--', score: 0 }, { name: '--', score: 0 }]
-          },
-          {
-            round: 'Octavos',
-            id: '16-4',
-            hourDate: null,
-            teams: [{ name: '--', score: 0 }, { name: '--', score: 0 }]
-          },
-          {
-            round: 'Octavos',
-            id: '16-5',
-            hourDate: null,
-            teams: [{ name: '--', score: 0 }, { name: '--', score: 0 }]
-          },
-          {
-            round: 'Octavos',
-            id: '16-6',
-            hourDate: null,
-            teams: [{ name: '--', score: 0 }, { name: '--', score: 0 }]
-          },
-          {
-            round: 'Octavos',
-            id: '16-7',
-            hourDate: null,
-            teams: [{ name: '--', score: 0 }, { name: '--', score: 0 }]
-          },
-          {
-            round: 'Octavos',
-            id: '16-8',
-            hourDate: null,
-            teams: [{ name: '--', score: 0 }, { name: '--', score: 0 }]
-          }
-        ]
-      },
-      {
-        type: 'Winnerbracket',
-        matches: [
-          {
-            round: 'Cuartos',
-            id: '8-1',
-            hourDate: null,
-            teams: [{ name: '--', score: 0 }, { name: '--', score: 0 }]
-          },
-          {
-            round: 'Cuartos',
-            id: '8-2',
-            hourDate: null,
-            teams: [{ name: '--', score: 0 }, { name: '--', score: 0 }]
-          },
-          {
-            round: 'Cuartos',
-            id: '8-3',
-            hourDate: null,
-            teams: [{ name: '--', score: 0 }, { name: '--', score: 0 }]
-          },
-          {
-            round: 'Cuartos',
-            id: '8-4',
-            hourDate: null,
-            teams: [{ name: '--', score: 0 }, { name: '--', score: 0 }]
-          }
-        ]
-      },
-      {
-        type: 'Winnerbracket',
-        matches: [
-          {
-            round: 'Semifinales',
-            id: '4-1',
-            hourDate: null,
-            teams: [{ name: '--', score: 0 }, { name: '--', score: 0 }]
-          },
-          {
-            round: 'Semifinales',
-            id: '4-2',
-            hourDate: null,
-            teams: [{ name: '--', score: 0 }, { name: '--', score: 0 }]
-          }
-        ]
-      },
-      {
-        type: 'Final',
-        matches: [
-          {
-            round: 'Final',
-            id: '2-1',
-            hourDate: null,
-            teams: [{ name: '--', score: 0 }, { name: '--', score: 0 }]
-          },
-          {
-            round: 'Final',
-            id: '2-2',
-            hourDate: null,
-            teams: [{ name: '--', score: 0 }, { name: '--', score: 0 }]
-          },
-        ]
-      }
-    ]
-  };
-
+  myTournamentData = this.tournamentService.getInitialTournamentData();
 
   ngOnInit() {
     this.getPhases();
@@ -180,15 +59,15 @@ export class InfoFixtureComponent implements OnInit{
       if (phaseType !== 'Final' && phaseType !== 'Tercero y Cuarto puesto') {
         round.type = 'Winnerbracket';
         round.matches = phase.matches.map(match => {
-          return this.mapPhaseToMatch(match, phase._id, phaseType, tournamentId, phase.dateToPlay);
+          return this.mapPhaseToMatch(match, phase._id, phaseType, tournamentId);
         });
         rounds.push(round);
       } else if (phaseType === 'Final') {
         const match = phase.matches[ 0 ];
-        lastRound.matches[ 0 ] = this.mapPhaseToMatch(match, phase._id, phaseType, tournamentId, phase.dateToPlay);
+        lastRound.matches[ 0 ] = this.mapPhaseToMatch(match, phase._id, phaseType, tournamentId);
       } else {
         const match = phase.matches[ 0 ];
-        lastRound.matches[ 1 ] = this.mapPhaseToMatch(match, phase._id, phaseType, tournamentId, phase.dateToPlay);
+        lastRound.matches[ 1 ] = this.mapPhaseToMatch(match, phase._id, phaseType, tournamentId);
       }
     }
 
@@ -196,14 +75,13 @@ export class InfoFixtureComponent implements OnInit{
     this.myTournamentData = { rounds };
   }
 
-  mapPhaseToMatch(match, phaseId, phaseType, tournamentId, dateToPlay) {
-    console.log('mapPHaseToMatch match', match);
+  mapPhaseToMatch(match, phaseId, phaseType, tournamentId) {
     console.log('maphasetomatch regexpq', fixtureRegexp(match.localTeam.teamName));
     const localTeamName = !fixtureRegexp(match.localTeam.teamName) ? match.localTeam.teamName : null;
     const visitorTeamName = !fixtureRegexp(match.visitorTeam.teamName) ? match.visitorTeam.teamName : null;
     return {
       tournamentId,
-      dateToPlay,
+      dateToPlay: match.dateToPlay,
       hourDate: match.hourToPlay || null,
       id: match._id,
       state: match.state,

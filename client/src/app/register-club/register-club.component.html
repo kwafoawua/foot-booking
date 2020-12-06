@@ -132,7 +132,7 @@
                 <div class="row form-group" [ngClass]="{ 'has-error': registerClubForm.get('phoneNumber').invalid}">
                   <div class="col-md-8 example-container">
                     <mat-form-field>
-                    <input matInput formControlName="phoneNumber" class="form-control" type="number" placeholder="Teléfono" required>
+                    <input autocomplete="off" matInput formControlName="phoneNumber" class="form-control" type="number" placeholder="Teléfono" required>
                     </mat-form-field>
                   </div>
                 </div>

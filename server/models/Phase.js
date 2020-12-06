@@ -6,7 +6,6 @@ const PhaseSchema = new mongoose.Schema({
         ref: 'Tournament',
         requiered: true
     },
-    dateToPlay: Date,
     phaseType: {
         type: String,
         requiered: true,
@@ -23,11 +22,19 @@ const PhaseSchema = new mongoose.Schema({
             teamName: String,
             goals: Number
         },
+        dateToPlay: Date,
+        fieldId: mongoose.Schema.Types.ObjectId,
+        fieldName: String,
         hourToPlay: String,
         state: {
             type: String,
             default: 'Sin asignar',
             enum: ['Sin asignar', 'Pendiente de Juego', 'Finalizado', 'Suspendido']
+        },
+        bookingId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Booking',
+            requiered: false
         }
     }]
 });
