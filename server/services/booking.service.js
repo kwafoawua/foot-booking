@@ -1,17 +1,13 @@
 const mongoose = require('mongoose');
 const Booking = require("../models/Booking");
-const Tournament = require("../models/Tournament");
-const {sendEmail} = require("../controllers/mailing");
-const {getInscriptionEmails} = require("../controllers/inscriptionController");
 
 exports.registerBookingsForPhase = async (bookingId, clubId, localTeam, visitorTeam, dateToPlay, hourDate, rawField, tournamentName, tournamentId, bookingState) => {
-
-    if(!dateToPlay && !hourDate && !rawField) {
+    if (!dateToPlay && !hourDate && !rawField) {
         return;
     }
 
     const _id = bookingId || new mongoose.mongo.ObjectID();
-    const {_id: fieldId, ...field } = rawField;
+    const {_id: fieldId, ...field} = rawField;
     field.id = fieldId;
     let query = {
         isTournamentBooking: true,
@@ -63,16 +59,10 @@ exports.cancelTournamentBookings = async tournamentId => {
     await Booking.updateMany(query, {status: 'Cancelado'})
 }
 
-exports.sendTournamentCancellationEmailToTeams = async tournamentId => {
-    const emails = await getInscriptionEmails(tournamentId);
-    const tournament = await Tournament.findById(tournamentId).populate('creatorClubId').select('tournamentName creatorClubId termsAndConditions').exec();
-    const subject = `Cancelación del campeonato ${tournament.tournamentName}.`;
-    const text = `
-    Hola, lamentamos informales que el campeonato "${tournament.tournamentName}" ha sido cancelado.
-    Los términos y condiciones del campeonato eran: \n
-    "${tournament.termsAndConditions}" \n
-    Te recomendamos que te contactes con el club ${tournament.creatorClubId.name} (telefono: ${tournament.creatorClubId.phoneNumber}) para conocer el motivo de cancelación y resolver cualquier otra consulta. \n \n
-    Saludos Footbooking.
-    `;
-    await sendEmail('', emails, subject, text);
-}
+exports.fieldHasExistenceBooking = async fieldId => await Booking.findOne({
+    'field.id': fieldId,
+    status: 'Reservado',
+    playingDate: {$gte: new Date().setHours(0, 0, 0, 0)}
+});
+
+
