@@ -10,7 +10,7 @@ module.exports.sendEmail = async (name, email, subject, text) => {
     `;
     const defaultSubject = 'Te damos la bienvenida a Footbooking ✔';
     const mailOptions = {
-        from: "FootBoking ✔ <no-reply@footbooking.com>", // sender addres
+        from: "FootBooking ✔ <no-reply@footbooking.com>", // sender addres
         to: email, // list of receivers
         subject: subject || defaultSubject, // Subject line
         text: text || defaultText,

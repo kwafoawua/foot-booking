@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Booking = require("../models/Booking");
-const Club = require("../models/Club");
+const Tournament = require("../models/Tournament");
+const {sendEmail} = require("../controllers/mailing");
+const {getInscriptionEmails} = require("../controllers/inscriptionController");
 
 exports.registerBookingsForPhase = async (bookingId, clubId, localTeam, visitorTeam, dateToPlay, hourDate, rawField, tournamentName, tournamentId, bookingState) => {
     const _id = bookingId || new mongoose.mongo.ObjectID();
@@ -56,9 +58,16 @@ exports.cancelTournamentBookings = async tournamentId => {
     await Booking.updateMany(query, {status: 'Cancelado'})
 }
 
-exports.sendTournamentCancellationEmailToTeams = () => {
-    // iterates over current phase
-    // get teams emails that has a tournament booking status 'Reservado' and match
-    // team name with tournament inscription team name to get the userId
-    // then gets email of player and send notification
+exports.sendTournamentCancellationEmailToTeams = async tournamentId => {
+    const emails = await getInscriptionEmails(tournamentId);
+    const tournament = await Tournament.findById(tournamentId).populate('creatorClubId').select('tournamentName creatorClubId termsAndConditions').exec();
+    const subject = `Cancelación del campeonato ${tournament.tournamentName}.`;
+    const text = `
+    Hola, lamentamos informales que el campeonato "${tournament.tournamentName}" ha sido cancelado.
+    Los términos y condiciones del campeonato eran: \n
+    "${tournament.termsAndConditions}" \n
+    Te recomendamos que te contactes con el club ${tournament.creatorClubId.name} (telefono: ${tournament.creatorClubId.phoneNumber}) para conocer el motivo de cancelación y resolver cualquier otra consulta. \n \n
+    Saludos Footbooking.
+    `;
+    await sendEmail('', emails, subject, text);
 }
