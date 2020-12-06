@@ -93,8 +93,8 @@
     </div>
   </div>
 
-    <div *ngIf="rol == 'Jugador'">
-      <div *ngIf="torneo?.state == 'Publicado' && !yaRegistrado" >
+    <div *ngIf="rol === 'Jugador'">
+      <div *ngIf="torneo?.state === 'Publicado' && !yaRegistrado && fechaInscripcionValida" >
         <camp-insc [torneo]="torneo" [cantidad]="cantidad"></camp-insc>
       </div>
       <div class="alert alert-light" role="alert" *ngIf="torneo?.state == 'Completo'">
