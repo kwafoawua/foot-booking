@@ -109,7 +109,7 @@ const sendShuffleEmails = async (tId) => {
     const subject = `El campeonato ${tournament.tournamentName} ya se sorteó. ¿Estás listo para jugar?`;
     const text = `
     Hola! ¿Están listos con tu equipo para comenzar a jugar?.
-    El campeonato ${tournament.tournamentName} ya se sorteó y ya podes ir a visitar el sitio para saber contra quien jugas en www.footbooking.com.
+    El campeonato ${tournament.tournamentName} ya se sorteó y ya podes ir a visitar el sitio para saber contra quién juegas en la sección de "Campeonatos" disponible en el menú "Preferencias".
     Mucha suerte para este campeonato! \n
     Saludos Footbooking!
     `;
