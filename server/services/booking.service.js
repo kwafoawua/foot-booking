@@ -2,13 +2,12 @@ const mongoose = require('mongoose');
 const Booking = require("../models/Booking");
 
 exports.registerBookingsForPhase = async (bookingId, clubId, localTeam, visitorTeam, dateToPlay, hourDate, rawField, tournamentName, tournamentId, bookingState) => {
-
-    if(!dateToPlay && !hourDate && !rawField) {
+    if (!dateToPlay && !hourDate && !rawField) {
         return;
     }
 
     const _id = bookingId || new mongoose.mongo.ObjectID();
-    const {_id: fieldId, ...field } = rawField;
+    const {_id: fieldId, ...field} = rawField;
     field.id = fieldId;
     let query = {
         isTournamentBooking: true,
@@ -59,3 +58,11 @@ exports.cancelTournamentBookings = async tournamentId => {
     }
     await Booking.updateMany(query, {status: 'Cancelado'})
 }
+
+exports.fieldHasExistenceBooking = async fieldId => await Booking.findOne({
+    'field.id': fieldId,
+    status: 'Reservado',
+    playingDate: {$gte: new Date().setHours(0, 0, 0, 0)}
+});
+
+

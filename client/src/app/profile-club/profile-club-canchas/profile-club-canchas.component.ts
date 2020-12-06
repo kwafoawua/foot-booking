@@ -105,16 +105,17 @@ export class ProfileClubCanchasComponent implements OnInit {
       console.log(canchas);
       this.clubService.updateFields(this.club._id, canchas).subscribe(
         data => {
-          this.snackBar.open('Se actualizó con éxito', null, {
+          this.snackBar.open('Campos actualizados con éxito', null, {
             duration: 2000
           });
           this.alertService.success('Los datos se actualizaron correctamente', true);
         },
         error => {
-          this.snackBar.open(error, null, {
-            duration: 2000
+          this.resetData();
+          this.snackBar.open(error.error, null, {
+            duration: 8000
           });
-          this.alertService.error(error);
+          this.alertService.error(error.error);
           this.loading = false;
         });
 
@@ -128,6 +129,13 @@ export class ProfileClubCanchasComponent implements OnInit {
   setDeletedFields($event) {
     this.deletedFields.push($event);
     console.log(this.deletedFields);
+  }
+
+  resetData() {
+    this.fields = [];
+    this.modifiedFields = [];
+    this.newFields = [];
+    this.ngOnInit();
   }
 
 }
