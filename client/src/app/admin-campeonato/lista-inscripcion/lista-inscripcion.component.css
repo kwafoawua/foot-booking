@@ -20,3 +20,9 @@
   flex-direction: column;
   align-items: center;
 }
+
+.circle-ins {
+  height: 2rem;
+  width: 2rem;
+  border-radius: 2rem;
+}
