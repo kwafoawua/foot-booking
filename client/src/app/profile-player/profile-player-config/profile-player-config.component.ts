@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PasswordValidation } from '../../_helpers/index';
 import { AlertService } from '../../_services/alert.service';
 import { UserService } from '../../_services/user.service';
+import { AuthService } from '../../_services';
 
 @Component({
   templateUrl: './profile-player-config.component.html'
@@ -13,9 +14,10 @@ export class ProfilePlayerConfigComponent implements OnInit {
   repeatPassword: string;
   username: string;
 
-  constructor(private fb: FormBuilder,
-              private userService: UserService,
-              private alertService: AlertService) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private alertService: AlertService) {
   }
 
   ngOnInit() {
@@ -30,24 +32,21 @@ export class ProfilePlayerConfigComponent implements OnInit {
     }, { validator: PasswordValidation.MatchPassword });
   }
 
-  updatePassword() {
-    if (this.passwordForm.valid) {
-      let password = this.passwordForm.value.password;
-      let user = {
-        password: password,
-        username: this.username
-      };
 
-      this.userService.updatePassword(user)
-        .subscribe(
-          data => {
-            this.alertService.success('La password se modificó con éxito', true);
-          },
-          error => {
-            this.alertService.error(error);
-          });
-    }
-    this.alertService.error('Ups! Hubo un problema en la validación, revise los campos ingresados', false);
+      updatePassword() {
+        if (this.passwordForm.valid) {
+          const password = this.passwordForm.value.password;
+          this.authService.updatePassword(password)
+            .then(
+              data => {
+                this.alertService.success('La password se modificó con éxito', true);
 
-  }
+              }).catch(
+            error => {
+              this.alertService.error(error);
+            });
+        } else {
+          this.alertService.error('Ups! Hubo un problema en la validación, revise los campos ingresados', false);
+        }
+      }
 }
