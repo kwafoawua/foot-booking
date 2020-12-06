@@ -266,6 +266,7 @@ export class FixtureComponent implements OnInit {
   setCampeonatoState(stateName) {
     this.tournamentService.updateTournament({_id: this.tournamentId, state: stateName}).subscribe((data) => {
       this.tournamentState = stateName;
+      this.getPhases();
       const snackMessage = stateName === 'Iniciado' ? 'Se inició el campeonato' : 'Se finalizó el campeonato';
       this.snackBar.open(snackMessage, null, {
         duration: 2000

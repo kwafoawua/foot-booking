@@ -27,7 +27,7 @@
     </div>
     <div class="col-12 col-md-6">
       <mat-form-field>
-        <input [disabled]="disabledScore" matInput [(ngModel)]="match?.teams[1].score" type="number" placeholder="Goles">
+        <input autocomplete="off" [disabled]="disabledScore" matInput [(ngModel)]="match?.teams[1].score" type="number" placeholder="Goles">
       </mat-form-field>
     </div>
   </div>

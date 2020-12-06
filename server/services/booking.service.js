@@ -5,8 +5,13 @@ const {sendEmail} = require("../controllers/mailing");
 const {getInscriptionEmails} = require("../controllers/inscriptionController");
 
 exports.registerBookingsForPhase = async (bookingId, clubId, localTeam, visitorTeam, dateToPlay, hourDate, rawField, tournamentName, tournamentId, bookingState) => {
+
+    if(!dateToPlay && !hourDate && !rawField) {
+        return;
+    }
+
     const _id = bookingId || new mongoose.mongo.ObjectID();
-    const {_id: fieldId, ...field} = rawField;
+    const {_id: fieldId, ...field } = rawField;
     field.id = fieldId;
     let query = {
         isTournamentBooking: true,

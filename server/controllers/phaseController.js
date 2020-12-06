@@ -178,10 +178,9 @@ exports.updatePhaseMatch = async (req, res) => {
                 ...(dateToPlay && {'matches.$.dateToPlay': dateToPlay}),
                 ...(field && {'matches.$.fieldName': field.fieldName}),
                 ...(field && {'matches.$.fieldId': field._id}),
-                'matches.$.bookingId': bookingMatch._id,
+                ...(bookingMatch && {'matches.$.bookingId': bookingMatch._id}),
                 'matches.$.state': state
             }, {useFindAndModify: false});
-        console.log(bookingMatch._id)
         await res.json({msg: "Partido actualizado correctamente"})
     } catch (error) {
         res.status(500).send("Error al intentar actualizar una fase", error);
