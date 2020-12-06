@@ -32,9 +32,10 @@ exports.newTournamentInscription = async (req, res) => {
         const tournament = await Tournament.findById(idTournament).exec();
         const subject = `Te inscribiste al campeonato ${tournament.tournamentName}`;
         const text = `
-        Hola ${player.name}! Muchas gracias por inscribirte al torneo ${tournament.tournamentName}.
+        Hola ${player.name}! Muchas gracias por inscribirte al campeonato ${tournament.tournamentName}.
         El mismo va a iniciar el día ${moment(tournament.startDate).format('D/M/YY')}.
-        Estate atento con tu equipo para saber que día y horario tienen el partido en www.footbooking.com. \n
+        Cuando el club realice el sorteo de los equipos que participan te notificaremos por este medio. Estate atento con tu equipo para saber que día y horario tienen el partido!
+        Podrás encontrar más información en la sección de "Campeonatos" disponible en el menú "Preferencias". \n
         Saludos Footbooking!
         `;
         await inscription.save();
@@ -153,9 +154,10 @@ exports.sendInscriptionMailSuccess = async paymentReference => {
     const tournament = await Tournament.findById(inscription.tournamentId).exec();
     const subject = `Te inscribiste al campeonato ${tournament.tournamentName}`;
     const text = `
-        Hola ${player.name}! Muchas gracias por inscribirte al torneo ${tournament.tournamentName}.
+        Hola ${player.name}! Muchas gracias por inscribirte al campeonato ${tournament.tournamentName}.
         El mismo va a iniciar el día ${moment(tournament.startDate).format('D/M/YY')}.
-        Estate atento con tu equipo para saber que día y horario tienen el partido en www.footbooking.com. \n
+        Cuando el club realice el sorteo de los equipos que participan te notificaremos por este medio. Estate atento con tu equipo para saber que día y horario tienen el partido!
+        Podrás encontrar más información en la sección de "Campeonatos" disponible en el menú "Preferencias". \n
         Saludos Footbooking!
         `;
     await sendEmail(player.name, player.email, subject, text);

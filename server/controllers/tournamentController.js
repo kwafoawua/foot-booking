@@ -116,8 +116,8 @@ const sendCompletedEmail = async (tId) => {
     const email = tournament.creatorClubId.email;
     const subject = `Se completaron las inscripciones del campeonato ${tournament.tournamentName}`;
     const text = `
-    Hola ${clubName}! Se completaron las inscripciones del torneo y ya está listo para sortear los equipos.
-     Te esperamos en www.footbooking.com para que comiences el campeonato!\n
+    Hola ${clubName}! Se completaron las inscripciones del campeonato y ya está listo para sortear los equipos.
+    Podrás realizar el sorteo desde la gestión de campeonato en la pestaña de "Fases". Una vez realizado el sorteo se notificará a todos los equipos inscriptos.\n
     Saludos Footbooking!
     `;
     await sendEmail('', email, subject, text);
