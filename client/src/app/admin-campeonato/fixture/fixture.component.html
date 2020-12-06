@@ -4,6 +4,7 @@
   <div class="mt-2" *ngIf="esSinAsignar">
     <p>
       Lo equipos de Octavos de Final van a ser asignados aleatoreamente.
+      Podes ir cargando las reservas de las canchas para los partidos.
     </p>
     <button mat-button (click)="shuffleMatches()" [disabled]="!isGenerable">Asignar Octavos</button>
     <span *ngIf="!isGenerable">Se necesitan 16 equipos inscriptos</span>
