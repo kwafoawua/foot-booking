@@ -7,6 +7,7 @@ const tournamentAdapter = require('../adapters/TournamentResponseAdapter');
 const phasesCreator = require('./phaseController');
 const clubService = require('../services/club.service');
 const bookingService = require('../services/booking.service');
+const tournamentService = require('../services/tournament.service');
 
 /**
  * Create a Tournament
@@ -100,7 +101,7 @@ exports.updateTournament = async (req, res) => {
             console.log(req.body.state);
             await sendCompletedEmail(tournamentId)
         } else if (req.body.state === 'Cancelado') {
-            await bookingService.sendTournamentCancellationEmailToTeams(tournamentId);
+            await tournamentService.sendTournamentCancellationEmailToTeams(tournamentId);
         }
         await res.json({msg: "Torneo modificado exitosamente"});
     } catch (error) {
