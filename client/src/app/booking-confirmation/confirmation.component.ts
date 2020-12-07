@@ -92,7 +92,7 @@ export class ConfirmationComponent implements OnInit {
 
   private getMercadoPagoCheckout() {
     this.mercadoPagoData.title = `Reserva en club ${this.reservaFinal.clubName}`;
-    this.mercadoPagoData.description = `Cancha: ${this.reservaFinal.fieldName} - Fecha: ${this.reservaFinal.playingDate} Hora: ${this.reservaFinal.playingTime}`;
+    this.mercadoPagoData.description = `Cancha: ${this.reservaFinal.fieldName} - Fecha: ${this.reservaFinal.playingDate.toLocaleDateString('es-AR')} Hora: ${this.reservaFinal.playingTime}`;
     this.mercadoPagoData.unitPrice = parseFloat(this.reservaFinal.fieldPrice);
     this.mercadoPagoData.successURL = "http://localhost:4200/confirmation";
     this.mercadoPagoData.failureURL = "http://localhost:4200/confirmation?state=error";
