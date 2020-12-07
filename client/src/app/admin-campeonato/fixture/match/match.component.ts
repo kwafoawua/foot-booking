@@ -59,8 +59,8 @@ export class MatchComponent implements OnInit {
 
       this.tooltipText = `Fecha de juego: ${myFormattedDate || 'Sin Definir'} \n
       Hora de juego: ${hourDate || 'Sin Definir'} \n
-      Equipo Local: ${teams[0].name} - Goles: ${teams[0].score || ''} \n
-      Equipo Visitante: ${teams[1].name} - Goles: ${teams[1].score || ''}`;
+      Equipo Local: ${teams[0].name} - Goles: ${typeof(teams[0].score) === 'number' && teams[0].score >= 0 ?  teams[0].score : '' } \n
+      Equipo Visitante: ${teams[1].name} - Goles: ${typeof(teams[1].score) === 'number' && teams[1].score >= 0 ?  teams[1].score : '' }`;
 
       this.canchaAsignadaTooltip = 'Partido con reserva asignada';
 
