@@ -25,7 +25,7 @@ export class InfoFixtureComponent implements OnInit{
     private tournamentService: TournamentService,
   ) {}
 
-  myTournamentData = this.tournamentService.getInitialTournamentData();
+  myTournamentData: any;
 
   ngOnInit() {
     this.getPhases();

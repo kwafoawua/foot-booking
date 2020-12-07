@@ -41,8 +41,8 @@ export class FixtureComponent implements OnInit {
     public snackBar: MatSnackBar,
   ) { }
 
-  myTournamentData = this.tournamentService.getInitialTournamentData();
-
+  //myTournamentData = this.tournamentService.getInitialTournamentData();
+myTournamentData: any;
   ngOnInit() {
     this.tournamentId = this.route.snapshot.params[ 'id' ];
     if (this.tournamentId) {

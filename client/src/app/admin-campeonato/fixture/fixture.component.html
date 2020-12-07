@@ -61,7 +61,8 @@
   </div>
 
 
-  <ngtt-single-elimination-tree
+
+  <ngtt-single-elimination-tree *ngIf="myTournamentData"
     [tournament]="myTournamentData"
     [matchTemplate]="myMatchTemplate">
   </ngtt-single-elimination-tree>
