@@ -30,7 +30,7 @@ exports.newTournamentInscription = async (req, res) => {
         let tournamentInfo = await tournamentController.getTournamentById(idTournament);
         await inscription.save();
         const checkout = await mercadoPagoController.generatePreferenceForInscription(tournamentInfo, externalReference);
-        res.status(200).send({initPoint: checkout.init_point});
+        await res.status(200).send({initPoint: checkout.init_point});
     } catch (e) {
         res.status(500).send("Ocurrió un error imprevisto :(");
     }
