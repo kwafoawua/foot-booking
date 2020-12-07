@@ -103,7 +103,7 @@
       <div class="alert alert-light" role="alert" *ngIf="torneo?.state == 'Publicado' && yaRegistrado">
         Ya estás registrado en este campeonato.
       </div>
-      <div class="alert alert-light" role="alert" *ngIf="!fechaInscripcionValida">
+      <div class="alert alert-light" role="alert" *ngIf="!fechaInscripcionValida && !yaRegistrado">
         <p>
         No es posible inscribirse a este campeonato ya que no se encuentran habilitadas la inscripciones para el día de hoy.
         </p>

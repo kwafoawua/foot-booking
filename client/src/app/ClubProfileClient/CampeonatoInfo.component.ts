@@ -75,10 +75,11 @@ export class CampeonatoInfoComponent implements OnInit {
   }
 
   isInscriptionDateAllowed() {
-    const today = new Date();
-    const inscriptionStartDate = new Date(this.torneo.inscriptionStartDate);
-    const inscriptionEndDate = new Date(this.torneo.inscriptionEndDate);
-    this.fechaInscripcionValida = inscriptionStartDate <= today && inscriptionEndDate > today;
+    const today = new Date().setHours(0, 0, 0, 0);
+    const inscriptionStartDate = new Date(this.torneo.inscriptionStartDate).setHours(0, 0, 0, 0);
+    const inscriptionEndDate = new Date(this.torneo.inscriptionEndDate).setHours(23, 59, 59, 999);
+
+    this.fechaInscripcionValida = inscriptionStartDate <= today && inscriptionEndDate >= today;
   }
 
 }
