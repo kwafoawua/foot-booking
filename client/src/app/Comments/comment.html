@@ -6,7 +6,7 @@
              No hay comentarios registrados
           </div>
         <div *ngIf="clubComentarios.length">
-          <div class="card border-light mb-3" *ngFor="let c of clubComentarios.reverse()  | paginate : {
+          <div class="card border-light mb-3" *ngFor="let c of clubComentarios  | paginate : {
                   itemsPerPage: pageSize,
                   currentPage: page,
                   totalItems: count
