@@ -121,4 +121,10 @@ export class AuthService {
     return user.updateEmail(newEmail);
   }
 
+  forgotPassword(email: string) {
+    const auth = firebase.auth();
+
+    return auth.sendPasswordResetEmail(email);
+  }
+
 }
