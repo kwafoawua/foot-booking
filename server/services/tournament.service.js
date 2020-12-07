@@ -8,8 +8,6 @@ exports.sendTournamentCancellationEmailToTeams = async tournamentId => {
     const subject = `Cancelación del campeonato ${tournament.tournamentName}.`;
     const text = `
     Hola, lamentamos informales que el campeonato "${tournament.tournamentName}" ha sido cancelado.
-    Los términos y condiciones del campeonato eran: \n
-    "${tournament.termsAndConditions}" \n
     Te recomendamos que te contactes con el club ${tournament.creatorClubId.name} (telefono: ${tournament.creatorClubId.phoneNumber}) para conocer el motivo de cancelación y resolver cualquier otra consulta. \n \n
     Saludos Footbooking.
     `;
