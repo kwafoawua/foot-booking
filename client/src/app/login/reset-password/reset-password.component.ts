@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService, AuthService } from '../../_services';
+import { FirebaseErrorHandler } from '../../_helpers/firebaseErrorHandler';
+
 
 @Component({
   selector: 'app-reset-password',
@@ -38,7 +40,11 @@ export class ResetPasswordComponent implements OnInit {
       this.authService.forgotPassword(this.resetPasswordForm.get('email').value).then( () =>
         this.alertService.success('Te llegará un email para poder restablecer la contraseña')
       )
-        .catch(error => console.log(error));
+        .catch(err => {
+          const error = FirebaseErrorHandler.signInErrorHandler(err.code);
+          this.alertService.error(error);
+          this.loading = false;
+        });
     }
   }
 
