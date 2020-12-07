@@ -164,7 +164,7 @@ exports.updatePhaseMatch = async (req, res) => {
         bookingState = 'Reservado';
     }
     try {
-        const bookingMatch = await bookingService.registerBookingsForPhase(bookingId, clubId, localTeam, visitorTeam, dateToPlay, hourDate, field, tournamentName, tournamentId, bookingState);
+        const bookingMatch = await bookingService.registerBookingsForPhase(bookingId, clubId, dateToPlay, hourDate, field, tournamentName, tournamentId, bookingState, matchId);
         await Phase.findOneAndUpdate({
                 tournamentId: mongoose.Types.ObjectId(tournamentId),
                 'matches._id': matchId

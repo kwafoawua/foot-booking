@@ -1,10 +1,13 @@
 const mongoose = require('mongoose');
 const Booking = require("../models/Booking");
+const phaseService = require('../services/phase.service');
 
-exports.registerBookingsForPhase = async (bookingId, clubId, localTeam, visitorTeam, dateToPlay, hourDate, rawField, tournamentName, tournamentId, bookingState) => {
+exports.registerBookingsForPhase = async (bookingId, clubId, dateToPlay, hourDate, rawField, tournamentName, tournamentId, bookingState, matchId) => {
     if (!dateToPlay && !hourDate && !rawField) {
         return;
     }
+
+    const phaseType = await phaseService.getPhaseTypeNameForMatchId(tournamentId, matchId);
 
     const _id = bookingId || new mongoose.mongo.ObjectID();
     const {_id: fieldId, ...field} = rawField;
@@ -24,7 +27,7 @@ exports.registerBookingsForPhase = async (bookingId, clubId, localTeam, visitorT
         paidMethod: 'Torneo',
         player: {
             name: tournamentName || 'Campeonato',
-            lastName: `${localTeam} - ${visitorTeam}`
+            lastName: phaseType
         },
         paymentStatus: 'Pago Total'
     };
