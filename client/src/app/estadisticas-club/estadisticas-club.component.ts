@@ -3,9 +3,9 @@ import { BookingService } from '../_services/booking.service';
 import * as moment from 'moment';
 import { CommentService } from '../_services/comment.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import {PdfModel} from "./model/pdf.model";
-import {TournamentService} from "../_services/tournament.service";
-import {Tournament} from "../_models/tournament";
+import {PdfModel} from './model/pdf.model';
+import {TournamentService} from '../_services/tournament.service';
+import {Tournament} from '../_models/tournament';
 
 @Component({
   templateUrl: 'estadisticas-club.component.html',
@@ -13,116 +13,135 @@ import {Tournament} from "../_models/tournament";
 })
 
 export class EstadisticasClubComponent implements OnInit {
+  constructor(private bookingService: BookingService,
+              private commentService: CommentService,
+              private tournamentService: TournamentService,
+              private formBuilder: FormBuilder) {
+  }
+
+  get dpFromDateStatus() {
+    return this.formFilter.get('dpFromDateStatus');
+  }
+
+  get dpToDateStatus() {
+    return this.formFilter.get('dpToDateStatus');
+  }
+
+  get dpFromDateCancha() {
+    return this.formFilter.get('dpFromDateCancha');
+  }
+
+  get dpToDateCancha() {
+    return this.formFilter.get('dpToDateCancha');
+  }
   single: any[] = [
     {
-      'name': 'Cancha 1',
-      'value': 30
+      name: 'Cancha 1',
+      value: 30
     },
     {
-      'name': 'Cancha 2',
-      'value': 1
+      name: 'Cancha 2',
+      value: 1
     },
     {
-      'name': 'Cancha 3',
-      'value': 20
+      name: 'Cancha 3',
+      value: 20
     }
   ];
   single2: any[] = [
     {
-      'name': 'Enero',
-      'value': 80
+      name: 'Enero',
+      value: 80
     },
     {
-      'name': 'Febrero',
-      'value': 50
+      name: 'Febrero',
+      value: 50
     },
     {
-      'name': 'Marzo',
-      'value': 72
+      name: 'Marzo',
+      value: 72
     },
     {
-      'name': 'Abril',
-      'value': 89
+      name: 'Abril',
+      value: 89
     },
     {
-      'name': 'Mayo',
-      'value': 100
+      name: 'Mayo',
+      value: 100
     },
     {
-      'name': 'Junio',
-      'value': 72
+      name: 'Junio',
+      value: 72
     },
     {
-      'name': 'Julio',
-      'value': 89
+      name: 'Julio',
+      value: 89
     },
     {
-      'name': 'Agosto',
-      'value': 150
+      name: 'Agosto',
+      value: 150
     },
     {
-      'name': 'Septiembre',
-      'value': 72
+      name: 'Septiembre',
+      value: 72
     },
     {
-      'name': 'Octubre',
-      'value': 89
+      name: 'Octubre',
+      value: 89
     },
     {
-      'name': 'Noviembre',
-      'value': 50
+      name: 'Noviembre',
+      value: 50
     },
     {
-      'name': 'Diciembre',
-      'value': 72
+      name: 'Diciembre',
+      value: 72
     }
   ];
   multi: any[] = [
     {
-      'name': 'Germany',
-      'series': [
+      name: 'Germany',
+      series: [
         {
-          'name': '2010',
-          'value': 7300000
+          name: '2010',
+          value: 7300000
         },
         {
-          'name': '2011',
-          'value': 8940000
+          name: '2011',
+          value: 8940000
         }
       ]
     },
 
     {
-      'name': 'USA',
-      'series': [
+      name: 'USA',
+      series: [
         {
-          'name': '2010',
-          'value': 7870000
+          name: '2010',
+          value: 7870000
         },
         {
-          'name': '2011',
-          'value': 8270000
+          name: '2011',
+          value: 8270000
         }
       ]
     },
 
     {
-      'name': 'France',
-      'series': [
+      name: 'France',
+      series: [
         {
-          'name': '2010',
-          'value': 5000002
+          name: '2010',
+          value: 5000002
         },
         {
-          'name': '2011',
-          'value': 5800000
+          name: '2011',
+          value: 5800000
         }
       ]
     }
   ];
-  // view: any[] = [600, 500];
-  //view1: any[] = [1200, 400];
-  //  view2: any[] = [600, 500];
+
 
   // options
   options: any = {
@@ -151,120 +170,120 @@ export class EstadisticasClubComponent implements OnInit {
   loadedReportByStatus: boolean;
   loadedReportByCancha: boolean;
   cantComments: number;
-  cantBookings : number;
+  cantBookings: number;
   statusChart: any[] = [];
   bookingMonthChart: any[] = [
     {
-      'name': 'Enero',
-      'value': 0
+      name: 'Enero',
+      value: 0
     },
     {
-      'name': 'Febrero',
-      'value': 0
+      name: 'Febrero',
+      value: 0
     },
     {
-      'name': 'Marzo',
-      'value': 0
+      name: 'Marzo',
+      value: 0
     },
     {
-      'name': 'Abril',
-      'value': 0
+      name: 'Abril',
+      value: 0
     },
     {
-      'name': 'Mayo',
-      'value': 0
+      name: 'Mayo',
+      value: 0
     },
     {
-      'name': 'Junio',
-      'value': 0
+      name: 'Junio',
+      value: 0
     },
     {
-      'name': 'Julio',
-      'value': 0
+      name: 'Julio',
+      value: 0
     },
     {
-      'name': 'Agosto',
-      'value': 0
+      name: 'Agosto',
+      value: 0
     },
     {
-      'name': 'Septiembre',
-      'value': 0
+      name: 'Septiembre',
+      value: 0
     },
     {
-      'name': 'Octubre',
-      'value': 0
+      name: 'Octubre',
+      value: 0
     },
     {
-      'name': 'Noviembre',
-      'value': 0
+      name: 'Noviembre',
+      value: 0
     },
     {
-      'name': 'Diciembre',
-      'value': 0
+      name: 'Diciembre',
+      value: 0
     }
   ];
   bookingDayChart: any[] = [{
-    "name": "Reservas",
-    "series": []
-  },];
+    name: 'Reservas',
+    series: []
+  }, ];
   anios: any[] = [
     {
-      'name': '2019',
-      'value': 2019
+      name: '2019',
+      value: 2019
     },
     {
-      'name': '2020',
-      'value': 2020
+      name: '2020',
+      value: 2020
     },
-  ]
+  ];
   months: any[] = [
     {
-      'name': 'Enero',
-      'value': 1
+      name: 'Enero',
+      value: 1
     },
     {
-      'name': 'Febrero',
-      'value': 2
+      name: 'Febrero',
+      value: 2
     },
     {
-      'name': 'Marzo',
-      'value': 3
+      name: 'Marzo',
+      value: 3
     },
     {
-      'name': 'Abril',
-      'value': 4
+      name: 'Abril',
+      value: 4
     },
     {
-      'name': 'Mayo',
-      'value': 5
+      name: 'Mayo',
+      value: 5
     },
     {
-      'name': 'Junio',
-      'value': 6
+      name: 'Junio',
+      value: 6
     },
     {
-      'name': 'Julio',
-      'value': 7
+      name: 'Julio',
+      value: 7
     },
     {
-      'name': 'Agosto',
-      'value': 8
+      name: 'Agosto',
+      value: 8
     },
     {
-      'name': 'Septiembre',
-      'value': 9
+      name: 'Septiembre',
+      value: 9
     },
     {
-      'name': 'Octubre',
-      'value': 10
+      name: 'Octubre',
+      value: 10
     },
     {
-      'name': 'Noviembre',
-      'value': 11
+      name: 'Noviembre',
+      value: 11
     },
     {
-      'name': 'Diciembre',
-      'value': 12
+      name: 'Diciembre',
+      value: 12
     }
   ];
   fieldChart: any[] = [];
@@ -283,15 +302,14 @@ export class EstadisticasClubComponent implements OnInit {
   formFilter: FormGroup;
 
   pdf: PdfModel;
-  paidMethodSitio: number = 0;
-  paidMethodMP: number = 0;
+  paidMethodSitio = 0;
+  paidMethodMP = 0;
 
-  paidMethodSitioReport: number = 0;
-  paidMethodMPReport: number = 0;
-  constructor(private bookingService: BookingService,
-              private commentService: CommentService,
-              private tournamentService: TournamentService,
-              private formBuilder: FormBuilder) {
+  paidMethodSitioReport = 0;
+  paidMethodMPReport = 0;
+
+  static onSelect(event) {
+    console.log(event);
   }
 
   ngOnInit() {
@@ -325,15 +343,18 @@ export class EstadisticasClubComponent implements OnInit {
 
   private countBookings() {
     this.bookingService.findAllByReferenceId(this._id).subscribe((bookings) => {
-      this.cantBookings = bookings.length;
+      this.cantBookings = bookings.filter(b => !b.isTournamentBooking).length;
       let sitio = 0;
       let mp = 0;
       bookings.forEach(booking => {
-        if (booking.paidMethod.toLowerCase() === "en sitio") {
-          sitio++;
-        } else {
-          mp++;
+        if (!booking.isTournamentBooking) {
+          if (booking.paidMethod.toLowerCase() === 'en sitio') {
+            sitio++;
+          } else {
+            mp++;
+          }
         }
+
       });
       if (!!this.cantBookings) {
         this.paidMethodSitio = Number(((sitio * 100) / this.cantBookings).toFixed(2));
@@ -346,15 +367,17 @@ export class EstadisticasClubComponent implements OnInit {
   }
 
   getReportByYear() {
-    this.bookingMonthChart.forEach(value => { value.value = 0 });
+    this.bookingMonthChart.forEach(value => { value.value = 0; });
     this.bookingService.findAllByReferenceId(this._id).subscribe((bookings) => {
       bookings.forEach((booking) => {
-        //hacer un filtro de que si es asistido cuente la fecha.
-        let dateb = moment(booking.playingDate, 'YYYY-MM-DD').toDate();
-        let month = dateb.getMonth();
-        let year = dateb.getFullYear();
-        if (year == this.anioReportOne) {
-          this.bookingMonthChart[ month ].value = this.bookingMonthChart[ month ].value + 1;
+        if (!booking.isTournamentBooking) {
+          // hacer un filtro de que si es asistido cuente la fecha.
+          const dateb = moment(booking.playingDate, 'YYYY-MM-DD').toDate();
+          const month = dateb.getMonth();
+          const year = dateb.getFullYear();
+          if (year == this.anioReportOne) {
+            this.bookingMonthChart[ month ].value = this.bookingMonthChart[ month ].value + 1;
+          }
         }
       });
       this.loadedReportByYear = true;
@@ -368,19 +391,22 @@ export class EstadisticasClubComponent implements OnInit {
       let total = 0;
       this.bookingDayChart[0].series = this.getArrayDays(this.monthReportTwo - 1);
       bookings.forEach((booking) => {
-        let dateb = moment(booking.playingDate, 'YYYY-MM-DD').toDate();
-        let month = dateb.getMonth();
-        let year = dateb.getFullYear();
-        let day = dateb.getDate() - 1;
-        if (year == this.anioReportTwo && month == this.monthReportTwo - 1) {
-          this.bookingDayChart[0].series[ day ].value = this.bookingDayChart[0].series[ day ].value + 1;
-          total++;
-          if (booking.paidMethod.toLowerCase() === "en sitio") {
-            sitio++;
-          } else {
-            mp++;
+        if (!booking.isTournamentBooking) {
+          const dateb = moment(booking.playingDate, 'YYYY-MM-DD').toDate();
+          const month = dateb.getMonth();
+          const year = dateb.getFullYear();
+          const day = dateb.getDate() - 1;
+          if (year == this.anioReportTwo && month == this.monthReportTwo - 1) {
+            this.bookingDayChart[0].series[ day ].value = this.bookingDayChart[0].series[ day ].value + 1;
+            total++;
+            if (booking.paidMethod.toLowerCase() === 'en sitio') {
+              sitio++;
+            } else {
+              mp++;
+            }
           }
         }
+
       });
       if (!!total) {
         this.paidMethodSitioReport = Number(((sitio * 100) / total).toFixed(2));
@@ -392,17 +418,17 @@ export class EstadisticasClubComponent implements OnInit {
 
   getArrayDays(month: number) {
     let days = 0;
-    let result = [];
+    const result = [];
 
-    if (month == 1) days = 27;
-    if (month == 3 || month == 5 || month == 7 || month == 10) days = 30;
-    if (!days) days = 31;
+    if (month == 1) { days = 27; }
+    if (month == 3 || month == 5 || month == 7 || month == 10) { days = 30; }
+    if (!days) { days = 31; }
 
     for (let i = 1; i <= days; i++) {
       result.push({
-        'name' : i + ' ' + this.months[month].name.substring(0, 3),
-        'value' : 0
-      })
+        name : i + ' ' + this.months[month].name.substring(0, 3),
+        value : 0
+      });
     }
 
     return result;
@@ -413,26 +439,29 @@ export class EstadisticasClubComponent implements OnInit {
     this.statusChart = [];
     this.bookingService.findAllByReferenceId(this._id).subscribe((bookings) => {
       bookings.forEach((booking) => {
-        //statusChart asistido, cancelado, reservado
-        let dateb = moment(booking.playingDate, 'YYYY-MM-DD').toDate();
+        if (!booking.isTournamentBooking) {
+          // statusChart asistido, cancelado, reservado
+          const dateb = moment(booking.playingDate, 'YYYY-MM-DD').toDate();
 
-        if (dateb >= this.dpFromDateStatus.value && dateb <= this.dpToDateStatus.value) {
-          if ([ 'Asistido', 'Cancelado', 'Reservado', 'Ausente' ].indexOf(booking.status) > -1) {
-            let statusC = this.statusChart;
-            let statusChartIndex = statusC.findIndex(status => status.name === booking.status);
-            if (statusChartIndex > -1) {
-              statusC[ statusChartIndex ].value = statusC[ statusChartIndex ].value + 1;
-              this.statusChart = statusC;
-            } else {
-              let newStatus = {
-                name: booking.status,
-                value: 1
-              };
-              statusC.push(newStatus);
-              this.statusChart = statusC;
+          if (dateb >= this.dpFromDateStatus.value && dateb <= this.dpToDateStatus.value) {
+            if ([ 'Asistido', 'Cancelado', 'Reservado', 'Ausente' ].indexOf(booking.status) > -1) {
+              const statusC = this.statusChart;
+              const statusChartIndex = statusC.findIndex(status => status.name === booking.status);
+              if (statusChartIndex > -1) {
+                statusC[ statusChartIndex ].value = statusC[ statusChartIndex ].value + 1;
+                this.statusChart = statusC;
+              } else {
+                const newStatus = {
+                  name: booking.status,
+                  value: 1
+                };
+                statusC.push(newStatus);
+                this.statusChart = statusC;
+              }
             }
           }
         }
+
       });
       this.loadedReportByStatus = true;
     });
@@ -443,18 +472,20 @@ export class EstadisticasClubComponent implements OnInit {
     this.fieldChart = [];
     this.bookingService.findAllByReferenceId(this._id).subscribe((bookings) => {
       bookings.forEach((booking) => {
-        let dateb = moment(booking.playingDate, 'YYYY-MM-DD').toDate();
+        if (!booking.isTournamentBooking) {
+          const dateb = moment(booking.playingDate, 'YYYY-MM-DD').toDate();
 
-        if (dateb >= this.dpFromDateCancha.value && dateb <= this.dpToDateCancha.value) {
-          let fieldChartIndex = this.fieldChart.findIndex(field => field.name === booking.field.fieldName);
-          if (fieldChartIndex > -1) {
-            this.fieldChart[ fieldChartIndex ].value = this.fieldChart[ fieldChartIndex ].value + 1;
-          } else {
-            let newField = {
-              name: booking.field.fieldName,
-              value: 1
-            };
-            this.fieldChart.push(newField);
+          if (dateb >= this.dpFromDateCancha.value && dateb <= this.dpToDateCancha.value) {
+            const fieldChartIndex = this.fieldChart.findIndex(field => field.name === booking.field.fieldName);
+            if (fieldChartIndex > -1) {
+              this.fieldChart[ fieldChartIndex ].value = this.fieldChart[ fieldChartIndex ].value + 1;
+            } else {
+              const newField = {
+                name: booking.field.fieldName,
+                value: 1
+              };
+              this.fieldChart.push(newField);
+            }
           }
         }
       });
@@ -463,41 +494,37 @@ export class EstadisticasClubComponent implements OnInit {
   }
 
   async getReportByTournament() {
-    let array = [];
+    const array = [];
     this.tournamentService.getTournamentsInscriptions(this._id).subscribe((torneos: any) => {
       if (!!torneos) {
         this.tournaments = torneos.tournaments.filter(value => {
-          return (value.tournament.state.toLowerCase() != 'nuevo')});
+          return (value.tournament.state.toLowerCase() != 'nuevo'); });
         this.tournaments.forEach(tournament => {
           array.push({
-            "name": tournament.tournament.tournamentName,
-            "series": this.getArrayDays(this.monthReportTournament - 1)
+            name: tournament.tournament.tournamentName,
+            series: this.getArrayDays(this.monthReportTournament - 1)
           });
           tournament.inscriptions.forEach((inscription: any) => {
-            let dateb = moment(inscription.inscriptionDate, 'YYYY-MM-DD').toDate();
-            let month = dateb.getMonth();
-            let year = dateb.getFullYear();
-            let day = dateb.getDate() - 1;
+            const dateb = moment(inscription.inscriptionDate, 'YYYY-MM-DD').toDate();
+            const month = dateb.getMonth();
+            const year = dateb.getFullYear();
+            const day = dateb.getDate() - 1;
             if (year == this.anioReportTournament && month == this.monthReportTournament - 1) {
               array[0].series[ day ].value = array[0].series[ day ].value + 1;
             }
-          })
-        })
+          });
+        });
         this.tournamentChart = array;
       }
     });
     this.loadedReportByTournament = true;
   }
 
-  static onSelect(event) {
-    console.log(event);
-  }
-
   downloadReportYear() {
     this.pdf = new PdfModel();
     this.pdf.setNameFile('Reservas-realizadas-en-el-anio');
     this.pdf.setNameReport('Footbooking');
-    this.pdf.setTitle('Reporte de las reservas realizadas en el año ' + this.anioReportOne)
+    this.pdf.setTitle('Reporte de las reservas realizadas en el año ' + this.anioReportOne);
     this.pdf.addIdImage('reportYear');
     this.pdf.setTotalPages(1);
     this.pdf.generate(true);
@@ -531,8 +558,8 @@ export class EstadisticasClubComponent implements OnInit {
     this.pdf.setNameFile('Reservas-realizadas-por-estados');
     this.pdf.setNameReport('Footbooking');
     this.pdf.setTitle('Reporte de las reservas realizadas por estados');
-    this.pdf.addSubtitle('Fecha desde: ' + this.dpFromDateStatus.value.toLocaleString('es-AR', options))
-    this.pdf.addSubtitle('Fecha hasta: ' + this.dpToDateStatus.value.toLocaleString('es-AR', options))
+    this.pdf.addSubtitle('Fecha desde: ' + this.dpFromDateStatus.value.toLocaleString('es-AR', options));
+    this.pdf.addSubtitle('Fecha hasta: ' + this.dpToDateStatus.value.toLocaleString('es-AR', options));
     this.pdf.addIdImage('reportStatus');
     this.pdf.setTotalPages(1);
     this.pdf.generate();
@@ -544,8 +571,8 @@ export class EstadisticasClubComponent implements OnInit {
     this.pdf.setNameFile('Reservas-realizadas-por-cancha');
     this.pdf.setNameReport('Footbooking');
     this.pdf.setTitle('Reporte de las reservas realizadas por cancha');
-    this.pdf.addSubtitle('Fecha desde: ' + this.dpFromDateCancha.value.toLocaleString('es-AR', options))
-    this.pdf.addSubtitle('Fecha hasta: ' + this.dpToDateCancha.value.toLocaleString('es-AR', options))
+    this.pdf.addSubtitle('Fecha desde: ' + this.dpFromDateCancha.value.toLocaleString('es-AR', options));
+    this.pdf.addSubtitle('Fecha hasta: ' + this.dpToDateCancha.value.toLocaleString('es-AR', options));
     this.pdf.addIdImage('reportCancha');
     this.pdf.setTotalPages(1);
     this.pdf.generate();
@@ -583,21 +610,5 @@ export class EstadisticasClubComponent implements OnInit {
 
   isValidReportFive() {
     return (!!this.anioReportTournament && !!this.monthReportTournament);
-  }
-
-  get dpFromDateStatus() {
-    return this.formFilter.get('dpFromDateStatus');
-  }
-
-  get dpToDateStatus() {
-    return this.formFilter.get('dpToDateStatus');
-  }
-
-  get dpFromDateCancha() {
-    return this.formFilter.get('dpFromDateCancha');
-  }
-
-  get dpToDateCancha() {
-    return this.formFilter.get('dpToDateCancha');
   }
 }

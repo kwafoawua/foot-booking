@@ -14,6 +14,7 @@ export class Booking {
   status: string;
   playingDate: string;
   paidMethod: string;
+  isTournamentBooking: boolean;
   //state: any;
   player: Player;
   // fee: number;
