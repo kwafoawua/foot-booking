@@ -123,10 +123,10 @@
   </div>
 
 
-  <div *ngIf="torneo?.state == 'Iniciado'">
+  <div [ngStyle]="{overflowX: 'auto'}" *ngIf="torneo?.state == 'Iniciado'">
     <info-fixture [torneo]="torneo" [inscriptions]="inscriptions" (setWinners)="setWinners($event)" ></info-fixture>
   </div>
-  <div *ngIf="torneo?.state == 'Finalizado'">
+  <div [ngStyle]="{overflowX: 'auto'}" *ngIf="torneo?.state == 'Finalizado'">
     <info-fixture [torneo]="torneo" [inscriptions]="inscriptions" (setWinners)="setWinners($event)"></info-fixture>
   </div>
 

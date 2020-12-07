@@ -138,7 +138,7 @@ export class EstadisticasClubComponent implements OnInit {
       domain: [ '#0B6121', '#04B431', '#01DF3A', '#7ed957' ]
     },
     colorScheme1: {
-      domain: [ '#009900', '#e3bc08', '#C11B17', '#2B65EC', '#F87217', '#806517', '#7D0552', '#413839' ]
+      domain: [ '#e3bc08', '#009900', '#C11B17', '#F87217', '#F87217', '#806517', '#7D0552', '#413839' ]
     }
   };
   autoScale = true;
