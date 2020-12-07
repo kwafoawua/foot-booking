@@ -2,11 +2,11 @@ const TournamentInscription = require('../models/TournamentInscription');
 const Tournament = require('../models/Tournament');
 const mongoose = require('mongoose');
 const Player = require('../models/Player');
-const { sendEmail } = require('./mailing');
+const {sendEmail} = require('./mailing');
 const moment = require('moment');
 const mercadoPagoController = require('./MercadoPagoController');
 const tournamentController = require("./tournamentController");
-const { getPagination } = require('../utils/utils');
+const {getPagination} = require('../utils/utils');
 
 
 /**
@@ -18,8 +18,8 @@ exports.newTournamentInscription = async (req, res) => {
     let inscription = new TournamentInscription({
         tournamentId: idTournament,
         userId: idUser,
-        referringContact: { name: name, phoneNumber: phoneNumber },
-        team: { name: team },
+        referringContact: {name: name, phoneNumber: phoneNumber},
+        team: {name: team},
         paymentReference: externalReference,
     });
 
@@ -28,22 +28,11 @@ exports.newTournamentInscription = async (req, res) => {
         // TODO -> validar que no exista equipo con ese nombre
         // TODO -> validar que no se inscriba jugador 2 veces
         let tournamentInfo = await tournamentController.getTournamentById(idTournament);
-        const player = await Player.findById(idUser).exec();
-        const tournament = await Tournament.findById(idTournament).exec();
-        const subject = `Te inscribiste al campeonato ${tournament.tournamentName}`;
-        const text = `
-        Hola ${player.name}! Muchas gracias por inscribirte al campeonato ${tournament.tournamentName}.
-        El mismo va a iniciar el día ${moment(tournament.startDate).format('D/M/YY')}.
-        Cuando el club realice el sorteo de los equipos que participan te notificaremos por este medio. Estate atento con tu equipo para saber que día y horario tienen el partido!
-        Podrás encontrar más información en la sección de "Campeonatos" disponible en el menú "Preferencias". \n
-        Saludos Footbooking!
-        `;
         await inscription.save();
         const checkout = await mercadoPagoController.generatePreferenceForInscription(tournamentInfo, externalReference);
-        await sendEmail(player.name, player.email, subject, text);
         res.status(200).send({initPoint: checkout.init_point});
     } catch (e) {
-        res.status(500).send("Ocurrio un error imprevisto :(");
+        res.status(500).send("Ocurrió un error imprevisto :(");
     }
 };
 
@@ -76,8 +65,8 @@ exports.getTournamentInscriptions = async (req, res) => {
 
 exports.getPlayerInscriptions = async (req, res) => {
     try {
-        const { page, size } = req.query;
-        const { limit, offset } = getPagination(page, size);
+        const {page, size} = req.query;
+        const {limit, offset} = getPagination(page, size);
         let inscriptions = await TournamentInscription.paginate({
             userId: mongoose.Types.ObjectId(req.params.playerId),
             paymentStatus: 'Pagado'
@@ -125,11 +114,11 @@ module.exports.getInscriptionEmails = async (id) => {
         tournamentId: mongoose.Types.ObjectId(id),
         paymentStatus: 'Pagado'
     })
-      .populate({path: 'userId', select: 'email'});
+        .populate({path: 'userId', select: 'email'});
 
     return inscriptions
-      .map(inscription => inscription.userId && inscription.userId.email)
-      .filter(email => email);
+        .map(inscription => inscription.userId && inscription.userId.email)
+        .filter(email => email);
 };
 
 /**
@@ -137,19 +126,21 @@ module.exports.getInscriptionEmails = async (id) => {
  * If payment is reject then delete that temporal booking.
  */
 exports.updateInscriptionByExternalReference = async (paymentReference, isPaid) => {
-    isPaid ?
+    if (isPaid) {
         await TournamentInscription.findOneAndUpdate(
             {paymentReference: paymentReference},
-            {$set:{paymentStatus: 'Pagado'}},
+            {$set: {paymentStatus: 'Pagado'}},
             {new: true}
-        )
-        :
+        );
+        await sendInscriptionMailSuccess(paymentReference);
+    } else {
         await TournamentInscription.findOneAndDelete(
             {paymentReference: paymentReference}
         );
+    }
 }
 
-exports.sendInscriptionMailSuccess = async paymentReference => {
+sendInscriptionMailSuccess = async paymentReference => {
     const inscription = await TournamentInscription.find({paymentReference: paymentReference});
     const player = await Player.findById(inscription.userId).exec();
     const tournament = await Tournament.findById(inscription.tournamentId).exec();
@@ -163,5 +154,3 @@ exports.sendInscriptionMailSuccess = async paymentReference => {
         `;
     await sendEmail(player.name, player.email, subject, text);
 }
-
-// TODO: validations for endpoints

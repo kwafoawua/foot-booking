@@ -67,15 +67,13 @@ export class CampeonatoInscripcionComponent implements OnInit{
   }
 
   Inscribir() {
-    console.log('ël form validado', this.inscripcionForm);
     if (this.inscripcionForm.valid) {
-      console.log('ël form validado', this.inscripcionForm);
       {
         this.tournamentService.createInscription(this.inscripcionForm.value).subscribe((res: any) => {
             window.location.href = res.initPoint;
           },
           error => {
-            this.alertService.error('Ups! No se pudo completar la inscripcion al campeonato, intenta más tarde.', false);
+            this.alertService.error('Ups! No se pudo completar la inscripción al campeonato, intenta más tarde.', false);
           }
         );
 
@@ -93,7 +91,7 @@ export class CampeonatoInscripcionComponent implements OnInit{
       this.createForm();
 
     }
-    else { this.alertService.error('error al registrar la inscripción', this.inscripcionForm.value); }
+    else { this.alertService.error('Error al registrar la inscripción', this.inscripcionForm.value); }
   }
 
   isValidStepOne() {
