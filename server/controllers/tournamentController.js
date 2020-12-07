@@ -33,7 +33,7 @@ exports.createTournament = async (req, res) => {
         tournament = new Tournament(req.body);
         await tournament.save();
         await phasesCreator.createPhases(tournament._id);
-        res.status(200).send({tournament: {...tournament._doc}, msg: 'Torneo creado exitosamente'});
+        res.status(200).send({tournament: {...tournament._doc}, msg: 'Campeonato creado exitosamente'});
     } catch (error) {
         console.log(error);
         res.status(500).send("Ocurrio un error imprevisto :/");
@@ -110,13 +110,13 @@ exports.updateTournament = async (req, res) => {
             {$set: req.body},
             {new: true}
             );
-        await bookingService.cancelTournamentBookings(tournamentId)
         if(req.body.state === 'Completo') {
             await sendCompletedEmail(tournamentId)
         } else if (req.body.state === 'Cancelado') {
-            await tournamentService.sendTournamentCancellationEmailToTeams(tournamentId);
+            bookingService.cancelTournamentBookings(tournamentId)
+            tournamentService.sendTournamentCancellationEmailToTeams(tournamentId);
         }
-        await res.json({msg: "Torneo modificado exitosamente"});
+        await res.json({msg: "Campeonato modificado exitosamente"});
     } catch (error) {
         console.log(error);
         res.status(500).send("Ocurrio un error imprevisto :/");
@@ -144,7 +144,7 @@ exports.deleteTournamente = async (req, res) => {
     try {
         let tournament = await Tournament.findOne({_id: mongoose.Types.ObjectId(req.params._id)});
         await Tournament.delete(tournament);
-        await res.json({msg: "Torneo eliminado exitosamente"});
+        await res.json({msg: "Campeonato eliminado exitosamente"});
     } catch (error) {
         console.log(error);
         res.status(500).send("Ocurrio un error imprevisto :/");

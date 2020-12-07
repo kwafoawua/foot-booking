@@ -32,7 +32,7 @@ exports.registerBookingsForPhase = async (bookingId, clubId, localTeam, visitorT
     return Booking.findOneAndUpdate(query, update, options);
 }
 
-exports.cancelTournamentBookings = async tournamentId => {
+exports.cancelTournamentBookings = tournamentId => {
     const hoursArray = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00', '24:00'];
     const arrayHourOffset = 9;
     const currentHour = new Date().getHours();
@@ -56,7 +56,7 @@ exports.cancelTournamentBookings = async tournamentId => {
             {playingDate: {$gt: today}}
         ]
     }
-    await Booking.updateMany(query, {status: 'Cancelado'})
+    Booking.updateMany(query, {status: 'Cancelado'})
 }
 
 exports.fieldHasExistenceBooking = async fieldId => await Booking.findOne({
