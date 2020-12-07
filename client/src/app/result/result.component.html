@@ -34,7 +34,7 @@
                   </mat-form-field>
 <!--precio minimo y maximo-->
                   <mat-form-field class="example-form-field">
-                    <input matInput type="number" class="form-control" min="0"
+                    <input matInput type="number" class="form-control" min="0" autocomplete="off"
                            title="precio mínimo" placeholder="Precio mínimo" value=""
                            [(ngModel)]="minPrice">
                     <button mat-button *ngIf="minPrice" matSuffix mat-icon-button aria-label="Clear" (click)="minPrice=''">
@@ -44,7 +44,7 @@
 
                   <mat-form-field class="example-form-field">
                     <input matInput type="number" class="form-control" min="0"
-                           title="precio máximo" placeholder="Precio máximo" value=""
+                           title="precio máximo" placeholder="Precio máximo" value="" autocomplete="off"
                            [(ngModel)]="maxPrice">
                     <button mat-button *ngIf="maxPrice" matSuffix mat-icon-button aria-label="Clear" (click)="maxPrice=''">
                       <mat-icon>close</mat-icon>
