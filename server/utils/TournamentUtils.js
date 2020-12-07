@@ -6,3 +6,7 @@ exports.getNumberOfInscriptions = async tournamentId => {
               paymentStatus: 'Pagado'
        }));
 }
+
+exports.getInscriptions = async tournamentId => {
+       return await Promise.resolve(TournamentInscription.find({tournamentId: tournamentId}));
+}

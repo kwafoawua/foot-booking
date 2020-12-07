@@ -4,6 +4,8 @@ import * as moment from 'moment';
 import { CommentService } from '../_services/comment.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import {PdfModel} from "./model/pdf.model";
+import {TournamentService} from "../_services/tournament.service";
+import {Tournament} from "../_models/tournament";
 
 @Component({
   templateUrl: 'estadisticas-club.component.html',
@@ -145,6 +147,7 @@ export class EstadisticasClubComponent implements OnInit {
   _id: string = JSON.parse(localStorage.getItem('currentUser'))._id;
   loadedReportByYear: boolean;
   loadedReportByMonth: boolean;
+  loadedReportByTournament: boolean;
   loadedReportByStatus: boolean;
   loadedReportByCancha: boolean;
   cantComments: number;
@@ -265,27 +268,36 @@ export class EstadisticasClubComponent implements OnInit {
     }
   ];
   fieldChart: any[] = [];
+  tournamentChart: any[] = [];
   @ViewChild('tooltipTemplate') tooltilTemplate: TemplateRef<any>;
   fieldModel: any;
 
   anioReportOne: any;
   anioReportTwo: any;
   monthReportTwo: any;
+  anioReportTournament: any;
+  monthReportTournament: any;
+  tournamentSelected: any;
+  tournaments: any;
 
   formFilter: FormGroup;
 
   pdf: PdfModel;
   paidMethodSitio: number = 0;
   paidMethodMP: number = 0;
+
+  paidMethodSitioReport: number = 0;
+  paidMethodMPReport: number = 0;
   constructor(private bookingService: BookingService,
               private commentService: CommentService,
+              private tournamentService: TournamentService,
               private formBuilder: FormBuilder) {
   }
 
   ngOnInit() {
-    this.createForm()
+    this.createForm();
     this.countComments();
-    this.countBookings()
+    this.countBookings();
   }
 
   createForm(): void {
@@ -302,6 +314,7 @@ export class EstadisticasClubComponent implements OnInit {
     this.fieldChart = [ ...this.fieldChart ];
     this.bookingMonthChart = [ ...this.bookingMonthChart ];
     this.bookingDayChart = [ ...this.bookingDayChart ];
+    this.tournamentChart = [ ...this.tournamentChart ];
   }
 
   private countComments() {
@@ -313,17 +326,27 @@ export class EstadisticasClubComponent implements OnInit {
   private countBookings() {
     this.bookingService.findAllByReferenceId(this._id).subscribe((bookings) => {
       this.cantBookings = bookings.length;
+      let sitio = 0;
+      let mp = 0;
       bookings.forEach(booking => {
         if (booking.paidMethod.toLowerCase() === "en sitio") {
-          this.paidMethodSitio++;
+          sitio++;
         } else {
-          this.paidMethodMP++;
+          mp++;
         }
       });
+      if (!!this.cantBookings) {
+        this.paidMethodSitio = Number(((sitio * 100) / this.cantBookings).toFixed(2));
+        this.paidMethodMP = (100 - this.paidMethodSitio);
+      } else {
+        this.paidMethodSitio = 0;
+        this.paidMethodMP = 0;
+      }
     });
   }
 
   getReportByYear() {
+    this.bookingMonthChart.forEach(value => { value.value = 0 });
     this.bookingService.findAllByReferenceId(this._id).subscribe((bookings) => {
       bookings.forEach((booking) => {
         //hacer un filtro de que si es asistido cuente la fecha.
@@ -340,6 +363,9 @@ export class EstadisticasClubComponent implements OnInit {
 
   getReportByMonth() {
     this.bookingService.findAllByReferenceId(this._id).subscribe((bookings) => {
+      let sitio = 0;
+      let mp = 0;
+      let total = 0;
       this.bookingDayChart[0].series = this.getArrayDays(this.monthReportTwo - 1);
       bookings.forEach((booking) => {
         let dateb = moment(booking.playingDate, 'YYYY-MM-DD').toDate();
@@ -348,8 +374,18 @@ export class EstadisticasClubComponent implements OnInit {
         let day = dateb.getDate() - 1;
         if (year == this.anioReportTwo && month == this.monthReportTwo - 1) {
           this.bookingDayChart[0].series[ day ].value = this.bookingDayChart[0].series[ day ].value + 1;
+          total++;
+          if (booking.paidMethod.toLowerCase() === "en sitio") {
+            sitio++;
+          } else {
+            mp++;
+          }
         }
       });
+      if (!!total) {
+        this.paidMethodSitioReport = Number(((sitio * 100) / total).toFixed(2));
+        this.paidMethodMPReport = (100 - this.paidMethodSitioReport);
+      }
       this.loadedReportByMonth = true;
     });
   }
@@ -426,6 +462,33 @@ export class EstadisticasClubComponent implements OnInit {
     });
   }
 
+  async getReportByTournament() {
+    let array = [];
+    this.tournamentService.getTournamentsInscriptions(this._id).subscribe((torneos: any) => {
+      if (!!torneos) {
+        this.tournaments = torneos.tournaments.filter(value => {
+          return (value.tournament.state.toLowerCase() != 'nuevo')});
+        this.tournaments.forEach(tournament => {
+          array.push({
+            "name": tournament.tournament.tournamentName,
+            "series": this.getArrayDays(this.monthReportTournament - 1)
+          });
+          tournament.inscriptions.forEach((inscription: any) => {
+            let dateb = moment(inscription.inscriptionDate, 'YYYY-MM-DD').toDate();
+            let month = dateb.getMonth();
+            let year = dateb.getFullYear();
+            let day = dateb.getDate() - 1;
+            if (year == this.anioReportTournament && month == this.monthReportTournament - 1) {
+              array[0].series[ day ].value = array[0].series[ day ].value + 1;
+            }
+          })
+        })
+        this.tournamentChart = array;
+      }
+    });
+    this.loadedReportByTournament = true;
+  }
+
   static onSelect(event) {
     console.log(event);
   }
@@ -447,6 +510,17 @@ export class EstadisticasClubComponent implements OnInit {
     this.pdf.setTitle('Reporte de las reservas realizadas en ' +
       this.months[this.monthReportTwo - 1].name + ' del ' + this.anioReportTwo);
     this.pdf.addIdImage('reportMonth');
+    this.pdf.setTotalPages(1);
+    this.pdf.generate(true);
+  }
+
+  downloadReportTournament() {
+    this.pdf = new PdfModel();
+    this.pdf.setNameFile('Inscripciones-realizadas-por-mes-por-campeonato');
+    this.pdf.setNameReport('Footbooking');
+    this.pdf.setTitle('Reporte de las inscripciones realizadas en ' +
+      this.months[this.monthReportTournament - 1].name + ' del ' + this.anioReportTournament);
+    this.pdf.addIdImage('reportTournament');
     this.pdf.setTotalPages(1);
     this.pdf.generate(true);
   }
@@ -485,6 +559,9 @@ export class EstadisticasClubComponent implements OnInit {
       case 2:
         this.loadedReportByMonth = false;
         break;
+      case 3:
+        this.loadedReportByTournament = false;
+        break;
     }
   }
 
@@ -502,6 +579,10 @@ export class EstadisticasClubComponent implements OnInit {
 
   isValidReportFour() {
     return (!!this.dpFromDateCancha.value && !!this.dpToDateCancha.value);
+  }
+
+  isValidReportFive() {
+    return (!!this.anioReportTournament && !!this.monthReportTournament);
   }
 
   get dpFromDateStatus() {

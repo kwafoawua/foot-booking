@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Comment } from '../_models/comment';
+import {Comment, CommentPagination} from '../_models/comment';
 
 @Injectable()
 export class CommentService {
@@ -19,7 +19,7 @@ export class CommentService {
   }
 
   findAllCommentForAClub(_id: string, params) {
-    return this.http.get<Comment[]>('/comments/clubComment/' + _id, {params});
+    return this.http.get<CommentPagination>('/comments/clubComment/' + _id, {params});
   }
 
   findAllAuthorComments(_id: string) {

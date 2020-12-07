@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {TState} from '../_models/TState';
 import {Booking} from "../_models/booking";
+import {Observable} from "rxjs";
 
 @Injectable()
 
@@ -192,6 +193,9 @@ private tState: TState[] = [
     return this.http.get(`/inscription/tournament/${id}`);
   }
 
+  getTournamentsInscriptions(id: string) {
+    return this.http.get(`/tournamentsInscriptions/${id}`);
+  }
 
   updateMatch(match: any) {
     return this.http.put('/phase/updatePhaseMatch', match);

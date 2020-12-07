@@ -22,4 +22,6 @@ export class Tournament {
   //image:File;
   numberOfPlayers: any;
   inscriptionNumber;
+  deleted: boolean;
+  _id: string;
 }

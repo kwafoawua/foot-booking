@@ -72,8 +72,8 @@
           <span class="title-cards">Medios de pago</span>
         </mat-card-title>
         <mat-card-content class="content">
-            <span><strong>En sitio: </strong>{{paidMethodSitio + " pagos"}}</span>
-            <span><strong>MercadoPago: </strong>{{paidMethodMP + " pagos"}}</span>
+            <span><strong>En sitio: </strong>{{paidMethodSitio + " % de pagos"}}</span>
+            <span><strong>MercadoPago: </strong>{{paidMethodMP + " % de pagos"}}</span>
         </mat-card-content>
       </mat-card>
     </div>
@@ -165,6 +165,11 @@
           </div>
         </div>
         <div *ngIf="loadedReportByMonth" class="card-body chart" id="reportMonth">
+          <div class="marginBottom">
+            <h5>Medios de pago:</h5>
+            <span class="marginLeft"><strong>En sitio: </strong>{{paidMethodSitioReport + " % de pagos"}}</span>
+            <span><strong>MercadoPago: </strong>{{paidMethodMPReport + " % de pagos"}}</span>
+          </div>
           <ngx-charts-line-chart [results]="bookingDayChart"
                                   [view]="view1"
                                   [scheme]="options.colorScheme"
@@ -175,6 +180,60 @@
         <div align="center">
           <button (click)="downloadReportMonth()" class="btn btn-success btn-download"
                   *ngIf="loadedReportByMonth">Descargar Gráfico</button>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="row justify-content-md-center mt-lg-5">
+    <div class="col-md-12">
+      <mat-card>
+        <mat-card-title>
+          Inscripciones por campeonato
+        </mat-card-title>
+        <div class="filtroFechas">
+          <div class="col-3">
+            <mat-form-field>
+              <mat-select [(value)]="monthReportTournament" ngModel
+                          (selectionChange)="onSelect(3)"
+                          placeholder="Mes">
+                <mat-option *ngFor="let month of months" [value]="month.value">
+                  {{month.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-3">
+            <mat-form-field>
+              <mat-select [(value)]="anioReportTournament" ngModel
+                          (selectionChange)="onSelect(3)"
+                          placeholder="Año">
+                <mat-option *ngFor="let anio of anios" [value]="anio.value">
+                  {{anio.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-3">
+            <button class="btn btn-success btn-sm btn-generar"
+                    (click)="getReportByTournament()"
+                    [disabled]="!isValidReportFive()"
+            >Generar</button>
+          </div>
+        </div>
+        <div *ngIf="loadedReportByTournament" class="card-body chart" id="reportTournament">
+          <ngx-charts-line-chart [results]="tournamentChart"
+                                 [view]="view1"
+                                 [legend]="true"
+                                 [legendTitle]="'Campeonatos:'"
+                                 [scheme]="options.colorScheme"
+                                 [xAxis]="options.showXAxis"
+                                 [yAxis]="options.showYAxis">
+          </ngx-charts-line-chart>
+        </div>
+        <div class="content-download">
+          <button (click)="downloadReportTournament()" class="btn btn-success btn-download"
+                  *ngIf="loadedReportByTournament">Descargar Gráfico</button>
         </div>
       </mat-card>
     </div>
