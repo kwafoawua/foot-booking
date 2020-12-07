@@ -110,7 +110,7 @@ module.exports.findPlayerBookings = async (req, res) => {
     const { page, size } = req.query;
     const { limit, offset } = getPagination(page, size);
     try{
-        const playerBookings = await Booking.paginate({"player.id":req.params._id}, { limit, offset });
+        const playerBookings = await Booking.paginate({"player.id":req.params._id}, { limit, offset, sort: {_id: -1} });
         res.status(200).send({
             totalItems: playerBookings.totalDocs,
             bookings: playerBookings.docs,

@@ -63,7 +63,7 @@ module.exports.findAllCommentForAClub = async (req, res) => {
     const { limit, offset } = getPagination(page, size);
 
     try {
-        const comments = await Comment.paginate({"_idClub" : req.params._id},{ limit, offset });
+        const comments = await Comment.paginate({"_idClub" : req.params._id},{ limit, offset, sort: {_id: -1} });
         res.status(200).send({
             totalItems: comments.totalDocs,
             comments: comments.docs,

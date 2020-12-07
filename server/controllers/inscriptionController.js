@@ -84,6 +84,7 @@ exports.getPlayerInscriptions = async (req, res) => {
         }, {
             limit,
             offset,
+            sort: {_id: -1},
             populate: {
                 path: 'tournamentId',
                 populate: {

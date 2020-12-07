@@ -91,7 +91,7 @@ module.exports.findAllClubs = async (req, res) => {
     const { page, size } = req.query;
     const { limit, offset } = getPagination(page, size);
     try {
-        const clubs = await Club.paginate({}, { offset, limit });
+        const clubs = await Club.paginate({}, { offset, limit, sort: {_id: -1} });
         res.status(200).send({
             totalItems: clubs.totalDocs,
             clubs: clubs.docs,
@@ -254,7 +254,7 @@ module.exports.findClubsByMultipleFilter = async (req, res) => {
     }
 
         try{
-            const clubs = await Club.paginate({ $and: querySearch}, { offset, limit });
+            const clubs = await Club.paginate({ $and: querySearch}, { offset, limit, sort: {_id: -1} });
             const adaptedClubs = await ClubResponseAdapter.adaptClubs(clubs.docs);
             res.status(200).send({
                 totalItems: clubs.totalDocs,
