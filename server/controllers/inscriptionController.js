@@ -43,7 +43,7 @@ exports.newTournamentInscription = async (req, res) => {
         await sendEmail(player.name, player.email, subject, text);
         res.status(200).send({initPoint: checkout.init_point});
     } catch (e) {
-        res.status(500).send("Ocurrio un error imprevisto :(");
+        res.status(500).send("Ocurrió un error imprevisto :(");
     }
 };
 
