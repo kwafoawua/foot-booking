@@ -98,10 +98,10 @@
         <camp-insc [torneo]="torneo" [cantidad]="cantidad"></camp-insc>
       </div>
       <div class="alert alert-light" role="alert" *ngIf="torneo?.state == 'Completo'">
-        El torneo esta completo, y pronto se realizará el sorteo ...
+        El campeonato esta completo, y pronto se realizará el sorteo ...
       </div>
       <div class="alert alert-light" role="alert" *ngIf="torneo?.state == 'Publicado' && yaRegistrado">
-        Ya estás registrado en este torneo.
+        Ya estás registrado en este campeonato.
       </div>
       <div class="alert alert-light" role="alert" *ngIf="!fechaInscripcionValida">
         <p>
