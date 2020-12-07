@@ -49,7 +49,7 @@ router.put('/clubs/:_id', uploadsManager.upload.fields([
 ]), clubController.updateClub);
 router.put('/clubs/fields/:_id', fieldController.updateFields);
 router.get('/destacados/', clubController.getDestacados);
-
+router.get('/club/fieldsCapacities/:_id', clubController.getFieldsCapacities);
 
 /*FILTERS*/
 router.get('/findClub/:clubfilter', clubController.findClubsByFilter);
@@ -114,5 +114,10 @@ router.post("/webhook", (req, res) => PaymentInstance.webhook(req, res));
 /* Endpoints temporales: sólo para facilitar el armado de datos para las demos */
 const specialPurposeController = require("../controllers/specialPurposeController");
 router.post("/tempRoute/inscription/enroll", specialPurposeController.newTournamentInscription)
+
+const clubservice = require("../services/club.service")
+const book = require("../services/booking.service")
+// router.get("/fastTest/:clubId", clubservice.getClubFieldsForTournament);
+router.get("/fastTest/:clubId", book.cancelTournamentBookings);
 
 module.exports = router;

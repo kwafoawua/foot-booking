@@ -28,7 +28,7 @@
             </div>
           </div>
           <div class="form-group" [ngClass]="{ 'has-error': validateInput('email') }">
-            <label class="label-form">Nombre de usuario</label>
+            <label class="label-form">Email</label>
             <input type="text" class="form-control" name="email" formControlName="email" required/>
             <div name="valida-email" *ngIf="validateInput('email')">
               <div *ngIf="loginForm.get('email').errors?.required" class="text-danger">El email es requerido</div>
@@ -50,7 +50,7 @@
         </form>
         <div class="text-center">
           <a (click)="goToRegister()" class="d-block small mt-3">Registrarse</a>
-          <a class="d-block small">Olvidé la contraseña</a>
+          <a [routerLink]="['/restablecer-contrasenia']" class="d-block small">Olvidé la contraseña</a>
         </div>
       </div>
     </div>

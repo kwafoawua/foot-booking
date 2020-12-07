@@ -7,10 +7,7 @@ import { ValidateAllFields } from '../../_helpers';
 import { Tournament } from '../../_models/tournament';
 import {MatSnackBar} from '@angular/material';
 import * as moment from 'moment';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
-import {CancelTorneoDialogComponent} from "../admin-campeonato.component";
-
-
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-definicion',
@@ -42,14 +39,14 @@ export class DefinicionComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.tipoTorneo = this.tournamentService.getTournamentType();
     this.categorias = this.tournamentService.getTournamentCategories();
     this.createForm();
 
-    this.tournamentId = this.route.snapshot.params[ 'id' ];
+    this.tournamentId = this.route.snapshot.params.id;
     if (this.tournamentId) {
       this.getTournament();
     }
+    this.getTournamentTypes();
   }
 
   createForm() {
@@ -109,13 +106,17 @@ export class DefinicionComponent implements OnInit {
     });
   }
 
-  publishTournament(tournament:any) {
+  publishTournament(tournament: any) {
 
     this.tournamentService.updateTournament(tournament).subscribe(data => {
       this.getTournament();
-      this.alertService.success('Se actualizaron los datos exitosamente', true);
+      this.snackBar.open('Se actualizaron los datos exitosamente', null, {
+        duration: 1000
+      });
     }, error => {
-      this.alertService.error(error.error.msg, false);
+      this.snackBar.open(error, null, {
+        duration: 1000
+      });
     });
 
   }
@@ -124,8 +125,11 @@ export class DefinicionComponent implements OnInit {
     if (this.tournamentForm.valid) {
       const idClub: string = JSON.parse(localStorage.getItem('currentUser'))._id;
 
-      this.tournamentForm.controls['creatorClubId'].setValue(idClub);
+      this.tournamentForm.controls.creatorClubId.setValue(idClub);
       this.tournamentService.create(this.tournamentForm.value).subscribe(data => {
+          this.snackBar.open('El campeonato se registró con éxito', null, {
+            duration: 1000
+          });
           this.alertService.success('El campeonato se registró con éxito', true),
             this.router.navigate([ '/admin/campeonato' ]);
         },
@@ -142,12 +146,12 @@ export class DefinicionComponent implements OnInit {
     const tournament = {
       _id: this.tournamentId,
       state: 'Publicado',
-    }
+    };
 
     const dialogRef = this.dialog.open(PublicarTorneoDialogComponent, {
       width: '40%',
       data: tournament
-    })
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.updateTorneo.emit(result);
@@ -157,6 +161,14 @@ export class DefinicionComponent implements OnInit {
     });
   }
 
+  async getTournamentTypes() {
+    const idClub: string = JSON.parse(localStorage.getItem('currentUser'))._id;
+
+    this.tournamentService.getTournamentTypeForClub(idClub).subscribe((res: any) => {
+      this.tipoTorneo = res.capacities;
+      console.log(`como devuelvo el tipo de torneo: ${res.capacities}`);
+    });
+  }
 
 
 }

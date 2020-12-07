@@ -5,6 +5,9 @@ const {validationResult} = require("express-validator");
 const tournamentUtils = require('../utils/TournamentUtils');
 const tournamentAdapter = require('../adapters/TournamentResponseAdapter');
 const phasesCreator = require('./phaseController');
+const clubService = require('../services/club.service');
+const bookingService = require('../services/booking.service');
+const tournamentService = require('../services/tournament.service');
 
 /**
  * Create a Tournament
@@ -45,7 +48,8 @@ exports.getTournament = async (req, res) => {
         const {_id} = req.params;
         const tournament = await this.getTournamentById(_id);
         const inscriptionNumber = await tournamentUtils.getNumberOfInscriptions(_id);
-        await res.json({tournament, inscriptionNumber});
+        const clubFields = await clubService.getClubFieldsForTournament(tournament.creatorClubId, tournament.numberOfPlayers);
+        await res.json({tournament, inscriptionNumber, availableFieldsForBookingTournament: clubFields});
     } catch (error) {
         console.log(error);
         res.status(500).send("Ocurrio un error imprevisto :/");
@@ -99,15 +103,18 @@ exports.getAllTournamentsInscriptions = async (req, res) => {
  * Edit a Tournament
  */
 exports.updateTournament = async (req, res) => {
+    const tournamentId = req.params._id;
     try {
         await Tournament.findOneAndUpdate(
-            {_id: mongoose.Types.ObjectId(req.params._id)},
+            {_id: mongoose.Types.ObjectId(tournamentId)},
             {$set: req.body},
             {new: true}
             );
+        await bookingService.cancelTournamentBookings(tournamentId)
         if(req.body.state === 'Completo') {
-            console.log(req.body.state);
-            await sendCompletedEmail(req.params._id)
+            await sendCompletedEmail(tournamentId)
+        } else if (req.body.state === 'Cancelado') {
+            await tournamentService.sendTournamentCancellationEmailToTeams(tournamentId);
         }
         await res.json({msg: "Torneo modificado exitosamente"});
     } catch (error) {
@@ -123,8 +130,8 @@ const sendCompletedEmail = async (tId) => {
     const email = tournament.creatorClubId.email;
     const subject = `Se completaron las inscripciones del campeonato ${tournament.tournamentName}`;
     const text = `
-    Hola ${clubName}! Se completaron las inscripciones del torneo y ya está listo para sortear los equipos.
-     Te esperamos en www.footbooking.com para que comiences el campeonato!\n
+    Hola ${clubName}! Se completaron las inscripciones del campeonato y ya está listo para sortear los equipos.
+    Podrás realizar el sorteo desde la gestión de campeonato en la pestaña de "Fases". Una vez realizado el sorteo se notificará a todos los equipos inscriptos.\n
     Saludos Footbooking!
     `;
     await sendEmail('', email, subject, text);

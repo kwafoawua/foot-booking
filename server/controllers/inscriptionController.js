@@ -32,9 +32,10 @@ exports.newTournamentInscription = async (req, res) => {
         const tournament = await Tournament.findById(idTournament).exec();
         const subject = `Te inscribiste al campeonato ${tournament.tournamentName}`;
         const text = `
-        Hola ${player.name}! Muchas gracias por inscribirte al torneo ${tournament.tournamentName}.
+        Hola ${player.name}! Muchas gracias por inscribirte al campeonato ${tournament.tournamentName}.
         El mismo va a iniciar el día ${moment(tournament.startDate).format('D/M/YY')}.
-        Estate atento con tu equipo para saber que día y horario tienen el partido en www.footbooking.com. \n
+        Cuando el club realice el sorteo de los equipos que participan te notificaremos por este medio. Estate atento con tu equipo para saber que día y horario tienen el partido!
+        Podrás encontrar más información en la sección de "Campeonatos" disponible en el menú "Preferencias". \n
         Saludos Footbooking!
         `;
         await inscription.save();
@@ -64,7 +65,8 @@ exports.getInscription = async (req, res) => {
 exports.getTournamentInscriptions = async (req, res) => {
     try {
         let inscriptions = await TournamentInscription.find({
-            tournamentId: mongoose.Types.ObjectId(req.params.tournamentId)
+            tournamentId: mongoose.Types.ObjectId(req.params.tournamentId),
+            paymentStatus: 'Pagado'
         });
         await res.json({inscriptions});
     } catch (e) {
@@ -77,7 +79,8 @@ exports.getPlayerInscriptions = async (req, res) => {
         const { page, size } = req.query;
         const { limit, offset } = getPagination(page, size);
         let inscriptions = await TournamentInscription.paginate({
-            userId: mongoose.Types.ObjectId(req.params.playerId)
+            userId: mongoose.Types.ObjectId(req.params.playerId),
+            paymentStatus: 'Pagado'
         }, {
             limit,
             offset,
@@ -118,7 +121,8 @@ canEffectuateInscription = async (tournamentId) => {
 
 module.exports.getInscriptionEmails = async (id) => {
     let inscriptions = await TournamentInscription.find({
-        tournamentId: mongoose.Types.ObjectId(id)
+        tournamentId: mongoose.Types.ObjectId(id),
+        paymentStatus: 'Pagado'
     })
       .populate({path: 'userId', select: 'email'});
 
@@ -150,9 +154,10 @@ exports.sendInscriptionMailSuccess = async paymentReference => {
     const tournament = await Tournament.findById(inscription.tournamentId).exec();
     const subject = `Te inscribiste al campeonato ${tournament.tournamentName}`;
     const text = `
-        Hola ${player.name}! Muchas gracias por inscribirte al torneo ${tournament.tournamentName}.
+        Hola ${player.name}! Muchas gracias por inscribirte al campeonato ${tournament.tournamentName}.
         El mismo va a iniciar el día ${moment(tournament.startDate).format('D/M/YY')}.
-        Estate atento con tu equipo para saber que día y horario tienen el partido en www.footbooking.com. \n
+        Cuando el club realice el sorteo de los equipos que participan te notificaremos por este medio. Estate atento con tu equipo para saber que día y horario tienen el partido!
+        Podrás encontrar más información en la sección de "Campeonatos" disponible en el menú "Preferencias". \n
         Saludos Footbooking!
         `;
     await sendEmail(player.name, player.email, subject, text);

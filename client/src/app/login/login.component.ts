@@ -11,7 +11,7 @@ import { FirebaseErrorHandler } from '../_helpers/firebaseErrorHandler';
 
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  loading: boolean = false;
+  loading = false;
   returnUrl: string;
 
   constructor(
@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
   }
 
   async login() {
-    if(this.loginForm.valid) {
+    if (this.loginForm.valid) {
       this.loading = true;
       try{
         const email = this.loginForm.get('email').value;
@@ -58,5 +58,8 @@ export class LoginComponent implements OnInit {
   public validateInput(inputName: string) {
     return this.loginForm.get(inputName).invalid &&
       (this.loginForm.get(inputName).dirty || this.loginForm.get(inputName).touched);
+  }
+
+  forgotPassword() {
   }
 }

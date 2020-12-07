@@ -93,15 +93,24 @@
     </div>
   </div>
 
-    <div *ngIf="rol == 'Jugador'">
-      <div *ngIf="torneo?.state == 'Publicado' && !yaRegistrado" >
+    <div *ngIf="rol === 'Jugador'">
+      <div *ngIf="torneo?.state === 'Publicado' && !yaRegistrado && fechaInscripcionValida" >
         <camp-insc [torneo]="torneo" [cantidad]="cantidad"></camp-insc>
       </div>
       <div class="alert alert-light" role="alert" *ngIf="torneo?.state == 'Completo'">
-        El torneo esta completo, y pronto se realizará el sorteo ...
+        El campeonato esta completo, y pronto se realizará el sorteo ...
       </div>
       <div class="alert alert-light" role="alert" *ngIf="torneo?.state == 'Publicado' && yaRegistrado">
-        Ya estás registrado en este torneo.
+        Ya estás registrado en este campeonato.
+      </div>
+      <div class="alert alert-light" role="alert" *ngIf="torneo?.state == 'Publicado' && !fechaInscripcionValida && !yaRegistrado">
+        <p>
+        No es posible inscribirse a este campeonato ya que no se encuentran habilitadas la inscripciones para el día de hoy.
+        </p>
+        <p>
+        Las inscripciones se podrán realizar entre los días <strong> {{torneo?.inscriptionStartDate | date:"dd/MM/yyyy"}} </strong> y
+        <strong> {{torneo?.inscriptionEndDate | date:"dd/MM/yyyy"}} </strong>.
+        </p>
       </div>
     </div>
 
@@ -114,10 +123,10 @@
   </div>
 
 
-  <div *ngIf="torneo?.state == 'Iniciado'">
+  <div [ngStyle]="{overflowX: 'auto'}" *ngIf="torneo?.state == 'Iniciado'">
     <info-fixture [torneo]="torneo" [inscriptions]="inscriptions" (setWinners)="setWinners($event)" ></info-fixture>
   </div>
-  <div *ngIf="torneo?.state == 'Finalizado'">
+  <div [ngStyle]="{overflowX: 'auto'}" *ngIf="torneo?.state == 'Finalizado'">
     <info-fixture [torneo]="torneo" [inscriptions]="inscriptions" (setWinners)="setWinners($event)"></info-fixture>
   </div>
 

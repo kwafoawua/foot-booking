@@ -67,7 +67,7 @@
         <div class="row">
           <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
             <mat-label>Fecha de inicio de inscripción</mat-label>
-            <input matInput formControlName="inscriptionStartDate" [min]="minDate" [matDatepicker]="inscriptionStartDate" [(ngModel)]="fechaInicioInscValidacion" required>
+            <input autocomplete="off" matInput formControlName="inscriptionStartDate" [min]="minDate" [matDatepicker]="inscriptionStartDate" [(ngModel)]="fechaInicioInscValidacion" required>
             <mat-datepicker-toggle matSuffix [for]="inscriptionStartDate"></mat-datepicker-toggle>
             <mat-datepicker #inscriptionStartDate disabled="false"></mat-datepicker>
             <mat-error
@@ -81,7 +81,7 @@
 
           <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
             <mat-label>Fecha de fin de inscripción</mat-label>
-            <input matInput formControlName="inscriptionEndDate" [min]="fechaInicioInscValidacion"
+            <input autocomplete="off" matInput formControlName="inscriptionEndDate" [min]="fechaInicioInscValidacion"
                    [matDatepicker]="inscriptionEndDate" [(ngModel)]="fechaFinInscValidacion" required>
             <mat-datepicker-toggle matSuffix [for]="inscriptionEndDate"></mat-datepicker-toggle>
             <mat-datepicker #inscriptionEndDate disabled="false"></mat-datepicker>
@@ -115,7 +115,7 @@
 
           <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
             <mat-label>Fecha de inicio de partidos</mat-label>
-            <input matInput formControlName="startDate" [min]="fechaFinInscValidacion"
+            <input autocomplete="off" matInput formControlName="startDate" [min]="fechaFinInscValidacion"
                    [(ngModel)]="fechafinValidacion"[matDatepicker]="startDate" required >
             <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
             <mat-datepicker #startDate disabled="false"></mat-datepicker>
@@ -130,7 +130,7 @@
 
           <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
             <mat-label>Fecha de fin de partidos</mat-label>
-            <input matInput formControlName="endDate" [min]="fechafinValidacion" [matDatepicker]="endDate" required>
+            <input autocomplete="off" matInput formControlName="endDate" [min]="fechafinValidacion" [matDatepicker]="endDate" required>
             <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
             <mat-datepicker #endDate disabled="false"></mat-datepicker>
             <mat-error
@@ -187,7 +187,7 @@
       <mat-card-content>
         <div class="row">
           <mat-form-field appearance="standard" class="col-12">
-            <input matInput formControlName="publicationDescription" required placeholder="Ingrese breve descripción del torneo...">
+            <input matInput formControlName="publicationDescription" placeholder="Ingrese breve descripción del campeonato... *" required>
             <mat-error
               *ngIf="tournamentForm.get('publicationDescription').invalid &&
             (tournamentForm.get('publicationDescription').dirty ||
@@ -208,7 +208,7 @@
       <mat-card-content>
         <div class="row">
           <mat-form-field appearance="standard" class="col-12">
-            <input matInput formControlName="termsAndConditions" required placeholder="Ingrese términos y condiciones...">
+            <input matInput formControlName="termsAndConditions"  placeholder="Ingrese términos y condiciones... *" required>
             <mat-error
               *ngIf="tournamentForm.get('termsAndConditions').invalid &&
             (tournamentForm.get('termsAndConditions').dirty ||

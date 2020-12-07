@@ -1,20 +1,23 @@
-import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
 import { AlertService, ClubService } from '../../_services/index';
 import { Club } from '../../_models/club';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {} from 'googlemaps';
-import { MapsAPILoader } from '@agm/core';
+import { AgmMap, MapsAPILoader } from '@agm/core';
 import { Observable, of } from 'rxjs';
 import { FieldFormArrayComponent } from '../../fields-array';
 import { ValidateAllFields } from '../../_helpers/validate-all-fields';
 import { FileHolder } from 'angular2-image-upload';
 import { environment } from '../../../environments/environment';
 import { StorageService } from '../../_services/storage.service';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
-  templateUrl: 'profile-club-info.component.html'
+  templateUrl: 'profile-club-info.component.html',
+
 })
 export class ProfileClubInfoComponent implements OnInit {
+
   id: string;
   club: Club;
   clubForm: FormGroup;
@@ -37,9 +40,8 @@ export class ProfileClubInfoComponent implements OnInit {
               private alertService: AlertService,
               private ngZone: NgZone,
               private storageService: StorageService,
-              ) {
-
-  }
+              public snackBar: MatSnackBar,
+              ) {}
 
   @ViewChild('address')
   public searchElementRef: ElementRef;
@@ -71,6 +73,8 @@ export class ProfileClubInfoComponent implements OnInit {
           this.clubForm.get('address.lng').setValue(place.geometry.location.lng());
           this.clubForm.get('address.address').setValue(place.formatted_address);
           console.log(this.clubForm.get('address').value);
+          this.zoom = 16;
+
           // this.registerClubForm.get('address.address').setValue(place.
         });
       });
@@ -78,9 +82,6 @@ export class ProfileClubInfoComponent implements OnInit {
 
   }
 
-  private initAddress() {
-
-  }
 
   private getClub(id: string) {
     this.clubService.getById(id).subscribe(userClub => {
@@ -96,8 +97,6 @@ export class ProfileClubInfoComponent implements OnInit {
         profileImg: this.club.profileImg,
         galleryImg: this.club.galleryImg,
         socialMedia: this.club.socialMedia,
-      //  mercadoPago: this.club.mercadoPago,
-      //  dniMercadoPago: this.club.dniMercadoPago,
       });
 
       if (this.club.address.address) {
@@ -205,9 +204,15 @@ export class ProfileClubInfoComponent implements OnInit {
           data => {
             console.log(data);
             this.storageService.store('currentUser', data);
+            this.snackBar.open('El club se actualizó con éxito', null, {
+              duration: 2000
+            });
             this.alertService.success('Los datos se actualizaron correctamente', true);
           },
           error => {
+            this.snackBar.open(error, null, {
+              duration: 2000
+            });
             this.alertService.error(error);
             this.loading = false;
           });

@@ -5,6 +5,7 @@ import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { PlayerService } from './player.service';
 import { StorageService } from './storage.service';
+import * as firebase from 'firebase/app';
 
 @Injectable()
 export class AuthService {
@@ -108,6 +109,22 @@ export class AuthService {
 
   firebaseRegister(email: string, password: string): Promise<any> {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password);
+  }
+
+  updatePassword(newPassword: string) {
+    const user = firebase.auth().currentUser;
+    return user.updatePassword(newPassword);
+  }
+
+  updateEmail(newEmail: string) {
+    const user = firebase.auth().currentUser;
+    return user.updateEmail(newEmail);
+  }
+
+  forgotPassword(email: string) {
+    const auth = firebase.auth();
+
+    return auth.sendPasswordResetEmail(email);
   }
 
 }

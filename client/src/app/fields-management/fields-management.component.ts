@@ -21,6 +21,8 @@ import { Field } from '../_models/field';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { colors } from './colors';
 import * as moment from 'moment';
+import {dateISO} from 'ng2-validation/dist/date-ios';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 const I18N_VALUES = {
   es: {
@@ -60,6 +62,7 @@ export class CustomDatepickerI18n extends NgbDatepickerI18n {
   selector: 'mwl-demo-component',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: 'fields-management.component.html',
+  styleUrls: ['fields-management.component.css'],
   providers: [
     {
       provide: CalendarDateFormatter,
@@ -79,11 +82,14 @@ export class FieldsManagementComponent implements OnInit {
   constructor(private modal: NgbModal,
               private bookingService: BookingService,
               private clubService: ClubService, private alertService: AlertService,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              public snackBar: MatSnackBar) {
     registerLocaleData(localeEs);
   }
 
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
+  @ViewChild('modalTournament') modalTournament: TemplateRef<any>;
+
   @ViewChild('formDirective') private formDirective: NgForm;
   view = 'month';
   locale = 'es';
@@ -197,19 +203,23 @@ export class FieldsManagementComponent implements OnInit {
             colorStatus = colors.yellow;
             break;
         }
+
         const fecha = moment(booking.playingDate).format('YYYY-MM-DD');
         const startDate = moment(fecha + ' ' + booking.playingTime, 'YYYY-MM-DD HH:mm:ss').format();
         const endDate = moment(startDate).add(1, 'hours').format();
 
+        let title = booking.field.fieldName + ' Horario: ' + booking.playingTime + ' Cliente: ' + booking.player.name + ' ' + booking.player.lastName;
+        if (booking.isTournamentBooking) {
+          colorStatus = colors.blue;
+          title = `${booking.player.name}: ${booking.player.lastName} | Horario: ${booking.playingTime}`;
+        }
         const event = {
           start: new Date(startDate),
           end: new Date(endDate),
-          title: booking.field.fieldName + ' Horario: ' + booking.playingTime + ' Cliente: ' + booking.player.name + ' ' + booking.player.lastName,
+          title,
           color: colorStatus,
           actions: this.actions,
           booking,
-
-
         };
         eventArray.push(event);
       });
@@ -253,13 +263,14 @@ export class FieldsManagementComponent implements OnInit {
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action };
     console.log('HANDLE EVENTO', event);
+
+    if ((event as any).booking.isTournamentBooking) {
+      this.modal.open(this.modalTournament, {size: 'lg'});
+      return;
+    }
     this.precioCanchaModal = (event as any).booking.field.price;
     this.montoPagado = (event as any).booking.payment.fee;
     this.modal.open(this.modalContent, { size: 'lg' }).result.then((result) => {
-      console.log(this.selectedStatus);
-      console.log(result);
-
-
       if (this.selectedStatus || this.montoPagado) {
         this.closeResult = result;
         const newStatus: any = {};
@@ -297,8 +308,14 @@ export class FieldsManagementComponent implements OnInit {
             this.date = null;
             this.createForm();
             this.getBookings(this._id);
+            this.snackBar.open('La registró la reserva con éxito', null, {
+              duration: 2000
+            });
           },
           error => {
+            this.snackBar.open(error, null, {
+              duration: 2000
+            });
             this.alertService.error(error);
           });
 
@@ -306,6 +323,8 @@ export class FieldsManagementComponent implements OnInit {
   }
 
   loadHoursValues(date: any) {
+    this.horasDisponibles = [];
+    this.horasOcupadas = [];
     this.nuevaReservaForm.get('playingDate').setValue(date.toISOString());
     this.bookingFilter = new BookingFilter(this.nuevaReservaForm.controls.fieldId.value, date);
 
@@ -325,6 +344,21 @@ export class FieldsManagementComponent implements OnInit {
         }
       });
 
+  }
+
+  filterHourForToday(pickedDate) {
+    const tempHoursArray = [...this.hoursArray];
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    if (pickedDate.getTime() === today.getTime()) {
+      const arrayHourOffset = 9;
+      const currentHour = new Date().getHours();
+      if (currentHour >= 10) {
+        const spliceAmount = currentHour - arrayHourOffset;
+        tempHoursArray.splice(0, spliceAmount);
+      }
+    }
+    return tempHoursArray;
   }
 
   setFieldValues(field: any) {

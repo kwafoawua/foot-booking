@@ -3,7 +3,7 @@
   <div class="field-control-header">
     <div class="row">
       <div class="col-md-12">
-        <h5>Cancha {{index > 0 ? index : '' }}</h5>
+        <h5>Cancha {{index > 0 ? index + 1 : '' }}</h5>
         <div class="col-sm-1" *ngIf="index > 0">
           <button type="button" class="btn field-control-remove-btn btn-secondary" (click)="removed.emit(index)">X</button>
         </div>
@@ -44,9 +44,8 @@
               <mat-form-field>
                 <mat-select class="example-full-width" (change)="onSelectCant($event.target.value)"
                         [attr.id]="'cantPlayers'+index" formControlName="cantPlayers" placeholder="Cantidad de jugadores" required>
-                  <mat-option *ngFor="let cantPlayer of cantPlayerSelect" value={{cantPlayer}}>
+                  <mat-option *ngFor="let cantPlayer of cantPlayerSelect" [value]="cantPlayer">
                     {{cantPlayer + " Jugadores"}}
-
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -66,7 +65,7 @@
               <mat-form-field>
               <mat-select class="example-full-width" (change)="onSelectType($event.target.value)"
                       [attr.id]="'fieldType'+index" formControlName="fieldType" placeholder="Tipo de cancha" required>
-                <mat-option *ngFor="let type of fieldTypeSelect" value={{type}} >{{type}}</mat-option>
+                <mat-option *ngFor="let type of fieldTypeSelect" [value]="type">{{type}}</mat-option>
               </mat-select>
                 </mat-form-field>
               <div name="valida-tipoCancha" *ngIf="field.get('fieldType').invalid &&

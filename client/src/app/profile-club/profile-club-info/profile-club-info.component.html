@@ -50,14 +50,6 @@
                 </div>
               </div><!-- post-inner direccion-->
 
-              <agm-map [zoom]="zoom" [latitude]="lat" [longitude]="lng" (mapClick)="clickMapa($event)">
-                <agm-marker [latitude]="lat"
-                            [longitude]="lng"
-                            [iconUrl]="'../../assets/icon/iconochico.png'"
-                            [markerDraggable]="draggable" (dragEnd)="nuevaPosicionMarcador($event)">
-                </agm-marker>
-              </agm-map>
-
             </div>
 
 
@@ -65,7 +57,7 @@
               <div class="row form-group" [ngClass]="{ 'has-error': clubForm.get('phoneNumber').invalid}">
                 <div class="col example-container">
                   <mat-form-field>
-                    <input matInput formControlName="phoneNumber" class="form-control" type="number" placeholder="Teléfono" required>
+                    <input autocomplete="off" matInput formControlName="phoneNumber" class="form-control" type="number" placeholder="Teléfono" required>
                   </mat-form-field>
                 </div>
               </div>
@@ -175,7 +167,7 @@
                 <div class="col example-container">
                   <mat-form-field>
                     <input matInput type="text" formControlName="googleId" class="form-control"
-                           placeholder="Google +" style="font-family: Arial, FontAwesome">
+                           placeholder="Tik Tok" style="font-family: Arial, FontAwesome">
                   </mat-form-field>
                 </div>
               </div>

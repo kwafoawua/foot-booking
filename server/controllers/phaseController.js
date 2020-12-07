@@ -10,6 +10,7 @@ const moment = require('moment');
 const { getInscriptionEmails } = require('./inscriptionController');
 const Tournament = require('../models/Tournament');
 const { sendEmail } = require('./mailing');
+const bookingService = require('../services/booking.service')
 
 /**
  *  Phases creation. This functions creates all the different phases for a Tournament. The phases should be created
@@ -108,7 +109,7 @@ const sendShuffleEmails = async (tId) => {
     const subject = `El campeonato ${tournament.tournamentName} ya se sorteó. ¿Estás listo para jugar?`;
     const text = `
     Hola! ¿Están listos con tu equipo para comenzar a jugar?.
-    El campeonato ${tournament.tournamentName} ya se sorteó y ya podes ir a visitar el sitio para saber contra quien jugas en www.footbooking.com.
+    El campeonato ${tournament.tournamentName} ya se sorteó y ya podes ir a visitar el sitio para saber contra quién juegas en la sección de "Campeonatos" disponible en el menú "Preferencias".
     Mucha suerte para este campeonato! \n
     Saludos Footbooking!
     `;
@@ -134,9 +135,36 @@ exports.setResultOfAMatch = async (req, res) => {
 };
 
 exports.updatePhaseMatch = async (req, res) => {
-    const {tournamentId, matchId, localTeam, visitorTeam, localGoals, visitorGoals, hourDate} = req.body;
-    let state = localGoals && visitorGoals ? "Finalizado" : "Pendiente de Juego";
+    const {
+        tournamentId,
+        matchId,
+        localTeam,
+        visitorTeam,
+        localGoals,
+        visitorGoals,
+        hourDate,
+        dateToPlay,
+        field,
+        bookingId,
+        clubId,
+        tournamentName,
+    } = req.body;
+    let state;
+    let bookingState;
+    const localState = typeof(localGoals) === "number" && localGoals >= 0;
+    const visitorState =  typeof(visitorGoals) === "number" && visitorGoals >= 0;
+    if(localState && visitorState) {
+        state = 'Finalizado';
+        bookingState = 'Asistido';
+    }  else if(visitorTeam || localTeam) {
+        state = "Pendiente de Juego";
+        bookingState = 'Reservado';
+    } else {
+        state = 'Sin asignar';
+        bookingState = 'Reservado';
+    }
     try {
+        const bookingMatch = await bookingService.registerBookingsForPhase(bookingId, clubId, localTeam, visitorTeam, dateToPlay, hourDate, field, tournamentName, tournamentId, bookingState);
         await Phase.findOneAndUpdate({
                 tournamentId: mongoose.Types.ObjectId(tournamentId),
                 'matches._id': matchId
@@ -147,6 +175,10 @@ exports.updatePhaseMatch = async (req, res) => {
                 ...(localGoals >= 0 && {'matches.$.localTeam.goals': localGoals}),
                 ...(visitorGoals >= 0 && {'matches.$.visitorTeam.goals': visitorGoals}),
                 ...(hourDate && {'matches.$.hourToPlay': hourDate}),
+                ...(dateToPlay && {'matches.$.dateToPlay': dateToPlay}),
+                ...(field && {'matches.$.fieldName': field.fieldName}),
+                ...(field && {'matches.$.fieldId': field._id}),
+                ...(bookingMatch && {'matches.$.bookingId': bookingMatch._id}),
                 'matches.$.state': state
             }, {useFindAndModify: false});
         await res.json({msg: "Partido actualizado correctamente"})

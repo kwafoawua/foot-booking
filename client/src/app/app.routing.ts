@@ -27,6 +27,7 @@ import {TorneosPlayerComponent} from './booking-player/torneos-player-component'
 import {CommentsComponent} from './Comments/commentsComponent';
 import {ClubLinkMpComponent} from './club-link-mp/club-link-mp.component';
 import {TerminosCondiciones} from './common/terminos-condiciones/terminos-condiciones';
+import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
 
 
 const appRoutes: Routes = [
@@ -46,6 +47,7 @@ const appRoutes: Routes = [
       { path: 'campeonato/:id', component: CampeonatoInfoComponent },
       { path: 'player/mis-campeonatos/:id', component: TorneosPlayerComponent },
       {path: 'terminos-condiciones', component: TerminosCondiciones},
+      {path: 'restablecer-contrasenia', component: ResetPasswordComponent},
     ]
   },
   {

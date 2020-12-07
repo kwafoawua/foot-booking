@@ -132,7 +132,7 @@
                 <div class="row form-group" [ngClass]="{ 'has-error': registerClubForm.get('phoneNumber').invalid}">
                   <div class="col-md-8 example-container">
                     <mat-form-field>
-                    <input matInput formControlName="phoneNumber" class="form-control" type="number" placeholder="Teléfono" required>
+                    <input autocomplete="off" matInput formControlName="phoneNumber" class="form-control" type="number" placeholder="Teléfono" required>
                     </mat-form-field>
                   </div>
                 </div>
@@ -285,7 +285,7 @@
                   <div class="col-md-8 example-container">
                     <mat-form-field>
                     <input matInput type="text" formControlName="googleId" class="form-control"
-                           placeholder="Google +" style="font-family: Arial, FontAwesome">
+                           placeholder="Tik Tok" style="font-family: Arial, FontAwesome">
                     </mat-form-field>
                   </div>
                 </div>
@@ -369,26 +369,6 @@
               <h5>Agrega las canchas de tu club</h5>
             </div>
 
-<!--          <div class="card">-->
-<!--            <div class="card-body">-->
-<!--              <div class="post-inner">-->
-<!--                <div class="row form-group">-->
-<!--                  <div class="col-md-8 example-container">-->
-<!--                    <mat-checkbox formControlName="mercadoPago"> Agregar mercado pago a mis reservas-->
-<!--                    </mat-checkbox>-->
-<!--                    <mat-form-field>-->
-<!--                      <input matInput formControlName="dniMercadoPago" type="number" placeholder="Ingrese DNI de la cuenta" [readonly]="this.desabilitar()">-->
-<!--                    </mat-form-field>-->
-<!--                    <div *ngIf="registerClubForm.get('dniMercadoPago').errors?.required &&-->
-<!--                    registerClubForm.get('mercadoPago').value === 'true'"  class="text-danger">-->
-<!--                      <small class="form-text">El campo DNI es requerido.</small>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              </div>-->
-<!--            </div>-->
-
             <fields-array
                 formArrayName="fields"
                 [fieldFormArray]="registerClubForm.get('fields')"
@@ -412,8 +392,5 @@
     </div>
   </div>
 
-
-
-<h6 class="mt-3">FormGroup Model (<code>registerClubForm.value</code>)</h6>
 <div>
 </div>

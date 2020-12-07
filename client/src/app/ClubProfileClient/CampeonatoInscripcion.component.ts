@@ -75,7 +75,7 @@ export class CampeonatoInscripcionComponent implements OnInit{
             window.location.href = res.initPoint;
           },
           error => {
-            this.alertService.error('Ups! No se pudo completar la inscripcion al torneo, intenta más tarde.', false);
+            this.alertService.error('Ups! No se pudo completar la inscripcion al campeonato, intenta más tarde.', false);
           }
         );
 

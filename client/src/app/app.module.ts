@@ -74,6 +74,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import {TerminosCondiciones} from './common/terminos-condiciones/terminos-condiciones';
 import {MatchUpdateDialogComponent} from "./admin-campeonato/fixture/match/match.component";
 import {CancelTorneoDialogComponent} from "./admin-campeonato/admin-campeonato.component";
+import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
 
 registerLocaleData(localeEsAr, 'es-AR');
 @NgModule({
@@ -89,8 +90,8 @@ registerLocaleData(localeEsAr, 'es-AR');
     ImageUploadModule.forRoot(),
     CustomFormsModule,
     DpDatePickerModule,
-    AgmCoreModule.forRoot({// old: AIzaSyAAwaI8YafySsHraMA_9G_n30_FECUhoVs
-      apiKey: 'AIzaSyBuNW_HnnPaMrMq8KGEhiEzUnbVOO_OJzA',
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyB4OTv481RhKhcMM8NP10PxO_6HbJPney8',
       libraries: [ 'places' ]
     }),
     ProfileClubModule,
@@ -140,6 +141,7 @@ registerLocaleData(localeEsAr, 'es-AR');
     TorneosPlayerComponent,
     TerminosCondiciones,
     CancelPreReservaComponent,
+    ResetPasswordComponent
   ],
   providers: [
     authInterceptorProviders,

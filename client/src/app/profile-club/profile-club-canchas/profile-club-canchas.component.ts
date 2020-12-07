@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { FieldFormArrayComponent } from '../../fields-array';
 import { ValidateAllFields } from '../../_helpers/index';
 import { forEach } from '@angular/router/src/utils/collection';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 /**
  * Created by pablo on 6/11/2017.
@@ -32,7 +33,8 @@ export class ProfileClubCanchasComponent implements OnInit {
     private router: Router,
     private clubService: ClubService,
     private alertService: AlertService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    public snackBar: MatSnackBar) {
   }
 
 
@@ -57,7 +59,7 @@ export class ProfileClubCanchasComponent implements OnInit {
       this.fieldClubForm.patchValue({
         fields: this.club.fields
       });
-      // console.log(this.fieldClubForm);
+      console.log(this.fieldClubForm.controls[ 'fields' ].value);
 
     });
   }
@@ -103,10 +105,17 @@ export class ProfileClubCanchasComponent implements OnInit {
       console.log(canchas);
       this.clubService.updateFields(this.club._id, canchas).subscribe(
         data => {
+          this.snackBar.open('Campos actualizados con éxito', null, {
+            duration: 2000
+          });
           this.alertService.success('Los datos se actualizaron correctamente', true);
         },
         error => {
-          this.alertService.error(error);
+          this.resetData();
+          this.snackBar.open(error.error, null, {
+            duration: 8000
+          });
+          this.alertService.error(error.error);
           this.loading = false;
         });
 
@@ -120,6 +129,13 @@ export class ProfileClubCanchasComponent implements OnInit {
   setDeletedFields($event) {
     this.deletedFields.push($event);
     console.log(this.deletedFields);
+  }
+
+  resetData() {
+    this.fields = [];
+    this.modifiedFields = [];
+    this.newFields = [];
+    this.ngOnInit();
   }
 
 }

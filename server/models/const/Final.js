@@ -2,14 +2,14 @@ exports.final = {
     matches: [{
         matchId: 'P4M1',
         localTeam: {
-            teamName: 'P3M1',
-            goals: undefined
+            teamName: '',
+            goals: null
         },
         visitorTeam: {
-            teamName: 'P3M2',
-            goals: undefined
+            teamName: '',
+            goals: null
         },
-        hourToPlay: undefined,
+        hourToPlay: null,
         state: 'Sin asignar',
     }]
 };

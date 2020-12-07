@@ -1,34 +1,20 @@
 
 
-<ng-container *ngIf="!esSinAsignar else shuffleIt">
-  <div [ngStyle]="{width: '1200px', display: 'flex'}">
-    <div *ngFor="let pdl of phaseDateList, let i = index" class="header-fases">
-
-      <div class="header-info">
-        <p>{{pdl.name}}</p>
-        <p *ngIf="!pdl.state">{{(pdl.date | date:'shortDate') || 'Elegir fecha'}}</p>
-        <mat-form-field appearance="standard" *ngIf="pdl.state">
-          <input matInput [max]="maxDate" [min]="minDate" [(ngModel)]="pdl.date" [matDatepicker]="datePicker">
-          <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
-          <mat-datepicker #datePicker></mat-datepicker>
-        </mat-form-field>
-      </div>
-      <div class="header-button-icon">
-        <button *ngIf="!pdl.state" mat-icon-button color="accent" (click)="updatePhaseDate(pdl, 'edit', i)">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button *ngIf="pdl.state" mat-icon-button color="accent" (click)="updatePhaseDate(pdl, 'update', i)">
-          <mat-icon>done</mat-icon>
-        </button>
-      </div>
-    </div>
+<ng-container *ngIf="tournamentState !== 'Nuevo' else shuffleIt">
+  <div class="mt-2" *ngIf="esSinAsignar">
+    <p>
+      Lo equipos de Octavos de Final van a ser asignados aleatoreamente.
+      Podes ir cargando las reservas de las canchas para los partidos.
+    </p>
+    <button mat-button (click)="shuffleMatches()" [disabled]="!isGenerable">Asignar Octavos</button>
+    <span *ngIf="!isGenerable">Se necesitan 16 equipos inscriptos</span>
   </div>
 
   <div class="row mt-2" *ngIf="tournamentState === 'Completo'">
     <div class="col-12 col-md-8">
       <div class="alert alert-info alert-dismissible fade show" role="alert">
         <span [ngStyle]="{fontSize: '12px'}">
-          Te informamos que para iniciar el campeonato necesitas cargar las fechas de las fases y los 8 primeros horarios.
+          Te informamos que para iniciar el campeonato necesitas cargar cancha, fecha y horario para los primeros 8 partidos.
         </span>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -86,7 +72,10 @@
     <app-match
       [teams]="inscriptions"
       [match]="match"
+      [fields]="fields"
       [isCampeonato]="tournamentState !== 'Finalizado'"
+      [maxDate]="maxDate"
+      [minDate]="minDate"
       (updateMatch)="updateMatch($event)"
     ></app-match>
   </ng-template>

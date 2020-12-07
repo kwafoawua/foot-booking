@@ -46,11 +46,11 @@
       <mat-card>
         <mat-card-title>
           <i class="fa fa-comments align-middle text-success"></i>
-          <a [routerLink]="['admin/comentarios/', _id]">
+          <a [routerLink]="['/admin/comentarios/', _id]">
             <span class="title-cards">Comentarios</span></a>
         </mat-card-title>
         <mat-card-content class="content">
-          <span><strong>Cantidad de comentarios: </strong> {{cantComments}} comentarios</span>
+          <span><strong>Cantidad de comentarios: </strong> {{cantComments}} comentario/s</span>
         </mat-card-content>
       </mat-card>
     </div>
@@ -249,7 +249,7 @@
         <div class="filtroFechas">
           <div class="col-5">
             <mat-form-field>
-              <input matInput [matDatepicker]="fromDateStatus" placeholder="Fecha desde"
+              <input autocomplete="off" matInput [matDatepicker]="fromDateStatus" placeholder="Fecha desde"
                      formControlName="dpFromDateStatus">
               <mat-datepicker-toggle matSuffix [for]="fromDateStatus"></mat-datepicker-toggle>
               <mat-datepicker #fromDateStatus></mat-datepicker>
@@ -257,7 +257,7 @@
           </div>
           <div class="col-5">
             <mat-form-field>
-              <input matInput [matDatepicker]="toDateStatus" placeholder="Fecha hasta"
+              <input autocomplete="off" matInput [matDatepicker]="toDateStatus" placeholder="Fecha hasta"
                      formControlName="dpToDateStatus">
               <mat-datepicker-toggle matSuffix [for]="toDateStatus"></mat-datepicker-toggle>
               <mat-datepicker #toDateStatus></mat-datepicker>
@@ -294,7 +294,7 @@
         <div class="filtroFechas">
           <div class="col-5">
             <mat-form-field>
-              <input matInput [matDatepicker]="fromDateCancha" placeholder="Fecha desde"
+              <input autocomplete="off" matInput [matDatepicker]="fromDateCancha" placeholder="Fecha desde"
                      formControlName="dpFromDateCancha">
               <mat-datepicker-toggle matSuffix [for]="fromDateCancha"></mat-datepicker-toggle>
               <mat-datepicker #fromDateCancha></mat-datepicker>
@@ -302,7 +302,7 @@
           </div>
           <div class="col-5">
             <mat-form-field>
-              <input matInput [matDatepicker]="toDateCancha" placeholder="Fecha hasta"
+              <input autocomplete="off" matInput [matDatepicker]="toDateCancha" placeholder="Fecha hasta"
                      formControlName="dpToDateCancha">
               <mat-datepicker-toggle matSuffix [for]="toDateCancha"></mat-datepicker-toggle>
               <mat-datepicker #toDateCancha></mat-datepicker>

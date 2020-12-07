@@ -124,10 +124,12 @@ export class ConfirmationComponent implements OnInit {
                 this.loading = false;
               });
         }
+      } else {
+        this.alertService.error('Debe aceptar términos y condiciones');
       }
-      else { this.alertService.error('Debe aceptar términos y condiciones'); }
+    } else {
+      this.alertService.error('Falta ingresar datos requeridos');
     }
-    this.alertService.error('Falta ingresar datos requeridos');
   }
 
   public goToMisReservas() {
