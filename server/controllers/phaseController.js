@@ -35,7 +35,7 @@ exports.getParticularPhaseByTournamentId = async (req, res) => {
         })
         await res.json({phases});
     } catch (error) {
-        res.status(500).send("Ocurrio un error en la obtencion de la fase" + phaseNumber + " fases del torneo" + tournamentId);
+        res.status(500).send("Ocurrio un error en la obtencion de la fase" + phaseNumber + " fases del campeonato" + tournamentId);
     }
 };
 
@@ -46,7 +46,7 @@ exports.getAllPhasesOfTournament = async (req, res) => {
         })
         await res.json({phases});
     } catch (error) {
-        res.status(500).send("Ocurrio un error imprevisto en la obtencion de fases del torneo" + res.params.tournamentId);
+        res.status(500).send("Ocurrio un error imprevisto en la obtencion de fases del campeonato" + res.params.tournamentId);
     }
 };
 
@@ -95,7 +95,7 @@ exports.randomMatchesLink = async (req, res) => {
         await sendShuffleEmails(req.params.tournamentId);
         await res.status(200).send({
             phases: {...phases._doc},
-            msg: "Generación de sorteo para torneo de 16 realizada exitosamente"
+            msg: "Generación de sorteo para campeonato de 16 realizada exitosamente"
         });
     } catch (error) {
         console.log(error);

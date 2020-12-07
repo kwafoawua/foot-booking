@@ -73,7 +73,7 @@ router.delete('/comments/:_id', commentController.deleteComment);
 /* Tournament Controller */
 router.post('/tournament/register', [
     check('creatorClubId', 'Llego el campo del id del club organizador vacio es obligatorio').not().isEmpty(),
-    check('tournamentName', 'Llego el campo del torneo vacio y es obligatorio').not().isEmpty()
+    check('tournamentName', 'Llego el campo del campeonato vacio y es obligatorio').not().isEmpty()
 ], tournamentController.createTournament);
 router.get('/tournament/:_id', tournamentController.getTournament);
 router.get('/tournament/club/:clubId', tournamentController.getClubTournaments);
