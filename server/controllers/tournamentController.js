@@ -110,11 +110,11 @@ exports.updateTournament = async (req, res) => {
             {$set: req.body},
             {new: true}
             );
-        await bookingService.cancelTournamentBookings(tournamentId)
         if(req.body.state === 'Completo') {
             await sendCompletedEmail(tournamentId)
         } else if (req.body.state === 'Cancelado') {
-            await tournamentService.sendTournamentCancellationEmailToTeams(tournamentId);
+            bookingService.cancelTournamentBookings(tournamentId)
+            tournamentService.sendTournamentCancellationEmailToTeams(tournamentId);
         }
         await res.json({msg: "Torneo modificado exitosamente"});
     } catch (error) {
