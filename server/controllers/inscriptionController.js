@@ -1,13 +1,10 @@
 const TournamentInscription = require('../models/TournamentInscription');
-const Tournament = require('../models/Tournament');
 const mongoose = require('mongoose');
-const Player = require('../models/Player');
-const {sendEmail} = require('./mailing');
-const moment = require('moment');
 const mercadoPagoController = require('./MercadoPagoController');
 const tournamentController = require("./tournamentController");
 const {getPagination} = require('../utils/utils');
 
+const inscriptionService = require('../services/inscription.service');
 
 /**
  * Create inscription
@@ -132,7 +129,7 @@ exports.updateInscriptionByExternalReference = async (paymentReference, isPaid) 
             {$set: {paymentStatus: 'Pagado'}},
             {new: true}
         );
-        await sendInscriptionMailSuccess(paymentReference);
+        await inscriptionService.sendInscriptionMailSuccess(paymentReference);
     } else {
         await TournamentInscription.findOneAndDelete(
             {paymentReference: paymentReference}
@@ -140,17 +137,3 @@ exports.updateInscriptionByExternalReference = async (paymentReference, isPaid) 
     }
 }
 
-sendInscriptionMailSuccess = async paymentReference => {
-    const inscription = await TournamentInscription.find({paymentReference: paymentReference});
-    const player = await Player.findById(inscription.userId).exec();
-    const tournament = await Tournament.findById(inscription.tournamentId).exec();
-    const subject = `Te inscribiste al campeonato ${tournament.tournamentName}`;
-    const text = `
-        Hola ${player.name}! Muchas gracias por inscribirte al campeonato ${tournament.tournamentName}.
-        El mismo va a iniciar el día ${moment(tournament.startDate).format('D/M/YY')}.
-        Cuando el club realice el sorteo de los equipos que participan te notificaremos por este medio. Estate atento con tu equipo para saber que día y horario tienen el partido!
-        Podrás encontrar más información en la sección de "Campeonatos" disponible en el menú "Preferencias". \n
-        Saludos Footbooking!
-        `;
-    await sendEmail(player.name, player.email, subject, text);
-}

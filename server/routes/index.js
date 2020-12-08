@@ -115,5 +115,4 @@ router.post("/webhook", (req, res) => PaymentInstance.webhook(req, res));
 const specialPurposeController = require("../controllers/specialPurposeController");
 router.post("/tempRoute/inscription/enroll", specialPurposeController.newTournamentInscription)
 
-
 module.exports = router;
