@@ -32,7 +32,7 @@
                 <small class="form-text">La contraseña es requerida.</small>
               </div>
               <div *ngIf="registerForm.get('password').errors?.minlength" class="text-danger">
-                <small class="form-text">La contraseña debe ser de mas de 8 caracteres.</small>
+                <small class="form-text">La contraseña debe ser de más de 8 caracteres.</small>
               </div>
 
             </div>
@@ -47,7 +47,7 @@
                 <small class="form-text">La contraseña es requerida.</small>
               </div>
               <div *ngIf="registerForm.get('repeatPassword').errors?.minlength" class="text-danger">
-                <small class="form-text">La contraseña debe ser de mas de 8 caracteres.</small>
+                <small class="form-text">La contraseña debe ser de más de 8 caracteres.</small>
               </div>
               <div *ngIf="registerForm.get('repeatPassword').errors?.MatchPassword" class="text-danger">
                 <small class="form-text">Las contraseñas deben ser las mismas.</small>

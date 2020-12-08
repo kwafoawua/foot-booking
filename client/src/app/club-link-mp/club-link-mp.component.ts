@@ -21,10 +21,10 @@ export class ClubLinkMpComponent implements OnInit{
     this.operationState = this.route.snapshot.queryParamMap.get('state');
     if(this.operationState !== null && this.operationState === 'success') {
       this.isAlreadyLinked = true;
-      this.alertService.success('Su cuenta de Mercado de Pago se ha vinculado con éxito!', true);
+      this.alertService.success('Su cuenta de Mercado Pago se ha vinculado con éxito!', true);
     } else if (this.operationState !== null && this.operationState === 'failure') {
       this.isAlreadyLinked = false;
-      this.alertService.error('Ocurrió un error al vincular la cuenta de Mercado de Pago, por favor intenta nuevamente mas tarde.');
+      this.alertService.error('Ocurrió un error al vincular la cuenta de Mercado Pago, por favor intentá nuevamente más tarde.');
     }
     this.alreadyLinked();
   }

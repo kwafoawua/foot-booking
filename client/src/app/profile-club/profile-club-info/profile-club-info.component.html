@@ -37,7 +37,7 @@
                         (clubForm.get('address.address').dirty || clubForm.get('address.address').touched)}">
                   <div class="col-md-12 example-container">
                     <mat-form-field>
-                      <input matInput placeholder="Ingresar Direccion" autocorrect="off" autocapitalize="off"
+                      <input matInput placeholder="Ingresar Dirección" autocorrect="off" autocapitalize="off"
                              spellcheck="off" type="text" class="form-control" #address required>
                     </mat-form-field>
                     <div name="valida-direccion" *ngIf="clubForm.get('address.address').invalid &&
@@ -108,7 +108,7 @@
                       <small class="form-text">La descripción es requerido.</small>
                     </div>
                     <div *ngIf="clubForm.get('description').errors?.maxlength" class="text-danger">
-                      <small class="form-text">La descripción no debe ser de mas de 255 caracteres.</small>
+                      <small class="form-text">La descripción no debe ser de más de 255 caracteres.</small>
                     </div>
 
                   </div>
@@ -236,7 +236,7 @@
                       [max]="5"
                       [extensions]="['jpg','png']"
                       buttonCaption="Subir"
-                      dropBoxMessage="Subir Galería de imagenes"
+                      dropBoxMessage="Subir Galería de imágenes"
                       clearButtonCaption="Eliminar Todos"
                       [uploadedFiles]="profileGallery">
                   </image-upload>

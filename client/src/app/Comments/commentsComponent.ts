@@ -1,7 +1,3 @@
-/**
- * Created by pablo on 19/11/2017.
- */
-
 import { Component, OnInit } from '@angular/core';
 import { ClubService } from '../_services/club.service';
 import { Club } from '../_models/club';
@@ -9,9 +5,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Comment } from '../_models/comment';
 import { CommentService } from '../_services/comment.service';
 import { AuthService } from '../_services/auth.service';
-import { now } from 'moment';
 import {StorageService} from '../_services/storage.service';
 import { PaginationService } from '../_services';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'comments',
@@ -39,6 +35,7 @@ export class CommentsComponent implements OnInit {
     private authenticatedService: AuthService,
     private storageService: StorageService,
     private paginationService: PaginationService,
+    public snackBar: MatSnackBar
   ) {
     const user = JSON.parse(localStorage.getItem(('currentUser')));
     if (user) {
@@ -61,16 +58,15 @@ export class CommentsComponent implements OnInit {
 
   }
 
-
-
   agregarComment() {
     this.comment.userName = this.name;
     this.comment._idClub = this.club._id;
     this.comment.comment = this.textComment;
     this.commentService.create(this.comment).subscribe(data => {
       this.clubComentarios.push(this.comment);
+      this.snackBar.open('Comentario publicado con éxito', null, {duration: 2000});
     }, error => {
-      console.log(error);
+      this.snackBar.open('No ha sido posible publicar tu comentario, intentá nuevamente más tarde', null, {duration: 5000});
     });
     this.textComment = '';
     this.getComentarios();

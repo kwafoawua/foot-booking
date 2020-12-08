@@ -57,7 +57,7 @@
                               <small class="form-text">La contraseña es requerida.</small>
                             </div>
                             <div *ngIf="registerClubForm.get('user.password').errors?.minlength" class="text-danger">
-                              <small class="form-text">La contraseña debe ser de mas de 8 caracteres.</small>
+                              <small class="form-text">La contraseña debe ser de más de 8 caracteres.</small>
                             </div>
 
                           </div>
@@ -79,7 +79,7 @@
                             <small class="form-text">La contraseña es requerida.</small>
                           </div>
                           <div *ngIf="registerClubForm.get('user.repeatPassword').errors?.minlength" class="text-danger">
-                            <small class="form-text">La contraseña debe ser de mas de 8 caracteres.</small>
+                            <small class="form-text">La contraseña debe ser de más de 8 caracteres.</small>
                           </div>
                           <div *ngIf="registerClubForm.get('user.repeatPassword').errors?.MatchPassword" class="text-danger">
                             <small class="form-text">Las contraseñas deben ser las mismas.</small>
@@ -183,7 +183,7 @@
                         <small class="form-text">La descripción es requerido.</small>
                       </div>
                       <div *ngIf="registerClubForm.get('description').errors?.maxlength" class="text-danger">
-                        <small class="form-text">La descripción no debe ser de mas de 255 caracteres.</small>
+                        <small class="form-text">La descripción no debe ser de más de 255 caracteres.</small>
                       </div>
 
                     </div>
@@ -200,7 +200,7 @@
                         (registerClubForm.get('address.address').dirty || registerClubForm.get('address.address').touched)}">
                   <div class="col-md-12 example-container">
                     <mat-form-field>
-                    <input matInput placeholder="Ingresar Direccion" autocorrect="off" autocapitalize="off"
+                    <input matInput placeholder="Ingresar Dirección" autocorrect="off" autocapitalize="off"
                            spellcheck="off" type="text" class="form-control" #address required>
                     </mat-form-field>
                     <div name="valida-direccion" *ngIf="registerClubForm.get('address.address').invalid &&
@@ -336,7 +336,7 @@
                         [max]="5"
                         [extensions]="['jpg','png']"
                         buttonCaption="Subir"
-                        dropBoxMessage="Subir Galería de imagenes"
+                        dropBoxMessage="Subir Galería de imágenes"
                         clearButtonCaption="Eliminar Todos">
                     </image-upload>
                     <div name="valida-imagen" *ngIf="registerClubForm.get('galleryImg').invalid &&

@@ -50,7 +50,7 @@ export class ConfirmationComponent implements OnInit {
     this.operationState = this.route.snapshot.queryParamMap.get('status');
     if (this.operationState !== null && this.operationState === 'approved') {
       this.confirmado = true;
-      this.alertService.success('Su reserva se ha registrado con exito', true);
+      this.alertService.success('Su reserva se ha registrado con éxito', true);
       this.router.navigate(['/player/mis-reservas']);
     }
     this.booking = ClubService.obtenerBooking();
@@ -100,7 +100,7 @@ export class ConfirmationComponent implements OnInit {
       .subscribe(
         mpData => {
           this.mpResponse = mpData;
-          console.log(`la data de mercado de pago: ${JSON.stringify(this.mpResponse)}`)
+          console.log(`la data de mercado pago: ${JSON.stringify(this.mpResponse)}`)
         }
       );
   }
@@ -116,7 +116,7 @@ export class ConfirmationComponent implements OnInit {
             .subscribe(
               data => {
                 this.confirmado = true;
-                this.alertService.success('Su reserva se ha registrado con exito', true);
+                this.alertService.success('Su reserva se ha registrado con éxito', true);
                 this.router.navigate(['/player/mis-reservas']);
               },
               error => {

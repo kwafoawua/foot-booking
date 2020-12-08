@@ -6,8 +6,7 @@ import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {CalendarEvent} from "angular-calendar";
-import {IMatch, MatchUpdateDialogComponent} from "./fixture/match/match.component";
-import * as moment from "moment";
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-admin-campeonato',
@@ -21,13 +20,11 @@ export class AdminCampeonatoComponent implements OnInit {
   dataSource: any;
   total: number;
 
-
-
   constructor(
     private tournamentService: TournamentService,
     private router: Router,
     public dialog: MatDialog,
-  ) { }
+    public snackBar: MatSnackBar) { }
 
   @Output() updateTorneo = new EventEmitter<string>();
   @ViewChild(MatSort) sort: MatSort;
@@ -73,6 +70,9 @@ export class AdminCampeonatoComponent implements OnInit {
   OcultarCampeonato(id){
     this.tournamentService.updateTournament({_id: id, state: 'Cerrado'}).subscribe((data) => {
         this.getTournaments();
+        this.snackBar.open('Campeonato ocultado con éxito', null, {duration: 2000});
+      }, error => {
+        this.snackBar.open('No ha sido posible ocultar el campeonato en este momento, intentá nuevamente más tarde', null, {duration: 5000});
       }
     );
   }
@@ -81,6 +81,9 @@ export class AdminCampeonatoComponent implements OnInit {
   cancel(id) {
     this.tournamentService.updateTournament({_id: id, state: 'Cancelado'}).subscribe((data) => {
         this.getTournaments();
+        this.snackBar.open('Campeonato cancelado con éxito', null, {duration: 2000});
+      }, error => {
+        this.snackBar.open('No ha sido posible cancelar el campeonato en este momento, intentá nuevamente más tarde', null, {duration: 5000});
       }
     );
   }
