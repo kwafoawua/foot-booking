@@ -89,7 +89,7 @@ export class ProfilePlayerEditComponent implements OnInit {
             this.alertService.success('Su perfil ha sido modificado con éxito', true);
           },
           error => {
-            this.alertService.error('Upss!! Hemos experimentado un inconveniente, por favor intenta más tarde');
+            this.alertService.error('Upss!! Hemos experimentado un inconveniente, por favor intentá más tarde');
           }
         );
     }

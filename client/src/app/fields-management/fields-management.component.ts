@@ -288,7 +288,7 @@ export class FieldsManagementComponent implements OnInit {
           this.getBookings(this._id);
           this.snackBar.open('Reserva actualizada con éxito', null, {duration: 2000});
         }, error => {
-          this.snackBar.open('Hubo un inconveniente al actualizar la reserva, intenta nuevamente más tarde', null, {duration: 5000});
+          this.snackBar.open('Hubo un inconveniente al actualizar la reserva, intentá nuevamente más tarde', null, {duration: 5000});
         });
       }
     });

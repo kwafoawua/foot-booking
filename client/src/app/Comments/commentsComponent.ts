@@ -66,7 +66,7 @@ export class CommentsComponent implements OnInit {
       this.clubComentarios.push(this.comment);
       this.snackBar.open('Comentario publicado con éxito', null, {duration: 2000});
     }, error => {
-      this.snackBar.open('No ha sido posible publicar tu comentario, intenta nuevamente más tarde', null, {duration: 5000});
+      this.snackBar.open('No ha sido posible publicar tu comentario, intentá nuevamente más tarde', null, {duration: 5000});
     });
     this.textComment = '';
     this.getComentarios();
