@@ -46,10 +46,6 @@ var clubSchema = new Schema({
         snapchatId: String,
         googleId: String
     },
-    // coments: [{
-    //     description: String,
-    //     user:String
-    // }],
     profileImg: {type: String, required: true},
     galleryImg: [String],
     description: String,
@@ -61,6 +57,7 @@ var clubSchema = new Schema({
     }, //modificar con los estados verdaderos
     //token de Mercado de Pago para este club
     access_token: String,
+    tournaments: [{ type: Schema.Types.ObjectId, ref: 'Tournament' }]
 });
 
 clubSchema.plugin(mongoosePaginate);

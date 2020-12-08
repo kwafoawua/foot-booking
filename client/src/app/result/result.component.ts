@@ -50,6 +50,7 @@ export class ResultComponent implements OnInit {
   count = 0;
   pageSize = 9;
   pageSizes = [9, 15, 21];
+  hasTournament = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -74,6 +75,7 @@ export class ResultComponent implements OnInit {
       this.maxPrice = params.maxPrice || null;
       this.minPrice = params.minPrice || null;
       this.fieldType = params.fieldType || null;
+      this.hasTournament = params.hasTournament === 'true';
       this.clubfilter = this.crearFiltros();
       this.searchService.findClubsByMultipleFilter(this.clubfilter, pagParams).subscribe((paginatedClub: any) => {
           const {clubs, totalItems } = paginatedClub;
@@ -94,6 +96,7 @@ export class ResultComponent implements OnInit {
       this.maxPrice,
       this.minPrice,
       this.fieldType,
+      this.hasTournament,
     );
     return newClubFilter;
   }

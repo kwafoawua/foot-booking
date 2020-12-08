@@ -1,6 +1,7 @@
 const {sendEmail} = require('./mailing');
 const mongoose = require('mongoose');
 const Tournament = require('../models/Tournament');
+const Club = require('../models/Club');
 const {validationResult} = require("express-validator");
 const tournamentUtils = require('../utils/TournamentUtils');
 const tournamentAdapter = require('../adapters/TournamentResponseAdapter');
@@ -32,6 +33,10 @@ exports.createTournament = async (req, res) => {
         }
         tournament = new Tournament(req.body);
         await tournament.save();
+        const club = await Club.findOne({_id:creatorClubId });
+        club.tournaments.push(tournament);
+        await club.save();
+
         await phasesCreator.createPhases(tournament._id);
         res.status(200).send({tournament: {...tournament._doc}, msg: 'Campeonato creado exitosamente'});
     } catch (error) {
@@ -105,7 +110,7 @@ exports.getAllTournamentsInscriptions = async (req, res) => {
 exports.updateTournament = async (req, res) => {
     const tournamentId = req.params._id;
     try {
-        await Tournament.findOneAndUpdate(
+       const tournament = await Tournament.findOneAndUpdate(
             {_id: mongoose.Types.ObjectId(tournamentId)},
             {$set: req.body},
             {new: true}
@@ -113,6 +118,9 @@ exports.updateTournament = async (req, res) => {
         if(req.body.state === 'Completo') {
             await sendCompletedEmail(tournamentId)
         } else if (req.body.state === 'Cancelado') {
+            const club = await Club.findOne({_id: tournament.creatorClubId }).exec();
+            club.tournaments.pull(tournament);
+            await club.save();
             bookingService.cancelTournamentBookings(tournamentId)
             tournamentService.sendTournamentCancellationEmailToTeams(tournamentId);
         }

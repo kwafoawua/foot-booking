@@ -243,8 +243,12 @@ module.exports.findClubsByMultipleFilter = async (req, res) => {
         {"name": new RegExp(clubFilter.clubname, "i")},
         {"fields.cantPlayers": {"$in": cantPlayers}},
         {"fields.fieldType": {"$in": fieldTypes}},
-        {"fields.price": {"$gte": priceMin, "$lte": priceMax}}
+        {"fields.price": {"$gte": priceMin, "$lte": priceMax}},
     ];
+
+    if(clubFilter.hasTournament) {
+        querySearch.push({ "tournaments": { $exists: true, $not: {$size: 0} } })
+    }
 
     if (clubFilter.services && clubFilter.services.length) {
         for (var i = clubFilter.services.length - 1; i >= 0; i--) {

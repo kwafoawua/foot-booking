@@ -7,10 +7,9 @@ export class ClubFilter {
   minPrice?: number;
   maxPrice?: number;
   fieldType?: string;
+  hasTournament?: boolean;
 
-  //Agregar los otros valores del filtro
-
-  constructor(clubname?: string, services?: Service[], cantPlayers?: number, maxPrice?: number, minPrice?: number, fieldType?: string) {
+  constructor(clubname?: string, services?: Service[], cantPlayers?: number, maxPrice?: number, minPrice?: number, fieldType?: string, hasTournament?: boolean) {
     if (clubname) {
       this.clubname = clubname;
     }
@@ -29,5 +28,6 @@ export class ClubFilter {
     if(fieldType) {
       this.fieldType = fieldType;
     }
+    this.hasTournament = hasTournament;
   }
 }
