@@ -1,0 +1,18 @@
+version: '3.7'
+services:
+  mongo-db:
+    image: mongo
+    ports:
+      - '27017:27017'
+  server:
+    build: server
+    image: footbooking/backend
+    ports:
+      - '4000:4000'
+    links:
+      - mongo-db
+  client:
+    build: client
+    image: footbooking/frontend
+    ports:
+      - '80:80'
