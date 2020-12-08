@@ -45,6 +45,7 @@ export class AdminCampeonatoComponent implements OnInit {
       this.dataSource = new MatTableDataSource(data.tournament);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
+      this.dataSource.paginator._intl.itemsPerPageLabel = 'Items por página';
       this.total = data.tournament.length;
     },
         error => console.log(error));
