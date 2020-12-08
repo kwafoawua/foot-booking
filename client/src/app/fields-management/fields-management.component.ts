@@ -285,11 +285,10 @@ export class FieldsManagementComponent implements OnInit {
         }
         console.log('NUEVO ESTADOOOOOOOOO', newStatus);
         this.bookingService.updateBookingStatus(newStatus).subscribe((data) => {
-          this.alertService.success('Se actualizó correctamente el estado de la reserva', false);
           this.getBookings(this._id);
-          // this.getBookingsByStatus(this._id, "Cancelado");
+          this.snackBar.open('Reserva actualizada con éxito', null, {duration: 2000});
         }, error => {
-          this.alertService.error('el error q viene de backend ' + error);
+          this.snackBar.open('Hubo un inconveniente al actualizar la reserva, intenta nuevamente más tarde', null, {duration: 5000});
         });
       }
     });
@@ -309,7 +308,7 @@ export class FieldsManagementComponent implements OnInit {
             this.date = null;
             this.createForm();
             this.getBookings(this._id);
-            this.snackBar.open('La registró la reserva con éxito', null, {
+            this.snackBar.open('La reserva se registró con éxito', null, {
               duration: 2000
             });
           },
