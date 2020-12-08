@@ -358,7 +358,7 @@ export class EstadisticasClubComponent implements OnInit {
       });
       if (!!this.cantBookings) {
         this.paidMethodSitio = Number(((sitio * 100) / this.cantBookings).toFixed(2));
-        this.paidMethodMP = (100 - this.paidMethodSitio);
+        this.paidMethodMP = Number((100 - this.paidMethodSitio).toFixed(2));
       } else {
         this.paidMethodSitio = 0;
         this.paidMethodMP = 0;
