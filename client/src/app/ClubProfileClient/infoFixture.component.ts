@@ -7,7 +7,7 @@ import {fixtureRegexp} from '../../utils/utils';
 
 @Component({
   selector: 'info-fixture',
-  templateUrl: './infoFixture.component.html',
+  template: './infoFixture.component.html',
   styleUrls: ['./fixture2.component.css'],
   encapsulation: ViewEncapsulation.None
 })
