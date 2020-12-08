@@ -41,7 +41,7 @@ const createUploadFolder = () => {
 
 }
 
-mongoose.connect(config.connectionString,
+mongoose.connect(process.env.MONGODB_STRING,
   { useNewUrlParser: true, useUnifiedTopology: true },
   function(error) {
     // Check error in initial connection. There is no 2nd param to the callback.
