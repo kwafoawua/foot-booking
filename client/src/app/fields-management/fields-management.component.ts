@@ -297,6 +297,7 @@ export class FieldsManagementComponent implements OnInit {
 
   addEvent(): void {
     if (this.nuevaReservaForm.valid) {
+      this.nuevaReservaForm.get('status').setValue('Reservado');
       console.log('NUEVA RESERVA', this.nuevaReservaForm.value);
       this.clubService.guardarReserva(this.nuevaReservaForm.value)
         .subscribe(
