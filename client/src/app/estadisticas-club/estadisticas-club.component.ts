@@ -498,7 +498,7 @@ export class EstadisticasClubComponent implements OnInit {
     this.tournamentService.getTournamentsInscriptions(this._id).subscribe((torneos: any) => {
       if (!!torneos) {
         this.tournaments = torneos.tournaments.filter(value => {
-          return (value.tournament.state.toLowerCase() != 'nuevo'); });
+          return (value.tournament.state.toLowerCase() !== 'nuevo' && value.tournament.state.toLowerCase() !== 'cancelado'); });
         this.tournaments.forEach(tournament => {
           array.push({
             name: tournament.tournament.tournamentName,
