@@ -59,3 +59,8 @@
     height: 12rem;
   }
 }
+
+.service-container{
+  height: 40px;
+  overflow: hidden;
+}

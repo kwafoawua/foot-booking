@@ -105,6 +105,7 @@ export class MatchUpdateDialogComponent implements OnInit{
   disabledScore = false;
   maxDate: Date;
   minDate: Date;
+  disableField = false;
   constructor(
     public dialogRef: MatDialogRef<MatchUpdateDialogComponent>,
     private bookingService: BookingService,
@@ -119,6 +120,7 @@ export class MatchUpdateDialogComponent implements OnInit{
     this.match = this.data.match;
     this.inscriptions = this.data.teams;
     this.disabledScore = !this.match.dateToPlay || moment(this.match.dateToPlay).isSameOrAfter(new Date());
+    this.disableField = moment(this.match.dateToPlay).isSameOrBefore(new Date());
     this.fields = this.data.fields;
     this.maxDate = this.data.maxDate;
     this.minDate = this.data.minDate;
