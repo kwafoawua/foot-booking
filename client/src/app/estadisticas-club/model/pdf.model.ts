@@ -103,7 +103,13 @@ export class PdfModel {
   }
 
   private addImagetoPdf(elementId: string, positionY: number, download: boolean, newPage: boolean) {
-    html2canvas(document.getElementById(elementId)).then(canvas => {
+    html2canvas(document.getElementById(elementId), {
+      height: 500,
+      width: 1400,
+      scale: 1,
+      backgroundColor: null,
+      logging: false,
+    } as Html2Canvas.Html2CanvasOptions).then(canvas => {
       let can = canvas;
       const imgData = can.toDataURL('image/png');
       this.pdf.addImage(imgData, 'PNG', 10, positionY, 210, 110);
