@@ -45,7 +45,7 @@
            <div class="col">
 
              <mat-form-field>
-               <input autocomplete="off" matInput [matDatepicker]="picker" placeholder="Elegi una fecha"
+               <input autocomplete="off" matInput [matDatepicker]="picker" placeholder="Elige una fecha"
                       [min]="minDate" [(ngModel)]="date[i]" (ngModelChange)="loadHoursValues($event, field, i)">
                <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
                <mat-datepicker #picker></mat-datepicker>

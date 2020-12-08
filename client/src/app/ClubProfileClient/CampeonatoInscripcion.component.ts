@@ -30,10 +30,10 @@ export class CampeonatoInscripcionComponent implements OnInit{
     this.operationState = this.route.snapshot.queryParamMap.get('paymentStatus');
     if(this.operationState !== null && this.operationState === 'success') {
       this.isAlreadyEnroll = true;
-      this.alertService.success('Tu equipo se ha inscripto con éxito! Hemos recibido la confirmación de pago de Mercado de Pago', false);
+      this.alertService.success('Tu equipo se ha inscripto con éxito! Hemos recibido la confirmación de pago de Mercado Pago', false);
     } else if (this.operationState !== null && this.operationState === 'failure') {
       this.isAlreadyEnroll = false;
-      this.alertService.error('Ups! Mercado de Pago ha marcado la inscripción como no pagada, intenta nuevamente para inscribir a tu equipo.', false);
+      this.alertService.error('Ups! Mercado Pago ha marcado la inscripción como no pagada, intenta nuevamente para inscribir a tu equipo.', false);
     }
   }
 
