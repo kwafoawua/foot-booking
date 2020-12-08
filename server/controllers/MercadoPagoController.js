@@ -6,7 +6,7 @@ let inscriptionController = require('./inscriptionController')
 const mercadopago = require('mercadopago');
 const _API_ID = '5031143008001395';
 const _APP_TOKEN = 'TEST-5031143008001395-111516-733bdaea16cf2e392e5479898628d1f0-38445751';
-const _NGROK_HTTPS_URL = 'https://0ecc4b657a20.ngrok.io';
+const _NGROK_HTTPS_URL = 'https://f27e24f0c163.ngrok.io';
 const oauthUrl = 'https://api.mercadopago.com/oauth/token';
 
 mercadopago.configure({
@@ -72,7 +72,11 @@ exports.generatePreference = async (req, res) => {
         },
         external_reference: `${Date.now()}-${req.body.title}`,
         notification_url: `${_NGROK_HTTPS_URL}/webhook?source_news=webhooks`,
-        auto_return: "approved"
+        auto_return: "approved",
+        payment_methods: {
+            installments: 1,
+            default_installments: 1
+        }
     }
     try {
         let mpResponse = await mercadopago.preferences.create(preference);
@@ -100,7 +104,11 @@ exports.generatePreferenceForInscription = async (tournament, inscriptionReferen
         },
         external_reference: inscriptionReference,
         notification_url: `${_NGROK_HTTPS_URL}/webhook/tournamentInscription?source_news=webhooks`,
-        auto_return: "approved"
+        auto_return: "approved",
+        payment_methods: {
+            installments: 1,
+            default_installments: 1
+        }
     }
     const clubToken = await clubController.getMercadoPagoToken(tournament.creatorClubId);
     // mercadopago.configure({
