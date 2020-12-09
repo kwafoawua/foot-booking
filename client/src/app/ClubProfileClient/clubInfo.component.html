@@ -13,7 +13,7 @@
   <div class="carousel-inner">
     <div *ngFor="let img of club?.galleryImg; let i = index"
          [ngClass]="i === 0 ? 'carousel-item active': 'carousel-item'">
-      <img src="{{uploadsBaseURL}}{{img}}" class="img-fluid">
+      <img src="{{img}}" class="img-fluid">
     </div>
   </div>
 

@@ -1,5 +1,9 @@
 const nodemailer = require('nodemailer');
 let transportInstance;
+let bucketInstance;
+const {Storage} = require('@google-cloud/storage');
+
+
 module.exports = {
   transporter: () => {
     if(transportInstance === undefined){
@@ -12,6 +16,16 @@ module.exports = {
       });
     }
     return transportInstance;
+  },
+  bucket: () => {
+    if(bucketInstance === undefined) {
+      storage = new Storage({
+        projectId: 'footbookingtesis',
+        keyFilename: 'footbookingtesis-88f2ab8bdcfd.json',
+     });
+     bucketInstance  = storage.bucket(process.env.GCLOUD_STORAGE_BUCKET);
+    }
+    return bucketInstance;
   },
   getPagination: (page, size) => {
     const limit = size ? +size : 9;

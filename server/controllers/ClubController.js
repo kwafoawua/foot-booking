@@ -9,17 +9,19 @@ const utils = require('../utils');
 const ClubResponseAdapter = require('../adapters/ClubResponseAdapter');
 const { sendEmail } = require('./mailing');
 const { getPagination } = require('../utils/utils');
+const uploads = require('./uploads');
 
 /**
  * Create a Club
  */
 module.exports.registerClub = async function (req, res) {
+
     try {
-        let galleryPath = [];
-        let profilePath = req.files.profile[0].filename;
-        for (let i = 0; i < req.files.gallery.length; i++) {
-            galleryPath.push(req.files.gallery[i].filename);
-        }
+      console.log(req.files.profile[0]);
+        let galleryPath = await Promise.all(req.files.gallery.map(async (img) => await uploads.uploadToGCloud(img.path)));
+        
+        let profilePath = await uploads.uploadToGCloud(req.files.profile[0].path);
+        
         const club = JSON.parse(req.body.body);
         for (let i = 0; i < club.fields.length; i++) {
             if (!club.fields[i]._id) {

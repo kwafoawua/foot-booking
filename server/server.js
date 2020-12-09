@@ -10,6 +10,7 @@ const config = require('config.json');
 const mongoose = require('mongoose');
 const pathList = require('./paths');
 const fs = require('fs');
+const {Storage} = require('@google-cloud/storage');
 
 app.use(cors());
 app.use(bodyParser.json({limit: "50mb"}));
