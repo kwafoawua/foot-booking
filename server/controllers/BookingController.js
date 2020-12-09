@@ -56,7 +56,7 @@ function addBooking (booking) {
         },
         playingDate: new Date(booking.playingDate),
         playingTime: booking.playingTime,
-        paidMethod: booking.fee ? 'Mercado Pago' : 'En sitio',
+        paidMethod: booking.paidMethod ? 'En sitio' : booking.fee ? 'Mercado Pago' : 'En sitio',
         player: {
             name: booking.playerName,
             lastName: booking.playerLastName,
