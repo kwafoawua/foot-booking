@@ -24,7 +24,7 @@ function getExtension(file) {
 
 const uploadToGCloud = async (file) => {
   // Uploads a local file to the bucket
-  const image = await bucket().upload(file, {
+  const image = await bucket().upload(file.path, {
     // Support for HTTP requests made with `Accept-Encoding: gzip`
     gzip: true,
     // By setting the option `destination`, you can change the name of the
@@ -37,7 +37,7 @@ const uploadToGCloud = async (file) => {
     },
 });
 console.log(image);
-const publicUrl = `https://storage.googleapis.com/${bucket().name}/${file}`;
+const publicUrl = `https://storage.googleapis.com/${bucket().name}/${file.filename}`;
 
 return publicUrl;
 };

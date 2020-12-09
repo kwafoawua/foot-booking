@@ -18,9 +18,9 @@ module.exports.registerClub = async function (req, res) {
 
     try {
       console.log(req.files.profile[0]);
-        let galleryPath = await Promise.all(req.files.gallery.map(async (img) => await uploads.uploadToGCloud(img.path)));
+        let galleryPath = await Promise.all(req.files.gallery.map(async (img) => await uploads.uploadToGCloud(img)));
         
-        let profilePath = await uploads.uploadToGCloud(req.files.profile[0].path);
+        let profilePath = await uploads.uploadToGCloud(req.files.profile[0]);
         
         const club = JSON.parse(req.body.body);
         for (let i = 0; i < club.fields.length; i++) {
@@ -109,18 +109,17 @@ module.exports.findAllClubs = async (req, res) => {
 /**
  * Update a Club
  */
-module.exports.updateClub = function (req, res) {
-    var body = JSON.parse(req.body.body);
-    var galleryPath = [];
-    var profilePath = '';
+module.exports.updateClub = async (req, res) => {
+    const body = JSON.parse(req.body.body);
+    let galleryPath = [];
+    let profilePath = '';
+        
     if (Object.keys(req.files).length !== 0) {
         if (req.files.profile[0].filename) {
-            profilePath = req.files.profile[0].filename;
+            profilePath = await uploads.uploadToGCloud(req.files.profile[0]);
         }
-        if (req.files.gallery) {
-            for (var i = 0; i < req.files.gallery.length; i++) {
-                galleryPath.push(req.files.gallery[i].filename);
-            }
+        if (req.files.gallery.length) {
+            galleryPath = await Promise.all(req.files.gallery.map(async (img) => await uploads.uploadToGCloud(img)));
         }
     }
     Club.findById(body._id, function (err, club) {

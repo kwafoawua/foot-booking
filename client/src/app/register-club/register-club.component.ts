@@ -17,7 +17,8 @@ import { StorageService } from '../_services/storage.service';
 declare var google: any;
 
 @Component({
-  templateUrl: 'register-club.component.html'
+  templateUrl: 'register-club.component.html',
+  styleUrls: ['register-club.component.css'],
 })
 
 export class RegisterClubComponent implements OnInit {

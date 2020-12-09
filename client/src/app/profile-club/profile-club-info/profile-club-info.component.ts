@@ -105,7 +105,7 @@ export class ProfileClubInfoComponent implements OnInit {
 
       }
       this.profileImage = [
-        this.uploadsBaseURL + this.club.profileImg.replace(/ /g, '%20')
+       this.club.profileImg.replace(/ /g, '%20')
       ];
       console.log(this.club.galleryImg);
       const relativeGallery = [];
@@ -113,7 +113,7 @@ export class ProfileClubInfoComponent implements OnInit {
         const newItem = item.replace(/ /g, '%20');
         console.log(newItem);
 
-        const relativePath =   this.uploadsBaseURL + newItem;
+        const relativePath =  newItem;
         relativeGallery.push(relativePath);
       });
       this.profileGallery = relativeGallery;

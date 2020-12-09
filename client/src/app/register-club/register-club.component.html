@@ -381,7 +381,7 @@
          </div>
           <div style="text-align: right;">
             <button class="btn btn-light" matStepperPrevious>Anterior</button>
-            <button class="btn btn-success" [disabled]="isValidStepFour()" matStepperNext (click)="registerClub()">Finalizar</button>
+            <button class="btn btn-success" [disabled]="isValidStepFour() || loading" [class.spinner]="loading" matStepperNext (click)="registerClub()">Finalizar</button>
           </div>
 
         </form>
