@@ -7,7 +7,7 @@ import {fixtureRegexp} from '../../utils/utils';
 
 @Component({
   selector: 'info-fixture',
-  template: './infoFixture.component.html',
+  templateUrl: './infoFixture.component.html',
   styleUrls: ['./fixture2.component.css'],
   encapsulation: ViewEncapsulation.None
 })
@@ -18,6 +18,7 @@ export class InfoFixtureComponent implements OnInit{
   @Output() setWinners = new EventEmitter<any>();
   phases: any;
   phaseDateList: any[];
+  myTournamentData: any;
 
 
   constructor(
@@ -25,7 +26,6 @@ export class InfoFixtureComponent implements OnInit{
     private tournamentService: TournamentService,
   ) {}
 
-  myTournamentData: any;
 
   ngOnInit() {
     this.getPhases();
