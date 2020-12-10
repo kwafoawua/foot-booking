@@ -6,7 +6,7 @@ let inscriptionController = require('./inscriptionController')
 const mercadopago = require('mercadopago');
 const _API_ID = '5031143008001395';
 const _APP_TOKEN = 'TEST-5031143008001395-111516-733bdaea16cf2e392e5479898628d1f0-38445751';
-const _NGROK_HTTPS_URL = 'https://f27e24f0c163.ngrok.io';
+const _NGROK_HTTPS_URL = 'https://cbe7bea62af8.ngrok.io';
 const oauthUrl = 'https://api.mercadopago.com/oauth/token';
 
 mercadopago.configure({

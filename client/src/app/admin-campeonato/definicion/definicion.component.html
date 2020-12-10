@@ -222,6 +222,26 @@
       </mat-card-content>
     </mat-card>
 
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>Información del campeonato</mat-card-title>
+      </mat-card-header>
+      <mat-card-content style="padding: 24px">
+        <div class="row">
+          <p>
+            ⚽ Recordá reservar canchas para los partidos del campeonato una vez creados en la sección <b>Fases</b> de campeonato.
+          </p>
+          <p>
+            ⚽ Las rondas del campeonato son de eliminación directa, pasando de ronda el equipo ganador del partido.
+          </p>
+          <p>
+            ⚽ En caso de empate más allá de como decidan resolver el partido (penales, tiempo extra o gol de oro) se deberá cargar el resultado final de la resolución para que el sistema pueda dar avance a uno de los equipos.
+          </p>
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+
     <button *ngIf="!tournamentId" mat-flat-button color="primary" type="submit">Crear Campeonato</button>
 
   </form>
@@ -246,7 +266,7 @@
           <p><b>Fecha de Inicio</b>  {{tournament?.startDate | date:'shortDate' }}</p>
           <p><b>Fecha de Fin</b> {{tournament?.endDate | date:'shortDate' }}</p>
           <p><b>Categoría</b> {{tournament?.category}}</p>
-          <p><b>Cantidad de equpos</b> {{tournament?.numbersOfTeams}}</p>
+          <p><b>Cantidad de equipos</b> {{tournament?.numbersOfTeams}}</p>
           <p><b>Cantidad de jugadores</b> {{tournament?.numberOfPlayers}}</p>
         </mat-card>
       </div>
@@ -259,7 +279,7 @@
           <div></div>
         </mat-card>
       </div>
-      <div class="col-12">
+      <div class="col-12 mb-2">
         <mat-card>
           <p>Premios</p>
           <div class="row">
@@ -267,6 +287,14 @@
             <div class=" col-12 col-md-4"><b>Segundo Premio</b> {{tournament?.prize2 || '--'}}</div>
             <div class=" col-12 col-md-4"><b>Tercer premio</b> {{tournament?.prize3 || '--'}}</div>
           </div>
+        </mat-card>
+      </div>
+      <div class="col-12">
+        <mat-card>
+          <p><b>Información de gestión de campeonato</b></p>
+          <p>⚽ Recordá reservar canchas para los partidos del campeonato una vez creados en la sección <b>Fases</b> de campeonato.</p>
+          <p>⚽ Las rondas del campeonato son de eliminación directa, pasando de ronda el equipo ganador del partido.</p>
+          <p>⚽ En caso de empate más allá de como decidan resolver el partido (penales, tiempo extra o gol de oro) se deberá cargar el resultado final de la resolución para que el sistema pueda dar avance a uno de los equipos.</p>
         </mat-card>
       </div>
     </div>
