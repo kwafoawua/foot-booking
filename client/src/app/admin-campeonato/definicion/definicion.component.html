@@ -187,8 +187,9 @@
       <mat-card-content>
         <div class="row">
           <mat-form-field appearance="standard" class="col-12">
-            <input matInput formControlName="publicationDescription" placeholder="Ingrese breve descripción del campeonato... *" required>
-            <mat-error
+            <textarea multiple matInput formControlName="publicationDescription" placeholder="Ingrese breve descripción del campeonato... *" style="min-height:155px" required>
+            </textarea>
+              <mat-error
               *ngIf="tournamentForm.get('publicationDescription').invalid &&
             (tournamentForm.get('publicationDescription').dirty ||
             tournamentForm.get('publicationDescription').touched)"
@@ -208,7 +209,8 @@
       <mat-card-content>
         <div class="row">
           <mat-form-field appearance="standard" class="col-12">
-            <input matInput formControlName="termsAndConditions"  placeholder="Ingrese términos y condiciones... *" required>
+              <textarea multiple matInput formControlName="termsAndConditions"  placeholder="Ingrese términos y condiciones... *" style="min-height:155px" required>
+              </textarea>
             <mat-error
               *ngIf="tournamentForm.get('termsAndConditions').invalid &&
             (tournamentForm.get('termsAndConditions').dirty ||
@@ -256,8 +258,9 @@
   <mat-card>
     <mat-card-header>
       <mat-card-title>{{tournament?.tournamentName}}</mat-card-title>
-      <mat-card-subtitle>{{tournament?.publicationDescription}}</mat-card-subtitle>
-      <mat-card-subtitle>{{tournament?.termsAndConditions}}</mat-card-subtitle>
+      <mat-card-subtitle [ngStyle]="{ whiteSpace: 'pre-wrap'}">{{tournament?.publicationDescription}}</mat-card-subtitle>
+      <mat-card-title>Términos y condiciones</mat-card-title>
+      <mat-card-subtitle [ngStyle]="{ whiteSpace: 'pre-wrap'}">{{tournament?.termsAndConditions}}</mat-card-subtitle>
     </mat-card-header>
     <div class="row">
       <div class="col-12 mb-2">
