@@ -8,12 +8,11 @@
           <mat-card-content>
             <div>
                 <mat-card-title class="text-justify"> {{torneo?.tournamentName}}</mat-card-title>
-                {{torneo?.publicationDescription}}
+               <p [ngStyle]="{ whiteSpace: 'pre-wrap'}">
+                 {{torneo?.publicationDescription}}
+               </p>
             </div>
-          </mat-card-content>
 
-
-          <mat-card-content>
             <div class="row">
                   <div class="col-xs-8 col-md-6">
                     <div class="row">
