@@ -258,8 +258,9 @@
   <mat-card>
     <mat-card-header>
       <mat-card-title>{{tournament?.tournamentName}}</mat-card-title>
-      <mat-card-subtitle>{{tournament?.publicationDescription}}</mat-card-subtitle>
-      <mat-card-subtitle>{{tournament?.termsAndConditions}}</mat-card-subtitle>
+      <mat-card-subtitle [ngStyle]="{ whiteSpace: 'pre'}">{{tournament?.publicationDescription}}</mat-card-subtitle>
+      <mat-card-title>Términos y condiciones</mat-card-title>
+      <mat-card-subtitle [ngStyle]="{ whiteSpace: 'pre'}">{{tournament?.termsAndConditions}}</mat-card-subtitle>
     </mat-card-header>
     <div class="row">
       <div class="col-12 mb-2">
