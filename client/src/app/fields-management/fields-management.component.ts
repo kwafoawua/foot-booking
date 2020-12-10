@@ -272,7 +272,7 @@ export class FieldsManagementComponent implements OnInit {
     this.precioCanchaModal = (event as any).booking.field.price;
     this.montoPagado = (event as any).booking.payment.fee;
     this.modal.open(this.modalContent, { size: 'lg' }).result.then((result) => {
-      if (this.selectedStatus || this.montoPagado) {
+      if ((this.selectedStatus || this.montoPagado) && result ) {
         this.closeResult = result;
         const newStatus: any = {};
         newStatus.bookingId = result._id;
@@ -287,12 +287,15 @@ export class FieldsManagementComponent implements OnInit {
         console.log('NUEVO ESTADOOOOOOOOO', newStatus);
         this.bookingService.updateBookingStatus(newStatus).subscribe((data) => {
           this.getBookings(this._id);
+          this.selectedStatus = null;
           this.snackBar.open('Reserva actualizada con éxito', null, {duration: 2000});
         }, error => {
           this.snackBar.open('Hubo un inconveniente al actualizar la reserva, intentá nuevamente más tarde', null, {duration: 5000});
         });
+      } else {
+        this.selectedStatus = null;
       }
-    });
+    }, () => this.selectedStatus = null);
   }
 
   addEvent(): void {
