@@ -19,9 +19,9 @@ module.exports.registerClub = async function (req, res) {
     try {
       console.log(req.files.profile[0]);
         let galleryPath = await Promise.all(req.files.gallery.map(async (img) => await uploads.uploadToGCloud(img)));
-        
+
         let profilePath = await uploads.uploadToGCloud(req.files.profile[0]);
-        
+
         const club = JSON.parse(req.body.body);
         for (let i = 0; i < club.fields.length; i++) {
             if (!club.fields[i]._id) {
@@ -113,12 +113,12 @@ module.exports.updateClub = async (req, res) => {
     const body = JSON.parse(req.body.body);
     let galleryPath = [];
     let profilePath = '';
-        
+
     if (Object.keys(req.files).length !== 0) {
         if (req.files.profile[0].filename) {
             profilePath = await uploads.uploadToGCloud(req.files.profile[0]);
         }
-        if (req.files.gallery.length) {
+        if (req.files.gallery && req.files.gallery.length) {
             galleryPath = await Promise.all(req.files.gallery.map(async (img) => await uploads.uploadToGCloud(img)));
         }
     }
