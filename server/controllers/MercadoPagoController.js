@@ -58,7 +58,7 @@ exports.generatePreference = async (req, res) => {
     const items = [
         {
             title: `${req.body.title} - ${req.body.description}`,
-            description: req.body.description,
+            description: '',
             unit_price: req.body.unitPrice,
             currency_id: "ARS",
             quantity: 1,
@@ -90,7 +90,7 @@ exports.generatePreferenceForInscription = async (tournament, inscriptionReferen
     const items = [
         {
             title: `Inscripción a campeonato ${tournament.tournamentName}`,
-            description: tournament.publicationDescription,
+            description: '',
             unit_price: tournament.inscriptionCost,
             currency_id: "ARS",
             quantity: 1,
