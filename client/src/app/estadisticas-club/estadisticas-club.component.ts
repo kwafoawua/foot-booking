@@ -498,8 +498,8 @@ export class EstadisticasClubComponent implements OnInit {
     this.tournamentService.getTournamentsInscriptions(this._id).subscribe((torneos: any) => {
       if (!!torneos) {
         this.tournaments = torneos.tournaments.filter(value => {
-          return (value.tournament.state.toLowerCase() !== 'nuevo' && value.tournament.state.toLowerCase() !== 'cancelado'); });
-        this.tournaments.forEach(tournament => {
+          return (value.tournament.state.toLowerCase() !== 'Nuevo' && value.tournament.state.toLowerCase() !== 'Cancelado'); });
+        this.tournaments.forEach((tournament, index ) => {
           array.push({
             name: tournament.tournament.tournamentName,
             series: this.getArrayDays(this.monthReportTournament - 1)
@@ -510,7 +510,7 @@ export class EstadisticasClubComponent implements OnInit {
             const year = dateb.getFullYear();
             const day = dateb.getDate() - 1;
             if (year == this.anioReportTournament && month == this.monthReportTournament - 1) {
-              array[0].series[ day ].value = array[0].series[ day ].value + 1;
+              array[index].series[ day ].value = array[index].series[ day ].value + 1;
             }
           });
         });
