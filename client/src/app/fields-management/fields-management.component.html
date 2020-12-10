@@ -17,7 +17,7 @@
         <div class="col-4">
           Apellido:
           <label><b>{{modalData?.event.booking.player.lastName}}</b></label></div>
-        <div class="col-4">
+        <div class="col-4" *ngIf="modalData?.event.booking.player.phoneNumber">
           Teléfono: <label><b>{{modalData?.event.booking.player.phoneNumber}}</b></label></div>
 
       </div>

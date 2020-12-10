@@ -1,10 +1,14 @@
 <div>
-  <h1>Asociar cuenta de Mercado Pago a <b>Footbooking</b></h1>
-  <div *ngIf="isAlreadyLinked">
+  <div style="display: flex">
+    <h1>Asociar cuenta de Mercado Pago a <b>Footbooking</b></h1>
+    <img src="../../assets/icons/mercadopago_logo.png" alt="mercado pago logo" height="55" style="float: right; margin: 0 5px">
+  </div>
+  <div *ngIf="isAlreadyLinked === undefined">Cargando...</div>
+  <div *ngIf="isAlreadyLinked && isAlreadyLinked !== undefined">
     <p>Ya tienes asociada tu cuenta de Mercado Pago!</p>
     <p>Ahora podrás <b>cobrar reservas</b> de manera online y <b>crear campeonatos</b> para tus clientes e interesados.</p>
   </div>
-  <div *ngIf="!isAlreadyLinked">
+  <div *ngIf="!isAlreadyLinked && isAlreadyLinked !== undefined">
     <p>Al asociar tu cuenta de Mercado Pago autorizas a que podamos hacer transacciones a tu cuenta de Mercado Pago. De este modo los clientes podrán efectuar reservas y pagarlas utilizando la plataforma de Mercado Pago, debitándose el pago directamente a tu cuenta!.</p>
     <p>A su vez podrás acceder a la funcionalidad de <b>Creación de Campeonatos</b>!!</p>
     <button type="button"class="btn btn-success" data-toggle="modal" (click)="linkMPAccount()">

@@ -2,11 +2,12 @@ import {Component, EventEmitter, Inject, OnInit, Output, ViewChild} from '@angul
 import { TournamentService } from '../_services/tournament.service';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {CalendarEvent} from "angular-calendar";
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {MercadoPagoService} from '../_services/mercado-pago.service';
 
 @Component({
   selector: 'app-admin-campeonato',
@@ -19,12 +20,15 @@ export class AdminCampeonatoComponent implements OnInit {
   columnsToDisplay = ['tournamentName', 'state', 'startDate', 'actions'];
   dataSource: any;
   total: number;
+  isAlreadyLinked: boolean;
+  clubId: string;
 
   constructor(
     private tournamentService: TournamentService,
     private router: Router,
     public dialog: MatDialog,
-    public snackBar: MatSnackBar) { }
+    public snackBar: MatSnackBar,
+    private mpService: MercadoPagoService) { }
 
   @Output() updateTorneo = new EventEmitter<string>();
   @ViewChild(MatSort) sort: MatSort;
@@ -32,6 +36,8 @@ export class AdminCampeonatoComponent implements OnInit {
 
 
   ngOnInit() {
+    this.clubId = JSON.parse(localStorage.getItem(('currentUser')))._id;
+    this.alreadyLinked();
     this.getTournaments();
   }
 
@@ -86,6 +92,15 @@ export class AdminCampeonatoComponent implements OnInit {
         this.snackBar.open('No ha sido posible cancelar el campeonato en este momento, intentá nuevamente más tarde', null, {duration: 5000});
       }
     );
+  }
+
+  public alreadyLinked(){
+    this.mpService.accountIsAlreadyLinked(this.clubId).subscribe((res:any) => {
+        this.isAlreadyLinked = res.isAlreadyLinked;
+      },
+      error => {
+        this.isAlreadyLinked = false;
+      });
   }
 
 }
