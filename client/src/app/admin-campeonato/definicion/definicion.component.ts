@@ -53,7 +53,7 @@ export class DefinicionComponent implements OnInit {
     this.tournamentForm = this.fb.group({
       creatorClubId: [ null ],
       tournamentName: [ null, Validators.required ],
-      publicationDescription: [ null, Validators.compose([ Validators.required, Validators.maxLength(255) ]) ],
+      publicationDescription: [ null, Validators.compose([ Validators.required, Validators.maxLength(10000) ]) ],
       inscriptionStartDate: [ null, Validators.required ],
       inscriptionEndDate: [ null, Validators.required ],
       startDate: [ null, Validators.required ],
@@ -62,7 +62,7 @@ export class DefinicionComponent implements OnInit {
       inscriptionCost: [ null, Validators.required ],
       numberOfPlayers: [ null, Validators.required ],
       category: [ null, Validators.required ],
-      termsAndConditions : [ null, Validators.compose([ Validators.required, Validators.maxLength(255) ]) ],
+      termsAndConditions : [ null, Validators.compose([ Validators.required, Validators.maxLength(10000) ]) ],
       prize1: [null, Validators.required],
       prize2: [null],
       prize3: [null]
