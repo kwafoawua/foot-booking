@@ -4,7 +4,7 @@
     <div><span>
       {{primerPremio}}
     </span></div>
-    <div *ngIf="primerEquipo">
+    <div *ngIf="primerEquipo && status === 'Finalizado'">
       <span>Equipo: {{primerEquipo}}</span>
     </div>
   </div>
@@ -13,7 +13,7 @@
     <div>
       <span>{{segundoPremio}}</span>
     </div>
-    <div *ngIf="segundoEquipo">
+    <div *ngIf="segundoEquipo && status === 'Finalizado'">
       <span>Equipo: {{segundoEquipo}}</span>
     </div>
   </div>
@@ -22,7 +22,7 @@
     <div>
       <span>{{tercerPremio}}</span>
     </div>
-    <div *ngIf="tercerEquipo">
+    <div *ngIf="tercerEquipo && status === 'Finalizado'">
       <span>Equipo: {{tercerEquipo}}</span>
     </div>
   </div>

@@ -13,6 +13,7 @@ export class WinnerCardCampeonatoComponent implements OnInit {
   @Input() primerEquipo: string;
   @Input() segundoEquipo: string;
   @Input() tercerEquipo: string;
+  @Input() status: string;
   constructor() { }
 
   ngOnInit() {
