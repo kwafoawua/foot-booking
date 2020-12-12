@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
-import {MatSnackBar} from "@angular/material/snack-bar";
+import {Component, Inject, Input, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-lista-inscripcion',
@@ -26,16 +26,40 @@ export class ListaInscripcionComponent implements OnInit {
   ngOnInit() {
   }
 
-  unsubscribeDialog(inscriptionId){
-    const dialog = this.dialog.open(null, {
+  unsubscribeDialog(tournamentInscription){
+    const dialog = this.dialog.open(CancelInscriptionDialogComponent, {
       width: '40%',
-      data: inscriptionId
+      data: tournamentInscription
     });
-    dialog.afterClosed().subscribe(result =>{
-      console.log(result);
+    dialog.afterClosed().subscribe(result => {
+      if (result){
+        this.unsubscribeTeam(result);
+      }
     });
-    console.log(inscriptionId);
+  }
+
+  unsubscribeTeam(inscriptionData) {
+    console.log('la data a quitar', inscriptionData);
   }
 
 }
 
+@Component({
+  templateUrl: 'cancel-inscription-modal.html'
+})
+export class CancelInscriptionDialogComponent implements OnInit {
+  tournamentInscription: any;
+
+  constructor(
+    public dialog: MatDialogRef<CancelInscriptionDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {}
+
+  ngOnInit(): void {
+    this.tournamentInscription = this.data;
+  }
+
+  onCancelClick(): void {
+    this.dialog.close();
+  }
+
+}

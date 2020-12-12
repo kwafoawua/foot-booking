@@ -11,7 +11,7 @@ import { DetalleCampeonatoComponent } from './detalle-campeonato/detalle-campeon
 import { FixtureComponent } from './fixture/fixture.component';
 import { MatchComponent, MatchUpdateDialogComponent } from './fixture/match/match.component';
 import { NgTournamentTreeModule } from 'ng-tournament-tree';
-import { ListaInscripcionComponent } from './lista-inscripcion/lista-inscripcion.component';
+import { ListaInscripcionComponent, CancelInscriptionDialogComponent } from './lista-inscripcion/lista-inscripcion.component';
 import { SharedModule } from '../shared.module';
 
 @NgModule({
@@ -39,6 +39,7 @@ import { SharedModule } from '../shared.module';
     MatchComponent,
     MatchUpdateDialogComponent,
     ListaInscripcionComponent,
+    CancelInscriptionDialogComponent,
     CancelTorneoDialogComponent,
     PublicarTorneoDialogComponent,
   ],
@@ -46,6 +47,7 @@ import { SharedModule } from '../shared.module';
     MatchUpdateDialogComponent,
     CancelTorneoDialogComponent,
     PublicarTorneoDialogComponent,
+    CancelInscriptionDialogComponent,
   ]
 })
 export class AdminCampeonatoModule { }
