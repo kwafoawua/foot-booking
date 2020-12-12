@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-lista-inscripcion',
@@ -18,10 +20,22 @@ export class ListaInscripcionComponent implements OnInit {
     '#4D8066', '#809980', '#E6FF80', '#1AFF33', '#999933',
     '#FF3380', '#CCCC00', '#66E64D', '#4D80CC', '#9900B3',
     '#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF'];
-  constructor() { }
+
+  constructor(public dialog: MatDialog, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
   }
 
+  unsubscribeDialog(inscriptionId){
+    const dialog = this.dialog.open(null, {
+      width: '40%',
+      data: inscriptionId
+    });
+    dialog.afterClosed().subscribe(result =>{
+      console.log(result);
+    });
+    console.log(inscriptionId);
+  }
 
 }
+
