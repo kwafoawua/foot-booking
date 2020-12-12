@@ -26,6 +26,7 @@ module.exports.registerBooking = function (req,res) {
         });
 };
 function addBooking (booking) {
+    console.log(booking)
     var deferred = Q.defer();
     let paymentStatus;
 
@@ -62,7 +63,8 @@ function addBooking (booking) {
             lastName: booking.playerLastName,
             phoneNumber: booking.playerPhoneNumber,
             id: booking.playerId || null,
-            dni: booking.dni || null
+            dni: booking.dni || null,
+            email: booking.playerEmail || null,
         },
         payment: {
             date: ((booking.fee) ? Date.now() : null),
