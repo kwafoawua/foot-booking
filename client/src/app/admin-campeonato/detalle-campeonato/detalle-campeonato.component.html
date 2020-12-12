@@ -3,7 +3,7 @@
     <app-definicion></app-definicion>
   </mat-tab>
   <mat-tab label="Inscripciones">
-    <app-lista-inscripcion [inscriptions]="inscriptions"></app-lista-inscripcion>
+    <app-lista-inscripcion [inscriptions]="inscriptions" (updateInscriptions)="updateInscriptions($event)"></app-lista-inscripcion>
   </mat-tab>
   <mat-tab label="Fases">
     <app-fixture [inscriptions]="inscriptions"></app-fixture>

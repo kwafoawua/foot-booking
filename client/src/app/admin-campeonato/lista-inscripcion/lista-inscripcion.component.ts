@@ -1,4 +1,4 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, OnInit, Output} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {TournamentService} from '../../_services/tournament.service';
@@ -11,6 +11,8 @@ import {TournamentService} from '../../_services/tournament.service';
 export class ListaInscripcionComponent implements OnInit {
 
   @Input() inscriptions: any[];
+  @Output() updateInscriptions = new EventEmitter<any[]>();
+
   colorArray = ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6',
     '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D',
     '#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A',
@@ -28,21 +30,22 @@ export class ListaInscripcionComponent implements OnInit {
   ngOnInit() {
   }
 
-  unsubscribeDialog(tournamentInscription) {
+  unsubscribeDialog(tournamentInscription, index) {
     const dialog = this.dialog.open(CancelInscriptionDialogComponent, {
       width: '40%',
       data: tournamentInscription
     });
     dialog.afterClosed().subscribe(result => {
       if (result) {
-        this.unsubscribeTeam(result);
+        this.unsubscribeTeam(result, index);
       }
     });
   }
 
-  unsubscribeTeam(inscriptionData) {
-    console.log('la data a quitar', inscriptionData);
+  unsubscribeTeam(inscriptionData, index) {
     this.tournamentService.unsubscribeTeam(inscriptionData._id).subscribe((data: any) => {
+      this.inscriptions.splice(index, 1);
+      this.updateInscriptions.emit(this.inscriptions);
       this.snackBar.open('Inscripción dada de baja con éxito', null, {duration: 2000});
     }, error => {
       this.snackBar.open('No se pudo dar de baja la inscripción, intentá nuevamente más tarde', null, {duration: 5000});
