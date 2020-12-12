@@ -4,13 +4,9 @@ import { ClubService, BookingService } from '../_services/index';
 import { Booking } from '../_models/booking';
 import { Player} from '../_models/index';
 import { PlayerService, AlertService, AuthService } from '../_services/index';
-import {reservaFinal} from "../_models/reservaFinal";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {CustomValidators} from "ng2-validation";
-import {MercadoPagoService} from "../_services/mercado-pago.service";
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
-import {TournamentService} from "../_services/tournament.service";
-import {CancelTorneoDialogComponent} from "../admin-campeonato/admin-campeonato.component";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MercadoPagoService} from '../_services/mercado-pago.service';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   templateUrl: 'confirmation.html',
@@ -26,11 +22,12 @@ export class ConfirmationComponent implements OnInit {
   confirmado = false;
   mercadoPagoData: any = {};
   mpResponse: any = {};
-  mercadoPagoOpt: string
+  mercadoPagoOpt: string;
   operationState: string;
   permiteMercadoPago: boolean;
   confirmationForm: FormGroup;
   clubLinkedToMP: boolean;
+  playerId: string;
 
   constructor(
     private playerService: PlayerService,
@@ -71,8 +68,8 @@ export class ConfirmationComponent implements OnInit {
     this.permiteMercadoPago = this.booking.club.mercadoPago;
     console.log('veo el club del booking', this.booking.club.mercadoPago);
     console.log('Reserva Final ' + JSON.stringify(this.reservaFinal));
-    const id: string = JSON.parse(localStorage.getItem('currentUser'))._id;
-    this.getPlayer(id);
+    this.playerId = JSON.parse(localStorage.getItem('currentUser'))._id;
+    this.getPlayer(this.playerId);
     this.getMercadoPagoCheckout();
     this.isClubLinkedToMP();
   }
@@ -86,6 +83,7 @@ export class ConfirmationComponent implements OnInit {
       this.reservaFinal.playerLastName = player.lastName;
       this.reservaFinal.playerPhoneNumber = player.phoneNumber;
       this.reservaFinal.playerId = player._id;
+      this.confirmationForm.get('phoneNumber').setValue(player.phoneNumber);
       console.log(this.reservaFinal);
     });
   }
@@ -94,13 +92,13 @@ export class ConfirmationComponent implements OnInit {
     this.mercadoPagoData.title = `Reserva en club ${this.reservaFinal.clubName}`;
     this.mercadoPagoData.description = `Cancha: ${this.reservaFinal.fieldName} - Fecha: ${this.reservaFinal.playingDate.toLocaleDateString('es-AR')} Hora: ${this.reservaFinal.playingTime}`;
     this.mercadoPagoData.unitPrice = parseFloat(this.reservaFinal.fieldPrice);
-    this.mercadoPagoData.successURL = "http://localhost:4200/confirmation";
-    this.mercadoPagoData.failureURL = "http://localhost:4200/confirmation?state=error";
+    this.mercadoPagoData.successURL = 'http://localhost:4200/confirmation';
+    this.mercadoPagoData.failureURL = 'http://localhost:4200/confirmation?state=error';
     this.bookingService.generateMercadoPagoCheckout(this.mercadoPagoData)
       .subscribe(
         mpData => {
           this.mpResponse = mpData;
-          console.log(`la data de mercado pago: ${JSON.stringify(this.mpResponse)}`)
+          console.log(`la data de mercado pago: ${JSON.stringify(this.mpResponse)}`);
         }
       );
   }
@@ -123,6 +121,8 @@ export class ConfirmationComponent implements OnInit {
                 this.alertService.error(error);
                 this.loading = false;
               });
+          this.playerService.update({_id: this.playerId, phoneNumber:  this.confirmationForm.get('phoneNumber').value }).subscribe();
+
         }
       } else {
         this.alertService.error('Debe aceptar términos y condiciones');
@@ -144,7 +144,7 @@ export class ConfirmationComponent implements OnInit {
     this.reservaFinal.fee = this.booking.field.price;
     this.reservaFinal.externalReference = this.mpResponse.body.external_reference;
     this.loading = true;
-    this.clubService.guardarReserva(this.reservaFinal) .subscribe(
+    this.clubService.guardarReserva(this.reservaFinal).subscribe(
       data => {
         window.location.href = this.mpResponse.body.init_point;
       },
@@ -152,17 +152,19 @@ export class ConfirmationComponent implements OnInit {
         this.alertService.error(error);
         this.loading = false;
       });
+    this.playerService.update({_id: this.playerId, phoneNumber:  this.confirmationForm.get('phoneNumber').value }).subscribe();
   }
 
   createForm() {
     this.confirmationForm = this.fb.group({
       condiciones: [ null, Validators.compose([ Validators.required ]) ],
       payMethod: [ null, Validators.compose([ Validators.required ]) ],
+      phoneNumber: [null, Validators.required]
     });
   }
 
   public isClubLinkedToMP(){
-    this.mpService.accountIsAlreadyLinked(this.booking.club._id).subscribe((res:any) => {
+    this.mpService.accountIsAlreadyLinked(this.booking.club._id).subscribe((res: any) => {
         this.clubLinkedToMP = res.isAlreadyLinked;
       },
       error => {

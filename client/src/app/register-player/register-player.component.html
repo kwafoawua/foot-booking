@@ -1,4 +1,4 @@
-﻿<div class="container">
+﻿<div class="container" [ngStyle]="{paddingTop: '60px'}">
 
   <div class=" text-center font-weight-bold">
     <h3>Únete hoy a Footbooking </h3>
@@ -9,8 +9,9 @@
         <div class="form-row">
           <div class="form-group col-12" [ngClass]="{ 'has-error': registerForm.get('email').invalid &&
                                         (registerForm.get('email').dirty || registerForm.get('email').touched)}">
-            <label class="label-form">E-mail (*)</label>
-            <input type="text" class="form-control" name="email" formControlName="email" required/>
+            <mat-form-field class="w-100">
+              <input matInput formControlName="email" class="form-control" type="email" placeholder="Email" required>
+            </mat-form-field>
             <div name="valida-email" *ngIf="registerForm.get('email').invalid &&
                         						(registerForm.get('email').dirty || registerForm.get('email').touched)">
               <div *ngIf="registerForm.get('email').errors?.required" class="text-danger">
@@ -24,8 +25,10 @@
           </div>
           <div class="form-group col-12" [ngClass]="{ 'has-error': registerForm.get('password').invalid &&
                                         (registerForm.get('password').dirty || registerForm.get('password').touched)}">
-            <label class="label-form">Contraseña (*)</label>
-            <input type="password" class="form-control" name="passwordPlayer" formControlName="password" required/>
+            <mat-form-field class="w-100">
+              <input matInput formControlName="password" class="form-control" [type]="hide ? 'password' : 'text'" placeholder="Contraseña" required>
+              <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+            </mat-form-field>
             <div name="valida-contraseña" *ngIf="registerForm.get('password').invalid &&
                         								(registerForm.get('password').dirty || registerForm.get('password').touched)">
               <div *ngIf="registerForm.get('password').errors?.required" class="text-danger">
@@ -39,8 +42,10 @@
           </div>
           <div class="form-group col-12" [ngClass]="{ 'has-error': registerForm.get('password').invalid &&
                                         (registerForm.get('password').dirty || registerForm.get('password').touched)}">
-            <label class="label-form">Repetir contraseña (*)</label>
-            <input type="password" class="form-control" name="repeatPassword" formControlName="repeatPassword" required/>
+            <mat-form-field class="w-100">
+              <input matInput formControlName="repeatPassword" class="form-control" [type]="hideRepeat ? 'password' : 'text'" placeholder="Repetir Contraseña" required>
+              <mat-icon matSuffix (click)="hideRepeat = !hideRepeat">{{hideRepeat ? 'visibility' : 'visibility_off'}}</mat-icon>
+            </mat-form-field>
             <div name="valida-contraseña" *ngIf="registerForm.get('repeatPassword').invalid &&
                         								(registerForm.get('repeatPassword').dirty || registerForm.get('repeatPassword').touched)">
               <div *ngIf="registerForm.get('repeatPassword').errors?.required" class="text-danger">
@@ -59,8 +64,9 @@
         <div class="form-row">
           <div class="form-group col-12" [ngClass]="{ 'has-error': registerForm.get('name').invalid &&
                                         (registerForm.get('name').dirty || registerForm.get('name').touched)}">
-            <label class="label-form">Nombre (*)</label>
-            <input type="text" class="form-control" name="namePlayer" formControlName="name" required/>
+            <mat-form-field class="w-100">
+              <input matInput formControlName="name" class="form-control" type="text" placeholder="Nombre" required>
+            </mat-form-field>
             <div name="valida-nombreclub" *ngIf="registerForm.get('name').invalid &&
                         (registerForm.get('name').dirty || registerForm.get('name').touched)">
 
@@ -72,13 +78,28 @@
           </div>
           <div class="form-group col-12" [ngClass]="{ 'has-error': registerForm.get('lastName').invalid &&
                                         (registerForm.get('lastName').dirty || registerForm.get('lastName').touched)}">
-            <label class="label-form">Apellido (*)</label>
-            <input type="text" class="form-control" name="lastName" formControlName="lastName" required/>
+            <mat-form-field class="w-100">
+              <input matInput formControlName="lastName" class="form-control" type="text" placeholder="Apellido" required>
+            </mat-form-field>
             <div name="valida-nombreclub" *ngIf="registerForm.get('lastName').invalid &&
                         (registerForm.get('lastName').dirty || registerForm.get('lastName').touched)">
 
               <div *ngIf="registerForm.get('lastName').errors?.required" class="text-danger">
                 <small class="form-text">El apellido es requerido.</small>
+              </div>
+
+            </div>
+          </div>
+          <div class="form-group col-12" [ngClass]="{ 'has-error': registerForm.get('phoneNumber').invalid &&
+                                        (registerForm.get('phoneNumber').dirty || registerForm.get('phoneNumber').touched)}">
+            <mat-form-field class="w-100">
+              <input matInput formControlName="phoneNumber" class="form-control" type="number" placeholder="Teléfono" required>
+            </mat-form-field>
+            <div name="valida-telefono" *ngIf="registerForm.get('phoneNumber').invalid &&
+                        (registerForm.get('phoneNumber').dirty || registerForm.get('phoneNumber').touched)">
+
+              <div *ngIf="registerForm.get('phoneNumber').errors?.required" class="text-danger">
+                <small class="form-text">El teléfono es requerido.</small>
               </div>
 
             </div>

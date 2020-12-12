@@ -22,6 +22,7 @@ module.exports.registerPlayer = async function (req,res) {
             email: player.email,
             poviderId: player.providerId,
             photoURL: player.photoURL,
+            phoneNumber: player.phoneNumber,
         });
 console.log('lo q entro  del register: '+JSON.stringify(req.body));
         const savedPlayer = await newPlayer.save();

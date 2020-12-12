@@ -24,6 +24,8 @@ export class RegisterPlayerComponent implements OnInit {
 
   registerForm: FormGroup;
   loading = false;
+  hide = true;
+  hideRepeat = true;
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
@@ -34,6 +36,7 @@ export class RegisterPlayerComponent implements OnInit {
       repeatPassword: [ null, Validators.compose([ Validators.required, Validators.minLength(8) ]) ],
       uid: [null],
       providerId: [null],
+      phoneNumber: [ null, Validators.compose([ Validators.required ]) ],
     }, {
       validator: PasswordValidation.MatchPassword // your validation method
     });
@@ -57,9 +60,9 @@ export class RegisterPlayerComponent implements OnInit {
 
         this.playerService.create(this.registerForm.value)
           .subscribe(async data => {
-            let { user, success } = <any>data;
+            const { user, success } = data as any;
             this.alertService.success(success, true);
-            //TODO: centralizar el setCurrent y navigate en el service de auth
+            // TODO: centralizar el setCurrent y navigate en el service de auth
             this.storageService.store('currentUser', user);
             this.router.navigate([ '/' ]);
           },
