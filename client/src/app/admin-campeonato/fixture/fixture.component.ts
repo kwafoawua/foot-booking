@@ -210,6 +210,7 @@ myTournamentData: any;
     return {
       field: null,
       fieldId: match.fieldId,
+      fieldName: match.fieldName,
       tournamentId,
       hourDate: match.hourToPlay || null,
       dateToPlay: match.dateToPlay || null,
