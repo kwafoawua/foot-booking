@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Eliminar Campeonato</h1>
+<div mat-dialog-content>
+  ¿Está seguro que desea dar de baja la inscripción al campeonato?
+</div>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button [mat-dialog-close]="unsubscribe()"  cdkFocusInitial>Aceptar</button>
+</mat-dialog-actions>
