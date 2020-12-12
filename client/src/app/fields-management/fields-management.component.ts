@@ -265,6 +265,7 @@ export class FieldsManagementComponent implements OnInit {
     this.modalData = { event, action };
     console.log('HANDLE EVENTO', event);
 
+
     if ((event as any).booking.isTournamentBooking) {
       this.modal.open(this.modalTournament, {size: 'lg'});
       return;
