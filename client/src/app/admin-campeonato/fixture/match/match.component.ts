@@ -15,6 +15,7 @@ export interface IMatch {
     dateToPlay: Date;
     field: any;
     fieldId: string;
+    fieldName: string;
     teams: [{
       name: string;
       score: string;
@@ -54,15 +55,16 @@ export class MatchComponent implements OnInit {
 
   ngOnInit() {
     if (this.match) {
+      console.log(this.match);
       const {dateToPlay, hourDate, teams } = this.match;
       const myFormattedDate = this.pipe.transform(dateToPlay, 'shortDate');
-
-      this.tooltipText = `Fecha de juego: ${myFormattedDate || 'Sin Definir'} \n
+      if (myFormattedDate && hourDate) {
+        this.canchaAsignadaTooltip = `${myFormattedDate} ${hourDate}hs - ${this.match.fieldName}`;
+      }
+/*      this.tooltipText = `Fecha de juego: ${myFormattedDate || 'Sin Definir'} \n
       Hora de juego: ${hourDate || 'Sin Definir'} \n
       Equipo Local: ${teams[0].name} - Goles: ${typeof(teams[0].score) === 'number' && teams[0].score >= 0 ?  teams[0].score : '' } \n
-      Equipo Visitante: ${teams[1].name} - Goles: ${typeof(teams[1].score) === 'number' && teams[1].score >= 0 ?  teams[1].score : '' }`;
-
-      this.canchaAsignadaTooltip = 'Partido con reserva asignada';
+      Equipo Visitante: ${teams[1].name} - Goles: ${typeof(teams[1].score) === 'number' && teams[1].score >= 0 ?  teams[1].score : '' }`;*/
 
       this.tieneCanchaAsignada = this.isCampeonato && dateToPlay && hourDate;
     }
