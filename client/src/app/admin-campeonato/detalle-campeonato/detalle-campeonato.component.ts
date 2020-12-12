@@ -30,4 +30,8 @@ export class DetalleCampeonatoComponent implements OnInit {
     });
   }
 
+  updateInscriptions(updatedInscriptions: any) {
+    this.inscriptions = updatedInscriptions;
+  }
+
 }
