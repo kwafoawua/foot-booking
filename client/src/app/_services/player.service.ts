@@ -20,7 +20,7 @@ export class PlayerService {
     return this.http.get<Player>('/players/' + _id);
   }
 
-  update(player: Player) {
+  update(player: any) {
     return this.http.put('/players/' + player._id, player);
   }
 

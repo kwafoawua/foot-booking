@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AlertService } from '../../_services/alert.service';
-import { AuthService } from '../../_services';
+import { AuthService, PlayerService } from '../../_services';
 import { StorageService } from '../../_services/storage.service';
 
 @Component({
@@ -20,6 +20,7 @@ export class ProfilePlayerInfoComponent implements OnInit {
     private rout: ActivatedRoute,
     private fb: FormBuilder,
     private authService: AuthService,
+    private playerService: PlayerService,
     private alertService: AlertService,
     private storageService: StorageService,
     ) {
@@ -49,15 +50,19 @@ export class ProfilePlayerInfoComponent implements OnInit {
 
   // TODO: cambiar a firebase + mongodb
   updateEmail() {
-    let user = this.userForm.value;
-    /* this.userService.updateEmail(user)
-      .subscribe(
-        data => {
-          this.alertService.success('El email se modificó con éxito', true);
-        },
-        error => {
-          this.alertService.error(error);
-        }); */
+    const userEmail = this.userForm.get('email').value;
+    const _id = this.userForm.get('_id').value;
+    console.log(userEmail);
+    if(this.userForm.valid) {
+      console.log('asd');
+      this.authService.updateEmail(userEmail).then((response) => {
+        this.playerService.update({_id, email: userEmail }).subscribe((data) => {
+          this.alertService.success('Email actualizado con éxito.');
+        }, error => this.alertService.error('Hubo un error al actualizar el email'));
+      }).catch(error => this.alertService.error('Hubo un error al actualizar el email'));
+    } else {
+      this.alertService.error('Hubo un error al actualizar el email');
+    }
   }
 
   onSubmit() {

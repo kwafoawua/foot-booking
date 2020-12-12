@@ -72,9 +72,7 @@ module.exports.findAllPlayers = function(req, res) {
 module.exports.updatePlayer = function(req, res) {
 
     console.log('entra al update player con: ');
-    console.log('_id : ' + req.body._id);
-    console.log('nombre: ' + req.body.name);
-    console.log('birthDate: ' + req.body.birthDate);
+    console.log('email: ' + req.body.email);
 
     Player.findById({_id : req.body._id}, function(err, player){
         if(err){
@@ -87,7 +85,7 @@ module.exports.updatePlayer = function(req, res) {
             player.phoneNumber = req.body.phoneNumber || player.phoneNumber;
             player.dni = req.body.dni || player.dni;
             player.birthDate = req.body.birthDate || player.birthDate;
-            //player.biography = req.body.biography || player.biography;
+            player.email = req.body.email || player.email;
 
             // Save the updated document back to the database
             player.save(function(err, player){
