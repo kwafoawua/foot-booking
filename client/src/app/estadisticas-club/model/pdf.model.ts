@@ -1,4 +1,4 @@
-import * as jsPDF from 'jspdf';
+import { jsPDF } from 'jspdf';
 import * as html2canvas from 'html2canvas';
 
 export class PdfModel {
@@ -61,7 +61,8 @@ export class PdfModel {
 
   generate(verticalPage?: boolean) {
     let positionPage = verticalPage ? 'landscape' : 'portrait';
-    this.pdf = new jsPDF({orientation: positionPage, unit: 'mm', format: 'a4'});
+    // @ts-ignore
+    this.pdf = new jsPDF(positionPage, 'mm', 'a4');
     let posYTextoTitulo: number = 28;
     let posYTextoDescripcion: number = posYTextoTitulo + 8;
     let posXTexto: number = 10;

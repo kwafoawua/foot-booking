@@ -2,8 +2,8 @@ import { Tournament } from '../_models/tournament';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {TState} from '../_models/TState';
-import {Booking} from "../_models/booking";
-import {Observable} from "rxjs";
+import { jsPDF } from 'jspdf';
+import autoTable from 'jspdf-autotable'
 
 @Injectable()
 
@@ -241,4 +241,28 @@ private tState: TState[] = [
 
 
   }
+
+  downloadFixture(phases) {
+    const doc = new jsPDF();
+    const body = [];
+
+    phases.forEach(phase => {
+      const matchInfo = {} as any;
+      matchInfo.phaseType = phase.phaseType;
+      phase.matches.forEach(match => {
+        matchInfo.localTeam = match.localTeam.teamName;
+        matchInfo.visitorTeam = match.visitorTeam.teamName;
+        matchInfo.fecha = match.dateToPlay;
+        matchInfo.hora = match.hourToPlay;
+        matchInfo.cancha = match.fieldName;
+        body.push(Object.values(matchInfo));
+      });
+
+    })
+    autoTable(doc, {
+      head: [['Fase', 'Equipo Local', 'Equipo Visitante', 'Fecha', 'Hora', 'Cancha']],
+      body,
+    });
+  }
 }
+

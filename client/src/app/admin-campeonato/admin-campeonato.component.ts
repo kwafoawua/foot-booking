@@ -60,10 +60,10 @@ export class AdminCampeonatoComponent implements OnInit {
 
 
 
-  openDialog(id_torneo): void {
+  openDialog(idTorneo): void {
     const dialogRef = this.dialog.open(CancelTorneoDialogComponent, {
       width: '40%',
-      data: id_torneo
+      data: idTorneo
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -92,6 +92,10 @@ export class AdminCampeonatoComponent implements OnInit {
         this.snackBar.open('No ha sido posible cancelar el campeonato en este momento, intentá nuevamente más tarde', null, {duration: 5000});
       }
     );
+  }
+
+  print(id) {
+
   }
 
   public alreadyLinked(){
