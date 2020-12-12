@@ -57,7 +57,8 @@ var bookingSchema = new Schema({
         lastName: {type: String, required: true},
         phoneNumber: Number,
         id: {type: String},
-        dni: {type: Number}
+        dni: {type: Number},
+        email: {type: String},
     },
     payment: {
         date: Date,
