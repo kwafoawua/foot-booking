@@ -1,6 +1,6 @@
 <div class="container-fluid" [ngStyle]="{height: '100vh'}">
   <div *ngIf="isAlreadyLinked === undefined">Cargando...</div>
-  <div *ngIf="isAlreadyLinked && isAlreadyLinked !== undefined">
+<!--  <div *ngIf="isAlreadyLinked && isAlreadyLinked !== undefined">-->
     <div class="header">
       <div>
         <button mat-flat-button color="primary" [routerLink]="['/admin/campeonato/nuevo']">Nuevo Campeonato</button>
@@ -64,11 +64,11 @@
       <mat-paginator [length]="total" [pageSize]="5" [pageSizeOptions]="[5, 10, 20]"
                      showFirstLastButtons></mat-paginator>
     </div>
-  </div>
-  <div *ngIf="!isAlreadyLinked && isAlreadyLinked !== undefined">
-    <p>Todavía no asociaste tu cuenta de Mercado Pago a footbooking por lo que no puedes crear campeonatos.</p>
-    <p>Al asociar tu cuenta de Mercado Pago nos autorizás a que podamos hacer transacciones a tu cuenta. De este modo te permitiremos realizar campeonatos, publicarlos y gestionarlos.</p>
-    <p>A su vez los clientes podrán efectuar reservas y pagarlas utilizando la plataforma de Mercado Pago, debitándose el pago directamente a tu cuenta!</p>
-    <p><a [routerLink]="['/admin/configuracion/', clubId]"><b>Ir a asociar tu cuenta</b></a></p>
-  </div>
+<!--  </div>-->
+<!--  <div *ngIf="!isAlreadyLinked && isAlreadyLinked !== undefined">-->
+<!--    <p>Todavía no asociaste tu cuenta de Mercado Pago a footbooking por lo que no puedes crear campeonatos.</p>-->
+<!--    <p>Al asociar tu cuenta de Mercado Pago nos autorizás a que podamos hacer transacciones a tu cuenta. De este modo te permitiremos realizar campeonatos, publicarlos y gestionarlos.</p>-->
+<!--    <p>A su vez los clientes podrán efectuar reservas y pagarlas utilizando la plataforma de Mercado Pago, debitándose el pago directamente a tu cuenta!</p>-->
+<!--    <p><a [routerLink]="['/admin/configuracion/', clubId]"><b>Ir a asociar tu cuenta</b></a></p>-->
+<!--  </div>-->
 </div>
