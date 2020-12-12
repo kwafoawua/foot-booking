@@ -12,6 +12,7 @@ export class ListaInscripcionComponent implements OnInit {
 
   @Input() inscriptions: any[];
   @Output() updateInscriptions = new EventEmitter<any[]>();
+  @Output() updateTorneo = new EventEmitter<string>();
 
   colorArray = ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6',
     '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D',
@@ -38,6 +39,11 @@ export class ListaInscripcionComponent implements OnInit {
     dialog.afterClosed().subscribe(result => {
       if (result) {
         this.unsubscribeTeam(result, index);
+        if (this.inscriptions.length > 15) {
+          this.tournamentService.updateTournament({_id: tournamentInscription.tournamentId, state: 'Publicado'}).subscribe( data =>{
+            this.updateTorneo.emit(tournamentInscription.tournamentId);
+          });
+        }
       }
     });
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { TournamentService } from '../../_services/tournament.service';
 import { ActivatedRoute, Router } from '@angular/router';
 

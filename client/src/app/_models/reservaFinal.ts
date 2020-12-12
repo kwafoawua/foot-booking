@@ -22,6 +22,7 @@ export class reservaFinal {
     name: string,
     lastName: string,
     phoneNumber: number,
-    id: string
-  }
+    id: string,
+    email: string,
+  };
 }

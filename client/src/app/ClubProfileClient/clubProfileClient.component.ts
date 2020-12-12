@@ -70,7 +70,7 @@ export class ProfileClubClientComponent{
       this.permiteReserva = false;
       this.NotanUser = true;
     }
-    console.log('PERMITE RESERVA ' , this.permiteReserva);
+    console.log('currentuser' , localStorage.getItem(('currentUser')));
   }
 
   reservar(field: any, i: any) {
