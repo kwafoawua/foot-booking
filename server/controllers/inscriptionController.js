@@ -90,6 +90,15 @@ exports.getPlayerInscriptions = async (req, res) => {
     }
 }
 
+exports.unsubscribeTeam = async (req, res) => {
+    try {
+        await TournamentInscription.deleteById(req.body.inscriptionId);
+        res.json({msg: "Inscripción dada de baja con éxito."});
+    } catch (e) {
+        res.status(500).send("No se pudo dar de baja la inscripción.");
+    }
+}
+
 /**
  * Utility - checks:
  *      - with quota for inscription?
@@ -136,4 +145,3 @@ exports.updateInscriptionByExternalReference = async (paymentReference, isPaid) 
         );
     }
 }
-

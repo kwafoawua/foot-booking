@@ -88,6 +88,7 @@ router.post('/inscription/enroll', inscriptionController.newTournamentInscriptio
 router.get('/inscription/:_id', inscriptionController.getInscription);
 router.get('/inscription/tournament/:tournamentId', inscriptionController.getTournamentInscriptions);
 router.get('/inscription/player/:playerId', inscriptionController.getPlayerInscriptions);
+router.delete('/inscription', inscriptionController.unsubscribeTeam);
 
 /* Phases routes */
 router.get('/phase/tournaments/:tournamentId', phaseController.getAllPhasesOfTournament);
