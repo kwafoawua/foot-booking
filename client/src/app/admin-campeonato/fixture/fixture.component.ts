@@ -106,6 +106,13 @@ myTournamentData: any;
       }
 
       if (nextUpdate) {
+        nextUpdate = {
+          ...nextUpdate,
+          hourDate: $event.hourDate,
+          dateToPlay: $event.dateToPlay,
+          bookingId: $event.bookingId,
+          field: $event.field,
+        };
         this.tournamentService.updateMatch(nextUpdate).subscribe(response => {
             this.getPhases();
           },
@@ -114,6 +121,13 @@ myTournamentData: any;
           });
         }
       if (tercerYCuarto) {
+        tercerYCuarto = {
+          ...tercerYCuarto,
+          hourDate: $event.hourDate,
+          dateToPlay: $event.dateToPlay,
+          bookingId: $event.bookingId,
+          field: $event.field,
+        };
         this.tournamentService.updateMatch(tercerYCuarto).subscribe(response => {
             console.log('update next match', response);
             this.getPhases();
