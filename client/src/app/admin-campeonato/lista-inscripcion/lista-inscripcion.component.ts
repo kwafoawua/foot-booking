@@ -1,6 +1,7 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {TournamentService} from '../../_services/tournament.service';
 
 @Component({
   selector: 'app-lista-inscripcion',
@@ -21,18 +22,19 @@ export class ListaInscripcionComponent implements OnInit {
     '#FF3380', '#CCCC00', '#66E64D', '#4D80CC', '#9900B3',
     '#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF'];
 
-  constructor(public dialog: MatDialog, public snackBar: MatSnackBar) { }
+  constructor(private tournamentService: TournamentService, public dialog: MatDialog,
+              public snackBar: MatSnackBar) {}
 
   ngOnInit() {
   }
 
-  unsubscribeDialog(tournamentInscription){
+  unsubscribeDialog(tournamentInscription) {
     const dialog = this.dialog.open(CancelInscriptionDialogComponent, {
       width: '40%',
       data: tournamentInscription
     });
     dialog.afterClosed().subscribe(result => {
-      if (result){
+      if (result) {
         this.unsubscribeTeam(result);
       }
     });
@@ -40,6 +42,11 @@ export class ListaInscripcionComponent implements OnInit {
 
   unsubscribeTeam(inscriptionData) {
     console.log('la data a quitar', inscriptionData);
+    this.tournamentService.unsubscribeTeam(inscriptionData._id).subscribe((data: any) => {
+      this.snackBar.open('Inscripción dada de baja con éxito', null, {duration: 2000});
+    }, error => {
+      this.snackBar.open('No se pudo dar de baja la inscripción, intentá nuevamente más tarde', null, {duration: 5000});
+    });
   }
 
 }
@@ -52,7 +59,8 @@ export class CancelInscriptionDialogComponent implements OnInit {
 
   constructor(
     public dialog: MatDialogRef<CancelInscriptionDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {}
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+  }
 
   ngOnInit(): void {
     this.tournamentInscription = this.data;

@@ -92,7 +92,7 @@ exports.getPlayerInscriptions = async (req, res) => {
 
 exports.unsubscribeTeam = async (req, res) => {
     try {
-        await TournamentInscription.deleteById(req.body.inscriptionId);
+        await TournamentInscription.deleteById(req.params.id);
         res.json({msg: "Inscripción dada de baja con éxito."});
     } catch (e) {
         res.status(500).send("No se pudo dar de baja la inscripción.");
