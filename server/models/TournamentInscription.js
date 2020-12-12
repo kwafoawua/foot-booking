@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const mongoosePaginate = require("mongoose-paginate-v2");
+const mongoose_delete = require('mongoose-delete');
 
 
 const InscriptionSchema = new mongoose.Schema({
@@ -27,5 +28,6 @@ const InscriptionSchema = new mongoose.Schema({
     }
 })
 InscriptionSchema.plugin(mongoosePaginate);
+InscriptionSchema.plugin(mongoose_delete, {overrideMethods: 'all'});
 
 module.exports = mongoose.model('TournamentInscription', InscriptionSchema)

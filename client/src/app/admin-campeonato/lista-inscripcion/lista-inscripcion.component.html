@@ -5,7 +5,7 @@
   <div>
     <mat-card class="lista-inscripcion-card" *ngFor="let ins of inscriptions; let i = index">
       <mat-card-header>
-<!--        <div mat-card-avatar>
+        <!--<div mat-card-avatar>
           <div class="circle-ins" [ngStyle]="{backgroundColor: colorArray[i]}"></div>
         </div>-->
           <mat-card-title>{{ins.team?.name}}</mat-card-title>
@@ -21,6 +21,14 @@
               </div>
               <div class="col-4">
                 Fecha de inscripción: <strong>{{ins.inscriptionDate | date:"dd/MM/yy"}}</strong>
+              </div>
+              <div>
+                <button
+                  mat-flat-button
+                  color="warn"
+                  (click)="unsubscribeDialog(ins)">
+                    Cancelar Inscripción
+                </button>
               </div>
             </div>
           </mat-card-content>

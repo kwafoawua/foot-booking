@@ -209,6 +209,10 @@ private tState: TState[] = [
     return this.http.get<any[]>('/inscription/player/' + user, {params});
   }
 
+  unsubscribeTeam(id: string) {
+    return this.http.delete(`/inscription/${id}`);
+  }
+
   calculateWinners(matchesFinal, matchesTercerPuesto) {
     const localFinal = matchesFinal[0].localTeam;
     const visitorFinal = matchesFinal[0].visitorTeam;
