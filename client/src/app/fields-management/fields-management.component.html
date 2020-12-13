@@ -40,7 +40,7 @@
           <label><b>{{modalData?.event.booking.paidMethod}}</b></label></div>
         <div class="col-6">Estado de pago
           <label><b>{{modalData?.event.booking.paymentStatus}}</b></label></div>
-        <div class="col-6">Monto pagado $ <label><b>{{modalData?.event.booking.payment.fee}}</b></label>
+        <div class="col-6">Monto pagado $ <label><b>{{modalData?.event.booking.payment.fee || '0.00'}}</b></label>
         </div>
       </div>
 

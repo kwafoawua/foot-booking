@@ -26,6 +26,7 @@ export class DefinicionComponent implements OnInit {
   fechafinValidacion: any;
   fechaInicioInscValidacion: any;
   fechaFinInscValidacion: any;
+  disableForm = false;
 
 
   constructor(
@@ -74,6 +75,9 @@ export class DefinicionComponent implements OnInit {
     this.tournamentService.getTournamentInfo(this.tournamentId).subscribe((data: any) => {
       this.tournament = data.tournament;
       this.status = this.tournament.state;
+      if (this.status !== 'Nuevo'){
+        this.disableForm = true;
+      }
       this.tournamentForm.setValue({
         creatorClubId: this.tournament.creatorClubId,
         tournamentName: this.tournament.tournamentName,
