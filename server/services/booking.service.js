@@ -2,11 +2,7 @@ const mongoose = require('mongoose');
 const Booking = require("../models/Booking");
 const phaseService = require('../services/phase.service');
 
-exports.registerBookingsForPhase = async (bookingId, clubId, dateToPlay, hourDate, rawField, tournamentName, tournamentId, bookingState, matchId) => {
-    if (!dateToPlay && !hourDate && !rawField) {
-        return;
-    }
-
+exports.registerBookingsForPhase = async (bookingId, clubId, dateToPlay, hourDate, rawField, tournamentName, tournamentId, bookingState, matchId, localTeam, visitorTeam) => {
     const phaseType = await phaseService.getPhaseTypeNameForMatchId(tournamentId, matchId);
 
     const _id = bookingId || new mongoose.mongo.ObjectID();
@@ -26,13 +22,25 @@ exports.registerBookingsForPhase = async (bookingId, clubId, dateToPlay, hourDat
         status: bookingState,
         paidMethod: 'Torneo',
         player: {
-            name: tournamentName || 'Campeonato',
-            lastName: phaseType
+            name: `${tournamentName} - ${phaseType}` || `Campeonato - ${phaseType}`,
+            lastName: bookingMatchName(localTeam, visitorTeam)
         },
         paymentStatus: 'Pago Total'
     };
     let options = {upsert: true, new: true, setDefaultsOnInsert: true};
     return Booking.findOneAndUpdate(query, update, options);
+}
+
+const bookingMatchName = (localName, visitorName) => {
+    const DEFAULT_BOOKING_NAME = 'Esperando definición';
+    const local = localName || DEFAULT_BOOKING_NAME;
+    const visitor = visitorName || DEFAULT_BOOKING_NAME;
+
+    if (local !== DEFAULT_BOOKING_NAME || visitor !== DEFAULT_BOOKING_NAME) {
+        return `${local} - ${visitor}`;
+    } else {
+        return DEFAULT_BOOKING_NAME;
+    }
 }
 
 exports.cancelTournamentBookings = tournamentId => {
