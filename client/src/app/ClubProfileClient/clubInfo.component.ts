@@ -16,6 +16,7 @@ export class ClubInfoComponent implements OnInit{
  club: Club;
   uploadsBaseURL = environment.uploadsBaseURL;
   galery: string[];
+  loading = false;
   public myTournament: Tournament[];
   constructor(
     private clubService: ClubService,
@@ -29,9 +30,11 @@ export class ClubInfoComponent implements OnInit{
   }
 
   private getClub(_id: string) {
+    this.loading = true;
     this.clubService.getResultById(_id).subscribe(club => {
       this.club = club;
       this.galery = club.galleryImg;
+      this.loading = false;
     });
   }
 
