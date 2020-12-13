@@ -17,11 +17,16 @@
                  [fixedInViewport]="mobileQuery.matches"  opened="!mobileQuery.matches" fixedTopGap="56" role="navigation">
       <mat-nav-list>
         <mat-nav-list>
-          <a mat-list-item routerLink='/admin/dashboard'>Dashboard</a>
-          <a mat-list-item routerLink='/admin/reservas'>Reservas</a>
-          <a mat-list-item routerLink='/admin/campeonato'>Campeonatos</a>
-          <a mat-list-item [routerLink]="['/admin/club/profile/',profileData?._id]" >Perfil</a>
-          <a mat-list-item [routerLink]="['/admin/configuracion/',profileData?._id]">Configuración</a>
+          <a mat-list-item routerLink='/admin/dashboard'>
+            <span class="material-icons">dashboard</span>Dashboard</a>
+          <a mat-list-item routerLink='/admin/reservas'>
+            <span class="material-icons">today</span>Reservas</a>
+          <a mat-list-item routerLink='/admin/campeonato'>
+            <span class="material-icons">emoji_events</span>Campeonatos</a>
+          <a mat-list-item [routerLink]="['/admin/club/profile/',profileData?._id]" >
+            <span class="material-icons">account_circle</span>Perfil</a>
+          <a mat-list-item [routerLink]="['/admin/configuracion/',profileData?._id]">
+            <span class="material-icons">settings</span>Configuración</a>
         </mat-nav-list>
       </mat-nav-list>
     </mat-sidenav>
