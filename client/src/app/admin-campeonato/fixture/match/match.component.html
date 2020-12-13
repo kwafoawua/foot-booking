@@ -1,13 +1,16 @@
-<div *ngIf="canchaAsignadaTooltip"><span [ngStyle]="{fontSize: '12px'}">{{canchaAsignadaTooltip}}</span></div>
-<div class="ngtt__match-wrapper">
-  <ng-container *ngFor="let team of match.teams">
-    <div
-      [ngClass]="{'ngtt__team-wrapper': true, 'pointer': isCampeonato}"
-      (click)="isCampeonato && openDialog(match)"
-    >
-<!--      <div class="ngtt__team-avatar"></div>-->
-      <h6 class="ngtt__team-title">{{team.name}}</h6>
-      <div class="ngtt__team-score">{{team.score}}</div>
-    </div>
-  </ng-container>
+<div>
+  <div *ngIf="canchaAsignadaTooltip"><span [ngStyle]="{fontSize: '12px', fontWeight: 700}">{{canchaAsignadaTooltip}}</span></div>
+  <div class="ngtt__match-wrapper">
+    <ng-container *ngFor="let team of match.teams">
+      <div
+        [ngClass]="{'ngtt__team-wrapper': true, 'pointer': isCampeonato}"
+        (click)="isCampeonato && openDialog(match)"
+      >
+        <!--      <div class="ngtt__team-avatar"></div>-->
+        <h6 class="ngtt__team-title">{{team.name}}</h6>
+        <div class="ngtt__team-score">{{team.score}}</div>
+      </div>
+    </ng-container>
+  </div>
 </div>
+
