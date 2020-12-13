@@ -94,12 +94,14 @@ export class AdminCampeonatoComponent implements OnInit {
     );
   }
 
-  print(id) {
-
+  print(id, tournamentName) {
+    this.tournamentService.getPhases(id).subscribe((data: any) => {
+      this.tournamentService.downloadFixture(data.phases, tournamentName);
+    });
   }
 
   public alreadyLinked(){
-    this.mpService.accountIsAlreadyLinked(this.clubId).subscribe((res:any) => {
+    this.mpService.accountIsAlreadyLinked(this.clubId).subscribe((res: any) => {
         this.isAlreadyLinked = res.isAlreadyLinked;
       },
       error => {

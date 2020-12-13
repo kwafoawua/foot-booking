@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import {TState} from '../_models/TState';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable'
+import { DatePipe } from '@angular/common';
 
 @Injectable()
 
@@ -19,6 +20,7 @@ private tState: TState[] = [
   private tType: string[] = [ '5 Jugadores', '7 Jugadores', '11 Jugadores'];
 
   private categorias: string[] = ['Femenino', 'Masculino', 'Mixto'];
+  pipe = new DatePipe('es-AR'); // Use your own locale
 
   myTournamentData = {
     rounds: [
@@ -242,17 +244,17 @@ private tState: TState[] = [
 
   }
 
-  downloadFixture(phases) {
+  downloadFixture(phases, nombreCampeonato) {
     const doc = new jsPDF();
+    doc.text(`Fixture - Campeonato: ${nombreCampeonato}`, 14, 25);
     const body = [];
-
     phases.forEach(phase => {
       const matchInfo = {} as any;
       matchInfo.phaseType = phase.phaseType;
       phase.matches.forEach(match => {
         matchInfo.localTeam = match.localTeam.teamName;
         matchInfo.visitorTeam = match.visitorTeam.teamName;
-        matchInfo.fecha = match.dateToPlay;
+        matchInfo.fecha = this.pipe.transform(match.dateToPlay, 'shortDate');
         matchInfo.hora = match.hourToPlay;
         matchInfo.cancha = match.fieldName;
         body.push(Object.values(matchInfo));
@@ -260,9 +262,13 @@ private tState: TState[] = [
 
     })
     autoTable(doc, {
+      startY: 40,
       head: [['Fase', 'Equipo Local', 'Equipo Visitante', 'Fecha', 'Hora', 'Cancha']],
+      headStyles: { fillColor: '#039c8a' },
       body,
     });
+    doc.save(`Fixture-${nombreCampeonato}.pdf`);
+
   }
 }
 
