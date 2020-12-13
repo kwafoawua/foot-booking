@@ -78,6 +78,10 @@ export class DefinicionComponent implements OnInit {
       if (this.status !== 'Nuevo'){
         this.disableForm = true;
       }
+      this.fechaInicioInscValidacion = moment(this.tournament.inscriptionStartDate).format('dd/MM/yyyy'),
+      this.fechaFinInscValidacion = moment(this.tournament.inscriptionEndDate).format('dd/MM/yyyy'),
+        this.fechafinValidacion = moment(this.tournament.startDate).format('dd/MM/yyyy'),
+
       this.tournamentForm.setValue({
         creatorClubId: this.tournament.creatorClubId,
         tournamentName: this.tournament.tournamentName,
