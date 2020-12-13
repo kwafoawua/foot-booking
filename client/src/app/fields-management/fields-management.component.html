@@ -1,6 +1,11 @@
 <ng-template #modalContent let-close="close">
   <div class="modal-header">
-    <h2 class="modal-title"> Cancha {{modalData?.event.booking.field.fieldName | uppercase}}</h2>
+    <h3 class="modal-title">
+
+     
+          Cancha {{modalData?.event.booking.field.fieldName | uppercase}}
+
+    </h3>
     <button type="button" class="close" (click)="close()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -20,7 +25,7 @@
 
             <div class="col-6" >Teléfono:<b>{{modalData?.event.booking.player.phoneNumber}}</b></div>
 
-            <div class="col-6" >Email:<b>{{modalData?.event.booking.player.email || 'SIN DATOS'}}</b></div>
+          <div class="col-6" >Email:<b>{{modalData?.event.booking.player.email || 'SIN DATOS'}}</b></div>
 
         </div>
       <hr>
@@ -69,7 +74,8 @@
 
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-success" (click)="close(modalData?.event.booking)">Aceptar</button>
+    <button type="button" class="btn" (click)="close()">Cerrar</button>
+    <button *ngIf="!(modalData?.event.booking.status === 'Asistido' || modalData?.event.booking.status === 'Cancelado') " type="button" class="btn btn-success" (click)="close(modalData?.event.booking)">Aceptar</button>
   </div>
 </ng-template>
 
