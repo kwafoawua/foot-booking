@@ -8,6 +8,7 @@ import { Tournament } from '../../_models/tournament';
 import {MatSnackBar} from '@angular/material';
 import * as moment from 'moment';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
+import { TournamentDateValidator } from '../../_helpers/tournamentDate.validator';
 
 @Component({
   selector: 'app-definicion',
@@ -23,9 +24,6 @@ export class DefinicionComponent implements OnInit {
   status = 'Nuevo';
   tournament: Tournament;
   minDate = moment().startOf('day').toDate();
-  fechafinValidacion: any;
-  fechaInicioInscValidacion: any;
-  fechaFinInscValidacion: any;
   disableForm = false;
 
 
@@ -58,7 +56,7 @@ export class DefinicionComponent implements OnInit {
       inscriptionStartDate: [ null, Validators.required ],
       inscriptionEndDate: [ null, Validators.required ],
       startDate: [ null, Validators.required ],
-      endDate: [ null ],
+      endDate: [ null, Validators.required ],
       numbersOfTeams: [ 16, { disabled: true } ],
       inscriptionCost: [ null, Validators.required ],
       numberOfPlayers: [ null, Validators.required ],
@@ -67,6 +65,8 @@ export class DefinicionComponent implements OnInit {
       prize1: [null, Validators.required],
       prize2: [null],
       prize3: [null]
+    }, {
+      validator: TournamentDateValidator.validateDates
     });
   }
 
@@ -78,18 +78,15 @@ export class DefinicionComponent implements OnInit {
       if (this.status !== 'Nuevo'){
         this.disableForm = true;
       }
-      this.fechaInicioInscValidacion = moment(this.tournament.inscriptionStartDate).format('dd/MM/yyyy'),
-      this.fechaFinInscValidacion = moment(this.tournament.inscriptionEndDate).format('dd/MM/yyyy'),
-        this.fechafinValidacion = moment(this.tournament.startDate).format('dd/MM/yyyy'),
 
       this.tournamentForm.setValue({
         creatorClubId: this.tournament.creatorClubId,
         tournamentName: this.tournament.tournamentName,
         publicationDescription: this.tournament.publicationDescription,
-        inscriptionStartDate: this.tournament.inscriptionStartDate,
-        inscriptionEndDate: this.tournament.inscriptionEndDate,
-        startDate: this.tournament.startDate,
-        endDate: this.tournament.endDate,
+        inscriptionStartDate: new Date(this.tournament.inscriptionStartDate),
+        inscriptionEndDate: new Date(this.tournament.inscriptionEndDate),
+        startDate: new Date(this.tournament.startDate),
+        endDate: new Date(this.tournament.endDate),
         numbersOfTeams: 16,
         inscriptionCost: this.tournament.inscriptionCost,
         numberOfPlayers: this.tournament.numberOfPlayers,

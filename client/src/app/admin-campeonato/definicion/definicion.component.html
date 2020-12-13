@@ -20,7 +20,7 @@
 
           <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
             <mat-label>Categoría</mat-label>
-            <mat-select formControlName="category" required>
+            <mat-select formControlName="category" required [disabled]="disableForm">
               <mat-option>--</mat-option>
               <mat-option *ngFor="let category of categorias" [value]="category">
                 {{category}}
@@ -37,7 +37,7 @@
 
           <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
             <mat-label>Tipo de equipo</mat-label>
-            <mat-select formControlName="numberOfPlayers" required>
+            <mat-select formControlName="numberOfPlayers" required [disabled]="disableForm">
               <mat-option>--</mat-option>
               <mat-option *ngFor="let tType of tipoTorneo" [value]="tType">
                 {{tType}}
@@ -67,7 +67,7 @@
         <div class="row">
           <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
             <mat-label>Fecha de inicio de inscripción</mat-label>
-            <input autocomplete="off" matInput formControlName="inscriptionStartDate" [min]="minDate" [matDatepicker]="inscriptionStartDate" [(ngModel)]="fechaInicioInscValidacion" required>
+            <input autocomplete="off" matInput formControlName="inscriptionStartDate" [min]="minDate" [matDatepicker]="inscriptionStartDate" required>
             <mat-datepicker-toggle matSuffix [for]="inscriptionStartDate"></mat-datepicker-toggle>
             <mat-datepicker #inscriptionStartDate disabled="false"></mat-datepicker>
             <mat-error
@@ -81,23 +81,17 @@
 
           <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
             <mat-label>Fecha de fin de inscripción</mat-label>
-            <input autocomplete="off" matInput formControlName="inscriptionEndDate" [min]="fechaInicioInscValidacion"
-                   [matDatepicker]="inscriptionEndDate" [(ngModel)]="fechaFinInscValidacion" required>
+            <input autocomplete="off" matInput formControlName="inscriptionEndDate" [min]="minDate"
+                   [matDatepicker]="inscriptionEndDate" required>
             <mat-datepicker-toggle matSuffix [for]="inscriptionEndDate"></mat-datepicker-toggle>
             <mat-datepicker #inscriptionEndDate disabled="false"></mat-datepicker>
-            <mat-error
-              *ngIf="tournamentForm.get('inscriptionEndDate').invalid &&
-            (tournamentForm.get('inscriptionEndDate').dirty ||
-            tournamentForm.get('inscriptionEndDate').touched)"
-            >
-              El campo es requerido.
-            </mat-error>
+              <mat-error *ngIf="tournamentForm.get('inscriptionEndDate').errors?.required">
+                El campo es requerido.
+              </mat-error>
+              <mat-error *ngIf="tournamentForm.get('inscriptionEndDate').errors?.invalidDate">
+                <small class="form-text">Fecha fin de inscripción debe ser mayor a fecha inicio y menor a comienzo de campeonato</small>
+              </mat-error>
           </mat-form-field>
-<!--
-          <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
-            <mat-label>Cantidad de equipos</mat-label>
-            <input matInput formControlName="numbersOfTeams" readonly>
-          </mat-form-field> -->
 
           <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
             <mat-label>Precio inscripción</mat-label>
@@ -116,30 +110,27 @@
 
           <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
             <mat-label>Fecha de inicio de partidos</mat-label>
-            <input autocomplete="off" matInput formControlName="startDate" [min]="fechaFinInscValidacion"
-                   [(ngModel)]="fechafinValidacion"[matDatepicker]="startDate" required >
+            <input autocomplete="off" matInput formControlName="startDate" [min]="minDate" [matDatepicker]="startDate" required >
             <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
             <mat-datepicker #startDate disabled="false"></mat-datepicker>
-            <mat-error
-              *ngIf="tournamentForm.get('startDate').invalid &&
-            (tournamentForm.get('startDate').dirty ||
-            tournamentForm.get('startDate').touched)"
-            >
+            <mat-error *ngIf="tournamentForm.get('startDate').errors?.required">
               El campo es requerido.
+            </mat-error>
+            <mat-error *ngIf="tournamentForm.get('startDate').errors?.invalidDate">
+              <small class="form-text">Fecha inicio campeonato debe ser mayor a fecha fin inscripción y menor a fin de campeonato</small>
             </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
             <mat-label>Fecha de fin de partidos</mat-label>
-            <input autocomplete="off" matInput formControlName="endDate" [min]="fechafinValidacion" [matDatepicker]="endDate" required>
+            <input autocomplete="off" matInput formControlName="endDate" [min]="minDate" [matDatepicker]="endDate" required>
             <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
             <mat-datepicker #endDate disabled="false"></mat-datepicker>
-            <mat-error
-              *ngIf="tournamentForm.get('endDate').invalid &&
-            (tournamentForm.get('endDate').dirty ||
-            tournamentForm.get('endDate').touched)"
-            >
+            <mat-error *ngIf="tournamentForm.get('endDate').errors?.required">
               El campo es requerido.
+            </mat-error>
+            <mat-error *ngIf="tournamentForm.get('endDate').errors?.invalidDate">
+              <small class="form-text">Fecha fin campeonato debe ser mayor a fecha incicio campeonato</small>
             </mat-error>
           </mat-form-field>
 
@@ -250,7 +241,7 @@
 
   </form>
   <div *ngIf="tournamentId">
-   
+
        <button mat-flat-button *ngIf="status === 'Nuevo'" (click)="openDialog()">Publicar</button>
 
     <button mat-flat-button (click)="updateTournament()">Actualizar</button>
