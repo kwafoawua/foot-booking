@@ -6,6 +6,7 @@ import { Club } from '../_models/club';
 import { ClubService } from '../_services/index';
 import { Observable ,  Subject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 // Observable class extensions
 
 // Observable operators
@@ -51,6 +52,7 @@ export class ResultComponent implements OnInit {
   pageSize = 9;
   pageSizes = [9, 15, 21];
   hasTournament = false;
+  loading = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -63,6 +65,7 @@ export class ResultComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.loading = true;
     this.setCurrentPosition();
     this.services = this.searchService.getClubServices();
 
@@ -81,6 +84,7 @@ export class ResultComponent implements OnInit {
           const {clubs, totalItems } = paginatedClub;
           this.clubs = clubs;
           this.count = totalItems;
+          this.loading = false;
         });
     });
   }
@@ -104,6 +108,7 @@ export class ResultComponent implements OnInit {
   // BUSCO POR LOS FILTROS
 
   buscarClubsPorFiltros() {
+    this.loading = true;
     this.clubfilter = this.crearFiltros();
     const newFilter: any = this.clubfilter;
     if (this.clubfilter.services) {
@@ -146,6 +151,7 @@ export class ResultComponent implements OnInit {
   }
 
   handlePageChange(event) {
+    this.loading = true;
     this.page = event;
     const params = this.paginationService.getRequestParams(this.page, this.pageSize);
     this.router.navigate(

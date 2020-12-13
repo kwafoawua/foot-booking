@@ -4,7 +4,12 @@
   <div class="all-categories section">
     <div class="container">
       <div class="ad-details">
-        <div class="row">
+        <div *ngIf="loading === true" class="d-flex justify-content-center align-items-center">
+        <mat-spinner > </mat-spinner>
+       </div>
+
+        <div *ngIf="loading === false" class="row">
+
           <div class="col-md-8 col-sm-7">
 <!-- CARRUSEL -->
 
@@ -181,6 +186,7 @@
 
         </div>
       </div>
+
     </div>
   </div>
 </div>

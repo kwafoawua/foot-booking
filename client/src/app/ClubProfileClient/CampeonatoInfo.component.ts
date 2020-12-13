@@ -26,8 +26,10 @@ export class CampeonatoInfoComponent implements OnInit {
   segundoEquipo: string;
   tercerEquipo: string;
   fechaInscripcionValida: boolean;
+  loading = false;
 
   ngOnInit(): void {
+    this.loading = true;
     this.getTorneo(this.route.snapshot.params.id);
     this.getInscriptions();
   }
@@ -51,8 +53,8 @@ export class CampeonatoInfoComponent implements OnInit {
       this.torneo = data.tournament;
       console.log('los datos ' + JSON.stringify(data));
       this.isInscriptionDateAllowed();
+      this.loading=false;
     }, error => console.log(error));
-
   }
 
   getInscriptions() {
@@ -63,7 +65,7 @@ export class CampeonatoInfoComponent implements OnInit {
       this.yaRegistrado = data.inscriptions.some(i => i.userId === userId);
       console.log(this.yaRegistrado);
       console.log('cantidad', this.cantidad);
-    });
+    })
   }
 
   setWinners($event) {

@@ -25,6 +25,7 @@ export class DefinicionComponent implements OnInit {
   tournament: Tournament;
   minDate = moment().startOf('day').toDate();
   disableForm = false;
+  estaPublicado = false;
 
 
   constructor(

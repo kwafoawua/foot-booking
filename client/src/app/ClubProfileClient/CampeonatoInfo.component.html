@@ -1,4 +1,8 @@
-<div class="page container">
+<div *ngIf="loading === true" class="d-flex justify-content-center align-items-center">
+  <mat-spinner > </mat-spinner>
+</div>
+
+<div class="page container" *ngIf="loading === false">
 
   <div class="all-categories section">
     <div class="container">
