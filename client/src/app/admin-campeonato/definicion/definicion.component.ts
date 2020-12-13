@@ -25,7 +25,7 @@ export class DefinicionComponent implements OnInit {
   tournament: Tournament;
   minDate = moment().startOf('day').toDate();
   disableForm = false;
-  estaPublicado = false;
+  esIniciado = false;
 
 
   constructor(
@@ -78,6 +78,8 @@ export class DefinicionComponent implements OnInit {
       this.status = this.tournament.state;
       if (this.status !== 'Nuevo'){
         this.disableForm = true;
+        if(this.status === 'Iniciado')
+          this.esIniciado = true;
       }
 
       this.tournamentForm.setValue({

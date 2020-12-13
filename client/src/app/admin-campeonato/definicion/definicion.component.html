@@ -1,4 +1,4 @@
-<ng-container *ngIf="!(status === 'Finalizado' || status === 'Cancelado') else published">
+<ng-container *ngIf="!(status === 'Finalizado' || status === 'Cerrado') else published">
   <form [formGroup]="tournamentForm" novalidate (ngSubmit)="registerTournament()">
     <mat-card class="example-card">
       <mat-card-header>
@@ -67,8 +67,8 @@
         <div class="row">
           <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
             <mat-label>Fecha de inicio de inscripción</mat-label>
-            <input autocomplete="off" matInput formControlName="inscriptionStartDate" [min]="minDate" [matDatepicker]="inscriptionStartDate" required>
-            <mat-datepicker-toggle matSuffix [for]="inscriptionStartDate"></mat-datepicker-toggle>
+            <input autocomplete="off" matInput formControlName="inscriptionStartDate"  [disabled]="esIniciado" [min]="minDate" [matDatepicker]="inscriptionStartDate" required>
+            <mat-datepicker-toggle matSuffix [for]="inscriptionStartDate"  [disabled]="esIniciado"></mat-datepicker-toggle>
             <mat-datepicker #inscriptionStartDate disabled="false"></mat-datepicker>
             <mat-error
               *ngIf="tournamentForm.get('inscriptionStartDate').invalid &&
@@ -82,8 +82,8 @@
           <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
             <mat-label>Fecha de fin de inscripción</mat-label>
             <input autocomplete="off" matInput formControlName="inscriptionEndDate" [min]="minDate"
-                   [matDatepicker]="inscriptionEndDate" required>
-            <mat-datepicker-toggle matSuffix [for]="inscriptionEndDate"></mat-datepicker-toggle>
+                   [matDatepicker]="inscriptionEndDate" [disabled]="esIniciado" required>
+            <mat-datepicker-toggle matSuffix [for]="inscriptionEndDate" [disabled]="esIniciado"></mat-datepicker-toggle>
             <mat-datepicker #inscriptionEndDate disabled="false"></mat-datepicker>
               <mat-error *ngIf="tournamentForm.get('inscriptionEndDate').errors?.required">
                 El campo es requerido.
