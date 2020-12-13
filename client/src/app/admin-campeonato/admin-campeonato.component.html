@@ -55,6 +55,9 @@
               <mat-icon aria-label="Delete">visibility_off
               </mat-icon>
             </button>
+            <button mat-icon-button color="primary" class="iconbutton" matTooltip="Descargar fixture" (click)="print(row._id, row.tournamentName)">
+              <mat-icon aria-label="Print fixture">get_app</mat-icon>
+            </button>
           </td>
         </ng-container>
 

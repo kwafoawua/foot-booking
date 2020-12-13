@@ -60,10 +60,10 @@ export class AdminCampeonatoComponent implements OnInit {
 
 
 
-  openDialog(id_torneo): void {
+  openDialog(idTorneo): void {
     const dialogRef = this.dialog.open(CancelTorneoDialogComponent, {
       width: '40%',
-      data: id_torneo
+      data: idTorneo
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -94,8 +94,14 @@ export class AdminCampeonatoComponent implements OnInit {
     );
   }
 
+  print(id, tournamentName) {
+    this.tournamentService.getPhases(id).subscribe((data: any) => {
+      this.tournamentService.downloadFixture(data.phases, tournamentName);
+    });
+  }
+
   public alreadyLinked(){
-    this.mpService.accountIsAlreadyLinked(this.clubId).subscribe((res:any) => {
+    this.mpService.accountIsAlreadyLinked(this.clubId).subscribe((res: any) => {
         this.isAlreadyLinked = res.isAlreadyLinked;
       },
       error => {
