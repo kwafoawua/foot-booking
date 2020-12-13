@@ -1,5 +1,6 @@
 
 
+<button mat-flat-button (click)="shuffleMatches()">Asignar Octavos</button>
 <ng-container *ngIf="tournamentState !== 'Nuevo' else shuffleIt">
   <div class="mt-2" *ngIf="esSinAsignar">
     <p>⚽ Los equipos de octavos de final serán asignados aleatoriamente cuando se completen las inscripciones.</p>
