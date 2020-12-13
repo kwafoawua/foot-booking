@@ -4,11 +4,11 @@
   <div class="all-categories section">
     <div class="container">
       <div class="ad-details">
-        <div *ngIf="loading === true" class="d-flex justify-content-center align-items-center">
-        <mat-spinner > </mat-spinner>
-       </div>
+        <div *ngIf="loading === true" style="display: flex; justify-content: center; align-items: center; position: absolute; top: 40%;left: 35%">
+          <mat-spinner > </mat-spinner>
+        </div>
 
-        <div *ngIf="loading === false" class="row">
+        <div class="row">
 
           <div class="col-md-8 col-sm-7">
 <!-- CARRUSEL -->
