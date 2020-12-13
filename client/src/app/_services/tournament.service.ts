@@ -252,8 +252,12 @@ private tState: TState[] = [
       const matchInfo = {} as any;
       matchInfo.phaseType = phase.phaseType;
       phase.matches.forEach(match => {
-        matchInfo.localTeam = `${match.localTeam.teamName} ${match.localTeam.goals >= 0 ? ' - ' + match.localTeam.goals : ''}`;
-        matchInfo.visitorTeam = `${match.visitorTeam.teamName} ${match.visitorTeam.goals >= 0 ?  ' - ' + match.visitorTeam.goals : ''}`;
+        const ltg = match.localTeam.goals;
+        const vtg = match.visitorTeam.goals;
+        const isLtg = typeof(ltg) === 'number' && ltg >= 0;
+        const isVtg = typeof(vtg) === 'number' && vtg >= 0;
+        matchInfo.localTeam = `${match.localTeam.teamName} ${isLtg ? ' - ' + ltg : ''}`;
+        matchInfo.visitorTeam = `${match.visitorTeam.teamName} ${isVtg ?  ' - ' + vtg : ''}`;
         matchInfo.fecha = this.pipe.transform(match.dateToPlay, 'shortDate');
         matchInfo.hora = match.hourToPlay;
         matchInfo.cancha = match.fieldName;
