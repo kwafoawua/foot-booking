@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Phase = require('../models/Phase');
-const {shuffleTeamsArray} = require("../common/phaseLogic");
+const {shuffleTeamsArray, incompleteTeamArray} = require("../common/phaseLogic");
 const {getAllTeamsRegistered} = require("../common/inscriptionLogic");
 const {roundOfSixteen} = require("../models/const/RoundOfSixteen");
 const {quarterFinal} = require("../models/const/QuarterFinal");
@@ -57,7 +57,8 @@ exports.randomMatchesLink = async (req, res) => {
     const PENDING_GAME = "Pendiente de Juego";
     try {
         // TODO -> no ejecutarse si al menos un partido se jugo
-        let teamsShuffle = shuffleTeamsArray(await getAllTeamsRegistered(req.params.tournamentId));
+        let teams = shuffleTeamsArray(await getAllTeamsRegistered(req.params.tournamentId));
+        let teamsShuffle = incompleteTeamArray(teams);
         let phases = await Phase.findOneAndUpdate({
                 $and: [
                     {"tournamentId": mongoose.Types.ObjectId(req.params.tournamentId)},
@@ -66,29 +67,29 @@ exports.randomMatchesLink = async (req, res) => {
             },
             {
                 $set: {
-                    'matches.0.localTeam.teamName': teamsShuffle[0]._doc.team.name,
-                    'matches.0.visitorTeam.teamName': teamsShuffle[1]._doc.team.name,
+                    ...(teamsShuffle[0] && {'matches.0.localTeam.teamName': teamsShuffle[0]._doc.team.name}),
+                    ...(teamsShuffle[1] && {'matches.0.visitorTeam.teamName': teamsShuffle[1]._doc.team.name}),
                     'matches.0.state': PENDING_GAME,
-                    'matches.1.localTeam.teamName': teamsShuffle[2]._doc.team.name,
-                    'matches.1.visitorTeam.teamName': teamsShuffle[3]._doc.team.name,
+                    ...(teamsShuffle[2] && {'matches.1.localTeam.teamName': teamsShuffle[2]._doc.team.name}),
+                    ...(teamsShuffle[3] && {'matches.1.visitorTeam.teamName': teamsShuffle[3]._doc.team.name}),
                     'matches.1.state': PENDING_GAME,
-                    'matches.2.localTeam.teamName': teamsShuffle[4]._doc.team.name,
-                    'matches.2.visitorTeam.teamName': teamsShuffle[5]._doc.team.name,
+                    ...(teamsShuffle[4] && {'matches.2.localTeam.teamName': teamsShuffle[4]._doc.team.name}),
+                    ...(teamsShuffle[5] && {'matches.2.visitorTeam.teamName': teamsShuffle[5]._doc.team.name}),
                     'matches.2.state': PENDING_GAME,
-                    'matches.3.localTeam.teamName': teamsShuffle[6]._doc.team.name,
-                    'matches.3.visitorTeam.teamName': teamsShuffle[7]._doc.team.name,
+                    ...(teamsShuffle[6] && {'matches.3.localTeam.teamName': teamsShuffle[6]._doc.team.name}),
+                    ...(teamsShuffle[7] && {'matches.3.visitorTeam.teamName': teamsShuffle[7]._doc.team.name}),
                     'matches.3.state': PENDING_GAME,
-                    'matches.4.localTeam.teamName': teamsShuffle[8]._doc.team.name,
-                    'matches.4.visitorTeam.teamName': teamsShuffle[9]._doc.team.name,
+                    ...(teamsShuffle[8] && {'matches.4.localTeam.teamName': teamsShuffle[8]._doc.team.name}),
+                    ...(teamsShuffle[9] && {'matches.4.visitorTeam.teamName': teamsShuffle[9]._doc.team.name}),
                     'matches.4.state': PENDING_GAME,
-                    'matches.5.localTeam.teamName': teamsShuffle[10]._doc.team.name,
-                    'matches.5.visitorTeam.teamName': teamsShuffle[11]._doc.team.name,
+                    ...(teamsShuffle[10] && {'matches.5.localTeam.teamName': teamsShuffle[10]._doc.team.name}),
+                    ...(teamsShuffle[11] && {'matches.5.visitorTeam.teamName': teamsShuffle[11]._doc.team.name}),
                     'matches.5.state': PENDING_GAME,
-                    'matches.6.localTeam.teamName': teamsShuffle[12]._doc.team.name,
-                    'matches.6.visitorTeam.teamName': teamsShuffle[13]._doc.team.name,
+                    ...(teamsShuffle[12] && {'matches.6.localTeam.teamName': teamsShuffle[12]._doc.team.name}),
+                    ...(teamsShuffle[13] && {'matches.6.visitorTeam.teamName': teamsShuffle[13]._doc.team.name}),
                     'matches.6.state': PENDING_GAME,
-                    'matches.7.localTeam.teamName': teamsShuffle[14]._doc.team.name,
-                    'matches.7.visitorTeam.teamName': teamsShuffle[15]._doc.team.name,
+                    ...(teamsShuffle[14] && {'matches.7.localTeam.teamName': teamsShuffle[14]._doc.team.name}),
+                    ...(teamsShuffle[15] && {'matches.7.visitorTeam.teamName': teamsShuffle[15]._doc.team.name}),
                     'matches.7.state': PENDING_GAME,
                 }
             }, {new: true});
