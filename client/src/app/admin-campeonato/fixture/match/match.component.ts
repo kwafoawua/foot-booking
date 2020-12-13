@@ -117,11 +117,26 @@ export class MatchUpdateDialogComponent implements OnInit{
     this.dialogRef.close();
   }
 
+  disableScore() {
+    const { teams, dateToPlay, phaseType } = this.match;
+    const local = teams[0];
+    const visitante = teams[1];
+    let disable;
+
+    if (!dateToPlay || moment(dateToPlay).isSameOrAfter(new Date())) {
+      disable = true;
+    }
+    if (local.name && !visitante.name && phaseType === 'Octavos de final') {
+      disable = false;
+    }
+    return disable;
+  }
+
   ngOnInit(): void {
     this.data.match.field = this.data.fields.find(f => f._id === this.data.match.fieldId);
     this.match = this.data.match;
     this.inscriptions = this.data.teams;
-    this.disabledScore = !this.match.dateToPlay || moment(this.match.dateToPlay).isSameOrAfter(new Date());
+    this.disabledScore = this.disableScore()
     this.disableField = moment(this.match.dateToPlay).isSameOrBefore(new Date());
     this.fields = this.data.fields;
     this.maxDate = this.data.maxDate;
