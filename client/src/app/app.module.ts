@@ -22,7 +22,7 @@ import { AppComponent } from './app.component';
 import { routing } from './app.routing';
 
 import { authInterceptorProviders } from './_helpers/index';
-import { AlertComponent } from './_directives/index';
+import { AlertComponent } from './alert';
 import { AuthGuard } from './_guards/index';
 import { AlertService, AuthService, ClubService, CommentService, PlayerService, UserService, PaginationService } from './_services/index';
 import { HomeComponent } from './home/index';
