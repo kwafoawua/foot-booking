@@ -27,6 +27,7 @@ export class DefinicionComponent implements OnInit {
   fechaInicioInscValidacion: any;
   fechaFinInscValidacion: any;
   disableForm = false;
+  estaPublicado = false;
 
 
   constructor(
