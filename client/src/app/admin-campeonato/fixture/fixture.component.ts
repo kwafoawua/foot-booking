@@ -106,13 +106,6 @@ myTournamentData: any;
       }
 
       if (nextUpdate) {
-        nextUpdate = {
-          ...nextUpdate,
-          hourDate: $event.hourDate,
-          dateToPlay: $event.dateToPlay,
-          bookingId: $event.bookingId,
-          field: $event.field,
-        };
         this.tournamentService.updateMatch(nextUpdate).subscribe(response => {
             this.getPhases();
           },
@@ -121,13 +114,6 @@ myTournamentData: any;
           });
         }
       if (tercerYCuarto) {
-        tercerYCuarto = {
-          ...tercerYCuarto,
-          hourDate: $event.hourDate,
-          dateToPlay: $event.dateToPlay,
-          bookingId: $event.bookingId,
-          field: $event.field,
-        };
         this.tournamentService.updateMatch(tercerYCuarto).subscribe(response => {
             console.log('update next match', response);
             this.getPhases();
@@ -160,11 +146,25 @@ myTournamentData: any;
     const nextMatch = this.phases[phaseIndex].matches[nextIndex];
     actualizarSiguiente.matchId = nextMatch._id;
     actualizarSiguiente.localTeam = teamName;
+    actualizarSiguiente.hourDate = nextMatch.hourToPlay;
+    actualizarSiguiente.dateToPlay = nextMatch.dateToPlay;
+    actualizarSiguiente.bookingId = nextMatch.bookingId;
+    actualizarSiguiente.clubId = this.clubId;
+    actualizarSiguiente.tournamentName = this.tournament.tournamentName;
+    actualizarSiguiente.field = this.fields.find(field => field._id === nextMatch.fieldId);
   } else {
     const nextIndex = Math.floor((matchIndex / 2));
     const nextMatch = this.phases[phaseIndex].matches[nextIndex];
     actualizarSiguiente.matchId = nextMatch._id;
     actualizarSiguiente.visitorTeam = teamName;
+    actualizarSiguiente.hourDate = nextMatch.hourDate;
+    actualizarSiguiente.dateToPlay = nextMatch.dateToPlay;
+    actualizarSiguiente.bookingId = nextMatch.bookingId;
+    actualizarSiguiente.clubId = this.clubId;
+    actualizarSiguiente.tournamentName = this.tournament.tournamentName;
+    console.log('nextMatch', nextMatch);
+    console.log(this.fields);
+    actualizarSiguiente.field = this.fields.find(field => field._id === nextMatch.fieldId);
   }
   return actualizarSiguiente;
 }
