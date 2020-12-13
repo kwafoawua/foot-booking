@@ -7,37 +7,33 @@
   </div>
   <div class="modal-body">
     <div class="container">
-
-
-      <div class="row">
-        <div class="col-12"><h4>Datos del Cliente</h4></div>
+       <div class="col-12"><h4>Datos del Cliente</h4></div>
         <div class="row">
           <div class="col-6">Nombre:
-            <label><b>{{modalData?.event.booking.player.name}}</b></label>
+            <b>{{modalData?.event.booking.player.name}}</b>
           </div>
-          <div class="col-6">
-            Apellido:
+
+          <div class="col-6">Apellido:
             <label><b>{{modalData?.event.booking.player.lastName}}</b></label></div>
-        </div>
+          </div>
         <div class="row">
-          <div class="col-6" *ngIf="modalData?.event.booking.player.phoneNumber">
-            Teléfono: <label><b>{{modalData?.event.booking.player.phoneNumber}}</b></label></div>
+
+            <div class="col-6" >Teléfono:<b>{{modalData?.event.booking.player.phoneNumber}}</b></div>
+
+            <div class="col-6" >Email:<b>{{modalData?.event.booking.player.email}}</b></div>
+
         </div>
-
-
-
-      </div>
       <hr>
 
+      <div class="col-12"><h4>Reserva</h4></div>
       <div class="row">
-        <div class="col-12"><h4>Reserva</h4></div>
         <div class="col-6">Cancha: <label><b>{{modalData?.event.booking.field.fieldName}}</b></label>
         </div>
         <div class="col-6">Fecha de Reserva: <label><b>{{modalData?.event.booking.playingDate |
           date:"dd/MM/yy"}}</b></label></div>
         <div class="col-6">Hora de Reserva:
           <label><b>{{modalData?.event.booking.playingTime}}</b></label></div>
-        <div class="col-6">Estado: <label>{{modalData?.event.booking.status}}</label></div>
+        <div class="col-6">Estado: <label><b>{{modalData?.event.booking.status}}</b></label></div>
         <div class="col-6">Monto total $ <label><b>{{modalData?.event.booking.field.price}}</b></label>
         </div>
         <div class="col-6">Forma de Pago:
