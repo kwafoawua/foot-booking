@@ -308,6 +308,9 @@ export class EstadisticasClubComponent implements OnInit {
   paidMethodSitioReport = 0;
   paidMethodMPReport = 0;
 
+  names = Object.freeze(
+    [ 'Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab' ]);
+
   static onSelect(event) {
     console.log(event);
   }
@@ -389,7 +392,7 @@ export class EstadisticasClubComponent implements OnInit {
       let sitio = 0;
       let mp = 0;
       let total = 0;
-      this.bookingDayChart[0].series = this.getArrayDays(this.monthReportTwo - 1);
+      this.bookingDayChart[0].series = this.getDaysArray(this.anioReportTwo, this.monthReportTwo - 1);
       bookings.forEach((booking) => {
         if (!booking.isTournamentBooking) {
           const dateb = moment(booking.playingDate, 'YYYY-MM-DD').toDate();
@@ -433,6 +436,21 @@ export class EstadisticasClubComponent implements OnInit {
 
     return result;
   }
+
+  getDaysArray = (year, month) => {
+    const date = new Date(year, month, 1);
+    const result = [];
+    while (date.getMonth() == month) {
+      result.push({
+        name: `${date.getDate()}-${this.names[date.getDay()]}`,
+        value: 0,
+      });
+      date.setDate(date.getDate() + 1);
+    }
+    return result;
+  }
+
+
 
   getReportByState() {
     this.loadedReportByStatus = false;
