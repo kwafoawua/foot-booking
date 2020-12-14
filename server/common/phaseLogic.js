@@ -20,9 +20,11 @@ exports.incompleteTeamArray = teamArray => {
         teamArray.shift();
     }
     if (teamArray.length) {
-        for (let i = 0; i < teamArray.length; i++) {
-            phaseMatch[i + 1] = teamArray[i];
-        }
+        let i = 1;
+        teamArray.forEach(team => {
+            phaseMatch[i] = team;
+            i += 2;
+        })
     }
     return phaseMatch;
 }
