@@ -81,7 +81,7 @@ export class ConfirmationComponent implements OnInit {
       this.player = player;
       this.reservaFinal.playerName = player.name;
       this.reservaFinal.playerLastName = player.lastName;
-      this.reservaFinal.playerPhoneNumber = player.phoneNumber;
+      this.reservaFinal.player.phoneNumber = player.phoneNumber;
       this.reservaFinal.playerId = player._id;
       this.reservaFinal.playerEmail = player.email;
       this.confirmationForm.get('phoneNumber').setValue(player.phoneNumber);
