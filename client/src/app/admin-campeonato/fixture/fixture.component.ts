@@ -4,6 +4,7 @@ import { AlertService } from '../../_services';
 import { ActivatedRoute, Router } from '@angular/router';
 import { fixtureRegexp } from '../../../utils/utils';
 import {MatSnackBar} from '@angular/material';
+import * as moment from 'moment';
 
 
 @Component({
@@ -60,6 +61,7 @@ myTournamentData: any;
       this.tournamentState = data.tournament.state;
       this.tournament = data.tournament;
       this.fields = data.availableFieldsForBookingTournament;
+      this.setOctavosState();
     });
   }
   updateMatch($event) {
@@ -115,7 +117,6 @@ myTournamentData: any;
         }
       if (tercerYCuarto) {
         this.tournamentService.updateMatch(tercerYCuarto).subscribe(response => {
-            console.log('update next match', response);
             this.getPhases();
           },
           error => {
@@ -126,7 +127,6 @@ myTournamentData: any;
 
 
     this.tournamentService.updateMatch(match).subscribe(response => {
-      console.log('success', response);
       this.snackBar.open('Partido actualizado con éxito', null, {
         duration: 2000
       });
@@ -162,8 +162,6 @@ myTournamentData: any;
     actualizarSiguiente.bookingId = nextMatch.bookingId;
     actualizarSiguiente.clubId = this.clubId;
     actualizarSiguiente.tournamentName = this.tournament.tournamentName;
-    console.log('nextMatch', nextMatch);
-    console.log(this.fields);
     actualizarSiguiente.field = this.fields.find(field => field._id === nextMatch.fieldId);
   }
   return actualizarSiguiente;
@@ -174,17 +172,13 @@ myTournamentData: any;
       this.setEsSinAsignar(data.phases);
       this.generateTournamentData(data.phases);
       this.isGenerable = this.inscriptions.length > 15;
-      if (!this.phases) {
-        const winners = this.tournamentService.calculateWinners(data.phases[4].matches, data.phases[3].matches);
-        if (winners) {
-          this.primerEquipo = winners.primerEquipo;
-          this.segundoEquipo = winners.segundoEquipo;
-          this.tercerEquipo = winners.tercerEquipo;
-        }
+      const winners = this.tournamentService.calculateWinners(data.phases[4].matches, data.phases[3].matches);
+      if (winners) {
+        this.primerEquipo = winners.primerEquipo;
+        this.segundoEquipo = winners.segundoEquipo;
+        this.tercerEquipo = winners.tercerEquipo;
       }
       this.phases = data.phases;
-
-      this.setOctavosState();
       this.setFinalizarCampeonato(data.phases);
     });
   }
@@ -211,7 +205,6 @@ myTournamentData: any;
 
   shuffleMatches() {
     this.tournamentService.shuffleMatches(this.tournamentId).subscribe((data: any) => {
-      console.log('shuffle data', data);
       this.esSinAsignar = false;
       this.getPhases();
     });
@@ -272,10 +265,7 @@ myTournamentData: any;
   }
 
   setOctavosState() {
-    // TODO: VALIDAR ESTA FUNCION PARA INICIAR CAMPEONATO.
-    const matchOctavosState = this.phases[ 0 ].matches.every(match => !!match.hourToPlay === true);
-    this.sePuedeIniciarCampeonato = matchOctavosState;
-    console.log('sePuedeIniciarCampeonato', this.sePuedeIniciarCampeonato);
+    this.sePuedeIniciarCampeonato = moment(this.tournament.inscriptionEndDate).isSameOrBefore(new Date());
   }
 
   setCampeonatoState(stateName) {
