@@ -18,8 +18,8 @@
             <a class="nav-link" [routerLink]="['/']"
                routerLinkActive="active-link"
                [routerLinkActiveOptions]="{exact:true}"
-               matTooltip="Inicio">
-              <span class="material-icons" style="font-size: 20px">home</span>
+              >
+              <span class="material-icons" style="font-size: 16px">home</span>Inicio
             </a>
           </li>
 
@@ -82,9 +82,9 @@
             </div>
 
 
-            <li class="nav-item"  matTooltip="Cerrar sesión">
+            <li class="nav-item" >
               <a class="nav-link" (click)=auth.logout() [routerLink]="['/']">
-                <span class="material-icons" style="font-size: 20px">exit_to_app</span></a>
+                <span class="material-icons" style="font-size: 16px">exit_to_app</span>Cerrar Sesión</a>
             </li>
 
           </div>
