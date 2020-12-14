@@ -125,7 +125,7 @@ export class MatchUpdateDialogComponent implements OnInit{
     if (!dateToPlay || moment(dateToPlay).isSameOrAfter(new Date())) {
       disable = true;
     }
-    if (local.name && !visitante.name && phaseType === 'Octavos de final') {
+    if (local.name && visitante.name === '-'  && phaseType === 'Octavos de final') {
       disable = false;
     }
     return disable;
