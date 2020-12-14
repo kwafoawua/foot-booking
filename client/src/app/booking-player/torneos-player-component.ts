@@ -15,6 +15,7 @@ export class TorneosPlayerComponent implements OnInit{
   pageSize = 5;
   pageSizes = [5, 10, 15];
   playerId: string;
+  loading = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,6 +27,7 @@ export class TorneosPlayerComponent implements OnInit{
   }
 
   ngOnInit() {
+    this.loading = true;
     const _id: string = JSON.parse(localStorage.getItem('currentUser'))._id;
     this.playerId = _id;
     this.getInscriptions();
@@ -40,6 +42,7 @@ export class TorneosPlayerComponent implements OnInit{
       this.inscriptions = inscriptions;
       this.count = totalItems;
       console.log('Inscripciones', this.inscriptions);
+      this.loading = false;
     });
   }
 

@@ -6,7 +6,10 @@
       <div class="tab-content">
         <div id="all-faq" class="faq-post tab-pane active">
           <div class="faq">
-            <div *ngIf="!bookings.length">
+            <div *ngIf="loading === true" class="d-flex justify-content-center align-items-center">
+              <mat-spinner></mat-spinner>
+            </div>
+            <div *ngIf="!bookings.length && loading === false">
               No hay reservas que mostrar
             </div>
             <div *ngIf="bookings.length">
