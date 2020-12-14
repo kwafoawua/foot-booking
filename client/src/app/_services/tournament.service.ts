@@ -261,9 +261,12 @@ private tState: TState[] = [
         const visitorTeam = match.visitorTeam.teamName && isVtg ?  `${match.visitorTeam.teamName} ${isVtg ? ' - ' + vtg : ''}` : '-';
         matchInfo.localTeam = localTeam;
         matchInfo.visitorTeam = visitorTeam;
-        matchInfo.fecha = this.pipe.transform(match.dateToPlay, 'shortDate');
-        matchInfo.hora = match.hourToPlay;
-        matchInfo.cancha = match.fieldName;
+        const fecha = match.dateToPlay ? `${this.pipe.transform(match.dateToPlay, 'shortDate')}` : '-';
+        matchInfo.fecha = fecha;
+        const hora = match.hourToPlay ? `${match.hourToPlay}` : '-';
+        matchInfo.hora = hora;
+        const cancha = match.fieldName ?   `${match.fieldName}` : '-';
+        matchInfo.cancha = cancha;
         body.push(Object.values(matchInfo));
       });
 
