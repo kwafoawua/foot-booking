@@ -39,7 +39,7 @@ export class ListaInscripcionComponent implements OnInit {
 
   ngOnInit() {
     this.inscriptionEndDate = this.route.snapshot.params.inscriptionEndDate;
-    this.disableCancelButton = moment(this.inscriptionEndDate).isSameOrAfter(new Date());
+    this.disableCancelButton = moment(this.inscriptionEndDate).isBefore(new Date());
   }
 
   unsubscribeDialog(tournamentInscription, index) {
