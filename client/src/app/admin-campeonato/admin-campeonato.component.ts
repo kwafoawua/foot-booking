@@ -2,10 +2,10 @@ import {Component, EventEmitter, Inject, OnInit, Output, ViewChild} from '@angul
 import { TournamentService } from '../_services/tournament.service';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-import {Router} from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
-import {CalendarEvent} from "angular-calendar";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {CalendarEvent} from 'angular-calendar';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MercadoPagoService} from '../_services/mercado-pago.service';
 
@@ -54,8 +54,9 @@ export class AdminCampeonatoComponent implements OnInit {
         error => console.log(error));
   }
 
-  goToDetail(id) {
-    this.router.navigate(['admin/campeonato', id]);
+  goToDetail(id, ied) {
+    const navParams: NavigationExtras = { queryParams: { inscriptionEndDate: ied }};
+    this.router.navigate(['admin/campeonato', id], navParams);
   }
 
 

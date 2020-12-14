@@ -27,6 +27,7 @@
           style="float: right"
           mat-flat-button
           color="warn"
+          [disabled]="disableCancelButton"
           (click)="unsubscribeDialog(ins, i)">
           Cancelar Inscripción
         </button>

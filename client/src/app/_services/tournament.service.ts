@@ -256,8 +256,11 @@ private tState: TState[] = [
         const vtg = match.visitorTeam.goals;
         const isLtg = typeof(ltg) === 'number' && ltg >= 0;
         const isVtg = typeof(vtg) === 'number' && vtg >= 0;
-        matchInfo.localTeam = `${match.localTeam.teamName} ${isLtg ? ' - ' + ltg : ''}`;
-        matchInfo.visitorTeam = `${match.visitorTeam.teamName} ${isVtg ?  ' - ' + vtg : ''}`;
+        const localTeam = match.localTeam.teamName && isLtg ?  `${match.localTeam.teamName} ${isLtg ? ' - ' + ltg : ''}` : '-';
+        matchInfo.localTeam = localTeam;
+        const visitorTeam = match.visitorTeam.teamName && isVtg ?  `${match.visitorTeam.teamName} ${isVtg ? ' - ' + vtg : ''}` : '-';
+        matchInfo.localTeam = localTeam;
+        matchInfo.visitorTeam = visitorTeam;
         matchInfo.fecha = this.pipe.transform(match.dateToPlay, 'shortDate');
         matchInfo.hora = match.hourToPlay;
         matchInfo.cancha = match.fieldName;

@@ -2,6 +2,8 @@ import {Component, EventEmitter, Inject, Input, OnInit, Output} from '@angular/c
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {TournamentService} from '../../_services/tournament.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-lista-inscripcion',
@@ -13,6 +15,8 @@ export class ListaInscripcionComponent implements OnInit {
   @Input() inscriptions: any[];
   @Output() updateInscriptions = new EventEmitter<any[]>();
   @Output() updateTorneo = new EventEmitter<string>();
+  inscriptionEndDate: string;
+  disableCancelButton = false;
 
   colorArray = ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6',
     '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D',
@@ -25,10 +29,17 @@ export class ListaInscripcionComponent implements OnInit {
     '#FF3380', '#CCCC00', '#66E64D', '#4D80CC', '#9900B3',
     '#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF'];
 
-  constructor(private tournamentService: TournamentService, public dialog: MatDialog,
-              public snackBar: MatSnackBar) {}
+  constructor(
+    private tournamentService: TournamentService,
+    public dialog: MatDialog,
+    public snackBar: MatSnackBar,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit() {
+    this.inscriptionEndDate = this.route.snapshot.params.inscriptionEndDate;
+    this.disableCancelButton = moment(this.inscriptionEndDate).isSameOrAfter(new Date());
   }
 
   unsubscribeDialog(tournamentInscription, index) {

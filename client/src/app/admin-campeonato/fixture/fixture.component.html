@@ -5,10 +5,10 @@
     <p>⚽ Recordá que en caso de empate más allá de como decidan resolver el partido (penales, tiempo extra o gol de oro) se deberá cargar el resultado final de la resolución para que el sistema pueda dar avance a uno de los equipos.</p>
    <div class="d-flex justify-content-between">
      <div>
-       <div *ngIf="inscriptions.length > 8">
+       <div *ngIf="inscriptions?.length > 8">
          <button mat-flat-button (click)="shuffleMatches()">Asignar Octavos</button>
        </div>
-       <div *ngIf="inscriptions.length <= 8">
+       <div *ngIf="inscriptions?.length <= 8">
          <button mat-flat-button (click)="shuffleMatches()" [disabled]="true">Asignar Octavos</button>
          <span style="margin-left: 10px">Se necesitan al menos 9 equipos inscriptos</span>
        </div>
