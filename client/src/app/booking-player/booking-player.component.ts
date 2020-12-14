@@ -16,6 +16,7 @@ export class BookingPlayerComponent implements OnInit {
   count = 0;
   pageSize = 5;
   pageSizes = [5, 10, 15];
+  loading = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,6 +27,7 @@ export class BookingPlayerComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.loading = true;
     const _id: string = JSON.parse(localStorage.getItem('currentUser'))._id;
     this.playerId = _id;
     this.getBookings();
@@ -38,6 +40,7 @@ export class BookingPlayerComponent implements OnInit {
       const {bookings, totalItems } = data;
       this.count = totalItems;
       this.bookings = bookings;
+      this.loading=false;
     });
   }
 
