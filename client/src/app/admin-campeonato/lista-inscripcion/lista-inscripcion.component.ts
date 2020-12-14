@@ -13,10 +13,11 @@ import * as moment from 'moment';
 export class ListaInscripcionComponent implements OnInit {
 
   @Input() inscriptions: any[];
-  @Input() inscriptionEndDate: string;
   @Output() updateInscriptions = new EventEmitter<any[]>();
   @Output() updateTorneo = new EventEmitter<string>();
   disableCancelButton = false;
+  tournament: any;
+  tournamentId: string;
 
   colorArray = ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6',
     '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D',
@@ -38,7 +39,15 @@ export class ListaInscripcionComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.disableCancelButton = moment(this.inscriptionEndDate).isBefore(new Date());
+    this.tournamentId = this.route.snapshot.params[ 'id' ];
+    this.getTournament()
+  }
+
+  getTournament() {
+    this.tournamentService.getTournamentInfo(this.tournamentId).subscribe( (data: any) => {
+      this.tournament = data.tournament;
+      this.disableCancelButton = this.tournament.state === 'Iniciado' || this.tournament.state === 'Finalizado';
+    });
   }
 
   unsubscribeDialog(tournamentInscription, index) {
