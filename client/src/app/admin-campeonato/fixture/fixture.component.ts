@@ -211,8 +211,8 @@ myTournamentData: any;
   }
 
   mapPhaseToMatch(match, phaseId, phaseType, tournamentId) {
-    const localTeamName = !fixtureRegexp(match.localTeam.teamName) ? match.localTeam.teamName : null;
-    const visitorTeamName = !fixtureRegexp(match.visitorTeam.teamName) ? match.visitorTeam.teamName : null;
+    const localTeamName = !fixtureRegexp(match.localTeam.teamName) ? match.localTeam.teamName : '-';
+    const visitorTeamName = !fixtureRegexp(match.visitorTeam.teamName) ? match.visitorTeam.teamName :  '-';
 
     return {
       field: null,
