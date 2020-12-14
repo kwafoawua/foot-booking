@@ -31,6 +31,34 @@ exports.registerBookingsForPhase = async (bookingId, clubId, dateToPlay, hourDat
     return Booking.findOneAndUpdate(query, update, options);
 }
 
+exports.updateInicialBookingsForPhase = async matches => {
+    for (const match of matches) {
+        if (match._doc.localTeam.teamName && match._doc.visitorTeam.teamName) {
+            const teamsToShow =  bookingMatchName(match._doc.localTeam.teamName, match._doc.visitorTeam.teamName);
+            await Booking.findOneAndUpdate(
+                {
+                    _id: match._doc.bookingId,
+                    isTournamentBooking: true
+                },
+                {
+                    $set: {
+                        'player.lastName': teamsToShow,
+                        'status': 'Reservado'
+                    }
+                }
+            );
+        } else {
+            await Booking.findOneAndUpdate(
+                {
+                    _id: match._doc.bookingId,
+                    isTournamentBooking: true
+                },
+                {status: 'Cancelado'}
+            );
+        }
+    }
+}
+
 const bookingMatchName = (localName, visitorName) => {
     const DEFAULT_BOOKING_NAME = 'Esperando definición';
     const local = localName || DEFAULT_BOOKING_NAME;
