@@ -13,9 +13,9 @@ import * as moment from 'moment';
 export class ListaInscripcionComponent implements OnInit {
 
   @Input() inscriptions: any[];
+  @Input() inscriptionEndDate: string;
   @Output() updateInscriptions = new EventEmitter<any[]>();
   @Output() updateTorneo = new EventEmitter<string>();
-  inscriptionEndDate: string;
   disableCancelButton = false;
 
   colorArray = ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6',
@@ -38,7 +38,6 @@ export class ListaInscripcionComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.inscriptionEndDate = this.route.snapshot.params.inscriptionEndDate;
     this.disableCancelButton = moment(this.inscriptionEndDate).isBefore(new Date());
   }
 

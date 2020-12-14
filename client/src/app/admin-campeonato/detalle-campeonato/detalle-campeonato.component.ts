@@ -11,6 +11,7 @@ export class DetalleCampeonatoComponent implements OnInit {
 
   tournamentId: string;
   inscriptions: any;
+  tournament: any;
   constructor(
     private tournamentService: TournamentService,
     private route: ActivatedRoute,
@@ -21,9 +22,15 @@ export class DetalleCampeonatoComponent implements OnInit {
     this.tournamentId = this.route.snapshot.params[ 'id' ];
     if (this.tournamentId) {
       this.getInscriptions();
+
     }
   }
 
+  getTournament() {
+    this.tournamentService.getTournamentInfo(this.tournamentId).subscribe( (data: any) => {
+      this.tournament = data.tournament;
+    });
+  }
   getInscriptions() {
     this.tournamentService.getAllInscriptions(this.tournamentId).subscribe((data: any) => {
       this.inscriptions = data.inscriptions;
