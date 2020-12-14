@@ -93,7 +93,8 @@ exports.randomMatchesLink = async (req, res) => {
                     'matches.7.state': PENDING_GAME,
                 }
             }, {new: true});
-        await sendShuffleEmails(req.params.tournamentId);
+        sendShuffleEmails(req.params.tournamentId);
+        bookingService.updateInicialBookingsForPhase(phases._doc.matches);
         await res.status(200).send({
             phases: {...phases._doc},
             msg: "Generación de sorteo para campeonato de 16 realizada exitosamente"
