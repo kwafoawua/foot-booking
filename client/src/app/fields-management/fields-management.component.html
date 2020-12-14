@@ -88,9 +88,9 @@
   </div>
   <div class="modal-body">
     <div class="container">
-      <p>Fecha: {{modalData?.event.booking.playingDate | date:"dd/MM/yy" }} | Hora: {{modalData?.event.booking.playingTime }}</p>
-      <p>Equipos del partido: {{modalData?.event.booking.player.lastName }}</p>
-      <p>Cancha {{modalData?.event.booking.field.fieldName}}</p>
+      <p>Fecha: <b>{{modalData?.event.booking.playingDate | date:"dd/MM/yy" }} | Hora: {{modalData?.event.booking.playingTime }}</b></p>
+      <p>Equipos del partido:<b> {{modalData?.event.booking.player.lastName }} </b></p>
+      <p>Cancha <b>{{modalData?.event.booking.field.fieldName}}</b></p>
     </div>
   </div>
   <div class="modal-footer">
