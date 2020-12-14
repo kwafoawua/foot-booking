@@ -32,30 +32,27 @@ exports.registerBookingsForPhase = async (bookingId, clubId, dateToPlay, hourDat
 }
 
 exports.updateInicialBookingsForPhase = async matches => {
+    let nameToShow;
+    let status = 'Reservado';
     for (const match of matches) {
         if (match._doc.localTeam.teamName && match._doc.visitorTeam.teamName) {
-            const teamsToShow =  bookingMatchName(match._doc.localTeam.teamName, match._doc.visitorTeam.teamName);
-            await Booking.findOneAndUpdate(
-                {
-                    _id: match._doc.bookingId,
-                    isTournamentBooking: true
-                },
-                {
-                    $set: {
-                        'player.lastName': teamsToShow,
-                        'status': 'Reservado'
-                    }
-                }
-            );
+            nameToShow = bookingMatchName(match._doc.localTeam.teamName, match._doc.visitorTeam.teamName);
         } else {
-            await Booking.findOneAndUpdate(
-                {
-                    _id: match._doc.bookingId,
-                    isTournamentBooking: true
-                },
-                {status: 'Cancelado'}
-            );
+            nameToShow = `${match._doc.localTeam.teamName || match._doc.visitorTeam.teamName} - Sin Adversario`;
+            status = 'Cancelado';
         }
+        await Booking.findOneAndUpdate(
+            {
+                _id: match._doc.bookingId,
+                isTournamentBooking: true
+            },
+            {
+                $set: {
+                    'player.lastName': nameToShow,
+                    'status': status
+                }
+            }
+        );
     }
 }
 
