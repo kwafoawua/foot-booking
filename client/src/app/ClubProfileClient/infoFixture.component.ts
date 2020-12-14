@@ -75,8 +75,8 @@ export class InfoFixtureComponent implements OnInit{
   }
 
   mapPhaseToMatch(match, phaseId, phaseType, tournamentId) {
-    const localTeamName = !fixtureRegexp(match.localTeam.teamName) ? match.localTeam.teamName : null;
-    const visitorTeamName = !fixtureRegexp(match.visitorTeam.teamName) ? match.visitorTeam.teamName : null;
+    const localTeamName = match.localTeam.teamName ? match.localTeam.teamName : '-';
+    const visitorTeamName = match.visitorTeam.teamName ? match.visitorTeam.teamName : '-';
     return {
       field: null,
       fieldId: match.fieldId,
