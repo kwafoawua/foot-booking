@@ -3,9 +3,9 @@
     <app-definicion></app-definicion>
   </mat-tab>
   <mat-tab label="Inscripciones">
-    <app-lista-inscripcion [inscriptions]="inscriptions" (updateInscriptions)="updateInscriptions($event)"></app-lista-inscripcion>
+    <app-lista-inscripcion [inscriptions]="inscriptions" [inscriptionEndDate]="tournament?.inscriptionEndDate" (updateInscriptions)="updateInscriptions($event)"></app-lista-inscripcion>
   </mat-tab>
   <mat-tab label="Fases">
-    <app-fixture [inscriptions]="inscriptions" [inscriptionEndDate]="tournament?.inscriptionEndDate"></app-fixture>
+    <app-fixture [inscriptions]="inscriptions"></app-fixture>
   </mat-tab>
 </mat-tab-group>
