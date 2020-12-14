@@ -38,7 +38,6 @@ export class InfoFixtureComponent implements OnInit{
         this.setWinners.emit(winners);
       }
       this.generateTournamentData(data.phases);
-      console.log('las fases', data.phases);
       this.phases = data.phases;
     });
   }
@@ -76,17 +75,20 @@ export class InfoFixtureComponent implements OnInit{
   }
 
   mapPhaseToMatch(match, phaseId, phaseType, tournamentId) {
-    console.log('maphasetomatch regexpq', fixtureRegexp(match.localTeam.teamName));
     const localTeamName = !fixtureRegexp(match.localTeam.teamName) ? match.localTeam.teamName : null;
     const visitorTeamName = !fixtureRegexp(match.visitorTeam.teamName) ? match.visitorTeam.teamName : null;
     return {
+      field: null,
+      fieldId: match.fieldId,
+      fieldName: match.fieldName,
       tournamentId,
-      dateToPlay: match.dateToPlay,
       hourDate: match.hourToPlay || null,
+      dateToPlay: match.dateToPlay || null,
       id: match._id,
       state: match.state,
       phaseId,
       phaseType,
+      bookingId: match.bookingId || null,
       teams: [
         { name: localTeamName, score: match.localTeam.goals >= 0 ? match.localTeam.goals : null },
         { name: visitorTeamName, score: match.localTeam.goals >= 0 ? match.visitorTeam.goals : null }

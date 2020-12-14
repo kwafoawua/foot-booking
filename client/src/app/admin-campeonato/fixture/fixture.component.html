@@ -1,21 +1,32 @@
-
-
-<button mat-flat-button (click)="shuffleMatches()">Asignar Octavos</button>
-<ng-container *ngIf="tournamentState !== 'Nuevo' else shuffleIt">
-  <div class="mt-2" *ngIf="esSinAsignar">
-    <p>⚽ Los equipos de octavos de final serán asignados aleatoriamente cuando se completen las inscripciones.</p>
+<ng-container *ngIf="tournamentState !== 'Nuevo'">
+  <div class="mt-2"  *ngIf="tournamentState !== 'Iniciado' && tournamentState !== 'Finalizado'">
+    <p>⚽ Los equipos de octavos de final serán asignados aleatoriamente.</p>
     <p>⚽ Puedes ir cargando las reservas de las canchas para los partidos interactuando con el fixture presentado abajo. Los resultados de los partidos sólo podrás cargalos en el día en que se disputen y automáticamente irán avanzando los equipos ganadores.</p>
     <p>⚽ Recordá que en caso de empate más allá de como decidan resolver el partido (penales, tiempo extra o gol de oro) se deberá cargar el resultado final de la resolución para que el sistema pueda dar avance a uno de los equipos.</p>
-    <div *ngIf="inscriptions.length > 0">
-      <button mat-flat-button (click)="shuffleMatches()">Asignar Octavos</button>
-    </div>
-    <div *ngIf="inscriptions.length <= 15">
-      <button mat-flat-button (click)="shuffleMatches()" [disabled]="true">Asignar Octavos</button>
-      <span style="margin-left: 10px">Se necesitan 16 equipos inscriptos</span>
-    </div>
+   <div class="d-flex justify-content-between">
+     <div>
+       <div *ngIf="inscriptions.length > 8">
+         <button mat-flat-button (click)="shuffleMatches()">Asignar Octavos</button>
+       </div>
+       <div *ngIf="inscriptions.length <= 8">
+         <button mat-flat-button (click)="shuffleMatches()" [disabled]="true">Asignar Octavos</button>
+         <span style="margin-left: 10px">Se necesitan al menos 9 equipos inscriptos</span>
+       </div>
+     </div>
+     <div>
+       <button
+         mat-flat-button
+         color="primary"
+         (click)="setCampeonatoState('Iniciado')"
+         [disabled]="!sePuedeIniciarCampeonato"
+       >
+         Iniciar Campeonato
+       </button>
+     </div>
+   </div>
   </div>
 
-  <div class="row mt-2" *ngIf="tournamentState === 'Completo'">
+<!--  <div class="row mt-2" *ngIf="tournamentState === 'Completo'">
     <div class="col-12 col-md-8">
       <div class="alert alert-info alert-dismissible fade show" role="alert">
         <span [ngStyle]="{fontSize: '12px'}">
@@ -37,7 +48,7 @@
         Iniciar Campeonato
       </button>
     </div>
-  </div>
+  </div>-->
 
   <div class="row mt-2" *ngIf="tournamentState === 'Iniciado'">
     <div class="col-md-9"></div>

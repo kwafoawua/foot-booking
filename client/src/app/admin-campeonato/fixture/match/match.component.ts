@@ -55,7 +55,6 @@ export class MatchComponent implements OnInit {
 
   ngOnInit() {
     if (this.match) {
-      console.log(this.match);
       const {dateToPlay, hourDate, teams } = this.match;
       const myFormattedDate = this.pipe.transform(dateToPlay, 'shortDate');
       if (myFormattedDate && hourDate) {
@@ -147,7 +146,6 @@ export class MatchUpdateDialogComponent implements OnInit{
   }
 
   setFieldValues(field: any) {
-    console.log(field);
   }
 
   loadHoursValues(date: Date, fixedHour?: string) {
