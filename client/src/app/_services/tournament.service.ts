@@ -211,6 +211,10 @@ private tState: TState[] = [
     return this.http.get<any[]>('/inscription/player/' + user, {params});
   }
 
+  startTournament(id: string) {
+    return this.http.get(`/tournament/start/${id}`)
+  }
+
   unsubscribeTeam(id: string) {
     return this.http.delete(`/inscription/${id}`);
   }

@@ -10,7 +10,9 @@ const moment = require('moment');
 const { getInscriptionEmails } = require('./inscriptionController');
 const Tournament = require('../models/Tournament');
 const { sendEmail } = require('./mailing');
-const bookingService = require('../services/booking.service')
+const bookingService = require('../services/booking.service');
+const { getSettersPhase } = require('../services/phase.service');
+const _ = require('lodash');
 
 /**
  *  Phases creation. This functions creates all the different phases for a Tournament. The phases should be created
@@ -204,3 +206,36 @@ exports.updatePhase = async (req, res) => {
         res.status(500).send("Ocurrio un error en la actualizacion de la fase: " + error);
     }
 }
+
+exports.startTournament = async (req, res) => {
+  const tournamentId = req.params._id;
+  try {
+    let phases = await Phase.find({
+        tournamentId: mongoose.Types.ObjectId(tournamentId)
+    });
+
+    const { setOctavos, setCuartos } = getSettersPhase(phases);
+    const toUpdate = [{set: setOctavos, phaseType: 'Octavos de final'}, {set: setCuartos, phaseType: 'Cuartos de final'}];
+
+    if(!_.isEmpty(setOctavos) && !_.isEmpty(setCuartos)) {
+      await Promise.all(toUpdate.map(async ({set, phaseType}) => {
+        await Phase.findOneAndUpdate(
+          { $and: [{"tournamentId": mongoose.Types.ObjectId(tournamentId)},{ phaseType }] },
+          { $set: set }, {useFindAndModify: false}
+        );
+      }));
+    }
+
+
+    await Tournament.findOneAndUpdate(
+      {_id: mongoose.Types.ObjectId(tournamentId)},
+      {$set: { state: 'Iniciado' } },
+      {new: true}
+      );
+
+    await res.json({setCuartos, setOctavos});
+} catch (error) {
+    res.status(500).send("Ocurrio un error imprevisto en la obtencion de fases del campeonato");
+}
+
+};

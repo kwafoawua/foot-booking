@@ -82,6 +82,7 @@ router.get('/tournamentsInscriptions/:clubId', tournamentController.getAllTourna
 router.put('/tournament/:_id', tournamentController.updateTournament);
 router.delete('/tournament/:_id', tournamentController.deleteTournamente);
 router.get('/filterTournaments', tournamentController.filterTournament);
+router.get('/tournament/start/:_id', phaseController.startTournament);
 
 /* Inscription to Tournament Controller */
 router.post('/inscription/enroll', inscriptionController.newTournamentInscription);
