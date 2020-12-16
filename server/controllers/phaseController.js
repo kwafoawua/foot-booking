@@ -214,20 +214,12 @@ exports.startTournament = async (req, res) => {
         tournamentId: mongoose.Types.ObjectId(tournamentId)
     });
 
-    const { setCuartos } = getSettersPhase(phases);
-    // const toUpdate = [{set: setOctavos, phaseType: 'Octavos de final'}, {set: setCuartos, phaseType: 'Cuartos de final'}];
+    const { setCuartos, setOctavos } = getSettersPhase(phases);
 
     const cuartosDeFinal = await Phase.findOneAndUpdate(
-      { $and: [{"tournamentId": mongoose.Types.ObjectId(tournamentId)},{ phaseType: 'Octavos de final' }] },
+      { $and: [{"tournamentId": mongoose.Types.ObjectId(tournamentId)},{ phaseType: 'Cuartos de final' }] },
       { $set: setCuartos }, {useFindAndModify: false}
     );
-
-    // await Promise.all(cuartosDeFinal.matches.map( async (match) => {
-    //   const { dateToPlay, hourToPlay, fieldId } = 
-    //   if(dateToPlay && hourDate && field) {
-    //     bookingMatch = await bookingService.registerBookingsForPhase(bookingId, clubId, dateToPlay, hourDate, field, tournamentName, tournamentId, bookingState, matchId, localTeam, visitorTeam);
-    // }
-    // }));
 
     await Promise.all(cuartosDeFinal.matches.map( async (match) => {
         if(match.bookingId) {
@@ -239,6 +231,12 @@ exports.startTournament = async (req, res) => {
           });
         }
     }));
+
+    await Phase.findOneAndUpdate(
+      { $and: [{"tournamentId": mongoose.Types.ObjectId(tournamentId)},{ phaseType: 'Octavos de final' }] },
+      { $set: setOctavos }, {useFindAndModify: false}
+    );
+    
 
     await Tournament.findOneAndUpdate(
       {_id: mongoose.Types.ObjectId(tournamentId)},

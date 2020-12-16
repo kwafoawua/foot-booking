@@ -16,7 +16,7 @@ exports.getSettersPhase = (phases) => {
   const octavos = phases.find(phase => phase.phaseType === 'Octavos de final');
 
   const setCuartos = {};
-  // const setOctavos = {};
+  const setOctavos = {};
 
   octavos.matches.forEach((match, index) => {
     const esPar = index % 2 === 0;
@@ -37,10 +37,10 @@ exports.getSettersPhase = (phases) => {
     }
     const cuartosState = `matches.${nextIndex}.state`
     setCuartos[cuartosState] = 'Pendiente de Juego';
-    // const octavosState = `matches.${index}.state`;
-    // setOctavos[octavosState] = 'Finalizado';
+    const octavosState = `matches.${index}.state`;
+    setOctavos[octavosState] = 'Finalizado';
 
   });
 
-  return { setCuartos };
+  return { setCuartos, setOctavos };
 };

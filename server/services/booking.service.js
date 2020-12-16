@@ -23,7 +23,7 @@ exports.registerBookingsForPhase = async (bookingId, clubId, dateToPlay, hourDat
         paidMethod: 'Torneo',
         player: {
             name: `${tournamentName} - ${phaseType}` || `Campeonato - ${phaseType}`,
-            lastName: bookingMatchName(localTeam, visitorTeam)
+            lastName: this.bookingMatchName(localTeam, visitorTeam)
         },
         paymentStatus: 'Pago Total'
     };
@@ -36,10 +36,10 @@ exports.updateInicialBookingsForPhase = async matches => {
     let status = 'Reservado';
     for (const match of matches) {
         if (match._doc.localTeam.teamName && match._doc.visitorTeam.teamName) {
-            nameToShow = bookingMatchName(match._doc.localTeam.teamName, match._doc.visitorTeam.teamName);
+            nameToShow = this.bookingMatchName(match._doc.localTeam.teamName, match._doc.visitorTeam.teamName);
         } else {
             nameToShow = `${match._doc.localTeam.teamName || match._doc.visitorTeam.teamName} - Sin Adversario`;
-            status = 'Finalizado';
+            status = 'Cancelado';
         }
         await Booking.findOneAndUpdate(
             {
