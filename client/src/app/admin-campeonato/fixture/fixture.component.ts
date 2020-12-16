@@ -270,6 +270,8 @@ myTournamentData: any;
 
   iniciarCampeonato () {
     this.tournamentService.startTournament(this.tournamentId).subscribe( () => {
+      this.tournamentState = 'Iniciado';
+      this.getPhases();
       this.snackBar.open('Se inició el campeonato', null, {
         duration: 2000
       });
