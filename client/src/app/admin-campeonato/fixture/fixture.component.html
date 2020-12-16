@@ -1,4 +1,4 @@
-<ng-container *ngIf="tournamentState !== 'Nuevo'">
+<ng-container *ngIf="tournamentState !== 'Nuevo'; else shuffleIt">
   <div class="mt-2"  *ngIf="tournamentState !== 'Iniciado' && tournamentState !== 'Finalizado'">
     <p>⚽ Los equipos de octavos de final serán asignados aleatoriamente.</p>
     <p>⚽ Puedes ir cargando las reservas de las canchas para los partidos interactuando con el fixture presentado abajo. Los resultados de los partidos sólo podrás cargalos en el día en que se disputen y automáticamente irán avanzando los equipos ganadores.</p>
@@ -17,7 +17,7 @@
        <button
          mat-flat-button
          color="primary"
-         (click)="setCampeonatoState('Iniciado')"
+         (click)="iniciarCampeonato('Iniciado')"
          [disabled]="!sePuedeIniciarCampeonato"
        >
          Iniciar Campeonato
@@ -100,9 +100,9 @@
 
 
 <ng-template #shuffleIt>
-  <p>⚽ Los equipos de octavos de final serán asignados aleatoriamente cuando se completen las inscripciones.</p>
-  <p>⚽ Puedes ir cargando las reservas de las canchas para los partidos interactuando con el fixture presentado abajo. Los resultados de los partidos sólo podrás cargalos en el día en que se disputen y automáticamente irán avanzando los equipos ganadores.</p>
-  <p>⚽ Recordá que en caso de empate más allá de como decidan resolver el partido (penales, tiempo extra o gol de oro) se deberá cargar el resultado final de la resolución para que el sistema pueda dar avance a uno de los equipos.</p>
+  <p>⚽ Los equipos de octavos de final serán asignados aleatoriamente.</p>
+    <p>⚽ Puedes ir cargando las reservas de las canchas para los partidos interactuando con el fixture presentado abajo. Los resultados de los partidos sólo podrás cargalos en el día en que se disputen y automáticamente irán avanzando los equipos ganadores.</p>
+    <p>⚽ Recordá que en caso de empate más allá de como decidan resolver el partido (penales, tiempo extra o gol de oro) se deberá cargar el resultado final de la resolución para que el sistema pueda dar avance a uno de los equipos.</p>
   <button mat-button (click)="shuffleMatches()" [disabled]="!isGenerable">Asignar Octavos</button>
-  <span *ngIf="!isGenerable">Se necesitan 16 equipos inscriptos</span>
+  <span *ngIf="!isGenerable">Se necesitan 9 equipos inscriptos</span>
 </ng-template>

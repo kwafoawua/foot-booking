@@ -42,5 +42,5 @@ exports.getSettersPhase = (phases) => {
 
   });
 
-  return {setCuartos, setOctavos};
+  return { setCuartos, setOctavos };
 };

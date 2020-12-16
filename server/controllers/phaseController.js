@@ -9,6 +9,7 @@ const {final} = require("../models/const/Final");
 const moment = require('moment');
 const { getInscriptionEmails } = require('./inscriptionController');
 const Tournament = require('../models/Tournament');
+const Booking = require('../models/Booking');
 const { sendEmail } = require('./mailing');
 const bookingService = require('../services/booking.service');
 const { getSettersPhase } = require('../services/phase.service');
@@ -214,18 +215,29 @@ exports.startTournament = async (req, res) => {
         tournamentId: mongoose.Types.ObjectId(tournamentId)
     });
 
-    const { setOctavos, setCuartos } = getSettersPhase(phases);
-    const toUpdate = [{set: setOctavos, phaseType: 'Octavos de final'}, {set: setCuartos, phaseType: 'Cuartos de final'}];
+    const { setCuartos, setOctavos } = getSettersPhase(phases);
 
-    if(!_.isEmpty(setOctavos) && !_.isEmpty(setCuartos)) {
-      await Promise.all(toUpdate.map(async ({set, phaseType}) => {
-        await Phase.findOneAndUpdate(
-          { $and: [{"tournamentId": mongoose.Types.ObjectId(tournamentId)},{ phaseType }] },
-          { $set: set }, {useFindAndModify: false}
-        );
-      }));
-    }
+    const cuartosDeFinal = await Phase.findOneAndUpdate(
+      { $and: [{"tournamentId": mongoose.Types.ObjectId(tournamentId)},{ phaseType: 'Cuartos de final' }] },
+      { $set: setCuartos }, {useFindAndModify: false, new: true}
+    );
 
+    await Promise.all(cuartosDeFinal._doc.matches.map( async (match) => {
+        if(match.bookingId) {
+          await Booking.findOneAndUpdate( {_id: mongoose.Types.ObjectId(match.bookingId)},
+          {
+            $set: {
+            'player.lastName': bookingService.bookingMatchName(match.localTeam.teamName, match.visitorTeam.teamName),
+            }
+          });
+        }
+    }));
+
+    await Phase.findOneAndUpdate(
+      { $and: [{"tournamentId": mongoose.Types.ObjectId(tournamentId)},{ phaseType: 'Octavos de final' }] },
+      { $set: setOctavos }, {useFindAndModify: false}
+    );
+    
 
     await Tournament.findOneAndUpdate(
       {_id: mongoose.Types.ObjectId(tournamentId)},
@@ -233,7 +245,7 @@ exports.startTournament = async (req, res) => {
       {new: true}
       );
 
-    await res.json({setCuartos, setOctavos});
+    await res.json({setCuartos});
 } catch (error) {
     res.status(500).send("Ocurrio un error imprevisto en la obtencion de fases del campeonato");
 }

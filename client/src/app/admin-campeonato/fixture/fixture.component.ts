@@ -268,6 +268,19 @@ myTournamentData: any;
     this.sePuedeIniciarCampeonato = moment(this.tournament.inscriptionEndDate).isSameOrBefore(new Date());
   }
 
+  iniciarCampeonato () {
+    this.tournamentService.startTournament(this.tournamentId).subscribe( () => {
+      this.tournamentState = 'Iniciado';
+      this.getPhases();
+      this.snackBar.open('Se inició el campeonato', null, {
+        duration: 2000
+      });
+    },
+    error => {
+      console.log(error);
+    })
+  }
+
   setCampeonatoState(stateName) {
     this.tournamentService.updateTournament({_id: this.tournamentId, state: stateName}).subscribe((data) => {
       this.tournamentState = stateName;
