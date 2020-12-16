@@ -3,9 +3,9 @@
       <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="mobileQuery.matches">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>Footbooking</span>
+      <span>Footbooking Admin</span>
       <span class="spacer"></span>
-      <button mat-stroked-button routerLink="/">Ir al Sitio</button>
+      <button mat-stroked-button class="admin-header-button" routerLink="/">Ir al Sitio</button>
       <img class="profile-image" src="{{profileData.profileImg}}" alt="Foto de perfil">
       <span>{{profileData?.name}}</span>
 
@@ -27,6 +27,10 @@
             <span class="material-icons">account_circle</span>Perfil</a>
           <a mat-list-item [routerLink]="['/admin/configuracion/',profileData?._id]">
             <span class="material-icons">settings</span>Configuración</a>
+          <a mat-list-item (click)=auth.logout() [routerLink]="['/']">
+            <span class="material-icons">exit_to_app</span>
+            Cerrar Sesión
+          </a>
         </mat-nav-list>
       </mat-nav-list>
     </mat-sidenav>

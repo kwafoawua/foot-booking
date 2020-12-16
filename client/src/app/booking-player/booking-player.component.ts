@@ -6,7 +6,8 @@ import { PlayerService } from '../_services/player.service';
 import { PaginationService } from '../_services';
 
 @Component({
-  templateUrl: 'booking-player.html'
+  templateUrl: 'booking-player.html',
+  styleUrls: ['./booking-player.component.css']
 })
 
 export class BookingPlayerComponent implements OnInit {

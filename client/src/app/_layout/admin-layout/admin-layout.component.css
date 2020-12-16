@@ -21,6 +21,12 @@ html {
   width: 250px;
 }
 
+.admin-header-button {
+  border-radius: 1rem;
+  background-color: white;
+  color: black;
+}
+
 .example-is-mobile .example-toolbar {
   position: fixed;
   /* Make sure the toolbar will stay on top of the content as it scrolls past. */

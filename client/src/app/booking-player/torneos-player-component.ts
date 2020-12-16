@@ -5,7 +5,8 @@ import {TournamentService} from '../_services/tournament.service';
 import { PaginationService } from '../_services/pagination.service';
 
 @Component({
-  templateUrl: 'torneos-player.component.html'
+  templateUrl: 'torneos-player.component.html',
+  styleUrls: ['booking-player.component.css']
 })
 
 export class TorneosPlayerComponent implements OnInit{
