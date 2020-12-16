@@ -18,8 +18,8 @@
         <h5 class="card-title ">
           <a class="text-secondary" [routerLink]="['/results/club/',club?._id]">{{club?.name}}</a>
         </h5>
-        <p class="card-text">
-          <i class="fa fa-2x fa-map-marker"></i>{{club.address.shortAddress || ''}}
+        <p class="card-text d-flex align-items-center">
+          <span class="material-icons" color="primary" style="font-size: 16px;">place</span>{{club.address.shortAddress || ''}}
         </p>
 
 

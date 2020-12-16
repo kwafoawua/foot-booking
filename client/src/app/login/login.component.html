@@ -28,17 +28,19 @@
             </div>
           </div>
           <div class="form-group" [ngClass]="{ 'has-error': validateInput('email') }">
-            <label class="label-form">Email</label>
-            <input type="text" class="form-control" name="email" formControlName="email" required/>
-            <div name="valida-email" *ngIf="validateInput('email')">
+            <mat-form-field class="w-100">
+              <input matInput formControlName="email" class="form-control" type="email" placeholder="Email" required>
+            </mat-form-field>
+          <div name="valida-email" *ngIf="validateInput('email')">
               <div *ngIf="loginForm.get('email').errors?.required" class="text-danger">El email es requerido</div>
             </div>
           </div>
           <div class="form-group" [ngClass]="{ 'has-error': validateInput('password') }">
-            <label class="label-form">Contraseña</label>
-
-            <input type="password" class="form-control" name="password" formControlName="password" required/>
-            <div name="valida-password" *ngIf="validateInput('password')">
+            <mat-form-field class="w-100">
+              <input matInput formControlName="password" class="form-control" type="password" placeholder="Contraseña" required>
+              <mat-icon matSuffix (click)="hideRepeat = !hideRepeat">{{hideRepeat ? 'visibility' : 'visibility_off'}}</mat-icon>
+            </mat-form-field>
+          <div name="valida-password" *ngIf="validateInput('password')">
               <div *ngIf="loginForm.get('password').errors?.required" class="text-danger">La contraseña es requerida</div>
             </div>
           </div>

@@ -28,7 +28,7 @@ export class StorageService implements OnDestroy {
   }
 
   public reload(key: string, data: any): void {
-    console.log(data);
+    console.log('reload',data);
     this.onSubject.next({ key, value: data });
   }
 
@@ -44,7 +44,7 @@ export class StorageService implements OnDestroy {
   }
 
   private storageEventListener(event: StorageEvent) {
-    if (event.storageArea == localStorage) {
+    if (event.storageArea == localStorage && event.key === 'currentUser') {
       let v;
       try { v = JSON.parse(event.newValue); }
       catch (e) { v = event.newValue; }

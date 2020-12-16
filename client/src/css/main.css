@@ -94,7 +94,7 @@ input:focus, textarea:focus, select:focus, .form-control:focus {
 }
 
 .form-control:focus {
-  border-color: #00a651;
+  border-color: #00a651 !important;
   color: #777;
 }
 

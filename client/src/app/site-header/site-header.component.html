@@ -15,7 +15,7 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/']"
+            <a class="nav-link d-flex align-items-center" [routerLink]="['/']"
                routerLinkActive="active-link"
                [routerLinkActiveOptions]="{exact:true}"
               >
@@ -69,9 +69,9 @@
                   Preferencias
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" (click)="goToMisReservas()">
+                  <a class="dropdown-item d-flex align-items-center" (click)="goToMisReservas()">
                     <span class="material-icons" style="font-size: 16px;">today</span>Reservas</a>
-                  <a class="dropdown-item" [routerLink]="['/player/mis-campeonatos',currentUser._id]">
+                  <a class="dropdown-item d-flex align-items-center" [routerLink]="['/player/mis-campeonatos',currentUser._id]">
                     <span class="material-icons" style="font-size: 16px;">emoji_events</span>Campeonatos</a>
                 </div>
               </li>
@@ -83,7 +83,7 @@
 
 
             <li class="nav-item" >
-              <a class="nav-link" (click)=auth.logout() [routerLink]="['/']">
+              <a class="nav-link d-flex align-items-center" (click)=auth.logout() [routerLink]="['/']">
                 <span class="material-icons" style="font-size: 16px">exit_to_app</span>Cerrar Sesión</a>
             </li>
 

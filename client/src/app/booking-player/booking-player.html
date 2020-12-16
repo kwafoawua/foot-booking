@@ -14,12 +14,12 @@
             </div>
             <div *ngIf="bookings.length">
 
-              <div  class="card" *ngFor="let r of bookings  | paginate : {
+              <div  class="card mb-4" *ngFor="let r of bookings  | paginate : {
                   itemsPerPage: pageSize,
                   currentPage: page,
                   totalItems: count
                 };">
-              <div class="card-header">
+              <div class="card-header" [ngStyle]="{backgroundColor: '#ffffff !important'}">
                 <b>Club {{r.club.name | uppercase}}</b>
               </div>
               <div class="card-body">

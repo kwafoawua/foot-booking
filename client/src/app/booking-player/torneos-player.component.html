@@ -14,12 +14,12 @@
             </div>
             <div *ngIf="inscriptions.length > 0">
 
-              <div  class="card" *ngFor="let r of inscriptions  | paginate : {
+              <div  class="card mb-4" *ngFor="let r of inscriptions  | paginate : {
                   itemsPerPage: pageSize,
                   currentPage: page,
                   totalItems: count
                 };">
-                <div class="card-header">
+                <div class="card-header" [ngStyle]="{backgroundColor: '#ffffff !important'}">
                  Nombre Campeonato <b> {{r.tournamentId.tournamentName | uppercase}}</b> por <b>{{r.tournamentId.creatorClubId.name}}</b>
                 </div>
 

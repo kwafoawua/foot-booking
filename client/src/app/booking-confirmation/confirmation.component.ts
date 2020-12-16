@@ -40,10 +40,10 @@ export class ConfirmationComponent implements OnInit {
     private mpService: MercadoPagoService,
     public dialog: MatDialog,
   ) {
-    this.createForm();
   }
 
   ngOnInit() {
+    this.createForm();
     this.operationState = this.route.snapshot.queryParamMap.get('status');
     if (this.operationState !== null && this.operationState === 'approved') {
       this.confirmado = true;
@@ -78,7 +78,9 @@ export class ConfirmationComponent implements OnInit {
     console.log('ESTOOO', id);
     console.log(this.player);
     this.playerService.getById(id).subscribe(player => {
+      console.log('player',player);
       this.player = player;
+      this.reservaFinal.player = {};
       this.reservaFinal.playerName = player.name;
       this.reservaFinal.playerLastName = player.lastName;
       this.reservaFinal.player.phoneNumber = player.phoneNumber;
