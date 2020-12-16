@@ -214,18 +214,31 @@ exports.startTournament = async (req, res) => {
         tournamentId: mongoose.Types.ObjectId(tournamentId)
     });
 
-    const { setOctavos, setCuartos } = getSettersPhase(phases);
-    const toUpdate = [{set: setOctavos, phaseType: 'Octavos de final'}, {set: setCuartos, phaseType: 'Cuartos de final'}];
+    const { setCuartos } = getSettersPhase(phases);
+    // const toUpdate = [{set: setOctavos, phaseType: 'Octavos de final'}, {set: setCuartos, phaseType: 'Cuartos de final'}];
 
-    if(!_.isEmpty(setOctavos) && !_.isEmpty(setCuartos)) {
-      await Promise.all(toUpdate.map(async ({set, phaseType}) => {
-        await Phase.findOneAndUpdate(
-          { $and: [{"tournamentId": mongoose.Types.ObjectId(tournamentId)},{ phaseType }] },
-          { $set: set }, {useFindAndModify: false}
-        );
-      }));
-    }
+    const cuartosDeFinal = await Phase.findOneAndUpdate(
+      { $and: [{"tournamentId": mongoose.Types.ObjectId(tournamentId)},{ phaseType: 'Octavos de final' }] },
+      { $set: setCuartos }, {useFindAndModify: false}
+    );
 
+    // await Promise.all(cuartosDeFinal.matches.map( async (match) => {
+    //   const { dateToPlay, hourToPlay, fieldId } = 
+    //   if(dateToPlay && hourDate && field) {
+    //     bookingMatch = await bookingService.registerBookingsForPhase(bookingId, clubId, dateToPlay, hourDate, field, tournamentName, tournamentId, bookingState, matchId, localTeam, visitorTeam);
+    // }
+    // }));
+
+    await Promise.all(cuartosDeFinal.matches.map( async (match) => {
+        if(match.bookingId) {
+          await Booking.findOneAndUpdate( {_id: mongoose.Types.ObjectId(match.bookingId)},
+          {
+            $set: {
+            'player.lastName': bookingService.bookingMatchName(match.localTeam.teamName, match.visitorTeam.teamName),
+            }
+          });
+        }
+    }));
 
     await Tournament.findOneAndUpdate(
       {_id: mongoose.Types.ObjectId(tournamentId)},
@@ -233,7 +246,7 @@ exports.startTournament = async (req, res) => {
       {new: true}
       );
 
-    await res.json({setCuartos, setOctavos});
+    await res.json({setCuartos});
 } catch (error) {
     res.status(500).send("Ocurrio un error imprevisto en la obtencion de fases del campeonato");
 }

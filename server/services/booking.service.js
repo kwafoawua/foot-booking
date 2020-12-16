@@ -39,7 +39,7 @@ exports.updateInicialBookingsForPhase = async matches => {
             nameToShow = bookingMatchName(match._doc.localTeam.teamName, match._doc.visitorTeam.teamName);
         } else {
             nameToShow = `${match._doc.localTeam.teamName || match._doc.visitorTeam.teamName} - Sin Adversario`;
-            status = 'Cancelado';
+            status = 'Finalizado';
         }
         await Booking.findOneAndUpdate(
             {
@@ -56,7 +56,7 @@ exports.updateInicialBookingsForPhase = async matches => {
     }
 }
 
-const bookingMatchName = (localName, visitorName) => {
+exports.bookingMatchName = (localName, visitorName) => {
     const DEFAULT_BOOKING_NAME = 'Esperando definición';
     const local = localName || DEFAULT_BOOKING_NAME;
     const visitor = visitorName || DEFAULT_BOOKING_NAME;
