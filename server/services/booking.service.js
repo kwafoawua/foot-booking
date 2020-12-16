@@ -62,7 +62,7 @@ exports.bookingMatchName = (localName, visitorName) => {
     const visitor = visitorName || DEFAULT_BOOKING_NAME;
 
     if (local !== DEFAULT_BOOKING_NAME || visitor !== DEFAULT_BOOKING_NAME) {
-        return `${local} - ${visitor}`;
+        return `${local} vs. ${visitor}`;
     } else {
         return DEFAULT_BOOKING_NAME;
     }

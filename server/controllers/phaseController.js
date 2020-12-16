@@ -9,6 +9,7 @@ const {final} = require("../models/const/Final");
 const moment = require('moment');
 const { getInscriptionEmails } = require('./inscriptionController');
 const Tournament = require('../models/Tournament');
+const Booking = require('../models/Booking');
 const { sendEmail } = require('./mailing');
 const bookingService = require('../services/booking.service');
 const { getSettersPhase } = require('../services/phase.service');
@@ -218,10 +219,10 @@ exports.startTournament = async (req, res) => {
 
     const cuartosDeFinal = await Phase.findOneAndUpdate(
       { $and: [{"tournamentId": mongoose.Types.ObjectId(tournamentId)},{ phaseType: 'Cuartos de final' }] },
-      { $set: setCuartos }, {useFindAndModify: false}
+      { $set: setCuartos }, {useFindAndModify: false, new: true}
     );
 
-    await Promise.all(cuartosDeFinal.matches.map( async (match) => {
+    await Promise.all(cuartosDeFinal._doc.matches.map( async (match) => {
         if(match.bookingId) {
           await Booking.findOneAndUpdate( {_id: mongoose.Types.ObjectId(match.bookingId)},
           {
