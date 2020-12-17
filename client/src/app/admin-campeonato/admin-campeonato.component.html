@@ -9,19 +9,19 @@
     <div class="tabla-campeonato mat-elevation-z8">
       <table mat-table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="tournamentName">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="padding: 20px 24px; font-size: 16px"> Nombre</th>
           <td mat-cell *matCellDef="let tournament"> {{tournament.tournamentName}} </td>
         </ng-container>
         <ng-container matColumnDef="startDate">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de inicio</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 16px"> Fecha de inicio</th>
           <td mat-cell *matCellDef="let tournament"> {{tournament.startDate | date }} </td>
         </ng-container>
         <ng-container matColumnDef="state">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 16px"> Estado</th>
           <td mat-cell *matCellDef="let tournament"> {{tournament.state}} </td>
         </ng-container>
         <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <th mat-header-cell *matHeaderCellDef style="font-size: 16px">Acciones</th>
           <td mat-cell *matCellDef="let row">
             <button
               mat-icon-button
