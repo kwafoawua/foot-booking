@@ -193,14 +193,23 @@ myTournamentData: any;
   }
 
   setFinalizarCampeonato(phases: any) {
-    this.sePuedeFinalizarCampeonato = phases.every(phase => {
-      const partidoCompletado = phase.matches.every((match: any) => {
-        const localGoals = match.localTeam.goals;
-        const visitorGoals = match.visitorTeam.goals;
-        return (localGoals >= 0 && localGoals !== null) && (visitorGoals >= 0 && visitorGoals !== null);
-      });
-      return partidoCompletado;
+    
+    const finales = phases.find(p => p.phaseType === 'Final');
+    const terceroYCuarto = phases.find(p => p.phaseType === 'Tercero y Cuarto puesto');
+
+    const finalesGoles = finales.matches.every(match => {
+      const localGoals = match.localTeam.goals;
+      const visitorGoals = match.visitorTeam.goals;
+      return (localGoals >= 0 && localGoals !== null) && (visitorGoals >= 0 && visitorGoals !== null);
     });
+
+    const terceroYCuartoGoles = terceroYCuarto.matches.every(match => {
+      const localGoals = match.localTeam.goals;
+      const visitorGoals = match.visitorTeam.goals;
+      return (localGoals >= 0 && localGoals !== null) && (visitorGoals >= 0 && visitorGoals !== null);
+    })
+
+    this.sePuedeFinalizarCampeonato = finalesGoles && terceroYCuartoGoles;
   }
 
   shuffleMatches() {
