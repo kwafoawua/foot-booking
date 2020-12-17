@@ -55,7 +55,7 @@ var bookingSchema = new Schema({
     player: {
         name: {type: String, required: true},
         lastName: {type: String, required: true},
-        phoneNumber: Number,
+        phoneNumber: {type: String},
         id: {type: String},
         dni: {type: Number},
         email: {type: String},

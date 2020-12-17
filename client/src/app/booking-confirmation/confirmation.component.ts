@@ -83,7 +83,7 @@ export class ConfirmationComponent implements OnInit {
       this.reservaFinal.player = {};
       this.reservaFinal.playerName = player.name;
       this.reservaFinal.playerLastName = player.lastName;
-      this.reservaFinal.player.phoneNumber = player.phoneNumber;
+      this.reservaFinal.playerPhoneNumber = player.phoneNumber;
       this.reservaFinal.playerId = player._id;
       this.reservaFinal.playerEmail = player.email;
       this.confirmationForm.get('phoneNumber').setValue(player.phoneNumber);
@@ -112,6 +112,7 @@ export class ConfirmationComponent implements OnInit {
         if (this.confirmationForm.get('payMethod').value === 'payment-two') {
           this.onBuy();
         } else {
+          this.reservaFinal.playerPhoneNumber = this.confirmationForm.get('phoneNumber').value;
           console.log('Reserva Final ' + JSON.stringify(this.reservaFinal));
           this.clubService.guardarReserva(this.reservaFinal)
             .subscribe(

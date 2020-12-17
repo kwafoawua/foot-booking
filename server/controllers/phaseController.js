@@ -222,7 +222,12 @@ exports.startTournament = async (req, res) => {
       { $set: setCuartos }, {useFindAndModify: false, new: true}
     );
 
-    await Promise.all(cuartosDeFinal._doc.matches.map( async (match) => {
+    await Phase.findOneAndUpdate(
+      { $and: [{"tournamentId": mongoose.Types.ObjectId(tournamentId)},{ phaseType: 'Octavos de final' }] },
+      { $set: setOctavos }, {useFindAndModify: false}
+    );
+
+    await Promise.all(cuartosDeFinal.matches.map( async (match) => {
         if(match.bookingId) {
           await Booking.findOneAndUpdate( {_id: mongoose.Types.ObjectId(match.bookingId)},
           {
@@ -232,12 +237,6 @@ exports.startTournament = async (req, res) => {
           });
         }
     }));
-
-    await Phase.findOneAndUpdate(
-      { $and: [{"tournamentId": mongoose.Types.ObjectId(tournamentId)},{ phaseType: 'Octavos de final' }] },
-      { $set: setOctavos }, {useFindAndModify: false}
-    );
-    
 
     await Tournament.findOneAndUpdate(
       {_id: mongoose.Types.ObjectId(tournamentId)},
