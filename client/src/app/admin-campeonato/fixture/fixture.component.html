@@ -1,9 +1,9 @@
 <ng-container *ngIf="tournamentState !== 'Nuevo'; else shuffleIt">
-  <div class="mt-2"  *ngIf="tournamentState !== 'Iniciado' && tournamentState !== 'Finalizado'">
+  <div class="mt-2"  *ngIf="tournamentState !== 'Finalizado'" style="margin-top: 10px">
     <p>⚽ Los equipos de octavos de final serán asignados aleatoriamente.</p>
     <p>⚽ Puedes ir cargando las reservas de las canchas para los partidos interactuando con el fixture presentado abajo. Los resultados de los partidos sólo podrás cargalos en el día en que se disputen y automáticamente irán avanzando los equipos ganadores.</p>
     <p>⚽ Recordá que en caso de empate más allá de como decidan resolver el partido (penales, tiempo extra o gol de oro) se deberá cargar el resultado final de la resolución para que el sistema pueda dar avance a uno de los equipos.</p>
-   <div class="d-flex justify-content-between">
+   <div class="d-flex justify-content-between" *ngIf="tournamentState !== 'Iniciado'">
      <div>
        <div *ngIf="inscriptions?.length > 8">
          <button mat-flat-button (click)="shuffleMatches()">Asignar Octavos</button>
@@ -100,9 +100,10 @@
 
 
 <ng-template #shuffleIt>
-  <p>⚽ Los equipos de octavos de final serán asignados aleatoriamente.</p>
-    <p>⚽ Puedes ir cargando las reservas de las canchas para los partidos interactuando con el fixture presentado abajo. Los resultados de los partidos sólo podrás cargalos en el día en que se disputen y automáticamente irán avanzando los equipos ganadores.</p>
+  <div style="margin-top: 10px">
+    <p>⚽ Esta sección se terminará de habilitar una vez que <b>Publiques</b> el campeonato en la sección de "Información de Campeonato".</p>
+    <p>⚽ Los equipos de octavos de final serán asignados aleatoriamente.</p>
+    <p>⚽ Podrás ir cargando las reservas de las canchas para los partidos interactuando con un fixture que se presentará abajo una vez publicado el campeonato. Los resultados de los partidos sólo podrás cargalos en el día en que se disputen y automáticamente irán avanzando los equipos ganadores.</p>
     <p>⚽ Recordá que en caso de empate más allá de como decidan resolver el partido (penales, tiempo extra o gol de oro) se deberá cargar el resultado final de la resolución para que el sistema pueda dar avance a uno de los equipos.</p>
-  <button mat-button (click)="shuffleMatches()" [disabled]="!isGenerable">Asignar Octavos</button>
-  <span *ngIf="!isGenerable">Se necesitan 9 equipos inscriptos</span>
+  </div>
 </ng-template>
