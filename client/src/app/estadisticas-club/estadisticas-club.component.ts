@@ -6,7 +6,6 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import {PdfModel} from './model/pdf.model';
 import {TournamentService} from '../_services/tournament.service';
 import {Tournament} from '../_models/tournament';
-
 @Component({
   templateUrl: 'estadisticas-club.component.html',
   styleUrls: ['./estadisticas-club.css']
@@ -18,6 +17,7 @@ export class EstadisticasClubComponent implements OnInit {
               private tournamentService: TournamentService,
               private formBuilder: FormBuilder) {
   }
+  Math: Math = Math;
 
   get dpFromDateStatus() {
     return this.formFilter.get('dpFromDateStatus');
