@@ -73,8 +73,8 @@
           <span class="title-cards">Medios de pago</span>
         </mat-card-title>
         <mat-card-content class="content">
-            <span><strong>En sitio: </strong>{{paidMethodSitio + " % de pagos"}}</span>
-            <span><strong>MercadoPago: </strong>{{paidMethodMP + " % de pagos"}}</span>
+            <span><strong>En sitio: </strong>{{Math.round(paidMethodSitio) + " % de pagos"}}</span>
+            <span><strong>MercadoPago: </strong>{{Math.round(paidMethodMP) + " % de pagos"}}</span>
         </mat-card-content>
       </mat-card>
     </div>
@@ -169,8 +169,8 @@
         <div *ngIf="loadedReportByMonth" class="card-body chart" id="reportMonth">
           <div class="marginBottom">
             <h5>Medios de pago:</h5>
-            <span class="marginLeft"><strong>En sitio: </strong>{{paidMethodSitioReport + " % de pagos"}}</span>
-            <span><strong>MercadoPago: </strong>{{paidMethodMPReport + " % de pagos"}}</span>
+            <span class="marginLeft"><strong>En sitio: </strong>{{Math.round(paidMethodSitioReport) + " % de pagos"}}</span>
+            <span><strong>MercadoPago: </strong>{{Math.round(paidMethodMPReport) + " % de pagos"}}</span>
           </div>
           <ngx-charts-line-chart [results]="bookingDayChart"
                                   [view]="view1"

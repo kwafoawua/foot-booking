@@ -32,7 +32,7 @@
           <mat-step >
             <form class="example-container" [formGroup]="inscripcionForm">
               <ng-template matStepLabel>Términos y Condiciones</ng-template>
-              {{torneo.termsAndConditions}}
+              <p [ngStyle]="{ whiteSpace: 'pre-wrap'}">{{torneo.termsAndConditions}}</p>
               <p>
                 <mat-checkbox formControlName="TyCcheckbox">
                   <a>Acepto términos y condiciones</a>

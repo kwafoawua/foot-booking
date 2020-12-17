@@ -37,8 +37,8 @@
           </div>
           <div class="form-group" [ngClass]="{ 'has-error': validateInput('password') }">
             <mat-form-field class="w-100">
-              <input matInput formControlName="password" class="form-control" type="password" placeholder="Contraseña" required>
-              <mat-icon matSuffix (click)="hideRepeat = !hideRepeat">{{hideRepeat ? 'visibility' : 'visibility_off'}}</mat-icon>
+              <input matInput formControlName="password" class="form-control" [type]="hidePassword ? 'password' : 'text'" placeholder="Contraseña" required>
+              <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>
             </mat-form-field>
           <div name="valida-password" *ngIf="validateInput('password')">
               <div *ngIf="loginForm.get('password').errors?.required" class="text-danger">La contraseña es requerida</div>

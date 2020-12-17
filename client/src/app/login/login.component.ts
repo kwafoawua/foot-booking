@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;
   returnUrl: string;
-  hideRepeat = true;
+  hidePassword = true;
 
   constructor(
     private fb: FormBuilder,
