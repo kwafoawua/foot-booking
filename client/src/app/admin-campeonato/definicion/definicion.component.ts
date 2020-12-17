@@ -105,11 +105,12 @@ export class DefinicionComponent implements OnInit {
   updateTournament(){
     this.tournamentService.updateTournament({_id : this.tournamentId, ...this.tournamentForm.value}).subscribe(data => {
       this.snackBar.open('Se actualizaron los datos exitosamente', null, {
-        duration: 1000
+        duration: 2000
       });
+      this.router.navigate([ '/admin/campeonato' ]);
     }, error => {
       this.snackBar.open('Hubo un error al intentar actualizar los datos', null, {
-        duration: 1000
+        duration: 2000
       });
     });
   }
@@ -119,8 +120,9 @@ export class DefinicionComponent implements OnInit {
     this.tournamentService.updateTournament(tournament).subscribe(data => {
       this.getTournament();
       this.snackBar.open('Se actualizaron los datos exitosamente', null, {
-        duration: 1000
+        duration: 2000
       });
+      this.router.navigate([ '/admin/campeonato' ]);
     }, error => {
       this.snackBar.open(error, null, {
         duration: 1000
