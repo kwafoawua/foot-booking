@@ -8,5 +8,5 @@ exports.getNumberOfInscriptions = async tournamentId => {
 }
 
 exports.getInscriptions = async tournamentId => {
-       return await Promise.resolve(TournamentInscription.find({tournamentId: tournamentId}));
+       return await Promise.resolve(TournamentInscription.find({tournamentId: tournamentId, paymentStatus: 'Pagado'}));
 }
