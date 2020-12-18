@@ -24,7 +24,7 @@ exports.getSettersPhase = (phases) => {
     const visitorName = match.visitorTeam.teamName;
     const nextIndex = esPar ? index / 2 : Math.floor((index / 2));
     console.log(localName);
-    if(localName && visitorName) {
+    if(localName && visitorName && localName !== '-' && visitorName !== '-') {
       return;
     }
 
