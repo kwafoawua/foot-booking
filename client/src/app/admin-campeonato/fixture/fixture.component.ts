@@ -193,7 +193,7 @@ myTournamentData: any;
   }
 
   setFinalizarCampeonato(phases: any) {
-    
+
     const finales = phases.find(p => p.phaseType === 'Final');
     const terceroYCuarto = phases.find(p => p.phaseType === 'Tercero y Cuarto puesto');
 
@@ -277,11 +277,11 @@ myTournamentData: any;
     this.sePuedeIniciarCampeonato = moment(this.tournament.inscriptionEndDate).isSameOrBefore(new Date());
   }
 
-  iniciarCampeonato () {
+  iniciarCampeonato() {
     this.tournamentService.startTournament(this.tournamentId).subscribe( () => {
       this.tournamentState = 'Iniciado';
       this.getPhases();
-      this.snackBar.open('Se inició el campeonato', null, {
+      this.snackBar.open('Se publicó el fixture', null, {
         duration: 2000
       });
     },
