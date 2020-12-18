@@ -1,12 +1,12 @@
 const axios = require("axios");
-let bookingController = require('./BookingController.js')
-let clubController = require('./ClubController.js')
-let inscriptionController = require('./inscriptionController')
+let bookingController = require('./BookingController.js');
+let clubController = require('./ClubController.js');
+let inscriptionController = require('./inscriptionController');
 
 const mercadopago = require('mercadopago');
 const _API_ID = '5031143008001395';
 const _APP_TOKEN = 'TEST-5031143008001395-111516-733bdaea16cf2e392e5479898628d1f0-38445751';
-const _NGROK_HTTPS_URL = 'https://cd241373c028.ngrok.io';
+const _NGROK_HTTPS_URL = 'https://8882a0d6bc88.ngrok.io';
 const oauthUrl = 'https://api.mercadopago.com/oauth/token';
 
 mercadopago.configure({
