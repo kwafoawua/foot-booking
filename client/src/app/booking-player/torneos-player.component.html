@@ -1,0 +1,88 @@
+<div class="ad-post-wrapper section">
+  <div class="container">
+    <div id="faq-filter">
+      <h3>Campeonatos inscriptos</h3>
+      <div class="tab-content">
+        <div id="all-faq" class="faq-post tab-pane active">
+          <div class="faq">
+            <div *ngIf="loading === true" class="d-flex justify-content-center align-items-center">
+              <mat-spinner></mat-spinner>
+            </div>
+
+            <div *ngIf="inscriptions.length === 0  && loading === false">
+              No te has inscripto a ningún campeonato.
+            </div>
+            <div *ngIf="inscriptions.length > 0">
+
+              <div  class="card mb-4" *ngFor="let r of inscriptions  | paginate : {
+                  itemsPerPage: pageSize,
+                  currentPage: page,
+                  totalItems: count
+                };">
+                <div class="booking-player-header">
+                 Nombre Campeonato <b> {{r.tournamentId.tournamentName | uppercase}}</b> por <b>{{r.tournamentId.creatorClubId.name}}</b>
+                </div>
+
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-4 card-text">
+                      {{r.tournamentId.creatorClubId.status}}
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-4 card-text">
+                     Fecha de inscripción  <b> {{r.inscriptionDate | uppercase | date:"dd/MM/yy"}}</b>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class=".col-xs-12 col-sm-6 .col-md-8 card-text">
+
+                  Nombre de equipo <b> {{r.team.name | uppercase }}</b>
+
+                    </div>
+                </div>
+                  <div class="row">
+                    <div class=".col-xs-12 col-sm-6 .col-md-8 card-text">
+
+                     Nombre responsable <b> {{r.referringContact.name | uppercase }}</b>
+                      , Tel: <b> {{r.referringContact.phoneNumber}} </b>
+
+                  </div>
+                      <div class=".col-xs-6 .col-md-4">
+                      <button type="button" class="btn btn-success" align="right" [routerLink]="['/campeonato/', r.tournamentId._id]"> Ver campeonato</button>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="col card-text">
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-3 align-items-center">
+                <div class="col-12 col-md-3">
+                  <mat-form-field>
+                    <mat-select placeholder="Por página" (selectionChange)="handlePageSizeChange($event)">
+                      <mat-option *ngFor="let size of pageSizes" [value]="size">
+                        {{size}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-12 col-md-9">
+                  <pagination-controls
+                    previousLabel="Anterior"
+                    nextLabel="Siguiente"
+                    responsive="true"
+                    (pageChange)="handlePageChange($event)"
+                    class="fb-pagination"
+                  ></pagination-controls>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -7,6 +7,8 @@ var mongoose = require('mongoose');
 var _ = require('lodash');
 var Booking = require('../models/Booking');
 var Q = require('q');
+const { getPagination } = require('../utils/utils');
+
 
 
 /**
@@ -17,17 +19,29 @@ module.exports.registerBooking = function (req,res) {
     addBooking(booking)
         .then(function () {
             console.log('Se creo la reserva');
-            res.send(200).send('Se creo la reserva');
+            res.status(200).send({ message: 'Se creo la reserva' });
         })
         .catch(function (err) {
             res.status(400).send(err);
         });
 };
 function addBooking (booking) {
+    console.log(booking)
     var deferred = Q.defer();
-    console.log('El booking '+booking.field);
+    let paymentStatus;
+
+
+    if(booking.fee < booking.fieldPrice && booking.fee > 0) {
+        paymentStatus = 'Pago Parcial';
+    }else if(booking.fee >= booking.fieldPrice){
+        paymentStatus = 'Pago Total';
+    } else {
+        paymentStatus = 'Pendiente de Pago'
+    }
+
 
     var newBooking = new Booking({
+        mpExternalReference: booking.externalReference,
         club: {
             id: booking.clubId,
             name: booking.clubName,
@@ -43,20 +57,21 @@ function addBooking (booking) {
         },
         playingDate: new Date(booking.playingDate),
         playingTime: booking.playingTime,
-        paidMethod: booking.paidMethod,
+        paidMethod: booking.paidMethod ? 'En sitio' : booking.fee ? 'Mercado Pago' : 'En sitio',
         player: {
             name: booking.playerName,
             lastName: booking.playerLastName,
             phoneNumber: booking.playerPhoneNumber,
             id: booking.playerId || null,
-            dni: booking.dni || null
+            dni: booking.dni || null,
+            email: booking.playerEmail || null,
         },
         payment: {
             date: ((booking.fee) ? Date.now() : null),
             fee: booking.fee || null //cambiara cuando se seleccione el pago por mercadopago
         },
-        status: booking.status
-
+        status: booking.status,
+        paymentStatus,
     });
 
     newBooking.save(function (err) {
@@ -90,6 +105,26 @@ module.exports.findAllByReferenceId = function(req, res) {
 
         res.status(200).send(booking);
     });
+
+};
+
+module.exports.findPlayerBookings = async (req, res) => {
+    const { page, size } = req.query;
+    const { limit, offset } = getPagination(page, size);
+    try{
+        const playerBookings = await Booking.paginate({"player.id":req.params._id}, { limit, offset, sort: {_id: -1} });
+        res.status(200).send({
+            totalItems: playerBookings.totalDocs,
+            bookings: playerBookings.docs,
+            totalPages: playerBookings.totalPages,
+            currentPage: playerBookings.page - 1,
+        });
+    }
+    catch(err) {
+        res.status(500).send(err);
+    }
+
+
 
 };
 
@@ -133,17 +168,18 @@ function setBookingStatus (newStatus) {
                 if(newStatus.fee < booking.field.price && newStatus.fee > 0) {
                     booking.payment.fee = newStatus.fee;
                     booking.payment.date = Date.now();
-                    booking.status = 'Pago Parcial';
+                    booking.paymentStatus = 'Pago Parcial';
                 }else if(newStatus.fee >= booking.field.price){
-                    booking.status = 'Pago Total';
+                    booking.paymentStatus = 'Pago Total';
                     booking.payment.fee = newStatus.fee;
                     booking.payment.date = Date.now();
                 } else if(newStatus.fee === 0 || !newStatus.fee) {
-                    booking.status = ((newStatus.status) ? newStatus.status : 'Pendiente de Pago');
+                    booking.paymentStatus =  'Pendiente de Pago';
                     booking.payment.fee = newStatus.fee;
                     booking.payment.date = Date.now();
                 }
-            } else if(newStatus.status) {
+            }
+            if(newStatus.status) {
                 booking.status = newStatus.status;
             }
             booking.save(function (err) {
@@ -183,23 +219,19 @@ module.exports.findAllHoursBookings = function(req, res){
 };
 
 module.exports.findAllBookingsByFieldAndDay = function(req,res){
-    console.log("#");
-    console.log("3- Entro al BookingController!!");
-    console.log("3.A- El id: " + JSON.parse(req.params.bookingfilter).idField);
-    console.log("3.A- EL playingDate: " + JSON.parse(req.params.bookingfilter).playingDate);
-    console.log("#");
+    const { idField, playingDate } = JSON.parse(req.params.bookingfilter);
 
     Booking.find({$and:
             [
-                {"field.id":JSON.parse(req.params.bookingfilter).idField},
-                {"playingDate":JSON.parse(req.params.bookingfilter).playingDate},
-                {"status": {"$ne":"Cancelado"} }
+                {"field.id": idField},
+                {"playingDate": new Date(playingDate)},
+                {"status": {"$ne": 'Cancelado'} }
             ]
-        }, function (err, booking) {
+        }, function (err, bookings) {
         if (err) {
             return res.status(500).send(err);
         }
-        res.status(200).send(booking);
+        res.status(200).send(bookings);
     });
 };
 
@@ -233,16 +265,19 @@ function deleteBooking (bookingId) {
     }).exec();
 }
 
-/*
-* Se paga la cancha parcial o total
-*/
-
-/*module.exports.countBookingStatus = function (req, res) {
-    var club_id = req.params._id;
-    Booking.find({'club.id': club_id}, function(err, bookings) {
-        if(err) {
-            return console.log(err);
-        }
-        bookings.count();
-    });
-};*/
+/**
+ * Update booking as payed when mercadopago confirm payment.
+ * If payment is reject then delete that temporal booking.
+ */
+exports.updateBookingByExternalReference = async (externalReference, isPaid) => {
+    isPaid ?
+        await Booking.findOneAndUpdate(
+            {mpExternalReference: externalReference},
+            {$set:{paymentStatus: 'Pago Total'}},
+            {new: true}
+            )
+        :
+        await Booking.findOneAndDelete(
+            {mpExternalReference: externalReference}
+        );
+}

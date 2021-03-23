@@ -1,0 +1,256 @@
+<ng-template #modalContent let-close="close">
+  <div class="modal-header">
+    <h3 class="modal-title">
+
+
+          Cancha {{modalData?.event.booking.field.fieldName | uppercase}}
+
+    </h3>
+    <button type="button" class="close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container">
+       <div class="col-12"><h4>Datos del Cliente</h4></div>
+        <div class="row">
+          <div class="col-6">Nombre:
+            <b>{{modalData?.event.booking.player.name}}</b>
+          </div>
+
+          <div class="col-6">Apellido:
+            <label><b>{{modalData?.event.booking.player.lastName}}</b></label></div>
+          </div>
+        <div class="row">
+
+            <div class="col-6" >Teléfono:<b>{{modalData?.event.booking.player.phoneNumber}}</b></div>
+
+          <div class="col-6" >Email:<b>{{modalData?.event.booking.player.email || 'SIN DATOS'}}</b></div>
+
+        </div>
+      <hr>
+
+      <div class="col-12"><h4>Reserva</h4></div>
+      <div class="row">
+        <div class="col-6">Cancha: <label><b>{{modalData?.event.booking.field.fieldName}}</b></label>
+        </div>
+        <div class="col-6">Fecha de Reserva: <label><b>{{modalData?.event.booking.playingDate |
+          date:"dd/MM/yy"}}</b></label></div>
+        <div class="col-6">Hora de Reserva:
+          <label><b>{{modalData?.event.booking.playingTime}}</b></label></div>
+        <div class="col-6">Estado: <label><b>{{modalData?.event.booking.status}}</b></label></div>
+        <div class="col-6">Monto total $ <label><b>{{modalData?.event.booking.field.price}}</b></label>
+        </div>
+        <div class="col-6">Forma de Pago:
+          <label><b>{{modalData?.event.booking.paidMethod}}</b></label></div>
+        <div class="col-6">Estado de pago
+          <label><b>{{modalData?.event.booking.paymentStatus}}</b></label></div>
+        <div class="col-6">Monto pagado $ <label><b>{{modalData?.event.booking.payment.fee || '0.00'}}</b></label>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="row" *ngIf="modalData?.event.booking.status === 'Reservado'">
+        <div class="col-12"><h4>Actualizar reserva</h4></div>
+        <div class="form-group col-md-6">
+          <label for="bookingStatus">Seleccione estado de reserva</label>
+          <select class="form-control"  (change)="setStatusCreateBooking($event)">
+            <option *ngFor="let status of bookingStatus" [ngValue]="status">
+              {{status}}
+            </option>
+          </select>
+        </div>
+          <div  *ngIf="modalData?.event.booking.paymentStatus != 'Pago Total'"  class="col-md-6"> Actualización de Monto
+            <mat-form-field appearance="outline">
+            <input autocomplete="off" matInput [(ngModel)]="montoPagado" type="number" class="example-right-align" placeholder="Monto Pagado"
+                   [max]="precioCanchaModal"  value="{{montoPagado}}" >
+              <span matPrefix>$&nbsp;</span>
+              <span matSuffix>.00</span>
+            </mat-form-field>
+          </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn" (click)="close()">Cerrar</button>
+    <button *ngIf="!(modalData?.event.booking.status === 'Asistido' || modalData?.event.booking.status === 'Cancelado') " type="button" class="btn btn-success" (click)="close(modalData?.event.booking)">Aceptar</button>
+  </div>
+</ng-template>
+
+<ng-template #modalTournament let-close="close">
+  <div class="modal-header">
+    <h2 class="modal-title"> Reserva del campeonato: {{modalData?.event.booking.player.name }}</h2>
+    <button type="button" class="close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container">
+      <p>Fecha: <b>{{modalData?.event.booking.playingDate | date:"dd/MM/yy" }} | Hora: {{modalData?.event.booking.playingTime }}</b></p>
+      <p>Equipos del partido:<b> {{modalData?.event.booking.player.lastName }} </b></p>
+      <p>Cancha <b>{{modalData?.event.booking.field.fieldName}}</b></p>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn" (click)="close()">Cerrar</button>
+  </div>
+</ng-template>
+
+
+
+<mwl-demo-utils-calendar-header
+    [(view)]="view"
+    [(viewDate)]="viewDate"
+    [locale]="locale">
+</mwl-demo-utils-calendar-header>
+<br>
+
+<div [ngSwitch]="view">
+  <mwl-calendar-month-view
+      *ngSwitchCase="'month'"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+      [locale]="locale"
+      [activeDayIsOpen]="activeDayIsOpen"
+      (dayClicked)="dayClicked($event.day)"
+      (eventClicked)="handleEvent('Clicked', $event.event)"
+      (eventTimesChanged)="eventTimesChanged($event)">
+  </mwl-calendar-month-view>
+  <mwl-calendar-week-view
+      *ngSwitchCase="'week'"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+      [locale]="locale"
+      (eventClicked)="handleEvent('Clicked', $event.event)"
+      (eventTimesChanged)="eventTimesChanged($event)"
+      [dayStartHour]="0"
+      [dayEndHour]="24"
+  >
+  </mwl-calendar-week-view>
+  <mwl-calendar-day-view
+      *ngSwitchCase="'day'"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+      [locale]="locale"
+      (eventClicked)="handleEvent('Clicked', $event.event)"
+      (eventTimesChanged)="eventTimesChanged($event)">
+  </mwl-calendar-day-view>
+</div>
+
+<br>
+<mat-divider></mat-divider>
+<div class="d-flex">
+  <div class="d-flex align-items-center"><div class="circle reservado"></div>Reservado </div>
+  <div class="d-flex align-items-center"><div class="circle asistido"></div>Asistido </div>
+  <div class="d-flex align-items-center"><div class="circle ausente"></div>Ausente </div>
+  <div class="d-flex align-items-center"><div class="circle cancelado"></div>Cancelado</div>
+  <div class="d-flex align-items-center"><div class="circle campeonato"></div>Campeonato</div>
+
+</div>
+<mat-divider></mat-divider>
+<br>
+
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="nuevaReservaForm" (ngSubmit)="addEvent()" #formDirective="ngForm" >
+      <div class="form-group">
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="example-container" hintLabel="Max 25 caracteres">
+              <input matInput placeholder="Nombre"
+                     type="text" formControlName="playerName" [maxlength]="25" required>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="example-container" hintLabel="Max 25 caracteres">
+              <input matInput placeholder="Apellido"
+                     type="text" formControlName="playerLastName" [maxlength]="25" required>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="example-container" hintLabel="Max 10 caracteres">
+              <input autocomplete="off" matInput placeholder="Teléfono" type="number"
+                     formControlName="playerPhoneNumber" [min]="00000000" [max]="9999999999" required>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field>
+              <mat-select placeholder="Cancha" [ngModelOptions]="{standalone: true}"
+                          [(ngModel)]="fieldDropdown" (ngModelChange)="setFieldValues($event)" required>
+                <mat-option  *ngFor="let field of club?.fields; let i = index" [value]="field">
+                  {{field.fieldName}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col">
+
+
+            <mat-form-field >
+              <input
+                matInput
+                autocomplete="off"
+                [matDatepicker]="picker"
+                placeholder="Elige una fecha"
+                [ngModelOptions]="{standalone: true}"
+                [(ngModel)]="date"
+                (ngModelChange)="loadHoursValues($event)"
+              required>
+              <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div class="col">
+            <mat-form-field>
+              <mat-select placeholder="Seleccione una hora" formControlName="playingTime" required>
+                <mat-option  *ngFor="let hora of horasDisponibles" [value]="hora">
+                  {{hora}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="example-container">
+              <input autocomplete="off" matInput placeholder="Monto total" type="number"  [(ngModel)]="precioCanchaModel"  class="example-right-align" formControlName="fieldPrice" [readonly]="true" required>
+              <span matPrefix>$&nbsp;</span>
+              <span matSuffix>.00</span>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="example-container">
+              <input autocomplete="off" matInput placeholder="Monto pagado" type="number" [max]="precioCanchaModel" formControlName="fee">
+              <span matPrefix>$&nbsp;</span>
+              <span matSuffix>.00</span>
+
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <button [ngStyle]="{alignSelf: 'flex-end'}"
+                    class="btn btn-primary"
+                    type="submit">
+              Nueva Reserva
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+
+
+    </form>
+  </mat-card-content>
+</mat-card>
+
+
+

@@ -1,0 +1,150 @@
+<div class="page container">
+  <div class="all-categories section">
+    <div novalidate>
+
+       <div class="row">
+          <div class="col-md-4 col-sm-4">
+            <div class="side-bar">
+              <div class="contact-seller widget">
+                <div class="seller-info example-container">
+
+<!--                  nombre-->
+                  <mat-form-field>
+                    <input matInput class="example-full-width"
+                           [(ngModel)]="clubname" name="name" placeholder="Nombre de club">
+                  </mat-form-field>
+
+<!--                  cantidad de jugadores -->
+                  <mat-form-field class="example-full-width">
+                    <input type="text" placeholder="Cantidad de jugadores" aria-label="Number" [(ngModel)]="cantPlayers" matInput  [matAutocomplete]="auto1">
+                    <mat-autocomplete #auto1="matAutocomplete">
+                      <mat-option *ngFor="let cantPlayer of cantPlayerSelect" value={{cantPlayer.cant}}>
+                        {{cantPlayer.desc}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+<!--                  typo de canchas -->
+                  <mat-form-field class="example-full-width">
+                    <input type="text" placeholder="Tipo de cancha" aria-label="tipo-cancha" [(ngModel)]="fieldType" matInput [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete">
+                      <mat-option *ngFor="let fieldType of fieldTypesSelect" value={{fieldType}}>
+                        {{fieldType}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+<!--precio minimo y maximo-->
+                  <mat-form-field class="example-form-field">
+                    <input matInput type="number" class="form-control" min="0" autocomplete="off"
+                           title="precio mínimo" placeholder="Precio mínimo" value=""
+                           [(ngModel)]="minPrice">
+                    <button mat-button *ngIf="minPrice" matSuffix mat-icon-button aria-label="Clear" (click)="minPrice=''">
+                      <mat-icon>close</mat-icon>
+                    </button>
+                  </mat-form-field>
+
+                  <mat-form-field class="example-form-field">
+                    <input matInput type="number" class="form-control" min="0"
+                           title="precio máximo" placeholder="Precio máximo" value="" autocomplete="off"
+                           [(ngModel)]="maxPrice">
+                    <button mat-button *ngIf="maxPrice" matSuffix mat-icon-button aria-label="Clear" (click)="maxPrice=''">
+                      <mat-icon>close</mat-icon>
+                    </button>
+                  </mat-form-field>
+                  <mat-checkbox [(ngModel)]="hasTournament" [labelPosition]="'after'">
+                    <span>Campeonato</span>
+                  </mat-checkbox>
+
+<!--SERVICIOS--> <div class="form-group">
+                  <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        Servicios
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <ul class=".form-check" *ngFor="let service of services">
+                      <li><label> <mat-checkbox [(ngModel)]="service.state"
+                                                (ngModelChange)="addService(service)">
+                        {{service.name}} </mat-checkbox></label></li>
+                    </ul>
+                  </mat-expansion-panel>
+                </div>
+
+                  <div class="form-group button-row" align="center">
+                    <button type="button" class="btn btn-success" (click)="buscarClubsPorFiltros()">
+                      Actualizar búsqueda
+                    </button>
+
+                  </div>
+
+                  <mat-divider></mat-divider>
+<!-- mapa-->
+                  <div class="form-group">
+
+
+                        <agm-map [ngStyle]="{'height': '338px'}" [zoom]="15" [latitude]="lat" [longitude]="lng">
+                          <div *ngFor="let c of clubs">
+                            <agm-marker [latitude]="lat"
+                                        [longitude]="lng">
+                            </agm-marker>
+                            <agm-marker [latitude]="c?.address.lat"
+                                        [longitude]="c?.address.lng"
+                                        [iconUrl]="'../../assets/icon/iconochico.png'">
+                              <agm-info-window>{{c?.name}} , TEL: {{c?.phoneNumber}}</agm-info-window>
+                            </agm-marker>
+                          </div>
+                        </agm-map>
+
+                  </div>
+
+               </div>
+            </div>
+          </div><!-- col-sm-4 -->
+          </div>
+         <!-- EL RESULTADO DE LA BUSQUEDA -->
+          <div class="col-md-8 col-sm-8" >
+            <div *ngIf="loading === true" class="d-flex justify-content-center align-items-center">
+              <mat-spinner></mat-spinner>
+            </div>
+            <div *ngIf="loading === false">
+              <div class="row">
+                <div class="col-12 d-flex w-100 justify-content-center" *ngIf="clubs?.length === 0">
+                  No se encontraron resultados.
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 mb-3" *ngFor="let club of clubs | paginate : {
+                    itemsPerPage: pageSize,
+                    currentPage: page,
+                    totalItems: count
+                  };">
+                  <app-card [club]="club"></app-card>
+                </div>
+              </div>
+
+              <div class="row mt-3 align-items-center">
+                <div class="col-12 col-md-3">
+                  <mat-form-field>
+                    <mat-select placeholder="Por página" (selectionChange)="handlePageSizeChange($event)">
+                      <mat-option *ngFor="let size of pageSizes" [value]="size">
+                        {{size}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-12 col-md-9">
+                  <pagination-controls
+                    previousLabel="Anterior"
+                    nextLabel="Siguiente"
+                    responsive="true"
+                    (pageChange)="handlePageChange($event)"
+                    class="fb-pagination"
+                  ></pagination-controls>
+                </div>
+            </div>
+            </div>
+       </div>
+
+    </div>
+  </div> <!-- all-categories -->
+</div>    <!-- page -->
+
+

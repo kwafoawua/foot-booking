@@ -1,0 +1,33 @@
+.destacados-carousel:focus {
+  outline: none;
+}
+
+.title {
+  font-weight: 700;
+  color: #039c8a;
+}
+
+.destacados {
+  box-shadow: 0 12px 6px -6px #e5e5e5;
+  margin-top: 3rem;
+  padding-bottom: 3rem;
+}
+.carousel-inner {
+  height:26rem !important;
+}
+.carousel-item.active{
+  display: flex !important;
+  height: 26rem !important;
+  background-repeat: no-repeat;
+  -moz-background-size: cover;
+}
+
+@media (min-width: 768px) {
+  .fb-md-2 {
+    -ms-flex: 0 0 20%;
+    flex: 0 0 20%;
+    max-width: 20%;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+}

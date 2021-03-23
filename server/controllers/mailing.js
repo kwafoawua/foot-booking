@@ -1,31 +1,25 @@
-var nodemailer = require("nodemailer");
-
-// create reusable transport method (opens pool of SMTP connections)
-var smtpTransport = nodemailer.createTransport({
-    service: "Gmail",
-    auth: {
-        user: "footbooking.dev@gmail.com",
-        pass: "Footbooking01"
-    }
-});//no esta bueno tener la pass aca, buscar otro tipo de autorizacion
+const { transporter } = require('../utils/utils');
 
 
-module.exports.sendRegistrationMail = function(username, userEmail) {
-    var mailOptions = {
-        from: "FootBoking ✔ <no-reply@footbooking.com>", // sender address
-        to: userEmail, // list of receivers
-        subject: "Bienvenido a Footbooking ✔", // Subject line
-        text: "Bienvenido a Footbooking "+username // plaintext body
+module.exports.sendEmail = async (name, email, subject, text) => {
+    const defaultText = `
+    Hola ${name} Muchas gracias por registrarte en Footbooking. \n
+    Disfrutá y participa de los mejores partidos en tu zona y unite a campeonatos para que tu equipo se destaque con excelentes premios.\n
+    
+    Saludos Footbooking.
+    `;
+    const defaultSubject = 'Te damos la bienvenida a Footbooking ✔';
+    const mailOptions = {
+        from: "FootBooking ✔ <no-reply@footbooking.com>", // sender addres
+        to: email, // list of receivers
+        subject: subject || defaultSubject, // Subject line
+        text: text || defaultText,
     };
 
-    smtpTransport.sendMail(mailOptions, function(error, response){
-        if(error){
-            console.log(error);
-        }else{
-            console.log("Message sent: " + response.message);
-        }
-
-        // if you don't want to use this transport object anymore, uncomment following line
-        //smtpTransport.close(); // shut down the connection pool, no more messages
-    });
-}
+    try {
+        let info = await transporter().sendMail(mailOptions);
+        console.log('mail enviado');
+    } catch (error) {
+        throw error;
+    }
+};

@@ -1,0 +1,83 @@
+﻿<div class="header-section">
+  <div class="welcome-text">
+    <h1 class="welcome-title">FOOTBOOKING</h1>
+    <p class="welcome-subtitle">Reservá tu cancha</p>
+    <p class="welcome-subtitle">Participá de campeonatos con amigos</p>
+    <p class="welcome-description">Con Footbooking podés reservar tu próximo partido de forma rápida y segura.
+      Seleccioná tu club favorito, elegí tu fecha y jugá!</p>
+  </div>
+  <div class="search-form full-shadow" >
+      <div class="row" [ngStyle]="{marginBottom: '1.5rem'}">
+        <div class="col-sm-12 col-md-6">
+          <div ngbDropdown class="dropdown form-control">
+            <a [ngStyle]="{display: 'flex', justifyContent: 'space-between', alignItems: 'baseline'}" id="cantJugadores" ngbDropdownToggle>{{selectedCantJugadores}}</a>
+            <ul ngbDropdownMenu class="dropdown-menu ddm-home" aria-labelledby="cantJugadores">
+              <li class="dropdown-item" ngbDropdownItem (click)="handleCantJugadores('Jugadores', null)">Ninguno</li>
+              <li class="dropdown-item" ngbDropdownItem (click)="handleCantJugadores('5 jugadores', 5)">5 jugadores</li>
+              <li class="dropdown-item" ngbDropdownItem (click)="handleCantJugadores('7 jugadores', 7)">7 jugadores</li>
+              <li class="dropdown-item" ngbDropdownItem (click)="handleCantJugadores('11 jugadores',11)">11 jugadores</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-sm-12 col-md-6">
+          <div ngbDropdown class="dropdown form-control">
+            <a [ngStyle]="{display: 'flex', justifyContent: 'space-between', alignItems: 'baseline'}" id="tipoCancha" ngbDropdownToggle>{{selectedTipoCancha}}</a>
+            <ul ngbDropdownMenu class="dropdown-menu ddm-home" aria-labelledby="tipoCancha">
+              <li class="dropdown-item" ngbDropdownItem (click)="handleTipoCancha('Tipo de cancha', null)">Ninguno</li>
+              <li class="dropdown-item" ngbDropdownItem (click)="handleTipoCancha('Sintético', 'Sintético')">Sintético</li>
+              <li class="dropdown-item" ngbDropdownItem (click)="handleTipoCancha('Cesped', 'Cesped')">Cesped</li>
+              <li class="dropdown-item" ngbDropdownItem (click)="handleTipoCancha('Tierra', 'Tierra')">Tierra</li>
+            </ul>
+          </div>
+        </div>
+
+<!--        <div class="col-sm-12 col-md-4">
+          <div ngbDropdown class="dropdown form-control">
+            <a [ngStyle]="{display: 'flex', justifyContent: 'space-between', alignItems: 'baseline'}" id="campOrPlay" ngbDropdownToggle>{{selectedCampOrPlay}}</a>
+            <ul ngbDropdownMenu class="dropdown-menu ddm-home" aria-labelledby="campOrPlay">
+              <li class="dropdown-item" ngbDropdownItem (click)="handleCampOrPlay('¿Qué vas a jugar?', null)">Ninguno</li>
+              <li class="dropdown-item" ngbDropdownItem (click)="handleCampOrPlay('Privado', false)">Privado</li>
+              <li class="dropdown-item" ngbDropdownItem (click)="handleCampOrPlay('Campeonato', true)">Campeonato</li>
+            </ul>
+          </div>
+        </div>-->
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-8">
+          <input [(ngModel)]="clubname" name="clubname" (keyup.enter)="buscarClub()"
+                 type="text" class="form-control" placeholder="Nombre de club">
+        </div>
+        <div class="col-sm-12 col-md-4">
+          <button (click)="buscarClub()" class="form-control btn btn-primary" value="Search">Buscar</button>
+        </div>
+      </div>
+  </div>
+</div>
+<!-- search-section -->
+  <app-destacados></app-destacados>
+<div class="container home-services">
+  <div class="row">
+    <div class="col-sm-12 col-md-6 p-0 info">
+      <h1 class="service-title">CAMPEONATOS</h1>
+      <p>Participá con tu equipo en los mejores campeonatos de futbol de tu zona y ganá increíbles premios!</p>
+    </div>
+    <div class="col-sm-12 col-md-6 p-0 image">
+      <img src="../../assets/torneo.png">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-md-6 p-0 image">
+      <img src="../../assets/cancha.jpg">
+    </div>
+    <div class="col-sm-12 col-md-6 p-0 info">
+      <h1 class="service-title">RESERVA DE CANCHAS</h1>
+      <p>Reservá tu próximo partido en tu club favorito con solo un click!</p>
+    </div>
+  </div>
+</div>
+
+
+
+
+

@@ -1,0 +1,145 @@
+
+
+<div class="page container">
+
+  <div class="all-categories section">
+    <div class="container">
+      <div class="ad-details">
+        <div *ngIf="loading === true" style="display: flex; justify-content: center; align-items: center; position: absolute; top: 40%;left: 35%">
+          <mat-spinner > </mat-spinner>
+        </div>
+        <mat-card>
+          <mat-card-content>
+            <div>
+                <mat-card-title class="text-justify"> {{torneo?.tournamentName}}</mat-card-title>
+               <p [ngStyle]="{ whiteSpace: 'pre-wrap'}">
+                 {{torneo?.publicationDescription}}
+               </p>
+            </div>
+
+            <div class="row">
+                  <div class="col-xs-8 col-md-6">
+                    <div class="row">
+                      <div class="col-xs-6 col-md-6">
+                        Inicio de campeonato
+                      </div>
+                      <div class="col-xs-6 col-md-6">
+                        <strong> {{torneo?.startDate | date:"dd/MM/yyyy"}} </strong>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-6 col-md-6">
+                        Categoría de campeonato
+                      </div>
+                      <div class="col-xs-6 col-md-6">
+                        <strong>{{torneo?.category}}</strong>
+                      </div>
+
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-6 col-md-6">
+                        Cantidad de jugadores por equipo
+                      </div>
+                      <div class="col-xs-6 col-md-6">
+                        <strong>{{torneo?.numberOfPlayers}}</strong>
+                      </div>
+
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-6 col-md-6">
+                        Total de equipos
+                      </div>
+                      <div class="col-xs-6 col-md-6">
+                        <strong>{{torneo?.numbersOfTeams}}</strong>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-6 col-md-6">
+                        Tipo de campeonato
+                      </div>
+                      <div class="col-xs-6 col-md-6">
+                        <strong>Eliminación directa</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                    <div class="col-md-6 col-xs-6">
+                      <div class="row">
+                          <app-winner-card-campeonato
+                            class="w-100"
+                            [primerPremio]="torneo?.prize1"
+                            [segundoPremio]="torneo?.prize2"
+                            [tercerPremio]="torneo?.prize3"
+                            [primerEquipo]="primerEquipo"
+                            [segundoEquipo]="segundoEquipo"
+                            [tercerEquipo]="tercerEquipo"
+                            [status]="torneo?.state"
+                          ></app-winner-card-campeonato>
+                    </div>
+
+
+                      <div *ngIf="torneo?.state === 'Publicado'">
+                      <div class="row">
+
+                        <div class="alert alert-success" role="alert">
+                          <h4 class="alert-heading">Inscribite ya por ${{torneo.inscriptionCost}}</h4>
+                        </div>
+
+                      </div>
+                      <div class="row">
+                        *El medio de pago disponible es MercadoPago
+                      </div>
+                    </div>
+
+                    </div>
+
+            </div>
+
+          </mat-card-content>
+        </mat-card>
+
+      </div>
+    </div>
+  </div>
+
+    <div *ngIf="rol === 'Jugador'">
+      <div *ngIf="torneo?.state === 'Publicado' && !yaRegistrado && fechaInscripcionValida" >
+        <camp-insc [torneo]="torneo" [cantidad]="cantidad"></camp-insc>
+      </div>
+      <div class="alert alert-light" role="alert" *ngIf="torneo?.state == 'Completo'">
+        El campeonato está completo, y pronto se realizará el sorteo.
+      </div>
+      <div class="alert alert-light" role="alert" *ngIf="torneo?.state == 'Publicado' && yaRegistrado">
+        Ya estás registrado en este campeonato.
+      </div>
+      <div class="alert alert-light" role="alert" *ngIf="torneo?.state == 'Publicado' && !fechaInscripcionValida && !yaRegistrado">
+        <p>
+        No es posible inscribirse a este campeonato ya que no se encuentran habilitadas las inscripciones para el día de hoy.
+        </p>
+        <p>
+        Las inscripciones se podrán realizar entre los días <strong> {{torneo?.inscriptionStartDate | date:"dd/MM/yyyy"}} </strong> y
+        <strong> {{torneo?.inscriptionEndDate | date:"dd/MM/yyyy"}} </strong>.
+        </p>
+      </div>
+    </div>
+
+  <div class="alert alert-light" role="alert" *ngIf=" torneo?.state == 'Publicado' && NotanUser == true">
+    Debe iniciar sesión para poder registrarse en el campeonato.
+  </div>
+
+  <div class="alert alert-light" role="alert" *ngIf=" torneo?.state == 'Publicado' && rol == 'Club'">
+    Debe iniciar sesión como un Jugador.
+  </div>
+
+
+  <div [ngStyle]="{overflowX: 'auto'}" *ngIf="torneo?.state == 'Iniciado'">
+    <info-fixture [torneo]="torneo" [inscriptions]="inscriptions" (setWinners)="setWinners($event)" ></info-fixture>
+  </div>
+  <div [ngStyle]="{overflowX: 'auto'}" *ngIf="torneo?.state == 'Finalizado'">
+    <info-fixture [torneo]="torneo" [inscriptions]="inscriptions" (setWinners)="setWinners($event)"></info-fixture>
+  </div>
+
+
+</div>
+
+

@@ -1,0 +1,40 @@
+  <mat-toolbar color="primary" [class.mobile-toolbar]="mobileQuery.matches">
+    <mat-toolbar-row>
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="mobileQuery.matches">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>Footbooking Admin</span>
+      <span class="spacer"></span>
+      <button mat-stroked-button class="admin-header-button" routerLink="/">Ir al Sitio</button>
+      <img class="profile-image" src="{{profileData.profileImg}}" alt="Foto de perfil">
+      <span>{{profileData?.name}}</span>
+
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="example-sidenav-container">
+    <mat-sidenav class="drawer" #drawer [mode]="mobileQuery.matches ? 'over' : 'side'"
+                 [fixedInViewport]="mobileQuery.matches"  opened="!mobileQuery.matches" fixedTopGap="56" role="navigation">
+      <mat-nav-list>
+        <mat-nav-list>
+          <a mat-list-item routerLink='/admin/dashboard'>
+            <span class="material-icons">dashboard</span>Dashboard</a>
+          <a mat-list-item routerLink='/admin/reservas'>
+            <span class="material-icons">today</span>Reservas</a>
+          <a mat-list-item routerLink='/admin/campeonato'>
+            <span class="material-icons">emoji_events</span>Campeonatos</a>
+          <a mat-list-item [routerLink]="['/admin/club/profile/',profileData?._id]" >
+            <span class="material-icons">account_circle</span>Perfil</a>
+          <a mat-list-item [routerLink]="['/admin/configuracion/',profileData?._id]">
+            <span class="material-icons">settings</span>Configuración</a>
+          <a mat-list-item (click)=auth.logout() [routerLink]="['/']">
+            <span class="material-icons">exit_to_app</span>
+            Cerrar Sesión
+          </a>
+        </mat-nav-list>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content class="content">
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>

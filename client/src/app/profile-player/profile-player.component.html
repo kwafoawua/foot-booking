@@ -1,0 +1,47 @@
+<div class="container-fluid h100">
+  <div class="row h-100 justify-content-center align-items-center" id="profilePlayerContainer">
+    <!-- Div del lateral izquiedo, donde estan las opciones y la imagen del perfil -->
+    <div class="col-8">
+      <div class="container">
+        <div class="row profile">
+          <div class="col-xl-5">
+            <div class="card">
+              <!-- SIDEBAR MENU -->
+              <div class="profile-usermenu">
+                <ul class="list-group list-group-flush">
+                  <mat-toolbar color="primary">
+                    <mat-toolbar-row>
+                      <span><a (click)="goToUser()">Usuario</a></span>
+                    </mat-toolbar-row>
+
+                    <mat-toolbar-row>
+                      <span> <a (click)="goToEdit()">Editar Información</a> </span>
+                      <span class="example-spacer"></span>
+                    </mat-toolbar-row>
+
+                    <mat-toolbar-row>
+                      <span><a (click)="goToConfig()">Contraseña</a></span>
+                      <span class="example-spacer"></span>
+                    </mat-toolbar-row>
+                  </mat-toolbar>
+                </ul>
+              </div>
+              <!-- END MENU -->
+            </div>
+          </div>
+          <!-- Div del lateral derecho -->
+          <div class="col-xl-6">
+            <div class="card">
+              <div class="card-body">
+                <router-outlet></router-outlet>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+</div>

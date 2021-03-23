@@ -1,0 +1,81 @@
+
+     <mat-card class="mb-3" *ngFor="let field of club?.fields; let i = index">
+       <mat-card-subtitle> {{field?.fieldName | uppercase}}</mat-card-subtitle>
+       <mat-card-content>
+         <div class="row">
+           <div class="col">
+             Cantidad de jugadores
+           </div>
+           <div class="col"  [attr.id]="'cantPlayers'+i">
+             <b>{{field?.cantPlayers}}</b>
+           </div>
+         </div>
+         <div class="row">
+           <div class="col">
+             Tipo de suelo
+           </div>
+           <div class="col">
+             <b>{{field.fieldType}}</b>
+           </div>
+         </div>
+         <div class="row">
+           <div class="col">
+             Costo alquiler por hora
+           </div>
+           <div class="col">
+             <b>$ {{field?.price}}</b>
+           </div>
+         </div>
+
+
+         <div class="row">
+           <div class="col">
+             Servicios que incluye:
+           </div>
+           <div class="col">
+             <ul class="list-inline-item" *ngFor="let serv of field?.services">
+               <span class="list-inline-item badge fb-secondary-bg"> {{serv.display}}</span>
+             </ul>
+           </div>
+         </div>
+
+        <div *ngIf="permiteReserva === true">
+             <div class="row">
+
+           <div class="col">
+
+             <mat-form-field>
+               <input autocomplete="off" matInput [matDatepicker]="picker" placeholder="Elige una fecha"
+                      [min]="minDate" [(ngModel)]="date[i]" (ngModelChange)="loadHoursValues($event, field, i)">
+               <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+               <mat-datepicker #picker></mat-datepicker>
+             </mat-form-field>
+
+           </div>
+           <div class="col">
+             <mat-form-field>
+               <mat-select placeholder="Hora" [(ngModel)]="selectedTime[i]">
+                 <mat-option value="">Seleccione</mat-option>
+                 <mat-option value="{{hora}}" *ngFor="let hora of horasDisponibles[i]">{{hora}}</mat-option>
+               </mat-select>
+             </mat-form-field>
+           </div>
+           <div class="col">
+               <button (click)="reservar(field, i)" align="right" type="button" class="btn btn-success"
+                       data-toggle="modal" data-target="#myModal" [disabled]="!selectedTime[i] || !date[i]">Reservar
+               </button>
+             </div>
+
+
+         </div><!-- panel-body -->
+        </div>
+
+         <div *ngIf="NotanUser === true">
+           <p class="text-secondary">Debe iniciar sesión para poder realizar una reserva</p>
+         </div>
+
+       </mat-card-content>
+
+     </mat-card>
+
+

@@ -1,0 +1,13 @@
+.nav-custom-container {
+  max-width: 100% !important;
+}
+
+.active-link {
+  color: black !important;
+  font-weight: 700;
+}
+
+.custom-nav {
+  background-color: white;
+  box-shadow: 0 8px 8px -8px rgba(0, 0, 0, 0.4);
+}

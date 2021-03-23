@@ -1,0 +1,26 @@
+<div class="player-profile-activity" ng-hide="true">
+  <h3>Canchas del complejo</h3>
+</div>
+
+<form enctype="multipart/form-data" [formGroup]="fieldClubForm"
+      novalidate="novalidate" (ngSubmit)="updateFieldData()">
+  <!-- carga de canchas -section -->
+  <div class="avtpost-fields">
+    <div>
+      <fields-array
+          formArrayName="fields"
+          [fieldFormArray]="fieldClubForm.get('fields')"
+          (deletedFields)="setDeletedFields($event)"
+      >
+      </fields-array>
+    </div>
+  </div><!-- carga de canchas -section -->
+
+
+  <div style="text-align: right;">
+    <input type="submit" value="Actualizar" class="btn btn-primary">
+  </div>
+</form>
+
+<div>
+</div>

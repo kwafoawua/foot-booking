@@ -1,0 +1,302 @@
+<ng-container *ngIf="!(status === 'Finalizado' || status === 'Cerrado') else published">
+  <form [formGroup]="tournamentForm" novalidate (ngSubmit)="registerTournament()">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>Datos principales</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="row">
+          <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
+            <mat-label>Nombre del campeonato</mat-label>
+            <input matInput formControlName="tournamentName" [readonly]="disableForm" required>
+            <mat-error
+              *ngIf="tournamentForm.get('tournamentName').invalid &&
+            (tournamentForm.get('tournamentName').dirty ||
+            tournamentForm.get('tournamentName').touched)"
+            >
+              El campo es requerido.
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
+            <mat-label>Categoría</mat-label>
+            <mat-select formControlName="category" required [disabled]="disableForm">
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let category of categorias" [value]="category">
+                {{category}}
+              </mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="tournamentForm.get('category').invalid &&
+            (tournamentForm.get('category').dirty ||
+            tournamentForm.get('category').touched)"
+            >
+              El campo es requerido.
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
+            <mat-label>Tipo de equipo</mat-label>
+            <mat-select formControlName="numberOfPlayers" required [disabled]="disableForm">
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let tType of tipoTorneo" [value]="tType">
+                {{tType}}
+              </mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="tournamentForm.get('numberOfPlayers').invalid &&
+            (tournamentForm.get('numberOfPlayers').dirty ||
+            tournamentForm.get('numberOfPlayers').touched)"
+            >
+              El campo es requerido.
+            </mat-error>
+          </mat-form-field>
+
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+
+
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>Inscripciones</mat-card-title>
+        <mat-card-subtitle>El sistema utilizado para los campeonatos es eliminación directa de 16 equipos</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="row">
+          <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
+            <mat-label>Fecha de inicio de inscripción</mat-label>
+            <input autocomplete="off" matInput formControlName="inscriptionStartDate"  [disabled]="esIniciado" [min]="minDate" [matDatepicker]="inscriptionStartDate" required>
+            <mat-datepicker-toggle matSuffix [for]="inscriptionStartDate"  [disabled]="esIniciado"></mat-datepicker-toggle>
+            <mat-datepicker #inscriptionStartDate disabled="false"></mat-datepicker>
+            <mat-error
+              *ngIf="tournamentForm.get('inscriptionStartDate').invalid &&
+            (tournamentForm.get('inscriptionStartDate').dirty ||
+            tournamentForm.get('inscriptionStartDate').touched)"
+            >
+              El campo es requerido.
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
+            <mat-label>Fecha de fin de inscripción</mat-label>
+            <input autocomplete="off" matInput formControlName="inscriptionEndDate" [min]="minDate"
+                   [matDatepicker]="inscriptionEndDate" [disabled]="esIniciado" required>
+            <mat-datepicker-toggle matSuffix [for]="inscriptionEndDate" [disabled]="esIniciado"></mat-datepicker-toggle>
+            <mat-datepicker #inscriptionEndDate disabled="false"></mat-datepicker>
+              <mat-error *ngIf="tournamentForm.get('inscriptionEndDate').errors?.required">
+                El campo es requerido.
+              </mat-error>
+              <mat-error *ngIf="tournamentForm.get('inscriptionEndDate').errors?.invalidDate">
+                <small class="form-text">Fecha fin de inscripción debe ser mayor a fecha inicio y menor a comienzo de campeonato</small>
+              </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
+            <mat-label>Precio inscripción</mat-label>
+            <input matInput placeholder="0" type="number" class="example-right-align" [readonly]="disableForm"
+                   formControlName="inscriptionCost" required>
+            <span matPrefix>$&nbsp;</span>
+            <span matSuffix>.00</span>
+            <mat-error
+              *ngIf="tournamentForm.get('inscriptionCost').invalid &&
+            (tournamentForm.get('inscriptionCost').dirty ||
+            tournamentForm.get('inscriptionCost').touched)"
+            >
+              El campo es requerido.
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
+            <mat-label>Fecha de inicio de partidos</mat-label>
+            <input autocomplete="off" matInput formControlName="startDate" [min]="minDate" [matDatepicker]="startDate" required >
+            <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+            <mat-datepicker #startDate disabled="false"></mat-datepicker>
+            <mat-error *ngIf="tournamentForm.get('startDate').errors?.required">
+              El campo es requerido.
+            </mat-error>
+            <mat-error *ngIf="tournamentForm.get('startDate').errors?.invalidDate">
+              <small class="form-text">Fecha inicio campeonato debe ser mayor a fecha fin inscripción y menor a fin de campeonato</small>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
+            <mat-label>Fecha de fin de partidos</mat-label>
+            <input autocomplete="off" matInput formControlName="endDate" [min]="minDate" [matDatepicker]="endDate" required>
+            <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+            <mat-datepicker #endDate disabled="false"></mat-datepicker>
+            <mat-error *ngIf="tournamentForm.get('endDate').errors?.required">
+              El campo es requerido.
+            </mat-error>
+            <mat-error *ngIf="tournamentForm.get('endDate').errors?.invalidDate">
+              <small class="form-text">Fecha fin campeonato debe ser mayor a fecha incicio campeonato</small>
+            </mat-error>
+          </mat-form-field>
+
+
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>Premios</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="row">
+          <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
+            <mat-label>Primer premio</mat-label>
+            <input matInput formControlName="prize1" [readonly]="disableForm"  required>
+            <mat-error
+              *ngIf="tournamentForm.get('prize1').invalid &&
+            (tournamentForm.get('prize1').dirty ||
+            tournamentForm.get('prize1').touched)"
+            >
+              El campo es requerido.
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
+            <mat-label>Segundo premio</mat-label>
+            <input matInput formControlName="prize2" [readonly]="disableForm">
+          </mat-form-field>
+
+          <mat-form-field appearance="standard" class="col-sm-12 col-md-4">
+            <mat-label>Tercer premio</mat-label>
+            <input matInput formControlName="prize3" [readonly]="disableForm">
+          </mat-form-field>
+
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>Descripción publicitaria</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="row">
+          <mat-form-field appearance="standard" class="col-12">
+            <textarea multiple matInput formControlName="publicationDescription" placeholder="Ingrese breve descripción del campeonato... *" style="min-height:155px" required>
+            </textarea>
+              <mat-error
+              *ngIf="tournamentForm.get('publicationDescription').invalid &&
+            (tournamentForm.get('publicationDescription').dirty ||
+            tournamentForm.get('publicationDescription').touched)"
+            >
+              El campo es requerido.
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>Términos y condiciones</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="row">
+          <mat-form-field appearance="standard" class="col-12">
+              <textarea multiple matInput formControlName="termsAndConditions"  placeholder="Ingrese términos y condiciones... *"
+                        [readonly]="disableForm" style="min-height:155px" required>
+              </textarea>
+            <mat-error
+              *ngIf="tournamentForm.get('termsAndConditions').invalid &&
+            (tournamentForm.get('termsAndConditions').dirty ||
+            tournamentForm.get('publicationDescription').touched)"
+            >
+              El campo es requerido.
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>Información del campeonato</mat-card-title>
+      </mat-card-header>
+      <mat-card-content style="padding: 24px">
+        <div class="row">
+          <p>
+            ⚽ Recordá reservar canchas para los partidos del campeonato una vez creados en la sección <b>Fases</b> de campeonato.
+          </p>
+          <p>
+            ⚽ Las rondas del campeonato son de eliminación directa, pasando de ronda el equipo ganador del partido.
+          </p>
+          <p>
+            ⚽ En caso de empate más allá de como decidan resolver el partido (penales, tiempo extra o gol de oro) se deberá cargar el resultado final de la resolución para que el sistema pueda dar avance a uno de los equipos.
+          </p>
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+
+    <button *ngIf="!tournamentId" mat-flat-button color="primary" type="submit">Crear Campeonato</button>
+
+  </form>
+  <div *ngIf="tournamentId">
+
+       <button mat-flat-button *ngIf="status === 'Nuevo'" (click)="openDialog()">Publicar</button>
+
+    <button mat-flat-button (click)="updateTournament()">Actualizar</button>
+  </div>
+</ng-container>
+
+
+<ng-template #published>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{tournament?.tournamentName}}</mat-card-title>
+      <mat-card-subtitle [ngStyle]="{ whiteSpace: 'pre-wrap'}">{{tournament?.publicationDescription}}</mat-card-subtitle>
+      <mat-card-title>Términos y condiciones</mat-card-title>
+      <mat-card-subtitle [ngStyle]="{ whiteSpace: 'pre-wrap'}">{{tournament?.termsAndConditions}}</mat-card-subtitle>
+    </mat-card-header>
+    <div class="row">
+      <div class="col-12 mb-2">
+        <mat-card>
+          <p>Información del campeonato</p>
+          <p><b>Fecha de Inicio</b>  {{tournament?.startDate | date:'shortDate' }}</p>
+          <p><b>Fecha de Fin</b> {{tournament?.endDate | date:'shortDate' }}</p>
+          <p><b>Categoría</b> {{tournament?.category}}</p>
+          <p><b>Cantidad de equipos</b> {{tournament?.numbersOfTeams}}</p>
+          <p><b>Cantidad de jugadores</b> {{tournament?.numberOfPlayers}}</p>
+        </mat-card>
+      </div>
+      <div class="col-12 mb-2">
+        <mat-card>
+          <p>Requerimientos de inscripción</p>
+          <p><b>Fecha de Inicio</b>  {{tournament?.inscriptionStartDate | date:'shortDate' }}</p>
+          <p><b>Fecha de Fin</b> {{tournament?.inscriptionEndDate | date:'shortDate' }}</p>
+          <p><b>Precio de la inscripción</b> {{tournament?.inscriptionCost}}</p>
+          <div></div>
+        </mat-card>
+      </div>
+      <div class="col-12 mb-2">
+        <mat-card>
+          <p>Premios</p>
+          <div class="row">
+            <div class=" col-12 col-md-4"><b>Primer premio</b> {{tournament?.prize1}}</div>
+            <div class=" col-12 col-md-4"><b>Segundo Premio</b> {{tournament?.prize2 || '--'}}</div>
+            <div class=" col-12 col-md-4"><b>Tercer premio</b> {{tournament?.prize3 || '--'}}</div>
+          </div>
+        </mat-card>
+      </div>
+      <div class="col-12">
+        <mat-card>
+          <p><b>Información de gestión de campeonato</b></p>
+          <p>⚽ Recordá reservar canchas para los partidos del campeonato una vez creados en la sección <b>Fases</b> de campeonato.</p>
+          <p>⚽ Las rondas del campeonato son de eliminación directa, pasando de ronda el equipo ganador del partido.</p>
+          <p>⚽ En caso de empate más allá de como decidan resolver el partido (penales, tiempo extra o gol de oro) se deberá cargar el resultado final de la resolución para que el sistema pueda dar avance a uno de los equipos.</p>
+        </mat-card>
+      </div>
+    </div>
+
+  </mat-card>
+
+</ng-template>

@@ -1,0 +1,396 @@
+﻿
+  <div class="container">
+    <div class="ad-details">
+
+      <div class="col-12">
+        <h3>Nueva cuenta club</h3>
+      </div>
+
+      <mat-horizontal-stepper [linear]="isLinear" #stepper>
+
+        <mat-step [stepControl]="registerClubForm">
+        <form enctype="multipart/form-data" [formGroup]="registerClubForm"
+              novalidate="novalidate" >
+          <ng-template matStepLabel>Nueva cuenta</ng-template>
+              <div class="card col-12" formGroupName="user">
+                 <div class="card-body">
+
+
+                  <div class="col">
+
+                    <div class="post-inner select-cat">
+                      <div class="row form-group" [ngClass]="{ 'has-error': registerClubForm.get('user.email').invalid &&
+                                          (registerClubForm.get('user.email').dirty || registerClubForm.get('user.email').touched)}">
+
+                        <div class="col-md-8 example-container">
+                          <mat-form-field class="example-full-width">
+                          <input matInput formControlName="email" class="form-control" type="email" placeholder="Email" required>
+                          </mat-form-field>
+                            <div name="valida-email" *ngIf="registerClubForm.get('user.email').invalid &&
+                                          (registerClubForm.get('user.email').dirty || registerClubForm.get('user.email').touched)">
+                            <div *ngIf="registerClubForm.get('user.email').errors?.required" class="text-danger">
+                              <small class="form-text">El email es requerido.</small>
+                            </div>
+                            <div *ngIf="registerClubForm.get('user.email').errors?.email" class="text-danger">
+                              <small class="form-text">El email debe ser correcto.</small>
+                            </div>
+
+                          </div>
+
+                        </div>
+
+                      </div>
+                    </div><!-- post-inner email -->
+
+                    <div class="post-inner">
+                      <div class="row form-group" [ngClass]="{ 'has-error': registerClubForm.get('user.password').invalid &&
+                                              (registerClubForm.get('user.password').dirty || registerClubForm.get('user.password').touched)}">
+
+                        <div class="col-md-8 example-container">
+                          <mat-form-field class="example-full-width">
+                          <input matInput formControlName="password" class="form-control input-md" type="password"
+                                 placeholder="Contraseña" required>
+                          </mat-form-field>
+                          <div name="valida-contraseña" *ngIf="registerClubForm.get('user.password').invalid &&
+                                              (registerClubForm.get('user.password').dirty || registerClubForm.get('user.password').touched)">
+                            <div *ngIf="registerClubForm.get('user.password').errors?.required" class="text-danger">
+                              <small class="form-text">La contraseña es requerida.</small>
+                            </div>
+                            <div *ngIf="registerClubForm.get('user.password').errors?.minlength" class="text-danger">
+                              <small class="form-text">La contraseña debe ser de más de 8 caracteres.</small>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div><!-- post-inner password-->
+
+                    <div class="row form-group" [ngClass]="{ 'has-error': registerClubForm.get('user.repeatPassword').invalid &&
+                                              (registerClubForm.get('user.repeatPassword').dirty || registerClubForm.get('user.repeatPassword').touched)}">
+
+                      <div class="col-md-8 example-container">
+                        <mat-form-field class="example-full-width">
+                        <input matInput formControlName="repeatPassword" class="form-control input-md" type="password"
+                               placeholder="Repetir Contraseña">
+                        </mat-form-field>
+                        <div name="valida-contraseña" *ngIf="registerClubForm.get('user.repeatPassword').invalid &&
+                                              (registerClubForm.get('user.repeatPassword').dirty || registerClubForm.get('user.repeatPassword').touched)">
+                          <div *ngIf="registerClubForm.get('user.repeatPassword').errors?.required" class="text-danger">
+                            <small class="form-text">La contraseña es requerida.</small>
+                          </div>
+                          <div *ngIf="registerClubForm.get('user.repeatPassword').errors?.minlength" class="text-danger">
+                            <small class="form-text">La contraseña debe ser de más de 8 caracteres.</small>
+                          </div>
+                          <div *ngIf="registerClubForm.get('user.repeatPassword').errors?.MatchPassword" class="text-danger">
+                            <small class="form-text">Las contraseñas deben ser las mismas.</small>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div><!-- post-inner repeat password-->
+
+                  </div>
+                  <!--</div>-->
+
+               </div>
+              </div>
+            <div style="text-align: right;">
+              <button class="btn btn-success" [disabled]="isValidStepOne()"  matStepperNext>Siguiente</button>
+            </div>
+        </form>
+        </mat-step>
+
+          <mat-step [stepControl]="registerClubForm">
+            <form enctype="multipart/form-data" [formGroup]="registerClubForm"
+                  novalidate="novalidate" >
+              <ng-template matStepLabel>Datos del club</ng-template>
+        <div class="card">
+          <div class="row card-body">
+
+            <div class="col-md-6">
+              <div class="post-inner">
+                <div class="row form-group" [ngClass]="{ 'has-error': registerClubForm.get('name').invalid &&
+                        (registerClubForm.get('name').dirty || registerClubForm.get('name').touched)}">
+                  <div class="col-md-8 example-container">
+                    <mat-form-field>
+                    <input matInput formControlName="name" class="form-control" type="text" placeholder="Nombre del club" required>
+                    </mat-form-field>
+                    <div name="valida-nombreclub" *ngIf="registerClubForm.get('name').invalid &&
+                        (registerClubForm.get('name').dirty || registerClubForm.get('name').touched)">
+
+                      <div *ngIf="registerClubForm.get('name').errors?.required" class="text-danger">
+                        <small class="form-text">El nombre del club es requerido.</small>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div><!-- post-inner nombre del club-->
+
+
+              <div class="post-inner">
+                <div class="row form-group" [ngClass]="{ 'has-error': registerClubForm.get('phoneNumber').invalid}">
+                  <div class="col-md-8 example-container">
+                    <mat-form-field>
+                    <input autocomplete="off" matInput formControlName="phoneNumber" class="form-control" type="number" placeholder="Teléfono" required>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div><!-- post-inner telefono-->
+
+              <div class="post-inner">
+                <div class="row form-group" [ngClass]="{ 'has-error': registerClubForm.get('services').invalid &&
+                        (registerClubForm.get('services').dirty || registerClubForm.get('services').touched)}">
+
+                  <div class="col-md-8 example-chip-list">
+                    <tag-input
+                      [formControlName]="'services'" name="items"
+                      [onlyFromAutocomplete]="true"
+                      [placeholder]="'+Servicios'"
+                      [secondaryPlaceholder]="'Servicios'"
+                    >
+                      <tag-input-dropdown
+                        [showDropdownIfEmpty]="true"
+                        [autocompleteItems]="requestAutocompleteItemsFake()">
+                      </tag-input-dropdown>
+                    </tag-input>
+
+
+                    <div name="valida-servicio" *ngIf="registerClubForm.get('services').invalid &&
+                        (registerClubForm.get('services').dirty || registerClubForm.get('services').touched)">
+
+                      <div *ngIf="registerClubForm.get('services').errors?.required" class="text-danger">
+                        <small class="form-text">El Servicios es requerido.</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div><!-- post-inner servicios-->
+
+              <div class="post-inner">
+                <div class="row form-group" [ngClass]="{ 'has-error': registerClubForm.get('description').invalid &&
+                        (registerClubForm.get('description').dirty || registerClubForm.get('description').touched)}">
+
+                  <div class="col-md-12 example-container">
+                    <mat-form-field>
+                    <textarea matInput formControlName="description" class="form-control" placeholder="Descripción comercial" required>
+                    </textarea>
+                    </mat-form-field>
+                    <div name="valida-descripcion" *ngIf="registerClubForm.get('description').invalid &&
+                        (registerClubForm.get('description').dirty || registerClubForm.get('description').touched)">
+
+                      <div *ngIf="registerClubForm.get('description').errors?.required" class="text-danger">
+                        <small class="form-text">La descripción es requerido.</small>
+                      </div>
+                      <div *ngIf="registerClubForm.get('description').errors?.maxlength" class="text-danger">
+                        <small class="form-text">La descripción no debe ser de más de 255 caracteres.</small>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div><!-- post-inner repeat descripcion-->
+
+
+            </div>
+
+            <div class="col-md-6">
+              <div class="post-inner">
+                <div class="row form-group" [ngClass]="{ 'has-error': registerClubForm.get('address.address').invalid &&
+                        (registerClubForm.get('address.address').dirty || registerClubForm.get('address.address').touched)}">
+                  <div class="col-md-12 example-container">
+                    <mat-form-field>
+                    <input matInput placeholder="Ingresar Dirección" autocorrect="off" autocapitalize="off"
+                           spellcheck="off" type="text" class="form-control" #address required>
+                    </mat-form-field>
+                    <div name="valida-direccion" *ngIf="registerClubForm.get('address.address').invalid &&
+                        (registerClubForm.get('address.address').dirty || registerClubForm.get('address.address').touched)">
+                      <div *ngIf="registerClubForm.get('address.address').errors?.required" class="text-danger">
+                        <small class="form-text">El campo Dirección es requerido.</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div><!-- post-inner direccion-->
+
+              <agm-map [zoom]="zoom" [latitude]="lat" [longitude]="lng" (mapClick)="clickMapa($event)">
+                <agm-marker [latitude]="lat"
+                            [longitude]="lng"
+                            [iconUrl]="'../../assets/icon/iconochico.png'"
+                            [markerDraggable]="draggable" (dragEnd)="nuevaPosicionMarcador($event)">
+                </agm-marker>
+              </agm-map>
+
+            </div>
+
+
+          </div>
+        </div><!-- club-section -->
+          <div style="text-align: right;">
+            <button class="btn btn-light" matStepperPrevious>Anterior</button>
+            <button class="btn btn-success" [disabled]="isValidStepTwo()" matStepperNext>Siguiente</button>
+          </div>
+
+        </form>
+        </mat-step>
+
+        <mat-step [stepControl]="registerClubForm">
+        <form enctype="multipart/form-data" [formGroup]="registerClubForm"
+              novalidate="novalidate" >
+          <ng-template matStepLabel>Social Media</ng-template>
+        <div formGroupName="socialMedia" class="card">
+          <div class="row card-body">
+
+            <div class="col-md-6">
+              <div class="post-inner">
+                <div class="row form-group">
+                  <div class="col-md-8 example-container">
+                    <mat-form-field>
+                    <input matInput formControlName="facebookId" class="form-control input-md" type="text"
+                           placeholder="Facebook" style="font-family:Arial, FontAwesome">
+                      </mat-form-field>
+                  </div>
+                </div>
+              </div><!-- post-inner facebook-->
+              <div class="post-inner">
+                <div class="row form-group">
+
+                  <div class="col-md-8 example-container">
+                    <mat-form-field>
+                    <input matInput formControlName="twitterId" class="form-control" type="text"
+                           placeholder="Twitter" style="font-family:Arial, FontAwesome">
+                      </mat-form-field>
+                  </div>
+                </div>
+              </div><!-- post-inner twitter-->
+
+            </div>
+
+            <div class="col-md-6">
+              <div class="post-inner">
+                <div class="row form-group">
+
+                  <div class="col-md-8 example-container">
+                    <mat-form-field>
+                      <input matInput type="text" formControlName="instagramId" class="form-control"
+                           placeholder="Instagram" style="font-family:Arial, FontAwesome">
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div><!-- post-inner instagram-->
+
+              <div class="post-inner">
+                <div class="row form-group">
+
+                  <div class="col-md-8 example-container">
+                    <mat-form-field>
+                    <input matInput type="text" formControlName="googleId" class="form-control"
+                           placeholder="Tik Tok" style="font-family: Arial, FontAwesome">
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div><!-- post-inner google+-->
+            </div>
+          </div>
+        </div><!-- social-media-section -->
+
+        <div class="card">
+          <div class="row card-body">
+
+            <div class="col-md-12">
+              <div class="post-inner">
+                <div class="row form-group" [ngClass]="{ 'has-error': registerClubForm.get('profileImg').invalid &&
+                        (registerClubForm.get('profileImg').dirty || registerClubForm.get('profileImg').touched)}">
+                  <label class="col-md-4">Imagen de portada (*)</label>
+                  <div class="col-md-12">
+                    <image-upload
+                        (uploadFinished)="profileUploaded($event)"
+                        (removed)="profileRemoved()"
+                        [max]="1"
+                        [extensions]="['jpg','png']"
+                        buttonCaption="Subir"
+                        dropBoxMessage="Subir Imagen de portada"
+                        clearButtonCaption="Eliminar">
+                    </image-upload>
+                    <div name="valida-imagen" *ngIf="registerClubForm.get('profileImg').invalid &&
+                        (registerClubForm.get('profileImg').dirty || registerClubForm.get('profileImg').touched)">
+
+                      <div *ngIf="registerClubForm.get('profileImg').errors?.required" class="text-danger">
+                        <small class="form-text">El campo Imagen de perfil es requerido.</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div><!-- post-inner carga de portada-->
+
+            </div>
+            <div class="col-md-12">
+              <div class="post-inner">
+                <div class="row form-group" [ngClass]="{ 'has-error': registerClubForm.get('galleryImg').invalid &&
+                        (registerClubForm.get('galleryImg').dirty || registerClubForm.get('galleryImg').touched)}">
+                  <label class="col-md-4">Galería de Imágenes (*)</label>
+                  <div class="col-md-12">
+                    <image-upload
+                        (uploadFinished)="galleryUploaded($event)"
+                        (removed)="galleryRemoved($event)"
+                        [max]="5"
+                        [extensions]="['jpg','png']"
+                        buttonCaption="Subir"
+                        dropBoxMessage="Subir Galería de imágenes"
+                        clearButtonCaption="Eliminar Todos">
+                    </image-upload>
+                    <div name="valida-imagen" *ngIf="registerClubForm.get('galleryImg').invalid &&
+                        (registerClubForm.get('galleryImg').dirty || registerClubForm.get('galleryImg').touched)">
+
+                      <div *ngIf="registerClubForm.get('galleryImg').errors?.required" class="text-danger">
+                        <small class="form-text">Se debe cargar al menos una imagen en la galería.</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div><!-- post-inner carga de galleria-->
+
+            </div>
+          </div>
+        </div><!-- carga de imagenes -section -->
+          <div style="text-align: right;">
+            <button class="btn btn-light" matStepperPrevious>Anterior</button>
+            <button class="btn btn-success" [disabled]="isValidStepThree()" matStepperNext>Siguiente</button>
+          </div>
+        </form>
+        </mat-step>
+
+        <mat-step [stepControl]="registerClubForm">
+        <form enctype="multipart/form-data" [formGroup]="registerClubForm"
+              novalidate="novalidate" >
+          <ng-template matStepLabel>Canchas</ng-template>
+
+            <div class="col-12">
+              <h5>Agrega las canchas de tu club</h5>
+            </div>
+
+            <fields-array
+                formArrayName="fields"
+                [fieldFormArray]="registerClubForm.get('fields')"
+                class="col-12">
+            </fields-array>
+        <div style="text-align: right;">
+          <mat-checkbox formControlName="TyCcheckbox">
+            <a  [routerLink]="['/terminos-condiciones']">Acepto términos y condiciones</a>
+          </mat-checkbox>
+         </div>
+          <div style="text-align: right;">
+            <button class="btn btn-light" matStepperPrevious>Anterior</button>
+            <button class="btn btn-success" [disabled]="isValidStepFour() || loading" [class.spinner]="loading" matStepperNext (click)="registerClub()">Finalizar</button>
+          </div>
+
+        </form>
+        </mat-step>
+      </mat-horizontal-stepper>
+
+
+    </div>
+  </div>
+
+<div>
+</div>

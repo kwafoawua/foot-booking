@@ -1,0 +1,28 @@
+.lista-inscripcion-card {
+  margin: 1rem;
+}
+
+.lista-inscripcion-header-image {
+  background-image: url('https://www.flaticon.com/svg/static/icons/svg/3034/3034900.svg');
+  background-size: cover;
+}
+
+.lista-inscripcion-info {
+  padding-left: 2rem;
+}
+
+.lista-inscripcion-title {
+  margin-top: 3rem;
+}
+
+.lista-inscripcion-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.circle-ins {
+  height: 2rem;
+  width: 2rem;
+  border-radius: 2rem;
+}

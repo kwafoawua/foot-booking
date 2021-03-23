@@ -1,0 +1,55 @@
+<div class="card effect7" style="width: 100%">
+  <div class="row no-gutters">
+
+    <div class="col-5 col-md-12">
+      <a [routerLink]="['/results/club/',club?._id]">
+        <div *ngIf= "club.hasATournament === true" class="float-right float-md-right float-sm-right">
+
+          <img src="../../../assets/icons/iconfinder_trophy_1054950.png" height="32" width="32"/></div>
+        <div
+          class="card-img-top cover-image"
+          [ngStyle]="{'background-image': 'url('+club?.profileImg+')'}">
+        </div>
+      </a>
+    </div>
+
+    <div class="col col-md-12">
+      <div class="card-body">
+        <h5 class="card-title ">
+          <a class="text-secondary" [routerLink]="['/results/club/',club?._id]">{{club?.name}}</a>
+        </h5>
+        <p class="card-text d-flex align-items-center">
+          <span class="material-icons" color="primary" style="font-size: 16px;">place</span>{{club.address.shortAddress || ''}}
+        </p>
+
+
+        <div id="services" class="service-container">
+          <ul class="list-inline-item" *ngFor="let service of club?.services">
+            <span class="list-inline-item badge fb-secondary-bg"> {{service.display}}</span>
+          </ul>
+        </div>
+
+        <div class="social-media">
+          <ul class="icon-list">
+            <li *ngIf="(club.socialMedia?.facebookId)" class="icon">
+              <a target="_blank" href="{{club.socialMedia?.facebookId}}">
+                <img src="../../assets/icons/icon-facebook.svg" />
+              </a>
+            </li>
+            <li *ngIf="(club.socialMedia?.instagramId)" class="icon">
+              <a target="_blank" href="{{club.socialMedia?.instagramId}}">
+                <img src="../../assets/icons/icon-instagram.svg" />
+              </a>
+            </li>
+            <li *ngIf="(club.socialMedia?.twitterId)" class="icon">
+              <a target="_blank" href="{{club.socialMedia?.twitterId}}">
+                <img src="../../assets/icons/icon-twitter.svg" />
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

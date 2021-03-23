@@ -1,0 +1,98 @@
+<header id="header" class="clearfix">
+  <nav class="navbar navbar-expand-lg navbar-light custom-nav">
+
+    <div class="container nav-custom-container">
+      <a class="navbar-brand" [routerLink]="['']">
+        <img src="../../assets/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        FOOT-BOOKING
+      </a>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+              aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link d-flex align-items-center" [routerLink]="['/']"
+               routerLinkActive="active-link"
+               [routerLinkActiveOptions]="{exact:true}"
+              >
+              <span class="material-icons" style="font-size: 16px">home</span>Inicio
+            </a>
+          </li>
+
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/results']"
+                 routerLinkActive="active-link">
+                Clubs
+              </a>
+            </li>
+
+
+          <div class="navbar-nav" *ngIf="!isAuthenticated()">
+            <li class="nav-item">
+              <a class="nav-link"
+                 [routerLink]="['/login']"
+                 routerLinkActive="active-link">
+                Iniciar Sesión
+              </a>
+            </li>
+            <li class=" nav-item">
+              <a class="nav-link"
+                 [routerLink]="['/player/register']"
+                 routerLinkActive="active-link">
+                Registrarse
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-success d-lg-block" [routerLink]="['/club/register']">NUEVO CLUB</a>
+            </li>
+          </div>
+
+          <div class="navbar-nav" *ngIf="isAuthenticated()">
+            <div class="navbar-nav" *ngIf="isClubUser()">
+              <li class="nav-item">
+                <a [routerLink]="['/admin']"
+                   class="nav-link"
+                   routerLinkActive="active-link">
+                  {{name | uppercase}}
+                </a>
+              </li>
+            </div>
+
+            <div class="navbar-nav" *ngIf="!isClubUser()">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                  Preferencias
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item d-flex align-items-center" (click)="goToMisReservas()">
+                    <span class="material-icons" style="font-size: 16px;">today</span>Reservas</a>
+                  <a class="dropdown-item d-flex align-items-center" [routerLink]="['/player/mis-campeonatos',currentUser._id]">
+                    <span class="material-icons" style="font-size: 16px;">emoji_events</span>Campeonatos</a>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" (click)=goToProfile()> {{name | uppercase}}</a>
+              </li>
+
+            </div>
+
+
+            <li class="nav-item" >
+              <a class="nav-link d-flex align-items-center" (click)=auth.logout() [routerLink]="['/']">
+                <span class="material-icons" style="font-size: 16px">exit_to_app</span>Cerrar Sesión</a>
+            </li>
+
+          </div>
+        </ul>
+      </div>
+    </div>
+
+  </nav>
+</header><!-- header -->
+
+

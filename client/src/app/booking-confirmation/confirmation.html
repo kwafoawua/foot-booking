@@ -1,0 +1,243 @@
+<div>
+
+  <div class="page">
+
+    <div id="breadcrumb-section" class="section">
+      <div class="container">
+        <div class="page-title text-center">
+          <h1>Confirmá tu reserva</h1>
+        </div>
+      </div>
+    </div><!-- breadcrumb-section -->
+
+
+    <div class="avt-post-wrapper section">
+      <div class="container">
+        <div class="avt-post">
+          <form action="#" [formGroup]="confirmationForm">
+
+            <!-- client information -->
+
+            <div class="seller-option avtpost-fields">
+              <div class="col-xs-12">
+                <h4>Tus datos</h4>
+              </div>
+
+              <div class="row">
+                <div class="col-md-1">
+                  <label class="col-md-1"> Nombre </label>
+                </div>
+                <div class="col">
+                  <label class="col-md-10"> <b>{{player?.name | uppercase}}</b></label>
+                </div>
+                <div class="col-md-1">
+                  <label class="col-md-1"> Apellido </label>
+                </div>
+                <div class="col">
+                  <label class="col-md-10"> <b>{{player?.lastName | uppercase}} </b></label>
+                </div>
+                <div *ngIf="player?.phoneNumber != null" class="col">
+                  <div class="col-md-1">
+                    <label> Teléfono </label>
+                  </div>
+                  <div class="col">
+                    <label class="col-md-10"> <b>{{player?.phoneNumber | uppercase}}</b></label>
+                  </div>
+                </div>
+              </div>
+
+            </div><!-- seller-section -->
+
+
+            <div class="seller-option avtpost-fields">
+
+              <div class="col-xs-12">
+                <h4>Datos de la reserva</h4>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-4">
+                  Fecha de juego : <b>  {{booking?.dateBook | date:"dd/MM/yyyy"}}</b>
+                </div>
+                <div class="col-sm-4">
+                  Hora de juego :  <b>{{booking?.timeBook}}</b>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-4">
+                  Cancha de juego:  <b>{{booking?.field.fieldName| uppercase}}</b>
+                </div>
+
+                <div class="col-sm-4">
+                  Cantidad de jugadores:  <b>{{booking?.field.cantPlayers}}</b>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="seller-option avtpost-fields">
+
+              <div class="col-xs-12">
+                <h4>Datos del Club</h4>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-2">
+                  Nombre del club
+                </div>
+                <div class="col">
+                  <b> {{booking?.club.name| uppercase}}</b>
+                </div>
+                <div class="col-sm-2">
+                  Teléfono
+                </div>
+                <div class="col">
+                  <b>  {{booking?.club.phoneNumber}}</b>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-2">Dirección</div>
+                <div class="col-8"><b>{{booking?.club.address.address| uppercase}}</b></div>
+              </div>
+            </div>
+
+
+
+
+            <div class="seller-option avtpost-fields" *ngIf="!player?.phoneNumber">
+              <div class="col-12">
+                <h4>Información de contacto</h4>
+                <p>
+                  Actualmente no tenés asociado un número de teléfono a tu perfil. Ingresá tu número de contacto para que el club pueda
+                  comunicarse con vos por cualquier inconveniente. Este número también se guardará en tu información de contacto.
+                </p>
+              </div>
+              <div class="form-group col-12" [ngClass]="{ 'has-error': confirmationForm.get('phoneNumber').invalid &&
+                                        (confirmationForm.get('phoneNumber').dirty || confirmationForm.get('phoneNumber').touched)}">
+                <mat-form-field class="w-20">
+                  <input matInput formControlName="phoneNumber" class="form-control" type="number" placeholder="Teléfono" required>
+                </mat-form-field>
+                <div name="valida-telefono" *ngIf="confirmationForm.get('phoneNumber').invalid &&
+                        (confirmationForm.get('phoneNumber').dirty || confirmationForm.get('phoneNumber').touched)">
+
+                  <div *ngIf="confirmationForm.get('phoneNumber').errors?.required" class="text-danger">
+                    <small class="form-text">El teléfono es requerido.</small>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+
+            <div class="seller-option avtpost-fields">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="post-inner">
+                    <div class="row form-group">
+                      <label class="col-md-4"> Total a pagar </label>
+                      <div class="col-md-4">
+                        <h4><b>$ {{booking?.field?.price}}</b></h4>
+                      </div>
+                    </div>
+                  </div><!-- post-inner -->
+                </div>
+
+                <div class="col-md-6"  *ngIf="clubLinkedToMP" >
+                  <div class="post-inner">
+                    <div class="row form-group">
+                      <span>Selecciona una forma de pago </span>
+                    </div>
+                    <div class="row">
+                      <mat-radio-group class="example-radio-group" formControlName="payMethod">
+                        <div class="col">
+                          <mat-radio-button class="example-radio-group" name="payMethod" value="payment-one">En sitio</mat-radio-button>
+
+                        </div>
+                        <div class="col">
+                          <mat-radio-button class="example-radio-group" name="payMethod" formControlName="payMethod" value="payment-two"> por Mercado Pago</mat-radio-button>
+
+                        </div>
+                      </mat-radio-group>
+                    </div>
+                  </div><!-- post-inner -->
+                </div>
+                <div class="col-md-6"  *ngIf="!clubLinkedToMP">
+                  <div class="post-inner">
+                    <div class="row form-group">
+                      <span>Selecciona una forma de pago </span>
+                    </div>
+                    <div class="row">
+                      <mat-radio-group class="example-radio-group" formControlName="payMethod">
+                        <mat-radio-button class="example-radio-group" name="payMethod" value="payment-one">En sitio</mat-radio-button>
+                      </mat-radio-group>
+                    </div>
+                  </div><!-- post-inner -->
+                </div>
+              </div>
+            </div><!-- seller-option -->
+            <div class="submit-section">
+              <div class="ad-condition checkbox">
+                <label for="submit-post">
+                  <mat-checkbox name="submit-post" id="submit-post" formControlName="condiciones">
+                    <a [routerLink]="['/terminos-condiciones']">Aceptar términos y condiciones</a>
+                  </mat-checkbox>
+                </label>
+              </div>
+
+
+              <div class="row form-group" align="right">
+                <div class="col-6">
+
+                </div>
+              <div class="col-3">
+                <button type="button" class="btn btn-secondary" (click)="openDialog()">Cancelar</button>
+              </div>
+                <div class="col-3">
+                  <button (click)="confirm()" type="button"class="btn btn-success" data-toggle="modal"
+                          data-target="#myModal">Reservar
+                  </button>
+                </div>
+
+              </div>
+
+              <!-- Modal -->
+
+
+              <div *ngIf="confirmado" id="myModal" class="modal fade" role="dialog">
+                <div class="modal-dialog" role="document">
+
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                      <h4 class="modal-title">Información</h4>
+
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                      Su reserva se ha generado con éxito.
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="goToMisReservas()">
+                        Cerrar
+                      </button>
+                    </div>
+
+
+                  </div>
+                </div>
+              </div>
+              <!--FIN MODAL-->
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div> <!-- avt-post -->
+  </div>  <!-- page -->
+</div>

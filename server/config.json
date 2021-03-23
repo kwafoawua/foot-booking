@@ -2,5 +2,4 @@
     "connectionString": "mongodb://localhost:27017/footbooking",
     "apiUrl": "http://localhost:4000",
     "secret": "footbooking01"
-
 }

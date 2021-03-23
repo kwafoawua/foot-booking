@@ -1,0 +1,11 @@
+﻿<div #alert *ngIf="message" [ngClass]="{ 'alert': message, 'alert-success': message.type === 'success', 'alert-danger': message.type === 'error' }">
+  <div class="d-flex justify-content-between align-items-center">
+    <div>{{message.text}}</div>
+    <div>
+      <button mat-icon-button aria-label="close alert" (click)="closeAlert()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+
+</div>

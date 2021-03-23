@@ -1,0 +1,60 @@
+<div class="all-categories section">
+  <div class="row" id="profileClubContainer h-100 justify-content-center align-items-center">
+
+    <div class="container h-100">
+      <div class="row h-100 justify-content-center">
+
+
+        <div class="col-lg-4 col-md-5">
+          <div class="card card-user">
+            <div id="profileClubImage" class="card-img-top image">
+              <img src="{{club?.profileImg}}" alt="..."/>
+            </div>
+            <div>
+              <div class="author">
+                <h4 class="title">{{club?.name}}<br/>
+                </h4>
+              </div>
+              <p class="description text-center">
+                {{club?.description}}
+              </p>
+            </div>
+            <hr>
+
+            <div class="profile-usermenu">
+              <ul class="list-group list-group-flush">
+                <mat-toolbar color="primary">
+                  <mat-toolbar-row>
+                    <span><a (click)="goToInfo()">Info del Club</a></span>
+                  </mat-toolbar-row>
+
+                  <mat-toolbar-row>
+                    <span> <a (click)="goToFields()">Canchas</a> </span>
+                    <span class="example-spacer"></span>
+                  </mat-toolbar-row>
+
+                  <mat-toolbar-row>
+                    <span><a (click)="goToPassword()">Contraseña</a></span>
+                    <span class="example-spacer"></span>
+                  </mat-toolbar-row>
+                </mat-toolbar>
+              </ul>
+            </div>
+
+
+          </div>
+
+        </div>
+        <div class="col-lg-8 col-md-8">
+          <div class="card">
+            <div class="card-body">
+              <router-outlet></router-outlet>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

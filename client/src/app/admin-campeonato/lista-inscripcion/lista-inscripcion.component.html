@@ -1,0 +1,37 @@
+<div class="container-fluid">
+  <div class="lista-inscripcion-title">
+    <h1>Equipos Inscriptos: {{inscriptions?.length}}</h1>
+  </div>
+  <div>
+    <mat-card class="lista-inscripcion-card" *ngFor="let ins of inscriptions; let i = index">
+      <mat-card-header>
+        <!--<div mat-card-avatar>
+          <div class="circle-ins" [ngStyle]="{backgroundColor: colorArray[i]}"></div>
+        </div>-->
+        <mat-card-title>{{ins.team?.name}}</mat-card-title>
+        <mat-card-subtitle></mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content style="overflow:hidden;">
+        <div class="row px-5 py-2">
+          <div class="col-4">
+            Referente: <strong>{{ins.referringContact?.name}}</strong>
+          </div>
+          <div class="col-4">
+            Tel: <strong>{{ins.referringContact?.phoneNumber}}</strong>
+          </div>
+          <div class="col-4">
+            Fecha de inscripción: <strong>{{ins.inscriptionDate | date:"dd/MM/yy"}}</strong>
+          </div>
+        </div>
+        <button
+          style="float: right"
+          mat-flat-button
+          color="warn"
+          [disabled]="disableCancelButton"
+          (click)="unsubscribeDialog(ins, i)">
+          Cancelar Inscripción
+        </button>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

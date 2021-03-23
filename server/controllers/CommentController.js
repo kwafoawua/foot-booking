@@ -7,6 +7,8 @@ var mongoose = require('mongoose');
 var _ = require('lodash');
 var Comment = require('../models/Comment');
 var Q = require('q');
+const { getPagination } = require('../utils/utils');
+
 
 
 /**
@@ -19,7 +21,7 @@ module.exports.createComment = function (req,res) {
     addComment(comment)
         .then(function () {
             console.log('Se creo el comentario');
-            res.send(200).send('Se creo el comentario');
+            res.status(200).send({ message: 'Se creo el comentario' });
         })
         .catch(function (err) {
             res.status(400).send(err);
@@ -55,15 +57,24 @@ function addComment (comment) {
 /**
 * Find all comment for a specific club
 */
-module.exports.findAllCommentForAClub = function(req, res) {
+module.exports.findAllCommentForAClub = async (req, res) => {
     console.log("Id del club a buscar: " + req.params._id);
-    Comment.find({"_idClub" : req.params._id}, function(err, comment) {
-        if (err) {
-            return res.status(500).send(err);
-        }
-        console.log(comment);
-        res.status(200).send(comment);
-    });
+    const {page, size } = req.query;
+    const { limit, offset } = getPagination(page, size);
+
+    try {
+        const comments = await Comment.paginate({"_idClub" : req.params._id},{ limit, offset, sort: {_id: -1} });
+        res.status(200).send({
+            totalItems: comments.totalDocs,
+            comments: comments.docs,
+            totalPages: comments.totalPages,
+            currentPage: comments.page - 1,
+        });
+    } catch(err) {
+        res.status(500).send(err);
+    }
+
+
 };
 
 /**
@@ -107,7 +118,7 @@ function changeComment(newComment){
 
     return Comment.find({"_id":newComment.commentId, "autho.id":newComment.authorId}, function (err, comment){
         if (err) {
-            return deferred.reject("Nombre del error: " + err.name + " - Mensaje: " + err.message);            
+            return deferred.reject("Nombre del error: " + err.name + " - Mensaje: " + err.message);
         } else {
             comment.comment = newComment.commentMsg;
             comment.dateModify = Date.now();

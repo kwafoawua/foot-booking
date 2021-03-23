@@ -1,0 +1,40 @@
+.ngtt-se__container {
+  background-color: transparent !important;
+}
+.ngtt-se__match-wrapper {
+  width:300px;
+}
+.ngtt-se__match-component-container {
+  width: 250px
+}
+.ngtt-se__round-wrapper {
+  min-width: 300px;
+}
+
+.header-fases {
+  width: 340px;
+  box-shadow: 2px 5px 10px -1px #cccccc;
+  background: white;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.header-info {
+  flex-basis: 80%;
+  height: 100px;
+}
+.header-button-icon {
+  flex-basis: 20%;
+}
+
+.fixture-alert {
+  display: flex;
+  height: 50px;
+  align-items: center;
+  border: 1px solid lightblue;
+  border-radius: 20px;
+  padding: 20px;
+  margin: 20px 0;
+  background: white;
+}

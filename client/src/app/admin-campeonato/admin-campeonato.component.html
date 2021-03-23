@@ -1,0 +1,77 @@
+<div class="container-fluid" [ngStyle]="{height: '100vh'}">
+  <div *ngIf="isAlreadyLinked === undefined">Cargando...</div>
+ <div *ngIf="isAlreadyLinked && isAlreadyLinked !== undefined">
+    <div class="header">
+      <div>
+        <button mat-flat-button color="primary" [routerLink]="['/admin/campeonato/nuevo']">Nuevo Campeonato</button>
+      </div>
+    </div>
+    <div class="tabla-campeonato mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="tournamentName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="padding: 20px 24px; font-size: 16px"> Nombre</th>
+          <td mat-cell *matCellDef="let tournament"> {{tournament.tournamentName}} </td>
+        </ng-container>
+        <ng-container matColumnDef="startDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 16px"> Fecha de inicio</th>
+          <td mat-cell *matCellDef="let tournament"> {{tournament.startDate | date }} </td>
+        </ng-container>
+        <ng-container matColumnDef="state">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 16px"> Estado</th>
+          <td mat-cell *matCellDef="let tournament"> {{tournament.state}} </td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef style="font-size: 16px">Acciones</th>
+          <td mat-cell *matCellDef="let row">
+            <button
+              mat-icon-button
+              [disabled]="row.state === 'Cancelado'"
+              matTooltip="Click para gestionar"
+              class="iconbutton"
+              color="primary"
+              (click)="goToDetail(row._id, row.inscriptionEndDate)"
+            >
+              <mat-icon aria-label="Edit">edit</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              matTooltip="Click para cancelar"
+              class="iconbutton"
+              color="warn"
+              [disabled]="row.state == 'Cancelado'"
+              (click)="openDialog(row._id)"
+            >
+              <mat-icon aria-label="Delete">cancel</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              matTooltip="Click para Ocultar Campeonato"
+              class="iconbutton"
+              color="secondary"
+              [disabled]="row.state != 'Finalizado'"
+              (click)="OcultarCampeonato(row._id)"
+            >
+              <mat-icon aria-label="Delete">visibility_off
+              </mat-icon>
+            </button>
+            <button mat-icon-button color="primary" class="iconbutton" matTooltip="Descargar fixture"
+                    [disabled]="row.state === 'Cancelado'" (click)="print(row._id, row.tournamentName)">
+              <mat-icon aria-label="Print fixture">get_app</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+      </table>
+      <mat-paginator [length]="total" [pageSize]="5" [pageSizeOptions]="[5, 10, 20]"
+                     showFirstLastButtons></mat-paginator>
+    </div>
+ </div>
+ <div *ngIf="!isAlreadyLinked && isAlreadyLinked !== undefined">
+   <p>Todavía no asociaste tu cuenta de Mercado Pago a footbooking por lo que no puedes crear campeonatos.</p>
+   <p>Al asociar tu cuenta de Mercado Pago nos autorizás a que podamos hacer transacciones a tu cuenta. De este modo te permitiremos realizar campeonatos, publicarlos y gestionarlos.</p>
+   <p>A su vez los clientes podrán efectuar reservas y pagarlas utilizando la plataforma de Mercado Pago, debitándose el pago directamente a tu cuenta!</p>
+   <p><a [routerLink]="['/admin/configuracion/', clubId]"><b>Ir a asociar tu cuenta</b></a></p>
+ </div>
+</div>

@@ -1,0 +1,39 @@
+<div class="container" ng-hide="true">
+  <h3>Configuración</h3>
+</div>
+
+<form [formGroup]="passwordForm" (ngSubmit)="updatePassword()" novalidate="novalidate">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="post-inner">
+        <div class="row form-group">
+          <label class="col-md-4">Nueva Contraseña </label>
+          <div class="col-md-8">
+            <input formControlName="password" class="form-control input-md" type="password">
+            <div name="valida-contraseña" *ngIf="passwordForm.get('password').invalid &&
+                        				(passwordForm.get('password').dirty)">
+              <div *ngIf="passwordForm.get('password').errors?.minlength" class="alert alert-danger">
+                <small class="form-text">La contraseña debe ser de más de 8 caracteres.</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row form-group">
+          <label class="col-md-4">Repetir Contraseña </label>
+          <div class="col-md-8">
+            <input formControlName="repeatPassword" class="form-control input-md" type="password">
+            <div name="valida-contraseña" *ngIf="passwordForm.get('repeatPassword').invalid &&
+                        				(passwordForm.get('repeatPassword').dirty || passwordForm.get('repeatPassword').touched)">
+              <div *ngIf="passwordForm.controls.repeatPassword.errors?.MatchPassword" class="alert alert-danger">
+                <small class="form-text">Las contraseñas deben ser las mismas.</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="text-align: right;">
+          <input type="submit" value="Actualizar" class="btn btn-primary">
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

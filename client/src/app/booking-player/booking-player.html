@@ -1,0 +1,93 @@
+<div class="ad-post-wrapper section">
+  <div class="container">
+    <div id="faq-filter">
+      <h3>Historial de reservas </h3>
+
+      <div class="tab-content">
+        <div id="all-faq" class="faq-post tab-pane active">
+          <div class="faq">
+            <div *ngIf="loading === true" class="d-flex justify-content-center align-items-center">
+              <mat-spinner></mat-spinner>
+            </div>
+            <div *ngIf="!bookings.length && loading === false">
+              No hay reservas que mostrar
+            </div>
+            <div *ngIf="bookings.length">
+
+              <div  class="card mb-4" *ngFor="let r of bookings  | paginate : {
+                  itemsPerPage: pageSize,
+                  currentPage: page,
+                  totalItems: count
+                };">
+              <div class="booking-player-header">
+                <b>Club {{r.club.name | uppercase}}</b>
+              </div>
+              <div class="card-body">
+
+                <div class="row">
+                  <div class="col card-text">Fecha de reserva: {{r.createdOn | date:"dd/MM/yy"}} </div>
+                  <div class="col card-text">
+                    <div *ngIf="r.status == 'Pendiente de Pago'">
+                      <span class="badge badge-warning">{{r.status | uppercase}}</span>
+                    </div>
+                    <div *ngIf="r.status == 'Reservado'">
+                      <span class="badge badge-info">{{r.status | uppercase}}</span>
+                    </div>
+                    <div *ngIf="r.status == 'Cancelado' || r.status == 'Anulado' ">
+                      <span class="badge badge-warning">{{r.status | uppercase}}</span>
+                    </div>
+                    <div *ngIf="r.status == 'Ausente'">
+                      <span class="badge badge-light">{{r.status | uppercase}}</span>
+                    </div>
+                    <div *ngIf="r.status == 'Asistido'">
+                      <span class="badge badge-success">{{r.status | uppercase}}</span>
+                    </div>
+
+
+                  </div>
+                  <div class="w-100"></div>
+                  <div class="col card-text">Fecha de juego: {{r.playingDate | date:"dd/MM/yy"}}</div>
+                  <div class="col card-text">Hora de juego: {{r.playingTime}}</div>
+                  <div class="w-100"></div>
+                  <div class="col card-text">Dirección del complejo: {{r.club.address}}</div>
+                  <div class="col card-text">Teléfono de contacto: {{r.club.phoneNumber}}</div>
+
+                </div>
+                <div>
+                  <div align="right" *ngIf="r.status == 'Pendiente de Pago'">
+                    <button type="button" class="btn btn-success">Pago online</button>
+                    <button type="button" class="btn btn-secondary">Cancelar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+              <div class="row mt-3 align-items-center">
+                <div class="col-12 col-md-3">
+                  <mat-form-field>
+                    <mat-select placeholder="Por página" (selectionChange)="handlePageSizeChange($event)">
+                      <mat-option *ngFor="let size of pageSizes" [value]="size">
+                        {{size}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-12 col-md-9">
+                  <pagination-controls
+                    previousLabel="Anterior"
+                    nextLabel="Siguiente"
+                    responsive="true"
+                    (pageChange)="handlePageChange($event)"
+                    class="fb-pagination"
+                  ></pagination-controls>
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div><!-- #faq-filter -->
+  </div>

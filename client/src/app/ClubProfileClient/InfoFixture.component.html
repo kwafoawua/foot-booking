@@ -1,0 +1,14 @@
+
+<ngtt-single-elimination-tree *ngIf="myTournamentData"
+  [tournament]="this.myTournamentData"
+  [matchTemplate]="myMatchTemplate">
+</ngtt-single-elimination-tree>
+
+<ng-template #myMatchTemplate let-match>
+  <app-match
+    [teams]="inscriptions"
+    [match]="match"
+    [isCampeonato]="false"
+    (updateMatch)="updateMatch()"
+  ></app-match>
+</ng-template>

@@ -1,3 +1,8 @@
+/**
+ * Paths que estan fuera del authentication
+ * @type {pathToRegexp | ((path: pathToRegexp.Path, keys?: pathToRegexp.Key[], options?: (pathToRegexp.RegExpOptions & pathToRegexp.ParseOptions)) => RegExp)}
+ */
+
 var pathToRegexp = require('path-to-regexp');
 
 var findClub = pathToRegexp('/findClub/:clubfilter');
@@ -13,6 +18,7 @@ var findAllCommentForAClub = pathToRegexp('/comments/:_id');
 var findAllAuthorComments = pathToRegexp('/comments/authorComment/:_id');
 var findAllClubComments = pathToRegexp('/comments/clubComment/:_id');
 var deleteComment = pathToRegexp('/comments/:_id');
+var newTournament = pathToRegexp('/tournament/register');
 
 module.exports.path = {
     path: [
@@ -20,7 +26,7 @@ module.exports.path = {
         '/users/register',
         '/users',
         '/clubs/register',
-        '/clubs', 
+        '/clubs',
         '/results',
         '/findClub',
         '/findClubsByFilters',
@@ -28,6 +34,7 @@ module.exports.path = {
         '/uploads',
         '/players/register',
         '/book',
+        '/tournament/register',
         findClub,
         getResultById,
         findClubsByFilters,
@@ -35,10 +42,12 @@ module.exports.path = {
         updateBookingStatus,
         findAllHoursBookings,
         findAllBookingsByFieldAndDay,
-        // "/comments/changeComment/",
         findAllCommentForAClub,
         findAllAuthorComments,
-        findAllClubComments
-        // deleteComment
+        findAllClubComments,
+        '/destacados',
+        '/webhook',
+        '/mercadopago/webhook/linkAccount',
+        '/webhook/tournamentInscription'
     ]
 };

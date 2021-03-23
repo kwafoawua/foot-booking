@@ -1,0 +1,109 @@
+<ng-container *ngIf="tournamentState !== 'Nuevo'; else shuffleIt">
+  <div class="mt-2"  *ngIf="tournamentState !== 'Finalizado'" style="margin-top: 10px">
+    <p>⚽ Los equipos de octavos de final serán asignados aleatoriamente.</p>
+    <p>⚽ Puedes ir cargando las reservas de las canchas para los partidos interactuando con el fixture presentado abajo. Los resultados de los partidos sólo podrás cargalos en el día en que se disputen y automáticamente irán avanzando los equipos ganadores.</p>
+    <p>⚽ Recordá que en caso de empate más allá de como decidan resolver el partido (penales, tiempo extra o gol de oro) se deberá cargar el resultado final de la resolución para que el sistema pueda dar avance a uno de los equipos.</p>
+   <div class="d-flex justify-content-between" *ngIf="tournamentState !== 'Iniciado'">
+     <div>
+       <div *ngIf="inscriptions?.length > 8">
+         <button mat-flat-button (click)="shuffleMatches()">Asignar Octavos</button>
+       </div>
+       <div *ngIf="inscriptions?.length <= 8">
+         <button mat-flat-button (click)="shuffleMatches()" [disabled]="true">Asignar Octavos</button>
+         <span style="margin-left: 10px">Se necesitan al menos 9 equipos inscriptos</span>
+       </div>
+     </div>
+     <div>
+       <button
+         mat-flat-button
+         color="primary"
+         (click)="iniciarCampeonato('Iniciado')"
+         [disabled]="!sePuedeIniciarCampeonato"
+       >
+         Publicar Fixture
+       </button>
+     </div>
+   </div>
+  </div>
+
+<!--  <div class="row mt-2" *ngIf="tournamentState === 'Completo'">
+    <div class="col-12 col-md-8">
+      <div class="alert alert-info alert-dismissible fade show" role="alert">
+        <span [ngStyle]="{fontSize: '12px'}">
+          Te informamos que para iniciar el campeonato necesitas cargar cancha, fecha y horario para los primeros 8 partidos.
+        </span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-12 col-md-2">
+      <button
+        mat-flat-button
+        color="primary"
+        (click)="setCampeonatoState('Iniciado')"
+        [disabled]="!sePuedeIniciarCampeonato"
+      >
+        Publicar Fixture
+      </button>
+    </div>
+  </div>-->
+
+  <div class="row mt-2" *ngIf="tournamentState === 'Iniciado'">
+    <div class="col-md-9"></div>
+    <div class="col-md-2">
+      <button
+        mat-flat-button
+        color="primary"
+        (click)="setCampeonatoState('Finalizado')"
+        [disabled]="!sePuedeFinalizarCampeonato"
+      >
+        Finalizar Campeonato
+      </button>
+    </div>
+  </div>
+
+  <div class="row mt-2 justify-content-center" *ngIf="tournamentState === 'Finalizado'">
+    <app-winner-card-campeonato
+      class="w-100 border-success full-shadow"
+      [primerPremio]="tournament?.prize1"
+      [segundoPremio]="tournament?.prize2"
+      [tercerPremio]="tournament?.prize3"
+      [primerEquipo]="primerEquipo"
+      [segundoEquipo]="segundoEquipo"
+      [tercerEquipo]="tercerEquipo"
+      [status]="tournamentState"
+    ></app-winner-card-campeonato>
+  </div>
+
+
+
+  <ngtt-single-elimination-tree *ngIf="myTournamentData"
+    [tournament]="myTournamentData"
+    [matchTemplate]="myMatchTemplate">
+  </ngtt-single-elimination-tree>
+</ng-container>
+
+
+  <ng-template #myMatchTemplate let-match>
+    <app-match
+      [teams]="inscriptions"
+      [match]="match"
+      [fields]="fields"
+      [isCampeonato]="tournamentState !== 'Finalizado'"
+      [maxDate]="maxDate"
+      [minDate]="minDate"
+      (updateMatch)="updateMatch($event)"
+    ></app-match>
+  </ng-template>
+
+
+<ng-template #shuffleIt>
+  <div style="margin-top: 10px">
+    <p>⚽ Esta sección se terminará de habilitar una vez que <b>Publiques</b> el campeonato en la sección de "Información de Campeonato".</p>
+    <p>⚽ Los equipos de octavos de final serán asignados aleatoriamente.</p>
+    <p>⚽ Podrás ir cargando las reservas de las canchas para los partidos interactuando con un fixture que se presentará abajo una vez publicado el campeonato. Los resultados de los partidos sólo podrás cargalos en el día en que se disputen y automáticamente irán avanzando los equipos ganadores.</p>
+    <p>⚽ Recordá que en caso de empate más allá de como decidan resolver el partido (penales, tiempo extra o gol de oro) se deberá cargar el resultado final de la resolución para que el sistema pueda dar avance a uno de los equipos.</p>
+  </div>
+</ng-template>

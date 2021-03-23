@@ -1,0 +1,192 @@
+
+<div class="page container">
+
+  <div class="all-categories section">
+    <div class="container">
+      <div class="ad-details">
+        <div *ngIf="loading === true" style="display: flex; justify-content: center; align-items: center; position: absolute; top: 40%;left: 35%">
+          <mat-spinner > </mat-spinner>
+        </div>
+
+        <div class="row">
+
+          <div class="col-md-8 col-sm-7">
+<!-- CARRUSEL -->
+
+            <div class="detail-item-image item-image carousel slide" data-ride="carousel">
+
+  <div class="carousel-inner">
+    <div *ngFor="let img of club?.galleryImg; let i = index"
+         [ngClass]="i === 0 ? 'carousel-item active': 'carousel-item'">
+      <img src="{{img}}" class="img-fluid">
+    </div>
+  </div>
+
+  <a class="left-control" href=".detail-item-image" role="button" data-slide="prev">
+    <i class="fa fa-angle-left" aria-hidden="true"></i>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right-control" href=".detail-item-image" role="button" data-slide="next">
+    <i class="fa fa-angle-right" aria-hidden="true"></i>
+    <span class="sr-only">Next</span>
+  </a>
+
+</div>
+<div class="shadow p-3 mb-5 bg-white rounded">
+            <!-- DESCRIPCION Y NOMBRE-->
+
+            <div class="details-description">
+              <div class="item-info">
+                <h4>{{club?.name}}</h4>
+                <p>
+                  {{club?.description | uppercase}}
+                </p>
+              </div><!-- item-info -->
+            </div>
+
+            <div class="side-bar">
+
+<!--            CANCHAS -->
+            <item-cancha [club]="club"></item-cancha>
+            </div>
+</div>
+              <div class="side-bar">
+            <comments></comments>
+
+          </div>
+
+          </div>
+
+<!--          INFO DE CONTACTO   -->
+          <div class="col-sm-5 col-md-4">
+
+            <div class="side-bar">
+
+              <div class="contact-seller widget">
+                <h4>DATOS DE CONTACTO</h4>
+
+                <div class="seller-info">
+                  <p> TEL <span>  {{club?.phoneNumber}} </span></p>
+                  <p>E-MAIL <span> {{club?.email}}</span></p>
+
+
+                  <div class="social-media ">
+                    <ul class="list-inline">
+                      <li *ngIf="(club?.socialMedia?.facebookId)" class="list-inline-item">
+                        <a target="_blank" href="{{club.socialMedia?.facebookId}}">
+                          <img src="../../assets/icons/icon-facebook.svg" />
+                        </a>
+                      </li>
+                      <li *ngIf="(club?.socialMedia?.instagramId)" class="list-inline-item">
+                        <a target="_blank" href="{{club.socialMedia?.instagramId}}">
+                          <img src="../../assets/icons/icon-instagram.svg" />
+                        </a>
+                      </li>
+                      <li *ngIf="(club?.socialMedia?.twitterId)" class="list-inline-item">
+                        <a target="_blank" href="{{club?.socialMedia?.twitterId}}">
+                          <img src="../../assets/icons/icon-twitter.svg" />
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+
+                </div>
+
+
+              </div>
+
+              <div class="widget item-tag">
+                <h4>SERVICIOS DEL CLUB</h4>
+                <ul class="list-inline">
+                  <div class="list-inline-item" *ngFor="let serv of club?.services">
+                    <div *ngIf="serv.value === 'Parking'">
+                        <li class="icon-service">
+                          <img src="../../assets/icons/parking-area.png" height="24" width="24"/>
+                          {{serv.display | uppercase}}
+                        </li>
+                    </div>
+                    <div *ngIf="serv.value === 'Buffet'">
+                      <li class="icon-service">
+                        <img src="../../assets/icons/hot-pancakes.png" height="24" width="24"/>
+                        {{serv.display | uppercase}}
+                      </li>
+                    </div>
+                    <div *ngIf="serv.value === 'Bar'">
+                      <li class="icon-service">
+                        <img src="../../assets/icons/milkshake-with-straw.png" height="24" width="24"/>
+                        {{serv.display | uppercase}}
+                      </li>
+                    </div>
+                    <div *ngIf="serv.value === 'Techado'">
+                      <li class="icon-service">
+                        <img src="../../assets/icons/inclined-open-umbrella.png" height="24" width="24"/>
+                        {{serv.display | uppercase}}
+                      </li>
+                    </div>
+                    <div *ngIf="serv.value === 'Nocturno'">
+                      <li class="icon-service">
+                        <img src="../../assets/icons/ceiling-lamp.png" height="24" width="24"/>
+                        {{serv.display | uppercase}}
+                      </li>
+                    </div>
+                    <div *ngIf="serv.value === 'Asador'">
+                      <li class="icon-service">
+                        <img src="../../assets/icons/barbacue.png" height="24" width="24"/>
+                        {{serv.display | uppercase}}
+                      </li>
+                    </div>
+                  </div>
+                </ul>
+              </div>
+
+
+              <div class="widget item-tag" *ngIf="myTournament?.length > 0">
+
+                <h4>CAMPEONATOS</h4>
+                <div  *ngFor="let i of myTournament">
+                  <div *ngIf=" i.state !== 'Nuevo'">
+                    <div *ngIf="i.state !== 'Cancelado' ">
+                      <div *ngIf="i.state !== 'Cerrado'">
+                         <ul class="list-inline">
+                        <li class="list-inline-item" [routerLink]="['/campeonato',i._id]">
+                          <a>
+                            <img src="../../assets/icons/football-cup.png"  height="24" width="24"/>
+                            {{i.tournamentName | uppercase}}
+                          </a>
+                        </li>
+                      </ul>
+                      </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="location-map">
+                <h4>UBICACIÓN</h4>
+                <div id="gmap">
+
+                  <agm-map [zoom]="16" [latitude]="club?.address.lat" [longitude]="club?.address.lng">
+                    <agm-marker [latitude]="club?.address.lat"
+                                [longitude]="club?.address.lng"
+                                [iconUrl]="'../../assets/icon/iconochico.png'">
+                      <agm-info-window>{{club?.name}}</agm-info-window>
+                    </agm-marker>
+                  </agm-map>
+                  <div><label>{{club?.address.address}}</label></div>
+
+
+                </div>
+              </div><!-- location-map -->
+
+              <div class="form-group text-center">
+
+              </div>
+            </div><!-- side-bar -->
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
